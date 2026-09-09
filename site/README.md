@@ -37,6 +37,11 @@ The root `wrangler.jsonc` declares `site/public` as the asset directory and
 certificate during deployment. The zone ID in the configuration is a public
 resource identifier, not a credential.
 
+Before the first deployment, remove obsolete parking or hosting A, AAAA or
+CNAME records for the exact custom hostname (`fdull.com`). Existing records can
+block domain attachment even when the website files upload successfully. Wrangler
+creates the replacement DNS record during deployment.
+
 Use these settings under the Worker's **Settings > Builds**:
 
 | Setting | Value |
