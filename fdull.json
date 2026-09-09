@@ -107,7 +107,7 @@
       "File": "src/FDull/WorkspacePolicy.fs",
       "Project": "src/FDull/FDull.fsproj",
       "Profile": "GUARD_TOOLING",
-      "Digest": "sha256:f51ea7b39bc1216b00eb16124d5e318efe6259f7fe30c12ca737d919da844c79"
+      "Digest": "sha256:6541bab930de3370881856c8db5f9f5904fa0b79ecd5d006343559fb728fff79"
     },
     {
       "File": "src/FDull/WorkspaceAudit.fs",
@@ -173,7 +173,7 @@
       "File": "tests/FDull.Tests/SafetyWorkerTests.fs",
       "Project": "tests/FDull.Tests/FDull.Tests.fsproj",
       "Profile": "TEST",
-      "Digest": "sha256:e6fd14913162dc86b663976ce60cd23ac8ed446f9d9ff479f513bcc044669b21"
+      "Digest": "sha256:defae463ad88bc74e038d8402a679ea298e954d473acb1ffc21e35c7c49b02b4"
     },
     {
       "File": "tests/FDull.Tests/SafetyRangeTests.fs",
@@ -185,7 +185,7 @@
       "File": "tests/FDull.Tests/SafetyCoverageTests.fs",
       "Project": "tests/FDull.Tests/FDull.Tests.fsproj",
       "Profile": "TEST",
-      "Digest": "sha256:a29db577244e7f36330fafc77265a037263e8479e1378f441d37703580d26d0d"
+      "Digest": "sha256:78a9a3701426b84234df8365566cac4e4827d1f6d962840c5556d6cb052da731"
     },
     {
       "File": "tests/FDull.Tests/TransportTests.fs",
@@ -197,7 +197,7 @@
       "File": "tests/FDull.Tests/WorkspaceTests.fs",
       "Project": "tests/FDull.Tests/FDull.Tests.fsproj",
       "Profile": "TEST",
-      "Digest": "sha256:4c2b18ff00f499cc115e7a4a94312f5c35a6ded8292a891d321a984d941c8357"
+      "Digest": "sha256:f1110987520bfc3d0a6f090199529cb931f85ec4a74422e063e6e627ef1308ac"
     },
     {
       "File": "tests/FDull.Tests/ProjectTests.fs",
@@ -12431,6 +12431,41 @@
       "Kind": "type",
       "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | System.Object",
       "Reason": "Non-shipping policy fixture copies owned reviewed inputs into a disposable directory, mutates only that copy and asserts fail-closed graph/profile/fingerprint checks."
+    },
+    {
+      "File": "tests/FDull.Tests/SafetyCoverageTests.fs",
+      "Owner": "FDull.Tests.SafetyCoverageTests.platform",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:System.AppContext.BaseDirectory",
+      "Reason": "The non-shipping test harness resolves repository fixtures from its standard Release/net10.0 runtime directory. Compiler source paths are virtual under deterministic Git builds; only this exact directory property is read. Existing coverage, policy and process-fixture tests must continue to execute."
+    },
+    {
+      "File": "tests/FDull.Tests/SafetyWorkerTests.fs",
+      "Owner": "FDull.Tests.SafetyWorkerTests.compilerPolicy",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:System.AppContext.BaseDirectory",
+      "Reason": "The non-shipping test harness resolves repository fixtures from its standard Release/net10.0 runtime directory. Compiler source paths are virtual under deterministic Git builds; only this exact directory property is read. Existing coverage, policy and process-fixture tests must continue to execute."
+    },
+    {
+      "File": "tests/FDull.Tests/WorkspaceTests.fs",
+      "Owner": "FDull.Tests.WorkspaceTests.root",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:System.AppContext.BaseDirectory",
+      "Reason": "The non-shipping test harness resolves repository fixtures from its standard Release/net10.0 runtime directory. Compiler source paths are virtual under deterministic Git builds; only this exact directory property is read. Existing coverage, policy and process-fixture tests must continue to execute."
+    },
+    {
+      "File": "tests/FDull.Tests/SafetyCoverageTests.fs",
+      "Owner": "FDull.Tests.SafetyCoverageTests.\u0060\u0060late compiler flags cannot weaken exported policy\u0060\u0060",
+      "Kind": "attribute",
+      "Identity": "xunit.core, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | Xunit.InlineDataAttribute |  | string:\u0022--sourcelink:\u0022",
+      "Reason": "Non-shipping compiler-policy regression passes this exact malformed Source Link flag to the validator and asserts rejection after a valid SDK GitHub baseline has been accepted. The 182-test suite passes; this attribute supplies test data and does not change compiler settings."
+    },
+    {
+      "File": "tests/FDull.Tests/SafetyCoverageTests.fs",
+      "Owner": "FDull.Tests.SafetyCoverageTests.\u0060\u0060late compiler flags cannot weaken exported policy\u0060\u0060",
+      "Kind": "attribute",
+      "Identity": "xunit.core, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | Xunit.InlineDataAttribute |  | string:\u0022--sourcelink\u0022",
+      "Reason": "Non-shipping compiler-policy regression passes this exact malformed Source Link flag to the validator and asserts rejection after a valid SDK GitHub baseline has been accepted. The 182-test suite passes; this attribute supplies test data and does not change compiler settings."
     }
   ],
   "Domains": [],

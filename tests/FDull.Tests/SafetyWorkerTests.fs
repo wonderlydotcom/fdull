@@ -276,8 +276,8 @@ module SafetyWorkerTests =
                   Path.Combine(AppContext.BaseDirectory, "safety-worker/fdull-worker.runtimeconfig.json")
                   Path.GetFullPath(
                       Path.Combine(
-                          __SOURCE_DIRECTORY__,
-                          "../FDull.ProcessFixture/bin/Release/net10.0/FDull.ProcessFixture.dll"
+                          AppContext.BaseDirectory,
+                          "../../../../FDull.ProcessFixture/bin/Release/net10.0/FDull.ProcessFixture.dll"
                       )
                   )
                   mode
@@ -361,7 +361,9 @@ module SafetyWorkerTests =
 
     let private compilerPolicy properties action =
         temporary (fun directory ->
-            let platform = Path.GetFullPath(Path.Combine(__SOURCE_DIRECTORY__, "../.."))
+            let platform =
+                Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "../../../../.."))
+
             let project = Path.Combine(directory, "Policy.proj")
 
             File.WriteAllText(

@@ -93,7 +93,7 @@ module WorkspaceCompilerPolicy =
 
         let approved argument =
             Set.contains argument known
-            || [ "-o:"; "-r:"; "--embed:"; "--pathmap:" ]
+            || [ "-o:"; "-r:"; "--embed:"; "--pathmap:"; "--sourcelink:" ]
                |> List.exists (fun prefix ->
                    argument.StartsWith(prefix, StringComparison.Ordinal)
                    && argument.Length > prefix.Length)

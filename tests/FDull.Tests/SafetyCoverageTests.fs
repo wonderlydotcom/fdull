@@ -18,9 +18,17 @@ module SafetyCoverageTests =
     [<InlineData("--langversion:preview")>]
     [<InlineData("@hidden.rsp")>]
     [<InlineData("--define:UNREVIEWED")>]
+    [<InlineData("--sourcelink:")>]
+    [<InlineData("--sourcelink")>]
     let ``late compiler flags cannot weaken exported policy`` flag =
         let baseline =
-            WorkspaceCompilerPolicy.required @ [ "--warnaserror"; "--target:library" ]
+            // A GitHub checkout adds SDK source-debugging metadata to the invocation.
+            WorkspaceCompilerPolicy.required
+            @ [ "--warnaserror"
+                "--target:library"
+                "--sourcelink:obj/Release/net10.0/FDull.sourcelink.json"
+                "--pathmap:/checkout/=/_/"
+                "--embed:obj/Release/net10.0/FDull.AssemblyInfo.fs" ]
 
         Assert.Equal(Ok(), WorkspaceCompilerPolicy.validate baseline)
         Assert.True(WorkspaceCompilerPolicy.validate (baseline @ [ flag ]) |> Result.isError)
@@ -35,7 +43,9 @@ module SafetyCoverageTests =
                 |> Result.isError
             )
 
-    let private platform = Path.GetFullPath(Path.Combine(__SOURCE_DIRECTORY__, "../.."))
+    let private platform =
+        Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "../../../../.."))
+
     let private testAssembly = Assembly.GetExecutingAssembly()
 
     [<Fact>]

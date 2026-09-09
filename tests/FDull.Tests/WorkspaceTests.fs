@@ -7,7 +7,9 @@ open FDull
 open FDull.Transport
 
 module WorkspaceTests =
-    let private root = Path.GetFullPath(Path.Combine(__SOURCE_DIRECTORY__, "../.."))
+    let private root =
+        Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "../../../../.."))
+
     let private policyFile = "fdull.json"
 
     let private withPolicy action =
