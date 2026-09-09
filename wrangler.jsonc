@@ -1,0 +1,14 @@
+{
+  "name": "fdull",
+  "compatibility_date": "2026-09-09",
+  "assets": {
+    "directory": "./site/public"
+  },
+  "routes": [
+    {
+      "pattern": "fdull.com",
+      "custom_domain": true,
+      "zone_id": "ae8597ecbb3395b3edeba5ed748f1187"
+    }
+  ]
+}

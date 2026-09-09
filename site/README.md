@@ -27,40 +27,41 @@ Run that command from the repository root. Open http://127.0.0.1:8080/.
 
 ## Automatic deployment from GitHub
 
-The source repository is https://github.com/wonderlydotcom/fdull. Configure a
-Cloudflare Pages project in the personal account that owns `fdull.com`, using
-Cloudflare's native GitHub integration. Pushes to `main` publish the website;
-pull requests can receive preview deployments.
+The source repository is https://github.com/wonderlydotcom/fdull. The `fdull`
+Cloudflare Worker uses Workers Static Assets and the native GitHub integration
+in the personal account that owns `fdull.com`. Pushes to `main` deploy the website;
+other branches can produce preview versions.
 
-Use these project settings:
+The root `wrangler.jsonc` declares `site/public` as the asset directory and
+`fdull.com` as the custom domain. Cloudflare handles the domain's DNS record and
+certificate during deployment. The zone ID in the configuration is a public
+resource identifier, not a credential.
+
+Use these settings under the Worker's **Settings > Builds**:
 
 | Setting | Value |
 | --- | --- |
 | Repository | `wonderlydotcom/fdull` |
 | Production branch | `main` |
-| Framework preset | None |
-| Root directory | `site` |
+| Root directory | `/` (repository root) |
 | Build command | Empty (no build step) |
-| Build output directory | `public` |
+| Deploy command | `npx wrangler deploy` |
+| Non-production branch command | `npx wrangler versions upload` |
 
-Connect with **Compute > Workers & Pages > Create application > Pages > Import
-an existing Git repository**. Authorize Cloudflare's GitHub app to access this
-repository, select it, apply the settings above, and choose **Save and Deploy**.
-Then add `fdull.com` under **Custom domains > Set up a domain** and complete the
-DNS/certificate setup in the same account.
-
-Only `site/public` is served: HTML, CSS, the rule coverage inventory, the social
-image and the license. The .NET projects, NuGet packages, development docs,
-credentials and private Sites preview metadata are outside that directory.
-There are no GitHub Actions secrets or hand-uploaded ZIP files to maintain.
+There is no frontend compilation step. Wrangler reads the configuration from the
+repository root and uploads the existing static files. Only `site/public` is
+served: HTML, CSS, the rule coverage inventory, the social image and the license.
+The .NET projects, NuGet packages, development docs and private preview metadata
+are outside that directory.
 
 After editing the website, commit and push normally. Cloudflare reports the
-deployment result on the GitHub commit and in the Pages dashboard. Confirm the
-deployed commit and check https://fdull.com after the first successful deployment.
-Later releases of the NuGet packages are a separate publishing operation.
+deployment result on the GitHub commit and under **Workers & Pages > fdull >
+Deployments**. Confirm the deployed commit and check https://fdull.com after a
+successful deployment. Later NuGet releases are a separate publishing operation.
 
-References: [Git integration](https://developers.cloudflare.com/pages/get-started/git-integration/)
-and [Custom domains](https://developers.cloudflare.com/pages/configuration/custom-domains/).
+References: [Workers Builds](https://developers.cloudflare.com/workers/ci-cd/builds/configuration/),
+[Static Assets](https://developers.cloudflare.com/workers/static-assets/binding/)
+and [Custom Domains](https://developers.cloudflare.com/workers/configuration/routing/custom-domains/).
 
 The Wonderly engineering post remains marked **Coming soon** until its published
 URL is supplied. The existing private Sites preview is separate from the GitHub
