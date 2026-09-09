@@ -18,6 +18,7 @@ Run that command from the repository root. Open http://127.0.0.1:8080/.
   buttons). Content and native disclosure controls work without JavaScript.
 - `public/styles.css`: responsive layout, system fonts, keyboard focus and reduced-motion
   support.
+- `public/favicon.svg`: a rounded `|)` mark in the site's orange and charcoal colors.
 - `public/coverage.json`: unmodified output of the project's `fdull coverage` command.
 - `public/og.png`: social share card. Page metadata targets the intended fdull.com domain.
 - `public/LICENSE.txt`: the project's MIT license.
