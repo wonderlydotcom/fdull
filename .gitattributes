@@ -1,0 +1,3 @@
+# Reviewed SHA-256 fingerprints require stable source line endings.
+* text=auto eol=lf
+*.png binary

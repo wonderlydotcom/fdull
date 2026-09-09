@@ -1,0 +1,22 @@
+<Project>
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework><LangVersion>10.0</LangVersion>
+    <FSharpCoreImplicitPackageVersion>11.0.100</FSharpCoreImplicitPackageVersion>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors><WarningLevel>5</WarningLevel>
+    <WarnOn>21,22,52,1178,1182,3180,3186,3218,3391,3395,3559,3570,3579,3582,3878</WarnOn>
+    <OtherFlags>$(OtherFlags) --checked+ --checknulls+</OtherFlags>
+    <Deterministic>true</Deterministic><ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
+    <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile><NuGetAudit>true</NuGetAudit>
+    <Version>0.1.0-preview.1</Version><AssemblyVersion>0.1.0.0</AssemblyVersion>
+    <Authors>Wonderly</Authors><Company>Wonderly</Company><Copyright>Copyright (c) 2026 Wonderly</Copyright>
+    <PackageProjectUrl>https://wonderly.com</PackageProjectUrl>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageTags>fsharp;lint;analyzer;immutability;safety</PackageTags>
+    <Description>F# with fewer sharp edges. Strict typed safety rules, exact policy contracts and bounded analysis.</Description>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include="$(MSBuildThisFileDirectory)LICENSE" Pack="true" PackagePath="/" />
+    <None Include="$(MSBuildThisFileDirectory)THIRD-PARTY-NOTICES.txt" Pack="true" PackagePath="/" />
+  </ItemGroup>
+</Project>

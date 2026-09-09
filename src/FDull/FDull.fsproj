@@ -1,0 +1,29 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup><PackageId>FDull</PackageId><IsPackable>true</IsPackable></PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="FSharp.Compiler.Service" Version="[43.12.100]" />
+    <PackageReference Include="FSharp.SystemTextJson" Version="[1.4.36]" />
+    <None Include="../../README.md" Pack="true" PackagePath="/" />
+    <None Include="../../config/FDull.props" Pack="true" PackagePath="config/" />
+    <None Include="../../docs/fsharp-safety-standard.md" Pack="true" PackagePath="docs/" />
+    <EmbeddedResource Include="../../config/FDull.props" LogicalName="FDull.defaults.props" />
+    <EmbeddedResource Include="Policy/approved-apis.json" LogicalName="FDull.approved-apis.json" />
+    <Compile Include="External.fs" />
+    <Compile Include="Materializer.fs" />
+    <Compile Include="Codec.fs" />
+    <Compile Include="SafetyRules.fs" />
+    <Compile Include="SafetyPolicy.fs" />
+    <Compile Include="SafetyLimits.fs" />
+    <Compile Include="SafetyRanges.fs" />
+    <Compile Include="SafetySyntax.fs" />
+    <Compile Include="SafetyContext.fs" />
+    <Compile Include="SafetyAnalysis.fs" />
+    <Compile Include="SafetyEngine.fs" />
+    <Compile Include="WorkspacePolicy.fs" />
+    <Compile Include="WorkspaceAudit.fs" />
+    <Compile Include="WorkspaceEngine.fs" />
+    <Compile Include="Workspace.fs" />
+    <Compile Include="Safety.fs" />
+    <Compile Include="Project.fs" />
+  </ItemGroup>
+</Project>

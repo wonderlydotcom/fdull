@@ -1,0 +1,30 @@
+<Project>
+  <!-- Strict compiler defaults are checked again against the evaluated F# invocation. -->
+  <Target Name="FDullCompilerPolicy" BeforeTargets="CoreCompile">
+    <Error Condition="'$(LangVersion)' != '10.0'" Text="BUILD002: FDull requires LangVersion 10.0." />
+    <Error Condition="'$(TargetFramework)' != 'net10.0'" Text="BUILD002: FDull requires net10.0." />
+    <Error Condition="'$(TreatWarningsAsErrors)' != 'true'" Text="BUILD002: Compiler warnings must remain errors." />
+    <Error Condition="'$(WarningLevel)' != '5'" Text="BUILD002: FDull requires warning level 5." />
+    <Error Condition="'$(WarnOn)' != '21,22,52,1178,1182,3180,3186,3218,3391,3395,3559,3570,3579,3582,3878'" Text="BUILD002: The complete pinned opt-in warning set is required." />
+    <Error Condition="!$([System.String]::Copy('$(OtherFlags)').Contains('--checked+')) Or !$([System.String]::Copy('$(OtherFlags)').Contains('--checknulls+'))" Text="BUILD002: Checked arithmetic and nullability checking are required." />
+    <Error Condition="'$(WarningsNotAsErrors)' != '' Or '$(NoWarn)' != ''" Text="BUILD002: Warning suppression is not permitted." />
+    <Error Condition="'$(Deterministic)' != 'true'" Text="BUILD002: Deterministic compilation is required." />
+    <Error Condition="'$(RestorePackagesWithLockFile)' != 'true' Or '$(NuGetAudit)' != 'true'" Text="BUILD002: Locked dependencies and auditing are required." />
+    <Error Condition="$([System.String]::Copy('$(OtherFlags)').Contains('--nowarn')) Or $([System.String]::Copy('$(OtherFlags)').Contains('--warnaserror-')) Or $([System.String]::Copy('$(OtherFlags)').Contains('--checked-')) Or $([System.String]::Copy('$(OtherFlags)').Contains('--checknulls-'))" Text="BUILD002: Compiler disabling flags are not permitted." />
+  </Target>
+
+  <Target Name="FDullWorkerInventory" Condition="'$(MSBuildProjectName)' == 'FDull.Tool' Or '$(MSBuildProjectName)' == 'FDull.Tests'">
+    <MSBuild Projects="$(MSBuildThisFileDirectory)src/FDull.Worker/FDull.Worker.fsproj" Targets="GetTargetPath" Properties="Configuration=$(Configuration);TargetFramework=$(TargetFramework)">
+      <Output TaskParameter="TargetOutputs" ItemName="_FDullWorkerTarget" />
+    </MSBuild>
+    <PropertyGroup><_FDullWorkerDirectory>@(_FDullWorkerTarget->'%(RootDir)%(Directory)')</_FDullWorkerDirectory></PropertyGroup>
+    <Error Condition="'$(_FDullWorkerDirectory)' == '' Or !Exists('$(_FDullWorkerDirectory)fdull-worker.dll')" Text="BUILD003: Missing FDull worker." />
+    <ItemGroup><_FDullWorkerFiles Include="$(_FDullWorkerDirectory)**/*.dll;$(_FDullWorkerDirectory)**/*.json;$(_FDullWorkerDirectory)**/*.pdb" /></ItemGroup>
+  </Target>
+  <Target Name="FDullCopyWorker" AfterTargets="Build" DependsOnTargets="FDullWorkerInventory" Condition="'$(MSBuildProjectName)' == 'FDull.Tool' Or '$(MSBuildProjectName)' == 'FDull.Tests'">
+    <Copy SourceFiles="@(_FDullWorkerFiles)" DestinationFiles="@(_FDullWorkerFiles->'$(TargetDir)safety-worker/%(RecursiveDir)%(Filename)%(Extension)')" SkipUnchangedFiles="true" />
+  </Target>
+  <Target Name="FDullPublishWorker" AfterTargets="Publish" DependsOnTargets="FDullWorkerInventory" Condition="'$(MSBuildProjectName)' == 'FDull.Tool'">
+    <Copy SourceFiles="@(_FDullWorkerFiles)" DestinationFiles="@(_FDullWorkerFiles->'$(PublishDir)safety-worker/%(RecursiveDir)%(Filename)%(Extension)')" SkipUnchangedFiles="true" />
+  </Target>
+</Project>

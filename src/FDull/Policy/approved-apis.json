@@ -1,0 +1,650 @@
+[
+  {
+    "Assembly": "FSharp.Core, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a",
+    "Signature": "M:Microsoft.FSharp.Collections.ListModule.Append\u0060\u00601(Microsoft.FSharp.Collections.FSharpList{\u0060\u00600},Microsoft.FSharp.Collections.FSharpList{\u0060\u00600})"
+  },
+  {
+    "Assembly": "FSharp.Core, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a",
+    "Signature": "M:Microsoft.FSharp.Collections.ListModule.Choose\u0060\u00602(Microsoft.FSharp.Core.FSharpFunc{\u0060\u00600,Microsoft.FSharp.Core.FSharpOption{\u0060\u00601}},Microsoft.FSharp.Collections.FSharpList{\u0060\u00600})"
+  },
+  {
+    "Assembly": "FSharp.Core, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a",
+    "Signature": "M:Microsoft.FSharp.Collections.ListModule.Collect\u0060\u00602(Microsoft.FSharp.Core.FSharpFunc{\u0060\u00600,Microsoft.FSharp.Collections.FSharpList{\u0060\u00601}},Microsoft.FSharp.Collections.FSharpList{\u0060\u00600})"
+  },
+  {
+    "Assembly": "FSharp.Core, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a",
+    "Signature": "M:Microsoft.FSharp.Collections.ListModule.Concat\u0060\u00601(System.Collections.Generic.IEnumerable{Microsoft.FSharp.Collections.FSharpList{\u0060\u00600}})"
+  },
+  {
+    "Assembly": "FSharp.Core, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a",
+    "Signature": "M:Microsoft.FSharp.Collections.ListModule.Contains\u0060\u00601(\u0060\u00600,Microsoft.FSharp.Collections.FSharpList{\u0060\u00600})"
+  },
+  {
+    "Assembly": "FSharp.Core, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a",
+    "Signature": "M:Microsoft.FSharp.Collections.ListModule.CountBy\u0060\u00602(Microsoft.FSharp.Core.FSharpFunc{\u0060\u00600,\u0060\u00601},Microsoft.FSharp.Collections.FSharpList{\u0060\u00600})"
+  },
+  {
+    "Assembly": "FSharp.Core, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a",
+    "Signature": "M:Microsoft.FSharp.Collections.ListModule.DistinctBy\u0060\u00602(Microsoft.FSharp.Core.FSharpFunc{\u0060\u00600,\u0060\u00601},Microsoft.FSharp.Collections.FSharpList{\u0060\u00600})"
+  },
+  {
+    "Assembly": "FSharp.Core, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a",
+    "Signature": "M:Microsoft.FSharp.Collections.ListModule.Distinct\u0060\u00601(Microsoft.FSharp.Collections.FSharpList{\u0060\u00600})"
+  },
+  {
+    "Assembly": "FSharp.Core, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a",
+    "Signature": "M:Microsoft.FSharp.Collections.ListModule.Exists\u0060\u00601(Microsoft.FSharp.Core.FSharpFunc{\u0060\u00600,System.Boolean},Microsoft.FSharp.Collections.FSharpList{\u0060\u00600})"
+  },
+  {
+    "Assembly": "FSharp.Core, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a",
+    "Signature": "M:Microsoft.FSharp.Collections.ListModule.Filter\u0060\u00601(Microsoft.FSharp.Core.FSharpFunc{\u0060\u00600,System.Boolean},Microsoft.FSharp.Collections.FSharpList{\u0060\u00600})"
+  },
+  {
+    "Assembly": "FSharp.Core, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a",
+    "Signature": "M:Microsoft.FSharp.Collections.ListModule.ForAll\u0060\u00601(Microsoft.FSharp.Core.FSharpFunc{\u0060\u00600,System.Boolean},Microsoft.FSharp.Collections.FSharpList{\u0060\u00600})"
+  },
+  {
+    "Assembly": "FSharp.Core, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a",
+    "Signature": "M:Microsoft.FSharp.Collections.ListModule.GroupBy\u0060\u00602(Microsoft.FSharp.Core.FSharpFunc{\u0060\u00600,\u0060\u00601},Microsoft.FSharp.Collections.FSharpList{\u0060\u00600})"
+  },
+  {
+    "Assembly": "FSharp.Core, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a",
+    "Signature": "M:Microsoft.FSharp.Collections.ListModule.IsEmpty\u0060\u00601(Microsoft.FSharp.Collections.FSharpList{\u0060\u00600})"
+  },
+  {
+    "Assembly": "FSharp.Core, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a",
+    "Signature": "M:Microsoft.FSharp.Collections.ListModule.Length\u0060\u00601(Microsoft.FSharp.Collections.FSharpList{\u0060\u00600})"
+  },
+  {
+    "Assembly": "FSharp.Core, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a",
+    "Signature": "M:Microsoft.FSharp.Collections.ListModule.MapIndexed\u0060\u00602(Microsoft.FSharp.Core.FSharpFunc{System.Int32,Microsoft.FSharp.Core.FSharpFunc{\u0060\u00600,\u0060\u00601}},Microsoft.FSharp.Collections.FSharpList{\u0060\u00600})"
+  },
+  {
+    "Assembly": "FSharp.Core, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a",
+    "Signature": "M:Microsoft.FSharp.Collections.ListModule.Map\u0060\u00602(Microsoft.FSharp.Core.FSharpFunc{\u0060\u00600,\u0060\u00601},Microsoft.FSharp.Collections.FSharpList{\u0060\u00600})"
+  },
+  {
+    "Assembly": "FSharp.Core, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a",
+    "Signature": "M:Microsoft.FSharp.Collections.ListModule.Partition\u0060\u00601(Microsoft.FSharp.Core.FSharpFunc{\u0060\u00600,System.Boolean},Microsoft.FSharp.Collections.FSharpList{\u0060\u00600})"
+  },
+  {
+    "Assembly": "FSharp.Core, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a",
+    "Signature": "M:Microsoft.FSharp.Collections.ListModule.SkipWhile\u0060\u00601(Microsoft.FSharp.Core.FSharpFunc{\u0060\u00600,System.Boolean},Microsoft.FSharp.Collections.FSharpList{\u0060\u00600})"
+  },
+  {
+    "Assembly": "FSharp.Core, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a",
+    "Signature": "M:Microsoft.FSharp.Collections.ListModule.SortBy\u0060\u00602(Microsoft.FSharp.Core.FSharpFunc{\u0060\u00600,\u0060\u00601},Microsoft.FSharp.Collections.FSharpList{\u0060\u00600})"
+  },
+  {
+    "Assembly": "FSharp.Core, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a",
+    "Signature": "M:Microsoft.FSharp.Collections.ListModule.Sort\u0060\u00601(Microsoft.FSharp.Collections.FSharpList{\u0060\u00600})"
+  },
+  {
+    "Assembly": "FSharp.Core, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a",
+    "Signature": "M:Microsoft.FSharp.Collections.ListModule.TakeWhile\u0060\u00601(Microsoft.FSharp.Core.FSharpFunc{\u0060\u00600,System.Boolean},Microsoft.FSharp.Collections.FSharpList{\u0060\u00600})"
+  },
+  {
+    "Assembly": "FSharp.Core, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a",
+    "Signature": "M:Microsoft.FSharp.Collections.ListModule.Truncate\u0060\u00601(System.Int32,Microsoft.FSharp.Collections.FSharpList{\u0060\u00600})"
+  },
+  {
+    "Assembly": "FSharp.Core, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a",
+    "Signature": "M:Microsoft.FSharp.Collections.ListModule.TryExactlyOne\u0060\u00601(Microsoft.FSharp.Collections.FSharpList{\u0060\u00600})"
+  },
+  {
+    "Assembly": "FSharp.Core, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a",
+    "Signature": "M:Microsoft.FSharp.Collections.ListModule.TryFindBack\u0060\u00601(Microsoft.FSharp.Core.FSharpFunc{\u0060\u00600,System.Boolean},Microsoft.FSharp.Collections.FSharpList{\u0060\u00600})"
+  },
+  {
+    "Assembly": "FSharp.Core, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a",
+    "Signature": "M:Microsoft.FSharp.Collections.ListModule.TryFind\u0060\u00601(Microsoft.FSharp.Core.FSharpFunc{\u0060\u00600,System.Boolean},Microsoft.FSharp.Collections.FSharpList{\u0060\u00600})"
+  },
+  {
+    "Assembly": "FSharp.Core, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a",
+    "Signature": "M:Microsoft.FSharp.Collections.ListModule.TryHead\u0060\u00601(Microsoft.FSharp.Collections.FSharpList{\u0060\u00600})"
+  },
+  {
+    "Assembly": "FSharp.Core, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a",
+    "Signature": "M:Microsoft.FSharp.Collections.ListModule.TryItem\u0060\u00601(System.Int32,Microsoft.FSharp.Collections.FSharpList{\u0060\u00600})"
+  },
+  {
+    "Assembly": "FSharp.Core, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a",
+    "Signature": "M:Microsoft.FSharp.Collections.ListModule.TryLast\u0060\u00601(Microsoft.FSharp.Collections.FSharpList{\u0060\u00600})"
+  },
+  {
+    "Assembly": "FSharp.Core, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a",
+    "Signature": "M:Microsoft.FSharp.Collections.ListModule.TryPick\u0060\u00602(Microsoft.FSharp.Core.FSharpFunc{\u0060\u00600,Microsoft.FSharp.Core.FSharpOption{\u0060\u00601}},Microsoft.FSharp.Collections.FSharpList{\u0060\u00600})"
+  },
+  {
+    "Assembly": "FSharp.Core, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a",
+    "Signature": "M:Microsoft.FSharp.Collections.ListModule.Unzip\u0060\u00602(Microsoft.FSharp.Collections.FSharpList{System.Tuple{\u0060\u00600,\u0060\u00601}})"
+  },
+  {
+    "Assembly": "FSharp.Core, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a",
+    "Signature": "M:Microsoft.FSharp.Collections.MapModule.Add\u0060\u00602(\u0060\u00600,\u0060\u00601,Microsoft.FSharp.Collections.FSharpMap{\u0060\u00600,\u0060\u00601})"
+  },
+  {
+    "Assembly": "FSharp.Core, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a",
+    "Signature": "M:Microsoft.FSharp.Collections.MapModule.Change\u0060\u00602(\u0060\u00600,Microsoft.FSharp.Core.FSharpFunc{Microsoft.FSharp.Core.FSharpOption{\u0060\u00601},Microsoft.FSharp.Core.FSharpOption{\u0060\u00601}},Microsoft.FSharp.Collections.FSharpMap{\u0060\u00600,\u0060\u00601})"
+  },
+  {
+    "Assembly": "FSharp.Core, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a",
+    "Signature": "M:Microsoft.FSharp.Collections.MapModule.ContainsKey\u0060\u00602(\u0060\u00600,Microsoft.FSharp.Collections.FSharpMap{\u0060\u00600,\u0060\u00601})"
+  },
+  {
+    "Assembly": "FSharp.Core, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a",
+    "Signature": "M:Microsoft.FSharp.Collections.MapModule.Count\u0060\u00602(Microsoft.FSharp.Collections.FSharpMap{\u0060\u00600,\u0060\u00601})"
+  },
+  {
+    "Assembly": "FSharp.Core, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a",
+    "Signature": "M:Microsoft.FSharp.Collections.MapModule.Empty\u0060\u00602"
+  },
+  {
+    "Assembly": "FSharp.Core, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a",
+    "Signature": "M:Microsoft.FSharp.Collections.MapModule.Exists\u0060\u00602(Microsoft.FSharp.Core.FSharpFunc{\u0060\u00600,Microsoft.FSharp.Core.FSharpFunc{\u0060\u00601,System.Boolean}},Microsoft.FSharp.Collections.FSharpMap{\u0060\u00600,\u0060\u00601})"
+  },
+  {
+    "Assembly": "FSharp.Core, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a",
+    "Signature": "M:Microsoft.FSharp.Collections.MapModule.Filter\u0060\u00602(Microsoft.FSharp.Core.FSharpFunc{\u0060\u00600,Microsoft.FSharp.Core.FSharpFunc{\u0060\u00601,System.Boolean}},Microsoft.FSharp.Collections.FSharpMap{\u0060\u00600,\u0060\u00601})"
+  },
+  {
+    "Assembly": "FSharp.Core, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a",
+    "Signature": "M:Microsoft.FSharp.Collections.MapModule.ForAll\u0060\u00602(Microsoft.FSharp.Core.FSharpFunc{\u0060\u00600,Microsoft.FSharp.Core.FSharpFunc{\u0060\u00601,System.Boolean}},Microsoft.FSharp.Collections.FSharpMap{\u0060\u00600,\u0060\u00601})"
+  },
+  {
+    "Assembly": "FSharp.Core, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a",
+    "Signature": "M:Microsoft.FSharp.Collections.MapModule.IsEmpty\u0060\u00602(Microsoft.FSharp.Collections.FSharpMap{\u0060\u00600,\u0060\u00601})"
+  },
+  {
+    "Assembly": "FSharp.Core, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a",
+    "Signature": "M:Microsoft.FSharp.Collections.MapModule.Map\u0060\u00603(Microsoft.FSharp.Core.FSharpFunc{\u0060\u00600,Microsoft.FSharp.Core.FSharpFunc{\u0060\u00601,\u0060\u00602}},Microsoft.FSharp.Collections.FSharpMap{\u0060\u00600,\u0060\u00601})"
+  },
+  {
+    "Assembly": "FSharp.Core, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a",
+    "Signature": "M:Microsoft.FSharp.Collections.MapModule.OfList\u0060\u00602(Microsoft.FSharp.Collections.FSharpList{System.Tuple{\u0060\u00600,\u0060\u00601}})"
+  },
+  {
+    "Assembly": "FSharp.Core, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a",
+    "Signature": "M:Microsoft.FSharp.Collections.MapModule.Remove\u0060\u00602(\u0060\u00600,Microsoft.FSharp.Collections.FSharpMap{\u0060\u00600,\u0060\u00601})"
+  },
+  {
+    "Assembly": "FSharp.Core, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a",
+    "Signature": "M:Microsoft.FSharp.Collections.MapModule.ToList\u0060\u00602(Microsoft.FSharp.Collections.FSharpMap{\u0060\u00600,\u0060\u00601})"
+  },
+  {
+    "Assembly": "FSharp.Core, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a",
+    "Signature": "M:Microsoft.FSharp.Collections.MapModule.TryFind\u0060\u00602(\u0060\u00600,Microsoft.FSharp.Collections.FSharpMap{\u0060\u00600,\u0060\u00601})"
+  },
+  {
+    "Assembly": "FSharp.Core, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a",
+    "Signature": "M:Microsoft.FSharp.Collections.SetModule.Add\u0060\u00601(\u0060\u00600,Microsoft.FSharp.Collections.FSharpSet{\u0060\u00600})"
+  },
+  {
+    "Assembly": "FSharp.Core, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a",
+    "Signature": "M:Microsoft.FSharp.Collections.SetModule.Contains\u0060\u00601(\u0060\u00600,Microsoft.FSharp.Collections.FSharpSet{\u0060\u00600})"
+  },
+  {
+    "Assembly": "FSharp.Core, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a",
+    "Signature": "M:Microsoft.FSharp.Collections.SetModule.Count\u0060\u00601(Microsoft.FSharp.Collections.FSharpSet{\u0060\u00600})"
+  },
+  {
+    "Assembly": "FSharp.Core, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a",
+    "Signature": "M:Microsoft.FSharp.Collections.SetModule.Difference\u0060\u00601(Microsoft.FSharp.Collections.FSharpSet{\u0060\u00600},Microsoft.FSharp.Collections.FSharpSet{\u0060\u00600})"
+  },
+  {
+    "Assembly": "FSharp.Core, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a",
+    "Signature": "M:Microsoft.FSharp.Collections.SetModule.Empty\u0060\u00601"
+  },
+  {
+    "Assembly": "FSharp.Core, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a",
+    "Signature": "M:Microsoft.FSharp.Collections.SetModule.Exists\u0060\u00601(Microsoft.FSharp.Core.FSharpFunc{\u0060\u00600,System.Boolean},Microsoft.FSharp.Collections.FSharpSet{\u0060\u00600})"
+  },
+  {
+    "Assembly": "FSharp.Core, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a",
+    "Signature": "M:Microsoft.FSharp.Collections.SetModule.Filter\u0060\u00601(Microsoft.FSharp.Core.FSharpFunc{\u0060\u00600,System.Boolean},Microsoft.FSharp.Collections.FSharpSet{\u0060\u00600})"
+  },
+  {
+    "Assembly": "FSharp.Core, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a",
+    "Signature": "M:Microsoft.FSharp.Collections.SetModule.ForAll\u0060\u00601(Microsoft.FSharp.Core.FSharpFunc{\u0060\u00600,System.Boolean},Microsoft.FSharp.Collections.FSharpSet{\u0060\u00600})"
+  },
+  {
+    "Assembly": "FSharp.Core, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a",
+    "Signature": "M:Microsoft.FSharp.Collections.SetModule.Intersect\u0060\u00601(Microsoft.FSharp.Collections.FSharpSet{\u0060\u00600},Microsoft.FSharp.Collections.FSharpSet{\u0060\u00600})"
+  },
+  {
+    "Assembly": "FSharp.Core, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a",
+    "Signature": "M:Microsoft.FSharp.Collections.SetModule.IsEmpty\u0060\u00601(Microsoft.FSharp.Collections.FSharpSet{\u0060\u00600})"
+  },
+  {
+    "Assembly": "FSharp.Core, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a",
+    "Signature": "M:Microsoft.FSharp.Collections.SetModule.Map\u0060\u00602(Microsoft.FSharp.Core.FSharpFunc{\u0060\u00600,\u0060\u00601},Microsoft.FSharp.Collections.FSharpSet{\u0060\u00600})"
+  },
+  {
+    "Assembly": "FSharp.Core, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a",
+    "Signature": "M:Microsoft.FSharp.Collections.SetModule.OfList\u0060\u00601(Microsoft.FSharp.Collections.FSharpList{\u0060\u00600})"
+  },
+  {
+    "Assembly": "FSharp.Core, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a",
+    "Signature": "M:Microsoft.FSharp.Collections.SetModule.Remove\u0060\u00601(\u0060\u00600,Microsoft.FSharp.Collections.FSharpSet{\u0060\u00600})"
+  },
+  {
+    "Assembly": "FSharp.Core, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a",
+    "Signature": "M:Microsoft.FSharp.Collections.SetModule.Singleton\u0060\u00601(\u0060\u00600)"
+  },
+  {
+    "Assembly": "FSharp.Core, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a",
+    "Signature": "M:Microsoft.FSharp.Collections.SetModule.ToList\u0060\u00601(Microsoft.FSharp.Collections.FSharpSet{\u0060\u00600})"
+  },
+  {
+    "Assembly": "FSharp.Core, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a",
+    "Signature": "M:Microsoft.FSharp.Collections.SetModule.Union\u0060\u00601(Microsoft.FSharp.Collections.FSharpSet{\u0060\u00600},Microsoft.FSharp.Collections.FSharpSet{\u0060\u00600})"
+  },
+  {
+    "Assembly": "FSharp.Core, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a",
+    "Signature": "M:Microsoft.FSharp.Core.LanguagePrimitives.IntrinsicOperators.op_BooleanAnd(System.Boolean,System.Boolean)"
+  },
+  {
+    "Assembly": "FSharp.Core, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a",
+    "Signature": "M:Microsoft.FSharp.Core.LanguagePrimitives.IntrinsicOperators.op_BooleanOr(System.Boolean,System.Boolean)"
+  },
+  {
+    "Assembly": "FSharp.Core, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a",
+    "Signature": "M:Microsoft.FSharp.Core.Operators.Checked.op_Addition\u0060\u00603(Microsoft.FSharp.Core.FSharpFunc{\u0060\u00600,Microsoft.FSharp.Core.FSharpFunc{\u0060\u00601,\u0060\u00602}},\u0060\u00600,\u0060\u00601)"
+  },
+  {
+    "Assembly": "FSharp.Core, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a",
+    "Signature": "M:Microsoft.FSharp.Core.Operators.Checked.op_Multiply\u0060\u00603(Microsoft.FSharp.Core.FSharpFunc{\u0060\u00600,Microsoft.FSharp.Core.FSharpFunc{\u0060\u00601,\u0060\u00602}},\u0060\u00600,\u0060\u00601)"
+  },
+  {
+    "Assembly": "FSharp.Core, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a",
+    "Signature": "M:Microsoft.FSharp.Core.Operators.Checked.op_Subtraction\u0060\u00603(Microsoft.FSharp.Core.FSharpFunc{\u0060\u00600,Microsoft.FSharp.Core.FSharpFunc{\u0060\u00601,\u0060\u00602}},\u0060\u00600,\u0060\u00601)"
+  },
+  {
+    "Assembly": "FSharp.Core, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a",
+    "Signature": "M:Microsoft.FSharp.Core.Operators.Checked.op_UnaryNegation\u0060\u00601(Microsoft.FSharp.Core.FSharpFunc{\u0060\u00600,\u0060\u00600},\u0060\u00600)"
+  },
+  {
+    "Assembly": "FSharp.Core, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a",
+    "Signature": "M:Microsoft.FSharp.Core.Operators.Compare\u0060\u00601(\u0060\u00600,\u0060\u00600)"
+  },
+  {
+    "Assembly": "FSharp.Core, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a",
+    "Signature": "M:Microsoft.FSharp.Core.Operators.Fst\u0060\u00602(System.Tuple{\u0060\u00600,\u0060\u00601})"
+  },
+  {
+    "Assembly": "FSharp.Core, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a",
+    "Signature": "M:Microsoft.FSharp.Core.Operators.Identity\u0060\u00601(\u0060\u00600)"
+  },
+  {
+    "Assembly": "FSharp.Core, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a",
+    "Signature": "M:Microsoft.FSharp.Core.Operators.Ignore\u0060\u00601(\u0060\u00600)"
+  },
+  {
+    "Assembly": "FSharp.Core, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a",
+    "Signature": "M:Microsoft.FSharp.Core.Operators.Max\u0060\u00601(\u0060\u00600,\u0060\u00600)"
+  },
+  {
+    "Assembly": "FSharp.Core, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a",
+    "Signature": "M:Microsoft.FSharp.Core.Operators.Min\u0060\u00601(\u0060\u00600,\u0060\u00600)"
+  },
+  {
+    "Assembly": "FSharp.Core, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a",
+    "Signature": "M:Microsoft.FSharp.Core.Operators.Not(System.Boolean)"
+  },
+  {
+    "Assembly": "FSharp.Core, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a",
+    "Signature": "M:Microsoft.FSharp.Core.Operators.Snd\u0060\u00602(System.Tuple{\u0060\u00600,\u0060\u00601})"
+  },
+  {
+    "Assembly": "FSharp.Core, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a",
+    "Signature": "M:Microsoft.FSharp.Core.Operators.op_Addition\u0060\u00603(Microsoft.FSharp.Core.FSharpFunc{\u0060\u00600,Microsoft.FSharp.Core.FSharpFunc{\u0060\u00601,\u0060\u00602}},\u0060\u00600,\u0060\u00601)"
+  },
+  {
+    "Assembly": "FSharp.Core, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a",
+    "Signature": "M:Microsoft.FSharp.Core.Operators.op_Append\u0060\u00601(Microsoft.FSharp.Collections.FSharpList{\u0060\u00600},Microsoft.FSharp.Collections.FSharpList{\u0060\u00600})"
+  },
+  {
+    "Assembly": "FSharp.Core, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a",
+    "Signature": "M:Microsoft.FSharp.Core.Operators.op_ComposeLeft\u0060\u00603(Microsoft.FSharp.Core.FSharpFunc{\u0060\u00600,\u0060\u00601},Microsoft.FSharp.Core.FSharpFunc{\u0060\u00602,\u0060\u00600})"
+  },
+  {
+    "Assembly": "FSharp.Core, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a",
+    "Signature": "M:Microsoft.FSharp.Core.Operators.op_ComposeRight\u0060\u00603(Microsoft.FSharp.Core.FSharpFunc{\u0060\u00600,\u0060\u00601},Microsoft.FSharp.Core.FSharpFunc{\u0060\u00601,\u0060\u00602})"
+  },
+  {
+    "Assembly": "FSharp.Core, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a",
+    "Signature": "M:Microsoft.FSharp.Core.Operators.op_Division\u0060\u00603(Microsoft.FSharp.Core.FSharpFunc{\u0060\u00600,Microsoft.FSharp.Core.FSharpFunc{\u0060\u00601,\u0060\u00602}},\u0060\u00600,\u0060\u00601)"
+  },
+  {
+    "Assembly": "FSharp.Core, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a",
+    "Signature": "M:Microsoft.FSharp.Core.Operators.op_Equality\u0060\u00601(\u0060\u00600,\u0060\u00600)"
+  },
+  {
+    "Assembly": "FSharp.Core, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a",
+    "Signature": "M:Microsoft.FSharp.Core.Operators.op_GreaterThanOrEqual\u0060\u00601(\u0060\u00600,\u0060\u00600)"
+  },
+  {
+    "Assembly": "FSharp.Core, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a",
+    "Signature": "M:Microsoft.FSharp.Core.Operators.op_GreaterThan\u0060\u00601(\u0060\u00600,\u0060\u00600)"
+  },
+  {
+    "Assembly": "FSharp.Core, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a",
+    "Signature": "M:Microsoft.FSharp.Core.Operators.op_Inequality\u0060\u00601(\u0060\u00600,\u0060\u00600)"
+  },
+  {
+    "Assembly": "FSharp.Core, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a",
+    "Signature": "M:Microsoft.FSharp.Core.Operators.op_LessThanOrEqual\u0060\u00601(\u0060\u00600,\u0060\u00600)"
+  },
+  {
+    "Assembly": "FSharp.Core, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a",
+    "Signature": "M:Microsoft.FSharp.Core.Operators.op_LessThan\u0060\u00601(\u0060\u00600,\u0060\u00600)"
+  },
+  {
+    "Assembly": "FSharp.Core, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a",
+    "Signature": "M:Microsoft.FSharp.Core.Operators.op_Modulus\u0060\u00603(Microsoft.FSharp.Core.FSharpFunc{\u0060\u00600,Microsoft.FSharp.Core.FSharpFunc{\u0060\u00601,\u0060\u00602}},\u0060\u00600,\u0060\u00601)"
+  },
+  {
+    "Assembly": "FSharp.Core, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a",
+    "Signature": "M:Microsoft.FSharp.Core.Operators.op_Multiply\u0060\u00603(Microsoft.FSharp.Core.FSharpFunc{\u0060\u00600,Microsoft.FSharp.Core.FSharpFunc{\u0060\u00601,\u0060\u00602}},\u0060\u00600,\u0060\u00601)"
+  },
+  {
+    "Assembly": "FSharp.Core, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a",
+    "Signature": "M:Microsoft.FSharp.Core.Operators.op_PipeRight\u0060\u00602(\u0060\u00600,Microsoft.FSharp.Core.FSharpFunc{\u0060\u00600,\u0060\u00601})"
+  },
+  {
+    "Assembly": "FSharp.Core, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a",
+    "Signature": "M:Microsoft.FSharp.Core.Operators.op_Subtraction\u0060\u00603(Microsoft.FSharp.Core.FSharpFunc{\u0060\u00600,Microsoft.FSharp.Core.FSharpFunc{\u0060\u00601,\u0060\u00602}},\u0060\u00600,\u0060\u00601)"
+  },
+  {
+    "Assembly": "FSharp.Core, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a",
+    "Signature": "M:Microsoft.FSharp.Core.Operators.op_UnaryNegation\u0060\u00601(Microsoft.FSharp.Core.FSharpFunc{\u0060\u00600,\u0060\u00600},\u0060\u00600)"
+  },
+  {
+    "Assembly": "FSharp.Core, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a",
+    "Signature": "M:Microsoft.FSharp.Core.Operators.op_UnaryPlus\u0060\u00601(Microsoft.FSharp.Core.FSharpFunc{\u0060\u00600,\u0060\u00600},\u0060\u00600)"
+  },
+  {
+    "Assembly": "FSharp.Core, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a",
+    "Signature": "M:Microsoft.FSharp.Core.OptionModule.Bind\u0060\u00602(Microsoft.FSharp.Core.FSharpFunc{\u0060\u00600,Microsoft.FSharp.Core.FSharpOption{\u0060\u00601}},Microsoft.FSharp.Core.FSharpOption{\u0060\u00600})"
+  },
+  {
+    "Assembly": "FSharp.Core, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a",
+    "Signature": "M:Microsoft.FSharp.Core.OptionModule.DefaultValue\u0060\u00601(\u0060\u00600,Microsoft.FSharp.Core.FSharpOption{\u0060\u00600})"
+  },
+  {
+    "Assembly": "FSharp.Core, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a",
+    "Signature": "M:Microsoft.FSharp.Core.OptionModule.DefaultWith\u0060\u00601(Microsoft.FSharp.Core.FSharpFunc{Microsoft.FSharp.Core.Unit,\u0060\u00600},Microsoft.FSharp.Core.FSharpOption{\u0060\u00600})"
+  },
+  {
+    "Assembly": "FSharp.Core, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a",
+    "Signature": "M:Microsoft.FSharp.Core.OptionModule.Exists\u0060\u00601(Microsoft.FSharp.Core.FSharpFunc{\u0060\u00600,System.Boolean},Microsoft.FSharp.Core.FSharpOption{\u0060\u00600})"
+  },
+  {
+    "Assembly": "FSharp.Core, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a",
+    "Signature": "M:Microsoft.FSharp.Core.OptionModule.Filter\u0060\u00601(Microsoft.FSharp.Core.FSharpFunc{\u0060\u00600,System.Boolean},Microsoft.FSharp.Core.FSharpOption{\u0060\u00600})"
+  },
+  {
+    "Assembly": "FSharp.Core, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a",
+    "Signature": "M:Microsoft.FSharp.Core.OptionModule.ForAll\u0060\u00601(Microsoft.FSharp.Core.FSharpFunc{\u0060\u00600,System.Boolean},Microsoft.FSharp.Core.FSharpOption{\u0060\u00600})"
+  },
+  {
+    "Assembly": "FSharp.Core, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a",
+    "Signature": "M:Microsoft.FSharp.Core.OptionModule.IsNone\u0060\u00601(Microsoft.FSharp.Core.FSharpOption{\u0060\u00600})"
+  },
+  {
+    "Assembly": "FSharp.Core, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a",
+    "Signature": "M:Microsoft.FSharp.Core.OptionModule.IsSome\u0060\u00601(Microsoft.FSharp.Core.FSharpOption{\u0060\u00600})"
+  },
+  {
+    "Assembly": "FSharp.Core, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a",
+    "Signature": "M:Microsoft.FSharp.Core.OptionModule.Map\u0060\u00602(Microsoft.FSharp.Core.FSharpFunc{\u0060\u00600,\u0060\u00601},Microsoft.FSharp.Core.FSharpOption{\u0060\u00600})"
+  },
+  {
+    "Assembly": "FSharp.Core, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a",
+    "Signature": "M:Microsoft.FSharp.Core.OptionModule.OrElseWith\u0060\u00601(Microsoft.FSharp.Core.FSharpFunc{Microsoft.FSharp.Core.Unit,Microsoft.FSharp.Core.FSharpOption{\u0060\u00600}},Microsoft.FSharp.Core.FSharpOption{\u0060\u00600})"
+  },
+  {
+    "Assembly": "FSharp.Core, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a",
+    "Signature": "M:Microsoft.FSharp.Core.OptionModule.OrElse\u0060\u00601(Microsoft.FSharp.Core.FSharpOption{\u0060\u00600},Microsoft.FSharp.Core.FSharpOption{\u0060\u00600})"
+  },
+  {
+    "Assembly": "FSharp.Core, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a",
+    "Signature": "M:Microsoft.FSharp.Core.OptionModule.ToList\u0060\u00601(Microsoft.FSharp.Core.FSharpOption{\u0060\u00600})"
+  },
+  {
+    "Assembly": "FSharp.Core, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a",
+    "Signature": "M:Microsoft.FSharp.Core.ResultModule.Bind\u0060\u00603(Microsoft.FSharp.Core.FSharpFunc{\u0060\u00600,Microsoft.FSharp.Core.FSharpResult{\u0060\u00601,\u0060\u00602}},Microsoft.FSharp.Core.FSharpResult{\u0060\u00600,\u0060\u00602})"
+  },
+  {
+    "Assembly": "FSharp.Core, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a",
+    "Signature": "M:Microsoft.FSharp.Core.ResultModule.Contains\u0060\u00602(\u0060\u00600,Microsoft.FSharp.Core.FSharpResult{\u0060\u00600,\u0060\u00601})"
+  },
+  {
+    "Assembly": "FSharp.Core, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a",
+    "Signature": "M:Microsoft.FSharp.Core.ResultModule.Count\u0060\u00602(Microsoft.FSharp.Core.FSharpResult{\u0060\u00600,\u0060\u00601})"
+  },
+  {
+    "Assembly": "FSharp.Core, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a",
+    "Signature": "M:Microsoft.FSharp.Core.ResultModule.Exists\u0060\u00602(Microsoft.FSharp.Core.FSharpFunc{\u0060\u00600,System.Boolean},Microsoft.FSharp.Core.FSharpResult{\u0060\u00600,\u0060\u00601})"
+  },
+  {
+    "Assembly": "FSharp.Core, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a",
+    "Signature": "M:Microsoft.FSharp.Core.ResultModule.ForAll\u0060\u00602(Microsoft.FSharp.Core.FSharpFunc{\u0060\u00600,System.Boolean},Microsoft.FSharp.Core.FSharpResult{\u0060\u00600,\u0060\u00601})"
+  },
+  {
+    "Assembly": "FSharp.Core, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a",
+    "Signature": "M:Microsoft.FSharp.Core.ResultModule.IsError\u0060\u00602(Microsoft.FSharp.Core.FSharpResult{\u0060\u00600,\u0060\u00601})"
+  },
+  {
+    "Assembly": "FSharp.Core, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a",
+    "Signature": "M:Microsoft.FSharp.Core.ResultModule.IsOk\u0060\u00602(Microsoft.FSharp.Core.FSharpResult{\u0060\u00600,\u0060\u00601})"
+  },
+  {
+    "Assembly": "FSharp.Core, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a",
+    "Signature": "M:Microsoft.FSharp.Core.ResultModule.MapError\u0060\u00603(Microsoft.FSharp.Core.FSharpFunc{\u0060\u00600,\u0060\u00601},Microsoft.FSharp.Core.FSharpResult{\u0060\u00602,\u0060\u00600})"
+  },
+  {
+    "Assembly": "FSharp.Core, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a",
+    "Signature": "M:Microsoft.FSharp.Core.ResultModule.Map\u0060\u00603(Microsoft.FSharp.Core.FSharpFunc{\u0060\u00600,\u0060\u00601},Microsoft.FSharp.Core.FSharpResult{\u0060\u00600,\u0060\u00602})"
+  },
+  {
+    "Assembly": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a",
+    "Signature": "M:System.String.#ctor(System.Char,System.Int32)"
+  },
+  {
+    "Assembly": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a",
+    "Signature": "M:System.String.Contains(System.Char)"
+  },
+  {
+    "Assembly": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a",
+    "Signature": "M:System.String.Contains(System.String,System.StringComparison)"
+  },
+  {
+    "Assembly": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a",
+    "Signature": "M:System.String.EndsWith(System.String,System.StringComparison)"
+  },
+  {
+    "Assembly": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a",
+    "Signature": "M:System.String.Equals(System.String,System.String,System.StringComparison)"
+  },
+  {
+    "Assembly": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a",
+    "Signature": "M:System.String.Equals(System.String,System.StringComparison)"
+  },
+  {
+    "Assembly": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a",
+    "Signature": "M:System.String.IsNullOrEmpty(System.String)"
+  },
+  {
+    "Assembly": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a",
+    "Signature": "M:System.String.IsNullOrWhiteSpace(System.String)"
+  },
+  {
+    "Assembly": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a",
+    "Signature": "M:System.String.StartsWith(System.String,System.StringComparison)"
+  },
+  {
+    "Assembly": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a",
+    "Signature": "M:System.String.ToLowerInvariant"
+  },
+  {
+    "Assembly": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a",
+    "Signature": "M:System.String.ToUpperInvariant"
+  },
+  {
+    "Assembly": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a",
+    "Signature": "M:System.String.Trim"
+  },
+  {
+    "Assembly": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a",
+    "Signature": "M:System.String.TrimEnd"
+  },
+  {
+    "Assembly": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a",
+    "Signature": "M:System.String.TrimStart"
+  },
+  {
+    "Assembly": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a",
+    "Signature": "M:System.String.get_Length"
+  },
+  {
+    "Assembly": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a",
+    "Signature": "P:System.String.Length"
+  },
+  {
+    "Assembly": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51",
+    "Signature": "M:System.String.#ctor(System.Char,System.Int32)"
+  },
+  {
+    "Assembly": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51",
+    "Signature": "M:System.String.Contains(System.Char)"
+  },
+  {
+    "Assembly": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51",
+    "Signature": "M:System.String.Contains(System.String,System.StringComparison)"
+  },
+  {
+    "Assembly": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51",
+    "Signature": "M:System.String.EndsWith(System.String,System.StringComparison)"
+  },
+  {
+    "Assembly": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51",
+    "Signature": "M:System.String.Equals(System.String,System.String,System.StringComparison)"
+  },
+  {
+    "Assembly": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51",
+    "Signature": "M:System.String.Equals(System.String,System.StringComparison)"
+  },
+  {
+    "Assembly": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51",
+    "Signature": "M:System.String.IsNullOrEmpty(System.String)"
+  },
+  {
+    "Assembly": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51",
+    "Signature": "M:System.String.IsNullOrWhiteSpace(System.String)"
+  },
+  {
+    "Assembly": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51",
+    "Signature": "M:System.String.StartsWith(System.String,System.StringComparison)"
+  },
+  {
+    "Assembly": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51",
+    "Signature": "M:System.String.ToLowerInvariant"
+  },
+  {
+    "Assembly": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51",
+    "Signature": "M:System.String.ToUpperInvariant"
+  },
+  {
+    "Assembly": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51",
+    "Signature": "M:System.String.Trim"
+  },
+  {
+    "Assembly": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51",
+    "Signature": "M:System.String.TrimEnd"
+  },
+  {
+    "Assembly": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51",
+    "Signature": "M:System.String.TrimStart"
+  },
+  {
+    "Assembly": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51",
+    "Signature": "M:System.String.get_Length"
+  },
+  {
+    "Assembly": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51",
+    "Signature": "P:System.String.Length"
+  },
+  {
+    "Assembly": "FSharp.Core, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a",
+    "Signature": "P:Microsoft.FSharp.Collections.FSharpList\u00601.Length"
+  },
+  {
+    "Assembly": "FSharp.Core, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a",
+    "Signature": "P:Microsoft.FSharp.Collections.FSharpSet\u00601.IsEmpty"
+  },
+  {
+    "Assembly": "FSharp.Core, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a",
+    "Signature": "P:Microsoft.FSharp.Collections.FSharpSet\u00601.Count"
+  },
+  {
+    "Assembly": "FSharp.Core, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a",
+    "Signature": "P:Microsoft.FSharp.Collections.FSharpMap\u00602.Count"
+  },
+  {
+    "Assembly": "FSharp.Core, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a",
+    "Signature": "M:Microsoft.FSharp.Collections.ListModule.SumBy\u0060\u00602(Microsoft.FSharp.Core.FSharpFunc{Microsoft.FSharp.Core.Unit,\u0060\u00601},Microsoft.FSharp.Core.FSharpFunc{\u0060\u00601,Microsoft.FSharp.Core.FSharpFunc{\u0060\u00601,\u0060\u00601}},Microsoft.FSharp.Core.FSharpFunc{\u0060\u00600,\u0060\u00601},Microsoft.FSharp.Collections.FSharpList{\u0060\u00600})"
+  },
+  {
+    "Assembly": "FSharp.Core, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a",
+    "Signature": "P:Microsoft.FSharp.Collections.FSharpList\u00601.IsEmpty"
+  },
+  {
+    "Assembly": "FSharp.Core, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a",
+    "Signature": "M:Microsoft.FSharp.Core.Operators.ToString\u0060\u00601(\u0060\u00600)"
+  },
+  {
+    "Assembly": "FSharp.Core, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a",
+    "Signature": "M:Microsoft.FSharp.Collections.SetModule.IsSubset\u0060\u00601(Microsoft.FSharp.Collections.FSharpSet{\u0060\u00600},Microsoft.FSharp.Collections.FSharpSet{\u0060\u00600})"
+  },
+  {
+    "Assembly": "FSharp.Core, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a",
+    "Signature": "M:Microsoft.FSharp.Core.Operators.op_LeftShift\u0060\u00601(Microsoft.FSharp.Core.FSharpFunc{\u0060\u00600,Microsoft.FSharp.Core.FSharpFunc{System.Int32,\u0060\u00600}},\u0060\u00600,System.Int32)"
+  },
+  {
+    "Assembly": "FSharp.Core, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a",
+    "Signature": "P:Microsoft.FSharp.Core.FSharpOption\u00601.IsNone"
+  },
+  {
+    "Assembly": "FSharp.Core, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a",
+    "Signature": "P:Microsoft.FSharp.Core.FSharpOption\u00601.IsSome"
+  },
+  {
+    "Assembly": "FSharp.Core, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a",
+    "Signature": "M:Microsoft.FSharp.Core.StringModule.Exists(Microsoft.FSharp.Core.FSharpFunc{System.Char,System.Boolean},System.String)"
+  },
+  {
+    "Assembly": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a",
+    "Signature": "M:System.Char.IsAsciiLetterOrDigit(System.Char)"
+  },
+  {
+    "Assembly": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51",
+    "Signature": "M:System.String.Substring(System.Int32)"
+  },
+  {
+    "Assembly": "FSharp.Core, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a",
+    "Signature": "M:Microsoft.FSharp.Core.StringModule.ForAll(Microsoft.FSharp.Core.FSharpFunc{System.Char,System.Boolean},System.String)"
+  },
+  {
+    "Assembly": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a",
+    "Signature": "M:System.Char.IsAsciiHexDigit(System.Char)"
+  },
+  {
+    "Assembly": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a",
+    "Signature": "M:System.Char.IsUpper(System.Char)"
+  },
+  {
+    "Assembly": "FSharp.Core, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a",
+    "Signature": "M:Microsoft.FSharp.Collections.ListModule.Reverse\u0060\u00601(Microsoft.FSharp.Collections.FSharpList{\u0060\u00600})"
+  }
+]

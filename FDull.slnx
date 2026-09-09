@@ -1,0 +1,7 @@
+<Solution>
+  <Project Path="src/FDull/FDull.fsproj" />
+  <Project Path="src/FDull.Worker/FDull.Worker.fsproj" />
+  <Project Path="src/FDull.Tool/FDull.Tool.fsproj" />
+  <Project Path="tests/FDull.Tests/FDull.Tests.fsproj" />
+  <Project Path="tests/FDull.ProcessFixture/FDull.ProcessFixture.fsproj" />
+</Solution>

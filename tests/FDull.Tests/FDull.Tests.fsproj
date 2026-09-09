@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup><IsTestProject>true</IsTestProject><IsPackable>false</IsPackable><GenerateProgramFile>false</GenerateProgramFile></PropertyGroup>
+  <ItemGroup>
+    <RuntimeHostConfigurationOption Include="System.GC.HeapHardLimit" Value="2147483648" />
+    <ProjectReference Include="../../src/FDull/FDull.fsproj" />
+    <ProjectReference Include="../../src/FDull.Worker/FDull.Worker.fsproj" ReferenceOutputAssembly="false" />
+    <ProjectReference Include="../FDull.ProcessFixture/FDull.ProcessFixture.fsproj" ReferenceOutputAssembly="false" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.14.1" />
+    <PackageReference Include="xunit" Version="2.9.3" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="3.1.3" />
+    <PackageReference Include="FsCheck" Version="2.16.6" />
+    <Compile Include="Fixtures.fs" /><Compile Include="SafetyTests.fs" />
+    <Compile Include="SafetyWorkerTests.fs" /><Compile Include="SafetyRangeTests.fs" />
+    <Compile Include="SafetyCoverageTests.fs" /><Compile Include="TransportTests.fs" /><Compile Include="WorkspaceTests.fs" />
+    <Compile Include="ProjectTests.fs" /><Compile Include="Program.fs" />
+    <Content Include="xunit.runner.json" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+</Project>

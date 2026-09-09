@@ -1,0 +1,10 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup><OutputType>Exe</OutputType><AssemblyName>fdull-worker</AssemblyName><IsPackable>false</IsPackable>
+    <RuntimeFrameworkVersion>10.0.4</RuntimeFrameworkVersion><RollForward>Disable</RollForward><UseAppHost>false</UseAppHost>
+  </PropertyGroup>
+  <ItemGroup>
+    <RuntimeHostConfigurationOption Include="System.GC.HeapHardLimit" Value="536870912" />
+    <ProjectReference Include="../FDull/FDull.fsproj" />
+    <Compile Include="Program.fs" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,49 @@
+# .NET build and test output
+**/bin/
+**/obj/
+**/TestResults/
+*.trx
+*.coverage
+*.coveragexml
+/artifacts/
+**/.fdull/
+
+# Local dependency, deployment and tool caches
+**/node_modules/
+**/.wrangler/
+**/.cache/
+**/.openai/
+**/.codex/
+
+# Local configuration and credentials
+.env
+.env.*
+!.env.example
+!.env.sample
+.dev.vars
+.dev.vars.*
+!.dev.vars.example
+*.key
+*.pem
+*.p12
+*.pfx
+*.snk
+secrets.json
+
+# Editor state
+.vs/
+.idea/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+*.swp
+*.swo
+*~
+
+# Operating-system metadata
+.DS_Store
+._*
+__MACOSX/
+Thumbs.db
+Desktop.ini

@@ -1,0 +1,37 @@
+{
+  "version": 1,
+  "dependencies": {
+    "net10.0": {
+      "FSharp.Core": {
+        "type": "Direct",
+        "requested": "[11.0.100, )",
+        "resolved": "11.0.100",
+        "contentHash": "uHOhmRT61RcPOTqYICfNdgB/kzCpLQK8DdNqHusS96xQZUJf0+RM5iwlkx+GmurVeUS6Pk1A2xfvqftcLLeZNw=="
+      },
+      "FSharp.Compiler.Service": {
+        "type": "Transitive",
+        "resolved": "43.12.100",
+        "contentHash": "/WJA3cCMs5NNTZAiOJWdyko/ZSx2oIGyNkv1fb1CFr3FvRY9cpOvNkLpf4KAWOJmgeXNQ53sGIJMKLK8HdkPSg==",
+        "dependencies": {
+          "FSharp.Core": "[11.0.100]"
+        }
+      },
+      "FSharp.SystemTextJson": {
+        "type": "Transitive",
+        "resolved": "1.4.36",
+        "contentHash": "1xLk0SBF1nedD74B77rcArjD2d+DeZwbNI7BVCAyKwIBERo1VoX8Mf4AtX0OV2L3ZeM/XS1b6BuhXCyoh0KBnw==",
+        "dependencies": {
+          "FSharp.Core": "4.7.0"
+        }
+      },
+      "fdull": {
+        "type": "Project",
+        "dependencies": {
+          "FSharp.Compiler.Service": "[43.12.100, 43.12.100]",
+          "FSharp.Core": "[11.0.100, )",
+          "FSharp.SystemTextJson": "[1.4.36, 1.4.36]"
+        }
+      }
+    }
+  }
+}
