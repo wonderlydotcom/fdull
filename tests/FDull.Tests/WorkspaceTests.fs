@@ -43,6 +43,69 @@ module WorkspaceTests =
     let ``reviewed policy inventory is sufficient without generated directories`` () =
         withPolicy (fun directory _ -> Assert.Equal(Ok(), Workspace.validatePolicy directory))
 
+    [<Fact>]
+    let ``mixed-language scope and internal links preserve inventory boundaries`` () =
+        withPolicy (fun directory policy ->
+            let path = Path.Combine(directory, policyFile)
+            let legacy = File.ReadAllText(path).Replace("  \"External\": null,\n", "")
+            File.WriteAllText(path, legacy)
+
+            match Workspace.validatePolicy directory with
+            | Ok() -> ()
+            | Error error -> failwith error
+
+            File.WriteAllText(path, Codec.encode policy)
+            let tooling = Path.Combine(directory, "tooling")
+            Directory.CreateDirectory tooling |> ignore
+            File.WriteAllText(Path.Combine(tooling, "check.py"), "print('checked')\n")
+
+            match Workspace.validatePolicy directory with
+            | Error message -> Assert.StartsWith("ARCH003:", message)
+            | Ok() -> failwith "Unclassified automation was accepted."
+
+            let reviewed =
+                { policy with
+                    External =
+                        Some
+                            [ { Path = "tooling"
+                                Kind = "automation"
+                                Reason =
+                                  "Python verifies a non-FSharp deployment artifact outside FDull's certification." } ] }
+
+            File.WriteAllText(Path.Combine(directory, policyFile), Codec.encode reviewed)
+            Assert.Equal(Ok(), Workspace.validatePolicy directory)
+
+            File.WriteAllText(Path.Combine(tooling, "Hidden.fs"), "module Hidden\nlet value = 1\n")
+
+            match Workspace.validatePolicy directory with
+            | Error message -> Assert.StartsWith("BUILD005:", message)
+            | Ok() -> failwith "An external classification hid FSharp source."
+
+            File.Delete(Path.Combine(tooling, "Hidden.fs"))
+
+            if not (OperatingSystem.IsWindows()) then
+                let agents = Path.Combine(directory, ".agents", "skills")
+                let claude = Path.Combine(directory, ".claude")
+                Directory.CreateDirectory agents |> ignore
+                Directory.CreateDirectory claude |> ignore
+                File.WriteAllText(Path.Combine(agents, "README.md"), "reviewed tool instructions\n")
+
+                Directory.CreateSymbolicLink(Path.Combine(claude, "skills"), "../.agents/skills")
+                |> ignore
+
+                let dependency = Path.Combine(directory, "node_modules", "package")
+                Directory.CreateDirectory dependency |> ignore
+                File.WriteAllText(Path.Combine(dependency, "index.js"), "process.exit(0)\n")
+
+                Assert.Equal(Ok(), Workspace.validatePolicy directory)
+
+                Directory.CreateSymbolicLink(Path.Combine(directory, "outside"), Path.GetTempPath())
+                |> ignore
+
+                match Workspace.validatePolicy directory with
+                | Error message -> Assert.StartsWith("ARCH003:", message)
+                | Ok() -> failwith "An escaping link was accepted.")
+
     [<Theory>]
     [<InlineData("source", "BUILD005")>]
     [<InlineData("build", "BUILD005")>]
@@ -168,6 +231,7 @@ module WorkspaceTests =
                     Profile = "PURE"
                     Digest = "source" } ]
               Inputs = []
+              External = None
               Capabilities = []
               Domains = []
               Constructors = [] }

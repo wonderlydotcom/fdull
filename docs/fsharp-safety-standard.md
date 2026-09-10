@@ -1327,6 +1327,8 @@ Company.FSharp.Guard.Tests
 
 Use FSharp.Compiler.Service for syntax, type-checking, resolved symbols, and checked expressions. The analyzer SDK can provide editor integration; it documents separate CLI/editor contexts and compatibility dependencies. Pin and test the supported FCS/Core/editor combination. [S04][S05][S06]
 
+FDull packages its editor frontend as `FDull.Analyzers`. It invokes the same source-token and syntax inspection used by the authoritative engine and maps those diagnostics to the FSharp.Analyzers SDK. This frontend is source-only and advisory; project, typed-symbol, policy, fingerprint, build, and completeness checks remain in the CLI/worker path.
+
 Do not assume C# Roslyn analyzers inspect F# source. Do not assume installing an editor analyzer means `dotnet build` executes it.
 
 ### 12.2 Pass A: source syntax and tokens
@@ -1506,6 +1508,13 @@ This JSON is a schema illustration. Replace placeholders with verified values du
       "profile": "BOUNDARY"
     }
   ],
+  "external": [
+    {
+      "path": "web",
+      "kind": "implementation",
+      "reason": "The TypeScript frontend has an independent required gate."
+    }
+  ],
   "approvedApiCatalog": "approved-apis.json",
   "approvedTypeCatalog": "approved-types.json",
   "approvedAttributeCatalog": "approved-attributes.json",
@@ -1521,6 +1530,8 @@ This JSON is a schema illustration. Replace placeholders with verified values du
 Validate schemas strictly: unknown keys, invalid IDs, duplicate/conflicting profiles, overlaps that widen trust, unresolved selectors, or impossible catalog entries fail. Do not ignore misspelled settings.
 
 Normalize paths and reject path traversal, symlink escapes, unexpected casing collisions, and source remapping that defeats policy assignment. A rename must not silently move code to a weaker profile.
+
+An external workspace classification is an explicit certification boundary for non-F# content, not an exception to an F# rule. It cannot hide compiler or dependency inputs, and the repository must reject missing, unused, duplicate, or overlapping classifications.
 
 ### 13.3 Permanent approved capabilities versus temporary exceptions
 
@@ -1761,6 +1772,8 @@ Choose one authoritative invocation path and share the rule engine. Avoid duplic
 
 Package editor diagnostics from the same analysis engine. Source-only findings should be fast; project/shape findings can run when complete context exists. Show unresolved/incomplete analysis honestly.
 
+FDull's FSharp.Analyzers SDK frontend exposes the canonical source-only pass to FsAutocomplete/Ionide. It provides immediate diagnostics while editing, but it cannot produce certification because the editor context does not establish the exact Release invocation, resolved project graph, reviewed capabilities, input fingerprints, or worker limits.
+
 Code fixes may suggest immutable transforms, DTO mapping, explicit cases, and named helper calls. Do not autofix by moving code to an adapter, adding policy exceptions, changing business semantics, or suppressing warnings.
 
 ### 15.4 Formatting and ordinary lint
@@ -1814,6 +1827,8 @@ Where conditional source is approved, enumerate supported variants or disallow t
 Include `.fs`, `.fsi`, linked sources, approved generated source, embedded/compiled source, and any additional compiler input. Do not trust the solution file as the sole project inventory; an omitted project must not bypass the gate and later ship.
 
 The source inventory should distinguish shipping code, tests, fixtures, tools, static assets, and unsupported/unassigned files. Unexpected compilable source or a new project fails until assigned. Negative fixtures are deliberate test inputs, never a generic `tests/**` exemption that shipping code may reference.
+
+A mixed-language repository may classify exact internal paths as external implementation, automation, or tooling. Each classification requires a reason and records the boundary of the F# certification. Classifications must be disjoint and cannot own F# compiler sources, projects, props/targets, solutions, response files, package locks, or SDK/NuGet configuration. The reviewed scope document is itself a fingerprinted build input. Restored dependency trees such as `node_modules` are excluded from authored inventory. Resolve links before applying path policy; only existing links whose final targets remain inside the repository are accepted.
 
 ### 16.3 Input and artifact identity
 

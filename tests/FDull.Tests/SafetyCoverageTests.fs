@@ -43,6 +43,8 @@ module SafetyCoverageTests =
                 |> Result.isError
             )
 
+        Assert.Equal(Ok(), WorkspaceCompilerPolicy.validate (baseline @ [ "--doc:obj/Release/net10.0/App.xml" ]))
+
     let private platform =
         Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "../../../../.."))
 

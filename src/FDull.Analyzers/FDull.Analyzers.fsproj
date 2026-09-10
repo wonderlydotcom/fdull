@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <PackageId>FDull.Analyzers</PackageId><IsPackable>true</IsPackable>
+    <Description>Advisory FDull source diagnostics for F# editors.</Description>
+    <PackageTags>F#;analyzers;editor;Ionide</PackageTags>
+    <DevelopmentDependency>true</DevelopmentDependency>
+    <SuppressDependenciesWhenPacking>true</SuppressDependenciesWhenPacking>
+    <IncludeBuildOutput>false</IncludeBuildOutput>
+    <NoPackageAnalysis>true</NoPackageAnalysis>
+    <TargetsForTfmSpecificContentInPackage>$(TargetsForTfmSpecificContentInPackage);AddFDullAnalyzerFiles</TargetsForTfmSpecificContentInPackage>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../FDull/FDull.fsproj" />
+    <PackageReference Include="FSharp.Analyzers.SDK" Version="[0.37.2]" />
+    <None Include="../../README.md" Pack="true" PackagePath="/" />
+    <Compile Include="Analyzer.fs" />
+  </ItemGroup>
+  <Target Name="AddFDullAnalyzerFiles">
+    <ItemGroup>
+      <TfmSpecificPackageFile Include="$(OutputPath)$(AssemblyName).dll" PackagePath="analyzers/dotnet/fs" />
+      <TfmSpecificPackageFile Include="$(OutputPath)FDull.dll" PackagePath="analyzers/dotnet/fs" />
+    </ItemGroup>
+  </Target>
+</Project>

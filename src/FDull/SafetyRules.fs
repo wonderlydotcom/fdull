@@ -194,7 +194,8 @@ module SafetyRules =
               "Unapproved languages/scripts/build extensions"
               [ guard; audit ]
               false
-              [ "WorkspaceTests.policy and inventory drift cannot certify a workspace" ]
+              [ "WorkspaceTests.policy and inventory drift cannot certify a workspace"
+                "WorkspaceTests.mixed-language scope and internal links preserve inventory boundaries" ]
               profileMatrix
           rule
               "ARCH004"
@@ -203,7 +204,13 @@ module SafetyRules =
               false
               [ "ProjectTests.every approved graph edge is exact and shipping cannot acquire a test dependency" ]
               "Additional configurations and generated-source producers require a separate exact inventory."
-          rule "BUILD001" "Suppression and path spoofing" [ syntax ] true [] applicationMatrix
+          rule
+              "BUILD001"
+              "Suppression and path spoofing"
+              [ syntax ]
+              true
+              [ "SafetyTests.valid FSharp violations have canonical diagnostics and physical locations" ]
+              applicationMatrix
           rule
               "BUILD002"
               "Compiler/toolchain policy drift"
@@ -242,7 +249,8 @@ module SafetyRules =
               [ workspace; audit ]
               false
               [ "WorkspaceTests.policy and inventory drift cannot certify a workspace"
-                "WorkspaceTests.permissions bind exact owners and cannot survive as unused entries" ]
+                "WorkspaceTests.permissions bind exact owners and cannot survive as unused entries"
+                "WorkspaceTests.mixed-language scope and internal links preserve inventory boundaries" ]
               "Temporary exceptions are unsupported. Organizational review identities and expiry require an external policy authority."
           rule
               "BUILD006"

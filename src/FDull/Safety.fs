@@ -47,7 +47,7 @@ module Safety =
                 Alternative = "Run the complete pinned platform toolchain with supported inputs."
                 Policy = SafetyPolicy.version } ] }
 
-    let private inputsMatch inputs =
+    let private inputsMatch (inputs: SafetyInput list) =
         inputs
         |> List.forall (fun input -> File.Exists input.Path && SafetyPolicy.fileDigest input.Path = input.Digest)
 

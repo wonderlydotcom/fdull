@@ -2,6 +2,18 @@
   "version": 1,
   "dependencies": {
     "net10.0": {
+      "FSharp.Analyzers.SDK": {
+        "type": "Direct",
+        "requested": "[0.37.2, 0.37.2]",
+        "resolved": "0.37.2",
+        "contentHash": "vO21YDtNZaSPPWrDC8/DbWl0FAYY5l/qzGAJaruajZSpLtVP8TilzSj5v7YkydD2kwaEjLkkmCCzJFr30/61pw==",
+        "dependencies": {
+          "FSharp.Compiler.Service": "43.12.201",
+          "FSharp.Core": "[10.1.201]",
+          "McMaster.NETCore.Plugins": "2.0.0",
+          "Microsoft.Extensions.Logging.Abstractions": "6.0.0"
+        }
+      },
       "FSharp.Core": {
         "type": "Direct",
         "requested": "[10.1.201, )",
@@ -23,6 +35,16 @@
         "dependencies": {
           "FSharp.Core": "4.7.0"
         }
+      },
+      "McMaster.NETCore.Plugins": {
+        "type": "Transitive",
+        "resolved": "2.0.0",
+        "contentHash": "pmmrI3qPE53xEJEcg575jQeDNPzMWfNJO8/SASlB9PLPrGVrsyVNFRrvfo+3BzcbQxfUBF1//gTOiJ82dOTlTw=="
+      },
+      "Microsoft.Extensions.Logging.Abstractions": {
+        "type": "Transitive",
+        "resolved": "6.0.0",
+        "contentHash": "/HggWBbTwy8TgebGSX5DBZ24ndhzi93sHUBDvP1IxbZD7FDokYzdAr6+vbWGjw2XAfR2EJ1sfKUotpjHnFWPxA=="
       },
       "fdull": {
         "type": "Project",

@@ -130,7 +130,7 @@ module ProjectTests =
         | Ok result -> Assert.True(result.ExitCode = 0, result.Error + result.Output)
         | Error error -> failwith error
 
-    let private prepare root =
+    let private restoreConsumer (root: string) (coreVersion: string option) (source: string) =
         File.WriteAllText(
             Path.Combine(root, "global.json"),
             "{\"sdk\":{\"version\":\"10.0.200\",\"rollForward\":\"disable\"}}"
@@ -143,13 +143,26 @@ module ProjectTests =
             "<configuration><packageSources><clear/><add key=\"nuget.org\" value=\"https://api.nuget.org/v3/index.json\"/></packageSources></configuration>"
         )
 
+        let coreProperty =
+            coreVersion
+            |> Option.map (fun version ->
+                "<PropertyGroup><FSharpCoreImplicitPackageVersion>"
+                + version
+                + "</FSharpCoreImplicitPackageVersion></PropertyGroup>")
+            |> Option.defaultValue ""
+
         File.WriteAllText(
             Path.Combine(root, "App.fsproj"),
-            "<Project Sdk=\"Microsoft.NET.Sdk\"><ItemGroup><Compile Include=\"App.fs\"/></ItemGroup></Project>"
+            "<Project Sdk=\"Microsoft.NET.Sdk\">"
+            + coreProperty
+            + "<ItemGroup><Compile Include=\"App.fs\"/></ItemGroup></Project>"
         )
 
-        File.WriteAllText(Path.Combine(root, "App.fs"), "module App\nlet increment value = value + 1\n")
+        File.WriteAllText(Path.Combine(root, "App.fs"), source)
         run root [ "restore"; "App.fsproj"; "-m:1"; "-nr:false" ]
+
+    let private prepare root =
+        restoreConsumer root None "module App\nlet increment value = value + 1\n"
 
         run
             root
@@ -162,6 +175,43 @@ module ProjectTests =
               "--disable-build-servers" ]
 
         Project.initialize root |> ignore
+
+    [<Fact>]
+    let ``initialization exports restored inputs and reviewed mixed-language scope without compiling`` () =
+        withDirectory (fun root ->
+            restoreConsumer root None "module App\nlet value: int = \"not an integer\"\n"
+            Directory.CreateDirectory(Path.Combine(root, "automation")) |> ignore
+            File.WriteAllText(Path.Combine(root, "automation/check.py"), "print('checked')\n")
+
+            File.WriteAllText(
+                Path.Combine(root, "fdull.scope.json"),
+                "{\"Version\":1,\"External\":[{\"Path\":\"automation\",\"Kind\":\"automation\",\"Reason\":\"Checks a deployment artifact outside the FSharp certification.\"}]}"
+            )
+
+            let policyFile = Project.initializeWithScope root (Some "fdull.scope.json")
+            let policy = File.ReadAllText policyFile |> Codec.decode<WorkspacePolicyDocument>
+            Assert.Equal(1, policy.External |> Option.map List.length |> Option.defaultValue 0)
+            Assert.Contains(policy.Inputs, fun input -> input.File = "fdull.scope.json"))
+
+    [<Fact>]
+    let ``the FSharp Core 10 consumer profile is supported`` () =
+        withDirectory (fun root ->
+            restoreConsumer root (Some "10.0.100") "module App\nlet increment value = value + 1\n"
+
+            run
+                root
+                [ "build"
+                  "App.fsproj"
+                  "-c"
+                  "Release"
+                  "--no-restore"
+                  "-m:1"
+                  "--disable-build-servers" ]
+
+            Project.initialize root |> ignore
+            let report = Workspace.check root
+            Assert.True(report.Complete, String.concat "\n" report.Errors)
+            Assert.Equal(0, report.ExitCode))
 
     let private read root =
         File.ReadAllText(Path.Combine(root, "fdull.json"))

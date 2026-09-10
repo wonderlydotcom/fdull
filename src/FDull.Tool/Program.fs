@@ -10,7 +10,7 @@ module Program =
         Console.WriteLine "FDull — F# with fewer sharp edges."
 
         Console.WriteLine
-            "fdull defaults | init <root> | lint <root> [--format text|json|sarif] | verify <root> | coverage"
+            "fdull defaults | init <root> [--scope <file>] | lint <root> [--format text|json|sarif] | verify <root> | coverage"
 
         2
 
@@ -56,6 +56,9 @@ module Program =
                 0
             | [ "init"; root ] ->
                 Project.initialize root |> Console.WriteLine
+                0
+            | [ "init"; root; "--scope"; scope ] ->
+                Project.initializeWithScope root (Some scope) |> Console.WriteLine
                 0
             | [ "lint"; root ] -> Workspace.check root |> display "text"
             | [ "lint"; root; "--format"; format ] when List.contains format [ "text"; "json"; "sarif" ] ->

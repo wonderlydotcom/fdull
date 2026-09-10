@@ -117,7 +117,7 @@ module internal SafetyAnalysis =
             |> Option.defaultValue ""
 
         let name = m.CompiledName
-        let core = m.Assembly.QualifiedName = SafetyPolicy.coreIdentity
+        let core = SafetyPolicy.isCoreIdentity m.Assembly.QualifiedName
 
         let collection =
             owner.StartsWith("Microsoft.FSharp.Collections.", StringComparison.Ordinal)
@@ -367,7 +367,7 @@ module internal SafetyAnalysis =
 
                 let intrinsic =
                     (Set.contains e.Assembly.QualifiedName SafetyPolicy.frameworkIdentities
-                     || e.Assembly.QualifiedName = SafetyPolicy.coreIdentity)
+                     || SafetyPolicy.isCoreIdentity e.Assembly.QualifiedName)
                     && (Set.contains name SafetyPolicy.purePrimitiveTypes
                         || Set.contains name SafetyPolicy.immutableContainers)
 
@@ -393,7 +393,7 @@ module internal SafetyAnalysis =
                         | None ->
                             let approved =
                                 (Set.contains e.Assembly.QualifiedName SafetyPolicy.frameworkIdentities
-                                 || e.Assembly.QualifiedName = SafetyPolicy.coreIdentity)
+                                 || SafetyPolicy.isCoreIdentity e.Assembly.QualifiedName)
                                 && (Set.contains name SafetyPolicy.purePrimitiveTypes
                                     || Set.contains name SafetyPolicy.immutableContainers)
 
@@ -476,7 +476,7 @@ module internal SafetyAnalysis =
                     elif
                         not (
                             (Set.contains e.Assembly.QualifiedName SafetyPolicy.frameworkIdentities
-                             || e.Assembly.QualifiedName = SafetyPolicy.coreIdentity)
+                             || SafetyPolicy.isCoreIdentity e.Assembly.QualifiedName)
                             && (Set.contains name SafetyPolicy.purePrimitiveTypes
                                 || Set.contains name SafetyPolicy.immutableContainers)
                         )
@@ -722,7 +722,7 @@ module internal SafetyAnalysis =
                     if
                         not (context.Attribute attr entity)
                         && not (
-                            entity.Assembly.QualifiedName = SafetyPolicy.coreIdentity
+                            SafetyPolicy.isCoreIdentity entity.Assembly.QualifiedName
                             && Set.contains name SafetyPolicy.attributes
                             && attr.Target.IsNone
                             && unitArgument
@@ -766,7 +766,7 @@ module internal SafetyAnalysis =
                 |> List.exists (fun useSite ->
                     match useSite.Symbol with
                     | :? FSharpMemberOrFunctionOrValue as memberInfo ->
-                        memberInfo.Assembly.QualifiedName = SafetyPolicy.coreIdentity
+                        SafetyPolicy.isCoreIdentity memberInfo.Assembly.QualifiedName
                         && memberInfo.CompiledName = "Reraise"
                     | _ -> false)
             | _ -> false
@@ -810,7 +810,7 @@ module internal SafetyAnalysis =
 
             match e with
             | FSharpExprPatterns.Call(_, m, _, _, args) ->
-                ((m.Assembly.QualifiedName = SafetyPolicy.coreIdentity
+                ((SafetyPolicy.isCoreIdentity m.Assembly.QualifiedName
                   && m.CompiledName = "Ignore")
                  || ignoreAliases.Contains m)
                 && args
@@ -818,7 +818,7 @@ module internal SafetyAnalysis =
                        | FSharpExprPatterns.Value _ -> true
                        | _ -> false)
             | FSharpExprPatterns.Value m ->
-                (m.Assembly.QualifiedName = SafetyPolicy.coreIdentity
+                (SafetyPolicy.isCoreIdentity m.Assembly.QualifiedName
                  && m.CompiledName = "Ignore")
                 || ignoreAliases.Contains m
             | FSharpExprPatterns.Lambda(_, body)
@@ -839,7 +839,7 @@ module internal SafetyAnalysis =
                 unitType (depth + 1) t.AbbreviatedType
             else
                 t.HasTypeDefinition
-                && t.TypeDefinition.Assembly.QualifiedName = SafetyPolicy.coreIdentity
+                && SafetyPolicy.isCoreIdentity t.TypeDefinition.Assembly.QualifiedName
                 && SafetyPolicy.entityName t.TypeDefinition = "Microsoft.FSharp.Core.Unit"
 
         // The pinned compiler lowers `use value = ...` to an IDisposable type
@@ -870,7 +870,7 @@ module internal SafetyAnalysis =
                 resourceRange
                 && disposable target
                 && tested = released
-                && unbox.Assembly.QualifiedName = SafetyPolicy.coreIdentity
+                && SafetyPolicy.isCoreIdentity unbox.Assembly.QualifiedName
                 && unbox.FullName = "Microsoft.FSharp.Core.LanguagePrimitives.IntrinsicFunctions.UnboxGeneric"
                 && Set.contains dispose.Assembly.QualifiedName SafetyPolicy.frameworkIdentities
                 && dispose.XmlDocSig = "M:System.IDisposable.Dispose"
@@ -916,7 +916,7 @@ module internal SafetyAnalysis =
                             arguments
                             |> List.collect (function
                                 | FSharpExprPatterns.Call(_, symbol, first, second, _) when
-                                    symbol.Assembly.QualifiedName = SafetyPolicy.coreIdentity
+                                    SafetyPolicy.isCoreIdentity symbol.Assembly.QualifiedName
                                     && symbol.CompiledName = "TypeOf"
                                     ->
                                     first @ second
@@ -950,7 +950,7 @@ module internal SafetyAnalysis =
                                 "Project validated domain values into an explicit transport record before serialization."
 
                 if
-                    (m.Assembly.QualifiedName = SafetyPolicy.coreIdentity
+                    (SafetyPolicy.isCoreIdentity m.Assembly.QualifiedName
                      && m.CompiledName = "Ignore")
                     || ignoreAliases.Contains m
                 then
