@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup><PackageId>FDull</PackageId><IsPackable>true</IsPackable></PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="FSharp.Compiler.Service" Version="[43.12.100]" />
+    <PackageReference Include="FSharp.Compiler.Service" Version="[43.12.201]" />
     <PackageReference Include="FSharp.SystemTextJson" Version="[1.4.36]" />
     <None Include="../../README.md" Pack="true" PackagePath="/" />
     <None Include="../../config/FDull.props" Pack="true" PackagePath="config/" />
@@ -16,6 +16,7 @@
     <Compile Include="SafetyLimits.fs" />
     <Compile Include="SafetyRanges.fs" />
     <Compile Include="SafetySyntax.fs" />
+    <Compile Include="EditorAnalysis.fs" />
     <Compile Include="SafetyContext.fs" />
     <Compile Include="SafetyAnalysis.fs" />
     <Compile Include="SafetyEngine.fs" />

@@ -17,6 +17,7 @@ or a proof that a program is safe.
 | --- | --- |
 | `FDull.Tool` | The `fdull` command with an isolated, resource-limited checker worker. Recommended for repositories and CI. |
 | `FDull` | The analysis engine and policy/report types for F# tooling authors, compiler defaults and rule specification. |
+| `FDull.Analyzers` | Advisory source diagnostics in FsAutocomplete/Ionide editors, using FDull's canonical syntax rules. |
 
 There are no application-framework or company-internal dependencies. The library
 uses FSharp.Compiler.Service and FSharp.SystemTextJson. The tool contains its
@@ -25,7 +26,8 @@ worker and dependencies and does not require a source checkout.
 ## Compatibility
 
 The preview supports **.NET SDK 10.0.200, F# 10.0, net10.0**, with
-**FSharp.Core 11.0.100** and **FSharp.Compiler.Service 43.12.100**. The worker
+**FSharp.Core 10.0.x or 10.1.x**. FDull itself pins **FSharp.Core 10.1.201** and
+**FSharp.Compiler.Service 43.12.201**. The worker
 requires **Microsoft.NETCore.App 10.0.4** and disables runtime roll-forward.
 Install the matching SDK/runtime first. New toolchains require compatibility
 tests; the preview rejects untested compiler flags.
@@ -33,8 +35,9 @@ tests; the preview rejects untested compiler flags.
 Workspaces contain ordinary F# SDK projects with literal project references and
 authored `.fs`/`.fsi` files. Release builds must use the standard
 `obj/Release/net10.0` generated metadata layout. Multi-targeting, custom source
-generators, arbitrary configurations and non-F# authored automation are not
-supported in this preview.
+generators and arbitrary configurations are not supported in this preview.
+Reviewed non-F# implementation, automation and tooling may coexist in a mixed
+repository through the external workspace scope described below.
 
 ## Start with a small project
 
@@ -61,12 +64,14 @@ For an existing repository, inspect `dotnet fdull defaults` and merge its settin
 into the existing props file. They enable checked arithmetic, nullability, strict
 warnings, deterministic compilation, dependency lock files and NuGet auditing.
 
-Restore and build once so the evaluated compiler inputs exist, then initialize:
+Restore so the evaluated compiler inputs exist, then initialize. Initialization
+does not compile the source and can bootstrap a repository whose newly enabled
+warnings do not yet pass:
 
 ```sh
 dotnet restore --use-lock-file
-dotnet build -c Release --no-restore -m:1 --disable-build-servers
 dotnet fdull init .
+dotnet build -c Release --no-restore -m:1 --disable-build-servers
 dotnet fdull lint .
 dotnet fdull verify .
 ```
@@ -76,6 +81,38 @@ a solution. `init` records the exact graph, source files and build fingerprints.
 It starts every project in `PURE`, grants **zero exceptions**, and refuses to
 replace an existing `fdull.json`. Review and commit policy and lock files. An
 initial lint failure means the code or its explicit policy needs work.
+
+For a mixed-language repository, create a reviewed scope document before init:
+
+```json
+{
+  "Version": 1,
+  "External": [
+    {
+      "Path": "scripts",
+      "Kind": "automation",
+      "Reason": "Deployment checks run outside FDull's F# certification."
+    },
+    {
+      "Path": "web",
+      "Kind": "implementation",
+      "Reason": "The TypeScript frontend has its own required checks."
+    }
+  ]
+}
+```
+
+```sh
+dotnet fdull init . --scope fdull.scope.json
+```
+
+The scope file is fingerprinted into `fdull.json`. Classifications must name
+specific internal paths and cannot overlap or hide F# source, project files,
+compiler props/targets, solutions, response files, lock files or SDK/NuGet
+configuration. They state what FDull does not certify; they do not suppress an
+F# diagnostic or grant a capability. `node_modules` is treated as a restored
+dependency tree. Symlinks are accepted only when their resolved target exists
+inside the workspace; external and broken links fail inventory validation.
 
 For example, this passes:
 
@@ -134,6 +171,20 @@ SARIF includes diagnostics and an invocation success flag; also check the exit c
 
 ## Library integration and limits
 
+For live editor feedback in FsAutocomplete/Ionide, reference the analyzer as a
+development dependency in each checked project:
+
+```xml
+<PackageReference Include="FDull.Analyzers" Version="0.1.0-preview.1"
+                  PrivateAssets="All" IncludeAssets="analyzers" />
+```
+
+The editor frontend reports source-syntax findings while a file is being edited.
+It is deliberately advisory: it does not validate resolved APIs, project graphs,
+fingerprints, builds or policy capabilities. `fdull verify` remains the complete
+repository gate. Analyzer suppression comments are themselves FDull violations
+and do not affect the authoritative CLI.
+
 Reference `FDull` version `0.1.0-preview.1` to consume `SafetyDiagnostic`,
 `SafetyReport`, workspace policy types and `SafetyEngine.check`. The in-process
 engine accepts ordered, fingerprinted source/reference inputs. Hosts must enforce
@@ -167,6 +218,7 @@ dotnet build FDull.slnx -c Release --no-restore -m:1 --disable-build-servers
 dotnet test tests/FDull.Tests/FDull.Tests.fsproj -c Release --no-build --no-restore -m:1
 dotnet src/FDull.Tool/bin/Release/net10.0/FDull.Cli.dll verify .
 dotnet pack src/FDull/FDull.fsproj -c Release --no-build --no-restore -m:1 --disable-build-servers -o artifacts
+dotnet pack src/FDull.Analyzers/FDull.Analyzers.fsproj -c Release --no-build --no-restore -m:1 --disable-build-servers -o artifacts
 dotnet pack src/FDull.Tool/FDull.Tool.fsproj -c Release --no-build --no-restore -m:1 --disable-build-servers -o artifacts
 ```
 

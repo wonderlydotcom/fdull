@@ -1,7 +1,7 @@
 <Project>
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework><LangVersion>10.0</LangVersion>
-    <FSharpCoreImplicitPackageVersion>11.0.100</FSharpCoreImplicitPackageVersion>
+    <FSharpCoreImplicitPackageVersion>10.1.201</FSharpCoreImplicitPackageVersion>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors><WarningLevel>5</WarningLevel>
     <WarnOn>21,22,52,1178,1182,3180,3186,3218,3391,3395,3559,3570,3579,3582,3878</WarnOn>
     <OtherFlags>$(OtherFlags) --checked+ --checknulls+</OtherFlags>

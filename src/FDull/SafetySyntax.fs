@@ -121,6 +121,7 @@ module internal SafetySyntax =
             if
                 comment.StartsWith("fsharplint:disable", StringComparison.OrdinalIgnoreCase)
                 || comment.StartsWith("fsharp-guard:disable", StringComparison.OrdinalIgnoreCase)
+                || comment.StartsWith("fsharpanalyzer:", StringComparison.OrdinalIgnoreCase)
             then
                 error
                     "BUILD001"
@@ -128,7 +129,7 @@ module internal SafetySyntax =
                         file
                         (Position.mkPos (lineNumber + 1) 0)
                         (Position.mkPos (lineNumber + 1) line.Length))
-                    "Source comments cannot suppress mandatory lint."
+                    "Source comments cannot suppress mandatory analysis."
                     "Remove the suppression."
 
         let rec walk inList typeDepth depth (node: obj | null) =

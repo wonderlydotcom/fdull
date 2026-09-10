@@ -92,6 +92,7 @@ module SafetyTests =
                   Inputs =
                     [ { File = "Fixture.fsproj"
                         Digest = SafetyPolicy.fileDigest project } ]
+                  External = None
                   Capabilities = []
                   Domains = [ "SafetyFixture.Quantity" ]
                   Constructors = [] }
@@ -247,6 +248,7 @@ module SafetyTests =
     [<InlineData("STYLE003", "let scan values = List.scan (+) 0 values")>]
     [<InlineData("BUILD001", "#nowarn \"25\"\nlet value = 1")>]
     [<InlineData("BUILD001", "// fsharplint:disable-next-line\nlet value = 1")>]
+    [<InlineData("BUILD001", "// fsharpanalyzer: ignore-line STYLE001\nlet value = 1")>]
     [<InlineData("BUILD001", "#if DEBUG\nlet value = 1\n#else\nlet value = 2\n#endif")>]
     let ``valid FSharp violations have canonical diagnostics and physical locations`` rule source =
         let report = check source

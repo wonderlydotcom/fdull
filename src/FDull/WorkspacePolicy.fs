@@ -2,6 +2,7 @@ namespace FDull
 
 open System
 open System.IO
+open System.Text.Json.Nodes
 open FSharp.Compiler.CodeAnalysis
 open FSharp.Compiler.Symbols
 open FSharp.Compiler.Text
@@ -15,6 +16,15 @@ type WorkspaceSource =
       Digest: string }
 
 type WorkspacePin = { File: string; Digest: string }
+
+type WorkspaceExternal =
+    { Path: string
+      Kind: string
+      Reason: string }
+
+type WorkspaceScopeDocument =
+    { Version: int
+      External: WorkspaceExternal list }
 
 type WorkspaceCapability =
     { File: string
@@ -33,6 +43,7 @@ type WorkspacePolicyDocument =
       Projects: WorkspaceProject list
       Sources: WorkspaceSource list
       Inputs: WorkspacePin list
+      External: WorkspaceExternal list option
       Capabilities: WorkspaceCapability list
       Domains: string list
       Constructors: string list }
@@ -93,7 +104,7 @@ module WorkspaceCompilerPolicy =
 
         let approved argument =
             Set.contains argument known
-            || [ "-o:"; "-r:"; "--embed:"; "--pathmap:"; "--sourcelink:" ]
+            || [ "-o:"; "-r:"; "--doc:"; "--embed:"; "--pathmap:"; "--sourcelink:" ]
                |> List.exists (fun prefix ->
                    argument.StartsWith(prefix, StringComparison.Ordinal)
                    && argument.Length > prefix.Length)
@@ -122,19 +133,59 @@ module internal WorkspacePolicy =
               "TEST"
               "GUARD_TOOLING" ]
 
-    let private localFile (file: string) =
+    let externalKinds = [ "implementation"; "automation"; "tooling" ]
+
+    let internal localFile (file: string) =
         not (String.IsNullOrWhiteSpace file)
         && not (Path.IsPathRooted file)
         && not (file.Contains('\\'))
         && file.Split('/')
            |> Array.forall (fun part -> part <> "" && part <> "." && part <> "..")
 
+    let externalEntries (document: WorkspacePolicyDocument) =
+        match document.External with
+        | Some entries -> entries
+        | None -> []
+
+    let private decodeDocument (text: string) =
+        let json = JsonNode.Parse text |> External.required "workspace.policy"
+        let fields = json.AsObject()
+
+        if not (fields.ContainsKey "External") then
+            fields.Add("External", JsonArray())
+
+        fields.ToJsonString() |> Codec.decode<WorkspacePolicyDocument>
+
+    let validateExternal entries =
+        let contains (parent: string) (child: string) =
+            child = parent || child.StartsWith(parent + "/", StringComparison.Ordinal)
+
+        entries
+        |> List.iter (fun entry ->
+            if
+                not (localFile entry.Path)
+                || not (List.contains entry.Kind externalKinds)
+                || String.IsNullOrWhiteSpace entry.Reason
+            then
+                invalidOp "BUILD005: Invalid external workspace classification.")
+
+        let paths = entries |> List.map _.Path
+
+        if
+            paths.Length <> (Set.ofList paths).Count
+            || paths
+               |> List.exists (fun path -> paths |> List.exists (fun other -> path <> other && contains other path))
+        then
+            invalidOp "BUILD005: Duplicate or overlapping external workspace classification."
+
     let read root =
         let path = Path.Combine(root, "fdull.json")
-        let document = File.ReadAllText path |> Codec.decode<WorkspacePolicyDocument>
+        let document = File.ReadAllText path |> decodeDocument
 
         if document.Version <> 1 || document.Sources.IsEmpty || document.Projects.IsEmpty then
             invalidOp "BUILD005: Missing or unsupported workspace policy."
+
+        validateExternal (externalEntries document)
 
         for project in document.Projects do
             if

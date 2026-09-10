@@ -40,10 +40,17 @@ module SafetyPolicy =
     let version = "fdull.strict.v1"
 
     let fcsIdentity =
-        "FSharp.Compiler.Service, Version=43.12.100.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"
+        "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"
 
     let coreIdentity =
-        "FSharp.Core, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"
+        "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"
+
+    let compatibleCoreIdentities =
+        [ "FSharp.Core, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"
+          coreIdentity ]
+
+    let isCoreIdentity identity =
+        List.contains identity compatibleCoreIdentities
 
 
     let frameworkIdentities =
@@ -118,7 +125,13 @@ module SafetyPolicy =
     let private apis = lazy (readCatalog ())
 
     let approvedApi (symbol: FSharpMemberOrFunctionOrValue) =
-        Set.contains (symbol.Assembly.QualifiedName, symbol.XmlDocSig) apis.Value
+        let assembly =
+            if isCoreIdentity symbol.Assembly.QualifiedName then
+                coreIdentity
+            else
+                symbol.Assembly.QualifiedName
+
+        Set.contains (assembly, symbol.XmlDocSig) apis.Value
 
     let validate () =
         SafetyRules.validate ()

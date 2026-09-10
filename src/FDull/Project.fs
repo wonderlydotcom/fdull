@@ -41,7 +41,7 @@ module Project =
         | Ok value -> value
         | Error error -> invalidOp error
 
-    let initialize directory =
+    let initializeWithScope directory scopeFile =
         let root = Path.GetFullPath directory
         let path = Path.Combine(root, "fdull.json")
 
@@ -49,6 +49,24 @@ module Project =
             invalidOp "BUILD005: fdull.json already exists; initialization never replaces reviewed policy."
 
         let files = WorkspaceAudit.inventory root
+
+        let external, scopeInputs =
+            match scopeFile with
+            | None -> [], []
+            | Some supplied ->
+                let full = Path.GetFullPath(supplied, root)
+                let relative = Path.GetRelativePath(root, full).Replace('\\', '/')
+
+                if not (WorkspacePolicy.localFile relative) || not (File.Exists full) then
+                    invalidOp "BUILD005: The scope document must be a file inside the workspace."
+
+                let scope = File.ReadAllText full |> Codec.decode<WorkspaceScopeDocument>
+
+                if scope.Version <> 1 then
+                    invalidOp "BUILD005: Missing or unsupported workspace scope."
+
+                WorkspacePolicy.validateExternal scope.External
+                scope.External, [ relative ]
 
         let projectFiles =
             files |> List.filter (fun file -> Path.GetExtension file = ".fsproj")
@@ -91,10 +109,12 @@ module Project =
                       Profile = "PURE"
                       References = invocation.ProjectReferences })
               Inputs =
-                controls
+                (controls @ scopeInputs)
+                |> List.distinct
                 |> List.map (fun file ->
                     { File = file
                       Digest = SafetyPolicy.fileDigest (Path.Combine(root, file)) })
+              External = if external.IsEmpty then None else Some external
               Capabilities = []
               Domains = []
               Constructors = [] }
@@ -102,6 +122,8 @@ module Project =
         WorkspaceAudit.validate root policy
         File.WriteAllText(path, Codec.encode policy)
         path
+
+    let initialize directory = initializeWithScope directory None
 
     /// A complete result is evidence for one exact, ordered compiler invocation.
     let matchesInvocation (project: WorkspaceProjectReport) (invocation: WorkspaceInvocation) =

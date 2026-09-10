@@ -115,6 +115,16 @@ module WorkspaceAudit =
         let budget =
             SafetyBudget(maximumSteps = 20000, maximumDepth = 32, milliseconds = 10000)
 
+        let root = Path.TrimEndingDirectorySeparator(Path.GetFullPath root)
+
+        let insideRoot path =
+            let relative = Path.GetRelativePath(root, path).Replace('\\', '/')
+
+            relative = "."
+            || (not (Path.IsPathRooted relative)
+                && relative <> ".."
+                && not (relative.StartsWith("../", StringComparison.Ordinal)))
+
         let rec walk depth relative =
             budget.Visit depth
 
@@ -126,10 +136,22 @@ module WorkspaceAudit =
                 let name = Path.GetFileName path |> Transport.External.required "inventory.filename"
                 let next = Path.GetRelativePath(root, path).Replace('\\', '/')
 
-                if List.contains name [ "bin"; "obj"; ".git"; ".fdull"; "artifacts" ] then
+                if List.contains name [ "bin"; "obj"; ".git"; ".fdull"; "artifacts"; "node_modules" ] then
                     []
                 elif File.GetAttributes(path) &&& FileAttributes.ReparsePoint = FileAttributes.ReparsePoint then
-                    invalidOp ("ARCH003: Linked inputs are unsupported: " + next)
+                    let target =
+                        if Directory.Exists path then
+                            DirectoryInfo(path).ResolveLinkTarget(true)
+                        else
+                            FileInfo(path).ResolveLinkTarget(true)
+                        |> Transport.External.required ("ARCH003: Broken linked input: " + next)
+
+                    let resolved = Path.GetFullPath target.FullName
+
+                    if not target.Exists || not (insideRoot resolved) then
+                        invalidOp ("ARCH003: Linked input escapes the workspace or is missing: " + next)
+
+                    []
                 elif Directory.Exists path then
                     walk (depth + 1) next
                 else
@@ -156,6 +178,42 @@ module WorkspaceAudit =
 
     let validate root (policy: WorkspacePolicyDocument) =
         let files = inventory root
+        let external = WorkspacePolicy.externalEntries policy
+
+        let contains (parent: string) (child: string) =
+            child = parent || child.StartsWith(parent + "/", StringComparison.Ordinal)
+
+        let classified file =
+            external |> List.exists (fun entry -> contains entry.Path file)
+
+        let protectedInput (file: string) =
+            let extension =
+                Path.GetExtension file
+                |> Transport.External.required "inventory.extension"
+                |> _.ToLowerInvariant()
+
+            let name =
+                Path.GetFileName file
+                |> Transport.External.required "inventory.filename"
+                |> _.ToLowerInvariant()
+
+            List.contains extension [ ".fs"; ".fsi"; ".fsproj"; ".props"; ".targets"; ".sln"; ".slnx"; ".rsp" ]
+            || List.contains name [ "nuget.config"; "global.json"; "packages.lock.json"; "dotnet-tools.json" ]
+
+        for entry in external do
+            let full = Path.Combine(root, entry.Path)
+            let owned = files |> List.filter (contains entry.Path)
+
+            if
+                (not (File.Exists full || Directory.Exists full))
+                || owned.IsEmpty
+                || owned |> List.exists protectedInput
+            then
+                invalidOp (
+                    "BUILD005: External classification is missing, unused or hides an F# build input: "
+                    + entry.Path
+                )
+
         let projects = policy.Projects |> List.map _.File |> Set.ofList
 
         let actualProjects =
@@ -209,9 +267,10 @@ module WorkspaceAudit =
                       ".cmd"
                       ".bat"
                       ".rsp" ]
+                && not (classified file)
             then
                 invalidOp (
-                    "ARCH003: Authored implementation and automation must be classified compiled F#: "
+                    "ARCH003: Non-F# implementation or automation requires an explicit external classification: "
                     + file
                 )
 
