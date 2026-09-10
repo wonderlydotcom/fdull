@@ -138,7 +138,7 @@
       "File": "src/FDull/Workspace.fs",
       "Project": "src/FDull/FDull.fsproj",
       "Profile": "GUARD_TOOLING",
-      "Digest": "sha256:6aea2960f808dcf2b44f78a4f16543518b6868ecdcf285cf68287e4e307136a3"
+      "Digest": "sha256:d8c2322590a6f5a604ff3e0d4e4b6a5745c60f44a3169cda3ee5e552df22cbef"
     },
     {
       "File": "src/FDull/Safety.fs",
@@ -222,7 +222,7 @@
       "File": "tests/FDull.Tests/ProjectTests.fs",
       "Project": "tests/FDull.Tests/FDull.Tests.fsproj",
       "Profile": "TEST",
-      "Digest": "sha256:4caecfe868dab5da4fe660ee220ecbdae747a8c451307fc4ceffd007e62b93b6"
+      "Digest": "sha256:85c76327db23868eae57f33a02d21ed19bc7bd8ac5912ca4f00722dd6ab558d4"
     },
     {
       "File": "tests/FDull.Tests/Program.fs",

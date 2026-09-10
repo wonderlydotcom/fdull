@@ -78,7 +78,7 @@ module Workspace =
               "-p:NonExistentFile=obj/fdull-export-never-created"
               "-p:BuildProjectReferences=false"
               "-p:FDullExport=true"
-              "-getItem:FscCommandLineArgs,ProjectReference"
+              "-getItem:FscCommandLineArgs,ProjectReference,Compile"
               "-m:1"
               "-nr:false"
               "-nologo" ]
@@ -98,6 +98,14 @@ module Workspace =
 
             let full file = Path.GetFullPath(file, directory)
 
+            let sources =
+                document.RootElement.GetProperty("Items").GetProperty("Compile").EnumerateArray()
+                |> Seq.map (fun item ->
+                    item.GetProperty("FullPath").GetString() |> External.required "workspace.source")
+                |> Seq.map Path.GetFullPath
+                |> Seq.filter (fun file -> List.contains (Path.GetExtension file) [ ".fs"; ".fsi" ])
+                |> Seq.toList
+
             let projectReferences =
                 document.RootElement.GetProperty("Items").GetProperty("ProjectReference").EnumerateArray()
                 |> Seq.map (fun item ->
@@ -105,13 +113,6 @@ module Workspace =
                     |> External.required "workspace.project-reference"
                     |> fun path -> Path.GetRelativePath(root, path).Replace('\\', '/'))
                 |> Seq.toList
-
-            let sources =
-                arguments
-                |> List.filter (fun arg ->
-                    not (arg.StartsWith("-", StringComparison.Ordinal))
-                    && List.contains (Path.GetExtension arg) [ ".fs"; ".fsi" ])
-                |> List.map full
 
             let references =
                 arguments

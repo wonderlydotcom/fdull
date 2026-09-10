@@ -194,6 +194,25 @@ module ProjectTests =
             Assert.Contains(policy.Inputs, fun input -> input.File = "fdull.scope.json"))
 
     [<Fact>]
+    let ``initialization excludes SDK generated FSharp compile inputs`` () =
+        withDirectory (fun root ->
+            restoreConsumer root None "module App\nlet value = 1\n"
+
+            let project = Path.Combine(root, "App.fsproj")
+
+            let webProject =
+                File.ReadAllText project
+                |> _.Replace("Microsoft.NET.Sdk", "Microsoft.NET.Sdk.Web")
+
+            File.WriteAllText(project, webProject)
+            run root [ "restore"; "App.fsproj"; "-m:1"; "-nr:false" ]
+
+            let policyFile = Project.initialize root
+            let policy = File.ReadAllText policyFile |> Codec.decode<WorkspacePolicyDocument>
+
+            Assert.Equal<string list>([ "App.fs" ], policy.Sources |> List.map _.File))
+
+    [<Fact>]
     let ``the FSharp Core 10 consumer profile is supported`` () =
         withDirectory (fun root ->
             restoreConsumer root (Some "10.0.100") "module App\nlet increment value = value + 1\n"
