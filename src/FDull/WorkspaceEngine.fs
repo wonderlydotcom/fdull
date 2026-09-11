@@ -186,33 +186,20 @@ module WorkspaceEngine =
 
             let sourceFiles = request.Sources |> List.map _.Path |> Set.ofList
 
-            let testSdkGenerated =
-                sourceFiles
-                |> Set.filter (fun file ->
-                    let normalized = file.Replace('\\', '/')
-
-                    normalized.EndsWith(
-                        "/microsoft.net.test.sdk/17.14.1/build/net8.0/Microsoft.NET.Test.Sdk.Program.fs",
-                        StringComparison.OrdinalIgnoreCase
-                    ))
-
-            let supportedGenerated =
-                requiredGenerated
-                |> Set.add (
-                    Path.Combine(
-                        projectDirectory,
-                        "obj/Release/net10.0/"
-                        + Path.GetFileNameWithoutExtension(request.Project)
-                        + ".MvcApplicationPartsAssemblyInfo.fs"
-                    )
-                )
-                |> Set.union testSdkGenerated
-
-            let generated = Set.intersect sourceFiles supportedGenerated
+            let generated =
+                match
+                    WorkspaceGenerated.supported
+                        projectDirectory
+                        request.Project
+                        (request.Sources |> List.map _.Path)
+                        (request.References |> List.map _.Path)
+                with
+                | Error error -> invalidOp error
+                | Ok supported -> Set.intersect sourceFiles supported
 
             if
                 expected.IsEmpty
-                || testSdkGenerated.Count > 1
+                || (sourceFiles |> Set.filter WorkspaceGenerated.isTestSdkProgram).Count > 1
                 || not (Set.isSubset requiredGenerated generated)
                 || Set.ofList request.Generated <> generated
                 || sourceFiles <> Set.union expected generated

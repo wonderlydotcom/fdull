@@ -66,7 +66,7 @@
       "File": "src/FDull/SafetyRules.fs",
       "Project": "src/FDull/FDull.fsproj",
       "Profile": "GUARD_TOOLING",
-      "Digest": "sha256:3f4603355407b9ecec52ac019c506cba1fc3c7dcf383003eed84afbe12e2f1f1"
+      "Digest": "sha256:9989749f689bb7604824b3e8aa0b07d3437eaab9b61190405735a44e5867eec4"
     },
     {
       "File": "src/FDull/SafetyPolicy.fs",
@@ -117,28 +117,34 @@
       "Digest": "sha256:d479854158d42e1294239009f266577529054ac2c46054b10abc61ec725ba9a2"
     },
     {
+      "File": "src/FDull/WorkspaceGenerated.fs",
+      "Project": "src/FDull/FDull.fsproj",
+      "Profile": "GUARD_TOOLING",
+      "Digest": "sha256:831b418b0b17c5fb4dc476dd17621487b3bce2424d4b475da565549e8de0484b"
+    },
+    {
       "File": "src/FDull/WorkspacePolicy.fs",
       "Project": "src/FDull/FDull.fsproj",
       "Profile": "GUARD_TOOLING",
-      "Digest": "sha256:5b1da193c414ab566825de3cf67c0fd1221a98c28b2c14c4e603d3861afe9f5b"
+      "Digest": "sha256:bf37859840b8c36d84929d85056878bf0cc20d757a8f309eef30d439c8a04b43"
     },
     {
       "File": "src/FDull/WorkspaceAudit.fs",
       "Project": "src/FDull/FDull.fsproj",
       "Profile": "GUARD_TOOLING",
-      "Digest": "sha256:5ca2491f01a977f70678f4fefa3202fb0d932ec945d67908d3d5ddc0044ee225"
+      "Digest": "sha256:0e5caae89fbec5af93c13cc26881d3e005c9f637829d1d373619fbe24aa6b97d"
     },
     {
       "File": "src/FDull/WorkspaceEngine.fs",
       "Project": "src/FDull/FDull.fsproj",
       "Profile": "GUARD_TOOLING",
-      "Digest": "sha256:5851fa509f85c8eefb8c42b1ceeca1153c37272009dc7a660b3923600831b489"
+      "Digest": "sha256:9dff3aa7b2b74899f33d185cff3b176df83f6ff2c18abe874e5632805482b471"
     },
     {
       "File": "src/FDull/Workspace.fs",
       "Project": "src/FDull/FDull.fsproj",
       "Profile": "GUARD_TOOLING",
-      "Digest": "sha256:d499c3a50601d52a8c2344239af191da6e3d1666fd3dee48990774c0bc7d88da"
+      "Digest": "sha256:54c44f4b66b15b0aec401f4f065443646806a25dd362674456dc27e592e7d76e"
     },
     {
       "File": "src/FDull/Safety.fs",
@@ -150,7 +156,7 @@
       "File": "src/FDull/Project.fs",
       "Project": "src/FDull/FDull.fsproj",
       "Profile": "GUARD_TOOLING",
-      "Digest": "sha256:a0c924fca2e7fdb5da594e1fd7611137a694833f62c618680a2e4bbd0c0e548f"
+      "Digest": "sha256:075d944e98ec9d373cb5d14db611212ecf46b6e03d27768738a31fea4214bf5e"
     },
     {
       "File": "src/FDull.Analyzers/Analyzer.fs",
@@ -162,7 +168,7 @@
       "File": "src/FDull.Tool/Program.fs",
       "Project": "src/FDull.Tool/FDull.Tool.fsproj",
       "Profile": "GUARD_TOOLING",
-      "Digest": "sha256:9b44a6c339e0b970a5158f4bac1126d7ffeda8f710c5607b3d458e9dd6b19420"
+      "Digest": "sha256:aa2a1a1406286e752bf59e08de932d2c8e2d7db6949bb8d290aa36f355f70ac8"
     },
     {
       "File": "src/FDull.Worker/Program.fs",
@@ -204,7 +210,7 @@
       "File": "tests/FDull.Tests/SafetyCoverageTests.fs",
       "Project": "tests/FDull.Tests/FDull.Tests.fsproj",
       "Profile": "TEST",
-      "Digest": "sha256:3a04ac0576473b12f573b72f06e9d95f07c949b20f7a4a5dc94f3e1e32f4f104"
+      "Digest": "sha256:6de381f28d05ea145bc4e70260d8ef69392c2ca9c86b5d14c46dfae4654bc783"
     },
     {
       "File": "tests/FDull.Tests/TransportTests.fs",
@@ -216,13 +222,13 @@
       "File": "tests/FDull.Tests/WorkspaceTests.fs",
       "Project": "tests/FDull.Tests/FDull.Tests.fsproj",
       "Profile": "TEST",
-      "Digest": "sha256:078f098b9a8d6640f4b3909d2394c74acefd3aac54f6377388ad824d49191d7c"
+      "Digest": "sha256:9b46f93a58dd9f5e7faf0f4a23dfd23592dcf58b62cbcd34fc1ed0cc567a6d21"
     },
     {
       "File": "tests/FDull.Tests/ProjectTests.fs",
       "Project": "tests/FDull.Tests/FDull.Tests.fsproj",
       "Profile": "TEST",
-      "Digest": "sha256:0f836d0dc7fe18ff98ad81f762164c122e21617ff2cddf07aafea572bd22da15"
+      "Digest": "sha256:38c5f7bdafc860d14191392cb34ea8a6a9c05698ade53538a8efe9fa5ff8ea6a"
     },
     {
       "File": "tests/FDull.Tests/Program.fs",
@@ -238,7 +244,7 @@
     },
     {
       "File": "Directory.Build.props",
-      "Digest": "sha256:3e1dc6ac1a849750926a529e1cc6dc7c96eac50be039ac8d5d68965d0be62113"
+      "Digest": "sha256:aa411e6cc140f900e7f35f5e5466cf0519ff0ead2b2b29d871d08da167d0df86"
     },
     {
       "File": "Directory.Build.targets",
@@ -262,7 +268,7 @@
     },
     {
       "File": "src/FDull/FDull.fsproj",
-      "Digest": "sha256:0757c98607b4b02b453f0c0fd1dbe00de587aaee78f5adbd948a91526519cdd5"
+      "Digest": "sha256:22cc5d8a3dfa7513824c7787bf8315cdcb5bda2d95c01e0331457a5a73cbe743"
     },
     {
       "File": "src/FDull/Policy/approved-apis.json",
@@ -5605,13 +5611,6 @@
       "Owner": "FDull.Workspace.export",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.GetExtension(System.String)",
-      "Reason": "Workspace authority validates exact reviewed sources, graph and compiler flags, binds build/reference/policy inputs, and rejects incomplete or changed worker responses. Exceptions remain failed checks."
-    },
-    {
-      "File": "src/FDull/Workspace.fs",
-      "Owner": "FDull.Workspace.export",
-      "Kind": "member",
-      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.GetFileNameWithoutExtension(System.String)",
       "Reason": "Workspace authority validates exact reviewed sources, graph and compiler flags, binds build/reference/policy inputs, and rejects incomplete or changed worker responses. Exceptions remain failed checks."
     },
     {
@@ -12973,63 +12972,63 @@
     },
     {
       "File": "tests/FDull.Tests/ProjectTests.fs",
-      "Owner": "FDull.Tests.ProjectTests.``the FSharp Core 10 Web and test SDK consumer profile is supported``",
+      "Owner": "FDull.Tests.ProjectTests.``the FSharp Core 10 Web test SDK and xUnit v3 consumer profiles are supported``",
       "Kind": "attribute",
       "Identity": "xunit.core, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | Xunit.FactAttribute |  | unit",
       "Reason": "The isolated consumer fixture restores and builds an F# Web/test project on pinned SDK 10.0.200 with FSharp Core 10.0.100, then initializes and analyzes the exact generated-source profile. Its bounded child process and temporary files cannot enter shipping code."
     },
     {
       "File": "tests/FDull.Tests/ProjectTests.fs",
-      "Owner": "FDull.Tests.ProjectTests.``the FSharp Core 10 Web and test SDK consumer profile is supported``",
+      "Owner": "FDull.Tests.ProjectTests.``the FSharp Core 10 Web test SDK and xUnit v3 consumer profiles are supported``",
       "Kind": "member",
       "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Project.initialize(System.String)",
       "Reason": "The isolated consumer fixture restores and builds an F# Web/test project on pinned SDK 10.0.200 with FSharp Core 10.0.100, then initializes and analyzes the exact generated-source profile. Its bounded child process and temporary files cannot enter shipping code."
     },
     {
       "File": "tests/FDull.Tests/ProjectTests.fs",
-      "Owner": "FDull.Tests.ProjectTests.``the FSharp Core 10 Web and test SDK consumer profile is supported``",
+      "Owner": "FDull.Tests.ProjectTests.``the FSharp Core 10 Web test SDK and xUnit v3 consumer profiles are supported``",
       "Kind": "member",
       "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Workspace.check(System.String)",
       "Reason": "The isolated consumer fixture restores and builds an F# Web/test project on pinned SDK 10.0.200 with FSharp Core 10.0.100, then initializes and analyzes the exact generated-source profile. Its bounded child process and temporary files cannot enter shipping code."
     },
     {
       "File": "tests/FDull.Tests/ProjectTests.fs",
-      "Owner": "FDull.Tests.ProjectTests.``the FSharp Core 10 Web and test SDK consumer profile is supported``",
+      "Owner": "FDull.Tests.ProjectTests.``the FSharp Core 10 Web test SDK and xUnit v3 consumer profiles are supported``",
       "Kind": "member",
       "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Core.StringModule.Concat(System.String,System.Collections.Generic.IEnumerable{System.String})",
       "Reason": "The isolated consumer fixture restores and builds an F# Web/test project on pinned SDK 10.0.200 with FSharp Core 10.0.100, then initializes and analyzes the exact generated-source profile. Its bounded child process and temporary files cannot enter shipping code."
     },
     {
       "File": "tests/FDull.Tests/ProjectTests.fs",
-      "Owner": "FDull.Tests.ProjectTests.``the FSharp Core 10 Web and test SDK consumer profile is supported``",
+      "Owner": "FDull.Tests.ProjectTests.``the FSharp Core 10 Web test SDK and xUnit v3 consumer profiles are supported``",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.File.WriteAllText(System.String,System.String)",
       "Reason": "The isolated consumer fixture restores and builds an F# Web/test project on pinned SDK 10.0.200 with FSharp Core 10.0.100, then initializes and analyzes the exact generated-source profile. Its bounded child process and temporary files cannot enter shipping code."
     },
     {
       "File": "tests/FDull.Tests/ProjectTests.fs",
-      "Owner": "FDull.Tests.ProjectTests.``the FSharp Core 10 Web and test SDK consumer profile is supported``",
+      "Owner": "FDull.Tests.ProjectTests.``the FSharp Core 10 Web test SDK and xUnit v3 consumer profiles are supported``",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.Combine(System.String,System.String)",
       "Reason": "The isolated consumer fixture restores and builds an F# Web/test project on pinned SDK 10.0.200 with FSharp Core 10.0.100, then initializes and analyzes the exact generated-source profile. Its bounded child process and temporary files cannot enter shipping code."
     },
     {
       "File": "tests/FDull.Tests/ProjectTests.fs",
-      "Owner": "FDull.Tests.ProjectTests.``the FSharp Core 10 Web and test SDK consumer profile is supported``",
+      "Owner": "FDull.Tests.ProjectTests.``the FSharp Core 10 Web test SDK and xUnit v3 consumer profiles are supported``",
       "Kind": "member",
       "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Equal``1(``0,``0)",
       "Reason": "The isolated consumer fixture restores and builds an F# Web/test project on pinned SDK 10.0.200 with FSharp Core 10.0.100, then initializes and analyzes the exact generated-source profile. Its bounded child process and temporary files cannot enter shipping code."
     },
     {
       "File": "tests/FDull.Tests/ProjectTests.fs",
-      "Owner": "FDull.Tests.ProjectTests.``the FSharp Core 10 Web and test SDK consumer profile is supported``",
+      "Owner": "FDull.Tests.ProjectTests.``the FSharp Core 10 Web test SDK and xUnit v3 consumer profiles are supported``",
       "Kind": "member",
       "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.True(System.Boolean,System.String)",
       "Reason": "The isolated consumer fixture restores and builds an F# Web/test project on pinned SDK 10.0.200 with FSharp Core 10.0.100, then initializes and analyzes the exact generated-source profile. Its bounded child process and temporary files cannot enter shipping code."
     },
     {
       "File": "tests/FDull.Tests/ProjectTests.fs",
-      "Owner": "FDull.Tests.ProjectTests.``the FSharp Core 10 Web and test SDK consumer profile is supported``",
+      "Owner": "FDull.Tests.ProjectTests.``the FSharp Core 10 Web test SDK and xUnit v3 consumer profiles are supported``",
       "Kind": "type",
       "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspaceReport",
       "Reason": "The isolated consumer fixture restores and builds an F# Web/test project on pinned SDK 10.0.200 with FSharp Core 10.0.100, then initializes and analyzes the exact generated-source profile. Its bounded child process and temporary files cannot enter shipping code."
@@ -13166,6 +13165,230 @@
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.Combine(System.String,System.String,System.String)",
       "Reason": "An isolated copied-policy fixture proves legacy migration, reviewed external boundaries, hidden FSharp rejection, dependency-tree exclusion, and internal versus escaping link handling. All mutations stay in a unique temporary directory."
+    },
+    {
+      "File": "src/FDull/WorkspaceAudit.fs",
+      "Owner": "FDull.WorkspaceAudit.inventory",
+      "Kind": "rule",
+      "Identity": "ERR001 | ",
+      "Reason": "Workspace inventory translates only its own bounded traversal failures into a contextual incomplete-analysis result; all other failures still propagate."
+    },
+    {
+      "File": "src/FDull/WorkspaceAudit.fs",
+      "Owner": "FDull.WorkspaceAudit.inventory",
+      "Kind": "rule",
+      "Identity": "ERR004 | exception handler",
+      "Reason": "Workspace inventory translates only its own bounded traversal failures into a contextual incomplete-analysis result; all other failures still propagate."
+    },
+    {
+      "File": "src/FDull/WorkspaceAudit.fs",
+      "Owner": "FDull.WorkspaceAudit.inventory",
+      "Kind": "rule",
+      "Identity": "ERR005 | error -> System.Exception",
+      "Reason": "Workspace inventory translates only its own bounded traversal failures into a contextual incomplete-analysis result; all other failures still propagate."
+    },
+    {
+      "File": "src/FDull/WorkspaceAudit.fs",
+      "Owner": "FDull.WorkspaceAudit.inventory",
+      "Kind": "member",
+      "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | P:System.Exception.Message",
+      "Reason": "Workspace inventory translates only its own bounded traversal failures into a contextual incomplete-analysis result; all other failures still propagate."
+    },
+    {
+      "File": "src/FDull/WorkspaceGenerated.fs",
+      "Owner": "FDull.WorkspaceGenerated.normalizedPath",
+      "Kind": "member",
+      "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | M:System.String.Replace(System.Char,System.Char)",
+      "Reason": "Generated-source attestation performs this exact operation only while matching reviewed xUnit 3.1.0, Microsoft Testing Platform 1.8.4 and optional JUnit logger 7.0.2 inputs."
+    },
+    {
+      "File": "src/FDull/WorkspaceGenerated.fs",
+      "Owner": "FDull.WorkspaceGenerated.text",
+      "Kind": "member",
+      "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | M:System.String.Replace(System.String,System.String,System.StringComparison)",
+      "Reason": "Generated-source attestation performs this exact operation only while matching reviewed xUnit 3.1.0, Microsoft Testing Platform 1.8.4 and optional JUnit logger 7.0.2 inputs."
+    },
+    {
+      "File": "src/FDull/WorkspaceGenerated.fs",
+      "Owner": "FDull.WorkspaceGenerated.text",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.File.ReadAllText(System.String)",
+      "Reason": "Generated-source attestation performs this exact operation only while matching reviewed xUnit 3.1.0, Microsoft Testing Platform 1.8.4 and optional JUnit logger 7.0.2 inputs."
+    },
+    {
+      "File": "src/FDull/WorkspaceGenerated.fs",
+      "Owner": "FDull.WorkspaceGenerated.isXunitEntryPoint",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.GetFileName(System.String)",
+      "Reason": "Generated-source attestation performs this exact operation only while matching reviewed xUnit 3.1.0, Microsoft Testing Platform 1.8.4 and optional JUnit logger 7.0.2 inputs."
+    },
+    {
+      "File": "src/FDull/WorkspaceGenerated.fs",
+      "Owner": "FDull.WorkspaceGenerated.isTestingPlatformExtensions",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.GetFileName(System.String)",
+      "Reason": "Generated-source attestation performs this exact operation only while matching reviewed xUnit 3.1.0, Microsoft Testing Platform 1.8.4 and optional JUnit logger 7.0.2 inputs."
+    },
+    {
+      "File": "src/FDull/WorkspaceGenerated.fs",
+      "Owner": "FDull.WorkspaceGenerated.defaultRunnerReporters",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Core.StringModule.Concat(System.String,System.Collections.Generic.IEnumerable{System.String})",
+      "Reason": "Generated-source attestation performs this exact operation only while matching reviewed xUnit 3.1.0, Microsoft Testing Platform 1.8.4 and optional JUnit logger 7.0.2 inputs."
+    },
+    {
+      "File": "src/FDull/WorkspaceGenerated.fs",
+      "Owner": "FDull.WorkspaceGenerated.testingPlatformExtensions",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Core.StringModule.Concat(System.String,System.Collections.Generic.IEnumerable{System.String})",
+      "Reason": "Generated-source attestation performs this exact operation only while matching reviewed xUnit 3.1.0, Microsoft Testing Platform 1.8.4 and optional JUnit logger 7.0.2 inputs."
+    },
+    {
+      "File": "src/FDull/WorkspaceGenerated.fs",
+      "Owner": "FDull.WorkspaceGenerated.xunitEntryPoint",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Core.StringModule.Concat(System.String,System.Collections.Generic.IEnumerable{System.String})",
+      "Reason": "Generated-source attestation performs this exact operation only while matching reviewed xUnit 3.1.0, Microsoft Testing Platform 1.8.4 and optional JUnit logger 7.0.2 inputs."
+    },
+    {
+      "File": "src/FDull/WorkspaceGenerated.fs",
+      "Owner": "FDull.WorkspaceGenerated.validNamespace",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.ArrayModule.ToList``1(``0[])",
+      "Reason": "Generated-source attestation performs this exact operation only while matching reviewed xUnit 3.1.0, Microsoft Testing Platform 1.8.4 and optional JUnit logger 7.0.2 inputs."
+    },
+    {
+      "File": "src/FDull/WorkspaceGenerated.fs",
+      "Owner": "FDull.WorkspaceGenerated.validNamespace",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.Char.IsLetter(System.Char)",
+      "Reason": "Generated-source attestation performs this exact operation only while matching reviewed xUnit 3.1.0, Microsoft Testing Platform 1.8.4 and optional JUnit logger 7.0.2 inputs."
+    },
+    {
+      "File": "src/FDull/WorkspaceGenerated.fs",
+      "Owner": "FDull.WorkspaceGenerated.validNamespace",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.Char.IsLetterOrDigit(System.Char)",
+      "Reason": "Generated-source attestation performs this exact operation only while matching reviewed xUnit 3.1.0, Microsoft Testing Platform 1.8.4 and optional JUnit logger 7.0.2 inputs."
+    },
+    {
+      "File": "src/FDull/WorkspaceGenerated.fs",
+      "Owner": "FDull.WorkspaceGenerated.validNamespace",
+      "Kind": "member",
+      "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | M:System.String.Split(System.Char,System.StringSplitOptions)",
+      "Reason": "Generated-source attestation performs this exact operation only while matching reviewed xUnit 3.1.0, Microsoft Testing Platform 1.8.4 and optional JUnit logger 7.0.2 inputs."
+    },
+    {
+      "File": "src/FDull/WorkspaceGenerated.fs",
+      "Owner": "FDull.WorkspaceGenerated.xunitV3",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.ArrayModule.TryFind``1(Microsoft.FSharp.Core.FSharpFunc{``0,System.Boolean},``0[])",
+      "Reason": "Generated-source attestation performs this exact operation only while matching reviewed xUnit 3.1.0, Microsoft Testing Platform 1.8.4 and optional JUnit logger 7.0.2 inputs."
+    },
+    {
+      "File": "src/FDull/WorkspaceGenerated.fs",
+      "Owner": "FDull.WorkspaceGenerated.xunitV3",
+      "Kind": "member",
+      "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | M:System.String.Split(System.Char,System.StringSplitOptions)",
+      "Reason": "Generated-source attestation performs this exact operation only while matching reviewed xUnit 3.1.0, Microsoft Testing Platform 1.8.4 and optional JUnit logger 7.0.2 inputs."
+    },
+    {
+      "File": "src/FDull/WorkspaceGenerated.fs",
+      "Owner": "FDull.WorkspaceGenerated.xunitV3",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.Combine(System.String,System.String)",
+      "Reason": "Generated-source attestation performs this exact operation only while matching reviewed xUnit 3.1.0, Microsoft Testing Platform 1.8.4 and optional JUnit logger 7.0.2 inputs."
+    },
+    {
+      "File": "src/FDull/WorkspaceGenerated.fs",
+      "Owner": "FDull.WorkspaceGenerated.supported",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Core.OptionModule.OfObj``1(``0)",
+      "Reason": "Generated-source attestation performs this exact operation only while matching reviewed xUnit 3.1.0, Microsoft Testing Platform 1.8.4 and optional JUnit logger 7.0.2 inputs."
+    },
+    {
+      "File": "src/FDull/WorkspaceGenerated.fs",
+      "Owner": "FDull.WorkspaceGenerated.supported",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.Combine(System.String,System.String)",
+      "Reason": "Generated-source attestation performs this exact operation only while matching reviewed xUnit 3.1.0, Microsoft Testing Platform 1.8.4 and optional JUnit logger 7.0.2 inputs."
+    },
+    {
+      "File": "src/FDull/WorkspaceGenerated.fs",
+      "Owner": "FDull.WorkspaceGenerated.supported",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.GetFileNameWithoutExtension(System.String)",
+      "Reason": "Generated-source attestation performs this exact operation only while matching reviewed xUnit 3.1.0, Microsoft Testing Platform 1.8.4 and optional JUnit logger 7.0.2 inputs."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.``the FSharp Core 10 Web test SDK and xUnit v3 consumer profiles are supported``",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspaceInvocation",
+      "Reason": "The consumer regression creates and inspects an isolated xUnit v3 project, then deliberately tampers with one generated source to prove the exact profile fails closed."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.``the FSharp Core 10 Web test SDK and xUnit v3 consumer profiles are supported``",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Workspace.export(System.String,System.String)",
+      "Reason": "The consumer regression creates and inspects an isolated xUnit v3 project, then deliberately tampers with one generated source to prove the exact profile fails closed."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.``the FSharp Core 10 Web test SDK and xUnit v3 consumer profiles are supported``",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Core.Operators.FailWith``1(System.String)",
+      "Reason": "The consumer regression creates and inspects an isolated xUnit v3 project, then deliberately tampers with one generated source to prove the exact profile fails closed."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.``the FSharp Core 10 Web test SDK and xUnit v3 consumer profiles are supported``",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Contains``1(System.Collections.Generic.IEnumerable{``0},System.Predicate{``0})",
+      "Reason": "The consumer regression creates and inspects an isolated xUnit v3 project, then deliberately tampers with one generated source to prove the exact profile fails closed."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.``the FSharp Core 10 Web test SDK and xUnit v3 consumer profiles are supported``",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.GetFileName(System.String)",
+      "Reason": "The consumer regression creates and inspects an isolated xUnit v3 project, then deliberately tampers with one generated source to prove the exact profile fails closed."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.``the FSharp Core 10 Web test SDK and xUnit v3 consumer profiles are supported``",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Transport.Codec.encode``1(``0)",
+      "Reason": "The consumer regression creates and inspects an isolated xUnit v3 project, then deliberately tampers with one generated source to prove the exact profile fails closed."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.``the FSharp Core 10 Web test SDK and xUnit v3 consumer profiles are supported``",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.File.AppendAllText(System.String,System.String)",
+      "Reason": "The consumer regression creates and inspects an isolated xUnit v3 project, then deliberately tampers with one generated source to prove the exact profile fails closed."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.``the FSharp Core 10 Web test SDK and xUnit v3 consumer profiles are supported``",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.StartsWith(System.String,System.String)",
+      "Reason": "The consumer regression creates and inspects an isolated xUnit v3 project, then deliberately tampers with one generated source to prove the exact profile fails closed."
+    },
+    {
+      "File": "tests/FDull.Tests/WorkspaceTests.fs",
+      "Owner": "FDull.Tests.WorkspaceTests.``mixed-language scope and internal links preserve inventory boundaries``",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.WorkspaceAudit.inventory(System.String)",
+      "Reason": "The mixed-workspace regression directly inspects inventory and asserts that the configured generated artifact tree cannot consume traversal budget or become protected source."
+    },
+    {
+      "File": "tests/FDull.Tests/WorkspaceTests.fs",
+      "Owner": "FDull.Tests.WorkspaceTests.``mixed-language scope and internal links preserve inventory boundaries``",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.DoesNotContain``1(System.Collections.Generic.IEnumerable{``0},System.Predicate{``0})",
+      "Reason": "The mixed-workspace regression directly inspects inventory and asserts that the configured generated artifact tree cannot consume traversal budget or become protected source."
     }
   ],
   "Domains": [],

@@ -78,10 +78,19 @@ module WorkspaceTests =
             File.WriteAllText(Path.Combine(tooling, "Hidden.fs"), "module Hidden\nlet value = 1\n")
 
             match Workspace.validatePolicy directory with
-            | Error message -> Assert.StartsWith("BUILD005:", message)
+            | Error message -> Assert.StartsWith("ARCH002:", message)
             | Ok() -> failwith "An external classification hid FSharp source."
 
             File.Delete(Path.Combine(tooling, "Hidden.fs"))
+
+            let artifacts = Path.Combine(directory, ".artifacts", "build-bin")
+            Directory.CreateDirectory artifacts |> ignore
+            File.WriteAllText(Path.Combine(artifacts, "Generated.fs"), "module Generated\nlet value = 1\n")
+
+            Assert.DoesNotContain(
+                WorkspaceAudit.inventory directory,
+                fun file -> file.StartsWith(".artifacts/", StringComparison.Ordinal)
+            )
 
             if not (OperatingSystem.IsWindows()) then
                 let agents = Path.Combine(directory, ".agents", "skills")

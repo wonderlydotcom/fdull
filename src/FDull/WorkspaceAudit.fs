@@ -136,7 +136,9 @@ module WorkspaceAudit =
                 let name = Path.GetFileName path |> Transport.External.required "inventory.filename"
                 let next = Path.GetRelativePath(root, path).Replace('\\', '/')
 
-                if List.contains name [ "bin"; "obj"; ".git"; ".fdull"; "artifacts"; "node_modules" ] then
+                if
+                    List.contains name [ "bin"; "obj"; ".git"; ".fdull"; "artifacts"; ".artifacts"; "node_modules" ]
+                then
                     []
                 elif File.GetAttributes(path) &&& FileAttributes.ReparsePoint = FileAttributes.ReparsePoint then
                     let target =
@@ -157,7 +159,13 @@ module WorkspaceAudit =
                 else
                     [ next ])
 
-        walk 0 ""
+        try
+            walk 0 ""
+        with error when
+            error.Message = "Analysis traversal exceeded the supported work budget."
+            || error.Message = "Analysis nesting exceeded the supported work budget."
+            || error.Message = "Analysis exceeded the supported time budget." ->
+            invalidOp "BUILD003: Workspace inventory exceeded its bounded traversal budget."
 
     let references (root: string) (project: string) =
         let directory =
@@ -186,33 +194,12 @@ module WorkspaceAudit =
         let classified file =
             external |> List.exists (fun entry -> contains entry.Path file)
 
-        let protectedInput (file: string) =
-            let extension =
-                Path.GetExtension file
-                |> Transport.External.required "inventory.extension"
-                |> _.ToLowerInvariant()
-
-            let name =
-                Path.GetFileName file
-                |> Transport.External.required "inventory.filename"
-                |> _.ToLowerInvariant()
-
-            List.contains extension [ ".fs"; ".fsi"; ".fsproj"; ".props"; ".targets"; ".sln"; ".slnx"; ".rsp" ]
-            || List.contains name [ "nuget.config"; "global.json"; "packages.lock.json"; "dotnet-tools.json" ]
-
         for entry in external do
             let full = Path.Combine(root, entry.Path)
             let owned = files |> List.filter (contains entry.Path)
 
-            if
-                (not (File.Exists full || Directory.Exists full))
-                || owned.IsEmpty
-                || owned |> List.exists protectedInput
-            then
-                invalidOp (
-                    "BUILD005: External classification is missing, unused or hides an F# build input: "
-                    + entry.Path
-                )
+            if (not (File.Exists full || Directory.Exists full)) || owned.IsEmpty then
+                invalidOp ("BUILD005: External classification is missing or unused: " + entry.Path)
 
         let projects = policy.Projects |> List.map _.File |> Set.ofList
 

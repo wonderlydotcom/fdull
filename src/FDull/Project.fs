@@ -94,7 +94,15 @@ module Project =
             |> List.filter (fun file ->
                 List.contains
                     (Path.GetExtension file)
-                    [ ".props"; ".targets"; ".fsproj"; ".sln"; ".slnx"; ".yml"; ".yaml" ]
+                    [ ".props"
+                      ".targets"
+                      ".fsproj"
+                      ".csproj"
+                      ".vbproj"
+                      ".sln"
+                      ".slnx"
+                      ".yml"
+                      ".yaml" ]
                 || List.contains
                     ((Path.GetFileName file |> External.required "project.input-name").ToLowerInvariant())
                     [ "global.json"; "nuget.config"; "packages.lock.json"; "dotnet-tools.json" ])
