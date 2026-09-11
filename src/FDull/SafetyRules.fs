@@ -203,7 +203,7 @@ module SafetyRules =
               [ build; guard; audit ]
               false
               [ "ProjectTests.every approved graph edge is exact and shipping cannot acquire a test dependency" ]
-              "Additional configurations and generated-source producers require a separate exact inventory."
+              "Additional configurations and generated-source producers beyond the reviewed SDK, Web SDK, Test SDK 17.14.1 and xUnit v3.1 profiles require a separate exact inventory."
           rule
               "BUILD001"
               "Suppression and path spoofing"
@@ -222,7 +222,11 @@ module SafetyRules =
           rule
               "BUILD003"
               "Incomplete analysis and checker failure"
-              [ engine; worker; "src/FDull/SafetyLimits.fs"; "src/FDull/WorkspaceEngine.fs" ]
+              [ engine
+                worker
+                "src/FDull/SafetyLimits.fs"
+                "src/FDull/WorkspaceEngine.fs"
+                "src/FDull/WorkspaceGenerated.fs" ]
               false
               [ "SafetyTests.unsupported type nesting cannot report complete analysis"
                 "SafetyTests.unsupported expression depth fails before typed traversal"
@@ -232,7 +236,8 @@ module SafetyRules =
                 "SafetyWorkerTests.crash or malformed output cannot certify inputs"
                 "SafetyWorkerTests.worker runtime configuration enforces the managed heap limit"
                 "SafetyWorkerTests.an allocation beyond the worker heap ceiling fails inside the child"
-                "WorkspaceTests.workspace reports reject inconsistent process diagnostics and observations" ]
+                "WorkspaceTests.workspace reports reject inconsistent process diagnostics and observations"
+                "ProjectTests.the FSharp Core 10 Web test SDK and xUnit v3 consumer profiles are supported" ]
               "Complete supported-profile/unknown-classification compatibility coverage; resource limits do not prove termination."
           rule
               "BUILD004"

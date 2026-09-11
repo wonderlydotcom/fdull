@@ -20,6 +20,7 @@
     <Compile Include="SafetyContext.fs" />
     <Compile Include="SafetyAnalysis.fs" />
     <Compile Include="SafetyEngine.fs" />
+    <Compile Include="WorkspaceGenerated.fs" />
     <Compile Include="WorkspacePolicy.fs" />
     <Compile Include="WorkspaceAudit.fs" />
     <Compile Include="WorkspaceEngine.fs" />

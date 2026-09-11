@@ -121,75 +121,55 @@ module Workspace =
                     else
                         None)
 
-            let testSdkProgram (file: string) =
-                let normalized = file.Replace('\\', '/')
+            match WorkspaceGenerated.supported directory project sources references with
+            | Error error -> Error error
+            | Ok generatedSet ->
+                let generated = sources |> List.filter (fun file -> Set.contains file generatedSet)
 
-                normalized.EndsWith(
-                    "/microsoft.net.test.sdk/17.14.1/build/net8.0/Microsoft.NET.Test.Sdk.Program.fs",
-                    StringComparison.OrdinalIgnoreCase
-                )
+                let unsupportedGenerated =
+                    sources
+                    |> List.filter (fun file ->
+                        let relativeToProject = Path.GetRelativePath(directory, file).Replace('\\', '/')
+                        let relativeToRoot = Path.GetRelativePath(root, file).Replace('\\', '/')
 
-            let testSdkGenerated = sources |> List.filter testSdkProgram
+                        (relativeToProject.StartsWith("obj/Release/net10.0/", StringComparison.Ordinal)
+                         || relativeToRoot = ".."
+                         || relativeToRoot.StartsWith("../", StringComparison.Ordinal))
+                        && not (Set.contains file generatedSet))
 
-            let generated =
-                ([ full "obj/Release/net10.0/.NETCoreApp,Version=v10.0.AssemblyAttributes.fs"
-                   full (
-                       "obj/Release/net10.0/"
-                       + Path.GetFileNameWithoutExtension project
-                       + ".AssemblyInfo.fs"
-                   )
-                   full (
-                       "obj/Release/net10.0/"
-                       + Path.GetFileNameWithoutExtension project
-                       + ".MvcApplicationPartsAssemblyInfo.fs"
-                   ) ]
-                 |> List.filter (fun file -> List.contains file sources))
-                @ testSdkGenerated
+                let sourceSet = Set.ofList sources
 
-            let unsupportedGenerated =
-                sources
-                |> List.filter (fun file ->
-                    let relativeToProject = Path.GetRelativePath(directory, file).Replace('\\', '/')
-                    let relativeToRoot = Path.GetRelativePath(root, file).Replace('\\', '/')
+                let flags =
+                    arguments
+                    |> List.filter (fun argument -> not (Set.contains (full argument) sourceSet))
+                    |> List.map (fun argument ->
+                        if argument.StartsWith("-r:", StringComparison.Ordinal) then
+                            "-r:" + full (argument.Substring 3)
+                        elif argument.StartsWith("-o:", StringComparison.Ordinal) then
+                            "-o:" + full (argument.Substring 3)
+                        else
+                            argument)
 
-                    (relativeToProject.StartsWith("obj/Release/net10.0/", StringComparison.Ordinal)
-                     || relativeToRoot = ".."
-                     || relativeToRoot.StartsWith("../", StringComparison.Ordinal))
-                    && not (List.contains file generated))
-
-            let sourceSet = Set.ofList sources
-
-            let flags =
-                arguments
-                |> List.filter (fun argument -> not (Set.contains (full argument) sourceSet))
-                |> List.map (fun argument ->
-                    if argument.StartsWith("-r:", StringComparison.Ordinal) then
-                        "-r:" + full (argument.Substring 3)
-                    elif argument.StartsWith("-o:", StringComparison.Ordinal) then
-                        "-o:" + full (argument.Substring 3)
-                    else
-                        argument)
-
-            match unsupportedGenerated with
-            | file :: _ ->
-                Error(
-                    "BUILD003: MSBuild exported an unsupported generated F# source: "
-                    + Path.GetRelativePath(root, file).Replace('\\', '/')
-                )
-            | [] when
-                sources.IsEmpty
-                || references.IsEmpty
-                || testSdkGenerated.Length > 1
-                || (Set.ofList sources).Count <> sources.Length
-                ->
-                Error "BUILD003: MSBuild did not export a complete ordered invocation."
-            | [] ->
-                Ok
-                    { Sources = sources
-                      References = references
-                      Arguments = flags
-                      Generated = generated
-                      ProjectReferences = projectReferences }
+                match unsupportedGenerated with
+                | file :: _ ->
+                    Error(
+                        "BUILD003: MSBuild exported an unsupported generated F# source: "
+                        + Path.GetRelativePath(root, file).Replace('\\', '/')
+                    )
+                | [] when
+                    sources.IsEmpty
+                    || references.IsEmpty
+                    || (sources |> List.filter WorkspaceGenerated.isTestSdkProgram |> List.length) > 1
+                    || (Set.ofList sources).Count <> sources.Length
+                    ->
+                    Error "BUILD003: MSBuild did not export a complete ordered invocation."
+                | [] ->
+                    Ok
+                        { Sources = sources
+                          References = references
+                          Arguments = flags
+                          Generated = generated
+                          ProjectReferences = projectReferences }
 
     let private request root project =
         export root project

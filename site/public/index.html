@@ -1260,7 +1260,7 @@ task {
                     <figcaption><span class="example-label">After</span><span>Project settings</span></figcaption>
                     <pre tabindex="0" aria-label="ARCH002 after example"><code>&lt;PackageReference
   Include=&quot;FDull&quot;
-  Version=&quot;0.1.0-preview.3&quot; /&gt;</code></pre>
+  Version=&quot;0.1.0-preview.4&quot; /&gt;</code></pre>
                   </figure>
                 </div>
                 <p class="example-note">Pin the reviewed version, commit the lock file and use locked restore. Version pinning alone does not complete the transitive asset inventory.</p>
@@ -1431,15 +1431,15 @@ dotnet fdull verify .</code></pre>
     <section class="section install-section wrap" id="install" aria-labelledby="install-title">
       <div class="section-top">
         <div><span class="section-number">03 / Get comfortably dull</span><h2 id="install-title">Small tool.<br>Strong opinions.</h2></div>
-        <div><span class="version">0.1.0-preview.3</span><p class="requirements">This strict, experimental preview targets <strong>.NET SDK 10.0.200, F# 10.0 and net10.0</strong>. The worker needs <strong>Microsoft.NETCore.App 10.0.4</strong>, with runtime roll-forward disabled. Install the matching SDK and runtime first.</p></div>
+        <div><span class="version">0.1.0-preview.4</span><p class="requirements">This strict, experimental preview targets <strong>.NET SDK 10.0.200, F# 10.0 and net10.0</strong>. The worker needs <strong>Microsoft.NETCore.App 10.0.4</strong>, with runtime roll-forward disabled. Install the matching SDK and runtime first.</p></div>
       </div>
       <div class="install-grid">
         <aside class="install-aside" aria-label="Package details">
           <h3>Start with a small project.</h3>
           <p class="section-intro">Install <code>FDull.Tool</code> as a local .NET tool, pin your environment, then let the checker show you the sharp edges.</p>
-          <p class="launch-note"><strong>Available on NuGet.</strong> Install version <code>0.1.0-preview.3</code> from the public feed using the commands below.</p>
-          <div class="actions"><a class="text-link" href="https://www.nuget.org/packages/FDull.Tool/0.1.0-preview.3">FDull.Tool on NuGet <span aria-hidden="true">↗</span></a></div>
-          <div class="plain-note"><h3>Building F# tooling?</h3><p>The <a href="https://www.nuget.org/packages/FDull/0.1.0-preview.3">FDull library package</a> exposes the analysis engine and policy/report types. <a href="https://www.nuget.org/packages/FDull.Analyzers/0.1.0-preview.3">FDull.Analyzers</a> adds advisory FsAutocomplete/Ionide feedback. For repositories and CI, use <code>FDull.Tool</code>: it includes the isolated, resource-limited worker and remains the authoritative gate.</p></div>
+          <p class="launch-note"><strong>Available on NuGet.</strong> Install version <code>0.1.0-preview.4</code> from the public feed using the commands below.</p>
+          <div class="actions"><a class="text-link" href="https://www.nuget.org/packages/FDull.Tool/0.1.0-preview.4">FDull.Tool on NuGet <span aria-hidden="true">↗</span></a></div>
+          <div class="plain-note"><h3>Building F# tooling?</h3><p>The <a href="https://www.nuget.org/packages/FDull/0.1.0-preview.4">FDull library package</a> exposes the analysis engine and policy/report types. <a href="https://www.nuget.org/packages/FDull.Analyzers/0.1.0-preview.4">FDull.Analyzers</a> adds advisory FsAutocomplete/Ionide feedback. For repositories and CI, use <code>FDull.Tool</code>: it includes the isolated, resource-limited worker and remains the authoritative gate.</p></div>
           <div class="plain-note"><h3>Existing repository?</h3><p>Keep your current tool manifest and merge the compiler defaults into your existing props file. Review policy changes and lock files before committing them.</p></div>
         </aside>
         <div>
@@ -1447,7 +1447,7 @@ dotnet fdull verify .</code></pre>
             <div class="step-heading"><span>01</span><h3>Install from NuGet.</h3></div>
             <p>Run in your repository. Create a tool manifest only if you don’t already have one.</p>
             <div class="terminal"><div class="terminal-head"><span>TERMINAL</span><button class="copy" type="button" data-copy="install-command" aria-label="Copy NuGet installation commands" hidden data-enhanced>Copy</button></div><pre><code id="install-command">dotnet new tool-manifest
-dotnet tool install FDull.Tool --version 0.1.0-preview.3</code></pre></div>
+dotnet tool install FDull.Tool --version 0.1.0-preview.4</code></pre></div>
           </article>
           <article class="install-step">
             <div class="step-heading"><span>02</span><h3>Pin the toolchain. Keep the strict defaults.</h3></div>

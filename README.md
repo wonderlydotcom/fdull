@@ -7,7 +7,7 @@ effects, controlled domain construction, explicit union cases and observed
 results. It uses FSharp.Compiler.Service to inspect resolved symbols and types,
 as well as source syntax. Aliases and nested payloads do not escape the checks.
 
-This is a strict, experimental **0.1.0-preview.3** release for teams that want a
+This is a strict, experimental **0.1.0-preview.4** release for teams that want a
 small approved vocabulary and reviewable exceptions. It is not a new language
 or a proof that a program is safe.
 
@@ -34,10 +34,11 @@ tests; the preview rejects untested compiler flags.
 
 Workspaces contain ordinary F# SDK projects with literal project references and
 authored `.fs`/`.fsi` files. Release builds must use the standard
-`obj/Release/net10.0` generated metadata layout, including SDK-owned MVC
-application-part assembly metadata from F# Web SDK projects, and the generated F#
-test entry point from Microsoft.NET.Test.Sdk 17.14.1. Multi-targeting, custom
-source generators and arbitrary configurations are not supported in this preview.
+`obj/Release/net10.0` generated metadata layout. Exact profiles cover SDK-owned
+MVC application-part assembly metadata, Microsoft.NET.Test.Sdk 17.14.1's F# test
+entry point, and xUnit v3 Core 3.1.0 with Microsoft Testing Platform MSBuild 1.8.4
+and optional JunitXml.TestLogger 7.0.2 registration. Multi-targeting, other source
+generators and arbitrary configurations are not supported in this preview.
 Reviewed non-F# implementation, automation and tooling may coexist in a mixed
 repository through the external workspace scope described below.
 
@@ -47,7 +48,7 @@ Install locally in a repository:
 
 ```sh
 dotnet new tool-manifest
-dotnet tool install FDull.Tool --version 0.1.0-preview.3
+dotnet tool install FDull.Tool --version 0.1.0-preview.4
 ```
 
 Pin `global.json`:
@@ -108,12 +109,13 @@ For a mixed-language repository, create a reviewed scope document before init:
 dotnet fdull init . --scope fdull.scope.json
 ```
 
-The scope file is fingerprinted into `fdull.json`. Classifications must name
-specific internal paths and cannot overlap or hide F# source, project files,
-compiler props/targets, solutions, response files, lock files or SDK/NuGet
-configuration. They state what FDull does not certify; they do not suppress an
-F# diagnostic or grant a capability. `node_modules` is treated as a restored
-dependency tree. Symlinks are accepted only when their resolved target exists
+The scope file is fingerprinted into `fdull.json`. Classified paths cannot overlap
+one another. A classified parent may contain F# source or protected build inputs,
+but those inputs remain independently inventoried, fingerprinted and checked, so
+the classification cannot hide them. Classifications state what FDull does not
+certify; they do not suppress an F# diagnostic or grant a capability. Standard
+`bin`, `obj`, `artifacts`, `.artifacts` and `node_modules` output/dependency trees
+are excluded from repository inventory; exported compiler inputs remain exact. Symlinks are accepted only when their resolved target exists
 inside the workspace; external and broken links fail inventory validation.
 
 For example, this passes:
@@ -177,7 +179,7 @@ For live editor feedback in FsAutocomplete/Ionide, reference the analyzer as a
 development dependency in each checked project:
 
 ```xml
-<PackageReference Include="FDull.Analyzers" Version="0.1.0-preview.3"
+<PackageReference Include="FDull.Analyzers" Version="0.1.0-preview.4"
                   PrivateAssets="All" IncludeAssets="analyzers" />
 ```
 
@@ -187,7 +189,7 @@ fingerprints, builds or policy capabilities. `fdull verify` remains the complete
 repository gate. Analyzer suppression comments are themselves FDull violations
 and do not affect the authoritative CLI.
 
-Reference `FDull` version `0.1.0-preview.3` to consume `SafetyDiagnostic`,
+Reference `FDull` version `0.1.0-preview.4` to consume `SafetyDiagnostic`,
 `SafetyReport`, workspace policy types and `SafetyEngine.check`. The in-process
 engine accepts ordered, fingerprinted source/reference inputs. Hosts must enforce
 process limits themselves; the library package does not install a worker beside

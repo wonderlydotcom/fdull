@@ -84,6 +84,7 @@ module WorkspaceCompilerPolicy =
                 "--simpleresolution"
                 "--define:TRACE"
                 "--define:RELEASE"
+                "--define:NULLABLE"
                 "--define:NET"
                 "--define:NET10_0"
                 "--define:NETCOREAPP"
@@ -432,11 +433,34 @@ module internal WorkspacePolicy =
 
         let allowed kind identity r = allowedIn (owner r) kind identity r
 
+        let xunitV3Generated =
+            generated |> Set.exists WorkspaceGenerated.isXunitDefaultReporters
+
+        let generatedMemberAllowed (r: range) (memberInfo: FSharpMemberOrFunctionOrValue) =
+            let identity = memberInfo.Assembly.QualifiedName + " | " + memberInfo.XmlDocSig
+
+            Set.contains r.FileName generated
+            && ((WorkspaceGenerated.isTestingPlatformExtensions r.FileName
+                 && List.contains
+                     identity
+                     [ "Microsoft.Testing.Extensions.MSBuild, Version=1.8.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.Testing.Platform.MSBuild.TestingPlatformBuilderHook.AddExtensions(Microsoft.Testing.Platform.Builder.ITestApplicationBuilder,System.String[])"
+                       "Microsoft.VisualStudio.TestPlatform.Extension.JUnit.Xml.TestLogger, Version=7.0.1.0, Culture=neutral, PublicKeyToken=49effd6976780fee | M:Spekt.TestReporter.JUnit.TestingPlatformBuilderHook.AddExtensions(Microsoft.Testing.Platform.Builder.ITestApplicationBuilder,System.String[])" ])
+                || (WorkspaceGenerated.isXunitEntryPoint r.FileName
+                    && List.contains
+                        identity
+                        [ "FSharp.Core, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.ArrayModule.Exists``1(Microsoft.FSharp.Core.FSharpFunc{``0,System.Boolean},``0[])"
+                          "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.ArrayModule.Exists``1(Microsoft.FSharp.Core.FSharpFunc{``0,System.Boolean},``0[])"
+                          "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.Runtime.CompilerServices.TaskAwaiter`1.GetResult"
+                          "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.Threading.Tasks.Task`1.GetAwaiter"
+                          "xunit.v3.runner.inproc.console, Version=3.1.0.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Runner.InProc.SystemConsole.TestingPlatform.TestPlatformTestFramework.RunAsync(System.String[],System.Action{Microsoft.Testing.Platform.Builder.ITestApplicationBuilder,System.String[]})"
+                          "xunit.v3.runner.inproc.console, Version=3.1.0.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Runner.InProc.SystemConsole.ConsoleRunner.Run(System.String[])" ]))
+
         let memberAllowed (r: range) (memberInfo: FSharpMemberOrFunctionOrValue) =
             if
-                Set.contains r.FileName generated
-                && memberInfo.Assembly.QualifiedName = "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"
-                && memberInfo.XmlDocSig = "P:System.Runtime.Versioning.TargetFrameworkAttribute.FrameworkDisplayName"
+                generatedMemberAllowed r memberInfo
+                || (Set.contains r.FileName generated
+                    && memberInfo.Assembly.QualifiedName = "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"
+                    && memberInfo.XmlDocSig = "P:System.Runtime.Versioning.TargetFrameworkAttribute.FrameworkDisplayName")
             then
                 true
             else
@@ -468,9 +492,39 @@ module internal WorkspacePolicy =
                    "System.Reflection.AssemblyTitleAttribute"
                    "System.Reflection.AssemblyVersionAttribute"
                    "System.Runtime.Versioning.TargetFrameworkAttribute" ])
+            || (xunitV3Generated
+                && normalized.EndsWith(".AssemblyInfo.fs", StringComparison.Ordinal)
+                && rule = "ATTR001"
+                && symbol = "System.Reflection.AssemblyMetadataAttribute")
             || (rule = "ATTR001"
                 && normalized.EndsWith(".MvcApplicationPartsAssemblyInfo.fs", StringComparison.Ordinal)
                 && symbol = "Microsoft.AspNetCore.Mvc.ApplicationParts.ApplicationPartAttribute")
+            || (WorkspaceGenerated.isXunitDefaultReporters r.FileName
+                && ((rule = "ATTR001"
+                     && symbol = "Xunit.Runner.Common.RegisterRunnerReporterAttribute")
+                    || (rule = "REFL001" && symbol = "Microsoft.FSharp.Core.Operators.typeof")))
+            || (WorkspaceGenerated.isTestingPlatformExtensions r.FileName
+                && ((rule = "ATTR001"
+                     && List.contains
+                         symbol
+                         [ "System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverageAttribute"
+                           "System.Runtime.CompilerServices.ExtensionAttribute" ])
+                    || (rule = "MODEL001"
+                        && (symbol = "SelfRegisteredExtensions"
+                            || symbol.EndsWith(".SelfRegisteredExtensions", StringComparison.Ordinal)
+                            || symbol.StartsWith("AddSelfRegisteredExtensions.0 -> ", StringComparison.Ordinal)
+                            || symbol.StartsWith("builder -> ", StringComparison.Ordinal)))
+                    || (rule = "MUT008"
+                        && List.contains symbol [ "AddSelfRegisteredExtensions.1"; "args" ])))
+            || (WorkspaceGenerated.isXunitEntryPoint r.FileName
+                && ((rule = "ATTR001"
+                     && List.contains
+                         symbol
+                         [ "Microsoft.FSharp.Core.EntryPointAttribute"
+                           "System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverageAttribute" ])
+                    || (rule = "MUT008" && List.contains symbol [ "main"; "args"; "a" ])
+                    || (rule = "MODEL001"
+                        && symbol = "b -> Microsoft.Testing.Platform.Builder.ITestApplicationBuilder")))
             || (normalized.EndsWith(
                     "/microsoft.net.test.sdk/17.14.1/build/net8.0/Microsoft.NET.Test.Sdk.Program.fs",
                     StringComparison.OrdinalIgnoreCase
