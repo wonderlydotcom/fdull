@@ -121,14 +121,41 @@ module Workspace =
                     else
                         None)
 
+            let testSdkProgram (file: string) =
+                let normalized = file.Replace('\\', '/')
+
+                normalized.EndsWith(
+                    "/microsoft.net.test.sdk/17.14.1/build/net8.0/Microsoft.NET.Test.Sdk.Program.fs",
+                    StringComparison.OrdinalIgnoreCase
+                )
+
+            let testSdkGenerated = sources |> List.filter testSdkProgram
+
             let generated =
-                [ full "obj/Release/net10.0/.NETCoreApp,Version=v10.0.AssemblyAttributes.fs"
-                  full (
-                      "obj/Release/net10.0/"
-                      + Path.GetFileNameWithoutExtension project
-                      + ".AssemblyInfo.fs"
-                  ) ]
-                |> List.filter (fun file -> List.contains file sources)
+                ([ full "obj/Release/net10.0/.NETCoreApp,Version=v10.0.AssemblyAttributes.fs"
+                   full (
+                       "obj/Release/net10.0/"
+                       + Path.GetFileNameWithoutExtension project
+                       + ".AssemblyInfo.fs"
+                   )
+                   full (
+                       "obj/Release/net10.0/"
+                       + Path.GetFileNameWithoutExtension project
+                       + ".MvcApplicationPartsAssemblyInfo.fs"
+                   ) ]
+                 |> List.filter (fun file -> List.contains file sources))
+                @ testSdkGenerated
+
+            let unsupportedGenerated =
+                sources
+                |> List.filter (fun file ->
+                    let relativeToProject = Path.GetRelativePath(directory, file).Replace('\\', '/')
+                    let relativeToRoot = Path.GetRelativePath(root, file).Replace('\\', '/')
+
+                    (relativeToProject.StartsWith("obj/Release/net10.0/", StringComparison.Ordinal)
+                     || relativeToRoot = ".."
+                     || relativeToRoot.StartsWith("../", StringComparison.Ordinal))
+                    && not (List.contains file generated))
 
             let sourceSet = Set.ofList sources
 
@@ -143,13 +170,20 @@ module Workspace =
                     else
                         argument)
 
-            if
+            match unsupportedGenerated with
+            | file :: _ ->
+                Error(
+                    "BUILD003: MSBuild exported an unsupported generated F# source: "
+                    + Path.GetRelativePath(root, file).Replace('\\', '/')
+                )
+            | [] when
                 sources.IsEmpty
                 || references.IsEmpty
+                || testSdkGenerated.Length > 1
                 || (Set.ofList sources).Count <> sources.Length
-            then
+                ->
                 Error "BUILD003: MSBuild did not export a complete ordered invocation."
-            else
+            | [] ->
                 Ok
                     { Sources = sources
                       References = references

@@ -174,7 +174,7 @@ module WorkspaceEngine =
                 Path.GetDirectoryName request.Project
                 |> FDull.Transport.External.required "workspace.project-parent"
 
-            let generated =
+            let requiredGenerated =
                 [ Path.Combine(projectDirectory, "obj/Release/net10.0/.NETCoreApp,Version=v10.0.AssemblyAttributes.fs")
                   Path.Combine(
                       projectDirectory,
@@ -184,11 +184,38 @@ module WorkspaceEngine =
                   ) ]
                 |> Set.ofList
 
+            let sourceFiles = request.Sources |> List.map _.Path |> Set.ofList
+
+            let testSdkGenerated =
+                sourceFiles
+                |> Set.filter (fun file ->
+                    let normalized = file.Replace('\\', '/')
+
+                    normalized.EndsWith(
+                        "/microsoft.net.test.sdk/17.14.1/build/net8.0/Microsoft.NET.Test.Sdk.Program.fs",
+                        StringComparison.OrdinalIgnoreCase
+                    ))
+
+            let supportedGenerated =
+                requiredGenerated
+                |> Set.add (
+                    Path.Combine(
+                        projectDirectory,
+                        "obj/Release/net10.0/"
+                        + Path.GetFileNameWithoutExtension(request.Project)
+                        + ".MvcApplicationPartsAssemblyInfo.fs"
+                    )
+                )
+                |> Set.union testSdkGenerated
+
+            let generated = Set.intersect sourceFiles supportedGenerated
+
             if
                 expected.IsEmpty
+                || testSdkGenerated.Count > 1
+                || not (Set.isSubset requiredGenerated generated)
                 || Set.ofList request.Generated <> generated
-                || (request.Sources |> List.map _.Path |> Set.ofList)
-                   <> Set.union expected generated
+                || sourceFiles <> Set.union expected generated
             then
                 invalidOp "BUILD004: Exported sources differ from the exact project and generated-source inventory."
 

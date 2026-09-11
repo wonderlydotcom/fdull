@@ -176,10 +176,21 @@ module ProjectTests =
 
         Project.initialize root |> ignore
 
+    let private read root =
+        File.ReadAllText(Path.Combine(root, "fdull.json"))
+        |> Codec.decode<WorkspacePolicyDocument>
+
     [<Fact>]
-    let ``initialization exports restored inputs and reviewed mixed-language scope without compiling`` () =
+    let ``initialization exports restored Web SDK inputs and reviewed mixed-language scope without compiling`` () =
         withDirectory (fun root ->
             restoreConsumer root None "module App\nlet value: int = \"not an integer\"\n"
+
+            File.WriteAllText(
+                Path.Combine(root, "App.fsproj"),
+                "<Project Sdk=\"Microsoft.NET.Sdk.Web\"><PropertyGroup><OutputType>Exe</OutputType></PropertyGroup><ItemGroup><PackageReference Include=\"Swashbuckle.AspNetCore\" Version=\"7.2.0\"/><Compile Include=\"App.fs\"/></ItemGroup></Project>"
+            )
+
+            run root [ "restore"; "App.fsproj"; "--use-lock-file"; "-m:1"; "-nr:false" ]
             Directory.CreateDirectory(Path.Combine(root, "automation")) |> ignore
             File.WriteAllText(Path.Combine(root, "automation/check.py"), "print('checked')\n")
 
@@ -191,12 +202,21 @@ module ProjectTests =
             let policyFile = Project.initializeWithScope root (Some "fdull.scope.json")
             let policy = File.ReadAllText policyFile |> Codec.decode<WorkspacePolicyDocument>
             Assert.Equal(1, policy.External |> Option.map List.length |> Option.defaultValue 0)
+            Assert.Equal(1, policy.Sources.Length)
+            Assert.Contains(policy.Sources, fun source -> source.File = "App.fs")
             Assert.Contains(policy.Inputs, fun input -> input.File = "fdull.scope.json"))
 
     [<Fact>]
-    let ``the FSharp Core 10 consumer profile is supported`` () =
+    let ``the FSharp Core 10 Web and test SDK consumer profile is supported`` () =
         withDirectory (fun root ->
             restoreConsumer root (Some "10.0.100") "module App\nlet increment value = value + 1\n"
+
+            File.WriteAllText(
+                Path.Combine(root, "App.fsproj"),
+                "<Project Sdk=\"Microsoft.NET.Sdk.Web\"><PropertyGroup><OutputType>Exe</OutputType><IsTestProject>true</IsTestProject><FSharpCoreImplicitPackageVersion>10.0.100</FSharpCoreImplicitPackageVersion></PropertyGroup><ItemGroup><PackageReference Include=\"Microsoft.NET.Test.Sdk\" Version=\"17.14.1\"/><PackageReference Include=\"Swashbuckle.AspNetCore\" Version=\"7.2.0\"/><Compile Include=\"App.fs\"/></ItemGroup></Project>"
+            )
+
+            run root [ "restore"; "App.fsproj"; "--use-lock-file"; "-m:1"; "-nr:false" ]
 
             run
                 root
@@ -212,10 +232,6 @@ module ProjectTests =
             let report = Workspace.check root
             Assert.True(report.Complete, String.concat "\n" report.Errors)
             Assert.Equal(0, report.ExitCode))
-
-    let private read root =
-        File.ReadAllText(Path.Combine(root, "fdull.json"))
-        |> Codec.decode<WorkspacePolicyDocument>
 
     let private write root policy =
         File.WriteAllText(Path.Combine(root, "fdull.json"), Codec.encode policy)

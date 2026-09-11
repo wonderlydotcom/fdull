@@ -187,7 +187,7 @@ module SafetyRules =
               "Unapproved dependency assets"
               [ build; guard; audit ]
               false
-              []
+              [ "ProjectTests.initialization exports restored Web SDK inputs and reviewed mixed-language scope without compiling" ]
               "Complete transitive package/runtime/source/native asset inventory and tampering cases."
           rule
               "ARCH003"
