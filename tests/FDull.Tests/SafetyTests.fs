@@ -27,7 +27,13 @@ module SafetyTests =
         Directory.GetFiles(Path.Combine(runtimeRoot, "packs/Microsoft.NETCore.App.Ref/10.0.4/ref/net10.0"), "*.dll")
         |> Array.sort
         |> Array.toList
-        |> fun refs -> refs @ [ typeof<unit>.Assembly.Location ]
+        |> fun refs ->
+            refs
+            @ [ Path.Combine(
+                    runtimeRoot,
+                    "packs/Microsoft.AspNetCore.App.Ref/10.0.4/ref/net10.0/Microsoft.AspNetCore.Mvc.Core.dll"
+                )
+                typeof<unit>.Assembly.Location ]
 
     let private checkFilesWith analyze (sources: (string * string) list) checkReport =
         let root =
@@ -67,12 +73,22 @@ module SafetyTests =
             let generatedDirectory = Path.Combine(directory, "obj/Release/net10.0")
             Directory.CreateDirectory generatedDirectory |> ignore
 
-            let generated =
+            let standardGenerated =
                 [ Path.Combine(generatedDirectory, ".NETCoreApp,Version=v10.0.AssemblyAttributes.fs")
                   Path.Combine(generatedDirectory, "Fixture.AssemblyInfo.fs") ]
 
-            for file in generated do
+            for file in standardGenerated do
                 File.WriteAllText(file, "namespace FixtureMetadata\n")
+
+            let mvcGenerated =
+                Path.Combine(generatedDirectory, "Fixture.MvcApplicationPartsAssemblyInfo.fs")
+
+            File.WriteAllText(
+                mvcGenerated,
+                "namespace FSharp\n[<assembly: Microsoft.AspNetCore.Mvc.ApplicationParts.ApplicationPartAttribute(\"Fixture.Part\")>]\ndo ()\n"
+            )
+
+            let generated = standardGenerated @ [ mvcGenerated ]
 
             let policy: WorkspacePolicyDocument =
                 { Version = 1

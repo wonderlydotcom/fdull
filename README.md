@@ -7,7 +7,7 @@ effects, controlled domain construction, explicit union cases and observed
 results. It uses FSharp.Compiler.Service to inspect resolved symbols and types,
 as well as source syntax. Aliases and nested payloads do not escape the checks.
 
-This is a strict, experimental **0.1.0-preview.2** release for teams that want a
+This is a strict, experimental **0.1.0-preview.3** release for teams that want a
 small approved vocabulary and reviewable exceptions. It is not a new language
 or a proof that a program is safe.
 
@@ -34,8 +34,10 @@ tests; the preview rejects untested compiler flags.
 
 Workspaces contain ordinary F# SDK projects with literal project references and
 authored `.fs`/`.fsi` files. Release builds must use the standard
-`obj/Release/net10.0` generated metadata layout. Multi-targeting, custom source
-generators and arbitrary configurations are not supported in this preview.
+`obj/Release/net10.0` generated metadata layout, including SDK-owned MVC
+application-part assembly metadata from F# Web SDK projects, and the generated F#
+test entry point from Microsoft.NET.Test.Sdk 17.14.1. Multi-targeting, custom
+source generators and arbitrary configurations are not supported in this preview.
 Reviewed non-F# implementation, automation and tooling may coexist in a mixed
 repository through the external workspace scope described below.
 
@@ -45,7 +47,7 @@ Install locally in a repository:
 
 ```sh
 dotnet new tool-manifest
-dotnet tool install FDull.Tool --version 0.1.0-preview.2
+dotnet tool install FDull.Tool --version 0.1.0-preview.3
 ```
 
 Pin `global.json`:
@@ -175,7 +177,7 @@ For live editor feedback in FsAutocomplete/Ionide, reference the analyzer as a
 development dependency in each checked project:
 
 ```xml
-<PackageReference Include="FDull.Analyzers" Version="0.1.0-preview.2"
+<PackageReference Include="FDull.Analyzers" Version="0.1.0-preview.3"
                   PrivateAssets="All" IncludeAssets="analyzers" />
 ```
 
@@ -185,7 +187,7 @@ fingerprints, builds or policy capabilities. `fdull verify` remains the complete
 repository gate. Analyzer suppression comments are themselves FDull violations
 and do not affect the authoritative CLI.
 
-Reference `FDull` version `0.1.0-preview.2` to consume `SafetyDiagnostic`,
+Reference `FDull` version `0.1.0-preview.3` to consume `SafetyDiagnostic`,
 `SafetyReport`, workspace policy types and `SafetyEngine.check`. The in-process
 engine accepts ordered, fingerprinted source/reference inputs. Hosts must enforce
 process limits themselves; the library package does not install a worker beside

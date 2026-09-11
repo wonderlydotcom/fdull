@@ -7,7 +7,7 @@
     <OtherFlags>$(OtherFlags) --checked+ --checknulls+</OtherFlags>
     <Deterministic>true</Deterministic><ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
     <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile><NuGetAudit>true</NuGetAudit>
-    <Version>0.1.0-preview.2</Version><AssemblyVersion>0.1.0.0</AssemblyVersion>
+    <Version>0.1.0-preview.3</Version><AssemblyVersion>0.1.0.0</AssemblyVersion>
     <Authors>Wonderly</Authors><Company>Wonderly</Company><Copyright>Copyright (c) 2026 Wonderly</Copyright>
     <PackageProjectUrl>https://wonderly.com</PackageProjectUrl>
     <PackageReadmeFile>README.md</PackageReadmeFile>

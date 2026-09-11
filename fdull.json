@@ -66,7 +66,7 @@
       "File": "src/FDull/SafetyRules.fs",
       "Project": "src/FDull/FDull.fsproj",
       "Profile": "GUARD_TOOLING",
-      "Digest": "sha256:38aba27f82989ee4dec6bf6962db999f22833ad25dceef7abfd9b0af36653dcc"
+      "Digest": "sha256:3f4603355407b9ecec52ac019c506cba1fc3c7dcf383003eed84afbe12e2f1f1"
     },
     {
       "File": "src/FDull/SafetyPolicy.fs",
@@ -120,7 +120,7 @@
       "File": "src/FDull/WorkspacePolicy.fs",
       "Project": "src/FDull/FDull.fsproj",
       "Profile": "GUARD_TOOLING",
-      "Digest": "sha256:c19d4670234e2129fcd1b6ec63281630148e5d0278a99f07385bbf8c19c33e5c"
+      "Digest": "sha256:5b1da193c414ab566825de3cf67c0fd1221a98c28b2c14c4e603d3861afe9f5b"
     },
     {
       "File": "src/FDull/WorkspaceAudit.fs",
@@ -132,13 +132,13 @@
       "File": "src/FDull/WorkspaceEngine.fs",
       "Project": "src/FDull/FDull.fsproj",
       "Profile": "GUARD_TOOLING",
-      "Digest": "sha256:93fb42cdbb470bd28627f5339319bcb488855ebf40286868762bd356153f5a9f"
+      "Digest": "sha256:5851fa509f85c8eefb8c42b1ceeca1153c37272009dc7a660b3923600831b489"
     },
     {
       "File": "src/FDull/Workspace.fs",
       "Project": "src/FDull/FDull.fsproj",
       "Profile": "GUARD_TOOLING",
-      "Digest": "sha256:6aea2960f808dcf2b44f78a4f16543518b6868ecdcf285cf68287e4e307136a3"
+      "Digest": "sha256:d499c3a50601d52a8c2344239af191da6e3d1666fd3dee48990774c0bc7d88da"
     },
     {
       "File": "src/FDull/Safety.fs",
@@ -162,7 +162,7 @@
       "File": "src/FDull.Tool/Program.fs",
       "Project": "src/FDull.Tool/FDull.Tool.fsproj",
       "Profile": "GUARD_TOOLING",
-      "Digest": "sha256:374261e9037a6db6960fc650ddb129edb74516c48fb6e120a0a24347b815ddc4"
+      "Digest": "sha256:9b44a6c339e0b970a5158f4bac1126d7ffeda8f710c5607b3d458e9dd6b19420"
     },
     {
       "File": "src/FDull.Worker/Program.fs",
@@ -186,7 +186,7 @@
       "File": "tests/FDull.Tests/SafetyTests.fs",
       "Project": "tests/FDull.Tests/FDull.Tests.fsproj",
       "Profile": "TEST",
-      "Digest": "sha256:d7d5dc60a5d486f9a7db2410392ccf5f36880ad22c76f5af1d73afe221ee0c96"
+      "Digest": "sha256:2fe5ba147dcfeecad7b0b0e2464f99b166bec8770229fec3270a67d3ae2686da"
     },
     {
       "File": "tests/FDull.Tests/SafetyWorkerTests.fs",
@@ -222,7 +222,7 @@
       "File": "tests/FDull.Tests/ProjectTests.fs",
       "Project": "tests/FDull.Tests/FDull.Tests.fsproj",
       "Profile": "TEST",
-      "Digest": "sha256:4caecfe868dab5da4fe660ee220ecbdae747a8c451307fc4ceffd007e62b93b6"
+      "Digest": "sha256:0f836d0dc7fe18ff98ad81f762164c122e21617ff2cddf07aafea572bd22da15"
     },
     {
       "File": "tests/FDull.Tests/Program.fs",
@@ -238,7 +238,7 @@
     },
     {
       "File": "Directory.Build.props",
-      "Digest": "sha256:42cd024f039694064a7dbcabc9c61529a22db8005c17776529af89bd27101931"
+      "Digest": "sha256:3e1dc6ac1a849750926a529e1cc6dc7c96eac50be039ac8d5d68965d0be62113"
     },
     {
       "File": "Directory.Build.targets",
@@ -12889,129 +12889,150 @@
     },
     {
       "File": "tests/FDull.Tests/ProjectTests.fs",
-      "Owner": "FDull.Tests.ProjectTests.``initialization exports restored inputs and reviewed mixed-language scope without compiling``",
+      "Owner": "FDull.Tests.ProjectTests.``initialization exports restored Web SDK inputs and reviewed mixed-language scope without compiling``",
       "Kind": "attribute",
       "Identity": "xunit.core, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | Xunit.FactAttribute |  | unit",
-      "Reason": "The isolated bootstrap fixture proves initialization snapshots restored inputs and a reviewed mixed-language scope without compiling invalid source. Filesystem changes stay in a unique temporary directory and are cleaned up."
+      "Reason": "The isolated bootstrap fixture proves initialization snapshots restored Web SDK generated metadata and a reviewed mixed-language scope without compiling invalid source. Filesystem changes stay in a unique temporary directory and are cleaned up."
     },
     {
       "File": "tests/FDull.Tests/ProjectTests.fs",
-      "Owner": "FDull.Tests.ProjectTests.``initialization exports restored inputs and reviewed mixed-language scope without compiling``",
+      "Owner": "FDull.Tests.ProjectTests.``initialization exports restored Web SDK inputs and reviewed mixed-language scope without compiling``",
       "Kind": "member",
       "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Project.initializeWithScope(System.String,Microsoft.FSharp.Core.FSharpOption{System.String})",
-      "Reason": "The isolated bootstrap fixture proves initialization snapshots restored inputs and a reviewed mixed-language scope without compiling invalid source. Filesystem changes stay in a unique temporary directory and are cleaned up."
+      "Reason": "The isolated bootstrap fixture proves initialization snapshots restored Web SDK generated metadata and a reviewed mixed-language scope without compiling invalid source. Filesystem changes stay in a unique temporary directory and are cleaned up."
     },
     {
       "File": "tests/FDull.Tests/ProjectTests.fs",
-      "Owner": "FDull.Tests.ProjectTests.``initialization exports restored inputs and reviewed mixed-language scope without compiling``",
+      "Owner": "FDull.Tests.ProjectTests.``initialization exports restored Web SDK inputs and reviewed mixed-language scope without compiling``",
       "Kind": "member",
       "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Transport.Codec.decode``1(System.String)",
-      "Reason": "The isolated bootstrap fixture proves initialization snapshots restored inputs and a reviewed mixed-language scope without compiling invalid source. Filesystem changes stay in a unique temporary directory and are cleaned up."
+      "Reason": "The isolated bootstrap fixture proves initialization snapshots restored Web SDK generated metadata and a reviewed mixed-language scope without compiling invalid source. Filesystem changes stay in a unique temporary directory and are cleaned up."
     },
     {
       "File": "tests/FDull.Tests/ProjectTests.fs",
-      "Owner": "FDull.Tests.ProjectTests.``initialization exports restored inputs and reviewed mixed-language scope without compiling``",
+      "Owner": "FDull.Tests.ProjectTests.``initialization exports restored Web SDK inputs and reviewed mixed-language scope without compiling``",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Directory.CreateDirectory(System.String)",
-      "Reason": "The isolated bootstrap fixture proves initialization snapshots restored inputs and a reviewed mixed-language scope without compiling invalid source. Filesystem changes stay in a unique temporary directory and are cleaned up."
+      "Reason": "The isolated bootstrap fixture proves initialization snapshots restored Web SDK generated metadata and a reviewed mixed-language scope without compiling invalid source. Filesystem changes stay in a unique temporary directory and are cleaned up."
     },
     {
       "File": "tests/FDull.Tests/ProjectTests.fs",
-      "Owner": "FDull.Tests.ProjectTests.``initialization exports restored inputs and reviewed mixed-language scope without compiling``",
+      "Owner": "FDull.Tests.ProjectTests.``initialization exports restored Web SDK inputs and reviewed mixed-language scope without compiling``",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.File.ReadAllText(System.String)",
-      "Reason": "The isolated bootstrap fixture proves initialization snapshots restored inputs and a reviewed mixed-language scope without compiling invalid source. Filesystem changes stay in a unique temporary directory and are cleaned up."
+      "Reason": "The isolated bootstrap fixture proves initialization snapshots restored Web SDK generated metadata and a reviewed mixed-language scope without compiling invalid source. Filesystem changes stay in a unique temporary directory and are cleaned up."
     },
     {
       "File": "tests/FDull.Tests/ProjectTests.fs",
-      "Owner": "FDull.Tests.ProjectTests.``initialization exports restored inputs and reviewed mixed-language scope without compiling``",
+      "Owner": "FDull.Tests.ProjectTests.``initialization exports restored Web SDK inputs and reviewed mixed-language scope without compiling``",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.File.WriteAllText(System.String,System.String)",
-      "Reason": "The isolated bootstrap fixture proves initialization snapshots restored inputs and a reviewed mixed-language scope without compiling invalid source. Filesystem changes stay in a unique temporary directory and are cleaned up."
+      "Reason": "The isolated bootstrap fixture proves initialization snapshots restored Web SDK generated metadata and a reviewed mixed-language scope without compiling invalid source. Filesystem changes stay in a unique temporary directory and are cleaned up."
     },
     {
       "File": "tests/FDull.Tests/ProjectTests.fs",
-      "Owner": "FDull.Tests.ProjectTests.``initialization exports restored inputs and reviewed mixed-language scope without compiling``",
+      "Owner": "FDull.Tests.ProjectTests.``initialization exports restored Web SDK inputs and reviewed mixed-language scope without compiling``",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.Combine(System.String,System.String)",
-      "Reason": "The isolated bootstrap fixture proves initialization snapshots restored inputs and a reviewed mixed-language scope without compiling invalid source. Filesystem changes stay in a unique temporary directory and are cleaned up."
+      "Reason": "The isolated bootstrap fixture proves initialization snapshots restored Web SDK generated metadata and a reviewed mixed-language scope without compiling invalid source. Filesystem changes stay in a unique temporary directory and are cleaned up."
     },
     {
       "File": "tests/FDull.Tests/ProjectTests.fs",
-      "Owner": "FDull.Tests.ProjectTests.``initialization exports restored inputs and reviewed mixed-language scope without compiling``",
+      "Owner": "FDull.Tests.ProjectTests.``initialization exports restored Web SDK inputs and reviewed mixed-language scope without compiling``",
       "Kind": "member",
       "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Contains``1(System.Collections.Generic.IEnumerable{``0},System.Predicate{``0})",
-      "Reason": "The isolated bootstrap fixture proves initialization snapshots restored inputs and a reviewed mixed-language scope without compiling invalid source. Filesystem changes stay in a unique temporary directory and are cleaned up."
+      "Reason": "The isolated bootstrap fixture proves initialization snapshots restored Web SDK generated metadata and a reviewed mixed-language scope without compiling invalid source. Filesystem changes stay in a unique temporary directory and are cleaned up."
     },
     {
       "File": "tests/FDull.Tests/ProjectTests.fs",
-      "Owner": "FDull.Tests.ProjectTests.``initialization exports restored inputs and reviewed mixed-language scope without compiling``",
+      "Owner": "FDull.Tests.ProjectTests.``initialization exports restored Web SDK inputs and reviewed mixed-language scope without compiling``",
       "Kind": "member",
       "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Equal``1(``0,``0)",
-      "Reason": "The isolated bootstrap fixture proves initialization snapshots restored inputs and a reviewed mixed-language scope without compiling invalid source. Filesystem changes stay in a unique temporary directory and are cleaned up."
+      "Reason": "The isolated bootstrap fixture proves initialization snapshots restored Web SDK generated metadata and a reviewed mixed-language scope without compiling invalid source. Filesystem changes stay in a unique temporary directory and are cleaned up."
     },
     {
       "File": "tests/FDull.Tests/ProjectTests.fs",
-      "Owner": "FDull.Tests.ProjectTests.``initialization exports restored inputs and reviewed mixed-language scope without compiling``",
+      "Owner": "FDull.Tests.ProjectTests.``initialization exports restored Web SDK inputs and reviewed mixed-language scope without compiling``",
       "Kind": "type",
       "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspacePin",
-      "Reason": "The isolated bootstrap fixture proves initialization snapshots restored inputs and a reviewed mixed-language scope without compiling invalid source. Filesystem changes stay in a unique temporary directory and are cleaned up."
+      "Reason": "The isolated bootstrap fixture proves initialization snapshots restored Web SDK generated metadata and a reviewed mixed-language scope without compiling invalid source. Filesystem changes stay in a unique temporary directory and are cleaned up."
     },
     {
       "File": "tests/FDull.Tests/ProjectTests.fs",
-      "Owner": "FDull.Tests.ProjectTests.``initialization exports restored inputs and reviewed mixed-language scope without compiling``",
+      "Owner": "FDull.Tests.ProjectTests.``initialization exports restored Web SDK inputs and reviewed mixed-language scope without compiling``",
       "Kind": "type",
       "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspacePolicyDocument",
-      "Reason": "The isolated bootstrap fixture proves initialization snapshots restored inputs and a reviewed mixed-language scope without compiling invalid source. Filesystem changes stay in a unique temporary directory and are cleaned up."
+      "Reason": "The isolated bootstrap fixture proves initialization snapshots restored Web SDK generated metadata and a reviewed mixed-language scope without compiling invalid source. Filesystem changes stay in a unique temporary directory and are cleaned up."
     },
     {
       "File": "tests/FDull.Tests/ProjectTests.fs",
-      "Owner": "FDull.Tests.ProjectTests.``the FSharp Core 10 consumer profile is supported``",
+      "Owner": "FDull.Tests.ProjectTests.``initialization exports restored Web SDK inputs and reviewed mixed-language scope without compiling``",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspaceSource",
+      "Reason": "The isolated bootstrap fixture proves initialization snapshots restored Web SDK generated metadata and a reviewed mixed-language scope without compiling invalid source. Filesystem changes stay in a unique temporary directory and are cleaned up."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.``the FSharp Core 10 Web and test SDK consumer profile is supported``",
       "Kind": "attribute",
       "Identity": "xunit.core, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | Xunit.FactAttribute |  | unit",
-      "Reason": "The isolated consumer fixture restores and builds with SDK 10.0.100, then initializes and verifies the exact FSharp Core 10 profile. Its bounded child process and temporary files cannot enter shipping code."
+      "Reason": "The isolated consumer fixture restores and builds an F# Web/test project on pinned SDK 10.0.200 with FSharp Core 10.0.100, then initializes and analyzes the exact generated-source profile. Its bounded child process and temporary files cannot enter shipping code."
     },
     {
       "File": "tests/FDull.Tests/ProjectTests.fs",
-      "Owner": "FDull.Tests.ProjectTests.``the FSharp Core 10 consumer profile is supported``",
+      "Owner": "FDull.Tests.ProjectTests.``the FSharp Core 10 Web and test SDK consumer profile is supported``",
       "Kind": "member",
       "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Project.initialize(System.String)",
-      "Reason": "The isolated consumer fixture restores and builds with SDK 10.0.100, then initializes and verifies the exact FSharp Core 10 profile. Its bounded child process and temporary files cannot enter shipping code."
+      "Reason": "The isolated consumer fixture restores and builds an F# Web/test project on pinned SDK 10.0.200 with FSharp Core 10.0.100, then initializes and analyzes the exact generated-source profile. Its bounded child process and temporary files cannot enter shipping code."
     },
     {
       "File": "tests/FDull.Tests/ProjectTests.fs",
-      "Owner": "FDull.Tests.ProjectTests.``the FSharp Core 10 consumer profile is supported``",
+      "Owner": "FDull.Tests.ProjectTests.``the FSharp Core 10 Web and test SDK consumer profile is supported``",
       "Kind": "member",
       "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Workspace.check(System.String)",
-      "Reason": "The isolated consumer fixture restores and builds with SDK 10.0.100, then initializes and verifies the exact FSharp Core 10 profile. Its bounded child process and temporary files cannot enter shipping code."
+      "Reason": "The isolated consumer fixture restores and builds an F# Web/test project on pinned SDK 10.0.200 with FSharp Core 10.0.100, then initializes and analyzes the exact generated-source profile. Its bounded child process and temporary files cannot enter shipping code."
     },
     {
       "File": "tests/FDull.Tests/ProjectTests.fs",
-      "Owner": "FDull.Tests.ProjectTests.``the FSharp Core 10 consumer profile is supported``",
+      "Owner": "FDull.Tests.ProjectTests.``the FSharp Core 10 Web and test SDK consumer profile is supported``",
       "Kind": "member",
       "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Core.StringModule.Concat(System.String,System.Collections.Generic.IEnumerable{System.String})",
-      "Reason": "The isolated consumer fixture restores and builds with SDK 10.0.100, then initializes and verifies the exact FSharp Core 10 profile. Its bounded child process and temporary files cannot enter shipping code."
+      "Reason": "The isolated consumer fixture restores and builds an F# Web/test project on pinned SDK 10.0.200 with FSharp Core 10.0.100, then initializes and analyzes the exact generated-source profile. Its bounded child process and temporary files cannot enter shipping code."
     },
     {
       "File": "tests/FDull.Tests/ProjectTests.fs",
-      "Owner": "FDull.Tests.ProjectTests.``the FSharp Core 10 consumer profile is supported``",
+      "Owner": "FDull.Tests.ProjectTests.``the FSharp Core 10 Web and test SDK consumer profile is supported``",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.File.WriteAllText(System.String,System.String)",
+      "Reason": "The isolated consumer fixture restores and builds an F# Web/test project on pinned SDK 10.0.200 with FSharp Core 10.0.100, then initializes and analyzes the exact generated-source profile. Its bounded child process and temporary files cannot enter shipping code."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.``the FSharp Core 10 Web and test SDK consumer profile is supported``",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.Combine(System.String,System.String)",
+      "Reason": "The isolated consumer fixture restores and builds an F# Web/test project on pinned SDK 10.0.200 with FSharp Core 10.0.100, then initializes and analyzes the exact generated-source profile. Its bounded child process and temporary files cannot enter shipping code."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.``the FSharp Core 10 Web and test SDK consumer profile is supported``",
       "Kind": "member",
       "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Equal``1(``0,``0)",
-      "Reason": "The isolated consumer fixture restores and builds with SDK 10.0.100, then initializes and verifies the exact FSharp Core 10 profile. Its bounded child process and temporary files cannot enter shipping code."
+      "Reason": "The isolated consumer fixture restores and builds an F# Web/test project on pinned SDK 10.0.200 with FSharp Core 10.0.100, then initializes and analyzes the exact generated-source profile. Its bounded child process and temporary files cannot enter shipping code."
     },
     {
       "File": "tests/FDull.Tests/ProjectTests.fs",
-      "Owner": "FDull.Tests.ProjectTests.``the FSharp Core 10 consumer profile is supported``",
+      "Owner": "FDull.Tests.ProjectTests.``the FSharp Core 10 Web and test SDK consumer profile is supported``",
       "Kind": "member",
       "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.True(System.Boolean,System.String)",
-      "Reason": "The isolated consumer fixture restores and builds with SDK 10.0.100, then initializes and verifies the exact FSharp Core 10 profile. Its bounded child process and temporary files cannot enter shipping code."
+      "Reason": "The isolated consumer fixture restores and builds an F# Web/test project on pinned SDK 10.0.200 with FSharp Core 10.0.100, then initializes and analyzes the exact generated-source profile. Its bounded child process and temporary files cannot enter shipping code."
     },
     {
       "File": "tests/FDull.Tests/ProjectTests.fs",
-      "Owner": "FDull.Tests.ProjectTests.``the FSharp Core 10 consumer profile is supported``",
+      "Owner": "FDull.Tests.ProjectTests.``the FSharp Core 10 Web and test SDK consumer profile is supported``",
       "Kind": "type",
       "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspaceReport",
-      "Reason": "The isolated consumer fixture restores and builds with SDK 10.0.100, then initializes and verifies the exact FSharp Core 10 profile. Its bounded child process and temporary files cannot enter shipping code."
+      "Reason": "The isolated consumer fixture restores and builds an F# Web/test project on pinned SDK 10.0.200 with FSharp Core 10.0.100, then initializes and analyzes the exact generated-source profile. Its bounded child process and temporary files cannot enter shipping code."
     },
     {
       "File": "tests/FDull.Tests/WorkspaceTests.fs",
