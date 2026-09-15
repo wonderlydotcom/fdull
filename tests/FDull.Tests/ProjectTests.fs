@@ -36,6 +36,7 @@ module ProjectTests =
                 | Ok() -> failwith "Shipping acquired a test reference."
 
         Assert.True(WorkspaceAudit.validateEdges graph "Pure.fsproj" [] |> Result.isError)
+
         Assert.True(WorkspaceAudit.validateEdges graph "Unknown.fsproj" [] |> Result.isError)
 
         for target in [ "Adapter.fsproj"; "Tool.fsproj"; "Unknown.fsproj"; "Pure.fsproj" ] do
@@ -185,20 +186,30 @@ module ProjectTests =
         withDirectory (fun root ->
             restoreConsumer root None "module App\nlet value: int = \"not an integer\"\n"
 
+            Directory.CreateDirectory(Path.Combine(root, "external")) |> ignore
+            File.WriteAllText(Path.Combine(root, "external/Dependency.cs"), "internal static class Dependency {}\n")
+            File.WriteAllText(Path.Combine(root, "external/Transitive.cs"), "internal static class Transitive {}\n")
+
+            File.WriteAllText(
+                Path.Combine(root, "external/Transitive.csproj"),
+                "<Project Sdk=\"Microsoft.NET.Sdk\"><PropertyGroup><TargetFramework>net10.0</TargetFramework><RestorePackagesWithLockFile>true</RestorePackagesWithLockFile></PropertyGroup></Project>"
+            )
+
+            File.WriteAllText(
+                Path.Combine(root, "external/Dependency.csproj"),
+                "<Project Sdk=\"Microsoft.NET.Sdk\"><PropertyGroup><TargetFramework>net10.0</TargetFramework><RestorePackagesWithLockFile>true</RestorePackagesWithLockFile></PropertyGroup><ItemGroup><ProjectReference Include=\"Transitive.csproj\"/></ItemGroup></Project>"
+            )
+
             File.WriteAllText(
                 Path.Combine(root, "App.fsproj"),
-                "<Project Sdk=\"Microsoft.NET.Sdk.Web\"><PropertyGroup><OutputType>Exe</OutputType></PropertyGroup><ItemGroup><PackageReference Include=\"Swashbuckle.AspNetCore\" Version=\"7.2.0\"/><Compile Include=\"App.fs\"/></ItemGroup></Project>"
+                "<Project Sdk=\"Microsoft.NET.Sdk.Web\"><PropertyGroup><OutputType>Exe</OutputType></PropertyGroup><ItemGroup><PackageReference Include=\"Swashbuckle.AspNetCore\" Version=\"7.2.0\"/><ProjectReference Include=\"external/Dependency.csproj\"/><Compile Include=\"App.fs\"/></ItemGroup></Project>"
             )
 
             run root [ "restore"; "App.fsproj"; "--use-lock-file"; "-m:1"; "-nr:false" ]
-            Directory.CreateDirectory(Path.Combine(root, "automation")) |> ignore
-            File.WriteAllText(Path.Combine(root, "automation/check.py"), "print('checked')\n")
-            File.WriteAllText(Path.Combine(root, "automation/Check.cs"), "internal static class Check {}\n")
-            File.WriteAllText(Path.Combine(root, "automation/Check.csproj"), "<Project Sdk=\"Microsoft.NET.Sdk\" />")
 
             File.WriteAllText(
                 Path.Combine(root, "fdull.scope.json"),
-                "{\"Version\":1,\"External\":[{\"Path\":\"automation\",\"Kind\":\"automation\",\"Reason\":\"Checks a deployment artifact outside the FSharp certification.\"}]}"
+                "{\"Version\":1,\"External\":[{\"Path\":\"external\",\"Kind\":\"implementation\",\"Reason\":\"The CSharp dependency has separate required checks.\"}]}"
             )
 
             let policyFile = Project.initializeWithScope root (Some "fdull.scope.json")
@@ -207,7 +218,8 @@ module ProjectTests =
             Assert.Equal(1, policy.Sources.Length)
             Assert.Contains(policy.Sources, fun source -> source.File = "App.fs")
             Assert.Contains(policy.Inputs, fun input -> input.File = "fdull.scope.json")
-            Assert.Contains(policy.Inputs, fun input -> input.File = "automation/Check.csproj"))
+            Assert.Contains(policy.Inputs, fun input -> input.File = "external/Dependency.csproj")
+            Assert.Contains(policy.Inputs, fun input -> input.File = "external/Transitive.csproj"))
 
     [<Fact>]
     let ``supported Web test SDK xUnit v3 and Aspire generated-source profiles are exact`` () =

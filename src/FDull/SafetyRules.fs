@@ -180,8 +180,9 @@ module SafetyRules =
               "Forbidden dependency directions"
               [ build; guard; audit ]
               false
-              [ "ProjectTests.every approved graph edge is exact and shipping cannot acquire a test dependency" ]
-              "The preview supports an exact, acyclic Release/net10.0 F# project graph with literal project references."
+              [ "ProjectTests.every approved graph edge is exact and shipping cannot acquire a test dependency"
+                "ProjectTests.initialization exports restored Web SDK inputs and reviewed mixed-language scope without compiling" ]
+              "The preview supports an exact, acyclic Release/net10.0 F# project graph; cross-language references require pinned CSharp or Visual Basic projects inside reviewed external implementation scopes."
           rule
               "ARCH002"
               "Unapproved dependency assets"

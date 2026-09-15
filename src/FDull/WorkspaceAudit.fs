@@ -6,15 +6,34 @@ open System.Xml.Linq
 
 /// A consumer supplies an exact graph; the profile direction rules stay in the engine.
 module WorkspaceAudit =
-    let validateEdges (projects: WorkspaceProject list) project references =
+    let private contains (parent: string) (child: string) =
+        child = parent || child.StartsWith(parent + "/", StringComparison.Ordinal)
+
+    let internal externalProjects (policy: WorkspacePolicyDocument) =
+        let implementations =
+            WorkspacePolicy.externalEntries policy
+            |> List.filter (fun entry -> entry.Kind = "implementation")
+
+        policy.Inputs
+        |> List.map _.File
+        |> List.filter (fun file ->
+            List.contains (Path.GetExtension file) [ ".csproj"; ".vbproj" ]
+            && implementations |> List.exists (fun entry -> contains entry.Path file))
+        |> Set.ofList
+
+    let private validateEdgesCore (projects: WorkspaceProject list) external exact project references =
         let graph = projects |> List.map (fun item -> item.File, item) |> Map.ofList
 
         match Map.tryFind project graph with
         | None -> Error "ARCH002: Unclassified project."
         | Some owner ->
+            let expected = owner.References
+            let expectedSet = Set.ofList expected
+            let observedSet = Set.ofList references
+
             let permitted target =
                 match Map.tryFind target graph with
-                | None -> false
+                | None -> Set.contains target external
                 | Some dependency ->
                     match owner.Profile with
                     | "PURE"
@@ -29,21 +48,50 @@ module WorkspaceAudit =
 
             if
                 owner.Profile <> "TEST"
-                && references
+                && (expected @ references)
                    |> List.exists (fun target ->
                        Map.tryFind target graph |> Option.exists (fun value -> value.Profile = "TEST"))
             then
                 Error "ARCH004: Shipping code cannot depend on test projects."
             elif
-                List.contains project references
-                || references.Length <> (Set.ofList references).Count
-                || Set.ofList references <> Set.ofList owner.References
+                List.contains project expected
+                || expected.Length <> expectedSet.Count
+                || List.contains project references
+                || references.Length <> observedSet.Count
+                || (if exact then
+                        observedSet <> expectedSet
+                    else
+                        not (Set.isSubset observedSet expectedSet))
             then
                 Error "ARCH001: Project references differ from the protected graph."
-            elif not (List.forall permitted references) then
+            elif
+                expected
+                |> List.exists (fun target -> not (Map.containsKey target graph || Set.contains target external))
+            then
+                Error "ARCH001: A project reference is neither protected F# nor reviewed external implementation."
+            elif not (List.forall permitted expected) then
                 Error "ARCH001: A dependency has an unapproved profile direction."
             else
                 Ok()
+
+    let validateEdges projects project references =
+        validateEdgesCore projects Set.empty true project references
+
+    let internal validateDeclaredEdges projects external project references =
+        validateEdgesCore projects external false project references
+
+    let internal validateEdgesWithExternal projects external project references =
+        validateEdgesCore projects external true project references
+
+    let private protectedGraph (projects: WorkspaceProject list) =
+        let names = projects |> List.map _.File |> Set.ofList
+
+        projects
+        |> List.map (fun project ->
+            { project with
+                References =
+                    project.References
+                    |> List.filter (fun reference -> Set.contains reference names) })
 
     let private acyclic (projects: WorkspaceProject list) =
         let rec removeLeaves remaining =
@@ -66,7 +114,7 @@ module WorkspaceAudit =
                             References = item.References |> List.filter (fun file -> not (Set.contains file leaves)) })
                     |> removeLeaves
 
-        removeLeaves projects
+        removeLeaves (protectedGraph projects)
 
     let internal order (projects: WorkspaceProject list) =
         let rec dependencyFirst remaining =
@@ -89,7 +137,7 @@ module WorkspaceAudit =
 
                 (leaves |> List.map _.File) @ dependencyFirst next
 
-        dependencyFirst projects
+        dependencyFirst (protectedGraph projects)
 
     let unused (policy: WorkspacePolicyDocument) (uses: WorkspaceUse list) =
         let observed =
@@ -148,7 +196,7 @@ module WorkspaceAudit =
                           ".nuget-feed"
                           ".worktrees"
                           "node_modules" ]
-                    || List.contains next [ ".pi/git"; ".pi/worktrees" ]
+                    || List.contains next [ ".claude/worktrees"; ".pi/git"; ".pi/worktrees" ]
                 then
                     []
                 elif File.GetAttributes(path) &&& FileAttributes.ReparsePoint = FileAttributes.ReparsePoint then
@@ -199,9 +247,6 @@ module WorkspaceAudit =
         let files = inventory root
         let external = WorkspacePolicy.externalEntries policy
 
-        let contains (parent: string) (child: string) =
-            child = parent || child.StartsWith(parent + "/", StringComparison.Ordinal)
-
         let classified file =
             external |> List.exists (fun entry -> contains entry.Path file)
 
@@ -226,8 +271,15 @@ module WorkspaceAudit =
         then
             invalidOp "ARCH002: Actual and protected project inventories must match exactly."
 
-        if policy.Projects.Length > 128 || not (acyclic policy.Projects) then
-            invalidOp "ARCH001: The project graph must be acyclic and contain at most 128 projects."
+        if policy.Projects.Length > 128 then
+            invalidOp (
+                "ARCH001: The protected F# project graph contains "
+                + string policy.Projects.Length
+                + " projects; the supported maximum is 128."
+            )
+
+        if not (acyclic policy.Projects) then
+            invalidOp "ARCH001: The protected F# project graph contains a cycle."
 
         let declared = policy.Sources |> List.map _.File |> Set.ofList
 
@@ -291,11 +343,19 @@ module WorkspaceAudit =
             then
                 invalidOp ("BUILD005: Unpinned build input: " + file)
 
+        let externalProjectReferences = externalProjects policy
+
         for project in policy.Projects do
             if not (Set.contains project.Profile WorkspacePolicy.profiles) then
                 invalidOp "ARCH002: Unknown project profile."
 
-            match validateEdges policy.Projects project.File (references root project.File) with
+            match
+                validateDeclaredEdges
+                    policy.Projects
+                    externalProjectReferences
+                    project.File
+                    (references root project.File)
+            with
             | Error error -> invalidOp error
             | Ok() -> ()
 

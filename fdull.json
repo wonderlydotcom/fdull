@@ -66,7 +66,7 @@
       "File": "src/FDull/SafetyRules.fs",
       "Project": "src/FDull/FDull.fsproj",
       "Profile": "GUARD_TOOLING",
-      "Digest": "sha256:b90baf7d12bdba9ff50208279840f34aae0fc9df25796d76ef81e91b384cc0c0"
+      "Digest": "sha256:b075081fb46dec9c41bd56a0836c8d1e0f547eca30312cbcdaf877561c62f73a"
     },
     {
       "File": "src/FDull/SafetyPolicy.fs",
@@ -132,13 +132,13 @@
       "File": "src/FDull/WorkspaceAudit.fs",
       "Project": "src/FDull/FDull.fsproj",
       "Profile": "GUARD_TOOLING",
-      "Digest": "sha256:67a5d47de0f7d24cd303f6218d4d51e05d154d29655d63cb4e97b9ef060837c9"
+      "Digest": "sha256:b98edb6b68a1a8673b7218da48de8d65746868fdf008440373a71adc516ca25b"
     },
     {
       "File": "src/FDull/WorkspaceEngine.fs",
       "Project": "src/FDull/FDull.fsproj",
       "Profile": "GUARD_TOOLING",
-      "Digest": "sha256:86a54c8f50beaeb8661a6838860e54349cb9ecb970eb1afc8f45957f045cc42c"
+      "Digest": "sha256:cded5c9a06bb8d2c8a9aa56d54e72da37b7c5125a1f46b72d2e3dc681053648d"
     },
     {
       "File": "src/FDull/Workspace.fs",
@@ -168,7 +168,7 @@
       "File": "src/FDull.Tool/Program.fs",
       "Project": "src/FDull.Tool/FDull.Tool.fsproj",
       "Profile": "GUARD_TOOLING",
-      "Digest": "sha256:52f96c1c350660265df913530a288d5e9327c1e6a831b1e5d43f631f293c54e0"
+      "Digest": "sha256:6817d50c7c4fa9d774f25664667ed582ae4f5f49531c9629de1bb74416543775"
     },
     {
       "File": "src/FDull.Worker/Program.fs",
@@ -222,13 +222,13 @@
       "File": "tests/FDull.Tests/WorkspaceTests.fs",
       "Project": "tests/FDull.Tests/FDull.Tests.fsproj",
       "Profile": "TEST",
-      "Digest": "sha256:9192c9f6b3d7b2bfde07bb2cd220563c4829d282b9d2efcd55f1d688b3865186"
+      "Digest": "sha256:60a47b970003c812357e5267d4dd580aec12291eabab0ee0d8268105d772d05b"
     },
     {
       "File": "tests/FDull.Tests/ProjectTests.fs",
       "Project": "tests/FDull.Tests/FDull.Tests.fsproj",
       "Profile": "TEST",
-      "Digest": "sha256:e6ac78051b1a5ff75946ab0f134fe29489a32a64d9d204b91d27215405d40706"
+      "Digest": "sha256:be00d6786738d9eacef82da73594f94b4654e571b6df9144827de94acb2a2de7"
     },
     {
       "File": "tests/FDull.Tests/Program.fs",
@@ -244,7 +244,7 @@
     },
     {
       "File": "Directory.Build.props",
-      "Digest": "sha256:033ca4de82bc159ca5e13e8f61f888bc7147725417929b3d7c50a13402059168"
+      "Digest": "sha256:ba34534722403ea016418b86d985ee958bb1edaad073139c0ef3f8c954f1079d"
     },
     {
       "File": "Directory.Build.targets",
@@ -13592,6 +13592,13 @@
       "Kind": "rule",
       "Identity": "MUT009 | ",
       "Reason": "The inventory regression creates and removes 21,000 inert files to prove large checked workspaces remain bounded above the former 20,000-step ceiling."
+    },
+    {
+      "File": "src/FDull/WorkspaceAudit.fs",
+      "Owner": "FDull.WorkspaceAudit.externalProjects",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.GetExtension(System.String)",
+      "Reason": "Mixed-language graph validation recognizes only fingerprinted CSharp or Visual Basic project files contained by a reviewed external implementation scope."
     }
   ],
   "Domains": [],
