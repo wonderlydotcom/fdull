@@ -2,6 +2,7 @@ namespace FDull
 
 open System
 open System.IO
+open System.Text.RegularExpressions
 
 /// Exact generated-source profiles reviewed against supported SDK and test tooling versions.
 module internal WorkspaceGenerated =
@@ -171,7 +172,136 @@ module internal WorkspaceGenerated =
                 Error
                     "BUILD003: The xUnit v3 generated-source profile is incomplete or has unsupported package identities."
 
-    let supported (projectDirectory: string) (project: string) sources references =
+    let isAspireProjectMetadata (file: string) =
+        let normalized = normalizedPath file
+
+        normalized.Contains("/obj/Release/net10.0/Aspire/references/", StringComparison.Ordinal)
+        && normalized.EndsWith(".ProjectMetadata.g.fs", StringComparison.Ordinal)
+
+    let private generatedClassName (project: string) =
+        let name =
+            Path.GetFileNameWithoutExtension project
+            |> Option.ofObj
+            |> Option.defaultValue ""
+
+        Regex.Replace(name, "(((?<=\\.)|^)(?=\\d)|\\W)", "_")
+
+    let private canonicalPath path =
+        let full = Path.GetFullPath path
+        let root = Path.GetPathRoot full |> Option.ofObj |> Option.defaultValue ""
+
+        let parts =
+            full
+                .Substring(root.Length)
+                .Replace(Path.AltDirectorySeparatorChar, Path.DirectorySeparatorChar)
+                .Split(Path.DirectorySeparatorChar, StringSplitOptions.RemoveEmptyEntries)
+            |> Array.toList
+
+        let rec resolve current remaining =
+            match remaining with
+            | [] -> current
+            | part :: rest ->
+                let next = Path.Combine(current, part)
+
+                let resolved =
+                    if
+                        (Directory.Exists next || File.Exists next)
+                        && File.GetAttributes(next) &&& FileAttributes.ReparsePoint = FileAttributes.ReparsePoint
+                    then
+                        if Directory.Exists next then
+                            DirectoryInfo(next).ResolveLinkTarget(true)
+                            |> FDull.Transport.External.required "generated-source.real-directory"
+                            |> _.FullName
+                        else
+                            FileInfo(next).ResolveLinkTarget(true)
+                            |> FDull.Transport.External.required "generated-source.real-file"
+                            |> _.FullName
+                    else
+                        next
+
+                resolve resolved rest
+
+        resolve root parts |> Path.GetFullPath
+
+    let private aspireProjectMetadata className projectPath =
+        [ "namespace Projects"
+          ""
+          "[<global.System.Diagnostics.DebuggerDisplay(\"Type = {GetType().Name,nq}, ProjectPath = {ProjectPath}\")>]"
+          "type " + className + "() ="
+          "  member _.ProjectPath = \"\"\"" + projectPath + "\"\"\""
+          "  interface global.Aspire.Hosting.IProjectMetadata with"
+          "    member this.ProjectPath = this.ProjectPath"
+          "" ]
+        |> String.concat "\n"
+
+    let private aspireHostMetadata className projectDirectory =
+        [ "namespace Projects"
+          ""
+          "type internal " + className + "() ="
+          "  member _.ProjectPath = \"\"\"" + projectDirectory + "\"\"\""
+          "" ]
+        |> String.concat "\n"
+
+    let private aspire root projectDirectory project projectReferences sources references =
+        let generated = sources |> List.filter isAspireProjectMetadata |> Set.ofList
+
+        if generated.IsEmpty then
+            Ok Set.empty
+        elif
+            not (
+                hasReference "/aspire.hosting.apphost/13.4.6/lib/net10.0/Aspire.Hosting.AppHost.dll" references
+                && hasReference "/aspire.hosting/13.4.6/lib/net8.0/Aspire.Hosting.dll" references
+                && hasReference
+                    "/fsharp.aspire.hosting.apphost/13.0.0/lib/net8.0/FSharp.Aspire.Hosting.AppHost.dll"
+                    references
+            )
+        then
+            Error "BUILD003: The Aspire generated-source profile has unsupported package identities."
+        else
+            let host =
+                Path.Combine(projectDirectory, "obj/Release/net10.0/Aspire/references/_AppHost.ProjectMetadata.g.fs")
+
+            let projects =
+                projectReferences
+                |> List.map (fun reference ->
+                    let projectPath = Path.GetFullPath(reference, root)
+                    let className = generatedClassName projectPath
+
+                    Path.Combine(
+                        projectDirectory,
+                        "obj/Release/net10.0/Aspire/references/" + className + ".ProjectMetadata.g.fs"
+                    ),
+                    [ projectPath; canonicalPath projectPath ]
+                    |> List.distinct
+                    |> List.map (aspireProjectMetadata className))
+
+            let expected = host :: (projects |> List.map fst) |> Set.ofList
+
+            let hostDirectory = Path.TrimEndingDirectorySeparator projectDirectory
+
+            let contents =
+                (host,
+                 [ hostDirectory; canonicalPath hostDirectory ]
+                 |> List.distinct
+                 |> List.map (aspireHostMetadata (generatedClassName project)))
+                :: projects
+
+            let validEncoding file =
+                match File.ReadAllBytes file |> Array.toList with
+                | 0xffuy :: 0xfeuy :: _ -> true
+                | _ -> false
+
+            if
+                generated <> expected
+                || contents
+                   |> List.exists (fun (file, expectedText) ->
+                       not (validEncoding file) || not (List.contains (text file) expectedText))
+            then
+                Error "BUILD003: Aspire emitted an unsupported generated F# project-metadata inventory."
+            else
+                Ok generated
+
+    let supported root (projectDirectory: string) (project: string) projectReferences sources references =
         let sourceSet = Set.ofList sources
 
         let projectName =
@@ -191,5 +321,10 @@ module internal WorkspaceGenerated =
 
         let testSdk = sources |> List.filter isTestSdkProgram |> Set.ofList
 
-        xunitV3 projectDirectory sources references
-        |> Result.map (fun xunit -> Set.union standard (Set.union testSdk xunit))
+        match
+            xunitV3 projectDirectory sources references,
+            aspire root projectDirectory project projectReferences sources references
+        with
+        | Ok xunit, Ok aspire -> Ok(Set.union standard (Set.union testSdk (Set.union xunit aspire)))
+        | Error error, _
+        | _, Error error -> Error error

@@ -113,7 +113,7 @@ module WorkspaceAudit =
 
     let inventory root =
         let budget =
-            SafetyBudget(maximumSteps = 20000, maximumDepth = 32, milliseconds = 10000)
+            SafetyBudget(maximumSteps = 100000, maximumDepth = 32, milliseconds = 10000)
 
         let root = Path.TrimEndingDirectorySeparator(Path.GetFullPath root)
 
@@ -137,7 +137,18 @@ module WorkspaceAudit =
                 let next = Path.GetRelativePath(root, path).Replace('\\', '/')
 
                 if
-                    List.contains name [ "bin"; "obj"; ".git"; ".fdull"; "artifacts"; ".artifacts"; "node_modules" ]
+                    List.contains
+                        name
+                        [ "bin"
+                          "obj"
+                          ".git"
+                          ".fdull"
+                          "artifacts"
+                          ".artifacts"
+                          ".nuget-feed"
+                          ".worktrees"
+                          "node_modules" ]
+                    || List.contains next [ ".pi/git"; ".pi/worktrees" ]
                 then
                     []
                 elif File.GetAttributes(path) &&& FileAttributes.ReparsePoint = FileAttributes.ReparsePoint then

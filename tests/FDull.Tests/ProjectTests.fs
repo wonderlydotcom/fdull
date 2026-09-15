@@ -210,7 +210,7 @@ module ProjectTests =
             Assert.Contains(policy.Inputs, fun input -> input.File = "automation/Check.csproj"))
 
     [<Fact>]
-    let ``the FSharp Core 10 Web test SDK and xUnit v3 consumer profiles are supported`` () =
+    let ``supported Web test SDK xUnit v3 and Aspire generated-source profiles are exact`` () =
         withDirectory (fun root ->
             restoreConsumer root (Some "10.0.100") "module App\nlet increment value = value + 1\n"
 
@@ -313,6 +313,55 @@ module ProjectTests =
             let report = Workspace.check root
             Assert.True(report.Complete, Codec.encode report)
             Assert.Equal(0, report.ExitCode))
+
+        withDirectory (fun root ->
+            restoreConsumer root None "module App\nlet increment value = value + 1\n"
+
+            File.WriteAllText(
+                Path.Combine(root, "Directory.Build.targets"),
+                "<Project><Target Name=\"ClearPackageFSharpSuppressions\" BeforeTargets=\"CoreCompile\"><PropertyGroup><NoWarn></NoWarn></PropertyGroup></Target></Project>"
+            )
+
+            let host = Path.Combine(root, "Host")
+            Directory.CreateDirectory host |> ignore
+
+            File.WriteAllText(
+                Path.Combine(host, "Host.fsproj"),
+                "<Project Sdk=\"Aspire.AppHost.Sdk/13.4.6\"><PropertyGroup><OutputType>Library</OutputType><SkipValidateAspireHostProjectResources>true</SkipValidateAspireHostProjectResources></PropertyGroup><ItemGroup><Compile Include=\"Host.fs\"/></ItemGroup><ItemGroup><PackageReference Include=\"Aspire.Hosting.AppHost\" Version=\"13.4.6\"/><PackageReference Include=\"FSharp.Aspire.Hosting.AppHost\" Version=\"13.0.0\"/></ItemGroup><ItemGroup><ProjectReference Include=\"../App.fsproj\"/></ItemGroup><Target Name=\"TamperAspireMetadata\" AfterTargets=\"WriteAspireProjectMetadataSources\" BeforeTargets=\"CoreCompile\" Condition=\"Exists('tamper-generated-source')\"><WriteLinesToFile File=\"$(IntermediateOutputPath)Aspire/references/App.ProjectMetadata.g.fs\" Lines=\"// tampered\" Overwrite=\"false\"/></Target></Project>"
+            )
+
+            File.WriteAllText(Path.Combine(host, "Host.fs"), "module AppHost\nlet value = 1\n")
+            run root [ "restore"; "Host/Host.fsproj"; "--use-lock-file"; "-m:1"; "-nr:false" ]
+
+            run
+                root
+                [ "build"
+                  "Host/Host.fsproj"
+                  "-c"
+                  "Release"
+                  "--no-restore"
+                  "-m:1"
+                  "--disable-build-servers" ]
+
+            Project.initialize root |> ignore
+
+            let invocation =
+                match Workspace.export root "Host/Host.fsproj" with
+                | Ok invocation -> invocation
+                | Error error -> failwith error
+
+            Assert.Equal(4, invocation.Generated.Length)
+            Assert.Contains(invocation.Generated, fun file -> Path.GetFileName file = "App.ProjectMetadata.g.fs")
+
+            let report = Workspace.check root
+            Assert.True(report.Complete, Codec.encode report)
+            Assert.Equal(0, report.ExitCode)
+
+            File.WriteAllText(Path.Combine(host, "tamper-generated-source"), "tamper")
+
+            match Workspace.export root "Host/Host.fsproj" with
+            | Error error -> Assert.StartsWith("BUILD003:", error)
+            | Ok _ -> failwith "Modified generated Aspire source was accepted.")
 
     let private write root policy =
         File.WriteAllText(Path.Combine(root, "fdull.json"), Codec.encode policy)
