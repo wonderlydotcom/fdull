@@ -238,7 +238,8 @@ module WorkspaceAudit =
             let path =
                 (item.Attribute(XName.Get "Include")
                  |> Transport.External.required "project.reference")
-                    .Value
+                    .Value.Replace('\\', Path.DirectorySeparatorChar)
+                    .Replace('/', Path.DirectorySeparatorChar)
 
             Path.GetRelativePath(root, Path.GetFullPath(path, directory)).Replace('\\', '/'))
         |> Seq.toList
