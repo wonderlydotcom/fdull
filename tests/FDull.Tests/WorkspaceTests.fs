@@ -87,10 +87,41 @@ module WorkspaceTests =
             Directory.CreateDirectory artifacts |> ignore
             File.WriteAllText(Path.Combine(artifacts, "Generated.fs"), "module Generated\nlet value = 1\n")
 
-            Assert.DoesNotContain(
-                WorkspaceAudit.inventory directory,
-                fun file -> file.StartsWith(".artifacts/", StringComparison.Ordinal)
+            let nugetFeed = Path.Combine(directory, ".nuget-feed")
+            let worktrees = Path.Combine(directory, ".worktrees")
+            let piWorktrees = Path.Combine(directory, ".pi", "worktrees")
+            let piGit = Path.Combine(directory, ".pi", "git")
+
+            let addExcludedSource excluded =
+                Directory.CreateDirectory excluded |> ignore
+                File.WriteAllText(Path.Combine(excluded, "Generated.fs"), "module Generated\nlet value = 1\n")
+
+            addExcludedSource nugetFeed
+            addExcludedSource worktrees
+            addExcludedSource piWorktrees
+            addExcludedSource piGit
+
+            let inventory = WorkspaceAudit.inventory directory
+            Assert.DoesNotContain(inventory, fun file -> file.StartsWith(".artifacts/", StringComparison.Ordinal))
+            Assert.DoesNotContain(inventory, fun file -> file.StartsWith(".nuget-feed/", StringComparison.Ordinal))
+            Assert.DoesNotContain(inventory, fun file -> file.StartsWith(".worktrees/", StringComparison.Ordinal))
+            Assert.DoesNotContain(inventory, fun file -> file.StartsWith(".pi/worktrees/", StringComparison.Ordinal))
+            Assert.DoesNotContain(inventory, fun file -> file.StartsWith(".pi/git/", StringComparison.Ordinal))
+
+            let large = Path.Combine(directory, "large-inventory")
+            Directory.CreateDirectory large |> ignore
+
+            for index in 1..21000 do
+                File.WriteAllText(Path.Combine(large, string index + ".txt"), "")
+
+            Assert.Equal(
+                21000,
+                WorkspaceAudit.inventory directory
+                |> List.filter (fun file -> file.StartsWith("large-inventory/", StringComparison.Ordinal))
+                |> List.length
             )
+
+            Directory.Delete(large, true)
 
             if not (OperatingSystem.IsWindows()) then
                 let agents = Path.Combine(directory, ".agents", "skills")

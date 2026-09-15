@@ -66,7 +66,7 @@
       "File": "src/FDull/SafetyRules.fs",
       "Project": "src/FDull/FDull.fsproj",
       "Profile": "GUARD_TOOLING",
-      "Digest": "sha256:9989749f689bb7604824b3e8aa0b07d3437eaab9b61190405735a44e5867eec4"
+      "Digest": "sha256:b90baf7d12bdba9ff50208279840f34aae0fc9df25796d76ef81e91b384cc0c0"
     },
     {
       "File": "src/FDull/SafetyPolicy.fs",
@@ -120,31 +120,31 @@
       "File": "src/FDull/WorkspaceGenerated.fs",
       "Project": "src/FDull/FDull.fsproj",
       "Profile": "GUARD_TOOLING",
-      "Digest": "sha256:831b418b0b17c5fb4dc476dd17621487b3bce2424d4b475da565549e8de0484b"
+      "Digest": "sha256:d54bad7eaed515e8117f84ce61ff67e9c41b204a62c70dad4b0264652dad3276"
     },
     {
       "File": "src/FDull/WorkspacePolicy.fs",
       "Project": "src/FDull/FDull.fsproj",
       "Profile": "GUARD_TOOLING",
-      "Digest": "sha256:bf37859840b8c36d84929d85056878bf0cc20d757a8f309eef30d439c8a04b43"
+      "Digest": "sha256:d02d26fa2ba4934654ae758c6d8d54b8b3ea6df7b0bae7e63083aa5e2de8805f"
     },
     {
       "File": "src/FDull/WorkspaceAudit.fs",
       "Project": "src/FDull/FDull.fsproj",
       "Profile": "GUARD_TOOLING",
-      "Digest": "sha256:0e5caae89fbec5af93c13cc26881d3e005c9f637829d1d373619fbe24aa6b97d"
+      "Digest": "sha256:67a5d47de0f7d24cd303f6218d4d51e05d154d29655d63cb4e97b9ef060837c9"
     },
     {
       "File": "src/FDull/WorkspaceEngine.fs",
       "Project": "src/FDull/FDull.fsproj",
       "Profile": "GUARD_TOOLING",
-      "Digest": "sha256:9dff3aa7b2b74899f33d185cff3b176df83f6ff2c18abe874e5632805482b471"
+      "Digest": "sha256:86a54c8f50beaeb8661a6838860e54349cb9ecb970eb1afc8f45957f045cc42c"
     },
     {
       "File": "src/FDull/Workspace.fs",
       "Project": "src/FDull/FDull.fsproj",
       "Profile": "GUARD_TOOLING",
-      "Digest": "sha256:54c44f4b66b15b0aec401f4f065443646806a25dd362674456dc27e592e7d76e"
+      "Digest": "sha256:7c97bfea169c19793c4127797f1fd8a4c698302720b02638276433f0513ec199"
     },
     {
       "File": "src/FDull/Safety.fs",
@@ -168,7 +168,7 @@
       "File": "src/FDull.Tool/Program.fs",
       "Project": "src/FDull.Tool/FDull.Tool.fsproj",
       "Profile": "GUARD_TOOLING",
-      "Digest": "sha256:aa2a1a1406286e752bf59e08de932d2c8e2d7db6949bb8d290aa36f355f70ac8"
+      "Digest": "sha256:52f96c1c350660265df913530a288d5e9327c1e6a831b1e5d43f631f293c54e0"
     },
     {
       "File": "src/FDull.Worker/Program.fs",
@@ -222,13 +222,13 @@
       "File": "tests/FDull.Tests/WorkspaceTests.fs",
       "Project": "tests/FDull.Tests/FDull.Tests.fsproj",
       "Profile": "TEST",
-      "Digest": "sha256:9b46f93a58dd9f5e7faf0f4a23dfd23592dcf58b62cbcd34fc1ed0cc567a6d21"
+      "Digest": "sha256:9192c9f6b3d7b2bfde07bb2cd220563c4829d282b9d2efcd55f1d688b3865186"
     },
     {
       "File": "tests/FDull.Tests/ProjectTests.fs",
       "Project": "tests/FDull.Tests/FDull.Tests.fsproj",
       "Profile": "TEST",
-      "Digest": "sha256:38c5f7bdafc860d14191392cb34ea8a6a9c05698ade53538a8efe9fa5ff8ea6a"
+      "Digest": "sha256:e6ac78051b1a5ff75946ab0f134fe29489a32a64d9d204b91d27215405d40706"
     },
     {
       "File": "tests/FDull.Tests/Program.fs",
@@ -244,7 +244,7 @@
     },
     {
       "File": "Directory.Build.props",
-      "Digest": "sha256:aa411e6cc140f900e7f35f5e5466cf0519ff0ead2b2b29d871d08da167d0df86"
+      "Digest": "sha256:033ca4de82bc159ca5e13e8f61f888bc7147725417929b3d7c50a13402059168"
     },
     {
       "File": "Directory.Build.targets",
@@ -12972,63 +12972,63 @@
     },
     {
       "File": "tests/FDull.Tests/ProjectTests.fs",
-      "Owner": "FDull.Tests.ProjectTests.``the FSharp Core 10 Web test SDK and xUnit v3 consumer profiles are supported``",
+      "Owner": "FDull.Tests.ProjectTests.``supported Web test SDK xUnit v3 and Aspire generated-source profiles are exact``",
       "Kind": "attribute",
       "Identity": "xunit.core, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | Xunit.FactAttribute |  | unit",
       "Reason": "The isolated consumer fixture restores and builds an F# Web/test project on pinned SDK 10.0.200 with FSharp Core 10.0.100, then initializes and analyzes the exact generated-source profile. Its bounded child process and temporary files cannot enter shipping code."
     },
     {
       "File": "tests/FDull.Tests/ProjectTests.fs",
-      "Owner": "FDull.Tests.ProjectTests.``the FSharp Core 10 Web test SDK and xUnit v3 consumer profiles are supported``",
+      "Owner": "FDull.Tests.ProjectTests.``supported Web test SDK xUnit v3 and Aspire generated-source profiles are exact``",
       "Kind": "member",
       "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Project.initialize(System.String)",
       "Reason": "The isolated consumer fixture restores and builds an F# Web/test project on pinned SDK 10.0.200 with FSharp Core 10.0.100, then initializes and analyzes the exact generated-source profile. Its bounded child process and temporary files cannot enter shipping code."
     },
     {
       "File": "tests/FDull.Tests/ProjectTests.fs",
-      "Owner": "FDull.Tests.ProjectTests.``the FSharp Core 10 Web test SDK and xUnit v3 consumer profiles are supported``",
+      "Owner": "FDull.Tests.ProjectTests.``supported Web test SDK xUnit v3 and Aspire generated-source profiles are exact``",
       "Kind": "member",
       "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Workspace.check(System.String)",
       "Reason": "The isolated consumer fixture restores and builds an F# Web/test project on pinned SDK 10.0.200 with FSharp Core 10.0.100, then initializes and analyzes the exact generated-source profile. Its bounded child process and temporary files cannot enter shipping code."
     },
     {
       "File": "tests/FDull.Tests/ProjectTests.fs",
-      "Owner": "FDull.Tests.ProjectTests.``the FSharp Core 10 Web test SDK and xUnit v3 consumer profiles are supported``",
+      "Owner": "FDull.Tests.ProjectTests.``supported Web test SDK xUnit v3 and Aspire generated-source profiles are exact``",
       "Kind": "member",
       "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Core.StringModule.Concat(System.String,System.Collections.Generic.IEnumerable{System.String})",
       "Reason": "The isolated consumer fixture restores and builds an F# Web/test project on pinned SDK 10.0.200 with FSharp Core 10.0.100, then initializes and analyzes the exact generated-source profile. Its bounded child process and temporary files cannot enter shipping code."
     },
     {
       "File": "tests/FDull.Tests/ProjectTests.fs",
-      "Owner": "FDull.Tests.ProjectTests.``the FSharp Core 10 Web test SDK and xUnit v3 consumer profiles are supported``",
+      "Owner": "FDull.Tests.ProjectTests.``supported Web test SDK xUnit v3 and Aspire generated-source profiles are exact``",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.File.WriteAllText(System.String,System.String)",
       "Reason": "The isolated consumer fixture restores and builds an F# Web/test project on pinned SDK 10.0.200 with FSharp Core 10.0.100, then initializes and analyzes the exact generated-source profile. Its bounded child process and temporary files cannot enter shipping code."
     },
     {
       "File": "tests/FDull.Tests/ProjectTests.fs",
-      "Owner": "FDull.Tests.ProjectTests.``the FSharp Core 10 Web test SDK and xUnit v3 consumer profiles are supported``",
+      "Owner": "FDull.Tests.ProjectTests.``supported Web test SDK xUnit v3 and Aspire generated-source profiles are exact``",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.Combine(System.String,System.String)",
       "Reason": "The isolated consumer fixture restores and builds an F# Web/test project on pinned SDK 10.0.200 with FSharp Core 10.0.100, then initializes and analyzes the exact generated-source profile. Its bounded child process and temporary files cannot enter shipping code."
     },
     {
       "File": "tests/FDull.Tests/ProjectTests.fs",
-      "Owner": "FDull.Tests.ProjectTests.``the FSharp Core 10 Web test SDK and xUnit v3 consumer profiles are supported``",
+      "Owner": "FDull.Tests.ProjectTests.``supported Web test SDK xUnit v3 and Aspire generated-source profiles are exact``",
       "Kind": "member",
       "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Equal``1(``0,``0)",
       "Reason": "The isolated consumer fixture restores and builds an F# Web/test project on pinned SDK 10.0.200 with FSharp Core 10.0.100, then initializes and analyzes the exact generated-source profile. Its bounded child process and temporary files cannot enter shipping code."
     },
     {
       "File": "tests/FDull.Tests/ProjectTests.fs",
-      "Owner": "FDull.Tests.ProjectTests.``the FSharp Core 10 Web test SDK and xUnit v3 consumer profiles are supported``",
+      "Owner": "FDull.Tests.ProjectTests.``supported Web test SDK xUnit v3 and Aspire generated-source profiles are exact``",
       "Kind": "member",
       "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.True(System.Boolean,System.String)",
       "Reason": "The isolated consumer fixture restores and builds an F# Web/test project on pinned SDK 10.0.200 with FSharp Core 10.0.100, then initializes and analyzes the exact generated-source profile. Its bounded child process and temporary files cannot enter shipping code."
     },
     {
       "File": "tests/FDull.Tests/ProjectTests.fs",
-      "Owner": "FDull.Tests.ProjectTests.``the FSharp Core 10 Web test SDK and xUnit v3 consumer profiles are supported``",
+      "Owner": "FDull.Tests.ProjectTests.``supported Web test SDK xUnit v3 and Aspire generated-source profiles are exact``",
       "Kind": "type",
       "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspaceReport",
       "Reason": "The isolated consumer fixture restores and builds an F# Web/test project on pinned SDK 10.0.200 with FSharp Core 10.0.100, then initializes and analyzes the exact generated-source profile. Its bounded child process and temporary files cannot enter shipping code."
@@ -13322,56 +13322,56 @@
     },
     {
       "File": "tests/FDull.Tests/ProjectTests.fs",
-      "Owner": "FDull.Tests.ProjectTests.``the FSharp Core 10 Web test SDK and xUnit v3 consumer profiles are supported``",
+      "Owner": "FDull.Tests.ProjectTests.``supported Web test SDK xUnit v3 and Aspire generated-source profiles are exact``",
       "Kind": "type",
       "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspaceInvocation",
       "Reason": "The consumer regression creates and inspects an isolated xUnit v3 project, then deliberately tampers with one generated source to prove the exact profile fails closed."
     },
     {
       "File": "tests/FDull.Tests/ProjectTests.fs",
-      "Owner": "FDull.Tests.ProjectTests.``the FSharp Core 10 Web test SDK and xUnit v3 consumer profiles are supported``",
+      "Owner": "FDull.Tests.ProjectTests.``supported Web test SDK xUnit v3 and Aspire generated-source profiles are exact``",
       "Kind": "member",
       "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Workspace.export(System.String,System.String)",
       "Reason": "The consumer regression creates and inspects an isolated xUnit v3 project, then deliberately tampers with one generated source to prove the exact profile fails closed."
     },
     {
       "File": "tests/FDull.Tests/ProjectTests.fs",
-      "Owner": "FDull.Tests.ProjectTests.``the FSharp Core 10 Web test SDK and xUnit v3 consumer profiles are supported``",
+      "Owner": "FDull.Tests.ProjectTests.``supported Web test SDK xUnit v3 and Aspire generated-source profiles are exact``",
       "Kind": "member",
       "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Core.Operators.FailWith``1(System.String)",
       "Reason": "The consumer regression creates and inspects an isolated xUnit v3 project, then deliberately tampers with one generated source to prove the exact profile fails closed."
     },
     {
       "File": "tests/FDull.Tests/ProjectTests.fs",
-      "Owner": "FDull.Tests.ProjectTests.``the FSharp Core 10 Web test SDK and xUnit v3 consumer profiles are supported``",
+      "Owner": "FDull.Tests.ProjectTests.``supported Web test SDK xUnit v3 and Aspire generated-source profiles are exact``",
       "Kind": "member",
       "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Contains``1(System.Collections.Generic.IEnumerable{``0},System.Predicate{``0})",
       "Reason": "The consumer regression creates and inspects an isolated xUnit v3 project, then deliberately tampers with one generated source to prove the exact profile fails closed."
     },
     {
       "File": "tests/FDull.Tests/ProjectTests.fs",
-      "Owner": "FDull.Tests.ProjectTests.``the FSharp Core 10 Web test SDK and xUnit v3 consumer profiles are supported``",
+      "Owner": "FDull.Tests.ProjectTests.``supported Web test SDK xUnit v3 and Aspire generated-source profiles are exact``",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.GetFileName(System.String)",
       "Reason": "The consumer regression creates and inspects an isolated xUnit v3 project, then deliberately tampers with one generated source to prove the exact profile fails closed."
     },
     {
       "File": "tests/FDull.Tests/ProjectTests.fs",
-      "Owner": "FDull.Tests.ProjectTests.``the FSharp Core 10 Web test SDK and xUnit v3 consumer profiles are supported``",
+      "Owner": "FDull.Tests.ProjectTests.``supported Web test SDK xUnit v3 and Aspire generated-source profiles are exact``",
       "Kind": "member",
       "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Transport.Codec.encode``1(``0)",
       "Reason": "The consumer regression creates and inspects an isolated xUnit v3 project, then deliberately tampers with one generated source to prove the exact profile fails closed."
     },
     {
       "File": "tests/FDull.Tests/ProjectTests.fs",
-      "Owner": "FDull.Tests.ProjectTests.``the FSharp Core 10 Web test SDK and xUnit v3 consumer profiles are supported``",
+      "Owner": "FDull.Tests.ProjectTests.``supported Web test SDK xUnit v3 and Aspire generated-source profiles are exact``",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.File.AppendAllText(System.String,System.String)",
       "Reason": "The consumer regression creates and inspects an isolated xUnit v3 project, then deliberately tampers with one generated source to prove the exact profile fails closed."
     },
     {
       "File": "tests/FDull.Tests/ProjectTests.fs",
-      "Owner": "FDull.Tests.ProjectTests.``the FSharp Core 10 Web test SDK and xUnit v3 consumer profiles are supported``",
+      "Owner": "FDull.Tests.ProjectTests.``supported Web test SDK xUnit v3 and Aspire generated-source profiles are exact``",
       "Kind": "member",
       "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.StartsWith(System.String,System.String)",
       "Reason": "The consumer regression creates and inspects an isolated xUnit v3 project, then deliberately tampers with one generated source to prove the exact profile fails closed."
@@ -13389,6 +13389,209 @@
       "Kind": "member",
       "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.DoesNotContain``1(System.Collections.Generic.IEnumerable{``0},System.Predicate{``0})",
       "Reason": "The mixed-workspace regression directly inspects inventory and asserts that the configured generated artifact tree cannot consume traversal budget or become protected source."
+    },
+    {
+      "File": "src/FDull/WorkspaceGenerated.fs",
+      "Owner": "FDull.WorkspaceGenerated.generatedClassName",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.GetFileNameWithoutExtension(System.String)",
+      "Reason": "Aspire generated-source attestation reproduces the exact Aspire 13.4.6/FSharp Aspire 13.0.0 class-name and UTF-16 source templates, resolving existing parent links only to bind generated project paths to the protected graph."
+    },
+    {
+      "File": "src/FDull/WorkspaceGenerated.fs",
+      "Owner": "FDull.WorkspaceGenerated.generatedClassName",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Core.OptionModule.OfObj``1(``0)",
+      "Reason": "Aspire generated-source attestation reproduces the exact Aspire 13.4.6/FSharp Aspire 13.0.0 class-name and UTF-16 source templates, resolving existing parent links only to bind generated project paths to the protected graph."
+    },
+    {
+      "File": "src/FDull/WorkspaceGenerated.fs",
+      "Owner": "FDull.WorkspaceGenerated.generatedClassName",
+      "Kind": "member",
+      "Identity": "System.Text.RegularExpressions, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.Text.RegularExpressions.Regex.Replace(System.String,System.String,System.String)",
+      "Reason": "Aspire generated-source attestation reproduces the exact Aspire 13.4.6/FSharp Aspire 13.0.0 class-name and UTF-16 source templates, resolving existing parent links only to bind generated project paths to the protected graph."
+    },
+    {
+      "File": "src/FDull/WorkspaceGenerated.fs",
+      "Owner": "FDull.WorkspaceGenerated.canonicalPath",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.GetFullPath(System.String)",
+      "Reason": "Aspire generated-source attestation reproduces the exact Aspire 13.4.6/FSharp Aspire 13.0.0 class-name and UTF-16 source templates, resolving existing parent links only to bind generated project paths to the protected graph."
+    },
+    {
+      "File": "src/FDull/WorkspaceGenerated.fs",
+      "Owner": "FDull.WorkspaceGenerated.canonicalPath",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.GetPathRoot(System.String)",
+      "Reason": "Aspire generated-source attestation reproduces the exact Aspire 13.4.6/FSharp Aspire 13.0.0 class-name and UTF-16 source templates, resolving existing parent links only to bind generated project paths to the protected graph."
+    },
+    {
+      "File": "src/FDull/WorkspaceGenerated.fs",
+      "Owner": "FDull.WorkspaceGenerated.canonicalPath",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Core.OptionModule.OfObj``1(``0)",
+      "Reason": "Aspire generated-source attestation reproduces the exact Aspire 13.4.6/FSharp Aspire 13.0.0 class-name and UTF-16 source templates, resolving existing parent links only to bind generated project paths to the protected graph."
+    },
+    {
+      "File": "src/FDull/WorkspaceGenerated.fs",
+      "Owner": "FDull.WorkspaceGenerated.canonicalPath",
+      "Kind": "member",
+      "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | M:System.String.Replace(System.Char,System.Char)",
+      "Reason": "Aspire generated-source attestation reproduces the exact Aspire 13.4.6/FSharp Aspire 13.0.0 class-name and UTF-16 source templates, resolving existing parent links only to bind generated project paths to the protected graph."
+    },
+    {
+      "File": "src/FDull/WorkspaceGenerated.fs",
+      "Owner": "FDull.WorkspaceGenerated.canonicalPath",
+      "Kind": "member",
+      "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | M:System.String.Split(System.Char,System.StringSplitOptions)",
+      "Reason": "Aspire generated-source attestation reproduces the exact Aspire 13.4.6/FSharp Aspire 13.0.0 class-name and UTF-16 source templates, resolving existing parent links only to bind generated project paths to the protected graph."
+    },
+    {
+      "File": "src/FDull/WorkspaceGenerated.fs",
+      "Owner": "FDull.WorkspaceGenerated.canonicalPath",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.ArrayModule.ToList``1(``0[])",
+      "Reason": "Aspire generated-source attestation reproduces the exact Aspire 13.4.6/FSharp Aspire 13.0.0 class-name and UTF-16 source templates, resolving existing parent links only to bind generated project paths to the protected graph."
+    },
+    {
+      "File": "src/FDull/WorkspaceGenerated.fs",
+      "Owner": "FDull.WorkspaceGenerated.canonicalPath",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.Combine(System.String,System.String)",
+      "Reason": "Aspire generated-source attestation reproduces the exact Aspire 13.4.6/FSharp Aspire 13.0.0 class-name and UTF-16 source templates, resolving existing parent links only to bind generated project paths to the protected graph."
+    },
+    {
+      "File": "src/FDull/WorkspaceGenerated.fs",
+      "Owner": "FDull.WorkspaceGenerated.canonicalPath",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Directory.Exists(System.String)",
+      "Reason": "Aspire generated-source attestation reproduces the exact Aspire 13.4.6/FSharp Aspire 13.0.0 class-name and UTF-16 source templates, resolving existing parent links only to bind generated project paths to the protected graph."
+    },
+    {
+      "File": "src/FDull/WorkspaceGenerated.fs",
+      "Owner": "FDull.WorkspaceGenerated.canonicalPath",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.File.Exists(System.String)",
+      "Reason": "Aspire generated-source attestation reproduces the exact Aspire 13.4.6/FSharp Aspire 13.0.0 class-name and UTF-16 source templates, resolving existing parent links only to bind generated project paths to the protected graph."
+    },
+    {
+      "File": "src/FDull/WorkspaceGenerated.fs",
+      "Owner": "FDull.WorkspaceGenerated.canonicalPath",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.File.GetAttributes(System.String)",
+      "Reason": "Aspire generated-source attestation reproduces the exact Aspire 13.4.6/FSharp Aspire 13.0.0 class-name and UTF-16 source templates, resolving existing parent links only to bind generated project paths to the protected graph."
+    },
+    {
+      "File": "src/FDull/WorkspaceGenerated.fs",
+      "Owner": "FDull.WorkspaceGenerated.canonicalPath",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Core.Operators.op_BitwiseAnd``1(Microsoft.FSharp.Core.FSharpFunc{``0,Microsoft.FSharp.Core.FSharpFunc{``0,``0}},``0,``0)",
+      "Reason": "Aspire generated-source attestation reproduces the exact Aspire 13.4.6/FSharp Aspire 13.0.0 class-name and UTF-16 source templates, resolving existing parent links only to bind generated project paths to the protected graph."
+    },
+    {
+      "File": "src/FDull/WorkspaceGenerated.fs",
+      "Owner": "FDull.WorkspaceGenerated.canonicalPath",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.DirectoryInfo.#ctor(System.String)",
+      "Reason": "Aspire generated-source attestation reproduces the exact Aspire 13.4.6/FSharp Aspire 13.0.0 class-name and UTF-16 source templates, resolving existing parent links only to bind generated project paths to the protected graph."
+    },
+    {
+      "File": "src/FDull/WorkspaceGenerated.fs",
+      "Owner": "FDull.WorkspaceGenerated.canonicalPath",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.FileSystemInfo.ResolveLinkTarget(System.Boolean)",
+      "Reason": "Aspire generated-source attestation reproduces the exact Aspire 13.4.6/FSharp Aspire 13.0.0 class-name and UTF-16 source templates, resolving existing parent links only to bind generated project paths to the protected graph."
+    },
+    {
+      "File": "src/FDull/WorkspaceGenerated.fs",
+      "Owner": "FDull.WorkspaceGenerated.canonicalPath",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:System.IO.FileSystemInfo.FullName",
+      "Reason": "Aspire generated-source attestation reproduces the exact Aspire 13.4.6/FSharp Aspire 13.0.0 class-name and UTF-16 source templates, resolving existing parent links only to bind generated project paths to the protected graph."
+    },
+    {
+      "File": "src/FDull/WorkspaceGenerated.fs",
+      "Owner": "FDull.WorkspaceGenerated.canonicalPath",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.FileInfo.#ctor(System.String)",
+      "Reason": "Aspire generated-source attestation reproduces the exact Aspire 13.4.6/FSharp Aspire 13.0.0 class-name and UTF-16 source templates, resolving existing parent links only to bind generated project paths to the protected graph."
+    },
+    {
+      "File": "src/FDull/WorkspaceGenerated.fs",
+      "Owner": "FDull.WorkspaceGenerated.aspireProjectMetadata",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Core.StringModule.Concat(System.String,System.Collections.Generic.IEnumerable{System.String})",
+      "Reason": "Aspire generated-source attestation reproduces the exact Aspire 13.4.6/FSharp Aspire 13.0.0 class-name and UTF-16 source templates, resolving existing parent links only to bind generated project paths to the protected graph."
+    },
+    {
+      "File": "src/FDull/WorkspaceGenerated.fs",
+      "Owner": "FDull.WorkspaceGenerated.aspireHostMetadata",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Core.StringModule.Concat(System.String,System.Collections.Generic.IEnumerable{System.String})",
+      "Reason": "Aspire generated-source attestation reproduces the exact Aspire 13.4.6/FSharp Aspire 13.0.0 class-name and UTF-16 source templates, resolving existing parent links only to bind generated project paths to the protected graph."
+    },
+    {
+      "File": "src/FDull/WorkspaceGenerated.fs",
+      "Owner": "FDull.WorkspaceGenerated.aspire",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.Combine(System.String,System.String)",
+      "Reason": "Aspire generated-source attestation reproduces the exact Aspire 13.4.6/FSharp Aspire 13.0.0 class-name and UTF-16 source templates, resolving existing parent links only to bind generated project paths to the protected graph."
+    },
+    {
+      "File": "src/FDull/WorkspaceGenerated.fs",
+      "Owner": "FDull.WorkspaceGenerated.aspire",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.GetFullPath(System.String,System.String)",
+      "Reason": "Aspire generated-source attestation reproduces the exact Aspire 13.4.6/FSharp Aspire 13.0.0 class-name and UTF-16 source templates, resolving existing parent links only to bind generated project paths to the protected graph."
+    },
+    {
+      "File": "src/FDull/WorkspaceGenerated.fs",
+      "Owner": "FDull.WorkspaceGenerated.aspire",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.TrimEndingDirectorySeparator(System.String)",
+      "Reason": "Aspire generated-source attestation reproduces the exact Aspire 13.4.6/FSharp Aspire 13.0.0 class-name and UTF-16 source templates, resolving existing parent links only to bind generated project paths to the protected graph."
+    },
+    {
+      "File": "src/FDull/WorkspaceGenerated.fs",
+      "Owner": "FDull.WorkspaceGenerated.aspire",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.File.ReadAllBytes(System.String)",
+      "Reason": "Aspire generated-source attestation reproduces the exact Aspire 13.4.6/FSharp Aspire 13.0.0 class-name and UTF-16 source templates, resolving existing parent links only to bind generated project paths to the protected graph."
+    },
+    {
+      "File": "src/FDull/WorkspaceGenerated.fs",
+      "Owner": "FDull.WorkspaceGenerated.aspire",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.ArrayModule.ToList``1(``0[])",
+      "Reason": "Aspire generated-source attestation reproduces the exact Aspire 13.4.6/FSharp Aspire 13.0.0 class-name and UTF-16 source templates, resolving existing parent links only to bind generated project paths to the protected graph."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.``supported Web test SDK xUnit v3 and Aspire generated-source profiles are exact``",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Directory.CreateDirectory(System.String)",
+      "Reason": "The consumer fixture creates an isolated Aspire AppHost graph and proves exact metadata succeeds while a post-generation tamper target fails closed."
+    },
+    {
+      "File": "tests/FDull.Tests/WorkspaceTests.fs",
+      "Owner": "FDull.Tests.WorkspaceTests.``mixed-language scope and internal links preserve inventory boundaries``",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Core.Operators.op_Range``1(Microsoft.FSharp.Core.FSharpFunc{Microsoft.FSharp.Core.Unit,``0},Microsoft.FSharp.Core.FSharpFunc{``0,Microsoft.FSharp.Core.FSharpFunc{``0,``0}},``0,``0)",
+      "Reason": "The inventory regression creates and removes 21,000 inert files to prove large checked workspaces remain bounded above the former 20,000-step ceiling."
+    },
+    {
+      "File": "tests/FDull.Tests/WorkspaceTests.fs",
+      "Owner": "FDull.Tests.WorkspaceTests.``mixed-language scope and internal links preserve inventory boundaries``",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Directory.Delete(System.String,System.Boolean)",
+      "Reason": "The inventory regression creates and removes 21,000 inert files to prove large checked workspaces remain bounded above the former 20,000-step ceiling."
+    },
+    {
+      "File": "tests/FDull.Tests/WorkspaceTests.fs",
+      "Owner": "FDull.Tests.WorkspaceTests.``mixed-language scope and internal links preserve inventory boundaries``",
+      "Kind": "rule",
+      "Identity": "MUT009 | ",
+      "Reason": "The inventory regression creates and removes 21,000 inert files to prove large checked workspaces remain bounded above the former 20,000-step ceiling."
     }
   ],
   "Domains": [],

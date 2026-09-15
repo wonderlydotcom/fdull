@@ -189,8 +189,10 @@ module WorkspaceEngine =
             let generated =
                 match
                     WorkspaceGenerated.supported
+                        request.Root
                         projectDirectory
                         request.Project
+                        request.ProjectReferences
                         (request.Sources |> List.map _.Path)
                         (request.References |> List.map _.Path)
                 with

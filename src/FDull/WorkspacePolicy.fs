@@ -436,15 +436,20 @@ module internal WorkspacePolicy =
         let xunitV3Generated =
             generated |> Set.exists WorkspaceGenerated.isXunitDefaultReporters
 
+        let aspireGenerated =
+            generated |> Set.exists WorkspaceGenerated.isAspireProjectMetadata
+
         let generatedMemberAllowed (r: range) (memberInfo: FSharpMemberOrFunctionOrValue) =
             let identity = memberInfo.Assembly.QualifiedName + " | " + memberInfo.XmlDocSig
 
             Set.contains r.FileName generated
-            && ((WorkspaceGenerated.isTestingPlatformExtensions r.FileName
-                 && List.contains
-                     identity
-                     [ "Microsoft.Testing.Extensions.MSBuild, Version=1.8.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.Testing.Platform.MSBuild.TestingPlatformBuilderHook.AddExtensions(Microsoft.Testing.Platform.Builder.ITestApplicationBuilder,System.String[])"
-                       "Microsoft.VisualStudio.TestPlatform.Extension.JUnit.Xml.TestLogger, Version=7.0.1.0, Culture=neutral, PublicKeyToken=49effd6976780fee | M:Spekt.TestReporter.JUnit.TestingPlatformBuilderHook.AddExtensions(Microsoft.Testing.Platform.Builder.ITestApplicationBuilder,System.String[])" ])
+            && ((WorkspaceGenerated.isAspireProjectMetadata r.FileName
+                 && identity = "Aspire.Hosting, Version=13.4.6.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | M:Aspire.Hosting.IProjectMetadata.get_ProjectPath")
+                || (WorkspaceGenerated.isTestingPlatformExtensions r.FileName
+                    && List.contains
+                        identity
+                        [ "Microsoft.Testing.Extensions.MSBuild, Version=1.8.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.Testing.Platform.MSBuild.TestingPlatformBuilderHook.AddExtensions(Microsoft.Testing.Platform.Builder.ITestApplicationBuilder,System.String[])"
+                          "Microsoft.VisualStudio.TestPlatform.Extension.JUnit.Xml.TestLogger, Version=7.0.1.0, Culture=neutral, PublicKeyToken=49effd6976780fee | M:Spekt.TestReporter.JUnit.TestingPlatformBuilderHook.AddExtensions(Microsoft.Testing.Platform.Builder.ITestApplicationBuilder,System.String[])" ])
                 || (WorkspaceGenerated.isXunitEntryPoint r.FileName
                     && List.contains
                         identity
@@ -492,13 +497,22 @@ module internal WorkspacePolicy =
                    "System.Reflection.AssemblyTitleAttribute"
                    "System.Reflection.AssemblyVersionAttribute"
                    "System.Runtime.Versioning.TargetFrameworkAttribute" ])
-            || (xunitV3Generated
+            || ((xunitV3Generated || aspireGenerated)
                 && normalized.EndsWith(".AssemblyInfo.fs", StringComparison.Ordinal)
                 && rule = "ATTR001"
                 && symbol = "System.Reflection.AssemblyMetadataAttribute")
             || (rule = "ATTR001"
                 && normalized.EndsWith(".MvcApplicationPartsAssemblyInfo.fs", StringComparison.Ordinal)
                 && symbol = "Microsoft.AspNetCore.Mvc.ApplicationParts.ApplicationPartAttribute")
+            || (WorkspaceGenerated.isAspireProjectMetadata r.FileName
+                && ((rule = "ATTR001" && symbol = "System.Diagnostics.DebuggerDisplayAttribute")
+                    || (rule = "MODEL001"
+                        && (not (String.IsNullOrWhiteSpace symbol)
+                            && (not (symbol.Contains(" -> ", StringComparison.Ordinal))
+                                || symbol.StartsWith("``.ctor`` -> Projects.", StringComparison.Ordinal)
+                                || symbol.StartsWith("_ -> Projects.", StringComparison.Ordinal)
+                                || symbol.StartsWith("this -> Projects.", StringComparison.Ordinal)
+                                || symbol.StartsWith("ProjectPath -> Projects.", StringComparison.Ordinal))))))
             || (WorkspaceGenerated.isXunitDefaultReporters r.FileName
                 && ((rule = "ATTR001"
                      && symbol = "Xunit.Runner.Common.RegisterRunnerReporterAttribute")

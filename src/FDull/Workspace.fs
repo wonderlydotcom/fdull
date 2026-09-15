@@ -121,7 +121,7 @@ module Workspace =
                     else
                         None)
 
-            match WorkspaceGenerated.supported directory project sources references with
+            match WorkspaceGenerated.supported root directory project projectReferences sources references with
             | Error error -> Error error
             | Ok generatedSet ->
                 let generated = sources |> List.filter (fun file -> Set.contains file generatedSet)
