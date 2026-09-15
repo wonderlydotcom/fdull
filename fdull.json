@@ -132,7 +132,7 @@
       "File": "src/FDull/WorkspaceAudit.fs",
       "Project": "src/FDull/FDull.fsproj",
       "Profile": "GUARD_TOOLING",
-      "Digest": "sha256:b98edb6b68a1a8673b7218da48de8d65746868fdf008440373a71adc516ca25b"
+      "Digest": "sha256:2c1d5f365e79f5d0dc47264becd717a12252c43c116bf3bf245537cde783781b"
     },
     {
       "File": "src/FDull/WorkspaceEngine.fs",
@@ -168,7 +168,7 @@
       "File": "src/FDull.Tool/Program.fs",
       "Project": "src/FDull.Tool/FDull.Tool.fsproj",
       "Profile": "GUARD_TOOLING",
-      "Digest": "sha256:6817d50c7c4fa9d774f25664667ed582ae4f5f49531c9629de1bb74416543775"
+      "Digest": "sha256:82e9e7c004336cd7b9f9c9412da13c50c40cd95e9580f3d92e9b75c19595b0b0"
     },
     {
       "File": "src/FDull.Worker/Program.fs",
@@ -228,7 +228,7 @@
       "File": "tests/FDull.Tests/ProjectTests.fs",
       "Project": "tests/FDull.Tests/FDull.Tests.fsproj",
       "Profile": "TEST",
-      "Digest": "sha256:be00d6786738d9eacef82da73594f94b4654e571b6df9144827de94acb2a2de7"
+      "Digest": "sha256:092ffd1ee101ff366d7cf6667275443630ab93e80ba24d42e792558a3d978f66"
     },
     {
       "File": "tests/FDull.Tests/Program.fs",
@@ -244,7 +244,7 @@
     },
     {
       "File": "Directory.Build.props",
-      "Digest": "sha256:ba34534722403ea016418b86d985ee958bb1edaad073139c0ef3f8c954f1079d"
+      "Digest": "sha256:cb31849b8011725f55c0232143c88c25303f0f83007f2fad85be30041f4047c7"
     },
     {
       "File": "Directory.Build.targets",

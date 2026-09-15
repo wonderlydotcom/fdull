@@ -202,7 +202,7 @@ module ProjectTests =
 
             File.WriteAllText(
                 Path.Combine(root, "App.fsproj"),
-                "<Project Sdk=\"Microsoft.NET.Sdk.Web\"><PropertyGroup><OutputType>Exe</OutputType></PropertyGroup><ItemGroup><PackageReference Include=\"Swashbuckle.AspNetCore\" Version=\"7.2.0\"/><ProjectReference Include=\"external/Dependency.csproj\"/><Compile Include=\"App.fs\"/></ItemGroup></Project>"
+                "<Project Sdk=\"Microsoft.NET.Sdk.Web\"><PropertyGroup><OutputType>Exe</OutputType></PropertyGroup><ItemGroup><PackageReference Include=\"Swashbuckle.AspNetCore\" Version=\"7.2.0\"/><ProjectReference Include=\"external\\Dependency.csproj\"/><Compile Include=\"App.fs\"/></ItemGroup></Project>"
             )
 
             run root [ "restore"; "App.fsproj"; "--use-lock-file"; "-m:1"; "-nr:false" ]
