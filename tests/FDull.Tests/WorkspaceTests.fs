@@ -89,6 +89,7 @@ module WorkspaceTests =
 
             let nugetFeed = Path.Combine(directory, ".nuget-feed")
             let worktrees = Path.Combine(directory, ".worktrees")
+            let claudeWorktrees = Path.Combine(directory, ".claude", "worktrees")
             let piWorktrees = Path.Combine(directory, ".pi", "worktrees")
             let piGit = Path.Combine(directory, ".pi", "git")
 
@@ -98,6 +99,7 @@ module WorkspaceTests =
 
             addExcludedSource nugetFeed
             addExcludedSource worktrees
+            addExcludedSource claudeWorktrees
             addExcludedSource piWorktrees
             addExcludedSource piGit
 
@@ -105,6 +107,12 @@ module WorkspaceTests =
             Assert.DoesNotContain(inventory, fun file -> file.StartsWith(".artifacts/", StringComparison.Ordinal))
             Assert.DoesNotContain(inventory, fun file -> file.StartsWith(".nuget-feed/", StringComparison.Ordinal))
             Assert.DoesNotContain(inventory, fun file -> file.StartsWith(".worktrees/", StringComparison.Ordinal))
+
+            Assert.DoesNotContain(
+                inventory,
+                fun file -> file.StartsWith(".claude/worktrees/", StringComparison.Ordinal)
+            )
+
             Assert.DoesNotContain(inventory, fun file -> file.StartsWith(".pi/worktrees/", StringComparison.Ordinal))
             Assert.DoesNotContain(inventory, fun file -> file.StartsWith(".pi/git/", StringComparison.Ordinal))
 

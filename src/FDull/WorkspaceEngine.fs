@@ -160,7 +160,13 @@ module WorkspaceEngine =
 
             let project = Path.GetRelativePath(request.Root, request.Project).Replace('\\', '/')
 
-            match WorkspaceAudit.validateEdges policy.Projects project request.ProjectReferences with
+            match
+                WorkspaceAudit.validateEdgesWithExternal
+                    policy.Projects
+                    (WorkspaceAudit.externalProjects policy)
+                    project
+                    request.ProjectReferences
+            with
             | Error error -> invalidOp error
             | Ok() -> ()
 
