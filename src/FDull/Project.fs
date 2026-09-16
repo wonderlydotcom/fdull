@@ -131,7 +131,9 @@ module Project =
         File.WriteAllText(path, Codec.encode policy)
         path
 
-    let initialize directory = initializeWithScope directory None
+    let initialize directory =
+        let scope = Path.Combine(Path.GetFullPath directory, "fdull.scope.json")
+        initializeWithScope directory (if File.Exists scope then Some scope else None)
 
     /// A complete result is evidence for one exact, ordered compiler invocation.
     let matchesInvocation (project: WorkspaceProjectReport) (invocation: WorkspaceInvocation) =

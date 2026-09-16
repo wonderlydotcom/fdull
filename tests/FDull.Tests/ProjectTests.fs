@@ -182,7 +182,7 @@ module ProjectTests =
         |> Codec.decode<WorkspacePolicyDocument>
 
     [<Fact>]
-    let ``initialization exports restored Web SDK inputs and reviewed mixed-language scope without compiling`` () =
+    let ``initialization discovers reviewed mixed-language scope and exports Web SDK inputs without compiling`` () =
         withDirectory (fun root ->
             restoreConsumer root None "module App\nlet value: int = \"not an integer\"\n"
 
@@ -212,7 +212,7 @@ module ProjectTests =
                 "{\"Version\":1,\"External\":[{\"Path\":\"external\",\"Kind\":\"implementation\",\"Reason\":\"The CSharp dependency has separate required checks.\"}]}"
             )
 
-            let policyFile = Project.initializeWithScope root (Some "fdull.scope.json")
+            let policyFile = Project.initialize root
             let policy = File.ReadAllText policyFile |> Codec.decode<WorkspacePolicyDocument>
             Assert.Equal(1, policy.External |> Option.map List.length |> Option.defaultValue 0)
             Assert.Equal(1, policy.Sources.Length)
