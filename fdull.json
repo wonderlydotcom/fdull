@@ -66,7 +66,7 @@
       "File": "src/FDull/SafetyRules.fs",
       "Project": "src/FDull/FDull.fsproj",
       "Profile": "GUARD_TOOLING",
-      "Digest": "sha256:b075081fb46dec9c41bd56a0836c8d1e0f547eca30312cbcdaf877561c62f73a"
+      "Digest": "sha256:d2ab75a9dc82c1011adac823446666c15e735c842cf6ce6a3a34542687479269"
     },
     {
       "File": "src/FDull/SafetyPolicy.fs",
@@ -156,7 +156,7 @@
       "File": "src/FDull/Project.fs",
       "Project": "src/FDull/FDull.fsproj",
       "Profile": "GUARD_TOOLING",
-      "Digest": "sha256:075d944e98ec9d373cb5d14db611212ecf46b6e03d27768738a31fea4214bf5e"
+      "Digest": "sha256:f31061dccca19367db4b40ea6b0f95629dc25836163e1b5c5801c26677764d57"
     },
     {
       "File": "src/FDull.Analyzers/Analyzer.fs",
@@ -168,7 +168,7 @@
       "File": "src/FDull.Tool/Program.fs",
       "Project": "src/FDull.Tool/FDull.Tool.fsproj",
       "Profile": "GUARD_TOOLING",
-      "Digest": "sha256:82e9e7c004336cd7b9f9c9412da13c50c40cd95e9580f3d92e9b75c19595b0b0"
+      "Digest": "sha256:84be3b896a4fe9389035d73ab40e125fa4bc197d23d318b0ab4b8d1586b260a8"
     },
     {
       "File": "src/FDull.Worker/Program.fs",
@@ -228,7 +228,7 @@
       "File": "tests/FDull.Tests/ProjectTests.fs",
       "Project": "tests/FDull.Tests/FDull.Tests.fsproj",
       "Profile": "TEST",
-      "Digest": "sha256:092ffd1ee101ff366d7cf6667275443630ab93e80ba24d42e792558a3d978f66"
+      "Digest": "sha256:a6eb6fba1fc453d34fa5f6e3c755d120594c8492a74723a98077fb4597ed8308"
     },
     {
       "File": "tests/FDull.Tests/Program.fs",
@@ -244,7 +244,7 @@
     },
     {
       "File": "Directory.Build.props",
-      "Digest": "sha256:cb31849b8011725f55c0232143c88c25303f0f83007f2fad85be30041f4047c7"
+      "Digest": "sha256:c7f98d25ef164dfddb86a2737b519c39b4a01cf3963ef4bd18a15723d5f52a38"
     },
     {
       "File": "Directory.Build.targets",
@@ -12888,84 +12888,84 @@
     },
     {
       "File": "tests/FDull.Tests/ProjectTests.fs",
-      "Owner": "FDull.Tests.ProjectTests.``initialization exports restored Web SDK inputs and reviewed mixed-language scope without compiling``",
+      "Owner": "FDull.Tests.ProjectTests.``initialization discovers reviewed mixed-language scope and exports Web SDK inputs without compiling``",
       "Kind": "attribute",
       "Identity": "xunit.core, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | Xunit.FactAttribute |  | unit",
       "Reason": "The isolated bootstrap fixture proves initialization snapshots restored Web SDK generated metadata and a reviewed mixed-language scope without compiling invalid source. Filesystem changes stay in a unique temporary directory and are cleaned up."
     },
     {
       "File": "tests/FDull.Tests/ProjectTests.fs",
-      "Owner": "FDull.Tests.ProjectTests.``initialization exports restored Web SDK inputs and reviewed mixed-language scope without compiling``",
+      "Owner": "FDull.Tests.ProjectTests.``initialization discovers reviewed mixed-language scope and exports Web SDK inputs without compiling``",
       "Kind": "member",
-      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Project.initializeWithScope(System.String,Microsoft.FSharp.Core.FSharpOption{System.String})",
-      "Reason": "The isolated bootstrap fixture proves initialization snapshots restored Web SDK generated metadata and a reviewed mixed-language scope without compiling invalid source. Filesystem changes stay in a unique temporary directory and are cleaned up."
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Project.initialize(System.String)",
+      "Reason": "The isolated bootstrap fixture proves plain initialization discovers and fingerprints the reviewed root scope before exporting the mixed-language graph; filesystem changes remain confined to the temporary workspace."
     },
     {
       "File": "tests/FDull.Tests/ProjectTests.fs",
-      "Owner": "FDull.Tests.ProjectTests.``initialization exports restored Web SDK inputs and reviewed mixed-language scope without compiling``",
+      "Owner": "FDull.Tests.ProjectTests.``initialization discovers reviewed mixed-language scope and exports Web SDK inputs without compiling``",
       "Kind": "member",
       "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Transport.Codec.decode``1(System.String)",
       "Reason": "The isolated bootstrap fixture proves initialization snapshots restored Web SDK generated metadata and a reviewed mixed-language scope without compiling invalid source. Filesystem changes stay in a unique temporary directory and are cleaned up."
     },
     {
       "File": "tests/FDull.Tests/ProjectTests.fs",
-      "Owner": "FDull.Tests.ProjectTests.``initialization exports restored Web SDK inputs and reviewed mixed-language scope without compiling``",
+      "Owner": "FDull.Tests.ProjectTests.``initialization discovers reviewed mixed-language scope and exports Web SDK inputs without compiling``",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Directory.CreateDirectory(System.String)",
       "Reason": "The isolated bootstrap fixture proves initialization snapshots restored Web SDK generated metadata and a reviewed mixed-language scope without compiling invalid source. Filesystem changes stay in a unique temporary directory and are cleaned up."
     },
     {
       "File": "tests/FDull.Tests/ProjectTests.fs",
-      "Owner": "FDull.Tests.ProjectTests.``initialization exports restored Web SDK inputs and reviewed mixed-language scope without compiling``",
+      "Owner": "FDull.Tests.ProjectTests.``initialization discovers reviewed mixed-language scope and exports Web SDK inputs without compiling``",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.File.ReadAllText(System.String)",
       "Reason": "The isolated bootstrap fixture proves initialization snapshots restored Web SDK generated metadata and a reviewed mixed-language scope without compiling invalid source. Filesystem changes stay in a unique temporary directory and are cleaned up."
     },
     {
       "File": "tests/FDull.Tests/ProjectTests.fs",
-      "Owner": "FDull.Tests.ProjectTests.``initialization exports restored Web SDK inputs and reviewed mixed-language scope without compiling``",
+      "Owner": "FDull.Tests.ProjectTests.``initialization discovers reviewed mixed-language scope and exports Web SDK inputs without compiling``",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.File.WriteAllText(System.String,System.String)",
       "Reason": "The isolated bootstrap fixture proves initialization snapshots restored Web SDK generated metadata and a reviewed mixed-language scope without compiling invalid source. Filesystem changes stay in a unique temporary directory and are cleaned up."
     },
     {
       "File": "tests/FDull.Tests/ProjectTests.fs",
-      "Owner": "FDull.Tests.ProjectTests.``initialization exports restored Web SDK inputs and reviewed mixed-language scope without compiling``",
+      "Owner": "FDull.Tests.ProjectTests.``initialization discovers reviewed mixed-language scope and exports Web SDK inputs without compiling``",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.Combine(System.String,System.String)",
       "Reason": "The isolated bootstrap fixture proves initialization snapshots restored Web SDK generated metadata and a reviewed mixed-language scope without compiling invalid source. Filesystem changes stay in a unique temporary directory and are cleaned up."
     },
     {
       "File": "tests/FDull.Tests/ProjectTests.fs",
-      "Owner": "FDull.Tests.ProjectTests.``initialization exports restored Web SDK inputs and reviewed mixed-language scope without compiling``",
+      "Owner": "FDull.Tests.ProjectTests.``initialization discovers reviewed mixed-language scope and exports Web SDK inputs without compiling``",
       "Kind": "member",
       "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Contains``1(System.Collections.Generic.IEnumerable{``0},System.Predicate{``0})",
       "Reason": "The isolated bootstrap fixture proves initialization snapshots restored Web SDK generated metadata and a reviewed mixed-language scope without compiling invalid source. Filesystem changes stay in a unique temporary directory and are cleaned up."
     },
     {
       "File": "tests/FDull.Tests/ProjectTests.fs",
-      "Owner": "FDull.Tests.ProjectTests.``initialization exports restored Web SDK inputs and reviewed mixed-language scope without compiling``",
+      "Owner": "FDull.Tests.ProjectTests.``initialization discovers reviewed mixed-language scope and exports Web SDK inputs without compiling``",
       "Kind": "member",
       "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Equal``1(``0,``0)",
       "Reason": "The isolated bootstrap fixture proves initialization snapshots restored Web SDK generated metadata and a reviewed mixed-language scope without compiling invalid source. Filesystem changes stay in a unique temporary directory and are cleaned up."
     },
     {
       "File": "tests/FDull.Tests/ProjectTests.fs",
-      "Owner": "FDull.Tests.ProjectTests.``initialization exports restored Web SDK inputs and reviewed mixed-language scope without compiling``",
+      "Owner": "FDull.Tests.ProjectTests.``initialization discovers reviewed mixed-language scope and exports Web SDK inputs without compiling``",
       "Kind": "type",
       "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspacePin",
       "Reason": "The isolated bootstrap fixture proves initialization snapshots restored Web SDK generated metadata and a reviewed mixed-language scope without compiling invalid source. Filesystem changes stay in a unique temporary directory and are cleaned up."
     },
     {
       "File": "tests/FDull.Tests/ProjectTests.fs",
-      "Owner": "FDull.Tests.ProjectTests.``initialization exports restored Web SDK inputs and reviewed mixed-language scope without compiling``",
+      "Owner": "FDull.Tests.ProjectTests.``initialization discovers reviewed mixed-language scope and exports Web SDK inputs without compiling``",
       "Kind": "type",
       "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspacePolicyDocument",
       "Reason": "The isolated bootstrap fixture proves initialization snapshots restored Web SDK generated metadata and a reviewed mixed-language scope without compiling invalid source. Filesystem changes stay in a unique temporary directory and are cleaned up."
     },
     {
       "File": "tests/FDull.Tests/ProjectTests.fs",
-      "Owner": "FDull.Tests.ProjectTests.``initialization exports restored Web SDK inputs and reviewed mixed-language scope without compiling``",
+      "Owner": "FDull.Tests.ProjectTests.``initialization discovers reviewed mixed-language scope and exports Web SDK inputs without compiling``",
       "Kind": "type",
       "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspaceSource",
       "Reason": "The isolated bootstrap fixture proves initialization snapshots restored Web SDK generated metadata and a reviewed mixed-language scope without compiling invalid source. Filesystem changes stay in a unique temporary directory and are cleaned up."
@@ -13599,6 +13599,27 @@
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.GetExtension(System.String)",
       "Reason": "Mixed-language graph validation recognizes only fingerprinted CSharp or Visual Basic project files contained by a reviewed external implementation scope."
+    },
+    {
+      "File": "src/FDull/Project.fs",
+      "Owner": "FDull.Project.initialize",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.Combine(System.String,System.String)",
+      "Reason": "Plain initialization checks only the fixed root fdull.scope.json path, then delegates to the same fail-closed scope validation and fingerprinting used by the explicit --scope flow."
+    },
+    {
+      "File": "src/FDull/Project.fs",
+      "Owner": "FDull.Project.initialize",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.GetFullPath(System.String)",
+      "Reason": "Plain initialization checks only the fixed root fdull.scope.json path, then delegates to the same fail-closed scope validation and fingerprinting used by the explicit --scope flow."
+    },
+    {
+      "File": "src/FDull/Project.fs",
+      "Owner": "FDull.Project.initialize",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.File.Exists(System.String)",
+      "Reason": "Plain initialization checks only the fixed root fdull.scope.json path, then delegates to the same fail-closed scope validation and fingerprinting used by the explicit --scope flow."
     }
   ],
   "Domains": [],

@@ -181,14 +181,14 @@ module SafetyRules =
               [ build; guard; audit ]
               false
               [ "ProjectTests.every approved graph edge is exact and shipping cannot acquire a test dependency"
-                "ProjectTests.initialization exports restored Web SDK inputs and reviewed mixed-language scope without compiling" ]
+                "ProjectTests.initialization discovers reviewed mixed-language scope and exports Web SDK inputs without compiling" ]
               "The preview supports an exact, acyclic Release/net10.0 F# project graph; cross-language references require pinned CSharp or Visual Basic projects inside reviewed external implementation scopes."
           rule
               "ARCH002"
               "Unapproved dependency assets"
               [ build; guard; audit ]
               false
-              [ "ProjectTests.initialization exports restored Web SDK inputs and reviewed mixed-language scope without compiling" ]
+              [ "ProjectTests.initialization discovers reviewed mixed-language scope and exports Web SDK inputs without compiling" ]
               "Complete transitive package/runtime/source/native asset inventory and tampering cases."
           rule
               "ARCH003"
