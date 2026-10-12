@@ -9,6 +9,7 @@ type WorkspaceReviewItem =
       Kind: string
       Identity: string
       Resolution: string
+      Guidance: string list
       Evidence: SafetyDiagnostic list }
 
 type WorkspaceSourceReview =
@@ -164,6 +165,11 @@ module WorkspaceReview =
                   Kind = kind
                   Identity = identity
                   Resolution = resolution
+                  Guidance =
+                    findings
+                    |> List.map (fun finding -> WorkspacePolicy.reviewGuidance profile finding.Diagnostic.Rule kind)
+                    |> List.distinct
+                    |> List.sort
                   Evidence =
                     findings
                     |> List.map _.Diagnostic
@@ -248,8 +254,8 @@ module WorkspaceReview =
 
               yield "  Decision: " + decision item.Resolution
 
-              if item.Kind = "type" then
-                  yield "  Type approval does not approve the type's methods."
+              for guidance in item.Guidance do
+                  yield "  How to resolve: " + guidance
           for entry in report.UnusedCapabilities do
               yield sprintf "Unused contract: %s | %s | %s | %s" entry.File entry.Owner entry.Kind entry.Identity
           for identity in report.UnusedConstructors do

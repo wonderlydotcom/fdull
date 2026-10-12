@@ -288,6 +288,18 @@ an exact contract can be reviewed or the source must change. Catalog-approved
 operations and unsuccessful permission lookups that still pass ordinary analysis
 do not create review items. A type contract does not approve the type's methods.
 
+Each item includes rule- and profile-specific `Guidance` in JSON and a
+`How to resolve` explanation in text. It names the policy section and permission
+kind to review, explains the effective profile's restrictions, and uses the
+item's exact file/declaration/identity as the scope. It never creates an approval.
+For example, a raw `List.fold` in `PURE` cannot be exempted by a member or rule
+permission. Use an approved combinator, or isolate it in a named helper and review
+that declaration's `profile` permission for `PURE_HELPER` and its exact `member`
+permission. `PURE_HELPER` alone does not approve the fold. In an `ADAPTER`, the
+fold is eligible for exact `member` contract review in that declaration. Type
+permissions, API permissions, rule/capture exceptions, and `Constructors` entries
+remain separate; the guidance explains which one applies to the emitted finding.
+
 Unlike `lint`, `review` can examine authored source whose reviewed fingerprint is
 stale. It lists changed files, reviewed/current hashes and existing contracts that
 need renewed review. Policy structure, source inventory, project edges, compiler

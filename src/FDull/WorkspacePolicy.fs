@@ -220,6 +220,70 @@ module internal WorkspacePolicy =
 
             if reviewable then "contract-review" else "code-change"
 
+    let reviewGuidance profile rule kind =
+        let scope =
+            "using this item's exact File, Owner and Identity, with a Reason supported by source review"
+
+        let contract =
+            match kind with
+            | "constructor" ->
+                "Review the exact identity in Constructors and the helper's invariant checks. Constructor approval does not approve its effect calls."
+            | "type" ->
+                "Review a Capabilities entry with Kind=type, "
+                + scope
+                + ". Type approval does not approve the type's methods. Nested payload requirements remain checked."
+            | "attribute" ->
+                "Review a Capabilities entry with Kind=attribute, "
+                + scope
+                + ". The identity includes the resolved attribute, target and arguments. Separate API and interop checks remain enforced."
+            | "capture" ->
+                "Review a Capabilities entry with Kind=capture, "
+                + scope
+                + ". Its identity uses the authored binding/parameter and payload path; a generated field name or ordinary rule key cannot replace it. Callback bodies and effect calls remain checked."
+            | "rule" ->
+                "Review a Capabilities entry with Kind=rule, "
+                + scope
+                + ". This is an exception for the displayed rule and symbol/path; it does not approve unrelated APIs or findings."
+            | _ ->
+                "Review a Capabilities entry with Kind=member, "
+                + scope
+                + ". A type approval or profile assignment does not approve this API; nested types and other findings remain checked."
+
+        let explanation =
+            match reviewResolution profile rule kind with
+            | "analysis-blocked" ->
+                "Resolve the protected-input, project or analysis blocker and rerun review. BUILD/ARCH blockers cannot be resolved by a capability entry; the inventory is partial."
+            | "code-change" when rule.StartsWith("FS", StringComparison.Ordinal) ->
+                "Fix the compiler diagnostic and rerun review; warnings are errors. Compiler diagnostics have no permission entry."
+            | "code-change" when kind = "data" ->
+                "Change the DTO to a supported immutable representation and review its definition and assembly pins. Type/member/rule permissions cannot bypass structural DataContracts validation."
+            | "code-change" when rule = "STYLE003" && profile = "PURE" ->
+                "PURE prohibits raw accumulation; a member or rule permission in PURE cannot override it. Use an approved combinator, or keep the caller PURE and isolate the implementation in a named helper. Manually review that helper's declaration-scoped profile entry (Kind=profile, Identity=PURE_HELPER) and its exact member permission. PURE_HELPER alone does not approve the API."
+            | "code-change" when kind = "member" ->
+                profile
+                + " prohibits this ruled API even if an exact member permission exists. Change the implementation to satisfy the rule. For ambient effects, pass required data into pure code and keep the effect implementation in a reviewed adapter."
+            | "code-change" ->
+                profile
+                + " does not allow an exemption for this finding. Change the source as the diagnostic requires; adding a type or member permission does not suppress a source/path requirement."
+            | _ ->
+                let eligibility =
+                    if rule = "STYLE003" && profile = "PURE_HELPER" then
+                        "PURE_HELPER makes raw accumulation eligible for exact review; the profile alone does not approve the API. "
+                    elif rule = "STYLE003" then
+                        profile + " allows exact review of this accumulation API. "
+                    elif rule = "EFFECT001" then
+                        "This resolved API is outside the approved catalog; "
+                        + profile
+                        + " allows explicit API contract review. "
+                    else
+                        profile + " allows exact " + kind + " contract review for this finding. "
+
+                eligibility
+                + contract
+                + " Change the source instead if the contract cannot be justified."
+
+        rule + ": " + explanation
+
     let internal localFile (file: string) =
         not (String.IsNullOrWhiteSpace file)
         && not (Path.IsPathRooted file)

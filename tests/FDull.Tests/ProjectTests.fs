@@ -340,6 +340,10 @@ module ProjectTests =
                 + "let local (value: Local) = value.Name\n"
                 + "let forbidden values = List.fold (+) 0 values\n"
                 + "let helper values = List.fold (+) 0 values\n"
+                + "let adapterFold values = List.fold (+) 0 values\n"
+                + "[<System.Obsolete(\"review marker\")>]\ntype Annotated = { Value: int }\n"
+                + "let mutate () =\n    let mutable value = 0\n    value <- 1\n    value\n"
+                + "type Quantity = private Quantity of int\nlet create value = Ok (Quantity value)\n"
 
             File.WriteAllText(Path.Combine(root, "App.fs"), source)
 
@@ -364,6 +368,7 @@ module ProjectTests =
 
             Assert.Equal("App.describe", typeItem.Owner)
             Assert.Equal("contract-review", typeItem.Resolution)
+            Assert.Contains("Kind=type", Assert.Single typeItem.Guidance)
 
             let memberItem =
                 report.Items
@@ -377,6 +382,10 @@ module ProjectTests =
             Assert.Equal("contract-review", memberItem.Resolution)
             Assert.Equal(2, memberItem.Evidence.Length)
             Assert.All(memberItem.Evidence, fun evidence -> Assert.Equal("EFFECT001", evidence.Rule))
+            let memberGuidance = Assert.Single memberItem.Guidance
+            Assert.Contains("EFFECT001:", memberGuidance)
+            Assert.Contains("Kind=member", memberGuidance)
+            Assert.Contains("exact File, Owner and Identity", memberGuidance)
 
             let other =
                 report.Items
@@ -404,6 +413,9 @@ module ProjectTests =
             Assert.Equal("code-change", fold.Resolution)
             let foldEvidence = Assert.Single fold.Evidence
             Assert.Equal("STYLE003", foldEvidence.Rule)
+            let pureGuidance = Assert.Single fold.Guidance
+            Assert.Contains("a member or rule permission in PURE cannot override", pureGuidance)
+            Assert.Contains("Kind=profile, Identity=PURE_HELPER", pureGuidance)
 
             let helper =
                 report.Items
@@ -413,10 +425,44 @@ module ProjectTests =
             Assert.Equal("PURE_HELPER", helper.Profile)
             Assert.Equal("member", helper.Kind)
             Assert.Equal("contract-review", helper.Resolution)
+            let helperGuidance = Assert.Single helper.Guidance
+            Assert.Contains("the profile alone does not approve the API", helperGuidance)
+            Assert.Contains("Kind=member", helperGuidance)
+
+            let adapter =
+                report.Items
+                |> List.filter (fun item -> item.Owner = "App.adapterFold")
+                |> Assert.Single
+
+            Assert.Equal("contract-review", adapter.Resolution)
+            Assert.Contains("ADAPTER allows exact review", Assert.Single adapter.Guidance)
+            Assert.Contains("Kind=member", Assert.Single adapter.Guidance)
+
+            let attribute =
+                report.Items
+                |> List.filter (fun item -> item.Kind = "attribute")
+                |> Assert.Single
+
+            Assert.Contains("Kind=attribute", Assert.Single attribute.Guidance)
+
+            let mutation =
+                report.Items
+                |> List.filter (fun item -> item.Kind = "rule" && item.Identity = "MUT001 | value")
+                |> Assert.Single
+
+            Assert.Contains("Kind=rule", Assert.Single mutation.Guidance)
+
+            let constructor =
+                report.Items
+                |> List.filter (fun item -> item.Kind = "constructor")
+                |> Assert.Single
+
+            Assert.Contains("exact identity in Constructors", Assert.Single constructor.Guidance)
             let text = WorkspaceReview.format report
             Assert.Contains("ADVISORY", text)
             Assert.Contains("Type approval does not approve the type's methods.", text)
             Assert.Contains("this finding cannot be resolved by an exemption in this profile", text)
+            Assert.Contains("How to resolve: STYLE003:", text)
             Assert.Equal(report, Codec.encode report |> Codec.decode<WorkspaceReviewReport>)
             Assert.Equal(policyBytes, File.ReadAllText policyPath)
             Assert.Equal(source, File.ReadAllText(Path.Combine(root, "App.fs")))
@@ -469,12 +515,104 @@ module ProjectTests =
 
             Assert.Contains("Findings are partial", WorkspaceReview.format compilerError)
 
+            Assert.Contains(
+                compilerError.Items,
+                fun item ->
+                    item.Guidance
+                    |> List.exists (fun guidance -> guidance.Contains("Compiler diagnostics have no permission entry"))
+            )
+
             File.AppendAllText(Path.Combine(root, "Directory.Build.props"), "\n")
             let buildDrift = Workspace.review root
             Assert.False(buildDrift.AnalysisComplete)
             Assert.Equal(3, buildDrift.ExitCode)
             Assert.Empty(buildDrift.Projects)
             Assert.Contains(buildDrift.Errors, fun error -> error.StartsWith("BUILD005:", StringComparison.Ordinal)))
+
+    [<Fact>]
+    let ``fold review guidance matches scoped permissions and retains pure restrictions`` () =
+        withDirectory (fun root ->
+            prepare root
+            let policy = read root
+
+            let source =
+                "module App\n"
+                + "let ordinary values = List.fold (+) 0 values\n"
+                + "let helper values = List.fold (+) 0 values\n"
+                + "let adapter values = List.fold (+) 0 values\n"
+                + "let helperClock () = System.DateTime.UtcNow\n"
+
+            File.WriteAllText(Path.Combine(root, "App.fs"), source)
+
+            let reviewed =
+                { policy with
+                    Sources =
+                        policy.Sources
+                        |> List.map (fun entry ->
+                            { entry with
+                                Digest = SafetyPolicy.fileDigest (Path.Combine(root, entry.File)) })
+                    Capabilities =
+                        [ { File = "App.fs"
+                            Owner = "App.helper"
+                            Kind = "profile"
+                            Identity = "PURE_HELPER"
+                            Reason = "Reviewed accumulation helper; exact API permission is still required." }
+                          { File = "App.fs"
+                            Owner = "App.adapter"
+                            Kind = "profile"
+                            Identity = "ADAPTER"
+                            Reason = "Reviewed adapter declaration with separately reviewed exact calls." }
+                          { File = "App.fs"
+                            Owner = "App.helperClock"
+                            Kind = "profile"
+                            Identity = "PURE_HELPER"
+                            Reason = "Regression keeps ambient effects prohibited in pure helpers." } ] }
+
+            File.WriteAllText(Path.Combine(root, "fdull.json"), Codec.encode reviewed)
+            let before = Workspace.review root
+            Assert.True(before.AnalysisComplete, WorkspaceReview.format before)
+            Assert.Equal(4, before.Items.Length)
+
+            let foldIdentity =
+                "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.ListModule.Fold``2(Microsoft.FSharp.Core.FSharpFunc{``1,Microsoft.FSharp.Core.FSharpFunc{``0,``1}},``1,Microsoft.FSharp.Collections.FSharpList{``0})"
+
+            let approved =
+                { reviewed with
+                    Capabilities =
+                        reviewed.Capabilities
+                        @ ([ "App.ordinary"; "App.helper"; "App.adapter" ]
+                           |> List.map (fun owner ->
+                               { File = "App.fs"
+                                 Owner = owner
+                                 Kind = "member"
+                                 Identity = foldIdentity
+                                 Reason =
+                                   "Literal fold approval tests profile eligibility; PURE must still reject the same API." }))
+                        @ [ { File = "App.fs"
+                              Owner = "App.helperClock"
+                              Kind = "member"
+                              Identity =
+                                "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:System.DateTime.UtcNow"
+                              Reason = "Literal clock approval must not exempt an ambient effect in PURE_HELPER." } ] }
+
+            File.WriteAllText(Path.Combine(root, "fdull.json"), Codec.encode approved)
+            let after = Workspace.review root
+            Assert.True(after.AnalysisComplete, WorkspaceReview.format after)
+            Assert.Equal(2, after.Items.Length)
+            Assert.DoesNotContain(after.Items, fun item -> item.Owner = "App.helper" || item.Owner = "App.adapter")
+            Assert.All(after.Items, fun item -> Assert.Equal("code-change", item.Resolution))
+
+            let clock =
+                after.Items
+                |> List.filter (fun item -> item.Owner = "App.helperClock")
+                |> Assert.Single
+
+            Assert.Contains("PURE_HELPER prohibits this ruled API", Assert.Single clock.Guidance)
+            Assert.Contains("pass required data into pure code", Assert.Single clock.Guidance)
+            let lint = Workspace.check root
+            Assert.True(lint.Complete)
+            Assert.Equal(1, lint.ExitCode)
+            Assert.Equal(2, (Assert.Single lint.Projects).Report.Diagnostics.Length))
 
     [<Fact>]
     let ``initialization discovers reviewed mixed-language scope and exports Web SDK inputs without compiling`` () =
@@ -811,6 +949,7 @@ module ProjectTests =
             Assert.True(report.AnalysisComplete, Codec.encode report)
             let items = report.Items |> List.filter (fun item -> item.Kind = "capture")
             Assert.Equal(2, items.Length)
+            Assert.All(items, fun item -> Assert.Contains("Kind=capture", Assert.Single item.Guidance))
 
             Assert.Contains(
                 items,
