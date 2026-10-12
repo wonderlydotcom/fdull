@@ -551,6 +551,248 @@ module ProjectTests =
     let private write root policy =
         File.WriteAllText(Path.Combine(root, "fdull.json"), Codec.encode policy)
 
+    [<Fact>]
+    let ``captured callback permissions survive formatting without authorizing new effects`` () =
+        withDirectory (fun root ->
+            let source =
+                "module App\ntype Service(callback: int -> int) =\n    let first value = callback value\n    let callback = first\n    member _.Run(value) = callback value\n"
+
+            restoreConsumer root None source
+            Project.initialize root |> ignore
+            let policy = read root
+            let owner = "App.Service.``.ctor``"
+
+            let capability scope kind identity =
+                { File = "App.fs"
+                  Owner = scope
+                  Kind = kind
+                  Identity = identity
+                  Reason =
+                    "Reviewed callback storage and constructor ingress; authored callback bodies remain checked." }
+
+            let captures =
+                [ for role in [ "parameter"; "binding" ] ->
+                      capability
+                          owner
+                          "capture"
+                          ("EFFECT003 | "
+                           + Codec.encode ([ "App.Service"; role; "callback" ], ([]: string list))) ]
+
+            let reviewed =
+                { policy with
+                    Projects =
+                        policy.Projects
+                        |> List.map (fun project -> { project with Profile = "ADAPTER" })
+                    Sources = policy.Sources |> List.map (fun item -> { item with Profile = "ADAPTER" })
+                    Capabilities =
+                        [ capability owner "type" "source:App.fs | App.Service"
+                          capability "App.Service.Run" "type" "source:App.fs | App.Service"
+                          capability owner "rule" ("EFFECT003 | " + owner) ]
+                        @ captures }
+
+            write root reviewed
+            let before = Workspace.check root
+            Assert.True(before.Complete && before.ExitCode = 0, Codec.encode before)
+
+            let moved =
+                source.Replace(
+                    "    let callback = first",
+                    "    // callback storage follows an unrelated comment\n\n    let callback =\n        first"
+                )
+
+            File.WriteAllText(Path.Combine(root, "App.fs"), moved)
+            let stale = Workspace.check root
+            Assert.False(stale.Complete)
+            Assert.Equal(3, stale.ExitCode)
+            let advisory = Workspace.review root
+            Assert.True(advisory.AnalysisComplete, Codec.encode advisory)
+            Assert.Empty(advisory.Items)
+            Assert.Empty(advisory.UnusedCapabilities)
+            Assert.Single(advisory.SourceChanges) |> ignore
+
+            let refresh (text: string) =
+                File.WriteAllText(Path.Combine(root, "App.fs"), text)
+
+                write
+                    root
+                    { reviewed with
+                        Sources =
+                            reviewed.Sources
+                            |> List.map (fun item ->
+                                { item with
+                                    Digest = SafetyPolicy.fileDigest (Path.Combine(root, item.File)) }) }
+
+            refresh moved
+            let after = Project.verify root
+            Assert.True(after.Complete && after.ExitCode = 0, Codec.encode after)
+            Assert.True(reviewed.Capabilities = (read root).Capabilities)
+
+            refresh (
+                moved.Replace(
+                    "let first value = callback value",
+                    "let first value = (fun next -> System.IO.File.ReadAllText \"secret\" |> ignore; callback next) value"
+                )
+            )
+
+            let changed = Workspace.review root
+            Assert.True(changed.AnalysisComplete, Codec.encode changed)
+
+            Assert.Contains(
+                changed.Items,
+                fun item ->
+                    item.Kind = "member"
+                    && item.Identity.Contains("File.ReadAllText", StringComparison.Ordinal)
+            )
+
+            refresh (moved.Replace("Service", "OtherService"))
+            let renamed = Workspace.review root
+            Assert.True(renamed.AnalysisComplete, Codec.encode renamed)
+            Assert.Contains(renamed.UnusedCapabilities, fun entry -> entry.Kind = "capture")
+            Assert.Contains(renamed.Items, fun item -> item.Owner.Contains("OtherService", StringComparison.Ordinal)))
+
+    [<Theory>]
+    [<InlineData(false)>]
+    [<InlineData(true)>]
+    let ``generated capture keys distinguish bindings parameters and authored numbered names`` authored =
+        withDirectory (fun root ->
+            let binding = if authored then "callback4" else "callback"
+
+            let source =
+                "module App\ntype Service(callback: int -> int) =\n    let first value = callback value\n    let "
+                + binding
+                + " = first\n    member _.Run(value) = "
+                + binding
+                + " value\n"
+
+            restoreConsumer root None source
+            Project.initialize root |> ignore
+            let policy = read root
+            let owner = "App.Service.``.ctor``"
+
+            let reviewed =
+                { policy with
+                    Projects =
+                        policy.Projects
+                        |> List.map (fun project -> { project with Profile = "ADAPTER" })
+                    Sources = policy.Sources |> List.map (fun item -> { item with Profile = "ADAPTER" })
+                    Capabilities =
+                        [ for scope in [ owner; "App.Service.Run" ] ->
+                              { File = "App.fs"
+                                Owner = scope
+                                Kind = "type"
+                                Identity = "source:App.fs | App.Service"
+                                Reason =
+                                  "Review generated capture identities while preserving authored type permission scope." } ] }
+
+            write root reviewed
+            let report = Workspace.review root
+            Assert.True(report.AnalysisComplete, Codec.encode report)
+            let items = report.Items |> List.filter (fun item -> item.Kind = "capture")
+            Assert.Equal(2, items.Length)
+
+            Assert.Contains(
+                items,
+                fun item ->
+                    item.Identity = "EFFECT003 | "
+                                    + Codec.encode ([ "App.Service"; "parameter"; "callback" ], ([]: string list))
+            )
+
+            Assert.Contains(
+                items,
+                fun item ->
+                    item.Identity = "EFFECT003 | "
+                                    + Codec.encode (
+                                        [ "App.Service"; "binding"; (if authored then "callback4" else "callback") ],
+                                        ([]: string list)
+                                    )
+            )
+
+            let approved =
+                { reviewed with
+                    Capabilities =
+                        reviewed.Capabilities
+                        @ [ { File = "App.fs"
+                              Owner = owner
+                              Kind = "capture"
+                              Identity =
+                                "EFFECT003 | "
+                                + Codec.encode ([ "App.Service"; "parameter"; "callback" ], ([]: string list))
+                              Reason =
+                                "Only the constructor parameter capture is approved; the shadowing binding stays unapproved." } ] }
+
+            write root approved
+            let remaining = Workspace.review root
+            Assert.True(remaining.AnalysisComplete, Codec.encode remaining)
+
+            Assert.Single(remaining.Items |> List.filter (fun item -> item.Kind = "capture"))
+            |> ignore)
+
+    [<Theory>]
+    [<InlineData(false)>]
+    [<InlineData(true)>]
+    let ``capture identities separate types and reject ambiguous shadowed bindings`` ambiguous =
+        withDirectory (fun root ->
+            let body =
+                "type Service(callback: int -> int) =\n"
+                + (if ambiguous then "    let callback = callback\n" else "")
+                + "    let first value = callback value\n    let callback = first\n    member _.Run(value) = callback value\n"
+
+            let source =
+                "module App\n"
+                + body
+                + (if ambiguous then
+                       ""
+                   else
+                       body.Replace("Service", "OtherService"))
+
+            restoreConsumer root None source
+            Project.initialize root |> ignore
+            let policy = read root
+
+            let reviewed =
+                { policy with
+                    Projects =
+                        policy.Projects
+                        |> List.map (fun project -> { project with Profile = "ADAPTER" })
+                    Sources = policy.Sources |> List.map (fun item -> { item with Profile = "ADAPTER" })
+                    Capabilities =
+                        [ for name in
+                              (if ambiguous then
+                                   [ "Service" ]
+                               else
+                                   [ "Service"; "OtherService" ]) do
+                              for suffix in [ ".``.ctor``"; ".Run" ] do
+                                  yield
+                                      { File = "App.fs"
+                                        Owner = "App." + name + suffix
+                                        Kind = "type"
+                                        Identity = "source:App.fs | App." + name
+                                        Reason =
+                                          "Reviewed class shape allows capture mapping evidence; callbacks stay unapproved." } ] }
+
+            write root reviewed
+            let report = Workspace.review root
+
+            if ambiguous then
+                Assert.False(report.AnalysisComplete)
+                Assert.Equal(3, report.ExitCode)
+
+                Assert.Contains(
+                    report.Items,
+                    fun item ->
+                        item.Evidence
+                        |> List.exists (fun diagnostic ->
+                            diagnostic.Rule = "BUILD003"
+                            && diagnostic.Message.Contains("ambiguous authored identity", StringComparison.Ordinal))
+                )
+
+                Assert.Empty(report.UnusedCapabilities)
+            else
+                Assert.True(report.AnalysisComplete, Codec.encode report)
+                let captures = report.Items |> List.filter (fun item -> item.Kind = "capture")
+                Assert.Equal(4, captures.Length)
+                Assert.Equal(4, (captures |> List.map _.Identity |> Set.ofList).Count))
+
     let private withDataConsumer definition source typeName action =
         withDirectory (fun root ->
             restoreConsumer root None source

@@ -15,6 +15,12 @@ type internal SourceDecision =
       Clauses: SynMatchClause list }
 
 [<NoEquality; NoComparison>]
+type internal SourceBinding =
+    { Name: string
+      NameRange: range
+      Range: range }
+
+[<NoEquality; NoComparison>]
 type internal SourceSyntax =
     { Attributes: SynAttribute list
       Matches: SourceDecision list
@@ -24,6 +30,7 @@ type internal SourceSyntax =
       Types: range list
       Modules: range list
       Bindings: range list
+      NamedBindings: SourceBinding list
       ResourceBindings: range list
       Handlers: SynMatchClause list list }
 
@@ -60,6 +67,7 @@ module internal SafetySyntax =
         let types = ResizeArray<range>()
         let modules = ResizeArray<range>()
         let bindings = ResizeArray<range>()
+        let namedBindings = ResizeArray<SourceBinding>()
         let resourceBindings = ResizeArray<range>()
         let handlers = ResizeArray<SynMatchClause list>()
         let error id location message alternative = emit id location "" message alternative
@@ -302,7 +310,25 @@ module internal SafetySyntax =
                         binding
 
                     let expressionRange = expression.Range
-                    bindings.Add(Range.mkRange r.FileName r.Start expressionRange.End)
+                    let bindingRange = Range.mkRange r.FileName r.Start expressionRange.End
+                    bindings.Add bindingRange
+
+                    let rec names pattern =
+                        match pattern with
+                        | SynPat.Named(SynIdent(identifier, _), _, _, _) -> [ identifier ]
+                        | SynPat.LongIdent(SynLongIdent(identifiers, _, _), _, _, _, _, _) ->
+                            identifiers |> List.tryLast |> Option.toList
+                        | SynPat.Paren(inner, _)
+                        | SynPat.Typed(inner, _, _) -> names inner
+                        | SynPat.As(first, second, _) -> names first @ names second
+                        | SynPat.Tuple(_, patterns, _, _) -> patterns |> List.collect names
+                        | _ -> []
+
+                    for identifier in names pattern do
+                        namedBindings.Add
+                            { Name = identifier.idText
+                              NameRange = identifier.idRange
+                              Range = bindingRange }
 
                     if isMutable then
                         error "MUT001" r "Mutable bindings are prohibited." "Pass immutable state explicitly."
@@ -380,5 +406,6 @@ module internal SafetySyntax =
           Types = List.ofSeq types
           Modules = List.ofSeq modules
           Bindings = List.ofSeq bindings
+          NamedBindings = List.ofSeq namedBindings
           ResourceBindings = List.ofSeq resourceBindings
           Handlers = List.ofSeq handlers }

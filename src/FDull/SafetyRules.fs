@@ -138,7 +138,15 @@ module SafetyRules =
           rule "MODEL004" "Erased domain case coverage" [ syntax; analysis ] true [] applicationMatrix
           rule "EFFECT001" "Unapproved external APIs" [ analysis ] true [] profileMatrix
           rule "EFFECT002" "Ambient effects" [ analysis ] true [] applicationMatrix
-          rule "EFFECT003" "Executable/resource data capabilities" [ syntax; analysis ] true [] applicationMatrix
+          rule
+              "EFFECT003"
+              "Executable/resource data capabilities"
+              [ syntax; analysis; workspace ]
+              true
+              [ "ProjectTests.captured callback permissions survive formatting without authorizing new effects"
+                "ProjectTests.generated capture keys distinguish bindings parameters and authored numbered names"
+                "ProjectTests.capture identities separate types and reject ambiguous shadowed bindings" ]
+              applicationMatrix
           rule "EFFECT004" "Unapproved executable abstractions" [ syntax; analysis ] true [] profileMatrix
           rule "ERR001" "Application exception catches" [ syntax ] true [] profileMatrix
           rule "ERR002" "Throwing for application flow" [ syntax; analysis ] true [] applicationMatrix

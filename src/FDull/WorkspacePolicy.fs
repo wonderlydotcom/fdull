@@ -163,6 +163,41 @@ module internal WorkspacePolicy =
         && (not (List.contains profile [ "PURE"; "PURE_HELPER"; "CONTRACTS" ])
             || (profile = "PURE_HELPER" && rule = "STYLE003"))
 
+    let captureIdentity rule (sourcePath: string list, payloadPath: string list) =
+        rule + " | " + Codec.encode [ sourcePath; payloadPath ]
+
+    let validCaptureIdentity (identity: string) =
+        let parts = identity.Split([| " | " |], 2, StringSplitOptions.None)
+
+        if parts.Length <> 2 then
+            false
+        else
+            try
+                let paths = Codec.decode<string list list> parts[1]
+
+                let rec validPayload =
+                    function
+                    | [] -> true
+                    | "field" :: name :: rest -> not (String.IsNullOrWhiteSpace name) && validPayload rest
+                    | "tuple" :: index :: rest ->
+                        not (String.IsNullOrWhiteSpace index)
+                        && index |> Seq.forall (fun c -> c >= '0' && c <= '9')
+                        && (index = "0" || not (index.StartsWith("0", StringComparison.Ordinal)))
+                        && validPayload rest
+                    | _ -> false
+
+                match paths with
+                | [ path; payload ] ->
+                    List.contains parts[0] [ "EFFECT003"; "NULL005"; "MUT010" ]
+                    && path.Length >= 3
+                    && List.contains path[1] [ "binding"; "parameter" ]
+                    && path |> List.forall (String.IsNullOrWhiteSpace >> not)
+                    && validPayload payload
+                    && captureIdentity parts[0] (path, payload) = identity
+                | _ -> false
+            with _ ->
+                false
+
     let reviewResolution profile (rule: string) kind =
         if
             rule.StartsWith("BUILD", StringComparison.Ordinal)
@@ -179,7 +214,8 @@ module internal WorkspacePolicy =
                     not (List.contains profile [ "PURE"; "PURE_HELPER" ])
                     || rule = "EFFECT001"
                     || (profile = "PURE_HELPER" && rule = "STYLE003")
-                | "rule" -> ruleReviewable profile rule
+                | "rule"
+                | "capture" -> ruleReviewable profile rule
                 | _ -> false
 
             if reviewable then "contract-review" else "code-change"
@@ -344,9 +380,10 @@ module internal WorkspacePolicy =
                 || String.IsNullOrWhiteSpace entry.Owner
                 || String.IsNullOrWhiteSpace entry.Identity
                 || String.IsNullOrWhiteSpace entry.Reason
-                || not (List.contains entry.Kind [ "member"; "type"; "rule"; "profile"; "attribute" ])
+                || not (List.contains entry.Kind [ "member"; "type"; "rule"; "capture"; "profile"; "attribute" ])
                 || (entry.Kind = "profile" && not (Set.contains entry.Identity profiles))
-                || (entry.Kind = "rule"
+                || (entry.Kind = "capture" && not (validCaptureIdentity entry.Identity))
+                || (List.contains entry.Kind [ "rule"; "capture" ]
                     && (not (entry.Identity.Contains(" | ", StringComparison.Ordinal))
                         || entry.Identity.StartsWith("BUILD", StringComparison.Ordinal)
                         || entry.Identity.StartsWith("ATTR", StringComparison.Ordinal)
@@ -380,7 +417,7 @@ module internal WorkspacePolicy =
                 |> Option.defaultValue (Map.tryFind entry.File assigned |> Option.defaultValue "UNCLASSIFIED")
 
             if
-                entry.Kind = "rule"
+                List.contains entry.Kind [ "rule"; "capture" ]
                 && not (ruleReviewable effective (entry.Identity.Split(" | ")[0]))
             then
                 invalidOp "BUILD005: Data and pure profiles cannot receive safety exemptions."
@@ -417,6 +454,7 @@ module internal WorkspacePolicy =
         (syntax: Map<string, SourceSyntax>)
         =
         let owners = ResizeArray<range * string>()
+        let parameters = ResizeArray<range * string>()
         let observed = ResizeArray<WorkspaceUse>()
 
         let dataDigests =
@@ -453,11 +491,17 @@ module internal WorkspacePolicy =
                         | None -> ()
 
                     declarations nested
-                | FSharpImplementationFileDeclaration.MemberOrFunctionOrValue(memberInfo, _, body) when
+                | FSharpImplementationFileDeclaration.MemberOrFunctionOrValue(memberInfo, arguments, body) when
                     not memberInfo.IsCompilerGenerated
                     ->
                     let start = memberInfo.DeclarationLocation
                     let bodyRange = body.Range
+
+                    if memberInfo.IsConstructor then
+                        for group in arguments do
+                            for parameter in group do
+                                if not parameter.IsCompilerGenerated then
+                                    parameters.Add(parameter.DeclarationLocation, parameter.DisplayName)
 
                     let sourceRange =
                         Map.tryFind start.FileName syntax
@@ -481,6 +525,82 @@ module internal WorkspacePolicy =
             declarations file.Declarations
 
         let ownerIndex = SafetyRanges.create budget.Visit (fun (r, _) -> region r) owners
+
+        let captureIdentityFor (field: FSharpField) =
+            let location = field.DeclarationLocation
+
+            match Map.tryFind location.FileName syntax, field.DeclaringEntity with
+            | Some source, Some entity when field.IsCompilerGenerated ->
+                let within (outer: range) (inner: range) =
+                    outer.FileName = inner.FileName
+                    && (outer.StartLine, outer.StartColumn) <= (inner.StartLine, inner.StartColumn)
+                    && (inner.EndLine, inner.EndColumn) <= (outer.EndLine, outer.EndColumn)
+
+                let container =
+                    source.Types
+                    |> List.filter (fun r ->
+                        budget.Visit 0
+                        within r location)
+                    |> List.sortBy (fun r -> r.EndLine - r.StartLine, r.EndColumn - r.StartColumn)
+                    |> List.tryHead
+
+                let named =
+                    match container with
+                    | Some r -> source.NamedBindings |> List.filter (fun binding -> within r binding.NameRange)
+                    | None -> invalidOp "BUILD003: A generated capture has no unambiguous authored type declaration."
+
+                let bindings =
+                    named
+                    |> List.filter (fun binding ->
+                        budget.Visit 0
+                        binding.NameRange = location)
+
+                let parameterNames =
+                    parameters
+                    |> Seq.filter (fun (r, _) ->
+                        budget.Visit 0
+                        r = location)
+                    |> Seq.map snd
+                    |> Seq.toList
+
+                let path (binding: SourceBinding) =
+                    let parents =
+                        named
+                        |> List.filter (fun parent ->
+                            budget.Visit 0
+
+                            parent.Range <> binding.Range
+                            && parent.Range.FileName = location.FileName
+                            && (parent.Range.StartLine, parent.Range.StartColumn)
+                               <= (binding.NameRange.StartLine, binding.NameRange.StartColumn)
+                            && (binding.NameRange.EndLine, binding.NameRange.EndColumn)
+                               <= (parent.Range.EndLine, parent.Range.EndColumn))
+                        |> List.sortByDescending (fun parent ->
+                            parent.Range.EndLine - parent.Range.StartLine,
+                            parent.Range.EndColumn - parent.Range.StartColumn)
+                        |> List.map _.Name
+
+                    [ SafetyPolicy.entityName entity; "binding" ] @ parents @ [ binding.Name ]
+
+                match bindings, parameterNames with
+                | [ binding ], [] ->
+                    let identity = path binding
+
+                    if
+                        named |> List.filter (fun candidate -> path candidate = identity) |> List.length
+                        <> 1
+                    then
+                        invalidOp
+                            "BUILD003: Captured bindings have an ambiguous authored identity; use distinct binding names."
+
+                    Some identity
+                | [], [ name ] -> Some [ SafetyPolicy.entityName entity; "parameter"; name ]
+                | _ ->
+                    invalidOp
+                        "BUILD003: A generated capture cannot be mapped to exactly one authored binding or constructor parameter."
+            | Some _, None when field.IsCompilerGenerated ->
+                invalidOp "BUILD003: A generated capture has no resolved declaring type."
+            | _ -> None
 
         let owner r =
             ownerIndex.Enclosing(region r)
@@ -762,11 +882,15 @@ module internal WorkspacePolicy =
             { Project = project
               Profile = profile
               Permit =
-                fun rule r symbol ->
+                fun rule r symbol contract ->
                     if Set.contains r.FileName generated && generatedPermission rule r symbol then
                         true
                     else
-                        allowed "rule" (rule + " | " + symbol) r
+                        match contract with
+                        | Some(CaptureContract(sourcePath, payloadPath)) ->
+                            allowed "capture" (captureIdentity rule (sourcePath, payloadPath)) r
+                        | _ -> allowed "rule" (rule + " | " + symbol) r
+              Capture = captureIdentityFor
               Member = memberAllowed
               Type = typeAllowed
               Data = dataAllowed
@@ -804,6 +928,8 @@ module internal WorkspacePolicy =
                 match contract with
                 | Some(TypeContract entity) -> "type", typeIdentity entity
                 | Some(DataContract entity) -> "data", typeIdentity entity
+                | Some(CaptureContract(sourcePath, payloadPath)) ->
+                    "capture", captureIdentity diagnostic.Rule (sourcePath, payloadPath)
                 | Some(MemberContract memberInfo) ->
                     "member", memberInfo.Assembly.QualifiedName + " | " + memberInfo.XmlDocSig
                 | Some(ConstructorContract memberInfo) -> "constructor", constructorIdentity memberInfo

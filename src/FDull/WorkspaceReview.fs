@@ -48,7 +48,14 @@ module WorkspaceReview =
                        || not (
                            List.contains
                                finding.Kind
-                               [ "member"; "type"; "rule"; "attribute"; "constructor"; "source"; "data" ]
+                               [ "member"
+                                 "type"
+                                 "rule"
+                                 "capture"
+                                 "attribute"
+                                 "constructor"
+                                 "source"
+                                 "data" ]
                        )
                        || finding.Resolution
                           <> WorkspacePolicy.reviewResolution
@@ -57,6 +64,14 @@ module WorkspaceReview =
                               finding.Kind
                        || (finding.Kind = "rule"
                            && finding.Identity <> finding.Diagnostic.Rule + " | " + finding.Diagnostic.Symbol)
+                       || (finding.Kind = "capture"
+                           && (not (WorkspacePolicy.validCaptureIdentity finding.Identity)
+                               || not (
+                                   finding.Identity.StartsWith(
+                                       finding.Diagnostic.Rule + " | ",
+                                       StringComparison.Ordinal
+                                   )
+                               )))
                        || (finding.Kind = "constructor" && finding.Diagnostic.Rule <> "MODEL003")
                        || (finding.Kind = "data" && finding.Diagnostic.Rule <> "MODEL001")
                        || (finding.Kind = "attribute"

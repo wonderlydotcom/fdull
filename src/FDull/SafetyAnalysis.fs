@@ -348,27 +348,41 @@ module internal SafetyAnalysis =
                 "Use explicit immutable data, Result/Option, or an approved platform API."
                 (Some contract)
 
-        let rec shapeAt depth dataOnly path (visited: Set<string>) (t: FSharpType) r =
+        let rec shapeAt depth dataOnly path (visited: Set<string>) (t: FSharpType) r capture =
             budget.Visit depth
             let shape = shapeAt (depth + 1)
+
+            let emitShape id symbol message =
+                let identity =
+                    capture
+                    |> Option.bind (fun (field, payload) ->
+                        context.Capture field |> Option.map (fun identity -> identity, payload))
+
+                match identity with
+                | Some(sourcePath, payloadPath) ->
+                    emitContract (CaptureContract(sourcePath, payloadPath)) id r symbol message
+                | None -> emitAt id r symbol message
+
+            let nested part =
+                capture |> Option.map (fun (field, payload) -> field, payload @ part)
 
             if t.IsUnresolved then
                 emitAt "BUILD003" r path "A type could not be resolved."
             elif t.IsAbbreviation then
-                shape dataOnly path visited t.AbbreviatedType r
+                shape dataOnly path visited t.AbbreviatedType r capture
             elif t.HasNullAnnotation then
-                emitAt "NULL005" r path "Nullable data requires boundary normalization."
+                emitShape "NULL005" path "Nullable data requires boundary normalization."
             elif t.IsGenericParameter then
                 ()
             elif t.IsFunctionType then
                 if dataOnly then
-                    emitAt "EFFECT003" r path "An executable callback is hidden inside data."
+                    emitShape "EFFECT003" path "An executable callback is hidden inside data."
                 else
                     for arg in t.GenericArguments do
-                        shape false path visited arg r
+                        shape false path visited arg r capture
             elif t.IsTupleType || t.IsAnonRecordType then
                 for i, arg in t.GenericArguments |> Seq.indexed do
-                    shape dataOnly (path + "." + string i) visited arg r
+                    shape dataOnly (path + "." + string i) visited arg r (nested [ "tuple"; string i ])
             elif t.HasTypeDefinition then
                 let e = t.TypeDefinition
                 let name = SafetyPolicy.entityName e
@@ -400,7 +414,7 @@ module internal SafetyAnalysis =
                             emitAt rule r nestedPath message
                 elif not intrinsic && context.Type r e then
                     for arg in t.GenericArguments do
-                        shape dataOnly path visited arg r
+                        shape dataOnly path visited arg r capture
                 elif visited.Count > SafetyLimits.typeDepth then
                     emitAt "BUILD003" r path "Recursive type analysis exceeded the supported depth."
                 elif not (Set.contains key visited) then
@@ -426,7 +440,7 @@ module internal SafetyAnalysis =
                             emitContract (TypeContract e) id r (path + " -> " + name) message
 
                             if dataOnly && path.Contains('.') && (id = "MUT005" || id = "MUT008") then
-                                emitAt "MUT010" r path "An immutable wrapper contains a mutable or aliasable payload."
+                                emitShape "MUT010" path "An immutable wrapper contains a mutable or aliasable payload."
                         | None ->
                             let approved =
                                 (Set.contains e.Assembly.QualifiedName SafetyPolicy.frameworkIdentities
@@ -455,6 +469,10 @@ module internal SafetyAnalysis =
                                             visited
                                             (field.FieldType.Instantiate substitution)
                                             r
+                                            (if field.IsCompilerGenerated then
+                                                 Some(field, [])
+                                             else
+                                                 nested [ "field"; field.Name ])
                                 else
                                     emitContract
                                         (TypeContract e)
@@ -473,11 +491,12 @@ module internal SafetyAnalysis =
                                     "The external type has no approved immutable-data contract."
 
                             for arg in t.GenericArguments do
-                                shape dataOnly path visited arg r
+                                shape dataOnly path visited arg r capture
             else
                 emitAt "BUILD003" r path "Unclassified F# type shape."
 
-        let shape = shapeAt 0
+        let shape dataOnly path visited t r =
+            shapeAt 0 dataOnly path visited t r None
 
         let rec transportAt depth (visited: Set<string>) path (t: FSharpType) r =
             budget.Visit depth
@@ -677,7 +696,14 @@ module internal SafetyAnalysis =
                         if not attributeConstructor then
                             checkMember m useSite.Range
                 | :? FSharpField as field when useSite.IsFromDefinition ->
-                    shape true field.Name Set.empty field.FieldType useSite.Range
+                    shapeAt
+                        0
+                        true
+                        field.Name
+                        Set.empty
+                        field.FieldType
+                        useSite.Range
+                        (if field.IsCompilerGenerated then Some(field, []) else None)
                 | :? FSharpEntity as e when useSite.IsFromDefinition && not e.IsFSharpModule && not e.IsNamespace ->
                     if context.Domain e && e.RepresentationAccessibility.IsPublic then
                         emitAt
@@ -709,7 +735,14 @@ module internal SafetyAnalysis =
                                 e.FSharpFields
 
                         for field in fields do
-                            shape true (e.DisplayName + "." + field.Name) Set.empty field.FieldType useSite.Range
+                            shapeAt
+                                0
+                                true
+                                (e.DisplayName + "." + field.Name)
+                                Set.empty
+                                field.FieldType
+                                useSite.Range
+                                (if field.IsCompilerGenerated then Some(field, []) else None)
                 | _ -> ()
 
         for KeyValue(_, source) in syntax do

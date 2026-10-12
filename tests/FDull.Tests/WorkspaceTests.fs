@@ -168,6 +168,9 @@ module WorkspaceTests =
     [<InlineData("data-project", "BUILD005")>]
     [<InlineData("data-digest", "BUILD005")>]
     [<InlineData("data-wildcard", "BUILD005")>]
+    [<InlineData("capture-pure", "BUILD005")>]
+    [<InlineData("capture-malformed", "BUILD005")>]
+    [<InlineData("capture-effect", "BUILD005")>]
     let ``policy and inventory drift cannot certify a workspace`` mutation expected =
         withPolicy (fun directory policy ->
             let save changed =
@@ -218,6 +221,43 @@ module WorkspaceTests =
                                 else
                                     [ contract ]
                             ) }
+            | "capture-pure"
+            | "capture-malformed"
+            | "capture-effect" ->
+                let entry =
+                    { File =
+                        if mutation = "capture-pure" then
+                            "src/FDull/External.fs"
+                        else
+                            "src/FDull/WorkspacePolicy.fs"
+                      Owner =
+                        if mutation = "capture-pure" then
+                            "FDull.Transport.External.required"
+                        else
+                            "FDull.WorkspacePolicy.context"
+                      Kind = "capture"
+                      Identity =
+                        if mutation = "capture-pure" then
+                            "EFFECT003 | [[\"Fixture\",\"binding\",\"callback\"],[]]"
+                        elif mutation = "capture-effect" then
+                            "EFFECT001 | [[\"Fixture\",\"binding\",\"callback\"],[]]"
+                        else
+                            "EFFECT003 | [[\"Fixture\",\"binding\",\"callback\"],[\"tuple\",\"00\"]]"
+                      Reason = "Invalid capture permissions cannot bypass profile, shape or effect restrictions." }
+
+                save
+                    { policy with
+                        Sources =
+                            if mutation = "capture-pure" then
+                                policy.Sources
+                                |> List.map (fun source ->
+                                    if source.File = entry.File then
+                                        { source with Profile = "PURE" }
+                                    else
+                                        source)
+                            else
+                                policy.Sources
+                        Capabilities = [ entry ] }
             | "pure-exemption"
             | "unknown-rule" ->
                 let entry =
@@ -269,6 +309,14 @@ module WorkspaceTests =
               Identity = grant.Identity }
 
         Assert.Empty(WorkspaceAudit.unused policy [ observed ])
+
+        Assert.Single(
+            WorkspaceAudit.unused
+                policy
+                [ { observed with
+                      File = observed.File + ".moved" } ]
+        )
+        |> ignore
 
         Assert.Single(
             WorkspaceAudit.unused
@@ -465,6 +513,41 @@ module WorkspaceTests =
               Findings = [ finding ] }
 
         Assert.Equal(Ok(), WorkspaceReview.validate request policy 1 "" review)
+
+        let captured =
+            { finding with
+                Diagnostic =
+                    { diagnostic with
+                        Rule = "EFFECT003"
+                        Symbol = "Callback.callback@42" }
+                Kind = "capture"
+                Identity = "EFFECT003 | [[\"Fixture\",\"binding\",\"callback\"],[]]" }
+
+        let capturedReview =
+            { review with
+                Analysis =
+                    { violation with
+                        Report =
+                            { violation.Report with
+                                Diagnostics = [ captured.Diagnostic ] } }
+                Findings = [ captured ] }
+
+        Assert.Equal(Ok(), WorkspaceReview.validate request policy 1 "" capturedReview)
+
+        for identity in
+            [ "EFFECT003 | [[\"Fixture\",\"binding\",\"callback\"],[\"tuple\",\"00\"]]"
+              "NULL005 | [[\"Fixture\",\"binding\",\"callback\"],[]]"
+              "EFFECT003 | [[\"Fixture\",\"binding\",\"callback\"],[\"field\"]]" ] do
+            Assert.True(
+                WorkspaceReview.validate
+                    request
+                    policy
+                    1
+                    ""
+                    { capturedReview with
+                        Findings = [ { captured with Identity = identity } ] }
+                |> Result.isError
+            )
 
         for malformed in
             [ { review with Advisory = false }
