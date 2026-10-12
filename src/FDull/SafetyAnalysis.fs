@@ -225,7 +225,7 @@ module internal SafetyAnalysis =
                        "ReduceBack"
                        "Aggregate" ]))
         then
-            Some("STYLE003", "Raw accumulation requires an exact reviewed pure helper.")
+            Some("STYLE003", "Raw accumulation requires an eligible profile and an exact reviewed API contract.")
         elif
             (collection
              && Set.contains

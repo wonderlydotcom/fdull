@@ -67,7 +67,7 @@
       "File": "src/FDull/SafetyRules.fs",
       "Project": "src/FDull/FDull.fsproj",
       "Profile": "GUARD_TOOLING",
-      "Digest": "sha256:fc8531b7083f9142e91613431fe65890dc4b06b8056eee568219f865983d44ec"
+      "Digest": "sha256:915203471f06afa81c01079c744b71abf68f9abec3a16443acaaf4dd09dc7f95"
     },
     {
       "File": "src/FDull/SafetyPolicy.fs",
@@ -109,7 +109,7 @@
       "File": "src/FDull/SafetyAnalysis.fs",
       "Project": "src/FDull/FDull.fsproj",
       "Profile": "GUARD_TOOLING",
-      "Digest": "sha256:50f18acdcbf7e3f9885dedcef21089b93a4092580fa9b40bfe6eff70699a2774"
+      "Digest": "sha256:196ae28a490c2aa17fd245290d4f968581b5834f3b7262e9e7e29be2b21e16e4"
     },
     {
       "File": "src/FDull/SafetyEngine.fs",
@@ -127,7 +127,7 @@
       "File": "src/FDull/WorkspacePolicy.fs",
       "Project": "src/FDull/FDull.fsproj",
       "Profile": "GUARD_TOOLING",
-      "Digest": "sha256:9a1d2263b6b287223ca3a97d8c1fd318ab7b66f9843086e830f999bbf359475d"
+      "Digest": "sha256:fa33426e867774e3bfd99dfdec68ef581b95d7ec8279fd85a1c1a4fb89e3317d"
     },
     {
       "File": "src/FDull/WorkspaceAudit.fs",
@@ -229,7 +229,7 @@
       "File": "tests/FDull.Tests/ProjectTests.fs",
       "Project": "tests/FDull.Tests/FDull.Tests.fsproj",
       "Profile": "TEST",
-      "Digest": "sha256:a679c198968719c77bf2d6585a8f2e4eecc19b96674cc10614d956db802dcab2"
+      "Digest": "sha256:396d9b5295e5d280e2c3dd8260fbd7c13f90b9f3ebb416ff94a788b8af94ded8"
     },
     {
       "File": "tests/FDull.Tests/Program.fs",
@@ -241,7 +241,7 @@
       "File": "src/FDull/WorkspaceReview.fs",
       "Project": "src/FDull/FDull.fsproj",
       "Profile": "GUARD_TOOLING",
-      "Digest": "sha256:fff2713b105d1675db6f2e3b2f766674ffd015af3b9e967bd8f89f7fc438bf19"
+      "Digest": "sha256:5a3756320bd810c121c9be57a3dc79291543b031d4ce7414015584b74049aed1"
     },
     {
       "File": "src/FDull/DataContractPolicy.fs",
@@ -16748,6 +16748,174 @@
       "Kind": "rule",
       "Identity": "ERR009 | ",
       "Reason": "Reviewed non-shipping CLI regression acquires a read-only JsonDocument only to inspect captured SARIF; the FSharp use binding disposes it before leaving the isolated consumer test."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060fold review guidance matches scoped permissions and retains pure restrictions\u0060\u0060",
+      "Kind": "attribute",
+      "Identity": "xunit.core, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | Xunit.FactAttribute |  | unit",
+      "Reason": "Reviewed non-shipping consumer regression: literal profile and API contracts prove that fold guidance matches actual eligibility, PURE remains restricted, and PURE_HELPER cannot admit ambient effects. Temporary source/policy IO and assertions preserve the authoritative failure gate."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060fold review guidance matches scoped permissions and retains pure restrictions\u0060\u0060",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.Combine(System.String,System.String)",
+      "Reason": "Reviewed non-shipping consumer regression: literal profile and API contracts prove that fold guidance matches actual eligibility, PURE remains restricted, and PURE_HELPER cannot admit ambient effects. Temporary source/policy IO and assertions preserve the authoritative failure gate."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060fold review guidance matches scoped permissions and retains pure restrictions\u0060\u0060",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.File.WriteAllText(System.String,System.String)",
+      "Reason": "Reviewed non-shipping consumer regression: literal profile and API contracts prove that fold guidance matches actual eligibility, PURE remains restricted, and PURE_HELPER cannot admit ambient effects. Temporary source/policy IO and assertions preserve the authoritative failure gate."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060fold review guidance matches scoped permissions and retains pure restrictions\u0060\u0060",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.SafetyPolicy.fileDigest(System.String)",
+      "Reason": "Reviewed non-shipping consumer regression: literal profile and API contracts prove that fold guidance matches actual eligibility, PURE remains restricted, and PURE_HELPER cannot admit ambient effects. Temporary source/policy IO and assertions preserve the authoritative failure gate."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060fold review guidance matches scoped permissions and retains pure restrictions\u0060\u0060",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Transport.Codec.encode\u0060\u00601(\u0060\u00600)",
+      "Reason": "Reviewed non-shipping consumer regression: literal profile and API contracts prove that fold guidance matches actual eligibility, PURE remains restricted, and PURE_HELPER cannot admit ambient effects. Temporary source/policy IO and assertions preserve the authoritative failure gate."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060fold review guidance matches scoped permissions and retains pure restrictions\u0060\u0060",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Workspace.review(System.String)",
+      "Reason": "Reviewed non-shipping consumer regression: literal profile and API contracts prove that fold guidance matches actual eligibility, PURE remains restricted, and PURE_HELPER cannot admit ambient effects. Temporary source/policy IO and assertions preserve the authoritative failure gate."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060fold review guidance matches scoped permissions and retains pure restrictions\u0060\u0060",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.WorkspaceReview.format(FDull.WorkspaceReviewReport)",
+      "Reason": "Reviewed non-shipping consumer regression: literal profile and API contracts prove that fold guidance matches actual eligibility, PURE remains restricted, and PURE_HELPER cannot admit ambient effects. Temporary source/policy IO and assertions preserve the authoritative failure gate."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060fold review guidance matches scoped permissions and retains pure restrictions\u0060\u0060",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Workspace.check(System.String)",
+      "Reason": "Reviewed non-shipping consumer regression: literal profile and API contracts prove that fold guidance matches actual eligibility, PURE remains restricted, and PURE_HELPER cannot admit ambient effects. Temporary source/policy IO and assertions preserve the authoritative failure gate."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060fold review guidance matches scoped permissions and retains pure restrictions\u0060\u0060",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.True(System.Boolean,System.String)",
+      "Reason": "Reviewed non-shipping consumer regression: literal profile and API contracts prove that fold guidance matches actual eligibility, PURE remains restricted, and PURE_HELPER cannot admit ambient effects. Temporary source/policy IO and assertions preserve the authoritative failure gate."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060fold review guidance matches scoped permissions and retains pure restrictions\u0060\u0060",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.True(System.Boolean)",
+      "Reason": "Reviewed non-shipping consumer regression: literal profile and API contracts prove that fold guidance matches actual eligibility, PURE remains restricted, and PURE_HELPER cannot admit ambient effects. Temporary source/policy IO and assertions preserve the authoritative failure gate."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060fold review guidance matches scoped permissions and retains pure restrictions\u0060\u0060",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Equal\u0060\u00601(\u0060\u00600,\u0060\u00600)",
+      "Reason": "Reviewed non-shipping consumer regression: literal profile and API contracts prove that fold guidance matches actual eligibility, PURE remains restricted, and PURE_HELPER cannot admit ambient effects. Temporary source/policy IO and assertions preserve the authoritative failure gate."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060fold review guidance matches scoped permissions and retains pure restrictions\u0060\u0060",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Single\u0060\u00601(System.Collections.Generic.IEnumerable{\u0060\u00600})",
+      "Reason": "Reviewed non-shipping consumer regression: literal profile and API contracts prove that fold guidance matches actual eligibility, PURE remains restricted, and PURE_HELPER cannot admit ambient effects. Temporary source/policy IO and assertions preserve the authoritative failure gate."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060fold review guidance matches scoped permissions and retains pure restrictions\u0060\u0060",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Contains(System.String,System.String)",
+      "Reason": "Reviewed non-shipping consumer regression: literal profile and API contracts prove that fold guidance matches actual eligibility, PURE remains restricted, and PURE_HELPER cannot admit ambient effects. Temporary source/policy IO and assertions preserve the authoritative failure gate."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060fold review guidance matches scoped permissions and retains pure restrictions\u0060\u0060",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.DoesNotContain\u0060\u00601(System.Collections.Generic.IEnumerable{\u0060\u00600},System.Predicate{\u0060\u00600})",
+      "Reason": "Reviewed non-shipping consumer regression: literal profile and API contracts prove that fold guidance matches actual eligibility, PURE remains restricted, and PURE_HELPER cannot admit ambient effects. Temporary source/policy IO and assertions preserve the authoritative failure gate."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060fold review guidance matches scoped permissions and retains pure restrictions\u0060\u0060",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.All\u0060\u00601(System.Collections.Generic.IEnumerable{\u0060\u00600},System.Action{\u0060\u00600})",
+      "Reason": "Reviewed non-shipping consumer regression: literal profile and API contracts prove that fold guidance matches actual eligibility, PURE remains restricted, and PURE_HELPER cannot admit ambient effects. Temporary source/policy IO and assertions preserve the authoritative failure gate."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060fold review guidance matches scoped permissions and retains pure restrictions\u0060\u0060",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspacePolicyDocument",
+      "Reason": "Reviewed non-shipping consumer regression: literal profile and API contracts prove that fold guidance matches actual eligibility, PURE remains restricted, and PURE_HELPER cannot admit ambient effects. Temporary source/policy IO and assertions preserve the authoritative failure gate."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060fold review guidance matches scoped permissions and retains pure restrictions\u0060\u0060",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspaceSource",
+      "Reason": "Reviewed non-shipping consumer regression: literal profile and API contracts prove that fold guidance matches actual eligibility, PURE remains restricted, and PURE_HELPER cannot admit ambient effects. Temporary source/policy IO and assertions preserve the authoritative failure gate."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060fold review guidance matches scoped permissions and retains pure restrictions\u0060\u0060",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspaceReviewReport",
+      "Reason": "Reviewed non-shipping consumer regression: literal profile and API contracts prove that fold guidance matches actual eligibility, PURE remains restricted, and PURE_HELPER cannot admit ambient effects. Temporary source/policy IO and assertions preserve the authoritative failure gate."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060fold review guidance matches scoped permissions and retains pure restrictions\u0060\u0060",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspaceReviewItem",
+      "Reason": "Reviewed non-shipping consumer regression: literal profile and API contracts prove that fold guidance matches actual eligibility, PURE remains restricted, and PURE_HELPER cannot admit ambient effects. Temporary source/policy IO and assertions preserve the authoritative failure gate."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060fold review guidance matches scoped permissions and retains pure restrictions\u0060\u0060",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspaceReport",
+      "Reason": "Reviewed non-shipping consumer regression: literal profile and API contracts prove that fold guidance matches actual eligibility, PURE remains restricted, and PURE_HELPER cannot admit ambient effects. Temporary source/policy IO and assertions preserve the authoritative failure gate."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060generated capture keys distinguish bindings parameters and authored numbered names\u0060\u0060",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.All\u0060\u00601(System.Collections.Generic.IEnumerable{\u0060\u00600},System.Action{\u0060\u00600})",
+      "Reason": "Reviewed non-shipping capture guidance assertions: actual capture findings retain exact authored identity keys and explain capture permissions separately from rule grants."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060generated capture keys distinguish bindings parameters and authored numbered names\u0060\u0060",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Contains(System.String,System.String)",
+      "Reason": "Reviewed non-shipping capture guidance assertions: actual capture findings retain exact authored identity keys and explain capture permissions separately from rule grants."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060fold review guidance matches scoped permissions and retains pure restrictions\u0060\u0060",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Equal(System.String,System.String)",
+      "Reason": "Reviewed non-shipping fold regression asserts that prohibited APIs remain code-change findings after explicit exact member approvals."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060advisory review reports blockers and never infers unused contracts from partial analysis\u0060\u0060",
+      "Kind": "member",
+      "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | M:System.String.Contains(System.String)",
+      "Reason": "Reviewed non-shipping compiler-blocker regression reads advisory guidance to assert that compiler errors cannot be resolved with permission entries."
     }
   ],
   "Domains": [],

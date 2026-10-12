@@ -189,7 +189,7 @@ module SafetyRules =
               "Raw accumulation outside approved helpers"
               [ analysis ]
               true
-              []
+              [ "ProjectTests.fold review guidance matches scoped permissions and retains pure restrictions" ]
               "No raw folds are granted in this workspace; additional helper grants need behavioral evidence."
           rule
               "ARCH001"
