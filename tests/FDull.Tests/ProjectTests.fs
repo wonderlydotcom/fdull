@@ -551,6 +551,324 @@ module ProjectTests =
     let private write root policy =
         File.WriteAllText(Path.Combine(root, "fdull.json"), Codec.encode policy)
 
+    let private withDataConsumer definition source typeName action =
+        withDirectory (fun root ->
+            restoreConsumer root None source
+            let shared = Path.Combine(root, "Shared")
+            Directory.CreateDirectory shared |> ignore
+
+            File.WriteAllText(
+                Path.Combine(shared, "Shared.fsproj"),
+                "<Project Sdk=\"Microsoft.NET.Sdk\"><ItemGroup><Compile Include=\"Shared.fs\"/></ItemGroup></Project>"
+            )
+
+            File.WriteAllText(Path.Combine(shared, "Shared.fs"), "namespace Shared\n" + definition + "\n")
+
+            File.WriteAllText(
+                Path.Combine(root, "App.fsproj"),
+                "<Project Sdk=\"Microsoft.NET.Sdk\"><ItemGroup><ProjectReference Include=\"Shared/Shared.fsproj\"/><Compile Include=\"App.fs\"/></ItemGroup></Project>"
+            )
+
+            run root [ "restore"; "App.fsproj"; "-m:1"; "-nr:false" ]
+
+            run
+                root
+                [ "build"
+                  "App.fsproj"
+                  "-c"
+                  "Release"
+                  "--no-restore"
+                  "-m:1"
+                  "--disable-build-servers" ]
+
+            Project.initialize root |> ignore
+
+            let invocation =
+                match Workspace.export root "App.fsproj" with
+                | Ok value -> value
+                | Error error -> failwith error
+
+            let reference =
+                invocation.References
+                |> List.tryFind (fun file -> Path.GetFileName file = "Shared.dll")
+                |> Fixtures.requireSome "Missing shared compiler reference."
+
+            let assembly =
+                System.Reflection.AssemblyName.GetAssemblyName(reference).FullName
+                |> External.required "test.shared-assembly"
+
+            let contract =
+                { Project = "App.fsproj"
+                  Identity = assembly + " | Shared." + typeName
+                  Assemblies =
+                    [ { Identity = assembly
+                        Digest = DataContractPolicy.assemblyDigest reference } ]
+                  Reason = "Reviewed immutable shared representation; all nested payloads remain checked." }
+
+            action root (read root) contract)
+
+    [<Fact>]
+    let ``reusable data contracts allow helper extraction without declaration grants`` () =
+        withDataConsumer
+            "type Nested = { Count: int; Tags: string list }\ntype Payload = { Name: string; Nested: Nested; Outcome: Result<Nested, string> }"
+            "module App\nlet first (value: Shared.Payload) = value.Name\nlet second (value: Shared.Payload) = value.Nested.Count\n"
+            "Payload"
+            (fun root policy contract ->
+                let before = Workspace.check root
+                Assert.NotEqual(0, before.ExitCode)
+
+                let reviewed =
+                    { policy with
+                        DataContracts = Some [ contract ] }
+
+                write root reviewed
+                let initialCheck = Workspace.check root
+
+                Assert.True(
+                    initialCheck.Complete && initialCheck.ExitCode = 0,
+                    String.concat
+                        "\n"
+                        (initialCheck.Errors
+                         @ (initialCheck.Projects
+                            |> List.collect (fun project -> project.Report.Diagnostics |> List.map _.Message)))
+                )
+
+                let approved = Project.verify root
+
+                Assert.True(
+                    approved.Complete,
+                    String.concat
+                        "\n"
+                        (approved.Errors
+                         @ (approved.Projects
+                            |> List.collect (fun project -> project.Report.Diagnostics |> List.map _.Message)))
+                )
+
+                Assert.Equal(0, approved.ExitCode)
+                Assert.Empty(reviewed.Capabilities)
+
+                File.AppendAllText(Path.Combine(root, "App.fs"), "let third (value: Shared.Payload) = value\n")
+
+                let extracted =
+                    { reviewed with
+                        Sources =
+                            reviewed.Sources
+                            |> List.map (fun source ->
+                                if source.File = "App.fs" then
+                                    { source with
+                                        Digest = SafetyPolicy.fileDigest (Path.Combine(root, source.File)) }
+                                else
+                                    source) }
+
+                write root extracted
+                let after = Workspace.check root
+
+                Assert.True(
+                    after.Complete,
+                    String.concat
+                        "\n"
+                        (after.Errors
+                         @ (after.Projects
+                            |> List.collect (fun project -> project.Report.Diagnostics |> List.map _.Message)))
+                )
+
+                Assert.Equal(0, after.ExitCode)
+                Assert.Empty(extracted.Capabilities)
+                Assert.Equal(reviewed.DataContracts, extracted.DataContracts)
+
+                write
+                    root
+                    { extracted with
+                        DataContracts =
+                            Some
+                                [ { contract with
+                                      Assemblies =
+                                          contract.Assemblies
+                                          @ [ { Identity =
+                                                  "Unused, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"
+                                                Digest = "sha256:" + String.replicate 64 "a" } ] } ] }
+
+                let unused = Workspace.review root
+                Assert.True(unused.AnalysisComplete)
+                Assert.Equal(1, unused.ExitCode)
+                Assert.Single(unused.UnusedDataContracts) |> ignore
+
+                let scoped =
+                    { extracted with
+                        DataContracts =
+                            Some
+                                [ { contract with
+                                      Project = "Shared/Shared.fsproj" } ] }
+
+                write root scoped
+                let wrongProject = Workspace.check root
+                Assert.NotEqual(0, wrongProject.ExitCode)
+
+                Assert.Contains(
+                    wrongProject.Projects
+                    |> List.collect (fun project -> project.Report.Diagnostics),
+                    fun diagnostic -> diagnostic.Rule = "MODEL001" && diagnostic.File = Path.Combine(root, "App.fs")
+                )
+
+                write
+                    root
+                    { extracted with
+                        DataContracts =
+                            Some
+                                [ { contract with
+                                      Assemblies =
+                                          contract.Assemblies
+                                          |> List.map (fun pin ->
+                                              { pin with
+                                                  Digest = "sha256:" + String.replicate 64 "0" }) } ] }
+
+                let drift = Workspace.check root
+                Assert.False(drift.Complete)
+                Assert.Equal(3, drift.ExitCode)
+
+                Assert.Contains(
+                    drift.Projects |> List.collect (fun project -> project.Report.Diagnostics),
+                    fun diagnostic -> diagnostic.Rule = "BUILD005"
+                )
+
+                File.WriteAllText(
+                    Path.Combine(root, "Shared/Shared.fs"),
+                    "namespace Shared\ntype Nested = { Count: int; Tags: string list; Revision: int }\ntype Payload = { Name: string; Nested: Nested; Outcome: Result<Nested, string> }\n"
+                )
+
+                run
+                    root
+                    [ "build"
+                      "App.fsproj"
+                      "-c"
+                      "Release"
+                      "--no-restore"
+                      "--disable-build-servers" ]
+
+                write
+                    root
+                    { extracted with
+                        Sources =
+                            extracted.Sources
+                            |> List.map (fun source ->
+                                if source.File = "Shared/Shared.fs" then
+                                    { source with
+                                        Digest = SafetyPolicy.fileDigest (Path.Combine(root, source.File)) }
+                                else
+                                    source) }
+
+                let changed = Workspace.check root
+                Assert.False(changed.Complete)
+                Assert.Equal(3, changed.ExitCode)
+
+                Assert.Contains(
+                    changed.Projects |> List.collect (fun project -> project.Report.Diagnostics),
+                    fun diagnostic ->
+                        diagnostic.Rule = "BUILD005"
+                        && diagnostic.Message.Contains("Reusable data contract assembly", StringComparison.Ordinal)
+                ))
+
+    [<Theory>]
+    [<InlineData("array")>]
+    [<InlineData("alias")>]
+    [<InlineData("callback")>]
+    [<InlineData("collection")>]
+    [<InlineData("mutable-field")>]
+    [<InlineData("cli-mutable")>]
+    [<InlineData("resource")>]
+    [<InlineData("generic")>]
+    [<InlineData("custom-equality")>]
+    [<InlineData("formatting-hook")>]
+    let ``reusable data contracts reject unsafe nested payloads even with type grants`` variant =
+        let definition, typeName, target =
+            match variant with
+            | "array" -> "type Payload = { Values: int array option }", "Payload", "Shared.Payload"
+            | "alias" -> "type Values = int array\ntype Payload = { Values: Values list }", "Payload", "Shared.Payload"
+            | "callback" ->
+                "[<NoEquality; NoComparison>]\ntype Payload = { Invoke: int -> int }", "Payload", "Shared.Payload"
+            | "collection" ->
+                "[<NoComparison>]\ntype Payload = { Values: System.Collections.Generic.List<int> }",
+                "Payload",
+                "Shared.Payload"
+            | "mutable-field" -> "type Payload = { mutable Value: int }", "Payload", "Shared.Payload"
+            | "cli-mutable" -> "[<CLIMutable>]\ntype Payload = { Value: int }", "Payload", "Shared.Payload"
+            | "resource" ->
+                "type Payload = { Name: string } with\n    interface System.IDisposable with\n        member _.Dispose() = ()",
+                "Payload",
+                "Shared.Payload"
+            | "generic" -> "type Box<'a> = { Value: 'a }", "Box`1", "Shared.Box<int array>"
+            | "custom-equality" ->
+                "[<CustomEquality; NoComparison>]\ntype Payload = { Value: int } with\n    override _.Equals(_) = System.IO.File.Exists \"secret\"\n    override _.GetHashCode() = 0",
+                "Payload",
+                "Shared.Payload"
+            | "formatting-hook" ->
+                "type Payload = { Value: int } with\n    override _.ToString() = System.IO.File.ReadAllText \"secret\"",
+                "Payload",
+                "Shared.Payload"
+            | _ -> failwith "Unknown data regression."
+
+        withDataConsumer
+            definition
+            ("module App\nlet inspect (value: " + target + ") = value\n")
+            typeName
+            (fun root policy contract ->
+                let review =
+                    { policy with
+                        DataContracts = Some [ contract ]
+                        Capabilities =
+                            [ { File = "App.fs"
+                                Owner = "App.inspect"
+                                Kind = "type"
+                                Identity = contract.Identity
+                                Reason = "Existing declaration type approval must not bypass reusable data validation." } ] }
+
+                write root review
+                let report = Workspace.check root
+                Assert.NotEqual(0, report.ExitCode)
+
+                Assert.Contains(
+                    report.Projects |> List.collect (fun project -> project.Report.Diagnostics),
+                    fun diagnostic ->
+                        diagnostic.Rule = "MODEL001"
+                        && diagnostic.File = Path.Combine(root, "App.fs")
+                        && diagnostic.Message.Contains("recursive immutable-representation", StringComparison.Ordinal)
+                )
+
+                let advisory = Workspace.review root
+                Assert.NotEqual(0, advisory.ExitCode)
+                Assert.Contains(advisory.Items, fun item -> item.Kind = "data" && item.Resolution = "code-change"))
+
+    [<Fact>]
+    let ``reusable data contracts do not approve methods or domain materialization`` () =
+        withDataConsumer
+            "type Quantity = private Quantity of int\ntype Payload = { Quantity: Quantity } with\n    member _.Read() = System.IO.File.ReadAllText \"secret\""
+            "module App\nlet inspect (value: Shared.Payload) = value.Read()\nlet serialize (value: Shared.Payload) = System.Text.Json.JsonSerializer.Serialize(value)\nlet decode (text: string) = System.Text.Json.JsonSerializer.Deserialize<Shared.Payload>(text)\n"
+            "Payload"
+            (fun root policy contract ->
+                write
+                    root
+                    { policy with
+                        DataContracts = Some [ contract ]
+                        Domains = [ "Shared.Quantity" ] }
+
+                let report = Workspace.check root
+                Assert.NotEqual(0, report.ExitCode)
+
+                let diagnostics =
+                    report.Projects
+                    |> List.collect (fun project -> project.Report.Diagnostics)
+                    |> List.filter (fun diagnostic -> diagnostic.File = Path.Combine(root, "App.fs"))
+
+                Assert.Contains(
+                    diagnostics,
+                    fun diagnostic ->
+                        diagnostic.Rule = "EFFECT001"
+                        && diagnostic.Symbol.Contains("Shared.Payload.Read", StringComparison.Ordinal)
+                )
+
+                Assert.Contains(diagnostics, fun diagnostic -> diagnostic.Rule = "DATA001")
+                Assert.Contains(diagnostics, fun diagnostic -> diagnostic.Rule = "DATA005"))
+
     [<Fact>]
     let ``an independent project verifies and mutation still fails after updating its fingerprint`` () =
         withDirectory (fun root ->

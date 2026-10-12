@@ -112,7 +112,15 @@ module SafetyRules =
               true
               []
               "Known serializers reject nested private domain values; this is not general interprocedural taint tracking."
-          rule "MODEL001" "Unapproved data shapes" [ syntax; analysis ] true [] applicationMatrix
+          rule
+              "MODEL001"
+              "Unapproved data shapes"
+              [ syntax; analysis; "src/FDull/SafetyDataContracts.fs" ]
+              true
+              [ "ProjectTests.reusable data contracts allow helper extraction without declaration grants"
+                "ProjectTests.reusable data contracts reject unsafe nested payloads even with type grants"
+                "ProjectTests.reusable data contracts do not approve methods or domain materialization" ]
+              applicationMatrix
           rule
               "MODEL002"
               "Public invariant-bearing representations"
@@ -196,6 +204,7 @@ module SafetyRules =
               [ guard; audit ]
               false
               [ "WorkspaceTests.policy and inventory drift cannot certify a workspace"
+                "ProjectTests.reusable data contracts allow helper extraction without declaration grants"
                 "WorkspaceTests.mixed-language scope and internal links preserve inventory boundaries" ]
               profileMatrix
           rule
@@ -240,6 +249,7 @@ module SafetyRules =
                 "WorkspaceTests.workspace reports reject inconsistent process diagnostics and observations"
                 "WorkspaceTests.mixed-language scope and internal links preserve inventory boundaries"
                 "ProjectTests.advisory review reports blockers and never infers unused contracts from partial analysis"
+                "ProjectTests.reusable data contracts allow helper extraction without declaration grants"
                 "ProjectTests.supported Web test SDK xUnit v3 and Aspire generated-source profiles are exact" ]
               "Complete supported-profile/unknown-classification compatibility coverage; resource limits do not prove termination."
           rule

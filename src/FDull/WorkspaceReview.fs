@@ -28,6 +28,7 @@ type WorkspaceReviewReport =
       SourceChanges: WorkspaceSourceReview list
       UnusedCapabilities: WorkspaceCapability list
       UnusedConstructors: string list
+      UnusedDataContracts: WorkspaceDataContract list
       Errors: string list }
 
 module WorkspaceReview =
@@ -47,7 +48,7 @@ module WorkspaceReview =
                        || not (
                            List.contains
                                finding.Kind
-                               [ "member"; "type"; "rule"; "attribute"; "constructor"; "source" ]
+                               [ "member"; "type"; "rule"; "attribute"; "constructor"; "source"; "data" ]
                        )
                        || finding.Resolution
                           <> WorkspacePolicy.reviewResolution
@@ -57,6 +58,7 @@ module WorkspaceReview =
                        || (finding.Kind = "rule"
                            && finding.Identity <> finding.Diagnostic.Rule + " | " + finding.Diagnostic.Symbol)
                        || (finding.Kind = "constructor" && finding.Diagnostic.Rule <> "MODEL003")
+                       || (finding.Kind = "data" && finding.Diagnostic.Rule <> "MODEL001")
                        || (finding.Kind = "attribute"
                            && not (
                                finding.Diagnostic.Rule.StartsWith("ATTR", StringComparison.Ordinal)
@@ -126,6 +128,12 @@ module WorkspaceReview =
             else
                 []
 
+        let unusedDataContracts =
+            if complete then
+                WorkspaceAudit.unusedDataContracts policy observed
+            else
+                []
+
         let items =
             projects
             |> List.collect _.Findings
@@ -160,6 +168,7 @@ module WorkspaceReview =
                     && changes.IsEmpty
                     && unusedCapabilities.IsEmpty
                     && unusedConstructors.IsEmpty
+                    && unusedDataContracts.IsEmpty
                 )
             then
                 1
@@ -170,6 +179,7 @@ module WorkspaceReview =
           SourceChanges = changes
           UnusedCapabilities = unusedCapabilities
           UnusedConstructors = unusedConstructors
+          UnusedDataContracts = unusedDataContracts
           Errors = errors }
 
     let format (report: WorkspaceReviewReport) =
@@ -228,5 +238,11 @@ module WorkspaceReview =
           for entry in report.UnusedCapabilities do
               yield sprintf "Unused contract: %s | %s | %s | %s" entry.File entry.Owner entry.Kind entry.Identity
           for identity in report.UnusedConstructors do
-              yield "Unused constructor: " + identity ]
+              yield "Unused constructor: " + identity
+          for contract in report.UnusedDataContracts do
+              yield
+                  "Unused data contract or assembly pin: "
+                  + contract.Project
+                  + " | "
+                  + contract.Identity ]
         |> String.concat Environment.NewLine

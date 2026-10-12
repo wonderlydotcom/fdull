@@ -38,12 +38,22 @@ type WorkspaceProject =
       Profile: string
       References: string list }
 
+type WorkspaceAssemblyPin = { Identity: string; Digest: string }
+
+/// One reviewed data vocabulary entry for a consuming project, independent of declaration count.
+type WorkspaceDataContract =
+    { Project: string
+      Identity: string
+      Assemblies: WorkspaceAssemblyPin list
+      Reason: string }
+
 type WorkspacePolicyDocument =
     { Version: int
       Projects: WorkspaceProject list
       Sources: WorkspaceSource list
       Inputs: WorkspacePin list
       External: WorkspaceExternal list option
+      DataContracts: WorkspaceDataContract list option
       Capabilities: WorkspaceCapability list
       Domains: string list
       Constructors: string list }
@@ -186,12 +196,18 @@ module internal WorkspacePolicy =
         | Some entries -> entries
         | None -> []
 
+    let dataContracts (document: WorkspacePolicyDocument) =
+        document.DataContracts |> Option.defaultValue []
+
     let private decodeDocument (text: string) =
         let json = JsonNode.Parse text |> External.required "workspace.policy"
         let fields = json.AsObject()
 
         if not (fields.ContainsKey "External") then
             fields.Add("External", JsonArray())
+
+        if not (fields.ContainsKey "DataContracts") then
+            fields.Add("DataContracts", JsonArray())
 
         fields.ToJsonString() |> Codec.decode<WorkspacePolicyDocument>
 
@@ -236,6 +252,51 @@ module internal WorkspacePolicy =
                 invalidOp "BUILD005: Invalid workspace project assignment."
 
         let keys = document.Sources |> List.map _.File
+
+        let contracts = dataContracts document
+
+        let digest (value: string) =
+            value.Length = 71
+            && value.StartsWith("sha256:", StringComparison.Ordinal)
+            && value.Substring(7)
+               |> Seq.forall (fun character ->
+                   (character >= '0' && character <= '9') || (character >= 'a' && character <= 'f'))
+
+        for contract in contracts do
+            let identity = contract.Identity.Split(" | ")
+
+            if
+                not (
+                    document.Projects
+                    |> List.exists (fun project -> project.File = contract.Project)
+                )
+                || identity.Length <> 2
+                || identity |> Array.exists String.IsNullOrWhiteSpace
+                || contract.Identity.Contains('*')
+                || contract.Identity.Contains('?')
+                || contract.Identity.StartsWith("source:", StringComparison.Ordinal)
+                || String.IsNullOrWhiteSpace contract.Reason
+                || contract.Assemblies.IsEmpty
+                || contract.Assemblies
+                   |> List.exists (fun pin ->
+                       String.IsNullOrWhiteSpace pin.Identity
+                       || pin.Identity.Contains('*')
+                       || pin.Identity.Contains('?')
+                       || not (digest pin.Digest))
+                || contract.Assemblies.Length
+                   <> (contract.Assemblies |> List.map _.Identity |> Set.ofList).Count
+                || not (contract.Assemblies |> List.exists (fun pin -> pin.Identity = identity[0]))
+            then
+                invalidOp "BUILD005: Invalid reusable data contract or assembly fingerprint."
+
+        if
+            contracts.Length
+            <> (contracts
+                |> List.map (fun contract -> contract.Project, contract.Identity)
+                |> Set.ofList)
+                .Count
+        then
+            invalidOp "BUILD005: Duplicate reusable data contract."
 
         if keys.Length <> (Set.ofList keys).Count then
             invalidOp "BUILD005: Duplicate workspace source assignment."
@@ -349,6 +410,7 @@ module internal WorkspacePolicy =
         root
         project
         generated
+        (references: SafetyInput list)
         (budget: SafetyBudget)
         (document: WorkspacePolicyDocument)
         (checkedProject: FSharpCheckProjectResults)
@@ -356,6 +418,11 @@ module internal WorkspacePolicy =
         =
         let owners = ResizeArray<range * string>()
         let observed = ResizeArray<WorkspaceUse>()
+
+        let dataDigests =
+            references
+            |> List.map (fun input -> input.Path, lazy (DataContractPolicy.assemblyDigest input.Path))
+            |> Map.ofList
 
         let relative file =
             Path.GetRelativePath(root, file).Replace('\\', '/')
@@ -524,6 +591,67 @@ module internal WorkspacePolicy =
 
         let typeAllowed r entity = allowed "type" (typeIdentity entity) r
 
+        let dataAllowed (r: range) (entity: FSharpEntity) =
+            let projectName = relative project
+            let identity = typeIdentity entity
+
+            dataContracts document
+            |> List.tryFind (fun contract -> contract.Project = projectName && contract.Identity = identity)
+            |> Option.map (fun contract ->
+                observed.Add
+                    { File = relative r.FileName
+                      Owner = projectName
+                      Kind = "data"
+                      Identity = identity }
+
+                fun (nested: FSharpEntity) ->
+                    let local =
+                        if String.IsNullOrWhiteSpace nested.Assembly.QualifiedName then
+                            let location = nested.DeclarationLocation
+
+                            document.Sources
+                            |> List.exists (fun source ->
+                                source.Project = projectName
+                                && Path.GetFullPath(source.File, root) = location.FileName)
+                        else
+                            false
+
+                    if not local then
+                        let assembly = nested.Assembly
+
+                        let reference =
+                            assembly.FileName
+                            |> Option.bind (fun file -> references |> List.tryFind (fun input -> input.Path = file))
+
+                        let pin =
+                            contract.Assemblies
+                            |> List.tryFind (fun pin -> pin.Identity = assembly.QualifiedName)
+
+                        match reference, pin with
+                        | Some reference, Some pin when (Map.find reference.Path dataDigests).Value = pin.Digest ->
+                            observed.Add
+                                { File = relative r.FileName
+                                  Owner = projectName
+                                  Kind = "data-assembly"
+                                  Identity = identity + " | " + pin.Identity }
+                        | _ ->
+                            let expected = pin |> Option.map _.Digest |> Option.defaultValue "missing pin"
+
+                            let actual =
+                                reference
+                                |> Option.map (fun reference -> (Map.find reference.Path dataDigests).Value)
+                                |> Option.defaultValue "missing compiler reference"
+
+                            invalidOp (
+                                "BUILD005: Reusable data contract assembly is missing or changed: "
+                                + assembly.QualifiedName
+                                + " (reviewed="
+                                + expected
+                                + ", current="
+                                + actual
+                                + ")"
+                            ))
+
         let constructorIdentity (memberInfo: FSharpMemberOrFunctionOrValue) =
             let location = memberInfo.DeclarationLocation
 
@@ -641,6 +769,7 @@ module internal WorkspacePolicy =
                         allowed "rule" (rule + " | " + symbol) r
               Member = memberAllowed
               Type = typeAllowed
+              Data = dataAllowed
               Domain = fun entity -> List.contains (SafetyPolicy.entityName entity) document.Domains
               Constructor =
                 fun memberInfo ->
@@ -674,6 +803,7 @@ module internal WorkspacePolicy =
             let kind, identity =
                 match contract with
                 | Some(TypeContract entity) -> "type", typeIdentity entity
+                | Some(DataContract entity) -> "data", typeIdentity entity
                 | Some(MemberContract memberInfo) ->
                     "member", memberInfo.Assembly.QualifiedName + " | " + memberInfo.XmlDocSig
                 | Some(ConstructorContract memberInfo) -> "constructor", constructorIdentity memberInfo
