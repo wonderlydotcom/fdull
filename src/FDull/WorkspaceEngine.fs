@@ -348,7 +348,7 @@ module WorkspaceEngine =
             then
                 globalError "BUILD003" "The compiler implementation inventory differs from the exported sources."
             else
-                SafetyAnalysis.inspect budget context (Set.ofList files) result syntax emit
+                SafetyAnalysis.inspect budget context advisory (Set.ofList files) result syntax emit
                 complete <- true
 
             uses <- observed ()

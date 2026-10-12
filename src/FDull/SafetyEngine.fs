@@ -162,6 +162,7 @@ module SafetyEngine =
                         SafetyAnalysis.inspect
                             budget
                             SafetyContext.application
+                            false
                             (Set.ofList files)
                             checkedProject
                             syntax

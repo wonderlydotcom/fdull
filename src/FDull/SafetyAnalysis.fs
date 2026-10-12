@@ -319,6 +319,7 @@ module internal SafetyAnalysis =
     let inspect
         (budget: SafetyBudget)
         (context: SafetyContext)
+        reviewNested
         (files: Set<string>)
         (result: FSharpCheckProjectResults)
         (syntax: Map<string, SourceSyntax>)
@@ -420,6 +421,14 @@ module internal SafetyAnalysis =
                 elif not (Set.contains key visited) then
                     let visited = Set.add key visited
 
+                    let reviewArguments id symbol =
+                        // Only an actual unsatisfied outer type finding makes these
+                        // payloads prospective requirements. A rule exception can
+                        // suppress the outer finding without admitting its type.
+                        if reviewNested && not (context.Permit id r symbol (Some(TypeContract e))) then
+                            for arg in t.GenericArguments do
+                                shape dataOnly path visited arg r capture
+
                     if e.IsArrayType then
                         emitContract
                             (TypeContract e)
@@ -427,6 +436,8 @@ module internal SafetyAnalysis =
                             r
                             path
                             "Arrays are mutable, including nested and multidimensional arrays."
+
+                        reviewArguments "MUT008" path
                     elif e.IsByRef then
                         emitContract
                             (TypeContract e)
@@ -434,6 +445,8 @@ module internal SafetyAnalysis =
                             r
                             path
                             "Authored byref/outref/inref capabilities are prohibited."
+
+                        reviewArguments "NATIVE003" path
                     else
                         match typeRule name with
                         | Some(id, message) ->
@@ -441,6 +454,8 @@ module internal SafetyAnalysis =
 
                             if dataOnly && path.Contains('.') && (id = "MUT005" || id = "MUT008") then
                                 emitShape "MUT010" path "An immutable wrapper contains a mutable or aliasable payload."
+
+                            reviewArguments id (path + " -> " + name)
                         | None ->
                             let approved =
                                 (Set.contains e.Assembly.QualifiedName SafetyPolicy.frameworkIdentities
@@ -716,33 +731,37 @@ module internal SafetyAnalysis =
                         shape false e.DisplayName Set.empty e.AbbreviatedType useSite.Range
                     elif e.IsFSharpExceptionDeclaration then
                         emitAt "ERR002" useSite.Range e.DisplayName "Application exceptions are prohibited."
-                    elif
-                        not e.IsFSharpRecord
-                        && not e.IsFSharpUnion
-                        && not (context.Type useSite.Range e)
-                    then
-                        emitContract
-                            (TypeContract e)
-                            "MODEL001"
-                            useSite.Range
-                            e.DisplayName
-                            "Application classes, structs, enums, and executable objects require a protected contract."
                     else
-                        let fields =
-                            if e.IsFSharpUnion then
-                                e.UnionCases |> Seq.collect (fun c -> c.Fields)
-                            else
-                                e.FSharpFields
+                        let admitted = e.IsFSharpRecord || e.IsFSharpUnion || context.Type useSite.Range e
 
-                        for field in fields do
-                            shapeAt
-                                0
-                                true
-                                (e.DisplayName + "." + field.Name)
-                                Set.empty
-                                field.FieldType
+                        if not admitted then
+                            emitContract
+                                (TypeContract e)
+                                "MODEL001"
                                 useSite.Range
-                                (if field.IsCompilerGenerated then Some(field, []) else None)
+                                e.DisplayName
+                                "Application classes, structs, enums, and executable objects require a protected contract."
+
+                        if
+                            admitted
+                            || (reviewNested
+                                && not (context.Permit "MODEL001" useSite.Range e.DisplayName (Some(TypeContract e))))
+                        then
+                            let fields =
+                                if e.IsFSharpUnion then
+                                    e.UnionCases |> Seq.collect (fun c -> c.Fields)
+                                else
+                                    e.FSharpFields
+
+                            for field in fields do
+                                shapeAt
+                                    0
+                                    true
+                                    (e.DisplayName + "." + field.Name)
+                                    Set.empty
+                                    field.FieldType
+                                    useSite.Range
+                                    (if field.IsCompilerGenerated then Some(field, []) else None)
                 | _ -> ()
 
         for KeyValue(_, source) in syntax do
