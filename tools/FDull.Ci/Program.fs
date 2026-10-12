@@ -19,6 +19,9 @@ module Program =
             start.ArgumentList.Add argument
 
         start.Environment["NUGET_PACKAGES"] <- packages
+        start.Environment["DOTNET_CLI_HOME"] <- packages + "-cli"
+        start.Environment["DOTNET_NOLOGO"] <- "1"
+        start.Environment["DOTNET_CLI_TELEMETRY_OPTOUT"] <- "1"
         start.Environment["DOTNET_GCHeapHardLimit"] <- "80000000"
         start.Environment["MSBUILDDISABLENODEREUSE"] <- "1"
         Console.WriteLine("dotnet " + String.concat " " arguments)

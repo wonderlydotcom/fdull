@@ -396,8 +396,8 @@ are cached by the lock files; results and logs are retained for seven days.
 
 The compiled `tools/FDull.Ci` helper is part of the reviewed repository graph.
 Its package smoke check uses fresh temporary projects and an isolated package
-cache outside the checkout. Source mapping requires all FDull packages to come
-from the local feed. It installs the packed tool, checks the bundled worker via
+cache and CLI home outside the checkout. Source mapping requires all FDull
+packages to come from the local feed. It installs the packed tool, checks the bundled worker via
 successful verification, requires complete mutation failures and blocked source
 drift, runs an independent library consumer and checks the analyzer payload.
 Self-verification also compares `site/public/coverage.json` with the built CLI's
