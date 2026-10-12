@@ -326,6 +326,14 @@ module Workspace =
 
                 for unused in WorkspaceAudit.unusedConstructors policy observed do
                     errors.Add("BUILD005: Unused protected constructor: " + unused)
+
+                for unused in WorkspaceAudit.unusedDataContracts policy observed do
+                    errors.Add(
+                        "BUILD005: Unused reusable data contract or assembly pin: "
+                        + unused.Project
+                        + " | "
+                        + unused.Identity
+                    )
         with error ->
             errors.Add error.Message
 
@@ -395,6 +403,7 @@ module Workspace =
               SourceChanges = []
               UnusedCapabilities = []
               UnusedConstructors = []
+              UnusedDataContracts = []
               Errors = List.ofSeq errors }
 
     let private serveUsing advisory (input: TextReader) (output: TextWriter) =

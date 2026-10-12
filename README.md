@@ -149,6 +149,64 @@ not grant I/O, mutation or reflection. Necessary operations need exact entries
 bound to a file, declaration, permission kind and resolved API identity. Every
 entry needs a reason; unused, duplicate and overbroad entries fail verification.
 
+`DataContracts` provides an optional, reviewed data vocabulary for a consuming
+project. An exact external F# record or union can be admitted once and then used
+by any declaration in that project, including newly extracted helpers. Existing
+policies without this field retain their behavior. `init` creates no data approvals.
+
+For example, a manually reviewed entry has this shape (replace the illustrative
+digest with the value from `dotnet fdull data-digest <compiler-reference.dll>`):
+
+```json
+{
+  "DataContracts": [
+    {
+      "Project": "src/App/App.fsproj",
+      "Identity": "Shared, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null | Shared.CustomerDto",
+      "Assemblies": [
+        {
+          "Identity": "Shared, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+          "Digest": "sha256:<64 lowercase hexadecimal characters>"
+        }
+      ],
+      "Reason": "Reviewed immutable customer transport representation."
+    }
+  ]
+}
+```
+
+Pin every non-framework assembly reached through the record/union representation
+and its concrete generic payloads. Use the actual compiler reference assembly
+(often `obj/Release/net10.0/ref/Shared.dll`), which can differ from the runtime
+assembly. Existing locked build inputs and before/after reference checks remain
+required. Unused data entries and unused assembly pins fail verification.
+
+`data-digest` prints a fingerprint, never a permission entry. F# reference
+assemblies regenerate module IDs and PE timestamps during otherwise identical
+builds. Their data fingerprints clear only the COFF timestamp, metadata module ID
+and matching 16-byte `.mvid` section, after validating the reference-assembly marker
+and layout. All other bytes, including metadata and embedded F# signature payloads,
+remain hashed. Assemblies without that section use raw SHA-256. Source/build
+fingerprints and per-analysis compiler-reference bindings always retain raw hashes.
+Data fingerprinting supports assemblies up to 64 MiB; failures remain failed checks.
+
+Every use recursively validates the actual representation, aliases, tuple/record/
+union fields and concrete generic arguments. Mutable fields, arrays, callbacks,
+resources, mutable/null-backed representations and unknown classes cannot pass
+through an approved outer type. Custom equality/comparison and formatting hooks
+are also excluded because ordinary data operations can invoke them implicitly.
+Declaration type or rule grants cannot bypass
+this validation. An approval is for an exact root type; a nested type used
+independently in a helper's signature needs its own data entry, rather than new
+entries for every helper. Current consuming-project source types remain checked
+under their source fingerprints.
+
+Data approvals do not approve methods, domain construction or materialization.
+Those checks and exact effect grants remain independent. Changed representations
+require intentional assembly-pin review and still have to pass structural
+validation. `review` reports invalid data representations as source changes and
+lists unused data entries/pins only after complete analysis.
+
 `Domains` designates invariant-bearing types whose representations must be private.
 `Constructors` holds exact approved construction-helper signatures. Serializers
 must not construct private domain representations, including nested targets.

@@ -380,7 +380,25 @@ module internal SafetyAnalysis =
                     && (Set.contains name SafetyPolicy.purePrimitiveTypes
                         || Set.contains name SafetyPolicy.immutableContainers)
 
-                if not intrinsic && context.Type r e then
+                let data = if intrinsic then None else context.Data r e
+
+                if data.IsSome then
+                    let issues =
+                        match data with
+                        | Some pinned -> SafetyDataContracts.inspect budget pinned t
+                        | None -> []
+
+                    if not issues.IsEmpty then
+                        emitContract
+                            (DataContract e)
+                            "MODEL001"
+                            r
+                            path
+                            "The reusable data contract fails recursive immutable-representation validation."
+
+                        for rule, nestedPath, message in issues do
+                            emitAt rule r nestedPath message
+                elif not intrinsic && context.Type r e then
                     for arg in t.GenericArguments do
                         shape dataOnly path visited arg r
                 elif visited.Count > SafetyLimits.typeDepth then

@@ -159,6 +159,23 @@ module WorkspaceAudit =
         policy.Constructors
         |> List.filter (fun identity -> not (Set.contains identity observed))
 
+    let unusedDataContracts (policy: WorkspacePolicyDocument) (uses: WorkspaceUse list) =
+        let observed =
+            uses
+            |> List.map (fun item -> item.Owner, item.Kind, item.Identity)
+            |> Set.ofList
+
+        WorkspacePolicy.dataContracts policy
+        |> List.filter (fun contract ->
+            not (Set.contains (contract.Project, "data", contract.Identity) observed)
+            || contract.Assemblies
+               |> List.exists (fun pin ->
+                   not (
+                       Set.contains
+                           (contract.Project, "data-assembly", contract.Identity + " | " + pin.Identity)
+                           observed
+                   )))
+
     let inventory root =
         let budget =
             SafetyBudget(maximumSteps = 100000, maximumDepth = 32, milliseconds = 10000)

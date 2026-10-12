@@ -123,6 +123,7 @@ module Project =
                     { File = file
                       Digest = SafetyPolicy.fileDigest (Path.Combine(root, file)) })
               External = if external.IsEmpty then None else Some external
+              DataContracts = None
               Capabilities = []
               Domains = []
               Constructors = [] }

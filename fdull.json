@@ -66,7 +66,7 @@
       "File": "src/FDull/SafetyRules.fs",
       "Project": "src/FDull/FDull.fsproj",
       "Profile": "GUARD_TOOLING",
-      "Digest": "sha256:6a789d8f9fff5c854f7095f7994c6a3cee49f283afb0de339d893b628227f3c5"
+      "Digest": "sha256:6df43245f9ba53e3cd029a16a9007d72ef6ad6cd4ea6c24a31d8103de0e1c661"
     },
     {
       "File": "src/FDull/SafetyPolicy.fs",
@@ -102,13 +102,13 @@
       "File": "src/FDull/SafetyContext.fs",
       "Project": "src/FDull/FDull.fsproj",
       "Profile": "GUARD_TOOLING",
-      "Digest": "sha256:eb1e06c774224a4fd6cb63b577b12173102a9b6e8b76c11a30c3d62a5deb0cc8"
+      "Digest": "sha256:55821cdd92ce8214cce826627d1947d3e06eb713bd6005e279b19855d2348796"
     },
     {
       "File": "src/FDull/SafetyAnalysis.fs",
       "Project": "src/FDull/FDull.fsproj",
       "Profile": "GUARD_TOOLING",
-      "Digest": "sha256:ce75d67b9e9e3152b8121506746f6c2d12244e8593c82c197f780d725dd3536f"
+      "Digest": "sha256:cda9a039a7f00c89f730e2d6080509daa6acfad94615ab5f4c8ebadf632befd9"
     },
     {
       "File": "src/FDull/SafetyEngine.fs",
@@ -126,25 +126,25 @@
       "File": "src/FDull/WorkspacePolicy.fs",
       "Project": "src/FDull/FDull.fsproj",
       "Profile": "GUARD_TOOLING",
-      "Digest": "sha256:91bf500cc21ba3280e2b35c2f1a4b08045209a58faf5f37af65102a5d4c9440c"
+      "Digest": "sha256:52abf67d930354c0260d1f827d595c7c29fd659509f8fb6dde3e68a2c8c401cd"
     },
     {
       "File": "src/FDull/WorkspaceAudit.fs",
       "Project": "src/FDull/FDull.fsproj",
       "Profile": "GUARD_TOOLING",
-      "Digest": "sha256:2c1d5f365e79f5d0dc47264becd717a12252c43c116bf3bf245537cde783781b"
+      "Digest": "sha256:559b814853bf0dab5b3a37ec319775c7345a6081c6e1517adff8c5cf75380c02"
     },
     {
       "File": "src/FDull/WorkspaceEngine.fs",
       "Project": "src/FDull/FDull.fsproj",
       "Profile": "GUARD_TOOLING",
-      "Digest": "sha256:f3ed3a1055da974ecb475027b4d625340a86ae835d94ea7282ead19f07ac2698"
+      "Digest": "sha256:a161f2767d2a0b69bec27987da483f18cd2a77665917423e2da3f94e890d8bb8"
     },
     {
       "File": "src/FDull/Workspace.fs",
       "Project": "src/FDull/FDull.fsproj",
       "Profile": "GUARD_TOOLING",
-      "Digest": "sha256:fba1ee34d28e55844457e8160fd2ff028f3ce79980dfd35a439e6e9835cb429a"
+      "Digest": "sha256:a1d75415140dc50eef999d424097c7e438fd9225f8673d1d3e52918f9cd7e176"
     },
     {
       "File": "src/FDull/Safety.fs",
@@ -156,7 +156,7 @@
       "File": "src/FDull/Project.fs",
       "Project": "src/FDull/FDull.fsproj",
       "Profile": "GUARD_TOOLING",
-      "Digest": "sha256:f31061dccca19367db4b40ea6b0f95629dc25836163e1b5c5801c26677764d57"
+      "Digest": "sha256:3e26fb71f5f8011faca45cf057c71f2b4e0317658301ddabcb7e8e3ab493f120"
     },
     {
       "File": "src/FDull.Analyzers/Analyzer.fs",
@@ -168,7 +168,7 @@
       "File": "src/FDull.Tool/Program.fs",
       "Project": "src/FDull.Tool/FDull.Tool.fsproj",
       "Profile": "GUARD_TOOLING",
-      "Digest": "sha256:635c30de849336808d4b07ee194c4fc39aca01c4105b1bbe33627088f6b2081d"
+      "Digest": "sha256:5b0287f085a96310ccd45b668485a46e8c05146d1f32f22cf2d5e86fdab96045"
     },
     {
       "File": "src/FDull.Worker/Program.fs",
@@ -192,7 +192,7 @@
       "File": "tests/FDull.Tests/SafetyTests.fs",
       "Project": "tests/FDull.Tests/FDull.Tests.fsproj",
       "Profile": "TEST",
-      "Digest": "sha256:2fe5ba147dcfeecad7b0b0e2464f99b166bec8770229fec3270a67d3ae2686da"
+      "Digest": "sha256:9a5e51e97fcc15543264f57278253d13a2e98160551493cf8359d41fe4a6246b"
     },
     {
       "File": "tests/FDull.Tests/SafetyWorkerTests.fs",
@@ -222,13 +222,13 @@
       "File": "tests/FDull.Tests/WorkspaceTests.fs",
       "Project": "tests/FDull.Tests/FDull.Tests.fsproj",
       "Profile": "TEST",
-      "Digest": "sha256:540cd4ce6b3a828162f59fccd1f230a42697f4a85a9535a48c5889e024feec34"
+      "Digest": "sha256:455658f33d4a05f929c2b146affcee7d543266a5cc5ea338474910517a60bf1f"
     },
     {
       "File": "tests/FDull.Tests/ProjectTests.fs",
       "Project": "tests/FDull.Tests/FDull.Tests.fsproj",
       "Profile": "TEST",
-      "Digest": "sha256:c1676851f1b0b39907dc8705a8169e9b71b7d3ce28e21ca412148450967b1d3d"
+      "Digest": "sha256:7dc4fcde0a5368bbdbb18c32a6e8bd69a6ef58c6246f02a5330744a35cd6f269"
     },
     {
       "File": "tests/FDull.Tests/Program.fs",
@@ -240,7 +240,19 @@
       "File": "src/FDull/WorkspaceReview.fs",
       "Project": "src/FDull/FDull.fsproj",
       "Profile": "GUARD_TOOLING",
-      "Digest": "sha256:b21430b3f244f677f89b60a8147de8a4239882ee01fdfa018095301052c1319e"
+      "Digest": "sha256:ca6e9cdd3cc0996e1765cab45b4790646d46e399459729113f26839fa57fb68c"
+    },
+    {
+      "File": "src/FDull/DataContractPolicy.fs",
+      "Project": "src/FDull/FDull.fsproj",
+      "Profile": "GUARD_TOOLING",
+      "Digest": "sha256:35ec38e32a525126b7c8d373839285640f832c440188544e4d5ae27156583ed9"
+    },
+    {
+      "File": "src/FDull/SafetyDataContracts.fs",
+      "Project": "src/FDull/FDull.fsproj",
+      "Profile": "GUARD_TOOLING",
+      "Digest": "sha256:84441d1549d04b5197ca8fec544297f8cbb1c675c7c24e7b53552aa3c6fa4ca3"
     }
   ],
   "Inputs": [
@@ -274,7 +286,7 @@
     },
     {
       "File": "src/FDull/FDull.fsproj",
-      "Digest": "sha256:c163e9b180245b91b54523d7c760e983e911db00ed88cc6387ce1fa24eda01db"
+      "Digest": "sha256:a14fae9da39f768a629dc013f4fa440176394a2be5e36e0121f171551ac632c7"
     },
     {
       "File": "src/FDull/Policy/approved-apis.json",
@@ -326,6 +338,7 @@
     }
   ],
   "External": null,
+  "DataContracts": null,
   "Capabilities": [
     {
       "File": "src/FDull.Tool/Program.fs",
@@ -14277,6 +14290,1490 @@
       "Kind": "member",
       "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.ThrowsAny\u0060\u00601(System.Action)",
       "Reason": "Non-shipping advisory review regression: temporary consumer policy/source IO, exact report types and assertions prove grouping by owner, profile eligibility, read-only source/policy behavior, source drift rejection and incomplete inventory semantics."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060reusable data contracts allow helper extraction without declaration grants\u0060\u0060",
+      "Kind": "attribute",
+      "Identity": "xunit.core, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | Xunit.FactAttribute |  | unit",
+      "Reason": "Reviewed non-shipping consumer regression: temporary shared-library builds and exact data approvals prove helper extraction, project scope, pin stability/drift, unused pins, recursive rejection and independent effect/domain checks."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060reusable data contracts allow helper extraction without declaration grants\u0060\u0060",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Workspace.check(System.String)",
+      "Reason": "Reviewed non-shipping consumer regression: temporary shared-library builds and exact data approvals prove helper extraction, project scope, pin stability/drift, unused pins, recursive rejection and independent effect/domain checks."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060reusable data contracts allow helper extraction without declaration grants\u0060\u0060",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.Combine(System.String,System.String)",
+      "Reason": "Reviewed non-shipping consumer regression: temporary shared-library builds and exact data approvals prove helper extraction, project scope, pin stability/drift, unused pins, recursive rejection and independent effect/domain checks."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060reusable data contracts allow helper extraction without declaration grants\u0060\u0060",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.NotEqual\u0060\u00601(\u0060\u00600,\u0060\u00600)",
+      "Reason": "Reviewed non-shipping consumer regression: temporary shared-library builds and exact data approvals prove helper extraction, project scope, pin stability/drift, unused pins, recursive rejection and independent effect/domain checks."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060reusable data contracts allow helper extraction without declaration grants\u0060\u0060",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Contains\u0060\u00601(System.Collections.Generic.IEnumerable{\u0060\u00600},System.Predicate{\u0060\u00600})",
+      "Reason": "Reviewed non-shipping consumer regression: temporary shared-library builds and exact data approvals prove helper extraction, project scope, pin stability/drift, unused pins, recursive rejection and independent effect/domain checks."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060reusable data contracts allow helper extraction without declaration grants\u0060\u0060",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspaceDataContract",
+      "Reason": "Reviewed non-shipping consumer regression: temporary shared-library builds and exact data approvals prove helper extraction, project scope, pin stability/drift, unused pins, recursive rejection and independent effect/domain checks."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060reusable data contracts allow helper extraction without declaration grants\u0060\u0060",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspacePolicyDocument",
+      "Reason": "Reviewed non-shipping consumer regression: temporary shared-library builds and exact data approvals prove helper extraction, project scope, pin stability/drift, unused pins, recursive rejection and independent effect/domain checks."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060reusable data contracts allow helper extraction without declaration grants\u0060\u0060",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspaceReport",
+      "Reason": "Reviewed non-shipping consumer regression: temporary shared-library builds and exact data approvals prove helper extraction, project scope, pin stability/drift, unused pins, recursive rejection and independent effect/domain checks."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060reusable data contracts allow helper extraction without declaration grants\u0060\u0060",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspaceProjectReport",
+      "Reason": "Reviewed non-shipping consumer regression: temporary shared-library builds and exact data approvals prove helper extraction, project scope, pin stability/drift, unused pins, recursive rejection and independent effect/domain checks."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060reusable data contracts allow helper extraction without declaration grants\u0060\u0060",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | FDull.SafetyDiagnostic",
+      "Reason": "Reviewed non-shipping consumer regression: temporary shared-library builds and exact data approvals prove helper extraction, project scope, pin stability/drift, unused pins, recursive rejection and independent effect/domain checks."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060reusable data contracts reject unsafe nested payloads even with type grants\u0060\u0060",
+      "Kind": "attribute",
+      "Identity": "xunit.core, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | Xunit.TheoryAttribute |  | unit",
+      "Reason": "Reviewed non-shipping consumer regression: temporary shared-library builds and exact data approvals prove helper extraction, project scope, pin stability/drift, unused pins, recursive rejection and independent effect/domain checks."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060reusable data contracts reject unsafe nested payloads even with type grants\u0060\u0060",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Workspace.check(System.String)",
+      "Reason": "Reviewed non-shipping consumer regression: temporary shared-library builds and exact data approvals prove helper extraction, project scope, pin stability/drift, unused pins, recursive rejection and independent effect/domain checks."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060reusable data contracts reject unsafe nested payloads even with type grants\u0060\u0060",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.Combine(System.String,System.String)",
+      "Reason": "Reviewed non-shipping consumer regression: temporary shared-library builds and exact data approvals prove helper extraction, project scope, pin stability/drift, unused pins, recursive rejection and independent effect/domain checks."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060reusable data contracts reject unsafe nested payloads even with type grants\u0060\u0060",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.NotEqual\u0060\u00601(\u0060\u00600,\u0060\u00600)",
+      "Reason": "Reviewed non-shipping consumer regression: temporary shared-library builds and exact data approvals prove helper extraction, project scope, pin stability/drift, unused pins, recursive rejection and independent effect/domain checks."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060reusable data contracts reject unsafe nested payloads even with type grants\u0060\u0060",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Contains\u0060\u00601(System.Collections.Generic.IEnumerable{\u0060\u00600},System.Predicate{\u0060\u00600})",
+      "Reason": "Reviewed non-shipping consumer regression: temporary shared-library builds and exact data approvals prove helper extraction, project scope, pin stability/drift, unused pins, recursive rejection and independent effect/domain checks."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060reusable data contracts reject unsafe nested payloads even with type grants\u0060\u0060",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspaceDataContract",
+      "Reason": "Reviewed non-shipping consumer regression: temporary shared-library builds and exact data approvals prove helper extraction, project scope, pin stability/drift, unused pins, recursive rejection and independent effect/domain checks."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060reusable data contracts reject unsafe nested payloads even with type grants\u0060\u0060",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspacePolicyDocument",
+      "Reason": "Reviewed non-shipping consumer regression: temporary shared-library builds and exact data approvals prove helper extraction, project scope, pin stability/drift, unused pins, recursive rejection and independent effect/domain checks."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060reusable data contracts reject unsafe nested payloads even with type grants\u0060\u0060",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspaceReport",
+      "Reason": "Reviewed non-shipping consumer regression: temporary shared-library builds and exact data approvals prove helper extraction, project scope, pin stability/drift, unused pins, recursive rejection and independent effect/domain checks."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060reusable data contracts reject unsafe nested payloads even with type grants\u0060\u0060",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspaceProjectReport",
+      "Reason": "Reviewed non-shipping consumer regression: temporary shared-library builds and exact data approvals prove helper extraction, project scope, pin stability/drift, unused pins, recursive rejection and independent effect/domain checks."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060reusable data contracts reject unsafe nested payloads even with type grants\u0060\u0060",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | FDull.SafetyDiagnostic",
+      "Reason": "Reviewed non-shipping consumer regression: temporary shared-library builds and exact data approvals prove helper extraction, project scope, pin stability/drift, unused pins, recursive rejection and independent effect/domain checks."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060reusable data contracts do not approve methods or domain materialization\u0060\u0060",
+      "Kind": "attribute",
+      "Identity": "xunit.core, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | Xunit.FactAttribute |  | unit",
+      "Reason": "Reviewed non-shipping consumer regression: temporary shared-library builds and exact data approvals prove helper extraction, project scope, pin stability/drift, unused pins, recursive rejection and independent effect/domain checks."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060reusable data contracts do not approve methods or domain materialization\u0060\u0060",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Workspace.check(System.String)",
+      "Reason": "Reviewed non-shipping consumer regression: temporary shared-library builds and exact data approvals prove helper extraction, project scope, pin stability/drift, unused pins, recursive rejection and independent effect/domain checks."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060reusable data contracts do not approve methods or domain materialization\u0060\u0060",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.Combine(System.String,System.String)",
+      "Reason": "Reviewed non-shipping consumer regression: temporary shared-library builds and exact data approvals prove helper extraction, project scope, pin stability/drift, unused pins, recursive rejection and independent effect/domain checks."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060reusable data contracts do not approve methods or domain materialization\u0060\u0060",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.NotEqual\u0060\u00601(\u0060\u00600,\u0060\u00600)",
+      "Reason": "Reviewed non-shipping consumer regression: temporary shared-library builds and exact data approvals prove helper extraction, project scope, pin stability/drift, unused pins, recursive rejection and independent effect/domain checks."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060reusable data contracts do not approve methods or domain materialization\u0060\u0060",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Contains\u0060\u00601(System.Collections.Generic.IEnumerable{\u0060\u00600},System.Predicate{\u0060\u00600})",
+      "Reason": "Reviewed non-shipping consumer regression: temporary shared-library builds and exact data approvals prove helper extraction, project scope, pin stability/drift, unused pins, recursive rejection and independent effect/domain checks."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060reusable data contracts do not approve methods or domain materialization\u0060\u0060",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspaceDataContract",
+      "Reason": "Reviewed non-shipping consumer regression: temporary shared-library builds and exact data approvals prove helper extraction, project scope, pin stability/drift, unused pins, recursive rejection and independent effect/domain checks."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060reusable data contracts do not approve methods or domain materialization\u0060\u0060",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspacePolicyDocument",
+      "Reason": "Reviewed non-shipping consumer regression: temporary shared-library builds and exact data approvals prove helper extraction, project scope, pin stability/drift, unused pins, recursive rejection and independent effect/domain checks."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060reusable data contracts do not approve methods or domain materialization\u0060\u0060",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspaceReport",
+      "Reason": "Reviewed non-shipping consumer regression: temporary shared-library builds and exact data approvals prove helper extraction, project scope, pin stability/drift, unused pins, recursive rejection and independent effect/domain checks."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060reusable data contracts do not approve methods or domain materialization\u0060\u0060",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspaceProjectReport",
+      "Reason": "Reviewed non-shipping consumer regression: temporary shared-library builds and exact data approvals prove helper extraction, project scope, pin stability/drift, unused pins, recursive rejection and independent effect/domain checks."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060reusable data contracts do not approve methods or domain materialization\u0060\u0060",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | FDull.SafetyDiagnostic",
+      "Reason": "Reviewed non-shipping consumer regression: temporary shared-library builds and exact data approvals prove helper extraction, project scope, pin stability/drift, unused pins, recursive rejection and independent effect/domain checks."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060reusable data contracts reject unsafe nested payloads even with type grants\u0060\u0060",
+      "Kind": "attribute",
+      "Identity": "xunit.core, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | Xunit.InlineDataAttribute |  | string:\u0022array\u0022",
+      "Reason": "Reviewed non-shipping consumer regression: temporary shared-library builds and exact data approvals prove helper extraction, project scope, pin stability/drift, unused pins, recursive rejection and independent effect/domain checks."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060reusable data contracts reject unsafe nested payloads even with type grants\u0060\u0060",
+      "Kind": "attribute",
+      "Identity": "xunit.core, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | Xunit.InlineDataAttribute |  | string:\u0022alias\u0022",
+      "Reason": "Reviewed non-shipping consumer regression: temporary shared-library builds and exact data approvals prove helper extraction, project scope, pin stability/drift, unused pins, recursive rejection and independent effect/domain checks."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060reusable data contracts reject unsafe nested payloads even with type grants\u0060\u0060",
+      "Kind": "attribute",
+      "Identity": "xunit.core, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | Xunit.InlineDataAttribute |  | string:\u0022callback\u0022",
+      "Reason": "Reviewed non-shipping consumer regression: temporary shared-library builds and exact data approvals prove helper extraction, project scope, pin stability/drift, unused pins, recursive rejection and independent effect/domain checks."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060reusable data contracts reject unsafe nested payloads even with type grants\u0060\u0060",
+      "Kind": "attribute",
+      "Identity": "xunit.core, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | Xunit.InlineDataAttribute |  | string:\u0022collection\u0022",
+      "Reason": "Reviewed non-shipping consumer regression: temporary shared-library builds and exact data approvals prove helper extraction, project scope, pin stability/drift, unused pins, recursive rejection and independent effect/domain checks."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060reusable data contracts reject unsafe nested payloads even with type grants\u0060\u0060",
+      "Kind": "attribute",
+      "Identity": "xunit.core, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | Xunit.InlineDataAttribute |  | string:\u0022mutable-field\u0022",
+      "Reason": "Reviewed non-shipping consumer regression: temporary shared-library builds and exact data approvals prove helper extraction, project scope, pin stability/drift, unused pins, recursive rejection and independent effect/domain checks."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060reusable data contracts reject unsafe nested payloads even with type grants\u0060\u0060",
+      "Kind": "attribute",
+      "Identity": "xunit.core, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | Xunit.InlineDataAttribute |  | string:\u0022cli-mutable\u0022",
+      "Reason": "Reviewed non-shipping consumer regression: temporary shared-library builds and exact data approvals prove helper extraction, project scope, pin stability/drift, unused pins, recursive rejection and independent effect/domain checks."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060reusable data contracts reject unsafe nested payloads even with type grants\u0060\u0060",
+      "Kind": "attribute",
+      "Identity": "xunit.core, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | Xunit.InlineDataAttribute |  | string:\u0022resource\u0022",
+      "Reason": "Reviewed non-shipping consumer regression: temporary shared-library builds and exact data approvals prove helper extraction, project scope, pin stability/drift, unused pins, recursive rejection and independent effect/domain checks."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060reusable data contracts reject unsafe nested payloads even with type grants\u0060\u0060",
+      "Kind": "attribute",
+      "Identity": "xunit.core, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | Xunit.InlineDataAttribute |  | string:\u0022generic\u0022",
+      "Reason": "Reviewed non-shipping consumer regression: temporary shared-library builds and exact data approvals prove helper extraction, project scope, pin stability/drift, unused pins, recursive rejection and independent effect/domain checks."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060reusable data contracts reject unsafe nested payloads even with type grants\u0060\u0060",
+      "Kind": "attribute",
+      "Identity": "xunit.core, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | Xunit.InlineDataAttribute |  | string:\u0022custom-equality\u0022",
+      "Reason": "Reviewed non-shipping consumer regression: temporary shared-library builds and exact data approvals prove helper extraction, project scope, pin stability/drift, unused pins, recursive rejection and independent effect/domain checks."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060reusable data contracts reject unsafe nested payloads even with type grants\u0060\u0060",
+      "Kind": "attribute",
+      "Identity": "xunit.core, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | Xunit.InlineDataAttribute |  | string:\u0022formatting-hook\u0022",
+      "Reason": "Reviewed non-shipping consumer regression: temporary shared-library builds and exact data approvals prove helper extraction, project scope, pin stability/drift, unused pins, recursive rejection and independent effect/domain checks."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060reusable data contracts allow helper extraction without declaration grants\u0060\u0060",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Workspace.review(System.String)",
+      "Reason": "Reviewed non-shipping consumer regression: temporary shared-library builds and exact data approvals prove helper extraction, project scope, pin stability/drift, unused pins, recursive rejection and independent effect/domain checks."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060reusable data contracts allow helper extraction without declaration grants\u0060\u0060",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspaceReviewReport",
+      "Reason": "Reviewed non-shipping consumer regression: temporary shared-library builds and exact data approvals prove helper extraction, project scope, pin stability/drift, unused pins, recursive rejection and independent effect/domain checks."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060reusable data contracts reject unsafe nested payloads even with type grants\u0060\u0060",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Workspace.review(System.String)",
+      "Reason": "Reviewed non-shipping consumer regression: temporary shared-library builds and exact data approvals prove helper extraction, project scope, pin stability/drift, unused pins, recursive rejection and independent effect/domain checks."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060reusable data contracts reject unsafe nested payloads even with type grants\u0060\u0060",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspaceReviewReport",
+      "Reason": "Reviewed non-shipping consumer regression: temporary shared-library builds and exact data approvals prove helper extraction, project scope, pin stability/drift, unused pins, recursive rejection and independent effect/domain checks."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060reusable data contracts reject unsafe nested payloads even with type grants\u0060\u0060",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspaceReviewItem",
+      "Reason": "Reviewed non-shipping consumer regression: temporary shared-library builds and exact data approvals prove helper extraction, project scope, pin stability/drift, unused pins, recursive rejection and independent effect/domain checks."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060reusable data contracts reject unsafe nested payloads even with type grants\u0060\u0060",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Core.Operators.FailWith\u0060\u00601(System.String)",
+      "Reason": "Reviewed non-shipping consumer regression: temporary shared-library builds and exact data approvals prove helper extraction, project scope, pin stability/drift, unused pins, recursive rejection and independent effect/domain checks."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.withDataConsumer",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Core.Operators.FailWith\u0060\u00601(System.String)",
+      "Reason": "Reviewed non-shipping consumer regression: temporary shared-library builds and exact data approvals prove helper extraction, project scope, pin stability/drift, unused pins, recursive rejection and independent effect/domain checks."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060reusable data contracts allow helper extraction without declaration grants\u0060\u0060",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Project.verify(System.String)",
+      "Reason": "Reviewed non-shipping consumer regression: temporary shared-library builds and exact data approvals prove helper extraction, project scope, pin stability/drift, unused pins, recursive rejection and independent effect/domain checks."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060reusable data contracts allow helper extraction without declaration grants\u0060\u0060",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.SafetyPolicy.fileDigest(System.String)",
+      "Reason": "Reviewed non-shipping consumer regression: temporary shared-library builds and exact data approvals prove helper extraction, project scope, pin stability/drift, unused pins, recursive rejection and independent effect/domain checks."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060reusable data contracts allow helper extraction without declaration grants\u0060\u0060",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Core.StringModule.Concat(System.String,System.Collections.Generic.IEnumerable{System.String})",
+      "Reason": "Reviewed non-shipping consumer regression: temporary shared-library builds and exact data approvals prove helper extraction, project scope, pin stability/drift, unused pins, recursive rejection and independent effect/domain checks."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060reusable data contracts allow helper extraction without declaration grants\u0060\u0060",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Core.StringModule.Replicate(System.Int32,System.String)",
+      "Reason": "Reviewed non-shipping consumer regression: temporary shared-library builds and exact data approvals prove helper extraction, project scope, pin stability/drift, unused pins, recursive rejection and independent effect/domain checks."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060reusable data contracts allow helper extraction without declaration grants\u0060\u0060",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.File.AppendAllText(System.String,System.String)",
+      "Reason": "Reviewed non-shipping consumer regression: temporary shared-library builds and exact data approvals prove helper extraction, project scope, pin stability/drift, unused pins, recursive rejection and independent effect/domain checks."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060reusable data contracts allow helper extraction without declaration grants\u0060\u0060",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.File.WriteAllText(System.String,System.String)",
+      "Reason": "Reviewed non-shipping consumer regression: temporary shared-library builds and exact data approvals prove helper extraction, project scope, pin stability/drift, unused pins, recursive rejection and independent effect/domain checks."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060reusable data contracts allow helper extraction without declaration grants\u0060\u0060",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.True(System.Boolean)",
+      "Reason": "Reviewed non-shipping consumer regression: temporary shared-library builds and exact data approvals prove helper extraction, project scope, pin stability/drift, unused pins, recursive rejection and independent effect/domain checks."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060reusable data contracts allow helper extraction without declaration grants\u0060\u0060",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.True(System.Boolean,System.String)",
+      "Reason": "Reviewed non-shipping consumer regression: temporary shared-library builds and exact data approvals prove helper extraction, project scope, pin stability/drift, unused pins, recursive rejection and independent effect/domain checks."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060reusable data contracts allow helper extraction without declaration grants\u0060\u0060",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.False(System.Boolean)",
+      "Reason": "Reviewed non-shipping consumer regression: temporary shared-library builds and exact data approvals prove helper extraction, project scope, pin stability/drift, unused pins, recursive rejection and independent effect/domain checks."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060reusable data contracts allow helper extraction without declaration grants\u0060\u0060",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Equal\u0060\u00601(\u0060\u00600,\u0060\u00600)",
+      "Reason": "Reviewed non-shipping consumer regression: temporary shared-library builds and exact data approvals prove helper extraction, project scope, pin stability/drift, unused pins, recursive rejection and independent effect/domain checks."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060reusable data contracts allow helper extraction without declaration grants\u0060\u0060",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Empty(System.Collections.IEnumerable)",
+      "Reason": "Reviewed non-shipping consumer regression: temporary shared-library builds and exact data approvals prove helper extraction, project scope, pin stability/drift, unused pins, recursive rejection and independent effect/domain checks."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060reusable data contracts allow helper extraction without declaration grants\u0060\u0060",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Single\u0060\u00601(System.Collections.Generic.IEnumerable{\u0060\u00600})",
+      "Reason": "Reviewed non-shipping consumer regression: temporary shared-library builds and exact data approvals prove helper extraction, project scope, pin stability/drift, unused pins, recursive rejection and independent effect/domain checks."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060reusable data contracts allow helper extraction without declaration grants\u0060\u0060",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspaceAssemblyPin",
+      "Reason": "Reviewed non-shipping consumer regression: temporary shared-library builds and exact data approvals prove helper extraction, project scope, pin stability/drift, unused pins, recursive rejection and independent effect/domain checks."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060reusable data contracts allow helper extraction without declaration grants\u0060\u0060",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspaceSource",
+      "Reason": "Reviewed non-shipping consumer regression: temporary shared-library builds and exact data approvals prove helper extraction, project scope, pin stability/drift, unused pins, recursive rejection and independent effect/domain checks."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060reusable data contracts allow helper extraction without declaration grants\u0060\u0060",
+      "Kind": "type",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | System.Collections.IEnumerable",
+      "Reason": "Reviewed non-shipping consumer regression: temporary shared-library builds and exact data approvals prove helper extraction, project scope, pin stability/drift, unused pins, recursive rejection and independent effect/domain checks."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.withDataConsumer",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.DataContractPolicy.assemblyDigest(System.String)",
+      "Reason": "Reviewed non-shipping consumer regression: temporary shared-library builds and exact data approvals prove helper extraction, project scope, pin stability/drift, unused pins, recursive rejection and independent effect/domain checks."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.withDataConsumer",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Project.initialize(System.String)",
+      "Reason": "Reviewed non-shipping consumer regression: temporary shared-library builds and exact data approvals prove helper extraction, project scope, pin stability/drift, unused pins, recursive rejection and independent effect/domain checks."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.withDataConsumer",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Workspace.export(System.String,System.String)",
+      "Reason": "Reviewed non-shipping consumer regression: temporary shared-library builds and exact data approvals prove helper extraction, project scope, pin stability/drift, unused pins, recursive rejection and independent effect/domain checks."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.withDataConsumer",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Transport.External.required\u0060\u00601(System.String,\u0060\u00600)",
+      "Reason": "Reviewed non-shipping consumer regression: temporary shared-library builds and exact data approvals prove helper extraction, project scope, pin stability/drift, unused pins, recursive rejection and independent effect/domain checks."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.withDataConsumer",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.Combine(System.String,System.String)",
+      "Reason": "Reviewed non-shipping consumer regression: temporary shared-library builds and exact data approvals prove helper extraction, project scope, pin stability/drift, unused pins, recursive rejection and independent effect/domain checks."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.withDataConsumer",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.GetFileName(System.String)",
+      "Reason": "Reviewed non-shipping consumer regression: temporary shared-library builds and exact data approvals prove helper extraction, project scope, pin stability/drift, unused pins, recursive rejection and independent effect/domain checks."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.withDataConsumer",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.File.WriteAllText(System.String,System.String)",
+      "Reason": "Reviewed non-shipping consumer regression: temporary shared-library builds and exact data approvals prove helper extraction, project scope, pin stability/drift, unused pins, recursive rejection and independent effect/domain checks."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.withDataConsumer",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Directory.CreateDirectory(System.String)",
+      "Reason": "Reviewed non-shipping consumer regression: temporary shared-library builds and exact data approvals prove helper extraction, project scope, pin stability/drift, unused pins, recursive rejection and independent effect/domain checks."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.withDataConsumer",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.Reflection.AssemblyName.GetAssemblyName(System.String)",
+      "Reason": "Reviewed non-shipping consumer regression: temporary shared-library builds and exact data approvals prove helper extraction, project scope, pin stability/drift, unused pins, recursive rejection and independent effect/domain checks."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.withDataConsumer",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:System.Reflection.AssemblyName.FullName",
+      "Reason": "Reviewed non-shipping consumer regression: temporary shared-library builds and exact data approvals prove helper extraction, project scope, pin stability/drift, unused pins, recursive rejection and independent effect/domain checks."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.withDataConsumer",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspacePolicyDocument",
+      "Reason": "Reviewed non-shipping consumer regression: temporary shared-library builds and exact data approvals prove helper extraction, project scope, pin stability/drift, unused pins, recursive rejection and independent effect/domain checks."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.withDataConsumer",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspaceInvocation",
+      "Reason": "Reviewed non-shipping consumer regression: temporary shared-library builds and exact data approvals prove helper extraction, project scope, pin stability/drift, unused pins, recursive rejection and independent effect/domain checks."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.withDataConsumer",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspaceDataContract",
+      "Reason": "Reviewed non-shipping consumer regression: temporary shared-library builds and exact data approvals prove helper extraction, project scope, pin stability/drift, unused pins, recursive rejection and independent effect/domain checks."
+    },
+    {
+      "File": "tests/FDull.Tests/WorkspaceTests.fs",
+      "Owner": "FDull.Tests.WorkspaceTests.\u0060\u0060policy and inventory drift cannot certify a workspace\u0060\u0060",
+      "Kind": "attribute",
+      "Identity": "xunit.core, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | Xunit.InlineDataAttribute |  | [\u0022string:\\u0022duplicate-data\\u0022\u0022,\u0022string:\\u0022BUILD005\\u0022\u0022]",
+      "Reason": "Reviewed non-shipping consumer regression: temporary shared-library builds and exact data approvals prove helper extraction, project scope, pin stability/drift, unused pins, recursive rejection and independent effect/domain checks."
+    },
+    {
+      "File": "tests/FDull.Tests/WorkspaceTests.fs",
+      "Owner": "FDull.Tests.WorkspaceTests.\u0060\u0060policy and inventory drift cannot certify a workspace\u0060\u0060",
+      "Kind": "attribute",
+      "Identity": "xunit.core, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | Xunit.InlineDataAttribute |  | [\u0022string:\\u0022data-project\\u0022\u0022,\u0022string:\\u0022BUILD005\\u0022\u0022]",
+      "Reason": "Reviewed non-shipping consumer regression: temporary shared-library builds and exact data approvals prove helper extraction, project scope, pin stability/drift, unused pins, recursive rejection and independent effect/domain checks."
+    },
+    {
+      "File": "tests/FDull.Tests/WorkspaceTests.fs",
+      "Owner": "FDull.Tests.WorkspaceTests.\u0060\u0060policy and inventory drift cannot certify a workspace\u0060\u0060",
+      "Kind": "attribute",
+      "Identity": "xunit.core, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | Xunit.InlineDataAttribute |  | [\u0022string:\\u0022data-digest\\u0022\u0022,\u0022string:\\u0022BUILD005\\u0022\u0022]",
+      "Reason": "Reviewed non-shipping consumer regression: temporary shared-library builds and exact data approvals prove helper extraction, project scope, pin stability/drift, unused pins, recursive rejection and independent effect/domain checks."
+    },
+    {
+      "File": "tests/FDull.Tests/WorkspaceTests.fs",
+      "Owner": "FDull.Tests.WorkspaceTests.\u0060\u0060policy and inventory drift cannot certify a workspace\u0060\u0060",
+      "Kind": "attribute",
+      "Identity": "xunit.core, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | Xunit.InlineDataAttribute |  | [\u0022string:\\u0022data-wildcard\\u0022\u0022,\u0022string:\\u0022BUILD005\\u0022\u0022]",
+      "Reason": "Reviewed non-shipping consumer regression: temporary shared-library builds and exact data approvals prove helper extraction, project scope, pin stability/drift, unused pins, recursive rejection and independent effect/domain checks."
+    },
+    {
+      "File": "tests/FDull.Tests/WorkspaceTests.fs",
+      "Owner": "FDull.Tests.WorkspaceTests.\u0060\u0060policy and inventory drift cannot certify a workspace\u0060\u0060",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspaceDataContract",
+      "Reason": "Reviewed non-shipping consumer regression: temporary shared-library builds and exact data approvals prove helper extraction, project scope, pin stability/drift, unused pins, recursive rejection and independent effect/domain checks."
+    },
+    {
+      "File": "tests/FDull.Tests/WorkspaceTests.fs",
+      "Owner": "FDull.Tests.WorkspaceTests.\u0060\u0060policy and inventory drift cannot certify a workspace\u0060\u0060",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Core.StringModule.Replicate(System.Int32,System.String)",
+      "Reason": "Reviewed non-shipping consumer regression: temporary shared-library builds and exact data approvals prove helper extraction, project scope, pin stability/drift, unused pins, recursive rejection and independent effect/domain checks."
+    },
+    {
+      "File": "src/FDull.Tool/Program.fs",
+      "Owner": "FDull.Tool.Program.main",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.DataContractPolicy.assemblyDigest(System.String)",
+      "Reason": "Reviewed reusable-data guard: bounded read-only resolved type graph and exact compiler-reference metadata fingerprints; no declaration effect/rule capabilities bypass structural validation."
+    },
+    {
+      "File": "src/FDull/SafetyDataContracts.fs",
+      "Owner": "FDull.SafetyDataContracts.inspect",
+      "Kind": "member",
+      "Identity": "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:FSharp.Compiler.Symbols.FSharpType.Format(FSharp.Compiler.Symbols.FSharpDisplayContext)",
+      "Reason": "Reviewed reusable-data guard: bounded read-only resolved type graph and exact compiler-reference metadata fingerprints; no declaration effect/rule capabilities bypass structural validation."
+    },
+    {
+      "File": "src/FDull/SafetyDataContracts.fs",
+      "Owner": "FDull.SafetyDataContracts.inspect",
+      "Kind": "member",
+      "Identity": "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:FSharp.Compiler.Symbols.FSharpType.Instantiate(Microsoft.FSharp.Collections.FSharpList{System.Tuple{FSharp.Compiler.Symbols.FSharpGenericParameter,FSharp.Compiler.Symbols.FSharpType}})",
+      "Reason": "Reviewed reusable-data guard: bounded read-only resolved type graph and exact compiler-reference metadata fingerprints; no declaration effect/rule capabilities bypass structural validation."
+    },
+    {
+      "File": "src/FDull/SafetyDataContracts.fs",
+      "Owner": "FDull.SafetyDataContracts.inspect",
+      "Kind": "member",
+      "Identity": "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:FSharp.Compiler.Symbols.FSharpType.IsUnresolved",
+      "Reason": "Reviewed reusable-data guard: bounded read-only resolved type graph and exact compiler-reference metadata fingerprints; no declaration effect/rule capabilities bypass structural validation."
+    },
+    {
+      "File": "src/FDull/SafetyDataContracts.fs",
+      "Owner": "FDull.SafetyDataContracts.inspect",
+      "Kind": "member",
+      "Identity": "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:FSharp.Compiler.Symbols.FSharpType.IsAbbreviation",
+      "Reason": "Reviewed reusable-data guard: bounded read-only resolved type graph and exact compiler-reference metadata fingerprints; no declaration effect/rule capabilities bypass structural validation."
+    },
+    {
+      "File": "src/FDull/SafetyDataContracts.fs",
+      "Owner": "FDull.SafetyDataContracts.inspect",
+      "Kind": "member",
+      "Identity": "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:FSharp.Compiler.Symbols.FSharpType.AbbreviatedType",
+      "Reason": "Reviewed reusable-data guard: bounded read-only resolved type graph and exact compiler-reference metadata fingerprints; no declaration effect/rule capabilities bypass structural validation."
+    },
+    {
+      "File": "src/FDull/SafetyDataContracts.fs",
+      "Owner": "FDull.SafetyDataContracts.inspect",
+      "Kind": "member",
+      "Identity": "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:FSharp.Compiler.Symbols.FSharpType.HasNullAnnotation",
+      "Reason": "Reviewed reusable-data guard: bounded read-only resolved type graph and exact compiler-reference metadata fingerprints; no declaration effect/rule capabilities bypass structural validation."
+    },
+    {
+      "File": "src/FDull/SafetyDataContracts.fs",
+      "Owner": "FDull.SafetyDataContracts.inspect",
+      "Kind": "member",
+      "Identity": "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:FSharp.Compiler.Symbols.FSharpType.IsGenericParameter",
+      "Reason": "Reviewed reusable-data guard: bounded read-only resolved type graph and exact compiler-reference metadata fingerprints; no declaration effect/rule capabilities bypass structural validation."
+    },
+    {
+      "File": "src/FDull/SafetyDataContracts.fs",
+      "Owner": "FDull.SafetyDataContracts.inspect",
+      "Kind": "member",
+      "Identity": "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:FSharp.Compiler.Symbols.FSharpType.IsFunctionType",
+      "Reason": "Reviewed reusable-data guard: bounded read-only resolved type graph and exact compiler-reference metadata fingerprints; no declaration effect/rule capabilities bypass structural validation."
+    },
+    {
+      "File": "src/FDull/SafetyDataContracts.fs",
+      "Owner": "FDull.SafetyDataContracts.inspect",
+      "Kind": "member",
+      "Identity": "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:FSharp.Compiler.Symbols.FSharpType.IsTupleType",
+      "Reason": "Reviewed reusable-data guard: bounded read-only resolved type graph and exact compiler-reference metadata fingerprints; no declaration effect/rule capabilities bypass structural validation."
+    },
+    {
+      "File": "src/FDull/SafetyDataContracts.fs",
+      "Owner": "FDull.SafetyDataContracts.inspect",
+      "Kind": "member",
+      "Identity": "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:FSharp.Compiler.Symbols.FSharpType.IsAnonRecordType",
+      "Reason": "Reviewed reusable-data guard: bounded read-only resolved type graph and exact compiler-reference metadata fingerprints; no declaration effect/rule capabilities bypass structural validation."
+    },
+    {
+      "File": "src/FDull/SafetyDataContracts.fs",
+      "Owner": "FDull.SafetyDataContracts.inspect",
+      "Kind": "member",
+      "Identity": "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:FSharp.Compiler.Symbols.FSharpType.HasTypeDefinition",
+      "Reason": "Reviewed reusable-data guard: bounded read-only resolved type graph and exact compiler-reference metadata fingerprints; no declaration effect/rule capabilities bypass structural validation."
+    },
+    {
+      "File": "src/FDull/SafetyDataContracts.fs",
+      "Owner": "FDull.SafetyDataContracts.inspect",
+      "Kind": "member",
+      "Identity": "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:FSharp.Compiler.Symbols.FSharpType.TypeDefinition",
+      "Reason": "Reviewed reusable-data guard: bounded read-only resolved type graph and exact compiler-reference metadata fingerprints; no declaration effect/rule capabilities bypass structural validation."
+    },
+    {
+      "File": "src/FDull/SafetyDataContracts.fs",
+      "Owner": "FDull.SafetyDataContracts.inspect",
+      "Kind": "member",
+      "Identity": "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:FSharp.Compiler.Symbols.FSharpType.GenericArguments",
+      "Reason": "Reviewed reusable-data guard: bounded read-only resolved type graph and exact compiler-reference metadata fingerprints; no declaration effect/rule capabilities bypass structural validation."
+    },
+    {
+      "File": "src/FDull/SafetyDataContracts.fs",
+      "Owner": "FDull.SafetyDataContracts.inspect",
+      "Kind": "member",
+      "Identity": "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:FSharp.Compiler.Symbols.FSharpSymbol.Assembly",
+      "Reason": "Reviewed reusable-data guard: bounded read-only resolved type graph and exact compiler-reference metadata fingerprints; no declaration effect/rule capabilities bypass structural validation."
+    },
+    {
+      "File": "src/FDull/SafetyDataContracts.fs",
+      "Owner": "FDull.SafetyDataContracts.inspect",
+      "Kind": "member",
+      "Identity": "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:FSharp.Compiler.Symbols.FSharpAssembly.QualifiedName",
+      "Reason": "Reviewed reusable-data guard: bounded read-only resolved type graph and exact compiler-reference metadata fingerprints; no declaration effect/rule capabilities bypass structural validation."
+    },
+    {
+      "File": "src/FDull/SafetyDataContracts.fs",
+      "Owner": "FDull.SafetyDataContracts.inspect",
+      "Kind": "member",
+      "Identity": "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:FSharp.Compiler.Symbols.FSharpEntity.IsArrayType",
+      "Reason": "Reviewed reusable-data guard: bounded read-only resolved type graph and exact compiler-reference metadata fingerprints; no declaration effect/rule capabilities bypass structural validation."
+    },
+    {
+      "File": "src/FDull/SafetyDataContracts.fs",
+      "Owner": "FDull.SafetyDataContracts.inspect",
+      "Kind": "member",
+      "Identity": "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:FSharp.Compiler.Symbols.FSharpEntity.IsFSharpRecord",
+      "Reason": "Reviewed reusable-data guard: bounded read-only resolved type graph and exact compiler-reference metadata fingerprints; no declaration effect/rule capabilities bypass structural validation."
+    },
+    {
+      "File": "src/FDull/SafetyDataContracts.fs",
+      "Owner": "FDull.SafetyDataContracts.inspect",
+      "Kind": "member",
+      "Identity": "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:FSharp.Compiler.Symbols.FSharpEntity.IsFSharpUnion",
+      "Reason": "Reviewed reusable-data guard: bounded read-only resolved type graph and exact compiler-reference metadata fingerprints; no declaration effect/rule capabilities bypass structural validation."
+    },
+    {
+      "File": "src/FDull/SafetyDataContracts.fs",
+      "Owner": "FDull.SafetyDataContracts.inspect",
+      "Kind": "member",
+      "Identity": "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:FSharp.Compiler.Symbols.FSharpEntity.Attributes",
+      "Reason": "Reviewed reusable-data guard: bounded read-only resolved type graph and exact compiler-reference metadata fingerprints; no declaration effect/rule capabilities bypass structural validation."
+    },
+    {
+      "File": "src/FDull/SafetyDataContracts.fs",
+      "Owner": "FDull.SafetyDataContracts.inspect",
+      "Kind": "member",
+      "Identity": "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:FSharp.Compiler.Symbols.FSharpEntity.AllInterfaces",
+      "Reason": "Reviewed reusable-data guard: bounded read-only resolved type graph and exact compiler-reference metadata fingerprints; no declaration effect/rule capabilities bypass structural validation."
+    },
+    {
+      "File": "src/FDull/SafetyDataContracts.fs",
+      "Owner": "FDull.SafetyDataContracts.inspect",
+      "Kind": "member",
+      "Identity": "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:FSharp.Compiler.Symbols.FSharpEntity.GenericParameters",
+      "Reason": "Reviewed reusable-data guard: bounded read-only resolved type graph and exact compiler-reference metadata fingerprints; no declaration effect/rule capabilities bypass structural validation."
+    },
+    {
+      "File": "src/FDull/SafetyDataContracts.fs",
+      "Owner": "FDull.SafetyDataContracts.inspect",
+      "Kind": "member",
+      "Identity": "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:FSharp.Compiler.Symbols.FSharpEntity.UnionCases",
+      "Reason": "Reviewed reusable-data guard: bounded read-only resolved type graph and exact compiler-reference metadata fingerprints; no declaration effect/rule capabilities bypass structural validation."
+    },
+    {
+      "File": "src/FDull/SafetyDataContracts.fs",
+      "Owner": "FDull.SafetyDataContracts.inspect",
+      "Kind": "member",
+      "Identity": "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:FSharp.Compiler.Symbols.FSharpEntity.FSharpFields",
+      "Reason": "Reviewed reusable-data guard: bounded read-only resolved type graph and exact compiler-reference metadata fingerprints; no declaration effect/rule capabilities bypass structural validation."
+    },
+    {
+      "File": "src/FDull/SafetyDataContracts.fs",
+      "Owner": "FDull.SafetyDataContracts.inspect",
+      "Kind": "member",
+      "Identity": "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:FSharp.Compiler.Symbols.FSharpEntity.MembersFunctionsAndValues",
+      "Reason": "Reviewed reusable-data guard: bounded read-only resolved type graph and exact compiler-reference metadata fingerprints; no declaration effect/rule capabilities bypass structural validation."
+    },
+    {
+      "File": "src/FDull/SafetyDataContracts.fs",
+      "Owner": "FDull.SafetyDataContracts.inspect",
+      "Kind": "member",
+      "Identity": "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:FSharp.Compiler.Symbols.FSharpMemberOrFunctionOrValue.CompiledName",
+      "Reason": "Reviewed reusable-data guard: bounded read-only resolved type graph and exact compiler-reference metadata fingerprints; no declaration effect/rule capabilities bypass structural validation."
+    },
+    {
+      "File": "src/FDull/SafetyDataContracts.fs",
+      "Owner": "FDull.SafetyDataContracts.inspect",
+      "Kind": "member",
+      "Identity": "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:FSharp.Compiler.Symbols.FSharpMemberOrFunctionOrValue.IsOverrideOrExplicitInterfaceImplementation",
+      "Reason": "Reviewed reusable-data guard: bounded read-only resolved type graph and exact compiler-reference metadata fingerprints; no declaration effect/rule capabilities bypass structural validation."
+    },
+    {
+      "File": "src/FDull/SafetyDataContracts.fs",
+      "Owner": "FDull.SafetyDataContracts.inspect",
+      "Kind": "member",
+      "Identity": "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:FSharp.Compiler.Symbols.FSharpMemberOrFunctionOrValue.IsCompilerGenerated",
+      "Reason": "Reviewed reusable-data guard: bounded read-only resolved type graph and exact compiler-reference metadata fingerprints; no declaration effect/rule capabilities bypass structural validation."
+    },
+    {
+      "File": "src/FDull/SafetyDataContracts.fs",
+      "Owner": "FDull.SafetyDataContracts.inspect",
+      "Kind": "member",
+      "Identity": "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:FSharp.Compiler.Symbols.FSharpAttribute.AttributeType",
+      "Reason": "Reviewed reusable-data guard: bounded read-only resolved type graph and exact compiler-reference metadata fingerprints; no declaration effect/rule capabilities bypass structural validation."
+    },
+    {
+      "File": "src/FDull/SafetyDataContracts.fs",
+      "Owner": "FDull.SafetyDataContracts.inspect",
+      "Kind": "member",
+      "Identity": "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:FSharp.Compiler.Symbols.FSharpDisplayContext.Empty",
+      "Reason": "Reviewed reusable-data guard: bounded read-only resolved type graph and exact compiler-reference metadata fingerprints; no declaration effect/rule capabilities bypass structural validation."
+    },
+    {
+      "File": "src/FDull/SafetyDataContracts.fs",
+      "Owner": "FDull.SafetyDataContracts.inspect",
+      "Kind": "member",
+      "Identity": "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:FSharp.Compiler.Symbols.FSharpUnionCase.Fields",
+      "Reason": "Reviewed reusable-data guard: bounded read-only resolved type graph and exact compiler-reference metadata fingerprints; no declaration effect/rule capabilities bypass structural validation."
+    },
+    {
+      "File": "src/FDull/SafetyDataContracts.fs",
+      "Owner": "FDull.SafetyDataContracts.inspect",
+      "Kind": "member",
+      "Identity": "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:FSharp.Compiler.Symbols.FSharpField.Name",
+      "Reason": "Reviewed reusable-data guard: bounded read-only resolved type graph and exact compiler-reference metadata fingerprints; no declaration effect/rule capabilities bypass structural validation."
+    },
+    {
+      "File": "src/FDull/SafetyDataContracts.fs",
+      "Owner": "FDull.SafetyDataContracts.inspect",
+      "Kind": "member",
+      "Identity": "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:FSharp.Compiler.Symbols.FSharpField.IsMutable",
+      "Reason": "Reviewed reusable-data guard: bounded read-only resolved type graph and exact compiler-reference metadata fingerprints; no declaration effect/rule capabilities bypass structural validation."
+    },
+    {
+      "File": "src/FDull/SafetyDataContracts.fs",
+      "Owner": "FDull.SafetyDataContracts.inspect",
+      "Kind": "member",
+      "Identity": "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:FSharp.Compiler.Symbols.FSharpField.IsStatic",
+      "Reason": "Reviewed reusable-data guard: bounded read-only resolved type graph and exact compiler-reference metadata fingerprints; no declaration effect/rule capabilities bypass structural validation."
+    },
+    {
+      "File": "src/FDull/SafetyDataContracts.fs",
+      "Owner": "FDull.SafetyDataContracts.inspect",
+      "Kind": "member",
+      "Identity": "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:FSharp.Compiler.Symbols.FSharpField.FieldAttributes",
+      "Reason": "Reviewed reusable-data guard: bounded read-only resolved type graph and exact compiler-reference metadata fingerprints; no declaration effect/rule capabilities bypass structural validation."
+    },
+    {
+      "File": "src/FDull/SafetyDataContracts.fs",
+      "Owner": "FDull.SafetyDataContracts.inspect",
+      "Kind": "member",
+      "Identity": "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:FSharp.Compiler.Symbols.FSharpField.FieldType",
+      "Reason": "Reviewed reusable-data guard: bounded read-only resolved type graph and exact compiler-reference metadata fingerprints; no declaration effect/rule capabilities bypass structural validation."
+    },
+    {
+      "File": "src/FDull/SafetyDataContracts.fs",
+      "Owner": "FDull.SafetyDataContracts.inspect",
+      "Kind": "type",
+      "Identity": "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | FSharp.Compiler.Symbols.FSharpType",
+      "Reason": "Reviewed reusable-data guard: bounded read-only resolved type graph and exact compiler-reference metadata fingerprints; no declaration effect/rule capabilities bypass structural validation."
+    },
+    {
+      "File": "src/FDull/SafetyDataContracts.fs",
+      "Owner": "FDull.SafetyDataContracts.inspect",
+      "Kind": "type",
+      "Identity": "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | FSharp.Compiler.Symbols.FSharpEntity",
+      "Reason": "Reviewed reusable-data guard: bounded read-only resolved type graph and exact compiler-reference metadata fingerprints; no declaration effect/rule capabilities bypass structural validation."
+    },
+    {
+      "File": "src/FDull/SafetyDataContracts.fs",
+      "Owner": "FDull.SafetyDataContracts.inspect",
+      "Kind": "type",
+      "Identity": "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | FSharp.Compiler.Symbols.FSharpAttribute",
+      "Reason": "Reviewed reusable-data guard: bounded read-only resolved type graph and exact compiler-reference metadata fingerprints; no declaration effect/rule capabilities bypass structural validation."
+    },
+    {
+      "File": "src/FDull/SafetyDataContracts.fs",
+      "Owner": "FDull.SafetyDataContracts.inspect",
+      "Kind": "type",
+      "Identity": "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | FSharp.Compiler.Symbols.FSharpField",
+      "Reason": "Reviewed reusable-data guard: bounded read-only resolved type graph and exact compiler-reference metadata fingerprints; no declaration effect/rule capabilities bypass structural validation."
+    },
+    {
+      "File": "src/FDull/SafetyDataContracts.fs",
+      "Owner": "FDull.SafetyDataContracts.inspect",
+      "Kind": "type",
+      "Identity": "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | FSharp.Compiler.Symbols.FSharpUnionCase",
+      "Reason": "Reviewed reusable-data guard: bounded read-only resolved type graph and exact compiler-reference metadata fingerprints; no declaration effect/rule capabilities bypass structural validation."
+    },
+    {
+      "File": "src/FDull/SafetyDataContracts.fs",
+      "Owner": "FDull.SafetyDataContracts.inspect",
+      "Kind": "type",
+      "Identity": "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | FSharp.Compiler.Symbols.FSharpGenericParameter",
+      "Reason": "Reviewed reusable-data guard: bounded read-only resolved type graph and exact compiler-reference metadata fingerprints; no declaration effect/rule capabilities bypass structural validation."
+    },
+    {
+      "File": "src/FDull/SafetyDataContracts.fs",
+      "Owner": "FDull.SafetyDataContracts.inspect",
+      "Kind": "type",
+      "Identity": "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | FSharp.Compiler.Symbols.FSharpMemberOrFunctionOrValue",
+      "Reason": "Reviewed reusable-data guard: bounded read-only resolved type graph and exact compiler-reference metadata fingerprints; no declaration effect/rule capabilities bypass structural validation."
+    },
+    {
+      "File": "src/FDull/SafetyDataContracts.fs",
+      "Owner": "FDull.SafetyDataContracts.inspect",
+      "Kind": "type",
+      "Identity": "source:src/FDull/SafetyLimits.fs | FDull.SafetyBudget",
+      "Reason": "Reviewed reusable-data guard: bounded read-only resolved type graph and exact compiler-reference metadata fingerprints; no declaration effect/rule capabilities bypass structural validation."
+    },
+    {
+      "File": "src/FDull/SafetyDataContracts.fs",
+      "Owner": "FDull.SafetyDataContracts.inspect",
+      "Kind": "type",
+      "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | System.Collections.Generic.IEnumerable\u00601",
+      "Reason": "Reviewed reusable-data guard: bounded read-only resolved type graph and exact compiler-reference metadata fingerprints; no declaration effect/rule capabilities bypass structural validation."
+    },
+    {
+      "File": "src/FDull/SafetyDataContracts.fs",
+      "Owner": "FDull.SafetyDataContracts.inspect",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.SeqModule.Collect\u0060\u00603(Microsoft.FSharp.Core.FSharpFunc{\u0060\u00600,\u0060\u00601},System.Collections.Generic.IEnumerable{\u0060\u00600})",
+      "Reason": "Reviewed reusable-data guard: bounded read-only resolved type graph and exact compiler-reference metadata fingerprints; no declaration effect/rule capabilities bypass structural validation."
+    },
+    {
+      "File": "src/FDull/SafetyDataContracts.fs",
+      "Owner": "FDull.SafetyDataContracts.inspect",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.SeqModule.Exists\u0060\u00601(Microsoft.FSharp.Core.FSharpFunc{\u0060\u00600,System.Boolean},System.Collections.Generic.IEnumerable{\u0060\u00600})",
+      "Reason": "Reviewed reusable-data guard: bounded read-only resolved type graph and exact compiler-reference metadata fingerprints; no declaration effect/rule capabilities bypass structural validation."
+    },
+    {
+      "File": "src/FDull/SafetyDataContracts.fs",
+      "Owner": "FDull.SafetyDataContracts.inspect",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.SeqModule.Indexed\u0060\u00601(System.Collections.Generic.IEnumerable{\u0060\u00600})",
+      "Reason": "Reviewed reusable-data guard: bounded read-only resolved type graph and exact compiler-reference metadata fingerprints; no declaration effect/rule capabilities bypass structural validation."
+    },
+    {
+      "File": "src/FDull/SafetyDataContracts.fs",
+      "Owner": "FDull.SafetyDataContracts.inspect",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.SeqModule.ToList\u0060\u00601(System.Collections.Generic.IEnumerable{\u0060\u00600})",
+      "Reason": "Reviewed reusable-data guard: bounded read-only resolved type graph and exact compiler-reference metadata fingerprints; no declaration effect/rule capabilities bypass structural validation."
+    },
+    {
+      "File": "src/FDull/SafetyDataContracts.fs",
+      "Owner": "FDull.SafetyDataContracts.inspect",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.SeqModule.Zip\u0060\u00602(System.Collections.Generic.IEnumerable{\u0060\u00600},System.Collections.Generic.IEnumerable{\u0060\u00601})",
+      "Reason": "Reviewed reusable-data guard: bounded read-only resolved type graph and exact compiler-reference metadata fingerprints; no declaration effect/rule capabilities bypass structural validation."
+    },
+    {
+      "File": "src/FDull/SafetyDataContracts.fs",
+      "Owner": "FDull.SafetyDataContracts.inspect",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Core.Operators.InvalidOp\u0060\u00601(System.String)",
+      "Reason": "Reviewed reusable-data guard: bounded read-only resolved type graph and exact compiler-reference metadata fingerprints; no declaration effect/rule capabilities bypass structural validation."
+    },
+    {
+      "File": "src/FDull/DataContractPolicy.fs",
+      "Owner": "FDull.DataContractPolicy.assemblyDigest",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.FileInfo.#ctor(System.String)",
+      "Reason": "Reviewed bounded assembly-file IO and metadata reader disposal; private byte buffers clear only validated generated reference MVID/timestamp locations. Rebuild and changed-representation consumer regressions bind the stable fingerprint to exact reviewed metadata."
+    },
+    {
+      "File": "src/FDull/DataContractPolicy.fs",
+      "Owner": "FDull.DataContractPolicy.assemblyDigest",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:System.IO.FileInfo.Length",
+      "Reason": "Reviewed bounded assembly-file IO and metadata reader disposal; private byte buffers clear only validated generated reference MVID/timestamp locations. Rebuild and changed-representation consumer regressions bind the stable fingerprint to exact reviewed metadata."
+    },
+    {
+      "File": "src/FDull/DataContractPolicy.fs",
+      "Owner": "FDull.DataContractPolicy.assemblyDigest",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.File.ReadAllBytes(System.String)",
+      "Reason": "Reviewed bounded assembly-file IO and metadata reader disposal; private byte buffers clear only validated generated reference MVID/timestamp locations. Rebuild and changed-representation consumer regressions bind the stable fingerprint to exact reviewed metadata."
+    },
+    {
+      "File": "src/FDull/DataContractPolicy.fs",
+      "Owner": "FDull.DataContractPolicy.assemblyDigest",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.MemoryStream.#ctor(System.Byte[],System.Boolean)",
+      "Reason": "Reviewed bounded assembly-file IO and metadata reader disposal; private byte buffers clear only validated generated reference MVID/timestamp locations. Rebuild and changed-representation consumer regressions bind the stable fingerprint to exact reviewed metadata."
+    },
+    {
+      "File": "src/FDull/DataContractPolicy.fs",
+      "Owner": "FDull.DataContractPolicy.assemblyDigest",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.Guid.ToByteArray",
+      "Reason": "Reviewed bounded assembly-file IO and metadata reader disposal; private byte buffers clear only validated generated reference MVID/timestamp locations. Rebuild and changed-representation consumer regressions bind the stable fingerprint to exact reviewed metadata."
+    },
+    {
+      "File": "src/FDull/DataContractPolicy.fs",
+      "Owner": "FDull.DataContractPolicy.assemblyDigest",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:System.Array.Length",
+      "Reason": "Reviewed bounded assembly-file IO and metadata reader disposal; private byte buffers clear only validated generated reference MVID/timestamp locations. Rebuild and changed-representation consumer regressions bind the stable fingerprint to exact reviewed metadata."
+    },
+    {
+      "File": "src/FDull/DataContractPolicy.fs",
+      "Owner": "FDull.DataContractPolicy.assemblyDigest",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.Array.Clear(System.Array,System.Int32,System.Int32)",
+      "Reason": "Reviewed bounded assembly-file IO and metadata reader disposal; private byte buffers clear only validated generated reference MVID/timestamp locations. Rebuild and changed-representation consumer regressions bind the stable fingerprint to exact reviewed metadata."
+    },
+    {
+      "File": "src/FDull/DataContractPolicy.fs",
+      "Owner": "FDull.DataContractPolicy.assemblyDigest",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.SeqModule.TryFind\u0060\u00601(Microsoft.FSharp.Core.FSharpFunc{\u0060\u00600,System.Boolean},System.Collections.Generic.IEnumerable{\u0060\u00600})",
+      "Reason": "Reviewed bounded assembly-file IO and metadata reader disposal; private byte buffers clear only validated generated reference MVID/timestamp locations. Rebuild and changed-representation consumer regressions bind the stable fingerprint to exact reviewed metadata."
+    },
+    {
+      "File": "src/FDull/DataContractPolicy.fs",
+      "Owner": "FDull.DataContractPolicy.assemblyDigest",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.SeqModule.Exists\u0060\u00601(Microsoft.FSharp.Core.FSharpFunc{\u0060\u00600,System.Boolean},System.Collections.Generic.IEnumerable{\u0060\u00600})",
+      "Reason": "Reviewed bounded assembly-file IO and metadata reader disposal; private byte buffers clear only validated generated reference MVID/timestamp locations. Rebuild and changed-representation consumer regressions bind the stable fingerprint to exact reviewed metadata."
+    },
+    {
+      "File": "src/FDull/DataContractPolicy.fs",
+      "Owner": "FDull.DataContractPolicy.assemblyDigest",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.ArrayModule.Indexed\u0060\u00601(\u0060\u00600[])",
+      "Reason": "Reviewed bounded assembly-file IO and metadata reader disposal; private byte buffers clear only validated generated reference MVID/timestamp locations. Rebuild and changed-representation consumer regressions bind the stable fingerprint to exact reviewed metadata."
+    },
+    {
+      "File": "src/FDull/DataContractPolicy.fs",
+      "Owner": "FDull.DataContractPolicy.assemblyDigest",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.ArrayModule.Exists\u0060\u00601(Microsoft.FSharp.Core.FSharpFunc{\u0060\u00600,System.Boolean},\u0060\u00600[])",
+      "Reason": "Reviewed bounded assembly-file IO and metadata reader disposal; private byte buffers clear only validated generated reference MVID/timestamp locations. Rebuild and changed-representation consumer regressions bind the stable fingerprint to exact reviewed metadata."
+    },
+    {
+      "File": "src/FDull/DataContractPolicy.fs",
+      "Owner": "FDull.DataContractPolicy.assemblyDigest",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Core.Operators.InvalidOp\u0060\u00601(System.String)",
+      "Reason": "Reviewed bounded assembly-file IO and metadata reader disposal; private byte buffers clear only validated generated reference MVID/timestamp locations. Rebuild and changed-representation consumer regressions bind the stable fingerprint to exact reviewed metadata."
+    },
+    {
+      "File": "src/FDull/DataContractPolicy.fs",
+      "Owner": "FDull.DataContractPolicy.assemblyDigest",
+      "Kind": "member",
+      "Identity": "System.Reflection.Metadata, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.Reflection.PortableExecutable.PEReader.#ctor(System.IO.Stream)",
+      "Reason": "Reviewed bounded assembly-file IO and metadata reader disposal; private byte buffers clear only validated generated reference MVID/timestamp locations. Rebuild and changed-representation consumer regressions bind the stable fingerprint to exact reviewed metadata."
+    },
+    {
+      "File": "src/FDull/DataContractPolicy.fs",
+      "Owner": "FDull.DataContractPolicy.assemblyDigest",
+      "Kind": "member",
+      "Identity": "System.Reflection.Metadata, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.Reflection.Metadata.PEReaderExtensions.GetMetadataReader(System.Reflection.PortableExecutable.PEReader)",
+      "Reason": "Reviewed bounded assembly-file IO and metadata reader disposal; private byte buffers clear only validated generated reference MVID/timestamp locations. Rebuild and changed-representation consumer regressions bind the stable fingerprint to exact reviewed metadata."
+    },
+    {
+      "File": "src/FDull/DataContractPolicy.fs",
+      "Owner": "FDull.DataContractPolicy.assemblyDigest",
+      "Kind": "member",
+      "Identity": "System.Reflection.Metadata, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.Reflection.Metadata.MetadataReader.GetModuleDefinition",
+      "Reason": "Reviewed bounded assembly-file IO and metadata reader disposal; private byte buffers clear only validated generated reference MVID/timestamp locations. Rebuild and changed-representation consumer regressions bind the stable fingerprint to exact reviewed metadata."
+    },
+    {
+      "File": "src/FDull/DataContractPolicy.fs",
+      "Owner": "FDull.DataContractPolicy.assemblyDigest",
+      "Kind": "member",
+      "Identity": "System.Reflection.Metadata, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.Reflection.Metadata.ModuleDefinition.GetCustomAttributes",
+      "Reason": "Reviewed bounded assembly-file IO and metadata reader disposal; private byte buffers clear only validated generated reference MVID/timestamp locations. Rebuild and changed-representation consumer regressions bind the stable fingerprint to exact reviewed metadata."
+    },
+    {
+      "File": "src/FDull/DataContractPolicy.fs",
+      "Owner": "FDull.DataContractPolicy.assemblyDigest",
+      "Kind": "member",
+      "Identity": "System.Reflection.Metadata, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.Reflection.Metadata.MetadataReader.GetCustomAttribute(System.Reflection.Metadata.CustomAttributeHandle)",
+      "Reason": "Reviewed bounded assembly-file IO and metadata reader disposal; private byte buffers clear only validated generated reference MVID/timestamp locations. Rebuild and changed-representation consumer regressions bind the stable fingerprint to exact reviewed metadata."
+    },
+    {
+      "File": "src/FDull/DataContractPolicy.fs",
+      "Owner": "FDull.DataContractPolicy.assemblyDigest",
+      "Kind": "member",
+      "Identity": "System.Reflection.Metadata, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.Reflection.Metadata.MetadataReader.GetMethodDefinition(System.Reflection.Metadata.MethodDefinitionHandle)",
+      "Reason": "Reviewed bounded assembly-file IO and metadata reader disposal; private byte buffers clear only validated generated reference MVID/timestamp locations. Rebuild and changed-representation consumer regressions bind the stable fingerprint to exact reviewed metadata."
+    },
+    {
+      "File": "src/FDull/DataContractPolicy.fs",
+      "Owner": "FDull.DataContractPolicy.assemblyDigest",
+      "Kind": "member",
+      "Identity": "System.Reflection.Metadata, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.Reflection.Metadata.MethodDefinition.GetDeclaringType",
+      "Reason": "Reviewed bounded assembly-file IO and metadata reader disposal; private byte buffers clear only validated generated reference MVID/timestamp locations. Rebuild and changed-representation consumer regressions bind the stable fingerprint to exact reviewed metadata."
+    },
+    {
+      "File": "src/FDull/DataContractPolicy.fs",
+      "Owner": "FDull.DataContractPolicy.assemblyDigest",
+      "Kind": "member",
+      "Identity": "System.Reflection.Metadata, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.Reflection.Metadata.MetadataReader.GetTypeDefinition(System.Reflection.Metadata.TypeDefinitionHandle)",
+      "Reason": "Reviewed bounded assembly-file IO and metadata reader disposal; private byte buffers clear only validated generated reference MVID/timestamp locations. Rebuild and changed-representation consumer regressions bind the stable fingerprint to exact reviewed metadata."
+    },
+    {
+      "File": "src/FDull/DataContractPolicy.fs",
+      "Owner": "FDull.DataContractPolicy.assemblyDigest",
+      "Kind": "member",
+      "Identity": "System.Reflection.Metadata, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.Reflection.Metadata.MetadataReader.GetString(System.Reflection.Metadata.StringHandle)",
+      "Reason": "Reviewed bounded assembly-file IO and metadata reader disposal; private byte buffers clear only validated generated reference MVID/timestamp locations. Rebuild and changed-representation consumer regressions bind the stable fingerprint to exact reviewed metadata."
+    },
+    {
+      "File": "src/FDull/DataContractPolicy.fs",
+      "Owner": "FDull.DataContractPolicy.assemblyDigest",
+      "Kind": "member",
+      "Identity": "System.Reflection.Metadata, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.Reflection.Metadata.MetadataReader.GetMemberReference(System.Reflection.Metadata.MemberReferenceHandle)",
+      "Reason": "Reviewed bounded assembly-file IO and metadata reader disposal; private byte buffers clear only validated generated reference MVID/timestamp locations. Rebuild and changed-representation consumer regressions bind the stable fingerprint to exact reviewed metadata."
+    },
+    {
+      "File": "src/FDull/DataContractPolicy.fs",
+      "Owner": "FDull.DataContractPolicy.assemblyDigest",
+      "Kind": "member",
+      "Identity": "System.Reflection.Metadata, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.Reflection.Metadata.MetadataReader.GetTypeReference(System.Reflection.Metadata.TypeReferenceHandle)",
+      "Reason": "Reviewed bounded assembly-file IO and metadata reader disposal; private byte buffers clear only validated generated reference MVID/timestamp locations. Rebuild and changed-representation consumer regressions bind the stable fingerprint to exact reviewed metadata."
+    },
+    {
+      "File": "src/FDull/DataContractPolicy.fs",
+      "Owner": "FDull.DataContractPolicy.assemblyDigest",
+      "Kind": "member",
+      "Identity": "System.Reflection.Metadata, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.Reflection.Metadata.MetadataReader.GetGuid(System.Reflection.Metadata.GuidHandle)",
+      "Reason": "Reviewed bounded assembly-file IO and metadata reader disposal; private byte buffers clear only validated generated reference MVID/timestamp locations. Rebuild and changed-representation consumer regressions bind the stable fingerprint to exact reviewed metadata."
+    },
+    {
+      "File": "src/FDull/DataContractPolicy.fs",
+      "Owner": "FDull.DataContractPolicy.assemblyDigest",
+      "Kind": "member",
+      "Identity": "System.Reflection.Metadata, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.Reflection.Metadata.Ecma335.MetadataReaderExtensions.GetHeapMetadataOffset(System.Reflection.Metadata.MetadataReader,System.Reflection.Metadata.Ecma335.HeapIndex)",
+      "Reason": "Reviewed bounded assembly-file IO and metadata reader disposal; private byte buffers clear only validated generated reference MVID/timestamp locations. Rebuild and changed-representation consumer regressions bind the stable fingerprint to exact reviewed metadata."
+    },
+    {
+      "File": "src/FDull/DataContractPolicy.fs",
+      "Owner": "FDull.DataContractPolicy.assemblyDigest",
+      "Kind": "member",
+      "Identity": "System.Reflection.Metadata, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.Reflection.Metadata.Ecma335.MetadataTokens.GetHeapOffset(System.Reflection.Metadata.GuidHandle)",
+      "Reason": "Reviewed bounded assembly-file IO and metadata reader disposal; private byte buffers clear only validated generated reference MVID/timestamp locations. Rebuild and changed-representation consumer regressions bind the stable fingerprint to exact reviewed metadata."
+    },
+    {
+      "File": "src/FDull/DataContractPolicy.fs",
+      "Owner": "FDull.DataContractPolicy.assemblyDigest",
+      "Kind": "member",
+      "Identity": "System.Reflection.Metadata, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.Reflection.Metadata.Ecma335.MetadataTokens.GetRowNumber(System.Reflection.Metadata.EntityHandle)",
+      "Reason": "Reviewed bounded assembly-file IO and metadata reader disposal; private byte buffers clear only validated generated reference MVID/timestamp locations. Rebuild and changed-representation consumer regressions bind the stable fingerprint to exact reviewed metadata."
+    },
+    {
+      "File": "src/FDull/DataContractPolicy.fs",
+      "Owner": "FDull.DataContractPolicy.assemblyDigest",
+      "Kind": "member",
+      "Identity": "System.Reflection.Metadata, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.Reflection.Metadata.Ecma335.MetadataTokens.MethodDefinitionHandle(System.Int32)",
+      "Reason": "Reviewed bounded assembly-file IO and metadata reader disposal; private byte buffers clear only validated generated reference MVID/timestamp locations. Rebuild and changed-representation consumer regressions bind the stable fingerprint to exact reviewed metadata."
+    },
+    {
+      "File": "src/FDull/DataContractPolicy.fs",
+      "Owner": "FDull.DataContractPolicy.assemblyDigest",
+      "Kind": "member",
+      "Identity": "System.Reflection.Metadata, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.Reflection.Metadata.Ecma335.MetadataTokens.MemberReferenceHandle(System.Int32)",
+      "Reason": "Reviewed bounded assembly-file IO and metadata reader disposal; private byte buffers clear only validated generated reference MVID/timestamp locations. Rebuild and changed-representation consumer regressions bind the stable fingerprint to exact reviewed metadata."
+    },
+    {
+      "File": "src/FDull/DataContractPolicy.fs",
+      "Owner": "FDull.DataContractPolicy.assemblyDigest",
+      "Kind": "member",
+      "Identity": "System.Reflection.Metadata, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.Reflection.Metadata.Ecma335.MetadataTokens.TypeReferenceHandle(System.Int32)",
+      "Reason": "Reviewed bounded assembly-file IO and metadata reader disposal; private byte buffers clear only validated generated reference MVID/timestamp locations. Rebuild and changed-representation consumer regressions bind the stable fingerprint to exact reviewed metadata."
+    },
+    {
+      "File": "src/FDull/DataContractPolicy.fs",
+      "Owner": "FDull.DataContractPolicy.assemblyDigest",
+      "Kind": "member",
+      "Identity": "System.Reflection.Metadata, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:System.Reflection.PortableExecutable.PEReader.PEHeaders",
+      "Reason": "Reviewed bounded assembly-file IO and metadata reader disposal; private byte buffers clear only validated generated reference MVID/timestamp locations. Rebuild and changed-representation consumer regressions bind the stable fingerprint to exact reviewed metadata."
+    },
+    {
+      "File": "src/FDull/DataContractPolicy.fs",
+      "Owner": "FDull.DataContractPolicy.assemblyDigest",
+      "Kind": "member",
+      "Identity": "System.Reflection.Metadata, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:System.Reflection.PortableExecutable.PEHeaders.SectionHeaders",
+      "Reason": "Reviewed bounded assembly-file IO and metadata reader disposal; private byte buffers clear only validated generated reference MVID/timestamp locations. Rebuild and changed-representation consumer regressions bind the stable fingerprint to exact reviewed metadata."
+    },
+    {
+      "File": "src/FDull/DataContractPolicy.fs",
+      "Owner": "FDull.DataContractPolicy.assemblyDigest",
+      "Kind": "member",
+      "Identity": "System.Reflection.Metadata, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:System.Reflection.PortableExecutable.PEHeaders.MetadataStartOffset",
+      "Reason": "Reviewed bounded assembly-file IO and metadata reader disposal; private byte buffers clear only validated generated reference MVID/timestamp locations. Rebuild and changed-representation consumer regressions bind the stable fingerprint to exact reviewed metadata."
+    },
+    {
+      "File": "src/FDull/DataContractPolicy.fs",
+      "Owner": "FDull.DataContractPolicy.assemblyDigest",
+      "Kind": "member",
+      "Identity": "System.Reflection.Metadata, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:System.Reflection.PortableExecutable.PEHeaders.CoffHeaderStartOffset",
+      "Reason": "Reviewed bounded assembly-file IO and metadata reader disposal; private byte buffers clear only validated generated reference MVID/timestamp locations. Rebuild and changed-representation consumer regressions bind the stable fingerprint to exact reviewed metadata."
+    },
+    {
+      "File": "src/FDull/DataContractPolicy.fs",
+      "Owner": "FDull.DataContractPolicy.assemblyDigest",
+      "Kind": "member",
+      "Identity": "System.Reflection.Metadata, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:System.Reflection.PortableExecutable.SectionHeader.Name",
+      "Reason": "Reviewed bounded assembly-file IO and metadata reader disposal; private byte buffers clear only validated generated reference MVID/timestamp locations. Rebuild and changed-representation consumer regressions bind the stable fingerprint to exact reviewed metadata."
+    },
+    {
+      "File": "src/FDull/DataContractPolicy.fs",
+      "Owner": "FDull.DataContractPolicy.assemblyDigest",
+      "Kind": "member",
+      "Identity": "System.Reflection.Metadata, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:System.Reflection.PortableExecutable.SectionHeader.PointerToRawData",
+      "Reason": "Reviewed bounded assembly-file IO and metadata reader disposal; private byte buffers clear only validated generated reference MVID/timestamp locations. Rebuild and changed-representation consumer regressions bind the stable fingerprint to exact reviewed metadata."
+    },
+    {
+      "File": "src/FDull/DataContractPolicy.fs",
+      "Owner": "FDull.DataContractPolicy.assemblyDigest",
+      "Kind": "member",
+      "Identity": "System.Reflection.Metadata, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:System.Reflection.PortableExecutable.SectionHeader.VirtualSize",
+      "Reason": "Reviewed bounded assembly-file IO and metadata reader disposal; private byte buffers clear only validated generated reference MVID/timestamp locations. Rebuild and changed-representation consumer regressions bind the stable fingerprint to exact reviewed metadata."
+    },
+    {
+      "File": "src/FDull/DataContractPolicy.fs",
+      "Owner": "FDull.DataContractPolicy.assemblyDigest",
+      "Kind": "member",
+      "Identity": "System.Reflection.Metadata, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:System.Reflection.Metadata.CustomAttribute.Constructor",
+      "Reason": "Reviewed bounded assembly-file IO and metadata reader disposal; private byte buffers clear only validated generated reference MVID/timestamp locations. Rebuild and changed-representation consumer regressions bind the stable fingerprint to exact reviewed metadata."
+    },
+    {
+      "File": "src/FDull/DataContractPolicy.fs",
+      "Owner": "FDull.DataContractPolicy.assemblyDigest",
+      "Kind": "member",
+      "Identity": "System.Reflection.Metadata, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:System.Reflection.Metadata.EntityHandle.Kind",
+      "Reason": "Reviewed bounded assembly-file IO and metadata reader disposal; private byte buffers clear only validated generated reference MVID/timestamp locations. Rebuild and changed-representation consumer regressions bind the stable fingerprint to exact reviewed metadata."
+    },
+    {
+      "File": "src/FDull/DataContractPolicy.fs",
+      "Owner": "FDull.DataContractPolicy.assemblyDigest",
+      "Kind": "member",
+      "Identity": "System.Reflection.Metadata, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:System.Reflection.Metadata.TypeDefinition.Namespace",
+      "Reason": "Reviewed bounded assembly-file IO and metadata reader disposal; private byte buffers clear only validated generated reference MVID/timestamp locations. Rebuild and changed-representation consumer regressions bind the stable fingerprint to exact reviewed metadata."
+    },
+    {
+      "File": "src/FDull/DataContractPolicy.fs",
+      "Owner": "FDull.DataContractPolicy.assemblyDigest",
+      "Kind": "member",
+      "Identity": "System.Reflection.Metadata, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:System.Reflection.Metadata.TypeDefinition.Name",
+      "Reason": "Reviewed bounded assembly-file IO and metadata reader disposal; private byte buffers clear only validated generated reference MVID/timestamp locations. Rebuild and changed-representation consumer regressions bind the stable fingerprint to exact reviewed metadata."
+    },
+    {
+      "File": "src/FDull/DataContractPolicy.fs",
+      "Owner": "FDull.DataContractPolicy.assemblyDigest",
+      "Kind": "member",
+      "Identity": "System.Reflection.Metadata, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:System.Reflection.Metadata.MemberReference.Parent",
+      "Reason": "Reviewed bounded assembly-file IO and metadata reader disposal; private byte buffers clear only validated generated reference MVID/timestamp locations. Rebuild and changed-representation consumer regressions bind the stable fingerprint to exact reviewed metadata."
+    },
+    {
+      "File": "src/FDull/DataContractPolicy.fs",
+      "Owner": "FDull.DataContractPolicy.assemblyDigest",
+      "Kind": "member",
+      "Identity": "System.Reflection.Metadata, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:System.Reflection.Metadata.TypeReference.Namespace",
+      "Reason": "Reviewed bounded assembly-file IO and metadata reader disposal; private byte buffers clear only validated generated reference MVID/timestamp locations. Rebuild and changed-representation consumer regressions bind the stable fingerprint to exact reviewed metadata."
+    },
+    {
+      "File": "src/FDull/DataContractPolicy.fs",
+      "Owner": "FDull.DataContractPolicy.assemblyDigest",
+      "Kind": "member",
+      "Identity": "System.Reflection.Metadata, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:System.Reflection.Metadata.TypeReference.Name",
+      "Reason": "Reviewed bounded assembly-file IO and metadata reader disposal; private byte buffers clear only validated generated reference MVID/timestamp locations. Rebuild and changed-representation consumer regressions bind the stable fingerprint to exact reviewed metadata."
+    },
+    {
+      "File": "src/FDull/DataContractPolicy.fs",
+      "Owner": "FDull.DataContractPolicy.assemblyDigest",
+      "Kind": "member",
+      "Identity": "System.Reflection.Metadata, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:System.Reflection.Metadata.ModuleDefinition.Mvid",
+      "Reason": "Reviewed bounded assembly-file IO and metadata reader disposal; private byte buffers clear only validated generated reference MVID/timestamp locations. Rebuild and changed-representation consumer regressions bind the stable fingerprint to exact reviewed metadata."
+    },
+    {
+      "File": "src/FDull/DataContractPolicy.fs",
+      "Owner": "FDull.DataContractPolicy.assemblyDigest",
+      "Kind": "member",
+      "Identity": "System.Reflection.Metadata, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:System.Reflection.Metadata.GuidHandle.IsNil",
+      "Reason": "Reviewed bounded assembly-file IO and metadata reader disposal; private byte buffers clear only validated generated reference MVID/timestamp locations. Rebuild and changed-representation consumer regressions bind the stable fingerprint to exact reviewed metadata."
+    },
+    {
+      "File": "src/FDull/DataContractPolicy.fs",
+      "Owner": "FDull.DataContractPolicy.assemblyDigest",
+      "Kind": "type",
+      "Identity": "System.Reflection.Metadata, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | System.Reflection.PortableExecutable.PEReader",
+      "Reason": "Reviewed bounded assembly-file IO and metadata reader disposal; private byte buffers clear only validated generated reference MVID/timestamp locations. Rebuild and changed-representation consumer regressions bind the stable fingerprint to exact reviewed metadata."
+    },
+    {
+      "File": "src/FDull/DataContractPolicy.fs",
+      "Owner": "FDull.DataContractPolicy.assemblyDigest",
+      "Kind": "type",
+      "Identity": "System.Reflection.Metadata, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | System.Reflection.PortableExecutable.PEHeaders",
+      "Reason": "Reviewed bounded assembly-file IO and metadata reader disposal; private byte buffers clear only validated generated reference MVID/timestamp locations. Rebuild and changed-representation consumer regressions bind the stable fingerprint to exact reviewed metadata."
+    },
+    {
+      "File": "src/FDull/DataContractPolicy.fs",
+      "Owner": "FDull.DataContractPolicy.assemblyDigest",
+      "Kind": "type",
+      "Identity": "System.Reflection.Metadata, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | System.Reflection.PortableExecutable.SectionHeader",
+      "Reason": "Reviewed bounded assembly-file IO and metadata reader disposal; private byte buffers clear only validated generated reference MVID/timestamp locations. Rebuild and changed-representation consumer regressions bind the stable fingerprint to exact reviewed metadata."
+    },
+    {
+      "File": "src/FDull/DataContractPolicy.fs",
+      "Owner": "FDull.DataContractPolicy.assemblyDigest",
+      "Kind": "type",
+      "Identity": "System.Reflection.Metadata, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | System.Reflection.Metadata.MetadataReader",
+      "Reason": "Reviewed bounded assembly-file IO and metadata reader disposal; private byte buffers clear only validated generated reference MVID/timestamp locations. Rebuild and changed-representation consumer regressions bind the stable fingerprint to exact reviewed metadata."
+    },
+    {
+      "File": "src/FDull/DataContractPolicy.fs",
+      "Owner": "FDull.DataContractPolicy.assemblyDigest",
+      "Kind": "type",
+      "Identity": "System.Reflection.Metadata, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | System.Reflection.Metadata.CustomAttribute",
+      "Reason": "Reviewed bounded assembly-file IO and metadata reader disposal; private byte buffers clear only validated generated reference MVID/timestamp locations. Rebuild and changed-representation consumer regressions bind the stable fingerprint to exact reviewed metadata."
+    },
+    {
+      "File": "src/FDull/DataContractPolicy.fs",
+      "Owner": "FDull.DataContractPolicy.assemblyDigest",
+      "Kind": "type",
+      "Identity": "System.Reflection.Metadata, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | System.Reflection.Metadata.CustomAttributeHandle",
+      "Reason": "Reviewed bounded assembly-file IO and metadata reader disposal; private byte buffers clear only validated generated reference MVID/timestamp locations. Rebuild and changed-representation consumer regressions bind the stable fingerprint to exact reviewed metadata."
+    },
+    {
+      "File": "src/FDull/DataContractPolicy.fs",
+      "Owner": "FDull.DataContractPolicy.assemblyDigest",
+      "Kind": "type",
+      "Identity": "System.Reflection.Metadata, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | System.Reflection.Metadata.EntityHandle",
+      "Reason": "Reviewed bounded assembly-file IO and metadata reader disposal; private byte buffers clear only validated generated reference MVID/timestamp locations. Rebuild and changed-representation consumer regressions bind the stable fingerprint to exact reviewed metadata."
+    },
+    {
+      "File": "src/FDull/DataContractPolicy.fs",
+      "Owner": "FDull.DataContractPolicy.assemblyDigest",
+      "Kind": "type",
+      "Identity": "System.Reflection.Metadata, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | System.Reflection.Metadata.TypeDefinition",
+      "Reason": "Reviewed bounded assembly-file IO and metadata reader disposal; private byte buffers clear only validated generated reference MVID/timestamp locations. Rebuild and changed-representation consumer regressions bind the stable fingerprint to exact reviewed metadata."
+    },
+    {
+      "File": "src/FDull/DataContractPolicy.fs",
+      "Owner": "FDull.DataContractPolicy.assemblyDigest",
+      "Kind": "type",
+      "Identity": "System.Reflection.Metadata, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | System.Reflection.Metadata.MethodDefinition",
+      "Reason": "Reviewed bounded assembly-file IO and metadata reader disposal; private byte buffers clear only validated generated reference MVID/timestamp locations. Rebuild and changed-representation consumer regressions bind the stable fingerprint to exact reviewed metadata."
+    },
+    {
+      "File": "src/FDull/DataContractPolicy.fs",
+      "Owner": "FDull.DataContractPolicy.assemblyDigest",
+      "Kind": "type",
+      "Identity": "System.Reflection.Metadata, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | System.Reflection.Metadata.MemberReference",
+      "Reason": "Reviewed bounded assembly-file IO and metadata reader disposal; private byte buffers clear only validated generated reference MVID/timestamp locations. Rebuild and changed-representation consumer regressions bind the stable fingerprint to exact reviewed metadata."
+    },
+    {
+      "File": "src/FDull/DataContractPolicy.fs",
+      "Owner": "FDull.DataContractPolicy.assemblyDigest",
+      "Kind": "type",
+      "Identity": "System.Reflection.Metadata, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | System.Reflection.Metadata.TypeReference",
+      "Reason": "Reviewed bounded assembly-file IO and metadata reader disposal; private byte buffers clear only validated generated reference MVID/timestamp locations. Rebuild and changed-representation consumer regressions bind the stable fingerprint to exact reviewed metadata."
+    },
+    {
+      "File": "src/FDull/DataContractPolicy.fs",
+      "Owner": "FDull.DataContractPolicy.assemblyDigest",
+      "Kind": "type",
+      "Identity": "System.Reflection.Metadata, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | System.Reflection.Metadata.GuidHandle",
+      "Reason": "Reviewed bounded assembly-file IO and metadata reader disposal; private byte buffers clear only validated generated reference MVID/timestamp locations. Rebuild and changed-representation consumer regressions bind the stable fingerprint to exact reviewed metadata."
+    },
+    {
+      "File": "src/FDull/DataContractPolicy.fs",
+      "Owner": "FDull.DataContractPolicy.assemblyDigest",
+      "Kind": "type",
+      "Identity": "System.Reflection.Metadata, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | System.Reflection.Metadata.ModuleDefinition",
+      "Reason": "Reviewed bounded assembly-file IO and metadata reader disposal; private byte buffers clear only validated generated reference MVID/timestamp locations. Rebuild and changed-representation consumer regressions bind the stable fingerprint to exact reviewed metadata."
+    },
+    {
+      "File": "src/FDull/DataContractPolicy.fs",
+      "Owner": "FDull.DataContractPolicy.assemblyDigest",
+      "Kind": "type",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | System.IO.MemoryStream",
+      "Reason": "Reviewed bounded assembly-file IO and metadata reader disposal; private byte buffers clear only validated generated reference MVID/timestamp locations. Rebuild and changed-representation consumer regressions bind the stable fingerprint to exact reviewed metadata."
+    },
+    {
+      "File": "src/FDull/DataContractPolicy.fs",
+      "Owner": "FDull.DataContractPolicy.assemblyDigest",
+      "Kind": "type",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | System.IO.Stream",
+      "Reason": "Reviewed bounded assembly-file IO and metadata reader disposal; private byte buffers clear only validated generated reference MVID/timestamp locations. Rebuild and changed-representation consumer regressions bind the stable fingerprint to exact reviewed metadata."
+    },
+    {
+      "File": "src/FDull/DataContractPolicy.fs",
+      "Owner": "FDull.DataContractPolicy.assemblyDigest",
+      "Kind": "type",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | System.Array",
+      "Reason": "Reviewed bounded assembly-file IO and metadata reader disposal; private byte buffers clear only validated generated reference MVID/timestamp locations. Rebuild and changed-representation consumer regressions bind the stable fingerprint to exact reviewed metadata."
+    },
+    {
+      "File": "src/FDull/DataContractPolicy.fs",
+      "Owner": "FDull.DataContractPolicy.assemblyDigest",
+      "Kind": "type",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | []",
+      "Reason": "Reviewed bounded assembly-file IO and metadata reader disposal; private byte buffers clear only validated generated reference MVID/timestamp locations. Rebuild and changed-representation consumer regressions bind the stable fingerprint to exact reviewed metadata."
+    },
+    {
+      "File": "src/FDull/DataContractPolicy.fs",
+      "Owner": "FDull.DataContractPolicy.assemblyDigest",
+      "Kind": "type",
+      "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | System.Collections.Generic.IEnumerable\u00601",
+      "Reason": "Reviewed bounded assembly-file IO and metadata reader disposal; private byte buffers clear only validated generated reference MVID/timestamp locations. Rebuild and changed-representation consumer regressions bind the stable fingerprint to exact reviewed metadata."
+    },
+    {
+      "File": "src/FDull/DataContractPolicy.fs",
+      "Owner": "FDull.DataContractPolicy.assemblyDigest",
+      "Kind": "rule",
+      "Identity": "ERR009 | ",
+      "Reason": "Reviewed bounded assembly-file IO and metadata reader disposal; private byte buffers clear only validated generated reference MVID/timestamp locations. Rebuild and changed-representation consumer regressions bind the stable fingerprint to exact reviewed metadata."
+    },
+    {
+      "File": "src/FDull/SafetyContext.fs",
+      "Owner": "FDull.SafetyContext",
+      "Kind": "rule",
+      "Identity": "EFFECT003 | Data",
+      "Reason": "Reviewed reusable-data guard: bounded read-only resolved type graph and exact compiler-reference metadata fingerprints; no declaration effect/rule capabilities bypass structural validation."
+    },
+    {
+      "File": "src/FDull/SafetyContext.fs",
+      "Owner": "FDull.SafetyContext",
+      "Kind": "rule",
+      "Identity": "EFFECT003 | SafetyContext.Data",
+      "Reason": "Reviewed reusable-data guard: bounded read-only resolved type graph and exact compiler-reference metadata fingerprints; no declaration effect/rule capabilities bypass structural validation."
+    },
+    {
+      "File": "src/FDull/WorkspacePolicy.fs",
+      "Owner": "FDull.WorkspacePolicy.context",
+      "Kind": "member",
+      "Identity": "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:FSharp.Compiler.Symbols.FSharpAssembly.FileName",
+      "Reason": "Reviewed reusable-data guard: bounded read-only resolved type graph and exact compiler-reference metadata fingerprints; no declaration effect/rule capabilities bypass structural validation."
+    },
+    {
+      "File": "src/FDull/WorkspacePolicy.fs",
+      "Owner": "FDull.WorkspacePolicy.context",
+      "Kind": "type",
+      "Identity": "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | FSharp.Compiler.Symbols.FSharpAssembly",
+      "Reason": "Reviewed reusable-data guard: bounded read-only resolved type graph and exact compiler-reference metadata fingerprints; no declaration effect/rule capabilities bypass structural validation."
+    },
+    {
+      "File": "src/FDull/WorkspacePolicy.fs",
+      "Owner": "FDull.WorkspacePolicy.context",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.MapModule.Find\u0060\u00602(\u0060\u00600,Microsoft.FSharp.Collections.FSharpMap{\u0060\u00600,\u0060\u00601})",
+      "Reason": "Reviewed reusable-data guard: bounded read-only resolved type graph and exact compiler-reference metadata fingerprints; no declaration effect/rule capabilities bypass structural validation."
+    },
+    {
+      "File": "src/FDull/WorkspacePolicy.fs",
+      "Owner": "FDull.WorkspacePolicy.context",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Core.Operators.InvalidOp\u0060\u00601(System.String)",
+      "Reason": "Reviewed reusable-data guard: bounded read-only resolved type graph and exact compiler-reference metadata fingerprints; no declaration effect/rule capabilities bypass structural validation."
+    },
+    {
+      "File": "src/FDull/WorkspacePolicy.fs",
+      "Owner": "FDull.WorkspacePolicy.context",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.GetFullPath(System.String,System.String)",
+      "Reason": "Reviewed reusable-data guard: bounded read-only resolved type graph and exact compiler-reference metadata fingerprints; no declaration effect/rule capabilities bypass structural validation."
+    },
+    {
+      "File": "src/FDull/WorkspacePolicy.fs",
+      "Owner": "FDull.WorkspacePolicy.context",
+      "Kind": "member",
+      "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | P:System.Lazy\u00601.Value",
+      "Reason": "Reviewed reusable-data guard: bounded read-only resolved type graph and exact compiler-reference metadata fingerprints; no declaration effect/rule capabilities bypass structural validation."
+    },
+    {
+      "File": "src/FDull/WorkspacePolicy.fs",
+      "Owner": "FDull.WorkspacePolicy.context",
+      "Kind": "type",
+      "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | System.Lazy\u00601",
+      "Reason": "Reviewed reusable-data guard: bounded read-only resolved type graph and exact compiler-reference metadata fingerprints; no declaration effect/rule capabilities bypass structural validation."
+    },
+    {
+      "File": "src/FDull/WorkspacePolicy.fs",
+      "Owner": "FDull.WorkspacePolicy.context",
+      "Kind": "rule",
+      "Identity": "EFFECT003 | ",
+      "Reason": "Reviewed reusable-data guard: bounded read-only resolved type graph and exact compiler-reference metadata fingerprints; no declaration effect/rule capabilities bypass structural validation."
+    },
+    {
+      "File": "src/FDull/WorkspacePolicy.fs",
+      "Owner": "FDull.WorkspacePolicy.readWithSourceDrift",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.ArrayModule.Exists\u0060\u00601(Microsoft.FSharp.Core.FSharpFunc{\u0060\u00600,System.Boolean},\u0060\u00600[])",
+      "Reason": "Reviewed reusable-data guard: bounded read-only resolved type graph and exact compiler-reference metadata fingerprints; no declaration effect/rule capabilities bypass structural validation."
+    },
+    {
+      "File": "src/FDull/WorkspacePolicy.fs",
+      "Owner": "FDull.WorkspacePolicy.readWithSourceDrift",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.SeqModule.ForAll\u0060\u00601(Microsoft.FSharp.Core.FSharpFunc{\u0060\u00600,System.Boolean},System.Collections.Generic.IEnumerable{\u0060\u00600})",
+      "Reason": "Reviewed reusable-data guard: bounded read-only resolved type graph and exact compiler-reference metadata fingerprints; no declaration effect/rule capabilities bypass structural validation."
+    },
+    {
+      "File": "src/FDull/WorkspacePolicy.fs",
+      "Owner": "FDull.WorkspacePolicy.readWithSourceDrift",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:System.Array.Length",
+      "Reason": "Reviewed reusable-data guard: bounded read-only resolved type graph and exact compiler-reference metadata fingerprints; no declaration effect/rule capabilities bypass structural validation."
+    },
+    {
+      "File": "src/FDull/WorkspacePolicy.fs",
+      "Owner": "FDull.WorkspacePolicy.readWithSourceDrift",
+      "Kind": "type",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | []",
+      "Reason": "Reviewed reusable-data guard: bounded read-only resolved type graph and exact compiler-reference metadata fingerprints; no declaration effect/rule capabilities bypass structural validation."
+    },
+    {
+      "File": "src/FDull/WorkspacePolicy.fs",
+      "Owner": "FDull.WorkspacePolicy.readWithSourceDrift",
+      "Kind": "type",
+      "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | System.Collections.Generic.IEnumerable\u00601",
+      "Reason": "Reviewed reusable-data guard: bounded read-only resolved type graph and exact compiler-reference metadata fingerprints; no declaration effect/rule capabilities bypass structural validation."
     }
   ],
   "Domains": [],

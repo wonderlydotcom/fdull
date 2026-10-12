@@ -78,7 +78,25 @@ module WorkspaceProtocol =
                    not (Set.contains item.File useFiles)
                    || String.IsNullOrWhiteSpace item.Owner
                    || String.IsNullOrWhiteSpace item.Identity
-                   || not (List.contains item.Kind [ "member"; "type"; "rule"; "profile"; "attribute"; "constructor" ]))
+                   || not (
+                       List.contains
+                           item.Kind
+                           [ "member"
+                             "type"
+                             "rule"
+                             "profile"
+                             "attribute"
+                             "constructor"
+                             "data"
+                             "data-assembly" ]
+                   )
+                   || (List.contains item.Kind [ "data"; "data-assembly" ]
+                       && (item.Owner
+                           <> Path.GetRelativePath(request.Root, request.Project).Replace('\\', '/')
+                           || not (
+                               policy.Sources
+                               |> List.exists (fun source -> source.File = item.File && source.Project = item.Owner)
+                           ))))
         then
             Error "BUILD003: Inconsistent workspace worker result."
         else
@@ -291,6 +309,7 @@ module WorkspaceEngine =
                     request.Root
                     request.Project
                     (Set.ofList request.Generated)
+                    request.References
                     budget
                     policy
                     result

@@ -109,6 +109,7 @@ module SafetyTests =
                     [ { File = "Fixture.fsproj"
                         Digest = SafetyPolicy.fileDigest project } ]
                   External = None
+                  DataContracts = None
                   Capabilities = []
                   Domains = [ "SafetyFixture.Quantity" ]
                   Constructors = [] }

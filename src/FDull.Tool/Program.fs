@@ -10,7 +10,7 @@ module Program =
         Console.WriteLine "FDull — F# with fewer sharp edges."
 
         Console.WriteLine
-            "fdull defaults | init <root> [--scope <file>] | lint <root> [--format text|json|sarif] | review <root> [--format text|json] | verify <root> | coverage"
+            "fdull defaults | init <root> [--scope <file>] | lint <root> [--format text|json|sarif] | review <root> [--format text|json] | data-digest <assembly> | verify <root> | coverage"
 
         2
 
@@ -60,6 +60,9 @@ module Program =
                 0
             | [ "defaults" ] ->
                 Project.defaults () |> Console.Write
+                0
+            | [ "data-digest"; assembly ] ->
+                DataContractPolicy.assemblyDigest assembly |> Console.WriteLine
                 0
             | [ "init"; root ] ->
                 Project.initialize root |> Console.WriteLine

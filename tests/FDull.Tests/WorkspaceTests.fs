@@ -164,6 +164,10 @@ module WorkspaceTests =
     [<InlineData("duplicate-profile", "BUILD005")>]
     [<InlineData("duplicate-domain", "BUILD005")>]
     [<InlineData("duplicate-constructor", "BUILD005")>]
+    [<InlineData("duplicate-data", "BUILD005")>]
+    [<InlineData("data-project", "BUILD005")>]
+    [<InlineData("data-digest", "BUILD005")>]
+    [<InlineData("data-wildcard", "BUILD005")>]
     let ``policy and inventory drift cannot certify a workspace`` mutation expected =
         withPolicy (fun directory policy ->
             let save changed =
@@ -183,6 +187,37 @@ module WorkspaceTests =
                 save
                     { policy with
                         Constructors = "duplicate" :: "duplicate" :: policy.Constructors }
+            | "duplicate-data"
+            | "data-project"
+            | "data-digest"
+            | "data-wildcard" ->
+                let contract =
+                    { Project =
+                        if mutation = "data-project" then
+                            "Missing.fsproj"
+                        else
+                            "src/FDull/FDull.fsproj"
+                      Identity =
+                        "Shared, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null | "
+                        + (if mutation = "data-wildcard" then "*" else "Shared.Payload")
+                      Assemblies =
+                        [ { Identity = "Shared, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"
+                            Digest =
+                              if mutation = "data-digest" then
+                                  "not-a-digest"
+                              else
+                                  "sha256:" + String.replicate 64 "a" } ]
+                      Reason = "Invalid policy fixture must never grant a reusable data vocabulary." }
+
+                save
+                    { policy with
+                        DataContracts =
+                            Some(
+                                if mutation = "duplicate-data" then
+                                    [ contract; contract ]
+                                else
+                                    [ contract ]
+                            ) }
             | "pure-exemption"
             | "unknown-rule" ->
                 let entry =
@@ -280,6 +315,7 @@ module WorkspaceTests =
                     Digest = "source" } ]
               Inputs = []
               External = None
+              DataContracts = None
               Capabilities = []
               Domains = []
               Constructors = [] }
@@ -403,6 +439,18 @@ module WorkspaceTests =
               { useSite with Kind = "permission" }
               { useSite with Identity = "" } ] do
             Assert.True(validate 0 "" { result with Uses = [ malformed ] } |> Result.isError)
+
+        Assert.True(
+            validate
+                0
+                ""
+                { result with
+                    Uses =
+                        [ { useSite with
+                              Kind = "data"
+                              Owner = "Other.fsproj" } ] }
+            |> Result.isError
+        )
 
         let finding =
             { Diagnostic = diagnostic
