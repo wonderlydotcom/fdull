@@ -3,6 +3,7 @@
   <ItemGroup>
     <RuntimeHostConfigurationOption Include="System.GC.HeapHardLimit" Value="2147483648" />
     <ProjectReference Include="../../src/FDull/FDull.fsproj" />
+    <ProjectReference Include="../../src/FDull.Tool/FDull.Tool.fsproj" ReferenceOutputAssembly="false" />
     <ProjectReference Include="../../src/FDull.Worker/FDull.Worker.fsproj" ReferenceOutputAssembly="false" />
     <ProjectReference Include="../FDull.ProcessFixture/FDull.ProcessFixture.fsproj" ReferenceOutputAssembly="false" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.14.1" />

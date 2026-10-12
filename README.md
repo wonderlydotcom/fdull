@@ -273,6 +273,14 @@ dependency order without rebuilding its dependencies. Source, reference, policy
 and evaluated compiler inputs are compared before accepting the result. JSON includes completeness and errors.
 SARIF includes diagnostics and an invocation success flag; also check the exit code.
 
+Text output starts with `PASS`, `FAIL` or `BLOCKED`. `BLOCKED` means analysis did
+not complete and no clean result was established, even when zero diagnostics
+were reported. Resolve the reported blockers and rerun the command. `lint` only
+reports an analysis result; `verify` reports a verification pass after its build
+and input checks finish. Failed commands also print a `BLOCKED` status. For JSON
+and SARIF, incomplete-analysis status is written to stderr so stdout remains
+machine-readable. Always check completeness and the exit code as well as findings.
+
 `review` presents an **advisory** review inventory for the current source snapshot.
 It groups actual findings by file, declaration, profile, permission kind and exact
 resolved identity, with source locations, rules and evidence. Each item says whether

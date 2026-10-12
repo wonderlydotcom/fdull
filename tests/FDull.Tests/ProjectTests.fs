@@ -3,6 +3,7 @@ namespace FDull.Tests
 open System
 open System.Diagnostics
 open System.IO
+open System.Text.Json
 open Xunit
 open FDull
 open FDull.Transport
@@ -180,6 +181,127 @@ module ProjectTests =
     let private read root =
         File.ReadAllText(Path.Combine(root, "fdull.json"))
         |> Codec.decode<WorkspacePolicyDocument>
+
+    let private runCli root (arguments: string list) =
+        let cli =
+            Path.GetFullPath(
+                Path.Combine(
+                    AppContext.BaseDirectory,
+                    "../../../../../src/FDull.Tool/bin/Release/net10.0/FDull.Cli.dll"
+                )
+            )
+
+        let start = ProcessStartInfo("dotnet", WorkingDirectory = root)
+
+        for argument in cli :: arguments do
+            start.ArgumentList.Add argument
+
+        start.Environment["DOTNET_GCHeapHardLimit"] <- "80000000"
+        start.Environment["MSBUILDDISABLENODEREUSE"] <- "1"
+
+        match
+            SafetyProcess.run
+                { Milliseconds = 90000
+                  OutputCharacters = 1048576
+                  WorkingSetBytes = 2147483648L }
+                start
+                ""
+        with
+        | Ok result -> result
+        | Error error -> failwith error
+
+    [<Fact>]
+    let ``CLI blocks unclassified trial automation even with zero diagnostics`` () =
+        withDirectory (fun root ->
+            prepare root
+            let clean = runCli root [ "lint"; "." ]
+            Assert.Equal(0, clean.ExitCode)
+            Assert.StartsWith("FDull lint: PASS", clean.Output)
+            Assert.DoesNotContain("verification completed", clean.Output)
+            let verified = runCli root [ "verify"; "." ]
+            Assert.Equal(0, verified.ExitCode)
+            Assert.StartsWith("FDull verify: PASS — verification completed.", verified.Output)
+
+            Directory.CreateDirectory(Path.Combine(root, ".trial")) |> ignore
+            File.WriteAllText(Path.Combine(root, ".trial/check.py"), "print('checked')\n")
+
+            let blocked = runCli root [ "lint"; "." ]
+            Assert.Equal(3, blocked.ExitCode)
+            Assert.StartsWith("FDull lint: BLOCKED", blocked.Output)
+            Assert.Contains("0 reported diagnostics; findings are partial", blocked.Output)
+            Assert.Contains("no clean result", blocked.Output)
+            Assert.Contains("rerun fdull lint", blocked.Output)
+            Assert.Contains("ARCH003:", blocked.Error)
+            Assert.Contains(".trial/check.py", blocked.Error)
+            Assert.DoesNotContain("PASS", blocked.Output + blocked.Error)
+
+            let json = runCli root [ "lint"; "."; "--format"; "json" ]
+            Assert.Equal(3, json.ExitCode)
+            Assert.StartsWith("FDull lint: BLOCKED", json.Error)
+            let report = Codec.decode<WorkspaceReport> json.Output
+            Assert.False(report.Complete)
+            Assert.Equal(3, report.ExitCode)
+            Assert.Empty(report.Projects)
+            Assert.Contains(report.Errors, fun error -> error.Contains("ARCH003:"))
+
+            let sarif = runCli root [ "lint"; "."; "--format"; "sarif" ]
+            Assert.Equal(3, sarif.ExitCode)
+            Assert.StartsWith("FDull lint: BLOCKED", sarif.Error)
+            Assert.Contains("ARCH003:", sarif.Error)
+            use document = JsonDocument.Parse sarif.Output
+            let run = document.RootElement.GetProperty("runs").[0]
+            let invocation = run.GetProperty("invocations").[0]
+            Assert.False(invocation.GetProperty("executionSuccessful").GetBoolean())
+            Assert.Equal(3, invocation.GetProperty("exitCode").GetInt32())
+            Assert.Equal(0, run.GetProperty("results").GetArrayLength())
+
+            let failed = runCli root [ "verify"; "." ]
+            Assert.Equal(3, failed.ExitCode)
+            Assert.StartsWith("FDull: BLOCKED", failed.Error)
+            Assert.Contains("ARCH003:", failed.Error)
+            Assert.Contains(".trial/check.py", failed.Error)
+            Assert.DoesNotContain("PASS", failed.Output + failed.Error))
+
+    [<Fact>]
+    let ``CLI distinguishes complete violations from partial compiler findings`` () =
+        withDirectory (fun root ->
+            prepare root
+            let policy = read root
+            let source = Path.Combine(root, "App.fs")
+            File.WriteAllText(source, "module App\nlet first values = List.head values\n")
+
+            let reviewed =
+                { policy with
+                    Sources =
+                        policy.Sources
+                        |> List.map (fun entry ->
+                            { entry with
+                                Digest = SafetyPolicy.fileDigest source }) }
+
+            File.WriteAllText(Path.Combine(root, "fdull.json"), Codec.encode reviewed)
+            let violations = runCli root [ "lint"; "." ]
+            Assert.Equal(1, violations.ExitCode)
+            Assert.StartsWith("FDull lint: FAIL — complete analysis found violations", violations.Output)
+            Assert.Contains("ERR006:", violations.Output)
+            Assert.DoesNotContain("BLOCKED", violations.Output)
+
+            File.WriteAllText(source, "module App\nlet value: int = \"wrong\"\n")
+
+            let compilerFailure =
+                { reviewed with
+                    Sources =
+                        reviewed.Sources
+                        |> List.map (fun entry ->
+                            { entry with
+                                Digest = SafetyPolicy.fileDigest source }) }
+
+            File.WriteAllText(Path.Combine(root, "fdull.json"), Codec.encode compilerFailure)
+            let blocked = runCli root [ "lint"; "." ]
+            Assert.Equal(3, blocked.ExitCode)
+            Assert.StartsWith("FDull lint: BLOCKED", blocked.Output)
+            Assert.Contains("findings are partial", blocked.Output)
+            Assert.Contains("FS0001:", blocked.Output)
+            Assert.DoesNotContain("PASS", blocked.Output + blocked.Error))
 
     [<Fact>]
     let ``advisory review groups actual findings and preserves stale source rejection`` () =
