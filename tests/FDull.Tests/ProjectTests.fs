@@ -182,6 +182,179 @@ module ProjectTests =
         |> Codec.decode<WorkspacePolicyDocument>
 
     [<Fact>]
+    let ``advisory review groups actual findings and preserves stale source rejection`` () =
+        withDirectory (fun root ->
+            prepare root
+            let policy = read root
+
+            let reviewed =
+                { policy with
+                    Projects =
+                        policy.Projects
+                        |> List.map (fun project -> { project with Profile = "ADAPTER" })
+                    Sources = policy.Sources |> List.map (fun source -> { source with Profile = "ADAPTER" })
+                    Capabilities =
+                        [ { File = "App.fs"
+                            Owner = "App.forbidden"
+                            Kind = "profile"
+                            Identity = "PURE"
+                            Reason = "This workflow remains pure and cannot admit a fold exemption." }
+                          { File = "App.fs"
+                            Owner = "App.helper"
+                            Kind = "profile"
+                            Identity = "PURE_HELPER"
+                            Reason = "An exact pure helper can submit its fold implementation for contract review." } ] }
+
+            let policyPath = Path.Combine(root, "fdull.json")
+            File.WriteAllText(policyPath, Codec.encode reviewed)
+            let policyBytes = File.ReadAllText policyPath
+
+            let source =
+                "module App\n"
+                + "let describe (uri: System.Uri) = uri.AbsoluteUri + uri.AbsoluteUri\n"
+                + "let other (uri: System.Uri) = uri.AbsoluteUri\n"
+                + "let clean value = value + 1\n"
+                + "type Local = { Name: string }\n"
+                + "let local (value: Local) = value.Name\n"
+                + "let forbidden values = List.fold (+) 0 values\n"
+                + "let helper values = List.fold (+) 0 values\n"
+
+            File.WriteAllText(Path.Combine(root, "App.fs"), source)
+
+            let report = Workspace.review root
+            Assert.True(report.Advisory)
+            Assert.True(report.AnalysisComplete, WorkspaceReview.format report)
+            Assert.Equal(1, report.ExitCode)
+            let change = Assert.Single report.SourceChanges
+            Assert.Equal("App.fs", change.File)
+            let originalSource = Assert.Single policy.Sources
+            Assert.Equal(originalSource.Digest, change.ReviewedDigest)
+            Assert.Equal(SafetyPolicy.fileDigest (Path.Combine(root, "App.fs")), change.CurrentDigest)
+            Assert.Equal(2, change.Contracts.Length)
+
+            let typeItem =
+                report.Items
+                |> List.filter (fun item ->
+                    item.Owner = "App.describe"
+                    && item.Kind = "type"
+                    && item.Identity.EndsWith(" | System.Uri", StringComparison.Ordinal))
+                |> Assert.Single
+
+            Assert.Equal("App.describe", typeItem.Owner)
+            Assert.Equal("contract-review", typeItem.Resolution)
+
+            let memberItem =
+                report.Items
+                |> List.filter (fun item ->
+                    item.Owner = "App.describe"
+                    && item.Kind = "member"
+                    && item.Identity.EndsWith(" | P:System.Uri.AbsoluteUri", StringComparison.Ordinal))
+                |> Assert.Single
+
+            Assert.Equal("App.describe", memberItem.Owner)
+            Assert.Equal("contract-review", memberItem.Resolution)
+            Assert.Equal(2, memberItem.Evidence.Length)
+            Assert.All(memberItem.Evidence, fun evidence -> Assert.Equal("EFFECT001", evidence.Rule))
+
+            let other =
+                report.Items
+                |> List.filter (fun item -> item.Owner = "App.other" && item.Kind = "member")
+                |> Assert.Single
+
+            Assert.Equal(memberItem.Identity, other.Identity)
+            Assert.Single(other.Evidence) |> ignore
+
+            Assert.DoesNotContain(
+                report.Items,
+                fun item ->
+                    item.Owner = "App.clean"
+                    || item.Owner = "App.local"
+                    || item.Identity.EndsWith(" | App.Local", StringComparison.Ordinal)
+            )
+
+            let fold =
+                report.Items
+                |> List.filter (fun item -> item.Owner = "App.forbidden")
+                |> Assert.Single
+
+            Assert.Equal("member", fold.Kind)
+            Assert.Equal("PURE", fold.Profile)
+            Assert.Equal("code-change", fold.Resolution)
+            let foldEvidence = Assert.Single fold.Evidence
+            Assert.Equal("STYLE003", foldEvidence.Rule)
+
+            let helper =
+                report.Items
+                |> List.filter (fun item -> item.Owner = "App.helper")
+                |> Assert.Single
+
+            Assert.Equal("PURE_HELPER", helper.Profile)
+            Assert.Equal("member", helper.Kind)
+            Assert.Equal("contract-review", helper.Resolution)
+            let text = WorkspaceReview.format report
+            Assert.Contains("ADVISORY", text)
+            Assert.Contains("Type approval does not approve the type's methods.", text)
+            Assert.Contains("this finding cannot be resolved by an exemption in this profile", text)
+            Assert.Equal(report, Codec.encode report |> Codec.decode<WorkspaceReviewReport>)
+            Assert.Equal(policyBytes, File.ReadAllText policyPath)
+            Assert.Equal(source, File.ReadAllText(Path.Combine(root, "App.fs")))
+            let lint = Workspace.check root
+            Assert.False(lint.Complete)
+            Assert.Equal(3, lint.ExitCode)
+            Assert.Contains(lint.Errors, fun error -> error.StartsWith("BUILD005:", StringComparison.Ordinal)))
+
+    [<Fact>]
+    let ``advisory review reports blockers and never infers unused contracts from partial analysis`` () =
+        withDirectory (fun root ->
+            prepare root
+            let clean = Workspace.review root
+            Assert.True(clean.AnalysisComplete, WorkspaceReview.format clean)
+            Assert.Equal(0, clean.ExitCode)
+            Assert.Empty(clean.Items)
+            Assert.Empty(clean.SourceChanges)
+
+            let policy = read root
+            let policyPath = Path.Combine(root, "fdull.json")
+
+            let policyWithUnused =
+                { policy with
+                    Capabilities =
+                        [ { File = "App.fs"
+                            Owner = "App.increment"
+                            Kind = "type"
+                            Identity =
+                              "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | System.Uri"
+                            Reason = "Intentionally unused contract verifies advisory removal evidence." } ] }
+
+            File.WriteAllText(policyPath, Codec.encode policyWithUnused)
+            let unused = Workspace.review root
+            Assert.True(unused.AnalysisComplete, WorkspaceReview.format unused)
+            Assert.Equal(1, unused.ExitCode)
+            Assert.Single(unused.UnusedCapabilities) |> ignore
+
+            File.WriteAllText(Path.Combine(root, "App.fs"), "module App\nlet value: int = \"wrong\"\n")
+            let compilerError = Workspace.review root
+            Assert.False(compilerError.AnalysisComplete)
+            Assert.Equal(3, compilerError.ExitCode)
+            Assert.Empty(compilerError.UnusedCapabilities)
+
+            Assert.Contains(
+                compilerError.Items,
+                fun item ->
+                    item.Evidence
+                    |> List.exists (fun evidence -> evidence.Rule.StartsWith("FS", StringComparison.Ordinal))
+            )
+
+            Assert.Contains("Findings are partial", WorkspaceReview.format compilerError)
+
+            File.AppendAllText(Path.Combine(root, "Directory.Build.props"), "\n")
+            let buildDrift = Workspace.review root
+            Assert.False(buildDrift.AnalysisComplete)
+            Assert.Equal(3, buildDrift.ExitCode)
+            Assert.Empty(buildDrift.Projects)
+            Assert.Contains(buildDrift.Errors, fun error -> error.StartsWith("BUILD005:", StringComparison.Ordinal)))
+
+    [<Fact>]
     let ``initialization discovers reviewed mixed-language scope and exports Web SDK inputs without compiling`` () =
         withDirectory (fun root ->
             restoreConsumer root None "module App\nlet value: int = \"not an integer\"\n"

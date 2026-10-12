@@ -165,7 +165,7 @@ module SafetyEngine =
                             (Set.ofList files)
                             checkedProject
                             syntax
-                            emit
+                            (fun id r symbol message alternative _ -> emit id r symbol message alternative)
 
                         complete <- true
 

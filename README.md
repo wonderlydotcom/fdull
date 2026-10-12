@@ -168,6 +168,8 @@ into application code changes the trust model.
 ```sh
 dotnet fdull lint . --format json
 dotnet fdull lint . --format sarif
+dotnet fdull review .
+dotnet fdull review . --format json
 dotnet fdull coverage
 ```
 
@@ -183,6 +185,37 @@ locked restores and serial builds, then analyzes and recompiles each project in
 dependency order without rebuilding its dependencies. Source, reference, policy
 and evaluated compiler inputs are compared before accepting the result. JSON includes completeness and errors.
 SARIF includes diagnostics and an invocation success flag; also check the exit code.
+
+`review` presents an **advisory** review inventory for the current source snapshot.
+It groups actual findings by file, declaration, profile, permission kind and exact
+resolved identity, with source locations, rules and evidence. Each item says whether
+an exact contract can be reviewed or the source must change. Catalog-approved
+operations and unsuccessful permission lookups that still pass ordinary analysis
+do not create review items. A type contract does not approve the type's methods.
+
+Unlike `lint`, `review` can examine authored source whose reviewed fingerprint is
+stale. It lists changed files, reviewed/current hashes and existing contracts that
+need renewed review. Policy structure, source inventory, project edges, compiler
+settings and protected build fingerprints still have to validate. Review uses the
+same bounded worker and detects changes to the current snapshot during analysis.
+It does not edit source, permissions or fingerprints, perform verification, or
+generate permission entries from findings. MSBuild export can update generated
+build metadata, as it does for `lint`.
+
+For `review`, exit `0` means complete advisory analysis with no outstanding review
+items, source drift or unused contracts; exit `1` means complete advisory analysis
+with review work remaining; exit `3` means the inventory is incomplete or blocked.
+Neither a complete review report nor exit `0` certifies a build. Incomplete reports
+retain available evidence and blockers and make no unused-contract claims. Some
+nested requirements can still appear after earlier contracts are resolved; the
+review inventory covers findings reachable in the current analysis.
+
+The workflow is: run `review`, inspect the reported declarations and regression
+evidence, intentionally edit exact contracts and reviewed fingerprints, then run
+`verify`. JSON review reports have a distinct advisory schema (`Advisory`,
+`AnalysisComplete`, `Items`, `SourceChanges`, `UnusedCapabilities`,
+`UnusedConstructors`, `Errors` and per-project analysis/evidence); they cannot be
+decoded as authoritative workspace reports.
 
 ## Library integration and limits
 

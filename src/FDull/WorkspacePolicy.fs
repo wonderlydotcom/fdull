@@ -54,6 +54,14 @@ type WorkspaceUse =
       Kind: string
       Identity: string }
 
+/// Advisory evidence for an actual unsatisfied finding, not a permission entry.
+type WorkspaceReviewFinding =
+    { Diagnostic: SafetyDiagnostic
+      Owner: string
+      Kind: string
+      Identity: string
+      Resolution: string }
+
 /// Validate the exported invocation as well as the MSBuild property defaults.
 module WorkspaceCompilerPolicy =
     let required =
@@ -136,6 +144,36 @@ module internal WorkspacePolicy =
 
     let externalKinds = [ "implementation"; "automation"; "tooling" ]
 
+    let ruleReviewable profile (rule: string) =
+        SafetyRules.knownDiagnostic rule
+        && not (rule.StartsWith("BUILD", StringComparison.Ordinal))
+        && not (rule.StartsWith("ATTR", StringComparison.Ordinal))
+        && not (rule.StartsWith("FS", StringComparison.Ordinal))
+        && not (List.contains rule [ "DATA001"; "DATA005"; "MODEL001"; "MODEL002"; "MODEL003"; "EFFECT001" ])
+        && (not (List.contains profile [ "PURE"; "PURE_HELPER"; "CONTRACTS" ])
+            || (profile = "PURE_HELPER" && rule = "STYLE003"))
+
+    let reviewResolution profile (rule: string) kind =
+        if
+            rule.StartsWith("BUILD", StringComparison.Ordinal)
+            || rule.StartsWith("ARCH", StringComparison.Ordinal)
+        then
+            "analysis-blocked"
+        else
+            let reviewable =
+                match kind with
+                | "type"
+                | "attribute"
+                | "constructor" -> true
+                | "member" ->
+                    not (List.contains profile [ "PURE"; "PURE_HELPER" ])
+                    || rule = "EFFECT001"
+                    || (profile = "PURE_HELPER" && rule = "STYLE003")
+                | "rule" -> ruleReviewable profile rule
+                | _ -> false
+
+            if reviewable then "contract-review" else "code-change"
+
     let internal localFile (file: string) =
         not (String.IsNullOrWhiteSpace file)
         && not (Path.IsPathRooted file)
@@ -179,7 +217,7 @@ module internal WorkspacePolicy =
         then
             invalidOp "BUILD005: Duplicate or overlapping external workspace classification."
 
-    let read root =
+    let private readWithSourceDrift allowSourceDrift root =
         let path = Path.Combine(root, "fdull.json")
         let document = File.ReadAllText path |> decodeDocument
 
@@ -217,7 +255,9 @@ module internal WorkspacePolicy =
             then
                 invalidOp "BUILD005: Invalid workspace source assignment."
 
-            if SafetyPolicy.fileDigest (Path.Combine(root, source.File)) <> source.Digest then
+            let current = SafetyPolicy.fileDigest (Path.Combine(root, source.File))
+
+            if not allowSourceDrift && current <> source.Digest then
                 invalidOp (
                     "BUILD005: Source changed since its exact contracts were reviewed: "
                     + source.File
@@ -280,11 +320,7 @@ module internal WorkspacePolicy =
 
             if
                 entry.Kind = "rule"
-                && List.contains effective [ "PURE"; "PURE_HELPER"; "CONTRACTS" ]
-                && not (
-                    effective = "PURE_HELPER"
-                    && entry.Identity.StartsWith("STYLE003 | ", StringComparison.Ordinal)
-                )
+                && not (ruleReviewable effective (entry.Identity.Split(" | ")[0]))
             then
                 invalidOp "BUILD005: Data and pure profiles cannot receive safety exemptions."
 
@@ -298,6 +334,11 @@ module internal WorkspacePolicy =
             invalidOp "BUILD005: Duplicate workspace capability."
 
         document
+
+    let read root = readWithSourceDrift false root
+
+    /// Only authored source drift is allowed. Build fingerprints and policy structure remain exact.
+    let readForReview root = readWithSourceDrift true root
 
     let private region (r: range) =
         { File = r.FileName
@@ -471,7 +512,7 @@ module internal WorkspacePolicy =
             else
                 allowed "member" (memberInfo.Assembly.QualifiedName + " | " + memberInfo.XmlDocSig) r
 
-        let typeAllowed r (entity: FSharpEntity) =
+        let typeIdentity (entity: FSharpEntity) =
             let identity =
                 if String.IsNullOrWhiteSpace entity.Assembly.QualifiedName then
                     let location = entity.DeclarationLocation
@@ -479,7 +520,48 @@ module internal WorkspacePolicy =
                 else
                     entity.Assembly.QualifiedName
 
-            allowed "type" (identity + " | " + SafetyPolicy.entityName entity) r
+            identity + " | " + SafetyPolicy.entityName entity
+
+        let typeAllowed r entity = allowed "type" (typeIdentity entity) r
+
+        let constructorIdentity (memberInfo: FSharpMemberOrFunctionOrValue) =
+            let location = memberInfo.DeclarationLocation
+
+            relative location.FileName
+            + " | "
+            + memberInfo.Assembly.QualifiedName
+            + " | "
+            + memberInfo.XmlDocSig
+            + " -> "
+            + memberInfo.FullType.Format(FSharpDisplayContext.Empty)
+
+        let attributeIdentity (attribute: SynAttribute) (entity: FSharpEntity) =
+            let rec argument expression =
+                match expression with
+                | SynExpr.Paren(expression, _, _, _)
+                | SynExpr.Typed(expression, _, _) -> argument expression
+                | SynExpr.Const(SynConst.Unit, _) -> Some "unit"
+                | SynExpr.Const(SynConst.String(value, _, _), _) -> Some("string:" + Codec.encode value)
+                | SynExpr.Const(SynConst.Bool value, _) -> Some("bool:" + string value)
+                | SynExpr.Const(SynConst.Int32 value, _) -> Some("int32:" + string value)
+                | SynExpr.Tuple(_, expressions, _, _) ->
+                    let arguments = expressions |> List.map argument
+
+                    if arguments |> List.exists Option.isNone then
+                        None
+                    else
+                        arguments |> List.choose id |> Codec.encode |> Some
+                | _ -> None
+
+            argument attribute.ArgExpr
+            |> Option.map (fun arguments ->
+                entity.Assembly.QualifiedName
+                + " | "
+                + SafetyPolicy.entityName entity
+                + " | "
+                + (attribute.Target |> Option.map _.idText |> Option.defaultValue "")
+                + " | "
+                + arguments)
 
         let generatedPermission rule (r: range) symbol =
             let normalized = r.FileName.Replace('\\', '/')
@@ -563,15 +645,7 @@ module internal WorkspacePolicy =
               Constructor =
                 fun memberInfo ->
                     let location = memberInfo.DeclarationLocation
-
-                    let identity =
-                        relative location.FileName
-                        + " | "
-                        + memberInfo.Assembly.QualifiedName
-                        + " | "
-                        + memberInfo.XmlDocSig
-                        + " -> "
-                        + memberInfo.FullType.Format(FSharpDisplayContext.Empty)
+                    let identity = constructorIdentity memberInfo
 
                     observed.Add
                         { File = relative location.FileName
@@ -582,35 +656,9 @@ module internal WorkspacePolicy =
                     Set.contains identity constructors
               Attribute =
                 fun attribute entity ->
-                    let rec argument expression =
-                        match expression with
-                        | SynExpr.Paren(expression, _, _, _)
-                        | SynExpr.Typed(expression, _, _) -> argument expression
-                        | SynExpr.Const(SynConst.Unit, _) -> Some "unit"
-                        | SynExpr.Const(SynConst.String(value, _, _), _) -> Some("string:" + Codec.encode value)
-                        | SynExpr.Const(SynConst.Bool value, _) -> Some("bool:" + string value)
-                        | SynExpr.Const(SynConst.Int32 value, _) -> Some("int32:" + string value)
-                        | SynExpr.Tuple(_, expressions, _, _) ->
-                            let arguments = expressions |> List.map argument
-
-                            if arguments |> List.exists Option.isNone then
-                                None
-                            else
-                                arguments |> List.choose id |> Codec.encode |> Some
-                        | _ -> None
-
-                    match argument attribute.ArgExpr with
+                    match attributeIdentity attribute entity with
                     | None -> false
-                    | Some arguments ->
-                        let identity =
-                            entity.Assembly.QualifiedName
-                            + " | "
-                            + SafetyPolicy.entityName entity
-                            + " | "
-                            + (attribute.Target |> Option.map _.idText |> Option.defaultValue "")
-                            + " | "
-                            + arguments
-
+                    | Some identity ->
                         allowedIn
                             (if attribute.Target |> Option.exists (fun target -> target.idText = "assembly") then
                                  "<assembly>"
@@ -620,4 +668,31 @@ module internal WorkspacePolicy =
                             identity
                             attribute.Range }
 
-        context, (fun () -> observed |> Seq.distinct |> Seq.sort |> Seq.toList)
+        let describe (diagnostic: SafetyDiagnostic) (r: range) contract =
+            let scope = owner r
+
+            let kind, identity =
+                match contract with
+                | Some(TypeContract entity) -> "type", typeIdentity entity
+                | Some(MemberContract memberInfo) ->
+                    "member", memberInfo.Assembly.QualifiedName + " | " + memberInfo.XmlDocSig
+                | Some(ConstructorContract memberInfo) -> "constructor", constructorIdentity memberInfo
+                | Some(AttributeContract(attribute, entity)) ->
+                    match attributeIdentity attribute entity with
+                    | Some identity -> "attribute", identity
+                    | None -> "source", diagnostic.Symbol
+                | None -> "rule", diagnostic.Rule + " | " + diagnostic.Symbol
+
+            { Diagnostic = diagnostic
+              Owner =
+                match contract with
+                | Some(AttributeContract(attribute, _)) when
+                    attribute.Target |> Option.exists (fun target -> target.idText = "assembly")
+                    ->
+                    "<assembly>"
+                | _ -> scope
+              Kind = kind
+              Identity = identity
+              Resolution = reviewResolution diagnostic.Profile diagnostic.Rule kind }
+
+        context, (fun () -> observed |> Seq.distinct |> Seq.sort |> Seq.toList), describe

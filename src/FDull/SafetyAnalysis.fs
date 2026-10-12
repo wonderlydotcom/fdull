@@ -337,7 +337,16 @@ module internal SafetyAnalysis =
         let domainEntity (e: FSharpEntity) = localEntity e || context.Domain e
 
         let emitAt id r symbol message =
-            emit id r symbol message "Use explicit immutable data, Result/Option, or an approved platform API."
+            emit id r symbol message "Use explicit immutable data, Result/Option, or an approved platform API." None
+
+        let emitContract contract id r symbol message =
+            emit
+                id
+                r
+                symbol
+                message
+                "Use explicit immutable data, Result/Option, or an approved platform API."
+                (Some contract)
 
         let rec shapeAt depth dataOnly path (visited: Set<string>) (t: FSharpType) r =
             budget.Visit depth
@@ -380,13 +389,23 @@ module internal SafetyAnalysis =
                     let visited = Set.add key visited
 
                     if e.IsArrayType then
-                        emitAt "MUT008" r path "Arrays are mutable, including nested and multidimensional arrays."
+                        emitContract
+                            (TypeContract e)
+                            "MUT008"
+                            r
+                            path
+                            "Arrays are mutable, including nested and multidimensional arrays."
                     elif e.IsByRef then
-                        emitAt "NATIVE003" r path "Authored byref/outref/inref capabilities are prohibited."
+                        emitContract
+                            (TypeContract e)
+                            "NATIVE003"
+                            r
+                            path
+                            "Authored byref/outref/inref capabilities are prohibited."
                     else
                         match typeRule name with
                         | Some(id, message) ->
-                            emitAt id r (path + " -> " + name) message
+                            emitContract (TypeContract e) id r (path + " -> " + name) message
 
                             if dataOnly && path.Contains('.') && (id = "MUT005" || id = "MUT008") then
                                 emitAt "MUT010" r path "An immutable wrapper contains a mutable or aliasable payload."
@@ -419,7 +438,8 @@ module internal SafetyAnalysis =
                                             (field.FieldType.Instantiate substitution)
                                             r
                                 else
-                                    emitAt
+                                    emitContract
+                                        (TypeContract e)
                                         "MODEL001"
                                         r
                                         (path + " -> " + name)
@@ -427,7 +447,8 @@ module internal SafetyAnalysis =
                             elif approved then
                                 ()
                             else
-                                emitAt
+                                emitContract
+                                    (TypeContract e)
                                     "MODEL001"
                                     r
                                     (path + " -> " + name)
@@ -515,9 +536,10 @@ module internal SafetyAnalysis =
                             && rule |> Option.exists (fun (id, _) -> id = "STYLE003")))
                     ->
                     ()
-                | Some(id, message) -> emitAt id r m.FullName message
+                | Some(id, message) -> emitContract (MemberContract m) id r m.FullName message
                 | None when not (localMember m) && not (SafetyPolicy.approvedApi m) ->
-                    emitAt
+                    emitContract
+                        (MemberContract m)
                         "EFFECT001"
                         r
                         (m.Assembly.QualifiedName + " | " + m.XmlDocSig)
@@ -608,7 +630,8 @@ module internal SafetyAnalysis =
                                     containsPrivateDomain Set.empty m.ReturnParameter.Type
                                     && not (context.Constructor m)
                                 then
-                                    emitAt
+                                    emitContract
+                                        (ConstructorContract m)
                                         "MODEL003"
                                         useSite.Range
                                         m.FullName
@@ -654,7 +677,8 @@ module internal SafetyAnalysis =
                         && not e.IsFSharpUnion
                         && not (context.Type useSite.Range e)
                     then
-                        emitAt
+                        emitContract
+                            (TypeContract e)
                             "MODEL001"
                             useSite.Range
                             e.DisplayName
@@ -728,7 +752,8 @@ module internal SafetyAnalysis =
                             && unitArgument
                         )
                     then
-                        emitAt
+                        emitContract
+                            (AttributeContract(attr, entity))
                             id
                             attr.Range
                             name
@@ -883,11 +908,15 @@ module internal SafetyAnalysis =
 
             match expr with
             | FSharpExprPatterns.ObjectExpr(objectType, _, _, _) ->
-                if
-                    not objectType.HasTypeDefinition
-                    || not (context.Type expr.Range objectType.TypeDefinition)
-                then
+                if not objectType.HasTypeDefinition then
                     emitAt
+                        "MODEL001"
+                        expr.Range
+                        "object expression"
+                        "The executable object has no resolved interface contract."
+                elif not (context.Type expr.Range objectType.TypeDefinition) then
+                    emitContract
+                        (TypeContract objectType.TypeDefinition)
                         "MODEL001"
                         expr.Range
                         "object expression"

@@ -403,3 +403,35 @@ module WorkspaceTests =
               { useSite with Kind = "permission" }
               { useSite with Identity = "" } ] do
             Assert.True(validate 0 "" { result with Uses = [ malformed ] } |> Result.isError)
+
+        let finding =
+            { Diagnostic = diagnostic
+              Owner = "Fixture.value"
+              Kind = "rule"
+              Identity = "MUT001 | value"
+              Resolution = "code-change" }
+
+        let review =
+            { Advisory = true
+              Analysis = violation
+              Findings = [ finding ] }
+
+        Assert.Equal(Ok(), WorkspaceReview.validate request policy 1 "" review)
+
+        for malformed in
+            [ { review with Advisory = false }
+              { review with Findings = [] }
+              { review with
+                  Findings =
+                      [ { finding with
+                            Resolution = "contract-review" } ] }
+              { review with
+                  Findings = [ { finding with Owner = "" } ] }
+              { review with
+                  Findings = [ { finding with Kind = "permission" } ] }
+              { review with
+                  Findings = [ { finding with Identity = "" } ] } ] do
+            Assert.True(WorkspaceReview.validate request policy 1 "" malformed |> Result.isError)
+
+        Assert.ThrowsAny<Exception>(fun () -> Codec.encode review |> Codec.decode<WorkspaceProjectReport> |> ignore)
+        |> ignore
