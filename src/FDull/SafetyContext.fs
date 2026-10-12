@@ -4,6 +4,14 @@ open FSharp.Compiler.Symbols
 open FSharp.Compiler.Text
 open FSharp.Compiler.Syntax
 
+/// Resolved evidence attached only to an emitted finding, never to a permission lookup.
+[<NoEquality; NoComparison>]
+type internal SafetyReviewContract =
+    | TypeContract of FSharpEntity
+    | MemberContract of FSharpMemberOrFunctionOrValue
+    | AttributeContract of SynAttribute * FSharpEntity
+    | ConstructorContract of FSharpMemberOrFunctionOrValue
+
 /// Platform policy supplies this context; application source cannot select it.
 [<NoEquality; NoComparison>]
 type internal SafetyContext =

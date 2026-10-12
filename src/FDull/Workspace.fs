@@ -171,7 +171,7 @@ module Workspace =
                           Generated = generated
                           ProjectReferences = projectReferences }
 
-    let private request root project =
+    let private requestUsing advisory root project =
         export root project
         |> Result.map (fun invocation ->
             { Root = root
@@ -182,13 +182,17 @@ module Workspace =
               References = invocation.References |> List.map input
               Generated = invocation.Generated
               BuildInputs =
-                (WorkspacePolicy.read root).Inputs
+                (if advisory then
+                     WorkspacePolicy.readForReview root
+                 else
+                     WorkspacePolicy.read root)
+                    .Inputs
                 |> List.map (fun pin ->
                     { Path = Path.Combine(root, pin.File)
                       Digest = pin.Digest })
               Policy = input (Path.Combine(root, "fdull.json")) })
 
-    let private analyze (request: WorkspaceRequest) =
+    let private analyzeUsing advisory (request: WorkspaceRequest) =
         let worker = Path.Combine(AppContext.BaseDirectory, "safety-worker")
         let engine = Path.Combine(worker, "FDull.dll")
 
@@ -218,7 +222,7 @@ module Workspace =
                 )
 
             start.ArgumentList.Add(Path.Combine(worker, "fdull-worker.dll"))
-            start.ArgumentList.Add "--workspace"
+            start.ArgumentList.Add(if advisory then "--workspace-review" else "--workspace")
             start.Environment.Clear()
             start.Environment["DOTNET_ROOT"] <- runtimeRoot ()
             start.Environment["DOTNET_GCHeapHardLimit"] <- "20000000"
@@ -234,7 +238,15 @@ module Workspace =
             with
             | Error error -> Error("BUILD003: " + error)
             | Ok output ->
-                let result = Codec.decode<WorkspaceProjectReport> output.Output
+                let review =
+                    if advisory then
+                        Codec.decode<WorkspaceReviewProjectReport> output.Output
+                    else
+                        { Advisory = false
+                          Analysis = Codec.decode<WorkspaceProjectReport> output.Output
+                          Findings = [] }
+
+                let result = review.Analysis
                 let report = result.Report
 
                 if
@@ -249,13 +261,28 @@ module Workspace =
                 then
                     Error "BUILD004: The workspace worker report differs from its requested inputs."
                 else
-                    WorkspaceProtocol.validate
-                        request
-                        (WorkspacePolicy.read request.Root)
-                        output.ExitCode
-                        output.Error
-                        result
-                    |> Result.map (fun () -> result)
+                    let validation =
+                        if advisory then
+                            WorkspaceReview.validate
+                                request
+                                (WorkspacePolicy.readForReview request.Root)
+                                output.ExitCode
+                                output.Error
+                                review
+                        else
+                            WorkspaceProtocol.validate
+                                request
+                                (WorkspacePolicy.read request.Root)
+                                output.ExitCode
+                                output.Error
+                                result
+
+                    validation |> Result.map (fun () -> review)
+
+    let private request root project = requestUsing false root project
+
+    let private analyze request =
+        analyzeUsing false request |> Result.map _.Analysis
 
     let checkProject platform project =
         try
@@ -321,17 +348,77 @@ module Workspace =
         let root = Path.GetFullPath platform
         checkUsing root (fun project -> request root project |> Result.bind analyze)
 
-    let serve (input: TextReader) (output: TextWriter) =
+    /// Analyze a current-source snapshot for human review, without updating or certifying policy.
+    let review platform =
+        let root = Path.GetFullPath platform
+        let errors = ResizeArray<string>()
+        let projects = ResizeArray<WorkspaceReviewProjectReport>()
+        let mutable policy = None
+        let mutable snapshot = []
+
+        try
+            let document = WorkspacePolicy.readForReview root
+            WorkspaceAudit.validate root document
+            policy <- Some document
+            let pin = input (Path.Combine(root, "fdull.json"))
+
+            snapshot <-
+                document.Sources
+                |> List.map (fun source -> input (Path.Combine(root, source.File)))
+
+            for project in WorkspaceAudit.order document.Projects do
+                match requestUsing true root project |> Result.bind (analyzeUsing true) with
+                | Ok report -> projects.Add report
+                | Error error -> errors.Add(project + ": " + error)
+
+            if
+                pin <> input pin.Path
+                || snapshot |> List.exists (fun expected -> input expected.Path <> expected)
+                || projects
+                   |> Seq.exists (fun project ->
+                       project.Analysis.Report.Sources @ project.Analysis.Report.References
+                       |> List.exists (fun expected -> input expected.Path <> expected))
+                || document <> WorkspacePolicy.readForReview root
+            then
+                errors.Add "BUILD004: Review inputs changed during analysis."
+        with error ->
+            errors.Add error.Message
+
+        match policy with
+        | Some document -> WorkspaceReview.create root document snapshot (List.ofSeq projects) (List.ofSeq errors)
+        | None ->
+            { Advisory = true
+              AnalysisComplete = false
+              ExitCode = 3
+              Projects = []
+              Items = []
+              SourceChanges = []
+              UnusedCapabilities = []
+              UnusedConstructors = []
+              Errors = List.ofSeq errors }
+
+    let private serveUsing advisory (input: TextReader) (output: TextWriter) =
         try
             let request =
                 SafetyProcess.readBounded SafetyLimits.messageCharacters input
                 |> _.GetAwaiter().GetResult()
                 |> Codec.decode<WorkspaceRequest>
 
-            let report = WorkspaceEngine.check request
-            output.Write(Codec.encode report)
+            let code, text =
+                if advisory then
+                    let review = WorkspaceEngine.review request
+                    review.Analysis.Report.ExitCode, Codec.encode review
+                else
+                    let report = WorkspaceEngine.check request
+                    report.Report.ExitCode, Codec.encode report
+
+            output.Write text
             output.Flush()
-            report.Report.ExitCode
+            code
         with error ->
             Console.Error.WriteLine("BUILD003: " + error.Message)
             3
+
+    let serve input output = serveUsing false input output
+
+    let serveReview input output = serveUsing true input output

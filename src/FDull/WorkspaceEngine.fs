@@ -23,6 +23,12 @@ type WorkspaceProjectReport =
       Report: SafetyReport
       Uses: WorkspaceUse list }
 
+/// A distinct worker response prevents advisory source analysis from certifying a build.
+type WorkspaceReviewProjectReport =
+    { Advisory: bool
+      Analysis: WorkspaceProjectReport
+      Findings: WorkspaceReviewFinding list }
+
 /// The parent validates process status and every diagnostic/use before trusting a report.
 module WorkspaceProtocol =
     let validate
@@ -81,7 +87,7 @@ module WorkspaceProtocol =
 module WorkspaceEngine =
     let private checker = lazy (FSharpChecker.Create(keepAssemblyContents = true))
 
-    let check (request: WorkspaceRequest) =
+    let private analyze advisory (request: WorkspaceRequest) =
         let budget =
             SafetyBudget(maximumSteps = 2000000, maximumDepth = 512, milliseconds = 45000)
 
@@ -89,12 +95,21 @@ module WorkspaceEngine =
         let mutable complete = false
         let mutable uses = []
         let mutable observations = fun () -> []
+        let findings = ResizeArray<WorkspaceReviewFinding>()
+
+        let describeGlobal =
+            fun diagnostic (_: range) (_: SafetyReviewContract option) ->
+                { Diagnostic = diagnostic
+                  Owner = "<workspace>"
+                  Kind = "rule"
+                  Identity = diagnostic.Rule + " | " + diagnostic.Symbol
+                  Resolution = "analysis-blocked" }
 
         let initialContext =
             { SafetyContext.application with
                 Project = request.Project }
 
-        let emitWith context rule (r: range) symbol message alternative =
+        let emitWith context describe rule (r: range) symbol message alternative contract =
             if not (SafetyRules.knownDiagnostic rule) then
                 invalidOp "Unknown diagnostic classification."
 
@@ -102,7 +117,7 @@ module WorkspaceEngine =
                 if diagnostics.Count >= 4096 then
                     invalidOp "Workspace diagnostic budget exceeded."
 
-                diagnostics.Add
+                let diagnostic =
                     { Rule = rule
                       Severity = "error"
                       File = r.FileName
@@ -117,14 +132,21 @@ module WorkspaceEngine =
                       Alternative = alternative
                       Policy = request.Policy.Digest }
 
+                diagnostics.Add diagnostic
+
+                if advisory then
+                    findings.Add(describe diagnostic r contract)
+
         let globalError rule message =
             emitWith
                 initialContext
+                describeGlobal
                 rule
                 (Range.mkRange request.Project (Position.mkPos 1 0) (Position.mkPos 1 1))
                 ""
                 message
                 "Use complete protected workspace inputs."
+                None
 
         try
             if
@@ -147,7 +169,11 @@ module WorkspaceEngine =
             | Error error -> invalidOp error
             | Ok() -> ()
 
-            let policy = WorkspacePolicy.read request.Root
+            let policy =
+                if advisory then
+                    WorkspacePolicy.readForReview request.Root
+                else
+                    WorkspacePolicy.read request.Root
 
             let buildInputs =
                 policy.Inputs
@@ -260,7 +286,7 @@ module WorkspaceEngine =
                 checker.Value.ParseAndCheckProject options
                 |> fun work -> Async.RunSynchronously(work, budget.RemainingMilliseconds)
 
-            let resolved, observed =
+            let resolved, observed, explain =
                 WorkspacePolicy.context
                     request.Root
                     request.Project
@@ -271,11 +297,11 @@ module WorkspaceEngine =
                     syntax
 
             let context = resolved
-            let emit = emitWith context
+            let emit = emitWith context explain
             observations <- observed
 
             for rule, r, symbol, message, alternative in syntaxDiagnostics do
-                emit rule r symbol message alternative
+                emit rule r symbol message alternative None
 
             for diagnostic in result.Diagnostics do
                 if
@@ -288,6 +314,7 @@ module WorkspaceEngine =
                         ""
                         diagnostic.Message
                         "Fix the compiler diagnostic."
+                        None
 
             if
                 result.HasCriticalErrors
@@ -336,18 +363,36 @@ module WorkspaceEngine =
             |> Seq.sortBy (fun d -> d.File, d.StartLine, d.StartColumn, d.Rule, d.Symbol)
             |> Seq.toList
 
-        { Project = request.Project
-          ProjectReferences = request.ProjectReferences
-          Report =
-            { Policy = request.Policy.Digest
-              Tool = SafetyPolicy.fileDigest typeof<SafetyReport>.Assembly.Location
-              Complete = complete
-              ExitCode =
-                if not complete then 3
-                elif ordered.IsEmpty then 0
-                else 1
-              Sources = request.Sources
-              References = request.References
-              Arguments = request.Arguments
-              Diagnostics = ordered }
-          Uses = uses }
+        let analysis =
+            { Project = request.Project
+              ProjectReferences = request.ProjectReferences
+              Report =
+                { Policy = request.Policy.Digest
+                  Tool = SafetyPolicy.fileDigest typeof<SafetyReport>.Assembly.Location
+                  Complete = complete
+                  ExitCode =
+                    if not complete then 3
+                    elif ordered.IsEmpty then 0
+                    else 1
+                  Sources = request.Sources
+                  References = request.References
+                  Arguments = request.Arguments
+                  Diagnostics = ordered }
+              Uses = uses }
+
+        { Advisory = advisory
+          Analysis = analysis
+          Findings =
+            findings
+            |> Seq.distinct
+            |> Seq.sortBy (fun item ->
+                item.Diagnostic.File,
+                item.Diagnostic.StartLine,
+                item.Diagnostic.StartColumn,
+                item.Diagnostic.Rule,
+                item.Identity)
+            |> Seq.toList }
+
+    let check request = (analyze false request).Analysis
+
+    let review request = analyze true request

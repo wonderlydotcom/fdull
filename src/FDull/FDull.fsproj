@@ -24,6 +24,7 @@
     <Compile Include="WorkspacePolicy.fs" />
     <Compile Include="WorkspaceAudit.fs" />
     <Compile Include="WorkspaceEngine.fs" />
+    <Compile Include="WorkspaceReview.fs" />
     <Compile Include="Workspace.fs" />
     <Compile Include="Safety.fs" />
     <Compile Include="Project.fs" />

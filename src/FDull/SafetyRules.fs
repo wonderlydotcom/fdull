@@ -239,6 +239,7 @@ module SafetyRules =
                 "SafetyWorkerTests.an allocation beyond the worker heap ceiling fails inside the child"
                 "WorkspaceTests.workspace reports reject inconsistent process diagnostics and observations"
                 "WorkspaceTests.mixed-language scope and internal links preserve inventory boundaries"
+                "ProjectTests.advisory review reports blockers and never infers unused contracts from partial analysis"
                 "ProjectTests.supported Web test SDK xUnit v3 and Aspire generated-source profiles are exact" ]
               "Complete supported-profile/unknown-classification compatibility coverage; resource limits do not prove termination."
           rule
@@ -257,6 +258,8 @@ module SafetyRules =
               false
               [ "WorkspaceTests.policy and inventory drift cannot certify a workspace"
                 "WorkspaceTests.permissions bind exact owners and cannot survive as unused entries"
+                "ProjectTests.advisory review groups actual findings and preserves stale source rejection"
+                "ProjectTests.advisory review reports blockers and never infers unused contracts from partial analysis"
                 "WorkspaceTests.mixed-language scope and internal links preserve inventory boundaries" ]
               "Temporary exceptions are unsupported. Organizational review identities and expiry require an external policy authority."
           rule

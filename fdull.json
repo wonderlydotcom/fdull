@@ -66,7 +66,7 @@
       "File": "src/FDull/SafetyRules.fs",
       "Project": "src/FDull/FDull.fsproj",
       "Profile": "GUARD_TOOLING",
-      "Digest": "sha256:d2ab75a9dc82c1011adac823446666c15e735c842cf6ce6a3a34542687479269"
+      "Digest": "sha256:6a789d8f9fff5c854f7095f7994c6a3cee49f283afb0de339d893b628227f3c5"
     },
     {
       "File": "src/FDull/SafetyPolicy.fs",
@@ -102,19 +102,19 @@
       "File": "src/FDull/SafetyContext.fs",
       "Project": "src/FDull/FDull.fsproj",
       "Profile": "GUARD_TOOLING",
-      "Digest": "sha256:6b38a6c7aa153ef04bf5c32e46483d5bb48e9376379fbf95aef5bf0f6028a4b6"
+      "Digest": "sha256:eb1e06c774224a4fd6cb63b577b12173102a9b6e8b76c11a30c3d62a5deb0cc8"
     },
     {
       "File": "src/FDull/SafetyAnalysis.fs",
       "Project": "src/FDull/FDull.fsproj",
       "Profile": "GUARD_TOOLING",
-      "Digest": "sha256:41cc8408f9347f04872f16197337490dfd8b6f5eb1e06e6a4b592cc2cf48acf9"
+      "Digest": "sha256:ce75d67b9e9e3152b8121506746f6c2d12244e8593c82c197f780d725dd3536f"
     },
     {
       "File": "src/FDull/SafetyEngine.fs",
       "Project": "src/FDull/FDull.fsproj",
       "Profile": "GUARD_TOOLING",
-      "Digest": "sha256:d479854158d42e1294239009f266577529054ac2c46054b10abc61ec725ba9a2"
+      "Digest": "sha256:3be9366e8918df271d90d25d5e47ca513748323f152ed7f1a5c439576b7b920b"
     },
     {
       "File": "src/FDull/WorkspaceGenerated.fs",
@@ -126,7 +126,7 @@
       "File": "src/FDull/WorkspacePolicy.fs",
       "Project": "src/FDull/FDull.fsproj",
       "Profile": "GUARD_TOOLING",
-      "Digest": "sha256:d02d26fa2ba4934654ae758c6d8d54b8b3ea6df7b0bae7e63083aa5e2de8805f"
+      "Digest": "sha256:91bf500cc21ba3280e2b35c2f1a4b08045209a58faf5f37af65102a5d4c9440c"
     },
     {
       "File": "src/FDull/WorkspaceAudit.fs",
@@ -138,13 +138,13 @@
       "File": "src/FDull/WorkspaceEngine.fs",
       "Project": "src/FDull/FDull.fsproj",
       "Profile": "GUARD_TOOLING",
-      "Digest": "sha256:cded5c9a06bb8d2c8a9aa56d54e72da37b7c5125a1f46b72d2e3dc681053648d"
+      "Digest": "sha256:f3ed3a1055da974ecb475027b4d625340a86ae835d94ea7282ead19f07ac2698"
     },
     {
       "File": "src/FDull/Workspace.fs",
       "Project": "src/FDull/FDull.fsproj",
       "Profile": "GUARD_TOOLING",
-      "Digest": "sha256:7c97bfea169c19793c4127797f1fd8a4c698302720b02638276433f0513ec199"
+      "Digest": "sha256:fba1ee34d28e55844457e8160fd2ff028f3ce79980dfd35a439e6e9835cb429a"
     },
     {
       "File": "src/FDull/Safety.fs",
@@ -168,13 +168,13 @@
       "File": "src/FDull.Tool/Program.fs",
       "Project": "src/FDull.Tool/FDull.Tool.fsproj",
       "Profile": "GUARD_TOOLING",
-      "Digest": "sha256:84be3b896a4fe9389035d73ab40e125fa4bc197d23d318b0ab4b8d1586b260a8"
+      "Digest": "sha256:635c30de849336808d4b07ee194c4fc39aca01c4105b1bbe33627088f6b2081d"
     },
     {
       "File": "src/FDull.Worker/Program.fs",
       "Project": "src/FDull.Worker/FDull.Worker.fsproj",
       "Profile": "GUARD_TOOLING",
-      "Digest": "sha256:0fca33bfa612ea033d0f12ddc9c0c4bfb0a8041018a6c1982da655066b8f1d1b"
+      "Digest": "sha256:70b676102bf9e323b9ab699a6c33c3cb2ebd0e58fffaa0551ec3486ea9ac0b33"
     },
     {
       "File": "tests/FDull.ProcessFixture/Program.fs",
@@ -222,19 +222,25 @@
       "File": "tests/FDull.Tests/WorkspaceTests.fs",
       "Project": "tests/FDull.Tests/FDull.Tests.fsproj",
       "Profile": "TEST",
-      "Digest": "sha256:60a47b970003c812357e5267d4dd580aec12291eabab0ee0d8268105d772d05b"
+      "Digest": "sha256:540cd4ce6b3a828162f59fccd1f230a42697f4a85a9535a48c5889e024feec34"
     },
     {
       "File": "tests/FDull.Tests/ProjectTests.fs",
       "Project": "tests/FDull.Tests/FDull.Tests.fsproj",
       "Profile": "TEST",
-      "Digest": "sha256:a6eb6fba1fc453d34fa5f6e3c755d120594c8492a74723a98077fb4597ed8308"
+      "Digest": "sha256:c1676851f1b0b39907dc8705a8169e9b71b7d3ce28e21ca412148450967b1d3d"
     },
     {
       "File": "tests/FDull.Tests/Program.fs",
       "Project": "tests/FDull.Tests/FDull.Tests.fsproj",
       "Profile": "TEST",
       "Digest": "sha256:333948fa151045c5d3ea7fa55cbbeaf901512e840d0b496534bb4ae5187b639d"
+    },
+    {
+      "File": "src/FDull/WorkspaceReview.fs",
+      "Project": "src/FDull/FDull.fsproj",
+      "Profile": "GUARD_TOOLING",
+      "Digest": "sha256:b21430b3f244f677f89b60a8147de8a4239882ee01fdfa018095301052c1319e"
     }
   ],
   "Inputs": [
@@ -268,7 +274,7 @@
     },
     {
       "File": "src/FDull/FDull.fsproj",
-      "Digest": "sha256:22cc5d8a3dfa7513824c7787bf8315cdcb5bda2d95c01e0331457a5a73cbe743"
+      "Digest": "sha256:c163e9b180245b91b54523d7c760e983e911db00ed88cc6387ce1fa24eda01db"
     },
     {
       "File": "src/FDull/Policy/approved-apis.json",
@@ -5251,147 +5257,147 @@
     },
     {
       "File": "src/FDull/Workspace.fs",
-      "Owner": "FDull.Workspace.analyze",
+      "Owner": "FDull.Workspace.analyzeUsing",
       "Kind": "member",
       "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.ArrayModule.Map\u0060\u00602(Microsoft.FSharp.Core.FSharpFunc{\u0060\u00600,\u0060\u00601},\u0060\u00600[])",
       "Reason": "Workspace authority validates exact reviewed sources, graph and compiler flags, binds build/reference/policy inputs, and rejects incomplete or changed worker responses. Exceptions remain failed checks."
     },
     {
       "File": "src/FDull/Workspace.fs",
-      "Owner": "FDull.Workspace.analyze",
+      "Owner": "FDull.Workspace.analyzeUsing",
       "Kind": "member",
       "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.ArrayModule.Sort\u0060\u00601(\u0060\u00600[])",
       "Reason": "Workspace authority validates exact reviewed sources, graph and compiler flags, binds build/reference/policy inputs, and rejects incomplete or changed worker responses. Exceptions remain failed checks."
     },
     {
       "File": "src/FDull/Workspace.fs",
-      "Owner": "FDull.Workspace.analyze",
+      "Owner": "FDull.Workspace.analyzeUsing",
       "Kind": "member",
       "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Core.Operators.TypeOf\u0060\u00601",
       "Reason": "Workspace authority validates exact reviewed sources, graph and compiler flags, binds build/reference/policy inputs, and rejects incomplete or changed worker responses. Exceptions remain failed checks."
     },
     {
       "File": "src/FDull/Workspace.fs",
-      "Owner": "FDull.Workspace.analyze",
+      "Owner": "FDull.Workspace.analyzeUsing",
       "Kind": "member",
       "Identity": "System.Diagnostics.Process, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.Diagnostics.ProcessStartInfo.#ctor(System.String)",
       "Reason": "Workspace authority validates exact reviewed sources, graph and compiler flags, binds build/reference/policy inputs, and rejects incomplete or changed worker responses. Exceptions remain failed checks."
     },
     {
       "File": "src/FDull/Workspace.fs",
-      "Owner": "FDull.Workspace.analyze",
+      "Owner": "FDull.Workspace.analyzeUsing",
       "Kind": "member",
       "Identity": "System.Diagnostics.Process, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:System.Diagnostics.ProcessStartInfo.ArgumentList",
       "Reason": "Workspace authority validates exact reviewed sources, graph and compiler flags, binds build/reference/policy inputs, and rejects incomplete or changed worker responses. Exceptions remain failed checks."
     },
     {
       "File": "src/FDull/Workspace.fs",
-      "Owner": "FDull.Workspace.analyze",
+      "Owner": "FDull.Workspace.analyzeUsing",
       "Kind": "member",
       "Identity": "System.Diagnostics.Process, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:System.Diagnostics.ProcessStartInfo.Environment",
       "Reason": "Workspace authority validates exact reviewed sources, graph and compiler flags, binds build/reference/policy inputs, and rejects incomplete or changed worker responses. Exceptions remain failed checks."
     },
     {
       "File": "src/FDull/Workspace.fs",
-      "Owner": "FDull.Workspace.analyze",
+      "Owner": "FDull.Workspace.analyzeUsing",
       "Kind": "member",
       "Identity": "System.Diagnostics.Process, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:System.Diagnostics.ProcessStartInfo.WorkingDirectory",
       "Reason": "Workspace authority validates exact reviewed sources, graph and compiler flags, binds build/reference/policy inputs, and rejects incomplete or changed worker responses. Exceptions remain failed checks."
     },
     {
       "File": "src/FDull/Workspace.fs",
-      "Owner": "FDull.Workspace.analyze",
+      "Owner": "FDull.Workspace.analyzeUsing",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.Collections.Generic.ICollection\u00601.Clear",
       "Reason": "Workspace authority validates exact reviewed sources, graph and compiler flags, binds build/reference/policy inputs, and rejects incomplete or changed worker responses. Exceptions remain failed checks."
     },
     {
       "File": "src/FDull/Workspace.fs",
-      "Owner": "FDull.Workspace.analyze",
+      "Owner": "FDull.Workspace.analyzeUsing",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.Collections.ObjectModel.Collection\u00601.Add(\u00600)",
       "Reason": "Workspace authority validates exact reviewed sources, graph and compiler flags, binds build/reference/policy inputs, and rejects incomplete or changed worker responses. Exceptions remain failed checks."
     },
     {
       "File": "src/FDull/Workspace.fs",
-      "Owner": "FDull.Workspace.analyze",
+      "Owner": "FDull.Workspace.analyzeUsing",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Directory.GetFiles(System.String,System.String,System.IO.SearchOption)",
       "Reason": "Workspace authority validates exact reviewed sources, graph and compiler flags, binds build/reference/policy inputs, and rejects incomplete or changed worker responses. Exceptions remain failed checks."
     },
     {
       "File": "src/FDull/Workspace.fs",
-      "Owner": "FDull.Workspace.analyze",
+      "Owner": "FDull.Workspace.analyzeUsing",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.File.Exists(System.String)",
       "Reason": "Workspace authority validates exact reviewed sources, graph and compiler flags, binds build/reference/policy inputs, and rejects incomplete or changed worker responses. Exceptions remain failed checks."
     },
     {
       "File": "src/FDull/Workspace.fs",
-      "Owner": "FDull.Workspace.analyze",
+      "Owner": "FDull.Workspace.analyzeUsing",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.Combine(System.String,System.String)",
       "Reason": "Workspace authority validates exact reviewed sources, graph and compiler flags, binds build/reference/policy inputs, and rejects incomplete or changed worker responses. Exceptions remain failed checks."
     },
     {
       "File": "src/FDull/Workspace.fs",
-      "Owner": "FDull.Workspace.analyze",
+      "Owner": "FDull.Workspace.analyzeUsing",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.GetDirectoryName(System.String)",
       "Reason": "Workspace authority validates exact reviewed sources, graph and compiler flags, binds build/reference/policy inputs, and rejects incomplete or changed worker responses. Exceptions remain failed checks."
     },
     {
       "File": "src/FDull/Workspace.fs",
-      "Owner": "FDull.Workspace.analyze",
+      "Owner": "FDull.Workspace.analyzeUsing",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.Text.Encoding.GetBytes(System.String)",
       "Reason": "Reviewed standalone extension preserves exact project/metadata input validation and bounded analysis; independent project, graph and worker regression fixtures exercise the contract."
     },
     {
       "File": "src/FDull/Workspace.fs",
-      "Owner": "FDull.Workspace.analyze",
+      "Owner": "FDull.Workspace.analyzeUsing",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:System.AppContext.BaseDirectory",
       "Reason": "Workspace authority validates exact reviewed sources, graph and compiler flags, binds build/reference/policy inputs, and rejects incomplete or changed worker responses. Exceptions remain failed checks."
     },
     {
       "File": "src/FDull/Workspace.fs",
-      "Owner": "FDull.Workspace.analyze",
+      "Owner": "FDull.Workspace.analyzeUsing",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:System.Collections.Generic.IDictionary\u00602.Item(\u00600)",
       "Reason": "Workspace authority validates exact reviewed sources, graph and compiler flags, binds build/reference/policy inputs, and rejects incomplete or changed worker responses. Exceptions remain failed checks."
     },
     {
       "File": "src/FDull/Workspace.fs",
-      "Owner": "FDull.Workspace.analyze",
+      "Owner": "FDull.Workspace.analyzeUsing",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:System.Reflection.Assembly.Location",
       "Reason": "Workspace authority validates exact reviewed sources, graph and compiler flags, binds build/reference/policy inputs, and rejects incomplete or changed worker responses. Exceptions remain failed checks."
     },
     {
       "File": "src/FDull/Workspace.fs",
-      "Owner": "FDull.Workspace.analyze",
+      "Owner": "FDull.Workspace.analyzeUsing",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:System.Text.Encoding.UTF8",
       "Reason": "Reviewed standalone extension preserves exact project/metadata input validation and bounded analysis; independent project, graph and worker regression fixtures exercise the contract."
     },
     {
       "File": "src/FDull/Workspace.fs",
-      "Owner": "FDull.Workspace.analyze",
+      "Owner": "FDull.Workspace.analyzeUsing",
       "Kind": "member",
       "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | P:System.Type.Assembly",
       "Reason": "Workspace authority validates exact reviewed sources, graph and compiler flags, binds build/reference/policy inputs, and rejects incomplete or changed worker responses. Exceptions remain failed checks."
     },
     {
       "File": "src/FDull/Workspace.fs",
-      "Owner": "FDull.Workspace.analyze",
+      "Owner": "FDull.Workspace.analyzeUsing",
       "Kind": "rule",
       "Identity": "MUT002 | ",
       "Reason": "Workspace authority validates exact reviewed sources, graph and compiler flags, binds build/reference/policy inputs, and rejects incomplete or changed worker responses. Exceptions remain failed checks."
     },
     {
       "File": "src/FDull/Workspace.fs",
-      "Owner": "FDull.Workspace.analyze",
+      "Owner": "FDull.Workspace.analyzeUsing",
       "Kind": "type",
       "Identity": "System.Diagnostics.Process, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | System.Diagnostics.ProcessStartInfo",
       "Reason": "Workspace authority validates exact reviewed sources, graph and compiler flags, binds build/reference/policy inputs, and rejects incomplete or changed worker responses. Exceptions remain failed checks."
@@ -5699,7 +5705,7 @@
     },
     {
       "File": "src/FDull/Workspace.fs",
-      "Owner": "FDull.Workspace.request",
+      "Owner": "FDull.Workspace.requestUsing",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.Combine(System.String,System.String)",
       "Reason": "Reviewed standalone extension preserves exact project/metadata input validation and bounded analysis; independent project, graph and worker regression fixtures exercise the contract."
@@ -5825,84 +5831,84 @@
     },
     {
       "File": "src/FDull/Workspace.fs",
-      "Owner": "FDull.Workspace.serve",
+      "Owner": "FDull.Workspace.serveUsing",
       "Kind": "member",
       "Identity": "System.Console, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:System.Console.Error",
       "Reason": "Workspace authority validates exact reviewed sources, graph and compiler flags, binds build/reference/policy inputs, and rejects incomplete or changed worker responses. Exceptions remain failed checks."
     },
     {
       "File": "src/FDull/Workspace.fs",
-      "Owner": "FDull.Workspace.serve",
+      "Owner": "FDull.Workspace.serveUsing",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.TextWriter.Flush",
       "Reason": "Workspace authority validates exact reviewed sources, graph and compiler flags, binds build/reference/policy inputs, and rejects incomplete or changed worker responses. Exceptions remain failed checks."
     },
     {
       "File": "src/FDull/Workspace.fs",
-      "Owner": "FDull.Workspace.serve",
+      "Owner": "FDull.Workspace.serveUsing",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.TextWriter.Write(System.String)",
       "Reason": "Workspace authority validates exact reviewed sources, graph and compiler flags, binds build/reference/policy inputs, and rejects incomplete or changed worker responses. Exceptions remain failed checks."
     },
     {
       "File": "src/FDull/Workspace.fs",
-      "Owner": "FDull.Workspace.serve",
+      "Owner": "FDull.Workspace.serveUsing",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.TextWriter.WriteLine(System.String)",
       "Reason": "Workspace authority validates exact reviewed sources, graph and compiler flags, binds build/reference/policy inputs, and rejects incomplete or changed worker responses. Exceptions remain failed checks."
     },
     {
       "File": "src/FDull/Workspace.fs",
-      "Owner": "FDull.Workspace.serve",
+      "Owner": "FDull.Workspace.serveUsing",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.Runtime.CompilerServices.TaskAwaiter\u00601.GetResult",
       "Reason": "Workspace authority validates exact reviewed sources, graph and compiler flags, binds build/reference/policy inputs, and rejects incomplete or changed worker responses. Exceptions remain failed checks."
     },
     {
       "File": "src/FDull/Workspace.fs",
-      "Owner": "FDull.Workspace.serve",
+      "Owner": "FDull.Workspace.serveUsing",
       "Kind": "member",
       "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | M:System.Threading.Tasks.Task\u00601.GetAwaiter",
       "Reason": "Workspace authority validates exact reviewed sources, graph and compiler flags, binds build/reference/policy inputs, and rejects incomplete or changed worker responses. Exceptions remain failed checks."
     },
     {
       "File": "src/FDull/Workspace.fs",
-      "Owner": "FDull.Workspace.serve",
+      "Owner": "FDull.Workspace.serveUsing",
       "Kind": "member",
       "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | P:System.Exception.Message",
       "Reason": "Workspace authority validates exact reviewed sources, graph and compiler flags, binds build/reference/policy inputs, and rejects incomplete or changed worker responses. Exceptions remain failed checks."
     },
     {
       "File": "src/FDull/Workspace.fs",
-      "Owner": "FDull.Workspace.serve",
+      "Owner": "FDull.Workspace.serveUsing",
       "Kind": "rule",
       "Identity": "ERR001 | ",
       "Reason": "Workspace authority validates exact reviewed sources, graph and compiler flags, binds build/reference/policy inputs, and rejects incomplete or changed worker responses. Exceptions remain failed checks."
     },
     {
       "File": "src/FDull/Workspace.fs",
-      "Owner": "FDull.Workspace.serve",
+      "Owner": "FDull.Workspace.serveUsing",
       "Kind": "rule",
       "Identity": "ERR004 | exception handler",
       "Reason": "Workspace authority validates exact reviewed sources, graph and compiler flags, binds build/reference/policy inputs, and rejects incomplete or changed worker responses. Exceptions remain failed checks."
     },
     {
       "File": "src/FDull/Workspace.fs",
-      "Owner": "FDull.Workspace.serve",
+      "Owner": "FDull.Workspace.serveUsing",
       "Kind": "type",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | System.IO.TextReader",
       "Reason": "Workspace authority validates exact reviewed sources, graph and compiler flags, binds build/reference/policy inputs, and rejects incomplete or changed worker responses. Exceptions remain failed checks."
     },
     {
       "File": "src/FDull/Workspace.fs",
-      "Owner": "FDull.Workspace.serve",
+      "Owner": "FDull.Workspace.serveUsing",
       "Kind": "type",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | System.IO.TextWriter",
       "Reason": "Workspace authority validates exact reviewed sources, graph and compiler flags, binds build/reference/policy inputs, and rejects incomplete or changed worker responses. Exceptions remain failed checks."
     },
     {
       "File": "src/FDull/Workspace.fs",
-      "Owner": "FDull.Workspace.serve",
+      "Owner": "FDull.Workspace.serveUsing",
       "Kind": "type",
       "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | System.Exception",
       "Reason": "Workspace authority validates exact reviewed sources, graph and compiler flags, binds build/reference/policy inputs, and rejects incomplete or changed worker responses. Exceptions remain failed checks."
@@ -6182,490 +6188,490 @@
     },
     {
       "File": "src/FDull/WorkspaceEngine.fs",
-      "Owner": "FDull.WorkspaceEngine.check",
+      "Owner": "FDull.WorkspaceEngine.analyze",
       "Kind": "member",
       "Identity": "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:FSharp.Compiler.CodeAnalysis.FSharpChecker.GetParsingOptionsFromProjectOptions(FSharp.Compiler.CodeAnalysis.FSharpProjectOptions)",
       "Reason": "Bounded workspace checker validates exact source/generated inventories and fingerprinted inputs before pinned FCS analysis. Mutable report buffers remain worker-local."
     },
     {
       "File": "src/FDull/WorkspaceEngine.fs",
-      "Owner": "FDull.WorkspaceEngine.check",
+      "Owner": "FDull.WorkspaceEngine.analyze",
       "Kind": "member",
       "Identity": "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:FSharp.Compiler.CodeAnalysis.FSharpChecker.GetProjectOptionsFromCommandLineArgs(System.String,System.String[],Microsoft.FSharp.Core.FSharpOption{System.DateTime},Microsoft.FSharp.Core.FSharpOption{System.Boolean},Microsoft.FSharp.Core.FSharpOption{System.Boolean})",
       "Reason": "Bounded workspace checker validates exact source/generated inventories and fingerprinted inputs before pinned FCS analysis. Mutable report buffers remain worker-local."
     },
     {
       "File": "src/FDull/WorkspaceEngine.fs",
-      "Owner": "FDull.WorkspaceEngine.check",
+      "Owner": "FDull.WorkspaceEngine.analyze",
       "Kind": "member",
       "Identity": "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:FSharp.Compiler.CodeAnalysis.FSharpChecker.ParseAndCheckProject(FSharp.Compiler.CodeAnalysis.FSharpProjectOptions,Microsoft.FSharp.Core.FSharpOption{System.String})",
       "Reason": "Bounded workspace checker validates exact source/generated inventories and fingerprinted inputs before pinned FCS analysis. Mutable report buffers remain worker-local."
     },
     {
       "File": "src/FDull/WorkspaceEngine.fs",
-      "Owner": "FDull.WorkspaceEngine.check",
+      "Owner": "FDull.WorkspaceEngine.analyze",
       "Kind": "member",
       "Identity": "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:FSharp.Compiler.CodeAnalysis.FSharpChecker.ParseFile(System.String,FSharp.Compiler.Text.ISourceText,FSharp.Compiler.CodeAnalysis.FSharpParsingOptions,Microsoft.FSharp.Core.FSharpOption{System.Boolean},Microsoft.FSharp.Core.FSharpOption{System.String})",
       "Reason": "Bounded workspace checker validates exact source/generated inventories and fingerprinted inputs before pinned FCS analysis. Mutable report buffers remain worker-local."
     },
     {
       "File": "src/FDull/WorkspaceEngine.fs",
-      "Owner": "FDull.WorkspaceEngine.check",
+      "Owner": "FDull.WorkspaceEngine.analyze",
       "Kind": "member",
       "Identity": "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:FSharp.Compiler.Text.PositionModule.mkPos(System.Int32,System.Int32)",
       "Reason": "Bounded workspace checker validates exact source/generated inventories and fingerprinted inputs before pinned FCS analysis. Mutable report buffers remain worker-local."
     },
     {
       "File": "src/FDull/WorkspaceEngine.fs",
-      "Owner": "FDull.WorkspaceEngine.check",
+      "Owner": "FDull.WorkspaceEngine.analyze",
       "Kind": "member",
       "Identity": "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:FSharp.Compiler.Text.RangeModule.mkRange(System.String,FSharp.Compiler.Text.Position,FSharp.Compiler.Text.Position)",
       "Reason": "Bounded workspace checker validates exact source/generated inventories and fingerprinted inputs before pinned FCS analysis. Mutable report buffers remain worker-local."
     },
     {
       "File": "src/FDull/WorkspaceEngine.fs",
-      "Owner": "FDull.WorkspaceEngine.check",
+      "Owner": "FDull.WorkspaceEngine.analyze",
       "Kind": "member",
       "Identity": "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:FSharp.Compiler.Text.SourceText.ofString(System.String)",
       "Reason": "Bounded workspace checker validates exact source/generated inventories and fingerprinted inputs before pinned FCS analysis. Mutable report buffers remain worker-local."
     },
     {
       "File": "src/FDull/WorkspaceEngine.fs",
-      "Owner": "FDull.WorkspaceEngine.check",
+      "Owner": "FDull.WorkspaceEngine.analyze",
       "Kind": "member",
       "Identity": "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:FSharp.Compiler.CodeAnalysis.FSharpCheckProjectResults.AssemblyContents",
       "Reason": "Bounded workspace checker validates exact source/generated inventories and fingerprinted inputs before pinned FCS analysis. Mutable report buffers remain worker-local."
     },
     {
       "File": "src/FDull/WorkspaceEngine.fs",
-      "Owner": "FDull.WorkspaceEngine.check",
+      "Owner": "FDull.WorkspaceEngine.analyze",
       "Kind": "member",
       "Identity": "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:FSharp.Compiler.CodeAnalysis.FSharpCheckProjectResults.Diagnostics",
       "Reason": "Bounded workspace checker validates exact source/generated inventories and fingerprinted inputs before pinned FCS analysis. Mutable report buffers remain worker-local."
     },
     {
       "File": "src/FDull/WorkspaceEngine.fs",
-      "Owner": "FDull.WorkspaceEngine.check",
+      "Owner": "FDull.WorkspaceEngine.analyze",
       "Kind": "member",
       "Identity": "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:FSharp.Compiler.CodeAnalysis.FSharpCheckProjectResults.HasCriticalErrors",
       "Reason": "Bounded workspace checker validates exact source/generated inventories and fingerprinted inputs before pinned FCS analysis. Mutable report buffers remain worker-local."
     },
     {
       "File": "src/FDull/WorkspaceEngine.fs",
-      "Owner": "FDull.WorkspaceEngine.check",
+      "Owner": "FDull.WorkspaceEngine.analyze",
       "Kind": "member",
       "Identity": "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:FSharp.Compiler.CodeAnalysis.FSharpParseFileResults.ParseTree",
       "Reason": "Bounded workspace checker validates exact source/generated inventories and fingerprinted inputs before pinned FCS analysis. Mutable report buffers remain worker-local."
     },
     {
       "File": "src/FDull/WorkspaceEngine.fs",
-      "Owner": "FDull.WorkspaceEngine.check",
+      "Owner": "FDull.WorkspaceEngine.analyze",
       "Kind": "member",
       "Identity": "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:FSharp.Compiler.Diagnostics.FSharpDiagnostic.ErrorNumber",
       "Reason": "Bounded workspace checker validates exact source/generated inventories and fingerprinted inputs before pinned FCS analysis. Mutable report buffers remain worker-local."
     },
     {
       "File": "src/FDull/WorkspaceEngine.fs",
-      "Owner": "FDull.WorkspaceEngine.check",
+      "Owner": "FDull.WorkspaceEngine.analyze",
       "Kind": "member",
       "Identity": "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:FSharp.Compiler.Diagnostics.FSharpDiagnostic.Message",
       "Reason": "Bounded workspace checker validates exact source/generated inventories and fingerprinted inputs before pinned FCS analysis. Mutable report buffers remain worker-local."
     },
     {
       "File": "src/FDull/WorkspaceEngine.fs",
-      "Owner": "FDull.WorkspaceEngine.check",
+      "Owner": "FDull.WorkspaceEngine.analyze",
       "Kind": "member",
       "Identity": "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:FSharp.Compiler.Diagnostics.FSharpDiagnostic.Range",
       "Reason": "Bounded workspace checker validates exact source/generated inventories and fingerprinted inputs before pinned FCS analysis. Mutable report buffers remain worker-local."
     },
     {
       "File": "src/FDull/WorkspaceEngine.fs",
-      "Owner": "FDull.WorkspaceEngine.check",
+      "Owner": "FDull.WorkspaceEngine.analyze",
       "Kind": "member",
       "Identity": "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:FSharp.Compiler.Diagnostics.FSharpDiagnostic.Severity",
       "Reason": "Bounded workspace checker validates exact source/generated inventories and fingerprinted inputs before pinned FCS analysis. Mutable report buffers remain worker-local."
     },
     {
       "File": "src/FDull/WorkspaceEngine.fs",
-      "Owner": "FDull.WorkspaceEngine.check",
+      "Owner": "FDull.WorkspaceEngine.analyze",
       "Kind": "member",
       "Identity": "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:FSharp.Compiler.Symbols.FSharpAssemblyContents.ImplementationFiles",
       "Reason": "Bounded workspace checker validates exact source/generated inventories and fingerprinted inputs before pinned FCS analysis. Mutable report buffers remain worker-local."
     },
     {
       "File": "src/FDull/WorkspaceEngine.fs",
-      "Owner": "FDull.WorkspaceEngine.check",
+      "Owner": "FDull.WorkspaceEngine.analyze",
       "Kind": "member",
       "Identity": "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:FSharp.Compiler.Text.Range.EndColumn",
       "Reason": "Bounded workspace checker validates exact source/generated inventories and fingerprinted inputs before pinned FCS analysis. Mutable report buffers remain worker-local."
     },
     {
       "File": "src/FDull/WorkspaceEngine.fs",
-      "Owner": "FDull.WorkspaceEngine.check",
+      "Owner": "FDull.WorkspaceEngine.analyze",
       "Kind": "member",
       "Identity": "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:FSharp.Compiler.Text.Range.EndLine",
       "Reason": "Bounded workspace checker validates exact source/generated inventories and fingerprinted inputs before pinned FCS analysis. Mutable report buffers remain worker-local."
     },
     {
       "File": "src/FDull/WorkspaceEngine.fs",
-      "Owner": "FDull.WorkspaceEngine.check",
+      "Owner": "FDull.WorkspaceEngine.analyze",
       "Kind": "member",
       "Identity": "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:FSharp.Compiler.Text.Range.FileName",
       "Reason": "Bounded workspace checker validates exact source/generated inventories and fingerprinted inputs before pinned FCS analysis. Mutable report buffers remain worker-local."
     },
     {
       "File": "src/FDull/WorkspaceEngine.fs",
-      "Owner": "FDull.WorkspaceEngine.check",
+      "Owner": "FDull.WorkspaceEngine.analyze",
       "Kind": "member",
       "Identity": "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:FSharp.Compiler.Text.Range.StartColumn",
       "Reason": "Bounded workspace checker validates exact source/generated inventories and fingerprinted inputs before pinned FCS analysis. Mutable report buffers remain worker-local."
     },
     {
       "File": "src/FDull/WorkspaceEngine.fs",
-      "Owner": "FDull.WorkspaceEngine.check",
+      "Owner": "FDull.WorkspaceEngine.analyze",
       "Kind": "member",
       "Identity": "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:FSharp.Compiler.Text.Range.StartLine",
       "Reason": "Bounded workspace checker validates exact source/generated inventories and fingerprinted inputs before pinned FCS analysis. Mutable report buffers remain worker-local."
     },
     {
       "File": "src/FDull/WorkspaceEngine.fs",
-      "Owner": "FDull.WorkspaceEngine.check",
+      "Owner": "FDull.WorkspaceEngine.analyze",
       "Kind": "member",
       "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.ArrayModule.Exists\u0060\u00601(Microsoft.FSharp.Core.FSharpFunc{\u0060\u00600,System.Boolean},\u0060\u00600[])",
       "Reason": "Bounded workspace checker validates exact source/generated inventories and fingerprinted inputs before pinned FCS analysis. Mutable report buffers remain worker-local."
     },
     {
       "File": "src/FDull/WorkspaceEngine.fs",
-      "Owner": "FDull.WorkspaceEngine.check",
+      "Owner": "FDull.WorkspaceEngine.analyze",
       "Kind": "member",
       "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.ListModule.ToArray\u0060\u00601(Microsoft.FSharp.Collections.FSharpList{\u0060\u00600})",
       "Reason": "Bounded workspace checker validates exact source/generated inventories and fingerprinted inputs before pinned FCS analysis. Mutable report buffers remain worker-local."
     },
     {
       "File": "src/FDull/WorkspaceEngine.fs",
-      "Owner": "FDull.WorkspaceEngine.check",
+      "Owner": "FDull.WorkspaceEngine.analyze",
       "Kind": "member",
       "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.SeqModule.Distinct\u0060\u00601(System.Collections.Generic.IEnumerable{\u0060\u00600})",
       "Reason": "Bounded workspace checker validates exact source/generated inventories and fingerprinted inputs before pinned FCS analysis. Mutable report buffers remain worker-local."
     },
     {
       "File": "src/FDull/WorkspaceEngine.fs",
-      "Owner": "FDull.WorkspaceEngine.check",
+      "Owner": "FDull.WorkspaceEngine.analyze",
       "Kind": "member",
       "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.SeqModule.Exists\u0060\u00601(Microsoft.FSharp.Core.FSharpFunc{\u0060\u00600,System.Boolean},System.Collections.Generic.IEnumerable{\u0060\u00600})",
       "Reason": "Bounded workspace checker validates exact source/generated inventories and fingerprinted inputs before pinned FCS analysis. Mutable report buffers remain worker-local."
     },
     {
       "File": "src/FDull/WorkspaceEngine.fs",
-      "Owner": "FDull.WorkspaceEngine.check",
+      "Owner": "FDull.WorkspaceEngine.analyze",
       "Kind": "member",
       "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.SeqModule.SortBy\u0060\u00602(Microsoft.FSharp.Core.FSharpFunc{\u0060\u00600,\u0060\u00601},System.Collections.Generic.IEnumerable{\u0060\u00600})",
       "Reason": "Bounded workspace checker validates exact source/generated inventories and fingerprinted inputs before pinned FCS analysis. Mutable report buffers remain worker-local."
     },
     {
       "File": "src/FDull/WorkspaceEngine.fs",
-      "Owner": "FDull.WorkspaceEngine.check",
+      "Owner": "FDull.WorkspaceEngine.analyze",
       "Kind": "member",
       "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.SeqModule.ToList\u0060\u00601(System.Collections.Generic.IEnumerable{\u0060\u00600})",
       "Reason": "Bounded workspace checker validates exact source/generated inventories and fingerprinted inputs before pinned FCS analysis. Mutable report buffers remain worker-local."
     },
     {
       "File": "src/FDull/WorkspaceEngine.fs",
-      "Owner": "FDull.WorkspaceEngine.check",
+      "Owner": "FDull.WorkspaceEngine.analyze",
       "Kind": "member",
       "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Control.FSharpAsync.RunSynchronously\u0060\u00601(Microsoft.FSharp.Control.FSharpAsync{\u0060\u00600},Microsoft.FSharp.Core.FSharpOption{System.Int32},Microsoft.FSharp.Core.FSharpOption{System.Threading.CancellationToken})",
       "Reason": "Bounded workspace checker validates exact source/generated inventories and fingerprinted inputs before pinned FCS analysis. Mutable report buffers remain worker-local."
     },
     {
       "File": "src/FDull/WorkspaceEngine.fs",
-      "Owner": "FDull.WorkspaceEngine.check",
+      "Owner": "FDull.WorkspaceEngine.analyze",
       "Kind": "member",
       "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Core.Operators.InvalidOp\u0060\u00601(System.String)",
       "Reason": "Bounded workspace checker validates exact source/generated inventories and fingerprinted inputs before pinned FCS analysis. Mutable report buffers remain worker-local."
     },
     {
       "File": "src/FDull/WorkspaceEngine.fs",
-      "Owner": "FDull.WorkspaceEngine.check",
+      "Owner": "FDull.WorkspaceEngine.analyze",
       "Kind": "member",
       "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Core.Operators.TypeOf\u0060\u00601",
       "Reason": "Bounded workspace checker validates exact source/generated inventories and fingerprinted inputs before pinned FCS analysis. Mutable report buffers remain worker-local."
     },
     {
       "File": "src/FDull/WorkspaceEngine.fs",
-      "Owner": "FDull.WorkspaceEngine.check",
+      "Owner": "FDull.WorkspaceEngine.analyze",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.File.ReadAllText(System.String)",
       "Reason": "Bounded workspace checker validates exact source/generated inventories and fingerprinted inputs before pinned FCS analysis. Mutable report buffers remain worker-local."
     },
     {
       "File": "src/FDull/WorkspaceEngine.fs",
-      "Owner": "FDull.WorkspaceEngine.check",
+      "Owner": "FDull.WorkspaceEngine.analyze",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.FileInfo.#ctor(System.String)",
       "Reason": "Bounded workspace checker validates exact source/generated inventories and fingerprinted inputs before pinned FCS analysis. Mutable report buffers remain worker-local."
     },
     {
       "File": "src/FDull/WorkspaceEngine.fs",
-      "Owner": "FDull.WorkspaceEngine.check",
+      "Owner": "FDull.WorkspaceEngine.analyze",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.Combine(System.String,System.String)",
       "Reason": "Bounded workspace checker validates exact source/generated inventories and fingerprinted inputs before pinned FCS analysis. Mutable report buffers remain worker-local."
     },
     {
       "File": "src/FDull/WorkspaceEngine.fs",
-      "Owner": "FDull.WorkspaceEngine.check",
+      "Owner": "FDull.WorkspaceEngine.analyze",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.GetDirectoryName(System.String)",
       "Reason": "Bounded workspace checker validates exact source/generated inventories and fingerprinted inputs before pinned FCS analysis. Mutable report buffers remain worker-local."
     },
     {
       "File": "src/FDull/WorkspaceEngine.fs",
-      "Owner": "FDull.WorkspaceEngine.check",
+      "Owner": "FDull.WorkspaceEngine.analyze",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.GetExtension(System.String)",
       "Reason": "Reviewed standalone extension preserves exact project/metadata input validation and bounded analysis; independent project, graph and worker regression fixtures exercise the contract."
     },
     {
       "File": "src/FDull/WorkspaceEngine.fs",
-      "Owner": "FDull.WorkspaceEngine.check",
+      "Owner": "FDull.WorkspaceEngine.analyze",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.GetFileNameWithoutExtension(System.String)",
       "Reason": "Bounded workspace checker validates exact source/generated inventories and fingerprinted inputs before pinned FCS analysis. Mutable report buffers remain worker-local."
     },
     {
       "File": "src/FDull/WorkspaceEngine.fs",
-      "Owner": "FDull.WorkspaceEngine.check",
+      "Owner": "FDull.WorkspaceEngine.analyze",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.GetFullPath(System.String,System.String)",
       "Reason": "Bounded workspace checker validates exact source/generated inventories and fingerprinted inputs before pinned FCS analysis. Mutable report buffers remain worker-local."
     },
     {
       "File": "src/FDull/WorkspaceEngine.fs",
-      "Owner": "FDull.WorkspaceEngine.check",
+      "Owner": "FDull.WorkspaceEngine.analyze",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.GetRelativePath(System.String,System.String)",
       "Reason": "Bounded workspace checker validates exact source/generated inventories and fingerprinted inputs before pinned FCS analysis. Mutable report buffers remain worker-local."
     },
     {
       "File": "src/FDull/WorkspaceEngine.fs",
-      "Owner": "FDull.WorkspaceEngine.check",
+      "Owner": "FDull.WorkspaceEngine.analyze",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:System.IO.FileInfo.Length",
       "Reason": "Bounded workspace checker validates exact source/generated inventories and fingerprinted inputs before pinned FCS analysis. Mutable report buffers remain worker-local."
     },
     {
       "File": "src/FDull/WorkspaceEngine.fs",
-      "Owner": "FDull.WorkspaceEngine.check",
+      "Owner": "FDull.WorkspaceEngine.analyze",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:System.Reflection.Assembly.FullName",
       "Reason": "Reviewed standalone extension preserves exact project/metadata input validation and bounded analysis; independent project, graph and worker regression fixtures exercise the contract."
     },
     {
       "File": "src/FDull/WorkspaceEngine.fs",
-      "Owner": "FDull.WorkspaceEngine.check",
+      "Owner": "FDull.WorkspaceEngine.analyze",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:System.Reflection.Assembly.Location",
       "Reason": "Bounded workspace checker validates exact source/generated inventories and fingerprinted inputs before pinned FCS analysis. Mutable report buffers remain worker-local."
     },
     {
       "File": "src/FDull/WorkspaceEngine.fs",
-      "Owner": "FDull.WorkspaceEngine.check",
+      "Owner": "FDull.WorkspaceEngine.analyze",
       "Kind": "member",
       "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | M:System.Collections.Generic.List\u00601.#ctor",
       "Reason": "Bounded workspace checker validates exact source/generated inventories and fingerprinted inputs before pinned FCS analysis. Mutable report buffers remain worker-local."
     },
     {
       "File": "src/FDull/WorkspaceEngine.fs",
-      "Owner": "FDull.WorkspaceEngine.check",
+      "Owner": "FDull.WorkspaceEngine.analyze",
       "Kind": "member",
       "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | M:System.Collections.Generic.List\u00601.Add(\u00600)",
       "Reason": "Bounded workspace checker validates exact source/generated inventories and fingerprinted inputs before pinned FCS analysis. Mutable report buffers remain worker-local."
     },
     {
       "File": "src/FDull/WorkspaceEngine.fs",
-      "Owner": "FDull.WorkspaceEngine.check",
+      "Owner": "FDull.WorkspaceEngine.analyze",
       "Kind": "member",
       "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | M:System.Int32.ToString(System.String)",
       "Reason": "Bounded workspace checker validates exact source/generated inventories and fingerprinted inputs before pinned FCS analysis. Mutable report buffers remain worker-local."
     },
     {
       "File": "src/FDull/WorkspaceEngine.fs",
-      "Owner": "FDull.WorkspaceEngine.check",
+      "Owner": "FDull.WorkspaceEngine.analyze",
       "Kind": "member",
       "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | M:System.String.Replace(System.Char,System.Char)",
       "Reason": "Bounded workspace checker validates exact source/generated inventories and fingerprinted inputs before pinned FCS analysis. Mutable report buffers remain worker-local."
     },
     {
       "File": "src/FDull/WorkspaceEngine.fs",
-      "Owner": "FDull.WorkspaceEngine.check",
+      "Owner": "FDull.WorkspaceEngine.analyze",
       "Kind": "member",
       "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | P:System.Collections.Generic.List\u00601.Count",
       "Reason": "Bounded workspace checker validates exact source/generated inventories and fingerprinted inputs before pinned FCS analysis. Mutable report buffers remain worker-local."
     },
     {
       "File": "src/FDull/WorkspaceEngine.fs",
-      "Owner": "FDull.WorkspaceEngine.check",
+      "Owner": "FDull.WorkspaceEngine.analyze",
       "Kind": "member",
       "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | P:System.Exception.Message",
       "Reason": "Bounded workspace checker validates exact source/generated inventories and fingerprinted inputs before pinned FCS analysis. Mutable report buffers remain worker-local."
     },
     {
       "File": "src/FDull/WorkspaceEngine.fs",
-      "Owner": "FDull.WorkspaceEngine.check",
+      "Owner": "FDull.WorkspaceEngine.analyze",
       "Kind": "member",
       "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | P:System.Lazy\u00601.Value",
       "Reason": "Bounded workspace checker validates exact source/generated inventories and fingerprinted inputs before pinned FCS analysis. Mutable report buffers remain worker-local."
     },
     {
       "File": "src/FDull/WorkspaceEngine.fs",
-      "Owner": "FDull.WorkspaceEngine.check",
+      "Owner": "FDull.WorkspaceEngine.analyze",
       "Kind": "member",
       "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | P:System.Type.Assembly",
       "Reason": "Bounded workspace checker validates exact source/generated inventories and fingerprinted inputs before pinned FCS analysis. Mutable report buffers remain worker-local."
     },
     {
       "File": "src/FDull/WorkspaceEngine.fs",
-      "Owner": "FDull.WorkspaceEngine.check",
+      "Owner": "FDull.WorkspaceEngine.analyze",
       "Kind": "rule",
       "Identity": "ERR001 | ",
       "Reason": "Bounded workspace checker validates exact source/generated inventories and fingerprinted inputs before pinned FCS analysis. Mutable report buffers remain worker-local."
     },
     {
       "File": "src/FDull/WorkspaceEngine.fs",
-      "Owner": "FDull.WorkspaceEngine.check",
+      "Owner": "FDull.WorkspaceEngine.analyze",
       "Kind": "rule",
       "Identity": "ERR004 | exception handler",
       "Reason": "Bounded workspace checker validates exact source/generated inventories and fingerprinted inputs before pinned FCS analysis. Mutable report buffers remain worker-local."
     },
     {
       "File": "src/FDull/WorkspaceEngine.fs",
-      "Owner": "FDull.WorkspaceEngine.check",
+      "Owner": "FDull.WorkspaceEngine.analyze",
       "Kind": "rule",
       "Identity": "MUT001 | ",
       "Reason": "Bounded workspace checker validates exact source/generated inventories and fingerprinted inputs before pinned FCS analysis. Mutable report buffers remain worker-local."
     },
     {
       "File": "src/FDull/WorkspaceEngine.fs",
-      "Owner": "FDull.WorkspaceEngine.check",
+      "Owner": "FDull.WorkspaceEngine.analyze",
       "Kind": "rule",
       "Identity": "MUT001 | complete",
       "Reason": "Bounded workspace checker validates exact source/generated inventories and fingerprinted inputs before pinned FCS analysis. Mutable report buffers remain worker-local."
     },
     {
       "File": "src/FDull/WorkspaceEngine.fs",
-      "Owner": "FDull.WorkspaceEngine.check",
+      "Owner": "FDull.WorkspaceEngine.analyze",
       "Kind": "rule",
       "Identity": "MUT001 | observations",
       "Reason": "Bounded workspace checker validates exact source/generated inventories and fingerprinted inputs before pinned FCS analysis. Mutable report buffers remain worker-local."
     },
     {
       "File": "src/FDull/WorkspaceEngine.fs",
-      "Owner": "FDull.WorkspaceEngine.check",
+      "Owner": "FDull.WorkspaceEngine.analyze",
       "Kind": "rule",
       "Identity": "MUT001 | uses",
       "Reason": "Bounded workspace checker validates exact source/generated inventories and fingerprinted inputs before pinned FCS analysis. Mutable report buffers remain worker-local."
     },
     {
       "File": "src/FDull/WorkspaceEngine.fs",
-      "Owner": "FDull.WorkspaceEngine.check",
+      "Owner": "FDull.WorkspaceEngine.analyze",
       "Kind": "rule",
       "Identity": "MUT002 | ",
       "Reason": "Bounded workspace checker validates exact source/generated inventories and fingerprinted inputs before pinned FCS analysis. Mutable report buffers remain worker-local."
     },
     {
       "File": "src/FDull/WorkspaceEngine.fs",
-      "Owner": "FDull.WorkspaceEngine.check",
+      "Owner": "FDull.WorkspaceEngine.analyze",
       "Kind": "rule",
       "Identity": "MUT009 | ",
       "Reason": "Bounded workspace checker validates exact source/generated inventories and fingerprinted inputs before pinned FCS analysis. Mutable report buffers remain worker-local."
     },
     {
       "File": "src/FDull/WorkspaceEngine.fs",
-      "Owner": "FDull.WorkspaceEngine.check",
+      "Owner": "FDull.WorkspaceEngine.analyze",
       "Kind": "type",
       "Identity": "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | FSharp.Compiler.CodeAnalysis.FSharpCheckProjectResults",
       "Reason": "Bounded workspace checker validates exact source/generated inventories and fingerprinted inputs before pinned FCS analysis. Mutable report buffers remain worker-local."
     },
     {
       "File": "src/FDull/WorkspaceEngine.fs",
-      "Owner": "FDull.WorkspaceEngine.check",
+      "Owner": "FDull.WorkspaceEngine.analyze",
       "Kind": "type",
       "Identity": "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | FSharp.Compiler.CodeAnalysis.FSharpParseFileResults",
       "Reason": "Bounded workspace checker validates exact source/generated inventories and fingerprinted inputs before pinned FCS analysis. Mutable report buffers remain worker-local."
     },
     {
       "File": "src/FDull/WorkspaceEngine.fs",
-      "Owner": "FDull.WorkspaceEngine.check",
+      "Owner": "FDull.WorkspaceEngine.analyze",
       "Kind": "type",
       "Identity": "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | FSharp.Compiler.CodeAnalysis.FSharpParsingOptions",
       "Reason": "Bounded workspace checker validates exact source/generated inventories and fingerprinted inputs before pinned FCS analysis. Mutable report buffers remain worker-local."
     },
     {
       "File": "src/FDull/WorkspaceEngine.fs",
-      "Owner": "FDull.WorkspaceEngine.check",
+      "Owner": "FDull.WorkspaceEngine.analyze",
       "Kind": "type",
       "Identity": "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | FSharp.Compiler.CodeAnalysis.FSharpProjectOptions",
       "Reason": "Bounded workspace checker validates exact source/generated inventories and fingerprinted inputs before pinned FCS analysis. Mutable report buffers remain worker-local."
     },
     {
       "File": "src/FDull/WorkspaceEngine.fs",
-      "Owner": "FDull.WorkspaceEngine.check",
+      "Owner": "FDull.WorkspaceEngine.analyze",
       "Kind": "type",
       "Identity": "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | FSharp.Compiler.Diagnostics.FSharpDiagnostic",
       "Reason": "Bounded workspace checker validates exact source/generated inventories and fingerprinted inputs before pinned FCS analysis. Mutable report buffers remain worker-local."
     },
     {
       "File": "src/FDull/WorkspaceEngine.fs",
-      "Owner": "FDull.WorkspaceEngine.check",
+      "Owner": "FDull.WorkspaceEngine.analyze",
       "Kind": "type",
       "Identity": "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | FSharp.Compiler.Text.Range",
       "Reason": "Bounded workspace checker validates exact source/generated inventories and fingerprinted inputs before pinned FCS analysis. Mutable report buffers remain worker-local."
     },
     {
       "File": "src/FDull/WorkspaceEngine.fs",
-      "Owner": "FDull.WorkspaceEngine.check",
+      "Owner": "FDull.WorkspaceEngine.analyze",
       "Kind": "type",
       "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | Microsoft.FSharp.Control.FSharpAsync\u00601",
       "Reason": "Bounded workspace checker validates exact source/generated inventories and fingerprinted inputs before pinned FCS analysis. Mutable report buffers remain worker-local."
     },
     {
       "File": "src/FDull/WorkspaceEngine.fs",
-      "Owner": "FDull.WorkspaceEngine.check",
+      "Owner": "FDull.WorkspaceEngine.analyze",
       "Kind": "type",
       "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | System.Collections.Generic.IEnumerable\u00601",
       "Reason": "Bounded workspace checker validates exact source/generated inventories and fingerprinted inputs before pinned FCS analysis. Mutable report buffers remain worker-local."
     },
     {
       "File": "src/FDull/WorkspaceEngine.fs",
-      "Owner": "FDull.WorkspaceEngine.check",
+      "Owner": "FDull.WorkspaceEngine.analyze",
       "Kind": "type",
       "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | System.Collections.Generic.List\u00601",
       "Reason": "Bounded workspace checker validates exact source/generated inventories and fingerprinted inputs before pinned FCS analysis. Mutable report buffers remain worker-local."
     },
     {
       "File": "src/FDull/WorkspaceEngine.fs",
-      "Owner": "FDull.WorkspaceEngine.check",
+      "Owner": "FDull.WorkspaceEngine.analyze",
       "Kind": "type",
       "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | System.Exception",
       "Reason": "Bounded workspace checker validates exact source/generated inventories and fingerprinted inputs before pinned FCS analysis. Mutable report buffers remain worker-local."
     },
     {
       "File": "src/FDull/WorkspaceEngine.fs",
-      "Owner": "FDull.WorkspaceEngine.check",
+      "Owner": "FDull.WorkspaceEngine.analyze",
       "Kind": "type",
       "Identity": "source:src/FDull/SafetyContext.fs | FDull.SafetyContext",
       "Reason": "Bounded workspace checker validates exact source/generated inventories and fingerprinted inputs before pinned FCS analysis. Mutable report buffers remain worker-local."
     },
     {
       "File": "src/FDull/WorkspaceEngine.fs",
-      "Owner": "FDull.WorkspaceEngine.check",
+      "Owner": "FDull.WorkspaceEngine.analyze",
       "Kind": "type",
       "Identity": "source:src/FDull/SafetyLimits.fs | FDull.SafetyBudget",
       "Reason": "Bounded workspace checker validates exact source/generated inventories and fingerprinted inputs before pinned FCS analysis. Mutable report buffers remain worker-local."
     },
     {
       "File": "src/FDull/WorkspaceEngine.fs",
-      "Owner": "FDull.WorkspaceEngine.check",
+      "Owner": "FDull.WorkspaceEngine.analyze",
       "Kind": "type",
       "Identity": "source:src/FDull/SafetySyntax.fs | FDull.SourceSyntax",
       "Reason": "Bounded workspace checker validates exact source/generated inventories and fingerprinted inputs before pinned FCS analysis. Mutable report buffers remain worker-local."
@@ -7092,49 +7098,49 @@
     },
     {
       "File": "src/FDull/WorkspacePolicy.fs",
-      "Owner": "FDull.WorkspacePolicy.read",
+      "Owner": "FDull.WorkspacePolicy.readWithSourceDrift",
       "Kind": "member",
       "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Core.Operators.InvalidOp\u0060\u00601(System.String)",
       "Reason": "Protected policy validates exact file/declaration/symbol grants, source/build fingerprints and finite generated metadata. Application source cannot choose a profile."
     },
     {
       "File": "src/FDull/WorkspacePolicy.fs",
-      "Owner": "FDull.WorkspacePolicy.read",
+      "Owner": "FDull.WorkspacePolicy.readWithSourceDrift",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.File.ReadAllText(System.String)",
       "Reason": "Protected policy validates exact file/declaration/symbol grants, source/build fingerprints and finite generated metadata. Application source cannot choose a profile."
     },
     {
       "File": "src/FDull/WorkspacePolicy.fs",
-      "Owner": "FDull.WorkspacePolicy.read",
+      "Owner": "FDull.WorkspacePolicy.readWithSourceDrift",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.Combine(System.String,System.String)",
       "Reason": "Protected policy validates exact file/declaration/symbol grants, source/build fingerprints and finite generated metadata. Application source cannot choose a profile."
     },
     {
       "File": "src/FDull/WorkspacePolicy.fs",
-      "Owner": "FDull.WorkspacePolicy.read",
+      "Owner": "FDull.WorkspacePolicy.readWithSourceDrift",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.GetExtension(System.String)",
       "Reason": "Reviewed standalone extension preserves exact project/metadata input validation and bounded analysis; independent project, graph and worker regression fixtures exercise the contract."
     },
     {
       "File": "src/FDull/WorkspacePolicy.fs",
-      "Owner": "FDull.WorkspacePolicy.read",
+      "Owner": "FDull.WorkspacePolicy.readWithSourceDrift",
       "Kind": "member",
       "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | M:System.String.Split(System.String,System.StringSplitOptions)",
       "Reason": "Protected policy validates exact file/declaration/symbol grants, source/build fingerprints and finite generated metadata. Application source cannot choose a profile."
     },
     {
       "File": "src/FDull/WorkspacePolicy.fs",
-      "Owner": "FDull.WorkspacePolicy.read",
+      "Owner": "FDull.WorkspacePolicy.readWithSourceDrift",
       "Kind": "rule",
       "Identity": "MUT009 | ",
       "Reason": "Protected policy validates exact file/declaration/symbol grants, source/build fingerprints and finite generated metadata. Application source cannot choose a profile."
     },
     {
       "File": "src/FDull/WorkspacePolicy.fs",
-      "Owner": "FDull.WorkspacePolicy.read",
+      "Owner": "FDull.WorkspacePolicy.readWithSourceDrift",
       "Kind": "type",
       "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | System.Object",
       "Reason": "Protected policy validates exact file/declaration/symbol grants, source/build fingerprints and finite generated metadata. Application source cannot choose a profile."
@@ -12533,42 +12539,42 @@
       "File": "src/FDull/EditorAnalysis.fs",
       "Owner": "FDull.EditorAnalysis.check",
       "Kind": "member",
-      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.SeqModule.Distinct``1(System.Collections.Generic.IEnumerable{``0})",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.SeqModule.Distinct\u0060\u00601(System.Collections.Generic.IEnumerable{\u0060\u00600})",
       "Reason": "Advisory editor analysis runs the canonical bounded syntax pass and uses a local mutable collector only to accumulate finite diagnostics. It cannot certify a project, grant policy capabilities, or perform I/O."
     },
     {
       "File": "src/FDull/EditorAnalysis.fs",
       "Owner": "FDull.EditorAnalysis.check",
       "Kind": "member",
-      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.SeqModule.SortBy``2(Microsoft.FSharp.Core.FSharpFunc{``0,``1},System.Collections.Generic.IEnumerable{``0})",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.SeqModule.SortBy\u0060\u00602(Microsoft.FSharp.Core.FSharpFunc{\u0060\u00600,\u0060\u00601},System.Collections.Generic.IEnumerable{\u0060\u00600})",
       "Reason": "Advisory editor analysis runs the canonical bounded syntax pass and uses a local mutable collector only to accumulate finite diagnostics. It cannot certify a project, grant policy capabilities, or perform I/O."
     },
     {
       "File": "src/FDull/EditorAnalysis.fs",
       "Owner": "FDull.EditorAnalysis.check",
       "Kind": "member",
-      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.SeqModule.ToList``1(System.Collections.Generic.IEnumerable{``0})",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.SeqModule.ToList\u0060\u00601(System.Collections.Generic.IEnumerable{\u0060\u00600})",
       "Reason": "Advisory editor analysis runs the canonical bounded syntax pass and uses a local mutable collector only to accumulate finite diagnostics. It cannot certify a project, grant policy capabilities, or perform I/O."
     },
     {
       "File": "src/FDull/EditorAnalysis.fs",
       "Owner": "FDull.EditorAnalysis.check",
       "Kind": "member",
-      "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | M:System.Collections.Generic.List`1.#ctor",
+      "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | M:System.Collections.Generic.List\u00601.#ctor",
       "Reason": "Advisory editor analysis runs the canonical bounded syntax pass and uses a local mutable collector only to accumulate finite diagnostics. It cannot certify a project, grant policy capabilities, or perform I/O."
     },
     {
       "File": "src/FDull/EditorAnalysis.fs",
       "Owner": "FDull.EditorAnalysis.check",
       "Kind": "member",
-      "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | M:System.Collections.Generic.List`1.Add(`0)",
+      "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | M:System.Collections.Generic.List\u00601.Add(\u00600)",
       "Reason": "Advisory editor analysis runs the canonical bounded syntax pass and uses a local mutable collector only to accumulate finite diagnostics. It cannot certify a project, grant policy capabilities, or perform I/O."
     },
     {
       "File": "src/FDull/EditorAnalysis.fs",
       "Owner": "FDull.EditorAnalysis.check",
       "Kind": "member",
-      "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | P:System.Collections.Generic.List`1.Count",
+      "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | P:System.Collections.Generic.List\u00601.Count",
       "Reason": "Advisory editor analysis runs the canonical bounded syntax pass and uses a local mutable collector only to accumulate finite diagnostics. It cannot certify a project, grant policy capabilities, or perform I/O."
     },
     {
@@ -12589,14 +12595,14 @@
       "File": "src/FDull/EditorAnalysis.fs",
       "Owner": "FDull.EditorAnalysis.check",
       "Kind": "type",
-      "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | System.Collections.Generic.IEnumerable`1",
+      "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | System.Collections.Generic.IEnumerable\u00601",
       "Reason": "Advisory editor analysis runs the canonical bounded syntax pass and uses a local mutable collector only to accumulate finite diagnostics. It cannot certify a project, grant policy capabilities, or perform I/O."
     },
     {
       "File": "src/FDull/EditorAnalysis.fs",
       "Owner": "FDull.EditorAnalysis.check",
       "Kind": "type",
-      "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | System.Collections.Generic.List`1",
+      "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | System.Collections.Generic.List\u00601",
       "Reason": "Advisory editor analysis runs the canonical bounded syntax pass and uses a local mutable collector only to accumulate finite diagnostics. It cannot certify a project, grant policy capabilities, or perform I/O."
     },
     {
@@ -12610,106 +12616,106 @@
       "File": "src/FDull.Analyzers/Analyzer.fs",
       "Owner": "FDull.Analyzers.Analyzer.editorAnalyzer",
       "Kind": "attribute",
-      "Identity": "FSharp.Analyzers.SDK, Version=0.37.2.0, Culture=neutral, PublicKeyToken=null | FSharp.Analyzers.SDK.EditorAnalyzerAttribute |  | [\"string:\\u0022FDull\\u0022\",\"string:\\u0022FDull source safety rules\\u0022\"]",
-      "Reason": "The FsAutocomplete and Ionide adapter reads the editor's finite source and parse context and maps canonical FDull diagnostics into SDK messages. It is advisory and cannot certify builds or modify policy."
+      "Identity": "FSharp.Analyzers.SDK, Version=0.37.2.0, Culture=neutral, PublicKeyToken=null | FSharp.Analyzers.SDK.EditorAnalyzerAttribute |  | [\u0022string:\\u0022FDull\\u0022\u0022,\u0022string:\\u0022FDull source safety rules\\u0022\u0022]",
+      "Reason": "The FsAutocomplete and Ionide adapter reads the editor\u0027s finite source and parse context and maps canonical FDull diagnostics into SDK messages. It is advisory and cannot certify builds or modify policy."
     },
     {
       "File": "src/FDull.Analyzers/Analyzer.fs",
       "Owner": "FDull.Analyzers.Analyzer.editorAnalyzer",
       "Kind": "member",
       "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.EditorAnalysis.check(System.String,System.String,FSharp.Compiler.Syntax.ParsedInput)",
-      "Reason": "The FsAutocomplete and Ionide adapter reads the editor's finite source and parse context and maps canonical FDull diagnostics into SDK messages. It is advisory and cannot certify builds or modify policy."
+      "Reason": "The FsAutocomplete and Ionide adapter reads the editor\u0027s finite source and parse context and maps canonical FDull diagnostics into SDK messages. It is advisory and cannot certify builds or modify policy."
     },
     {
       "File": "src/FDull.Analyzers/Analyzer.fs",
       "Owner": "FDull.Analyzers.Analyzer.editorAnalyzer",
       "Kind": "member",
       "Identity": "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:FSharp.Compiler.CodeAnalysis.FSharpParseFileResults.ParseTree",
-      "Reason": "The FsAutocomplete and Ionide adapter reads the editor's finite source and parse context and maps canonical FDull diagnostics into SDK messages. It is advisory and cannot certify builds or modify policy."
+      "Reason": "The FsAutocomplete and Ionide adapter reads the editor\u0027s finite source and parse context and maps canonical FDull diagnostics into SDK messages. It is advisory and cannot certify builds or modify policy."
     },
     {
       "File": "src/FDull.Analyzers/Analyzer.fs",
       "Owner": "FDull.Analyzers.Analyzer.editorAnalyzer",
       "Kind": "member",
       "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:Microsoft.FSharp.Core.ExtraTopLevelOperators.DefaultAsyncBuilder",
-      "Reason": "The FsAutocomplete and Ionide adapter reads the editor's finite source and parse context and maps canonical FDull diagnostics into SDK messages. It is advisory and cannot certify builds or modify policy."
+      "Reason": "The FsAutocomplete and Ionide adapter reads the editor\u0027s finite source and parse context and maps canonical FDull diagnostics into SDK messages. It is advisory and cannot certify builds or modify policy."
     },
     {
       "File": "src/FDull.Analyzers/Analyzer.fs",
       "Owner": "FDull.Analyzers.Analyzer.editorAnalyzer",
       "Kind": "type",
       "Identity": "FSharp.Analyzers.SDK, Version=0.37.2.0, Culture=neutral, PublicKeyToken=null | FSharp.Analyzers.SDK.EditorContext",
-      "Reason": "The FsAutocomplete and Ionide adapter reads the editor's finite source and parse context and maps canonical FDull diagnostics into SDK messages. It is advisory and cannot certify builds or modify policy."
+      "Reason": "The FsAutocomplete and Ionide adapter reads the editor\u0027s finite source and parse context and maps canonical FDull diagnostics into SDK messages. It is advisory and cannot certify builds or modify policy."
     },
     {
       "File": "src/FDull.Analyzers/Analyzer.fs",
       "Owner": "FDull.Analyzers.Analyzer.editorAnalyzer",
       "Kind": "type",
-      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | Microsoft.FSharp.Control.FSharpAsync`1",
-      "Reason": "The FsAutocomplete and Ionide adapter reads the editor's finite source and parse context and maps canonical FDull diagnostics into SDK messages. It is advisory and cannot certify builds or modify policy."
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | Microsoft.FSharp.Control.FSharpAsync\u00601",
+      "Reason": "The FsAutocomplete and Ionide adapter reads the editor\u0027s finite source and parse context and maps canonical FDull diagnostics into SDK messages. It is advisory and cannot certify builds or modify policy."
     },
     {
       "File": "src/FDull.Analyzers/Analyzer.fs",
       "Owner": "FDull.Analyzers.Analyzer.message",
       "Kind": "member",
       "Identity": "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:FSharp.Compiler.Text.PositionModule.mkPos(System.Int32,System.Int32)",
-      "Reason": "The FsAutocomplete and Ionide adapter reads the editor's finite source and parse context and maps canonical FDull diagnostics into SDK messages. It is advisory and cannot certify builds or modify policy."
+      "Reason": "The FsAutocomplete and Ionide adapter reads the editor\u0027s finite source and parse context and maps canonical FDull diagnostics into SDK messages. It is advisory and cannot certify builds or modify policy."
     },
     {
       "File": "src/FDull.Analyzers/Analyzer.fs",
       "Owner": "FDull.Analyzers.Analyzer.message",
       "Kind": "member",
       "Identity": "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:FSharp.Compiler.Text.RangeModule.mkRange(System.String,FSharp.Compiler.Text.Position,FSharp.Compiler.Text.Position)",
-      "Reason": "The FsAutocomplete and Ionide adapter reads the editor's finite source and parse context and maps canonical FDull diagnostics into SDK messages. It is advisory and cannot certify builds or modify policy."
+      "Reason": "The FsAutocomplete and Ionide adapter reads the editor\u0027s finite source and parse context and maps canonical FDull diagnostics into SDK messages. It is advisory and cannot certify builds or modify policy."
     },
     {
       "File": "src/FDull.Analyzers/Analyzer.fs",
       "Owner": "FDull.Analyzers.Analyzer.message",
       "Kind": "type",
       "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | FDull.SafetyDiagnostic",
-      "Reason": "The FsAutocomplete and Ionide adapter reads the editor's finite source and parse context and maps canonical FDull diagnostics into SDK messages. It is advisory and cannot certify builds or modify policy."
+      "Reason": "The FsAutocomplete and Ionide adapter reads the editor\u0027s finite source and parse context and maps canonical FDull diagnostics into SDK messages. It is advisory and cannot certify builds or modify policy."
     },
     {
       "File": "src/FDull.Analyzers/Analyzer.fs",
       "Owner": "FDull.Analyzers.Analyzer.message",
       "Kind": "type",
       "Identity": "FSharp.Analyzers.SDK, Version=0.37.2.0, Culture=neutral, PublicKeyToken=null | FSharp.Analyzers.SDK.Message",
-      "Reason": "The FsAutocomplete and Ionide adapter reads the editor's finite source and parse context and maps canonical FDull diagnostics into SDK messages. It is advisory and cannot certify builds or modify policy."
+      "Reason": "The FsAutocomplete and Ionide adapter reads the editor\u0027s finite source and parse context and maps canonical FDull diagnostics into SDK messages. It is advisory and cannot certify builds or modify policy."
     },
     {
       "File": "src/FDull.Analyzers/Analyzer.fs",
       "Owner": "FDull.Analyzers.Analyzer.source",
       "Kind": "member",
       "Identity": "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:FSharp.Compiler.Text.ISourceText.GetLineCount",
-      "Reason": "The FsAutocomplete and Ionide adapter reads the editor's finite source and parse context and maps canonical FDull diagnostics into SDK messages. It is advisory and cannot certify builds or modify policy."
+      "Reason": "The FsAutocomplete and Ionide adapter reads the editor\u0027s finite source and parse context and maps canonical FDull diagnostics into SDK messages. It is advisory and cannot certify builds or modify policy."
     },
     {
       "File": "src/FDull.Analyzers/Analyzer.fs",
       "Owner": "FDull.Analyzers.Analyzer.source",
       "Kind": "member",
       "Identity": "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:FSharp.Compiler.Text.ISourceText.GetLineString(System.Int32)",
-      "Reason": "The FsAutocomplete and Ionide adapter reads the editor's finite source and parse context and maps canonical FDull diagnostics into SDK messages. It is advisory and cannot certify builds or modify policy."
+      "Reason": "The FsAutocomplete and Ionide adapter reads the editor\u0027s finite source and parse context and maps canonical FDull diagnostics into SDK messages. It is advisory and cannot certify builds or modify policy."
     },
     {
       "File": "src/FDull.Analyzers/Analyzer.fs",
       "Owner": "FDull.Analyzers.Analyzer.source",
       "Kind": "member",
-      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Core.Operators.op_Range``1(Microsoft.FSharp.Core.FSharpFunc{Microsoft.FSharp.Core.Unit,``0},Microsoft.FSharp.Core.FSharpFunc{``0,Microsoft.FSharp.Core.FSharpFunc{``0,``0}},``0,``0)",
-      "Reason": "The FsAutocomplete and Ionide adapter reads the editor's finite source and parse context and maps canonical FDull diagnostics into SDK messages. It is advisory and cannot certify builds or modify policy."
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Core.Operators.op_Range\u0060\u00601(Microsoft.FSharp.Core.FSharpFunc{Microsoft.FSharp.Core.Unit,\u0060\u00600},Microsoft.FSharp.Core.FSharpFunc{\u0060\u00600,Microsoft.FSharp.Core.FSharpFunc{\u0060\u00600,\u0060\u00600}},\u0060\u00600,\u0060\u00600)",
+      "Reason": "The FsAutocomplete and Ionide adapter reads the editor\u0027s finite source and parse context and maps canonical FDull diagnostics into SDK messages. It is advisory and cannot certify builds or modify policy."
     },
     {
       "File": "src/FDull.Analyzers/Analyzer.fs",
       "Owner": "FDull.Analyzers.Analyzer.source",
       "Kind": "member",
       "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Core.StringModule.Concat(System.String,System.Collections.Generic.IEnumerable{System.String})",
-      "Reason": "The FsAutocomplete and Ionide adapter reads the editor's finite source and parse context and maps canonical FDull diagnostics into SDK messages. It is advisory and cannot certify builds or modify policy."
+      "Reason": "The FsAutocomplete and Ionide adapter reads the editor\u0027s finite source and parse context and maps canonical FDull diagnostics into SDK messages. It is advisory and cannot certify builds or modify policy."
     },
     {
       "File": "src/FDull.Analyzers/Analyzer.fs",
       "Owner": "FDull.Analyzers.Analyzer.source",
       "Kind": "type",
       "Identity": "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | FSharp.Compiler.Text.ISourceText",
-      "Reason": "The FsAutocomplete and Ionide adapter reads the editor's finite source and parse context and maps canonical FDull diagnostics into SDK messages. It is advisory and cannot certify builds or modify policy."
+      "Reason": "The FsAutocomplete and Ionide adapter reads the editor\u0027s finite source and parse context and maps canonical FDull diagnostics into SDK messages. It is advisory and cannot certify builds or modify policy."
     },
     {
       "File": "src/FDull/Project.fs",
@@ -12769,10 +12775,10 @@
     },
     {
       "File": "tests/FDull.Tests/SafetyCoverageTests.fs",
-      "Owner": "FDull.Tests.SafetyCoverageTests.``every required exported compiler setting is mandatory``",
+      "Owner": "FDull.Tests.SafetyCoverageTests.\u0060\u0060every required exported compiler setting is mandatory\u0060\u0060",
       "Kind": "member",
-      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Equal``1(``0,``0)",
-      "Reason": "The non-shipping compiler-policy regression asserts that the stock FSharp template's deterministic XML documentation output remains accepted. Assertions cannot become shipping dependencies."
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Equal\u0060\u00601(\u0060\u00600,\u0060\u00600)",
+      "Reason": "The non-shipping compiler-policy regression asserts that the stock FSharp template\u0027s deterministic XML documentation output remains accepted. Assertions cannot become shipping dependencies."
     },
     {
       "File": "src/FDull/WorkspaceAudit.fs",
@@ -12876,280 +12882,280 @@
       "File": "src/FDull/WorkspacePolicy.fs",
       "Owner": "FDull.WorkspacePolicy.validateExternal",
       "Kind": "member",
-      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.ListModule.Iterate``1(Microsoft.FSharp.Core.FSharpFunc{``0,Microsoft.FSharp.Core.Unit},Microsoft.FSharp.Collections.FSharpList{``0})",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.ListModule.Iterate\u0060\u00601(Microsoft.FSharp.Core.FSharpFunc{\u0060\u00600,Microsoft.FSharp.Core.Unit},Microsoft.FSharp.Collections.FSharpList{\u0060\u00600})",
       "Reason": "Reviewed external classifications must exist and cannot conceal FSharp compiler, build, or dependency inputs. Validation fails closed before certification."
     },
     {
       "File": "src/FDull/WorkspacePolicy.fs",
       "Owner": "FDull.WorkspacePolicy.validateExternal",
       "Kind": "member",
-      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Core.Operators.InvalidOp``1(System.String)",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Core.Operators.InvalidOp\u0060\u00601(System.String)",
       "Reason": "Reviewed external classifications must exist and cannot conceal FSharp compiler, build, or dependency inputs. Validation fails closed before certification."
     },
     {
       "File": "tests/FDull.Tests/ProjectTests.fs",
-      "Owner": "FDull.Tests.ProjectTests.``initialization discovers reviewed mixed-language scope and exports Web SDK inputs without compiling``",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060initialization discovers reviewed mixed-language scope and exports Web SDK inputs without compiling\u0060\u0060",
       "Kind": "attribute",
       "Identity": "xunit.core, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | Xunit.FactAttribute |  | unit",
       "Reason": "The isolated bootstrap fixture proves initialization snapshots restored Web SDK generated metadata and a reviewed mixed-language scope without compiling invalid source. Filesystem changes stay in a unique temporary directory and are cleaned up."
     },
     {
       "File": "tests/FDull.Tests/ProjectTests.fs",
-      "Owner": "FDull.Tests.ProjectTests.``initialization discovers reviewed mixed-language scope and exports Web SDK inputs without compiling``",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060initialization discovers reviewed mixed-language scope and exports Web SDK inputs without compiling\u0060\u0060",
       "Kind": "member",
       "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Project.initialize(System.String)",
       "Reason": "The isolated bootstrap fixture proves plain initialization discovers and fingerprints the reviewed root scope before exporting the mixed-language graph; filesystem changes remain confined to the temporary workspace."
     },
     {
       "File": "tests/FDull.Tests/ProjectTests.fs",
-      "Owner": "FDull.Tests.ProjectTests.``initialization discovers reviewed mixed-language scope and exports Web SDK inputs without compiling``",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060initialization discovers reviewed mixed-language scope and exports Web SDK inputs without compiling\u0060\u0060",
       "Kind": "member",
-      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Transport.Codec.decode``1(System.String)",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Transport.Codec.decode\u0060\u00601(System.String)",
       "Reason": "The isolated bootstrap fixture proves initialization snapshots restored Web SDK generated metadata and a reviewed mixed-language scope without compiling invalid source. Filesystem changes stay in a unique temporary directory and are cleaned up."
     },
     {
       "File": "tests/FDull.Tests/ProjectTests.fs",
-      "Owner": "FDull.Tests.ProjectTests.``initialization discovers reviewed mixed-language scope and exports Web SDK inputs without compiling``",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060initialization discovers reviewed mixed-language scope and exports Web SDK inputs without compiling\u0060\u0060",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Directory.CreateDirectory(System.String)",
       "Reason": "The isolated bootstrap fixture proves initialization snapshots restored Web SDK generated metadata and a reviewed mixed-language scope without compiling invalid source. Filesystem changes stay in a unique temporary directory and are cleaned up."
     },
     {
       "File": "tests/FDull.Tests/ProjectTests.fs",
-      "Owner": "FDull.Tests.ProjectTests.``initialization discovers reviewed mixed-language scope and exports Web SDK inputs without compiling``",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060initialization discovers reviewed mixed-language scope and exports Web SDK inputs without compiling\u0060\u0060",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.File.ReadAllText(System.String)",
       "Reason": "The isolated bootstrap fixture proves initialization snapshots restored Web SDK generated metadata and a reviewed mixed-language scope without compiling invalid source. Filesystem changes stay in a unique temporary directory and are cleaned up."
     },
     {
       "File": "tests/FDull.Tests/ProjectTests.fs",
-      "Owner": "FDull.Tests.ProjectTests.``initialization discovers reviewed mixed-language scope and exports Web SDK inputs without compiling``",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060initialization discovers reviewed mixed-language scope and exports Web SDK inputs without compiling\u0060\u0060",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.File.WriteAllText(System.String,System.String)",
       "Reason": "The isolated bootstrap fixture proves initialization snapshots restored Web SDK generated metadata and a reviewed mixed-language scope without compiling invalid source. Filesystem changes stay in a unique temporary directory and are cleaned up."
     },
     {
       "File": "tests/FDull.Tests/ProjectTests.fs",
-      "Owner": "FDull.Tests.ProjectTests.``initialization discovers reviewed mixed-language scope and exports Web SDK inputs without compiling``",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060initialization discovers reviewed mixed-language scope and exports Web SDK inputs without compiling\u0060\u0060",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.Combine(System.String,System.String)",
       "Reason": "The isolated bootstrap fixture proves initialization snapshots restored Web SDK generated metadata and a reviewed mixed-language scope without compiling invalid source. Filesystem changes stay in a unique temporary directory and are cleaned up."
     },
     {
       "File": "tests/FDull.Tests/ProjectTests.fs",
-      "Owner": "FDull.Tests.ProjectTests.``initialization discovers reviewed mixed-language scope and exports Web SDK inputs without compiling``",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060initialization discovers reviewed mixed-language scope and exports Web SDK inputs without compiling\u0060\u0060",
       "Kind": "member",
-      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Contains``1(System.Collections.Generic.IEnumerable{``0},System.Predicate{``0})",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Contains\u0060\u00601(System.Collections.Generic.IEnumerable{\u0060\u00600},System.Predicate{\u0060\u00600})",
       "Reason": "The isolated bootstrap fixture proves initialization snapshots restored Web SDK generated metadata and a reviewed mixed-language scope without compiling invalid source. Filesystem changes stay in a unique temporary directory and are cleaned up."
     },
     {
       "File": "tests/FDull.Tests/ProjectTests.fs",
-      "Owner": "FDull.Tests.ProjectTests.``initialization discovers reviewed mixed-language scope and exports Web SDK inputs without compiling``",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060initialization discovers reviewed mixed-language scope and exports Web SDK inputs without compiling\u0060\u0060",
       "Kind": "member",
-      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Equal``1(``0,``0)",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Equal\u0060\u00601(\u0060\u00600,\u0060\u00600)",
       "Reason": "The isolated bootstrap fixture proves initialization snapshots restored Web SDK generated metadata and a reviewed mixed-language scope without compiling invalid source. Filesystem changes stay in a unique temporary directory and are cleaned up."
     },
     {
       "File": "tests/FDull.Tests/ProjectTests.fs",
-      "Owner": "FDull.Tests.ProjectTests.``initialization discovers reviewed mixed-language scope and exports Web SDK inputs without compiling``",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060initialization discovers reviewed mixed-language scope and exports Web SDK inputs without compiling\u0060\u0060",
       "Kind": "type",
       "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspacePin",
       "Reason": "The isolated bootstrap fixture proves initialization snapshots restored Web SDK generated metadata and a reviewed mixed-language scope without compiling invalid source. Filesystem changes stay in a unique temporary directory and are cleaned up."
     },
     {
       "File": "tests/FDull.Tests/ProjectTests.fs",
-      "Owner": "FDull.Tests.ProjectTests.``initialization discovers reviewed mixed-language scope and exports Web SDK inputs without compiling``",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060initialization discovers reviewed mixed-language scope and exports Web SDK inputs without compiling\u0060\u0060",
       "Kind": "type",
       "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspacePolicyDocument",
       "Reason": "The isolated bootstrap fixture proves initialization snapshots restored Web SDK generated metadata and a reviewed mixed-language scope without compiling invalid source. Filesystem changes stay in a unique temporary directory and are cleaned up."
     },
     {
       "File": "tests/FDull.Tests/ProjectTests.fs",
-      "Owner": "FDull.Tests.ProjectTests.``initialization discovers reviewed mixed-language scope and exports Web SDK inputs without compiling``",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060initialization discovers reviewed mixed-language scope and exports Web SDK inputs without compiling\u0060\u0060",
       "Kind": "type",
       "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspaceSource",
       "Reason": "The isolated bootstrap fixture proves initialization snapshots restored Web SDK generated metadata and a reviewed mixed-language scope without compiling invalid source. Filesystem changes stay in a unique temporary directory and are cleaned up."
     },
     {
       "File": "tests/FDull.Tests/ProjectTests.fs",
-      "Owner": "FDull.Tests.ProjectTests.``supported Web test SDK xUnit v3 and Aspire generated-source profiles are exact``",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060supported Web test SDK xUnit v3 and Aspire generated-source profiles are exact\u0060\u0060",
       "Kind": "attribute",
       "Identity": "xunit.core, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | Xunit.FactAttribute |  | unit",
       "Reason": "The isolated consumer fixture restores and builds an F# Web/test project on pinned SDK 10.0.200 with FSharp Core 10.0.100, then initializes and analyzes the exact generated-source profile. Its bounded child process and temporary files cannot enter shipping code."
     },
     {
       "File": "tests/FDull.Tests/ProjectTests.fs",
-      "Owner": "FDull.Tests.ProjectTests.``supported Web test SDK xUnit v3 and Aspire generated-source profiles are exact``",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060supported Web test SDK xUnit v3 and Aspire generated-source profiles are exact\u0060\u0060",
       "Kind": "member",
       "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Project.initialize(System.String)",
       "Reason": "The isolated consumer fixture restores and builds an F# Web/test project on pinned SDK 10.0.200 with FSharp Core 10.0.100, then initializes and analyzes the exact generated-source profile. Its bounded child process and temporary files cannot enter shipping code."
     },
     {
       "File": "tests/FDull.Tests/ProjectTests.fs",
-      "Owner": "FDull.Tests.ProjectTests.``supported Web test SDK xUnit v3 and Aspire generated-source profiles are exact``",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060supported Web test SDK xUnit v3 and Aspire generated-source profiles are exact\u0060\u0060",
       "Kind": "member",
       "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Workspace.check(System.String)",
       "Reason": "The isolated consumer fixture restores and builds an F# Web/test project on pinned SDK 10.0.200 with FSharp Core 10.0.100, then initializes and analyzes the exact generated-source profile. Its bounded child process and temporary files cannot enter shipping code."
     },
     {
       "File": "tests/FDull.Tests/ProjectTests.fs",
-      "Owner": "FDull.Tests.ProjectTests.``supported Web test SDK xUnit v3 and Aspire generated-source profiles are exact``",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060supported Web test SDK xUnit v3 and Aspire generated-source profiles are exact\u0060\u0060",
       "Kind": "member",
       "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Core.StringModule.Concat(System.String,System.Collections.Generic.IEnumerable{System.String})",
       "Reason": "The isolated consumer fixture restores and builds an F# Web/test project on pinned SDK 10.0.200 with FSharp Core 10.0.100, then initializes and analyzes the exact generated-source profile. Its bounded child process and temporary files cannot enter shipping code."
     },
     {
       "File": "tests/FDull.Tests/ProjectTests.fs",
-      "Owner": "FDull.Tests.ProjectTests.``supported Web test SDK xUnit v3 and Aspire generated-source profiles are exact``",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060supported Web test SDK xUnit v3 and Aspire generated-source profiles are exact\u0060\u0060",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.File.WriteAllText(System.String,System.String)",
       "Reason": "The isolated consumer fixture restores and builds an F# Web/test project on pinned SDK 10.0.200 with FSharp Core 10.0.100, then initializes and analyzes the exact generated-source profile. Its bounded child process and temporary files cannot enter shipping code."
     },
     {
       "File": "tests/FDull.Tests/ProjectTests.fs",
-      "Owner": "FDull.Tests.ProjectTests.``supported Web test SDK xUnit v3 and Aspire generated-source profiles are exact``",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060supported Web test SDK xUnit v3 and Aspire generated-source profiles are exact\u0060\u0060",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.Combine(System.String,System.String)",
       "Reason": "The isolated consumer fixture restores and builds an F# Web/test project on pinned SDK 10.0.200 with FSharp Core 10.0.100, then initializes and analyzes the exact generated-source profile. Its bounded child process and temporary files cannot enter shipping code."
     },
     {
       "File": "tests/FDull.Tests/ProjectTests.fs",
-      "Owner": "FDull.Tests.ProjectTests.``supported Web test SDK xUnit v3 and Aspire generated-source profiles are exact``",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060supported Web test SDK xUnit v3 and Aspire generated-source profiles are exact\u0060\u0060",
       "Kind": "member",
-      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Equal``1(``0,``0)",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Equal\u0060\u00601(\u0060\u00600,\u0060\u00600)",
       "Reason": "The isolated consumer fixture restores and builds an F# Web/test project on pinned SDK 10.0.200 with FSharp Core 10.0.100, then initializes and analyzes the exact generated-source profile. Its bounded child process and temporary files cannot enter shipping code."
     },
     {
       "File": "tests/FDull.Tests/ProjectTests.fs",
-      "Owner": "FDull.Tests.ProjectTests.``supported Web test SDK xUnit v3 and Aspire generated-source profiles are exact``",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060supported Web test SDK xUnit v3 and Aspire generated-source profiles are exact\u0060\u0060",
       "Kind": "member",
       "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.True(System.Boolean,System.String)",
       "Reason": "The isolated consumer fixture restores and builds an F# Web/test project on pinned SDK 10.0.200 with FSharp Core 10.0.100, then initializes and analyzes the exact generated-source profile. Its bounded child process and temporary files cannot enter shipping code."
     },
     {
       "File": "tests/FDull.Tests/ProjectTests.fs",
-      "Owner": "FDull.Tests.ProjectTests.``supported Web test SDK xUnit v3 and Aspire generated-source profiles are exact``",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060supported Web test SDK xUnit v3 and Aspire generated-source profiles are exact\u0060\u0060",
       "Kind": "type",
       "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspaceReport",
       "Reason": "The isolated consumer fixture restores and builds an F# Web/test project on pinned SDK 10.0.200 with FSharp Core 10.0.100, then initializes and analyzes the exact generated-source profile. Its bounded child process and temporary files cannot enter shipping code."
     },
     {
       "File": "tests/FDull.Tests/WorkspaceTests.fs",
-      "Owner": "FDull.Tests.WorkspaceTests.``mixed-language scope and internal links preserve inventory boundaries``",
+      "Owner": "FDull.Tests.WorkspaceTests.\u0060\u0060mixed-language scope and internal links preserve inventory boundaries\u0060\u0060",
       "Kind": "attribute",
       "Identity": "xunit.core, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | Xunit.FactAttribute |  | unit",
       "Reason": "An isolated copied-policy fixture proves legacy migration, reviewed external boundaries, hidden FSharp rejection, dependency-tree exclusion, and internal versus escaping link handling. All mutations stay in a unique temporary directory."
     },
     {
       "File": "tests/FDull.Tests/WorkspaceTests.fs",
-      "Owner": "FDull.Tests.WorkspaceTests.``mixed-language scope and internal links preserve inventory boundaries``",
+      "Owner": "FDull.Tests.WorkspaceTests.\u0060\u0060mixed-language scope and internal links preserve inventory boundaries\u0060\u0060",
       "Kind": "member",
-      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Transport.Codec.encode``1(``0)",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Transport.Codec.encode\u0060\u00601(\u0060\u00600)",
       "Reason": "An isolated copied-policy fixture proves legacy migration, reviewed external boundaries, hidden FSharp rejection, dependency-tree exclusion, and internal versus escaping link handling. All mutations stay in a unique temporary directory."
     },
     {
       "File": "tests/FDull.Tests/WorkspaceTests.fs",
-      "Owner": "FDull.Tests.WorkspaceTests.``mixed-language scope and internal links preserve inventory boundaries``",
+      "Owner": "FDull.Tests.WorkspaceTests.\u0060\u0060mixed-language scope and internal links preserve inventory boundaries\u0060\u0060",
       "Kind": "member",
       "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Workspace.validatePolicy(System.String)",
       "Reason": "An isolated copied-policy fixture proves legacy migration, reviewed external boundaries, hidden FSharp rejection, dependency-tree exclusion, and internal versus escaping link handling. All mutations stay in a unique temporary directory."
     },
     {
       "File": "tests/FDull.Tests/WorkspaceTests.fs",
-      "Owner": "FDull.Tests.WorkspaceTests.``mixed-language scope and internal links preserve inventory boundaries``",
+      "Owner": "FDull.Tests.WorkspaceTests.\u0060\u0060mixed-language scope and internal links preserve inventory boundaries\u0060\u0060",
       "Kind": "member",
-      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Core.Operators.FailWith``1(System.String)",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Core.Operators.FailWith\u0060\u00601(System.String)",
       "Reason": "An isolated copied-policy fixture proves legacy migration, reviewed external boundaries, hidden FSharp rejection, dependency-tree exclusion, and internal versus escaping link handling. All mutations stay in a unique temporary directory."
     },
     {
       "File": "tests/FDull.Tests/WorkspaceTests.fs",
-      "Owner": "FDull.Tests.WorkspaceTests.``mixed-language scope and internal links preserve inventory boundaries``",
+      "Owner": "FDull.Tests.WorkspaceTests.\u0060\u0060mixed-language scope and internal links preserve inventory boundaries\u0060\u0060",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Directory.CreateDirectory(System.String)",
       "Reason": "An isolated copied-policy fixture proves legacy migration, reviewed external boundaries, hidden FSharp rejection, dependency-tree exclusion, and internal versus escaping link handling. All mutations stay in a unique temporary directory."
     },
     {
       "File": "tests/FDull.Tests/WorkspaceTests.fs",
-      "Owner": "FDull.Tests.WorkspaceTests.``mixed-language scope and internal links preserve inventory boundaries``",
+      "Owner": "FDull.Tests.WorkspaceTests.\u0060\u0060mixed-language scope and internal links preserve inventory boundaries\u0060\u0060",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Directory.CreateSymbolicLink(System.String,System.String)",
       "Reason": "An isolated copied-policy fixture proves legacy migration, reviewed external boundaries, hidden FSharp rejection, dependency-tree exclusion, and internal versus escaping link handling. All mutations stay in a unique temporary directory."
     },
     {
       "File": "tests/FDull.Tests/WorkspaceTests.fs",
-      "Owner": "FDull.Tests.WorkspaceTests.``mixed-language scope and internal links preserve inventory boundaries``",
+      "Owner": "FDull.Tests.WorkspaceTests.\u0060\u0060mixed-language scope and internal links preserve inventory boundaries\u0060\u0060",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.File.Delete(System.String)",
       "Reason": "An isolated copied-policy fixture proves legacy migration, reviewed external boundaries, hidden FSharp rejection, dependency-tree exclusion, and internal versus escaping link handling. All mutations stay in a unique temporary directory."
     },
     {
       "File": "tests/FDull.Tests/WorkspaceTests.fs",
-      "Owner": "FDull.Tests.WorkspaceTests.``mixed-language scope and internal links preserve inventory boundaries``",
+      "Owner": "FDull.Tests.WorkspaceTests.\u0060\u0060mixed-language scope and internal links preserve inventory boundaries\u0060\u0060",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.File.ReadAllText(System.String)",
       "Reason": "An isolated copied-policy fixture proves legacy migration, reviewed external boundaries, hidden FSharp rejection, dependency-tree exclusion, and internal versus escaping link handling. All mutations stay in a unique temporary directory."
     },
     {
       "File": "tests/FDull.Tests/WorkspaceTests.fs",
-      "Owner": "FDull.Tests.WorkspaceTests.``mixed-language scope and internal links preserve inventory boundaries``",
+      "Owner": "FDull.Tests.WorkspaceTests.\u0060\u0060mixed-language scope and internal links preserve inventory boundaries\u0060\u0060",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.File.WriteAllText(System.String,System.String)",
       "Reason": "An isolated copied-policy fixture proves legacy migration, reviewed external boundaries, hidden FSharp rejection, dependency-tree exclusion, and internal versus escaping link handling. All mutations stay in a unique temporary directory."
     },
     {
       "File": "tests/FDull.Tests/WorkspaceTests.fs",
-      "Owner": "FDull.Tests.WorkspaceTests.``mixed-language scope and internal links preserve inventory boundaries``",
+      "Owner": "FDull.Tests.WorkspaceTests.\u0060\u0060mixed-language scope and internal links preserve inventory boundaries\u0060\u0060",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.Combine(System.String,System.String)",
       "Reason": "An isolated copied-policy fixture proves legacy migration, reviewed external boundaries, hidden FSharp rejection, dependency-tree exclusion, and internal versus escaping link handling. All mutations stay in a unique temporary directory."
     },
     {
       "File": "tests/FDull.Tests/WorkspaceTests.fs",
-      "Owner": "FDull.Tests.WorkspaceTests.``mixed-language scope and internal links preserve inventory boundaries``",
+      "Owner": "FDull.Tests.WorkspaceTests.\u0060\u0060mixed-language scope and internal links preserve inventory boundaries\u0060\u0060",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.GetTempPath",
       "Reason": "An isolated copied-policy fixture proves legacy migration, reviewed external boundaries, hidden FSharp rejection, dependency-tree exclusion, and internal versus escaping link handling. All mutations stay in a unique temporary directory."
     },
     {
       "File": "tests/FDull.Tests/WorkspaceTests.fs",
-      "Owner": "FDull.Tests.WorkspaceTests.``mixed-language scope and internal links preserve inventory boundaries``",
+      "Owner": "FDull.Tests.WorkspaceTests.\u0060\u0060mixed-language scope and internal links preserve inventory boundaries\u0060\u0060",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.OperatingSystem.IsWindows",
       "Reason": "An isolated copied-policy fixture proves legacy migration, reviewed external boundaries, hidden FSharp rejection, dependency-tree exclusion, and internal versus escaping link handling. All mutations stay in a unique temporary directory."
     },
     {
       "File": "tests/FDull.Tests/WorkspaceTests.fs",
-      "Owner": "FDull.Tests.WorkspaceTests.``mixed-language scope and internal links preserve inventory boundaries``",
+      "Owner": "FDull.Tests.WorkspaceTests.\u0060\u0060mixed-language scope and internal links preserve inventory boundaries\u0060\u0060",
       "Kind": "member",
       "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | M:System.String.Replace(System.String,System.String)",
       "Reason": "An isolated copied-policy fixture proves legacy migration, reviewed external boundaries, hidden FSharp rejection, dependency-tree exclusion, and internal versus escaping link handling. All mutations stay in a unique temporary directory."
     },
     {
       "File": "tests/FDull.Tests/WorkspaceTests.fs",
-      "Owner": "FDull.Tests.WorkspaceTests.``mixed-language scope and internal links preserve inventory boundaries``",
+      "Owner": "FDull.Tests.WorkspaceTests.\u0060\u0060mixed-language scope and internal links preserve inventory boundaries\u0060\u0060",
       "Kind": "member",
-      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Equal``1(``0,``0)",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Equal\u0060\u00601(\u0060\u00600,\u0060\u00600)",
       "Reason": "An isolated copied-policy fixture proves legacy migration, reviewed external boundaries, hidden FSharp rejection, dependency-tree exclusion, and internal versus escaping link handling. All mutations stay in a unique temporary directory."
     },
     {
       "File": "tests/FDull.Tests/WorkspaceTests.fs",
-      "Owner": "FDull.Tests.WorkspaceTests.``mixed-language scope and internal links preserve inventory boundaries``",
+      "Owner": "FDull.Tests.WorkspaceTests.\u0060\u0060mixed-language scope and internal links preserve inventory boundaries\u0060\u0060",
       "Kind": "member",
       "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.StartsWith(System.String,System.String)",
       "Reason": "An isolated copied-policy fixture proves legacy migration, reviewed external boundaries, hidden FSharp rejection, dependency-tree exclusion, and internal versus escaping link handling. All mutations stay in a unique temporary directory."
     },
     {
       "File": "tests/FDull.Tests/WorkspaceTests.fs",
-      "Owner": "FDull.Tests.WorkspaceTests.``mixed-language scope and internal links preserve inventory boundaries``",
+      "Owner": "FDull.Tests.WorkspaceTests.\u0060\u0060mixed-language scope and internal links preserve inventory boundaries\u0060\u0060",
       "Kind": "type",
       "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspacePolicyDocument",
       "Reason": "An isolated copied-policy fixture proves legacy migration, reviewed external boundaries, hidden FSharp rejection, dependency-tree exclusion, and internal versus escaping link handling. All mutations stay in a unique temporary directory."
     },
     {
       "File": "tests/FDull.Tests/SafetyTests.fs",
-      "Owner": "FDull.Tests.SafetyTests.``valid FSharp violations have canonical diagnostics and physical locations``",
+      "Owner": "FDull.Tests.SafetyTests.\u0060\u0060valid FSharp violations have canonical diagnostics and physical locations\u0060\u0060",
       "Kind": "attribute",
-      "Identity": "xunit.core, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | Xunit.InlineDataAttribute |  | [\"string:\\u0022BUILD001\\u0022\",\"string:\\u0022// fsharpanalyzer: ignore-line STYLE001\\\\nlet value = 1\\u0022\"]",
+      "Identity": "xunit.core, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | Xunit.InlineDataAttribute |  | [\u0022string:\\u0022BUILD001\\u0022\u0022,\u0022string:\\u0022// fsharpanalyzer: ignore-line STYLE001\\\\nlet value = 1\\u0022\u0022]",
       "Reason": "The canonical syntax regression supplies a literal analyzer-suppression comment and asserts BUILD001. Test data cannot alter production policy or suppress diagnostics."
     },
     {
@@ -13157,11 +13163,11 @@
       "Owner": "FDull.Analyzers.Analyzer.editorAnalyzer",
       "Kind": "type",
       "Identity": "FSharp.Analyzers.SDK, Version=0.37.2.0, Culture=neutral, PublicKeyToken=null | FSharp.Analyzers.SDK.Message",
-      "Reason": "The FsAutocomplete and Ionide adapter reads the editor's finite source and parse context and maps canonical FDull diagnostics into SDK messages. It is advisory and cannot certify builds or modify policy."
+      "Reason": "The FsAutocomplete and Ionide adapter reads the editor\u0027s finite source and parse context and maps canonical FDull diagnostics into SDK messages. It is advisory and cannot certify builds or modify policy."
     },
     {
       "File": "tests/FDull.Tests/WorkspaceTests.fs",
-      "Owner": "FDull.Tests.WorkspaceTests.``mixed-language scope and internal links preserve inventory boundaries``",
+      "Owner": "FDull.Tests.WorkspaceTests.\u0060\u0060mixed-language scope and internal links preserve inventory boundaries\u0060\u0060",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.Combine(System.String,System.String,System.String)",
       "Reason": "An isolated copied-policy fixture proves legacy migration, reviewed external boundaries, hidden FSharp rejection, dependency-tree exclusion, and internal versus escaping link handling. All mutations stay in a unique temporary directory."
@@ -13184,7 +13190,7 @@
       "File": "src/FDull/WorkspaceAudit.fs",
       "Owner": "FDull.WorkspaceAudit.inventory",
       "Kind": "rule",
-      "Identity": "ERR005 | error -> System.Exception",
+      "Identity": "ERR005 | error -\u003E System.Exception",
       "Reason": "Workspace inventory translates only its own bounded traversal failures into a contextual incomplete-analysis result; all other failures still propagate."
     },
     {
@@ -13254,7 +13260,7 @@
       "File": "src/FDull/WorkspaceGenerated.fs",
       "Owner": "FDull.WorkspaceGenerated.validNamespace",
       "Kind": "member",
-      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.ArrayModule.ToList``1(``0[])",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.ArrayModule.ToList\u0060\u00601(\u0060\u00600[])",
       "Reason": "Generated-source attestation performs this exact operation only while matching reviewed xUnit 3.1.0, Microsoft Testing Platform 1.8.4 and optional JUnit logger 7.0.2 inputs."
     },
     {
@@ -13282,7 +13288,7 @@
       "File": "src/FDull/WorkspaceGenerated.fs",
       "Owner": "FDull.WorkspaceGenerated.xunitV3",
       "Kind": "member",
-      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.ArrayModule.TryFind``1(Microsoft.FSharp.Core.FSharpFunc{``0,System.Boolean},``0[])",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.ArrayModule.TryFind\u0060\u00601(Microsoft.FSharp.Core.FSharpFunc{\u0060\u00600,System.Boolean},\u0060\u00600[])",
       "Reason": "Generated-source attestation performs this exact operation only while matching reviewed xUnit 3.1.0, Microsoft Testing Platform 1.8.4 and optional JUnit logger 7.0.2 inputs."
     },
     {
@@ -13303,7 +13309,7 @@
       "File": "src/FDull/WorkspaceGenerated.fs",
       "Owner": "FDull.WorkspaceGenerated.supported",
       "Kind": "member",
-      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Core.OptionModule.OfObj``1(``0)",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Core.OptionModule.OfObj\u0060\u00601(\u0060\u00600)",
       "Reason": "Generated-source attestation performs this exact operation only while matching reviewed xUnit 3.1.0, Microsoft Testing Platform 1.8.4 and optional JUnit logger 7.0.2 inputs."
     },
     {
@@ -13322,72 +13328,72 @@
     },
     {
       "File": "tests/FDull.Tests/ProjectTests.fs",
-      "Owner": "FDull.Tests.ProjectTests.``supported Web test SDK xUnit v3 and Aspire generated-source profiles are exact``",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060supported Web test SDK xUnit v3 and Aspire generated-source profiles are exact\u0060\u0060",
       "Kind": "type",
       "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspaceInvocation",
       "Reason": "The consumer regression creates and inspects an isolated xUnit v3 project, then deliberately tampers with one generated source to prove the exact profile fails closed."
     },
     {
       "File": "tests/FDull.Tests/ProjectTests.fs",
-      "Owner": "FDull.Tests.ProjectTests.``supported Web test SDK xUnit v3 and Aspire generated-source profiles are exact``",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060supported Web test SDK xUnit v3 and Aspire generated-source profiles are exact\u0060\u0060",
       "Kind": "member",
       "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Workspace.export(System.String,System.String)",
       "Reason": "The consumer regression creates and inspects an isolated xUnit v3 project, then deliberately tampers with one generated source to prove the exact profile fails closed."
     },
     {
       "File": "tests/FDull.Tests/ProjectTests.fs",
-      "Owner": "FDull.Tests.ProjectTests.``supported Web test SDK xUnit v3 and Aspire generated-source profiles are exact``",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060supported Web test SDK xUnit v3 and Aspire generated-source profiles are exact\u0060\u0060",
       "Kind": "member",
-      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Core.Operators.FailWith``1(System.String)",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Core.Operators.FailWith\u0060\u00601(System.String)",
       "Reason": "The consumer regression creates and inspects an isolated xUnit v3 project, then deliberately tampers with one generated source to prove the exact profile fails closed."
     },
     {
       "File": "tests/FDull.Tests/ProjectTests.fs",
-      "Owner": "FDull.Tests.ProjectTests.``supported Web test SDK xUnit v3 and Aspire generated-source profiles are exact``",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060supported Web test SDK xUnit v3 and Aspire generated-source profiles are exact\u0060\u0060",
       "Kind": "member",
-      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Contains``1(System.Collections.Generic.IEnumerable{``0},System.Predicate{``0})",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Contains\u0060\u00601(System.Collections.Generic.IEnumerable{\u0060\u00600},System.Predicate{\u0060\u00600})",
       "Reason": "The consumer regression creates and inspects an isolated xUnit v3 project, then deliberately tampers with one generated source to prove the exact profile fails closed."
     },
     {
       "File": "tests/FDull.Tests/ProjectTests.fs",
-      "Owner": "FDull.Tests.ProjectTests.``supported Web test SDK xUnit v3 and Aspire generated-source profiles are exact``",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060supported Web test SDK xUnit v3 and Aspire generated-source profiles are exact\u0060\u0060",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.GetFileName(System.String)",
       "Reason": "The consumer regression creates and inspects an isolated xUnit v3 project, then deliberately tampers with one generated source to prove the exact profile fails closed."
     },
     {
       "File": "tests/FDull.Tests/ProjectTests.fs",
-      "Owner": "FDull.Tests.ProjectTests.``supported Web test SDK xUnit v3 and Aspire generated-source profiles are exact``",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060supported Web test SDK xUnit v3 and Aspire generated-source profiles are exact\u0060\u0060",
       "Kind": "member",
-      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Transport.Codec.encode``1(``0)",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Transport.Codec.encode\u0060\u00601(\u0060\u00600)",
       "Reason": "The consumer regression creates and inspects an isolated xUnit v3 project, then deliberately tampers with one generated source to prove the exact profile fails closed."
     },
     {
       "File": "tests/FDull.Tests/ProjectTests.fs",
-      "Owner": "FDull.Tests.ProjectTests.``supported Web test SDK xUnit v3 and Aspire generated-source profiles are exact``",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060supported Web test SDK xUnit v3 and Aspire generated-source profiles are exact\u0060\u0060",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.File.AppendAllText(System.String,System.String)",
       "Reason": "The consumer regression creates and inspects an isolated xUnit v3 project, then deliberately tampers with one generated source to prove the exact profile fails closed."
     },
     {
       "File": "tests/FDull.Tests/ProjectTests.fs",
-      "Owner": "FDull.Tests.ProjectTests.``supported Web test SDK xUnit v3 and Aspire generated-source profiles are exact``",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060supported Web test SDK xUnit v3 and Aspire generated-source profiles are exact\u0060\u0060",
       "Kind": "member",
       "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.StartsWith(System.String,System.String)",
       "Reason": "The consumer regression creates and inspects an isolated xUnit v3 project, then deliberately tampers with one generated source to prove the exact profile fails closed."
     },
     {
       "File": "tests/FDull.Tests/WorkspaceTests.fs",
-      "Owner": "FDull.Tests.WorkspaceTests.``mixed-language scope and internal links preserve inventory boundaries``",
+      "Owner": "FDull.Tests.WorkspaceTests.\u0060\u0060mixed-language scope and internal links preserve inventory boundaries\u0060\u0060",
       "Kind": "member",
       "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.WorkspaceAudit.inventory(System.String)",
       "Reason": "The mixed-workspace regression directly inspects inventory and asserts that the configured generated artifact tree cannot consume traversal budget or become protected source."
     },
     {
       "File": "tests/FDull.Tests/WorkspaceTests.fs",
-      "Owner": "FDull.Tests.WorkspaceTests.``mixed-language scope and internal links preserve inventory boundaries``",
+      "Owner": "FDull.Tests.WorkspaceTests.\u0060\u0060mixed-language scope and internal links preserve inventory boundaries\u0060\u0060",
       "Kind": "member",
-      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.DoesNotContain``1(System.Collections.Generic.IEnumerable{``0},System.Predicate{``0})",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.DoesNotContain\u0060\u00601(System.Collections.Generic.IEnumerable{\u0060\u00600},System.Predicate{\u0060\u00600})",
       "Reason": "The mixed-workspace regression directly inspects inventory and asserts that the configured generated artifact tree cannot consume traversal budget or become protected source."
     },
     {
@@ -13401,7 +13407,7 @@
       "File": "src/FDull/WorkspaceGenerated.fs",
       "Owner": "FDull.WorkspaceGenerated.generatedClassName",
       "Kind": "member",
-      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Core.OptionModule.OfObj``1(``0)",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Core.OptionModule.OfObj\u0060\u00601(\u0060\u00600)",
       "Reason": "Aspire generated-source attestation reproduces the exact Aspire 13.4.6/FSharp Aspire 13.0.0 class-name and UTF-16 source templates, resolving existing parent links only to bind generated project paths to the protected graph."
     },
     {
@@ -13429,7 +13435,7 @@
       "File": "src/FDull/WorkspaceGenerated.fs",
       "Owner": "FDull.WorkspaceGenerated.canonicalPath",
       "Kind": "member",
-      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Core.OptionModule.OfObj``1(``0)",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Core.OptionModule.OfObj\u0060\u00601(\u0060\u00600)",
       "Reason": "Aspire generated-source attestation reproduces the exact Aspire 13.4.6/FSharp Aspire 13.0.0 class-name and UTF-16 source templates, resolving existing parent links only to bind generated project paths to the protected graph."
     },
     {
@@ -13450,7 +13456,7 @@
       "File": "src/FDull/WorkspaceGenerated.fs",
       "Owner": "FDull.WorkspaceGenerated.canonicalPath",
       "Kind": "member",
-      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.ArrayModule.ToList``1(``0[])",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.ArrayModule.ToList\u0060\u00601(\u0060\u00600[])",
       "Reason": "Aspire generated-source attestation reproduces the exact Aspire 13.4.6/FSharp Aspire 13.0.0 class-name and UTF-16 source templates, resolving existing parent links only to bind generated project paths to the protected graph."
     },
     {
@@ -13485,7 +13491,7 @@
       "File": "src/FDull/WorkspaceGenerated.fs",
       "Owner": "FDull.WorkspaceGenerated.canonicalPath",
       "Kind": "member",
-      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Core.Operators.op_BitwiseAnd``1(Microsoft.FSharp.Core.FSharpFunc{``0,Microsoft.FSharp.Core.FSharpFunc{``0,``0}},``0,``0)",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Core.Operators.op_BitwiseAnd\u0060\u00601(Microsoft.FSharp.Core.FSharpFunc{\u0060\u00600,Microsoft.FSharp.Core.FSharpFunc{\u0060\u00600,\u0060\u00600}},\u0060\u00600,\u0060\u00600)",
       "Reason": "Aspire generated-source attestation reproduces the exact Aspire 13.4.6/FSharp Aspire 13.0.0 class-name and UTF-16 source templates, resolving existing parent links only to bind generated project paths to the protected graph."
     },
     {
@@ -13562,33 +13568,33 @@
       "File": "src/FDull/WorkspaceGenerated.fs",
       "Owner": "FDull.WorkspaceGenerated.aspire",
       "Kind": "member",
-      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.ArrayModule.ToList``1(``0[])",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.ArrayModule.ToList\u0060\u00601(\u0060\u00600[])",
       "Reason": "Aspire generated-source attestation reproduces the exact Aspire 13.4.6/FSharp Aspire 13.0.0 class-name and UTF-16 source templates, resolving existing parent links only to bind generated project paths to the protected graph."
     },
     {
       "File": "tests/FDull.Tests/ProjectTests.fs",
-      "Owner": "FDull.Tests.ProjectTests.``supported Web test SDK xUnit v3 and Aspire generated-source profiles are exact``",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060supported Web test SDK xUnit v3 and Aspire generated-source profiles are exact\u0060\u0060",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Directory.CreateDirectory(System.String)",
       "Reason": "The consumer fixture creates an isolated Aspire AppHost graph and proves exact metadata succeeds while a post-generation tamper target fails closed."
     },
     {
       "File": "tests/FDull.Tests/WorkspaceTests.fs",
-      "Owner": "FDull.Tests.WorkspaceTests.``mixed-language scope and internal links preserve inventory boundaries``",
+      "Owner": "FDull.Tests.WorkspaceTests.\u0060\u0060mixed-language scope and internal links preserve inventory boundaries\u0060\u0060",
       "Kind": "member",
-      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Core.Operators.op_Range``1(Microsoft.FSharp.Core.FSharpFunc{Microsoft.FSharp.Core.Unit,``0},Microsoft.FSharp.Core.FSharpFunc{``0,Microsoft.FSharp.Core.FSharpFunc{``0,``0}},``0,``0)",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Core.Operators.op_Range\u0060\u00601(Microsoft.FSharp.Core.FSharpFunc{Microsoft.FSharp.Core.Unit,\u0060\u00600},Microsoft.FSharp.Core.FSharpFunc{\u0060\u00600,Microsoft.FSharp.Core.FSharpFunc{\u0060\u00600,\u0060\u00600}},\u0060\u00600,\u0060\u00600)",
       "Reason": "The inventory regression creates and removes 21,000 inert files to prove large checked workspaces remain bounded above the former 20,000-step ceiling."
     },
     {
       "File": "tests/FDull.Tests/WorkspaceTests.fs",
-      "Owner": "FDull.Tests.WorkspaceTests.``mixed-language scope and internal links preserve inventory boundaries``",
+      "Owner": "FDull.Tests.WorkspaceTests.\u0060\u0060mixed-language scope and internal links preserve inventory boundaries\u0060\u0060",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Directory.Delete(System.String,System.Boolean)",
       "Reason": "The inventory regression creates and removes 21,000 inert files to prove large checked workspaces remain bounded above the former 20,000-step ceiling."
     },
     {
       "File": "tests/FDull.Tests/WorkspaceTests.fs",
-      "Owner": "FDull.Tests.WorkspaceTests.``mixed-language scope and internal links preserve inventory boundaries``",
+      "Owner": "FDull.Tests.WorkspaceTests.\u0060\u0060mixed-language scope and internal links preserve inventory boundaries\u0060\u0060",
       "Kind": "rule",
       "Identity": "MUT009 | ",
       "Reason": "The inventory regression creates and removes 21,000 inert files to prove large checked workspaces remain bounded above the former 20,000-step ceiling."
@@ -13620,6 +13626,657 @@
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.File.Exists(System.String)",
       "Reason": "Plain initialization checks only the fixed root fdull.scope.json path, then delegates to the same fail-closed scope validation and fingerprinting used by the explicit --scope flow."
+    },
+    {
+      "File": "src/FDull/SafetyContext.fs",
+      "Owner": "FDull.SafetyReviewContract",
+      "Kind": "type",
+      "Identity": "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | FSharp.Compiler.Symbols.FSharpEntity",
+      "Reason": "Reviewed advisory tooling: exact current-source inputs, resolved finding evidence and bounded worker results remain separate from certification. Regression tests cover source drift, incomplete analysis and forbidden pure exemptions."
+    },
+    {
+      "File": "src/FDull/SafetyContext.fs",
+      "Owner": "FDull.SafetyReviewContract",
+      "Kind": "type",
+      "Identity": "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | FSharp.Compiler.Symbols.FSharpMemberOrFunctionOrValue",
+      "Reason": "Reviewed advisory tooling: exact current-source inputs, resolved finding evidence and bounded worker results remain separate from certification. Regression tests cover source drift, incomplete analysis and forbidden pure exemptions."
+    },
+    {
+      "File": "src/FDull/SafetyContext.fs",
+      "Owner": "FDull.SafetyReviewContract",
+      "Kind": "type",
+      "Identity": "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | FSharp.Compiler.Syntax.SynAttribute",
+      "Reason": "Reviewed advisory tooling: exact current-source inputs, resolved finding evidence and bounded worker results remain separate from certification. Regression tests cover source drift, incomplete analysis and forbidden pure exemptions."
+    },
+    {
+      "File": "src/FDull/WorkspaceEngine.fs",
+      "Owner": "FDull.WorkspaceEngine.analyze",
+      "Kind": "type",
+      "Identity": "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | FSharp.Compiler.Symbols.FSharpEntity",
+      "Reason": "Reviewed advisory tooling: exact current-source inputs, resolved finding evidence and bounded worker results remain separate from certification. Regression tests cover source drift, incomplete analysis and forbidden pure exemptions."
+    },
+    {
+      "File": "src/FDull/WorkspaceEngine.fs",
+      "Owner": "FDull.WorkspaceEngine.analyze",
+      "Kind": "type",
+      "Identity": "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | FSharp.Compiler.Symbols.FSharpMemberOrFunctionOrValue",
+      "Reason": "Reviewed advisory tooling: exact current-source inputs, resolved finding evidence and bounded worker results remain separate from certification. Regression tests cover source drift, incomplete analysis and forbidden pure exemptions."
+    },
+    {
+      "File": "src/FDull/WorkspaceEngine.fs",
+      "Owner": "FDull.WorkspaceEngine.analyze",
+      "Kind": "type",
+      "Identity": "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | FSharp.Compiler.Syntax.SynAttribute",
+      "Reason": "Reviewed advisory tooling: exact current-source inputs, resolved finding evidence and bounded worker results remain separate from certification. Regression tests cover source drift, incomplete analysis and forbidden pure exemptions."
+    },
+    {
+      "File": "src/FDull/Workspace.fs",
+      "Owner": "FDull.Workspace.review",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.GetFullPath(System.String)",
+      "Reason": "Reviewed advisory tooling: exact current-source inputs, resolved finding evidence and bounded worker results remain separate from certification. Regression tests cover source drift, incomplete analysis and forbidden pure exemptions."
+    },
+    {
+      "File": "src/FDull/Workspace.fs",
+      "Owner": "FDull.Workspace.review",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.Combine(System.String,System.String)",
+      "Reason": "Reviewed advisory tooling: exact current-source inputs, resolved finding evidence and bounded worker results remain separate from certification. Regression tests cover source drift, incomplete analysis and forbidden pure exemptions."
+    },
+    {
+      "File": "src/FDull/Workspace.fs",
+      "Owner": "FDull.Workspace.review",
+      "Kind": "member",
+      "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | M:System.Collections.Generic.List\u00601.#ctor",
+      "Reason": "Reviewed advisory tooling: exact current-source inputs, resolved finding evidence and bounded worker results remain separate from certification. Regression tests cover source drift, incomplete analysis and forbidden pure exemptions."
+    },
+    {
+      "File": "src/FDull/Workspace.fs",
+      "Owner": "FDull.Workspace.review",
+      "Kind": "member",
+      "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | M:System.Collections.Generic.List\u00601.Add(\u00600)",
+      "Reason": "Reviewed advisory tooling: exact current-source inputs, resolved finding evidence and bounded worker results remain separate from certification. Regression tests cover source drift, incomplete analysis and forbidden pure exemptions."
+    },
+    {
+      "File": "src/FDull/Workspace.fs",
+      "Owner": "FDull.Workspace.review",
+      "Kind": "member",
+      "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | P:System.Exception.Message",
+      "Reason": "Reviewed advisory tooling: exact current-source inputs, resolved finding evidence and bounded worker results remain separate from certification. Regression tests cover source drift, incomplete analysis and forbidden pure exemptions."
+    },
+    {
+      "File": "src/FDull/Workspace.fs",
+      "Owner": "FDull.Workspace.review",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.SeqModule.Exists\u0060\u00601(Microsoft.FSharp.Core.FSharpFunc{\u0060\u00600,System.Boolean},System.Collections.Generic.IEnumerable{\u0060\u00600})",
+      "Reason": "Reviewed advisory tooling: exact current-source inputs, resolved finding evidence and bounded worker results remain separate from certification. Regression tests cover source drift, incomplete analysis and forbidden pure exemptions."
+    },
+    {
+      "File": "src/FDull/Workspace.fs",
+      "Owner": "FDull.Workspace.review",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.ListModule.OfSeq\u0060\u00601(System.Collections.Generic.IEnumerable{\u0060\u00600})",
+      "Reason": "Reviewed advisory tooling: exact current-source inputs, resolved finding evidence and bounded worker results remain separate from certification. Regression tests cover source drift, incomplete analysis and forbidden pure exemptions."
+    },
+    {
+      "File": "src/FDull/Workspace.fs",
+      "Owner": "FDull.Workspace.review",
+      "Kind": "type",
+      "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | System.Collections.Generic.List\u00601",
+      "Reason": "Reviewed advisory tooling: exact current-source inputs, resolved finding evidence and bounded worker results remain separate from certification. Regression tests cover source drift, incomplete analysis and forbidden pure exemptions."
+    },
+    {
+      "File": "src/FDull/Workspace.fs",
+      "Owner": "FDull.Workspace.review",
+      "Kind": "type",
+      "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | System.Collections.Generic.IEnumerable\u00601",
+      "Reason": "Reviewed advisory tooling: exact current-source inputs, resolved finding evidence and bounded worker results remain separate from certification. Regression tests cover source drift, incomplete analysis and forbidden pure exemptions."
+    },
+    {
+      "File": "src/FDull/Workspace.fs",
+      "Owner": "FDull.Workspace.review",
+      "Kind": "type",
+      "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | System.Exception",
+      "Reason": "Reviewed advisory tooling: exact current-source inputs, resolved finding evidence and bounded worker results remain separate from certification. Regression tests cover source drift, incomplete analysis and forbidden pure exemptions."
+    },
+    {
+      "File": "src/FDull/Workspace.fs",
+      "Owner": "FDull.Workspace.review",
+      "Kind": "type",
+      "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | System.Object",
+      "Reason": "Reviewed advisory tooling: exact current-source inputs, resolved finding evidence and bounded worker results remain separate from certification. Regression tests cover source drift, incomplete analysis and forbidden pure exemptions."
+    },
+    {
+      "File": "src/FDull/Workspace.fs",
+      "Owner": "FDull.Workspace.review",
+      "Kind": "rule",
+      "Identity": "MUT001 | ",
+      "Reason": "Reviewed advisory tooling: exact current-source inputs, resolved finding evidence and bounded worker results remain separate from certification. Regression tests cover source drift, incomplete analysis and forbidden pure exemptions."
+    },
+    {
+      "File": "src/FDull/Workspace.fs",
+      "Owner": "FDull.Workspace.review",
+      "Kind": "rule",
+      "Identity": "MUT001 | policy",
+      "Reason": "Reviewed advisory tooling: exact current-source inputs, resolved finding evidence and bounded worker results remain separate from certification. Regression tests cover source drift, incomplete analysis and forbidden pure exemptions."
+    },
+    {
+      "File": "src/FDull/Workspace.fs",
+      "Owner": "FDull.Workspace.review",
+      "Kind": "rule",
+      "Identity": "MUT001 | snapshot",
+      "Reason": "Reviewed advisory tooling: exact current-source inputs, resolved finding evidence and bounded worker results remain separate from certification. Regression tests cover source drift, incomplete analysis and forbidden pure exemptions."
+    },
+    {
+      "File": "src/FDull/Workspace.fs",
+      "Owner": "FDull.Workspace.review",
+      "Kind": "rule",
+      "Identity": "MUT002 | ",
+      "Reason": "Reviewed advisory tooling: exact current-source inputs, resolved finding evidence and bounded worker results remain separate from certification. Regression tests cover source drift, incomplete analysis and forbidden pure exemptions."
+    },
+    {
+      "File": "src/FDull/Workspace.fs",
+      "Owner": "FDull.Workspace.review",
+      "Kind": "rule",
+      "Identity": "MUT009 | ",
+      "Reason": "Reviewed advisory tooling: exact current-source inputs, resolved finding evidence and bounded worker results remain separate from certification. Regression tests cover source drift, incomplete analysis and forbidden pure exemptions."
+    },
+    {
+      "File": "src/FDull/Workspace.fs",
+      "Owner": "FDull.Workspace.review",
+      "Kind": "rule",
+      "Identity": "ERR001 | ",
+      "Reason": "Reviewed advisory tooling: exact current-source inputs, resolved finding evidence and bounded worker results remain separate from certification. Regression tests cover source drift, incomplete analysis and forbidden pure exemptions."
+    },
+    {
+      "File": "src/FDull/Workspace.fs",
+      "Owner": "FDull.Workspace.review",
+      "Kind": "rule",
+      "Identity": "ERR004 | exception handler",
+      "Reason": "Reviewed advisory tooling: exact current-source inputs, resolved finding evidence and bounded worker results remain separate from certification. Regression tests cover source drift, incomplete analysis and forbidden pure exemptions."
+    },
+    {
+      "File": "src/FDull/Workspace.fs",
+      "Owner": "FDull.Workspace.serve",
+      "Kind": "type",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | System.IO.TextReader",
+      "Reason": "Reviewed advisory tooling: exact current-source inputs, resolved finding evidence and bounded worker results remain separate from certification. Regression tests cover source drift, incomplete analysis and forbidden pure exemptions."
+    },
+    {
+      "File": "src/FDull/Workspace.fs",
+      "Owner": "FDull.Workspace.serve",
+      "Kind": "type",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | System.IO.TextWriter",
+      "Reason": "Reviewed advisory tooling: exact current-source inputs, resolved finding evidence and bounded worker results remain separate from certification. Regression tests cover source drift, incomplete analysis and forbidden pure exemptions."
+    },
+    {
+      "File": "src/FDull/Workspace.fs",
+      "Owner": "FDull.Workspace.serveReview",
+      "Kind": "type",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | System.IO.TextReader",
+      "Reason": "Reviewed advisory tooling: exact current-source inputs, resolved finding evidence and bounded worker results remain separate from certification. Regression tests cover source drift, incomplete analysis and forbidden pure exemptions."
+    },
+    {
+      "File": "src/FDull/Workspace.fs",
+      "Owner": "FDull.Workspace.serveReview",
+      "Kind": "type",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | System.IO.TextWriter",
+      "Reason": "Reviewed advisory tooling: exact current-source inputs, resolved finding evidence and bounded worker results remain separate from certification. Regression tests cover source drift, incomplete analysis and forbidden pure exemptions."
+    },
+    {
+      "File": "src/FDull/WorkspaceReview.fs",
+      "Owner": "FDull.WorkspaceReview.create",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.Combine(System.String,System.String)",
+      "Reason": "Reviewed advisory tooling: exact current-source inputs, resolved finding evidence and bounded worker results remain separate from certification. Regression tests cover source drift, incomplete analysis and forbidden pure exemptions."
+    },
+    {
+      "File": "src/FDull/WorkspaceReview.fs",
+      "Owner": "FDull.WorkspaceReview.create",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.GetRelativePath(System.String,System.String)",
+      "Reason": "Reviewed advisory tooling: exact current-source inputs, resolved finding evidence and bounded worker results remain separate from certification. Regression tests cover source drift, incomplete analysis and forbidden pure exemptions."
+    },
+    {
+      "File": "src/FDull/WorkspaceReview.fs",
+      "Owner": "FDull.WorkspaceReview.create",
+      "Kind": "member",
+      "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | M:System.String.Replace(System.Char,System.Char)",
+      "Reason": "Reviewed advisory tooling: exact current-source inputs, resolved finding evidence and bounded worker results remain separate from certification. Regression tests cover source drift, incomplete analysis and forbidden pure exemptions."
+    },
+    {
+      "File": "src/FDull/WorkspaceReview.fs",
+      "Owner": "FDull.WorkspaceReview.format",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Core.ExtraTopLevelOperators.PrintFormatToString\u0060\u00601(Microsoft.FSharp.Core.PrintfFormat{\u0060\u00600,Microsoft.FSharp.Core.Unit,System.String,System.String})",
+      "Reason": "Reviewed advisory tooling: exact current-source inputs, resolved finding evidence and bounded worker results remain separate from certification. Regression tests cover source drift, incomplete analysis and forbidden pure exemptions."
+    },
+    {
+      "File": "src/FDull/WorkspaceReview.fs",
+      "Owner": "FDull.WorkspaceReview.format",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Core.StringModule.Concat(System.String,System.Collections.Generic.IEnumerable{System.String})",
+      "Reason": "Reviewed advisory tooling: exact current-source inputs, resolved finding evidence and bounded worker results remain separate from certification. Regression tests cover source drift, incomplete analysis and forbidden pure exemptions."
+    },
+    {
+      "File": "src/FDull/WorkspaceReview.fs",
+      "Owner": "FDull.WorkspaceReview.format",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:System.Environment.NewLine",
+      "Reason": "Reviewed advisory tooling: exact current-source inputs, resolved finding evidence and bounded worker results remain separate from certification. Regression tests cover source drift, incomplete analysis and forbidden pure exemptions."
+    },
+    {
+      "File": "src/FDull.Worker/Program.fs",
+      "Owner": "FDull.Worker.Program.main",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Workspace.serveReview(System.IO.TextReader,System.IO.TextWriter)",
+      "Reason": "Reviewed advisory tooling: exact current-source inputs, resolved finding evidence and bounded worker results remain separate from certification. Regression tests cover source drift, incomplete analysis and forbidden pure exemptions."
+    },
+    {
+      "File": "src/FDull.Tool/Program.fs",
+      "Owner": "FDull.Tool.Program.main",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Workspace.review(System.String)",
+      "Reason": "Reviewed advisory tooling: exact current-source inputs, resolved finding evidence and bounded worker results remain separate from certification. Regression tests cover source drift, incomplete analysis and forbidden pure exemptions."
+    },
+    {
+      "File": "src/FDull.Tool/Program.fs",
+      "Owner": "FDull.Tool.Program.displayReview",
+      "Kind": "member",
+      "Identity": "System.Console, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.Console.WriteLine(System.String)",
+      "Reason": "Reviewed advisory tooling: exact current-source inputs, resolved finding evidence and bounded worker results remain separate from certification. Regression tests cover source drift, incomplete analysis and forbidden pure exemptions."
+    },
+    {
+      "File": "src/FDull.Tool/Program.fs",
+      "Owner": "FDull.Tool.Program.displayReview",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Transport.Codec.encode\u0060\u00601(\u0060\u00600)",
+      "Reason": "Reviewed advisory tooling: exact current-source inputs, resolved finding evidence and bounded worker results remain separate from certification. Regression tests cover source drift, incomplete analysis and forbidden pure exemptions."
+    },
+    {
+      "File": "src/FDull.Tool/Program.fs",
+      "Owner": "FDull.Tool.Program.displayReview",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.WorkspaceReview.format(FDull.WorkspaceReviewReport)",
+      "Reason": "Reviewed advisory tooling: exact current-source inputs, resolved finding evidence and bounded worker results remain separate from certification. Regression tests cover source drift, incomplete analysis and forbidden pure exemptions."
+    },
+    {
+      "File": "src/FDull.Tool/Program.fs",
+      "Owner": "FDull.Tool.Program.displayReview",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspaceReviewReport",
+      "Reason": "Reviewed advisory tooling: exact current-source inputs, resolved finding evidence and bounded worker results remain separate from certification. Regression tests cover source drift, incomplete analysis and forbidden pure exemptions."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060advisory review groups actual findings and preserves stale source rejection\u0060\u0060",
+      "Kind": "attribute",
+      "Identity": "xunit.core, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | Xunit.FactAttribute |  | unit",
+      "Reason": "Non-shipping advisory review regression: temporary consumer policy/source IO, exact report types and assertions prove grouping by owner, profile eligibility, read-only source/policy behavior, source drift rejection and incomplete inventory semantics."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060advisory review groups actual findings and preserves stale source rejection\u0060\u0060",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.Combine(System.String,System.String)",
+      "Reason": "Non-shipping advisory review regression: temporary consumer policy/source IO, exact report types and assertions prove grouping by owner, profile eligibility, read-only source/policy behavior, source drift rejection and incomplete inventory semantics."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060advisory review groups actual findings and preserves stale source rejection\u0060\u0060",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.File.WriteAllText(System.String,System.String)",
+      "Reason": "Non-shipping advisory review regression: temporary consumer policy/source IO, exact report types and assertions prove grouping by owner, profile eligibility, read-only source/policy behavior, source drift rejection and incomplete inventory semantics."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060advisory review groups actual findings and preserves stale source rejection\u0060\u0060",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Transport.Codec.encode\u0060\u00601(\u0060\u00600)",
+      "Reason": "Non-shipping advisory review regression: temporary consumer policy/source IO, exact report types and assertions prove grouping by owner, profile eligibility, read-only source/policy behavior, source drift rejection and incomplete inventory semantics."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060advisory review groups actual findings and preserves stale source rejection\u0060\u0060",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Workspace.review(System.String)",
+      "Reason": "Non-shipping advisory review regression: temporary consumer policy/source IO, exact report types and assertions prove grouping by owner, profile eligibility, read-only source/policy behavior, source drift rejection and incomplete inventory semantics."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060advisory review groups actual findings and preserves stale source rejection\u0060\u0060",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.WorkspaceReview.format(FDull.WorkspaceReviewReport)",
+      "Reason": "Non-shipping advisory review regression: temporary consumer policy/source IO, exact report types and assertions prove grouping by owner, profile eligibility, read-only source/policy behavior, source drift rejection and incomplete inventory semantics."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060advisory review groups actual findings and preserves stale source rejection\u0060\u0060",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspacePolicyDocument",
+      "Reason": "Non-shipping advisory review regression: temporary consumer policy/source IO, exact report types and assertions prove grouping by owner, profile eligibility, read-only source/policy behavior, source drift rejection and incomplete inventory semantics."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060advisory review groups actual findings and preserves stale source rejection\u0060\u0060",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspaceReviewReport",
+      "Reason": "Non-shipping advisory review regression: temporary consumer policy/source IO, exact report types and assertions prove grouping by owner, profile eligibility, read-only source/policy behavior, source drift rejection and incomplete inventory semantics."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060advisory review groups actual findings and preserves stale source rejection\u0060\u0060",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspaceReviewItem",
+      "Reason": "Non-shipping advisory review regression: temporary consumer policy/source IO, exact report types and assertions prove grouping by owner, profile eligibility, read-only source/policy behavior, source drift rejection and incomplete inventory semantics."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060advisory review groups actual findings and preserves stale source rejection\u0060\u0060",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | FDull.SafetyDiagnostic",
+      "Reason": "Non-shipping advisory review regression: temporary consumer policy/source IO, exact report types and assertions prove grouping by owner, profile eligibility, read-only source/policy behavior, source drift rejection and incomplete inventory semantics."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060advisory review groups actual findings and preserves stale source rejection\u0060\u0060",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.True(System.Boolean,System.String)",
+      "Reason": "Non-shipping advisory review regression: temporary consumer policy/source IO, exact report types and assertions prove grouping by owner, profile eligibility, read-only source/policy behavior, source drift rejection and incomplete inventory semantics."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060advisory review groups actual findings and preserves stale source rejection\u0060\u0060",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Equal\u0060\u00601(\u0060\u00600,\u0060\u00600)",
+      "Reason": "Non-shipping advisory review regression: temporary consumer policy/source IO, exact report types and assertions prove grouping by owner, profile eligibility, read-only source/policy behavior, source drift rejection and incomplete inventory semantics."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060advisory review groups actual findings and preserves stale source rejection\u0060\u0060",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Single\u0060\u00601(System.Collections.Generic.IEnumerable{\u0060\u00600})",
+      "Reason": "Non-shipping advisory review regression: temporary consumer policy/source IO, exact report types and assertions prove grouping by owner, profile eligibility, read-only source/policy behavior, source drift rejection and incomplete inventory semantics."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060advisory review groups actual findings and preserves stale source rejection\u0060\u0060",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.False(System.Boolean)",
+      "Reason": "Non-shipping advisory review regression: temporary consumer policy/source IO, exact report types and assertions prove grouping by owner, profile eligibility, read-only source/policy behavior, source drift rejection and incomplete inventory semantics."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060advisory review groups actual findings and preserves stale source rejection\u0060\u0060",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Contains(System.String,System.String)",
+      "Reason": "Non-shipping advisory review regression: temporary consumer policy/source IO, exact report types and assertions prove grouping by owner, profile eligibility, read-only source/policy behavior, source drift rejection and incomplete inventory semantics."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060advisory review groups actual findings and preserves stale source rejection\u0060\u0060",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Contains\u0060\u00601(System.Collections.Generic.IEnumerable{\u0060\u00600},System.Predicate{\u0060\u00600})",
+      "Reason": "Non-shipping advisory review regression: temporary consumer policy/source IO, exact report types and assertions prove grouping by owner, profile eligibility, read-only source/policy behavior, source drift rejection and incomplete inventory semantics."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060advisory review reports blockers and never infers unused contracts from partial analysis\u0060\u0060",
+      "Kind": "attribute",
+      "Identity": "xunit.core, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | Xunit.FactAttribute |  | unit",
+      "Reason": "Non-shipping advisory review regression: temporary consumer policy/source IO, exact report types and assertions prove grouping by owner, profile eligibility, read-only source/policy behavior, source drift rejection and incomplete inventory semantics."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060advisory review reports blockers and never infers unused contracts from partial analysis\u0060\u0060",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.Combine(System.String,System.String)",
+      "Reason": "Non-shipping advisory review regression: temporary consumer policy/source IO, exact report types and assertions prove grouping by owner, profile eligibility, read-only source/policy behavior, source drift rejection and incomplete inventory semantics."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060advisory review reports blockers and never infers unused contracts from partial analysis\u0060\u0060",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.File.WriteAllText(System.String,System.String)",
+      "Reason": "Non-shipping advisory review regression: temporary consumer policy/source IO, exact report types and assertions prove grouping by owner, profile eligibility, read-only source/policy behavior, source drift rejection and incomplete inventory semantics."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060advisory review reports blockers and never infers unused contracts from partial analysis\u0060\u0060",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Transport.Codec.encode\u0060\u00601(\u0060\u00600)",
+      "Reason": "Non-shipping advisory review regression: temporary consumer policy/source IO, exact report types and assertions prove grouping by owner, profile eligibility, read-only source/policy behavior, source drift rejection and incomplete inventory semantics."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060advisory review reports blockers and never infers unused contracts from partial analysis\u0060\u0060",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Workspace.review(System.String)",
+      "Reason": "Non-shipping advisory review regression: temporary consumer policy/source IO, exact report types and assertions prove grouping by owner, profile eligibility, read-only source/policy behavior, source drift rejection and incomplete inventory semantics."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060advisory review reports blockers and never infers unused contracts from partial analysis\u0060\u0060",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.WorkspaceReview.format(FDull.WorkspaceReviewReport)",
+      "Reason": "Non-shipping advisory review regression: temporary consumer policy/source IO, exact report types and assertions prove grouping by owner, profile eligibility, read-only source/policy behavior, source drift rejection and incomplete inventory semantics."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060advisory review reports blockers and never infers unused contracts from partial analysis\u0060\u0060",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspacePolicyDocument",
+      "Reason": "Non-shipping advisory review regression: temporary consumer policy/source IO, exact report types and assertions prove grouping by owner, profile eligibility, read-only source/policy behavior, source drift rejection and incomplete inventory semantics."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060advisory review reports blockers and never infers unused contracts from partial analysis\u0060\u0060",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspaceReviewReport",
+      "Reason": "Non-shipping advisory review regression: temporary consumer policy/source IO, exact report types and assertions prove grouping by owner, profile eligibility, read-only source/policy behavior, source drift rejection and incomplete inventory semantics."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060advisory review reports blockers and never infers unused contracts from partial analysis\u0060\u0060",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspaceReviewItem",
+      "Reason": "Non-shipping advisory review regression: temporary consumer policy/source IO, exact report types and assertions prove grouping by owner, profile eligibility, read-only source/policy behavior, source drift rejection and incomplete inventory semantics."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060advisory review reports blockers and never infers unused contracts from partial analysis\u0060\u0060",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | FDull.SafetyDiagnostic",
+      "Reason": "Non-shipping advisory review regression: temporary consumer policy/source IO, exact report types and assertions prove grouping by owner, profile eligibility, read-only source/policy behavior, source drift rejection and incomplete inventory semantics."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060advisory review reports blockers and never infers unused contracts from partial analysis\u0060\u0060",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.True(System.Boolean,System.String)",
+      "Reason": "Non-shipping advisory review regression: temporary consumer policy/source IO, exact report types and assertions prove grouping by owner, profile eligibility, read-only source/policy behavior, source drift rejection and incomplete inventory semantics."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060advisory review reports blockers and never infers unused contracts from partial analysis\u0060\u0060",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Equal\u0060\u00601(\u0060\u00600,\u0060\u00600)",
+      "Reason": "Non-shipping advisory review regression: temporary consumer policy/source IO, exact report types and assertions prove grouping by owner, profile eligibility, read-only source/policy behavior, source drift rejection and incomplete inventory semantics."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060advisory review reports blockers and never infers unused contracts from partial analysis\u0060\u0060",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Single\u0060\u00601(System.Collections.Generic.IEnumerable{\u0060\u00600})",
+      "Reason": "Non-shipping advisory review regression: temporary consumer policy/source IO, exact report types and assertions prove grouping by owner, profile eligibility, read-only source/policy behavior, source drift rejection and incomplete inventory semantics."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060advisory review reports blockers and never infers unused contracts from partial analysis\u0060\u0060",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.False(System.Boolean)",
+      "Reason": "Non-shipping advisory review regression: temporary consumer policy/source IO, exact report types and assertions prove grouping by owner, profile eligibility, read-only source/policy behavior, source drift rejection and incomplete inventory semantics."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060advisory review reports blockers and never infers unused contracts from partial analysis\u0060\u0060",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Contains(System.String,System.String)",
+      "Reason": "Non-shipping advisory review regression: temporary consumer policy/source IO, exact report types and assertions prove grouping by owner, profile eligibility, read-only source/policy behavior, source drift rejection and incomplete inventory semantics."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060advisory review reports blockers and never infers unused contracts from partial analysis\u0060\u0060",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Contains\u0060\u00601(System.Collections.Generic.IEnumerable{\u0060\u00600},System.Predicate{\u0060\u00600})",
+      "Reason": "Non-shipping advisory review regression: temporary consumer policy/source IO, exact report types and assertions prove grouping by owner, profile eligibility, read-only source/policy behavior, source drift rejection and incomplete inventory semantics."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060advisory review groups actual findings and preserves stale source rejection\u0060\u0060",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspaceProject",
+      "Reason": "Non-shipping advisory review regression: temporary consumer policy/source IO, exact report types and assertions prove grouping by owner, profile eligibility, read-only source/policy behavior, source drift rejection and incomplete inventory semantics."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060advisory review groups actual findings and preserves stale source rejection\u0060\u0060",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspaceSource",
+      "Reason": "Non-shipping advisory review regression: temporary consumer policy/source IO, exact report types and assertions prove grouping by owner, profile eligibility, read-only source/policy behavior, source drift rejection and incomplete inventory semantics."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060advisory review groups actual findings and preserves stale source rejection\u0060\u0060",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspaceSourceReview",
+      "Reason": "Non-shipping advisory review regression: temporary consumer policy/source IO, exact report types and assertions prove grouping by owner, profile eligibility, read-only source/policy behavior, source drift rejection and incomplete inventory semantics."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060advisory review groups actual findings and preserves stale source rejection\u0060\u0060",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspaceReport",
+      "Reason": "Non-shipping advisory review regression: temporary consumer policy/source IO, exact report types and assertions prove grouping by owner, profile eligibility, read-only source/policy behavior, source drift rejection and incomplete inventory semantics."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060advisory review groups actual findings and preserves stale source rejection\u0060\u0060",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Transport.Codec.decode\u0060\u00601(System.String)",
+      "Reason": "Non-shipping advisory review regression: temporary consumer policy/source IO, exact report types and assertions prove grouping by owner, profile eligibility, read-only source/policy behavior, source drift rejection and incomplete inventory semantics."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060advisory review groups actual findings and preserves stale source rejection\u0060\u0060",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.SafetyPolicy.fileDigest(System.String)",
+      "Reason": "Non-shipping advisory review regression: temporary consumer policy/source IO, exact report types and assertions prove grouping by owner, profile eligibility, read-only source/policy behavior, source drift rejection and incomplete inventory semantics."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060advisory review groups actual findings and preserves stale source rejection\u0060\u0060",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Workspace.check(System.String)",
+      "Reason": "Non-shipping advisory review regression: temporary consumer policy/source IO, exact report types and assertions prove grouping by owner, profile eligibility, read-only source/policy behavior, source drift rejection and incomplete inventory semantics."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060advisory review groups actual findings and preserves stale source rejection\u0060\u0060",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.File.ReadAllText(System.String)",
+      "Reason": "Non-shipping advisory review regression: temporary consumer policy/source IO, exact report types and assertions prove grouping by owner, profile eligibility, read-only source/policy behavior, source drift rejection and incomplete inventory semantics."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060advisory review groups actual findings and preserves stale source rejection\u0060\u0060",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.True(System.Boolean)",
+      "Reason": "Non-shipping advisory review regression: temporary consumer policy/source IO, exact report types and assertions prove grouping by owner, profile eligibility, read-only source/policy behavior, source drift rejection and incomplete inventory semantics."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060advisory review groups actual findings and preserves stale source rejection\u0060\u0060",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Equal(System.String,System.String)",
+      "Reason": "Non-shipping advisory review regression: temporary consumer policy/source IO, exact report types and assertions prove grouping by owner, profile eligibility, read-only source/policy behavior, source drift rejection and incomplete inventory semantics."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060advisory review groups actual findings and preserves stale source rejection\u0060\u0060",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.All\u0060\u00601(System.Collections.Generic.IEnumerable{\u0060\u00600},System.Action{\u0060\u00600})",
+      "Reason": "Non-shipping advisory review regression: temporary consumer policy/source IO, exact report types and assertions prove grouping by owner, profile eligibility, read-only source/policy behavior, source drift rejection and incomplete inventory semantics."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060advisory review groups actual findings and preserves stale source rejection\u0060\u0060",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.DoesNotContain\u0060\u00601(System.Collections.Generic.IEnumerable{\u0060\u00600},System.Predicate{\u0060\u00600})",
+      "Reason": "Non-shipping advisory review regression: temporary consumer policy/source IO, exact report types and assertions prove grouping by owner, profile eligibility, read-only source/policy behavior, source drift rejection and incomplete inventory semantics."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060advisory review reports blockers and never infers unused contracts from partial analysis\u0060\u0060",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.File.AppendAllText(System.String,System.String)",
+      "Reason": "Non-shipping advisory review regression: temporary consumer policy/source IO, exact report types and assertions prove grouping by owner, profile eligibility, read-only source/policy behavior, source drift rejection and incomplete inventory semantics."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060advisory review reports blockers and never infers unused contracts from partial analysis\u0060\u0060",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Empty(System.Collections.IEnumerable)",
+      "Reason": "Non-shipping advisory review regression: temporary consumer policy/source IO, exact report types and assertions prove grouping by owner, profile eligibility, read-only source/policy behavior, source drift rejection and incomplete inventory semantics."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060advisory review reports blockers and never infers unused contracts from partial analysis\u0060\u0060",
+      "Kind": "type",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | System.Collections.IEnumerable",
+      "Reason": "Non-shipping advisory review regression: temporary consumer policy/source IO, exact report types and assertions prove grouping by owner, profile eligibility, read-only source/policy behavior, source drift rejection and incomplete inventory semantics."
+    },
+    {
+      "File": "tests/FDull.Tests/WorkspaceTests.fs",
+      "Owner": "FDull.Tests.WorkspaceTests.\u0060\u0060workspace reports reject inconsistent process diagnostics and observations\u0060\u0060",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspaceReviewFinding",
+      "Reason": "Non-shipping advisory review regression: temporary consumer policy/source IO, exact report types and assertions prove grouping by owner, profile eligibility, read-only source/policy behavior, source drift rejection and incomplete inventory semantics."
+    },
+    {
+      "File": "tests/FDull.Tests/WorkspaceTests.fs",
+      "Owner": "FDull.Tests.WorkspaceTests.\u0060\u0060workspace reports reject inconsistent process diagnostics and observations\u0060\u0060",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspaceReviewProjectReport",
+      "Reason": "Non-shipping advisory review regression: temporary consumer policy/source IO, exact report types and assertions prove grouping by owner, profile eligibility, read-only source/policy behavior, source drift rejection and incomplete inventory semantics."
+    },
+    {
+      "File": "tests/FDull.Tests/WorkspaceTests.fs",
+      "Owner": "FDull.Tests.WorkspaceTests.\u0060\u0060workspace reports reject inconsistent process diagnostics and observations\u0060\u0060",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.WorkspaceReview.validate(FDull.WorkspaceRequest,FDull.WorkspacePolicyDocument,System.Int32,System.String,FDull.WorkspaceReviewProjectReport)",
+      "Reason": "Non-shipping advisory review regression: temporary consumer policy/source IO, exact report types and assertions prove grouping by owner, profile eligibility, read-only source/policy behavior, source drift rejection and incomplete inventory semantics."
+    },
+    {
+      "File": "tests/FDull.Tests/WorkspaceTests.fs",
+      "Owner": "FDull.Tests.WorkspaceTests.\u0060\u0060workspace reports reject inconsistent process diagnostics and observations\u0060\u0060",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Transport.Codec.encode\u0060\u00601(\u0060\u00600)",
+      "Reason": "Non-shipping advisory review regression: temporary consumer policy/source IO, exact report types and assertions prove grouping by owner, profile eligibility, read-only source/policy behavior, source drift rejection and incomplete inventory semantics."
+    },
+    {
+      "File": "tests/FDull.Tests/WorkspaceTests.fs",
+      "Owner": "FDull.Tests.WorkspaceTests.\u0060\u0060workspace reports reject inconsistent process diagnostics and observations\u0060\u0060",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Transport.Codec.decode\u0060\u00601(System.String)",
+      "Reason": "Non-shipping advisory review regression: temporary consumer policy/source IO, exact report types and assertions prove grouping by owner, profile eligibility, read-only source/policy behavior, source drift rejection and incomplete inventory semantics."
+    },
+    {
+      "File": "tests/FDull.Tests/WorkspaceTests.fs",
+      "Owner": "FDull.Tests.WorkspaceTests.\u0060\u0060workspace reports reject inconsistent process diagnostics and observations\u0060\u0060",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.ThrowsAny\u0060\u00601(System.Action)",
+      "Reason": "Non-shipping advisory review regression: temporary consumer policy/source IO, exact report types and assertions prove grouping by owner, profile eligibility, read-only source/policy behavior, source drift rejection and incomplete inventory semantics."
     }
   ],
   "Domains": [],

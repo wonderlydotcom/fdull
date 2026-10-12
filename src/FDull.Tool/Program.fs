@@ -10,7 +10,7 @@ module Program =
         Console.WriteLine "FDull — F# with fewer sharp edges."
 
         Console.WriteLine
-            "fdull defaults | init <root> [--scope <file>] | lint <root> [--format text|json|sarif] | verify <root> | coverage"
+            "fdull defaults | init <root> [--scope <file>] | lint <root> [--format text|json|sarif] | review <root> [--format text|json] | verify <root> | coverage"
 
         2
 
@@ -44,6 +44,13 @@ module Program =
 
         report.ExitCode
 
+    let private displayReview format (report: WorkspaceReviewReport) =
+        match format with
+        | "json" -> Console.WriteLine(Codec.encode report)
+        | _ -> Console.WriteLine(WorkspaceReview.format report)
+
+        report.ExitCode
+
     [<EntryPoint>]
     let main arguments =
         try
@@ -64,6 +71,9 @@ module Program =
             | [ "lint"; root; "--format"; format ] when List.contains format [ "text"; "json"; "sarif" ] ->
                 Workspace.check root |> display format
             | [ "verify"; root ] -> Project.verify root |> display "text"
+            | [ "review"; root ] -> Workspace.review root |> displayReview "text"
+            | [ "review"; root; "--format"; format ] when List.contains format [ "text"; "json" ] ->
+                Workspace.review root |> displayReview format
             | [ "coverage" ] ->
                 SafetyRules.inventory SafetyPolicy.version |> Codec.encode |> Console.WriteLine
                 0
