@@ -375,7 +375,7 @@ checks remain partial. See the coverage inventory and `docs/fsharp-safety-standa
 
 ```sh
 dotnet tool restore
-dotnet tool run fantomas src tests --check
+dotnet tool run fantomas src tests tools --check
 dotnet restore FDull.slnx --locked-mode
 dotnet build FDull.slnx -c Release --no-restore -m:1 --disable-build-servers
 dotnet test tests/FDull.Tests/FDull.Tests.fsproj -c Release --no-build --no-restore -m:1
@@ -383,6 +383,31 @@ dotnet src/FDull.Tool/bin/Release/net10.0/FDull.Cli.dll verify .
 dotnet pack src/FDull/FDull.fsproj -c Release --no-build --no-restore -m:1 --disable-build-servers -o artifacts
 dotnet pack src/FDull.Analyzers/FDull.Analyzers.fsproj -c Release --no-build --no-restore -m:1 --disable-build-servers -o artifacts
 dotnet pack src/FDull.Tool/FDull.Tool.fsproj -c Release --no-build --no-restore -m:1 --disable-build-servers -o artifacts
+dotnet tools/FDull.Ci/bin/Release/net10.0/FDull.Ci.dll smoke . artifacts
+dotnet tools/FDull.Ci/bin/Release/net10.0/FDull.Ci.dll coverage .
 ```
+
+GitHub Actions runs four Linux jobs on pull requests, pushes to `main`, manual
+runs and a weekly schedule: **Format**, **Build and test (Linux)**,
+**Self-verification**, and **Package and consumer smoke**. Jobs install the exact
+SDK from `global.json` (including its 10.0.4 runtime), restore locked dependencies,
+keep strict compiler settings and preserve nonzero command exits. NuGet downloads
+are cached by the lock files; results and logs are retained for seven days.
+
+The compiled `tools/FDull.Ci` helper is part of the reviewed repository graph.
+Its package smoke check uses fresh temporary projects and an isolated package
+cache outside the checkout. Source mapping requires all FDull packages to come
+from the local feed. It installs the packed tool, checks the bundled worker via
+successful verification, requires complete mutation failures and blocked source
+drift, runs an independent library consumer and checks the analyzer payload.
+Self-verification also compares `site/public/coverage.json` with the built CLI's
+coverage inventory. The workflow never publishes packages or deploys the site.
+
+After merging the workflow, configure the `main` repository ruleset to require
+all four named checks and code-owner review for the policy, build and workflow
+paths in `.github/CODEOWNERS`. Review ownership currently names repository
+administrator `@c10r`; select another trusted maintainer or team when independent
+code-owner approval is needed for that administrator's own changes. These
+repository settings are external controls, not guarantees made by `fdull verify`.
 
 MIT licensed. Copyright 2026 Wonderly.
