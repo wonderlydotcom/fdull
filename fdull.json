@@ -66,7 +66,7 @@
       "File": "src/FDull/SafetyRules.fs",
       "Project": "src/FDull/FDull.fsproj",
       "Profile": "GUARD_TOOLING",
-      "Digest": "sha256:6df43245f9ba53e3cd029a16a9007d72ef6ad6cd4ea6c24a31d8103de0e1c661"
+      "Digest": "sha256:fc8531b7083f9142e91613431fe65890dc4b06b8056eee568219f865983d44ec"
     },
     {
       "File": "src/FDull/SafetyPolicy.fs",
@@ -90,7 +90,7 @@
       "File": "src/FDull/SafetySyntax.fs",
       "Project": "src/FDull/FDull.fsproj",
       "Profile": "GUARD_TOOLING",
-      "Digest": "sha256:1d38f6eafa49328c30d008a2207a3c541658ce747f14d4c8aee5fffaa84ef1d0"
+      "Digest": "sha256:9fc695c3db79cdaa97b92f2523046b6accd71071e0a8ec151bc807b30b55e354"
     },
     {
       "File": "src/FDull/EditorAnalysis.fs",
@@ -102,13 +102,13 @@
       "File": "src/FDull/SafetyContext.fs",
       "Project": "src/FDull/FDull.fsproj",
       "Profile": "GUARD_TOOLING",
-      "Digest": "sha256:55821cdd92ce8214cce826627d1947d3e06eb713bd6005e279b19855d2348796"
+      "Digest": "sha256:a865467630642d1d44a892654c5d63ee26025a59c085d3764f592dcbb5bf2d52"
     },
     {
       "File": "src/FDull/SafetyAnalysis.fs",
       "Project": "src/FDull/FDull.fsproj",
       "Profile": "GUARD_TOOLING",
-      "Digest": "sha256:cda9a039a7f00c89f730e2d6080509daa6acfad94615ab5f4c8ebadf632befd9"
+      "Digest": "sha256:50f18acdcbf7e3f9885dedcef21089b93a4092580fa9b40bfe6eff70699a2774"
     },
     {
       "File": "src/FDull/SafetyEngine.fs",
@@ -126,7 +126,7 @@
       "File": "src/FDull/WorkspacePolicy.fs",
       "Project": "src/FDull/FDull.fsproj",
       "Profile": "GUARD_TOOLING",
-      "Digest": "sha256:52abf67d930354c0260d1f827d595c7c29fd659509f8fb6dde3e68a2c8c401cd"
+      "Digest": "sha256:9a1d2263b6b287223ca3a97d8c1fd318ab7b66f9843086e830f999bbf359475d"
     },
     {
       "File": "src/FDull/WorkspaceAudit.fs",
@@ -138,7 +138,7 @@
       "File": "src/FDull/WorkspaceEngine.fs",
       "Project": "src/FDull/FDull.fsproj",
       "Profile": "GUARD_TOOLING",
-      "Digest": "sha256:a161f2767d2a0b69bec27987da483f18cd2a77665917423e2da3f94e890d8bb8"
+      "Digest": "sha256:f430331b3cc2e584bd898a84b11809d5181c3e26e5cbb9b28c3306b528e483b5"
     },
     {
       "File": "src/FDull/Workspace.fs",
@@ -222,13 +222,13 @@
       "File": "tests/FDull.Tests/WorkspaceTests.fs",
       "Project": "tests/FDull.Tests/FDull.Tests.fsproj",
       "Profile": "TEST",
-      "Digest": "sha256:455658f33d4a05f929c2b146affcee7d543266a5cc5ea338474910517a60bf1f"
+      "Digest": "sha256:cf745dd2e15fc2e223144c7bd424b0e73450a4824b2379ab0d58dae889edaa3c"
     },
     {
       "File": "tests/FDull.Tests/ProjectTests.fs",
       "Project": "tests/FDull.Tests/FDull.Tests.fsproj",
       "Profile": "TEST",
-      "Digest": "sha256:7dc4fcde0a5368bbdbb18c32a6e8bd69a6ef58c6246f02a5330744a35cd6f269"
+      "Digest": "sha256:a8063e7960caf486c4245ed33e7be90a7d8bd035d672c96f9d6d7ffb08acec2f"
     },
     {
       "File": "tests/FDull.Tests/Program.fs",
@@ -240,7 +240,7 @@
       "File": "src/FDull/WorkspaceReview.fs",
       "Project": "src/FDull/FDull.fsproj",
       "Profile": "GUARD_TOOLING",
-      "Digest": "sha256:ca6e9cdd3cc0996e1765cab45b4790646d46e399459729113f26839fa57fb68c"
+      "Digest": "sha256:fff2713b105d1675db6f2e3b2f766674ffd015af3b9e967bd8f89f7fc438bf19"
     },
     {
       "File": "src/FDull/DataContractPolicy.fs",
@@ -15774,6 +15774,615 @@
       "Kind": "type",
       "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | System.Collections.Generic.IEnumerable\u00601",
       "Reason": "Reviewed reusable-data guard: bounded read-only resolved type graph and exact compiler-reference metadata fingerprints; no declaration effect/rule capabilities bypass structural validation."
+    },
+    {
+      "File": "src/FDull/SafetyAnalysis.fs",
+      "Owner": "FDull.SafetyAnalysis.inspect",
+      "Kind": "member",
+      "Identity": "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:FSharp.Compiler.Symbols.FSharpField.IsCompilerGenerated",
+      "Reason": "Reviewed stable-capture guard: source AST binding names and resolved generated-field/constructor ranges define exact role and payload keys. Unknown or ambiguous mappings fail; generated names remain diagnostic evidence. No API identity is normalized and bodies/captures retain their checks."
+    },
+    {
+      "File": "src/FDull/SafetyContext.fs",
+      "Owner": "FDull.SafetyContext",
+      "Kind": "rule",
+      "Identity": "EFFECT003 | Capture",
+      "Reason": "Reviewed stable-capture guard: source AST binding names and resolved generated-field/constructor ranges define exact role and payload keys. Unknown or ambiguous mappings fail; generated names remain diagnostic evidence. No API identity is normalized and bodies/captures retain their checks."
+    },
+    {
+      "File": "src/FDull/SafetyContext.fs",
+      "Owner": "FDull.SafetyContext",
+      "Kind": "rule",
+      "Identity": "EFFECT003 | SafetyContext.Capture",
+      "Reason": "Reviewed stable-capture guard: source AST binding names and resolved generated-field/constructor ranges define exact role and payload keys. Unknown or ambiguous mappings fail; generated names remain diagnostic evidence. No API identity is normalized and bodies/captures retain their checks."
+    },
+    {
+      "File": "src/FDull/SafetySyntax.fs",
+      "Owner": "FDull.SafetySyntax.inspect",
+      "Kind": "member",
+      "Identity": "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:FSharp.Compiler.Syntax.Ident.idRange",
+      "Reason": "Reviewed stable-capture guard: source AST binding names and resolved generated-field/constructor ranges define exact role and payload keys. Unknown or ambiguous mappings fail; generated names remain diagnostic evidence. No API identity is normalized and bodies/captures retain their checks."
+    },
+    {
+      "File": "src/FDull/SafetySyntax.fs",
+      "Owner": "FDull.SafetySyntax.inspect",
+      "Kind": "member",
+      "Identity": "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:FSharp.Compiler.Syntax.Ident.idText",
+      "Reason": "Reviewed stable-capture guard: source AST binding names and resolved generated-field/constructor ranges define exact role and payload keys. Unknown or ambiguous mappings fail; generated names remain diagnostic evidence. No API identity is normalized and bodies/captures retain their checks."
+    },
+    {
+      "File": "src/FDull/SafetySyntax.fs",
+      "Owner": "FDull.SafetySyntax.inspect",
+      "Kind": "type",
+      "Identity": "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | FSharp.Compiler.Syntax.Ident",
+      "Reason": "Reviewed stable-capture guard: source AST binding names and resolved generated-field/constructor ranges define exact role and payload keys. Unknown or ambiguous mappings fail; generated names remain diagnostic evidence. No API identity is normalized and bodies/captures retain their checks."
+    },
+    {
+      "File": "src/FDull/SafetySyntax.fs",
+      "Owner": "FDull.SourceBinding",
+      "Kind": "type",
+      "Identity": "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | FSharp.Compiler.Text.Range",
+      "Reason": "Reviewed stable-capture guard: source AST binding names and resolved generated-field/constructor ranges define exact role and payload keys. Unknown or ambiguous mappings fail; generated names remain diagnostic evidence. No API identity is normalized and bodies/captures retain their checks."
+    },
+    {
+      "File": "src/FDull/WorkspacePolicy.fs",
+      "Owner": "FDull.WorkspacePolicy.context",
+      "Kind": "member",
+      "Identity": "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:FSharp.Compiler.Symbols.FSharpField.DeclarationLocation",
+      "Reason": "Reviewed stable-capture guard: source AST binding names and resolved generated-field/constructor ranges define exact role and payload keys. Unknown or ambiguous mappings fail; generated names remain diagnostic evidence. No API identity is normalized and bodies/captures retain their checks."
+    },
+    {
+      "File": "src/FDull/WorkspacePolicy.fs",
+      "Owner": "FDull.WorkspacePolicy.context",
+      "Kind": "member",
+      "Identity": "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:FSharp.Compiler.Symbols.FSharpField.DeclaringEntity",
+      "Reason": "Reviewed stable-capture guard: source AST binding names and resolved generated-field/constructor ranges define exact role and payload keys. Unknown or ambiguous mappings fail; generated names remain diagnostic evidence. No API identity is normalized and bodies/captures retain their checks."
+    },
+    {
+      "File": "src/FDull/WorkspacePolicy.fs",
+      "Owner": "FDull.WorkspacePolicy.context",
+      "Kind": "member",
+      "Identity": "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:FSharp.Compiler.Symbols.FSharpField.IsCompilerGenerated",
+      "Reason": "Reviewed stable-capture guard: source AST binding names and resolved generated-field/constructor ranges define exact role and payload keys. Unknown or ambiguous mappings fail; generated names remain diagnostic evidence. No API identity is normalized and bodies/captures retain their checks."
+    },
+    {
+      "File": "src/FDull/WorkspacePolicy.fs",
+      "Owner": "FDull.WorkspacePolicy.context",
+      "Kind": "member",
+      "Identity": "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:FSharp.Compiler.Symbols.FSharpMemberOrFunctionOrValue.DisplayName",
+      "Reason": "Reviewed stable-capture guard: source AST binding names and resolved generated-field/constructor ranges define exact role and payload keys. Unknown or ambiguous mappings fail; generated names remain diagnostic evidence. No API identity is normalized and bodies/captures retain their checks."
+    },
+    {
+      "File": "src/FDull/WorkspacePolicy.fs",
+      "Owner": "FDull.WorkspacePolicy.context",
+      "Kind": "member",
+      "Identity": "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:FSharp.Compiler.Symbols.FSharpMemberOrFunctionOrValue.IsConstructor",
+      "Reason": "Reviewed stable-capture guard: source AST binding names and resolved generated-field/constructor ranges define exact role and payload keys. Unknown or ambiguous mappings fail; generated names remain diagnostic evidence. No API identity is normalized and bodies/captures retain their checks."
+    },
+    {
+      "File": "src/FDull/WorkspacePolicy.fs",
+      "Owner": "FDull.WorkspacePolicy.context",
+      "Kind": "type",
+      "Identity": "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | FSharp.Compiler.Symbols.FSharpField",
+      "Reason": "Reviewed stable-capture guard: source AST binding names and resolved generated-field/constructor ranges define exact role and payload keys. Unknown or ambiguous mappings fail; generated names remain diagnostic evidence. No API identity is normalized and bodies/captures retain their checks."
+    },
+    {
+      "File": "src/FDull/WorkspacePolicy.fs",
+      "Owner": "FDull.WorkspacePolicy.context",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.ListModule.SortByDescending\u0060\u00602(Microsoft.FSharp.Core.FSharpFunc{\u0060\u00600,\u0060\u00601},Microsoft.FSharp.Collections.FSharpList{\u0060\u00600})",
+      "Reason": "Reviewed stable-capture guard: source AST binding names and resolved generated-field/constructor ranges define exact role and payload keys. Unknown or ambiguous mappings fail; generated names remain diagnostic evidence. No API identity is normalized and bodies/captures retain their checks."
+    },
+    {
+      "File": "src/FDull/WorkspacePolicy.fs",
+      "Owner": "FDull.WorkspacePolicy.context",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.SeqModule.Filter\u0060\u00601(Microsoft.FSharp.Core.FSharpFunc{\u0060\u00600,System.Boolean},System.Collections.Generic.IEnumerable{\u0060\u00600})",
+      "Reason": "Reviewed stable-capture guard: source AST binding names and resolved generated-field/constructor ranges define exact role and payload keys. Unknown or ambiguous mappings fail; generated names remain diagnostic evidence. No API identity is normalized and bodies/captures retain their checks."
+    },
+    {
+      "File": "src/FDull/WorkspacePolicy.fs",
+      "Owner": "FDull.WorkspacePolicy.context",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.SeqModule.Map\u0060\u00602(Microsoft.FSharp.Core.FSharpFunc{\u0060\u00600,\u0060\u00601},System.Collections.Generic.IEnumerable{\u0060\u00600})",
+      "Reason": "Reviewed stable-capture guard: source AST binding names and resolved generated-field/constructor ranges define exact role and payload keys. Unknown or ambiguous mappings fail; generated names remain diagnostic evidence. No API identity is normalized and bodies/captures retain their checks."
+    },
+    {
+      "File": "src/FDull/WorkspacePolicy.fs",
+      "Owner": "FDull.WorkspacePolicy.validCaptureIdentity",
+      "Kind": "member",
+      "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | M:System.String.Split(System.String[],System.Int32,System.StringSplitOptions)",
+      "Reason": "Reviewed capture-key parser: strict normalized string-list DTOs, length-checked indexing, canonical payload tags and malformed-input rejection. Parse exceptions return invalid policy, never successful analysis."
+    },
+    {
+      "File": "src/FDull/WorkspacePolicy.fs",
+      "Owner": "FDull.WorkspacePolicy.validCaptureIdentity",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:System.Array.Length",
+      "Reason": "Reviewed capture-key parser: strict normalized string-list DTOs, length-checked indexing, canonical payload tags and malformed-input rejection. Parse exceptions return invalid policy, never successful analysis."
+    },
+    {
+      "File": "src/FDull/WorkspacePolicy.fs",
+      "Owner": "FDull.WorkspacePolicy.validCaptureIdentity",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:Microsoft.FSharp.Collections.FSharpList\u00601.Item(System.Int32)",
+      "Reason": "Reviewed capture-key parser: strict normalized string-list DTOs, length-checked indexing, canonical payload tags and malformed-input rejection. Parse exceptions return invalid policy, never successful analysis."
+    },
+    {
+      "File": "src/FDull/WorkspacePolicy.fs",
+      "Owner": "FDull.WorkspacePolicy.validCaptureIdentity",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.SeqModule.ForAll\u0060\u00601(Microsoft.FSharp.Core.FSharpFunc{\u0060\u00600,System.Boolean},System.Collections.Generic.IEnumerable{\u0060\u00600})",
+      "Reason": "Reviewed capture-key parser: strict normalized string-list DTOs, length-checked indexing, canonical payload tags and malformed-input rejection. Parse exceptions return invalid policy, never successful analysis."
+    },
+    {
+      "File": "src/FDull/WorkspacePolicy.fs",
+      "Owner": "FDull.WorkspacePolicy.validCaptureIdentity",
+      "Kind": "type",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | []",
+      "Reason": "Reviewed capture-key parser: strict normalized string-list DTOs, length-checked indexing, canonical payload tags and malformed-input rejection. Parse exceptions return invalid policy, never successful analysis."
+    },
+    {
+      "File": "src/FDull/WorkspacePolicy.fs",
+      "Owner": "FDull.WorkspacePolicy.validCaptureIdentity",
+      "Kind": "type",
+      "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | System.Collections.Generic.IEnumerable\u00601",
+      "Reason": "Reviewed capture-key parser: strict normalized string-list DTOs, length-checked indexing, canonical payload tags and malformed-input rejection. Parse exceptions return invalid policy, never successful analysis."
+    },
+    {
+      "File": "src/FDull/WorkspacePolicy.fs",
+      "Owner": "FDull.WorkspacePolicy.validCaptureIdentity",
+      "Kind": "rule",
+      "Identity": "ERR001 | ",
+      "Reason": "Reviewed capture-key parser: strict normalized string-list DTOs, length-checked indexing, canonical payload tags and malformed-input rejection. Parse exceptions return invalid policy, never successful analysis."
+    },
+    {
+      "File": "src/FDull/WorkspacePolicy.fs",
+      "Owner": "FDull.WorkspacePolicy.validCaptureIdentity",
+      "Kind": "rule",
+      "Identity": "ERR004 | exception handler",
+      "Reason": "Reviewed capture-key parser: strict normalized string-list DTOs, length-checked indexing, canonical payload tags and malformed-input rejection. Parse exceptions return invalid policy, never successful analysis."
+    },
+    {
+      "File": "src/FDull/WorkspacePolicy.fs",
+      "Owner": "FDull.WorkspacePolicy.validCaptureIdentity",
+      "Kind": "rule",
+      "Identity": "MUT008 | ",
+      "Reason": "Reviewed capture-key parser: strict normalized string-list DTOs, length-checked indexing, canonical payload tags and malformed-input rejection. Parse exceptions return invalid policy, never successful analysis."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060captured callback permissions survive formatting without authorizing new effects\u0060\u0060",
+      "Kind": "attribute",
+      "Identity": "xunit.core, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | Xunit.FactAttribute |  | unit",
+      "Reason": "Reviewed non-shipping capture regression: literal permissions and temporary consumer IO prove formatting stability, stale source rejection, parameter/binding and type separation, ambiguity rejection, unchanged exact effect checks, and new-owner review."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060captured callback permissions survive formatting without authorizing new effects\u0060\u0060",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Project.initialize(System.String)",
+      "Reason": "Reviewed non-shipping capture regression: literal permissions and temporary consumer IO prove formatting stability, stale source rejection, parameter/binding and type separation, ambiguity rejection, unchanged exact effect checks, and new-owner review."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060captured callback permissions survive formatting without authorizing new effects\u0060\u0060",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Transport.Codec.encode\u0060\u00601(\u0060\u00600)",
+      "Reason": "Reviewed non-shipping capture regression: literal permissions and temporary consumer IO prove formatting stability, stale source rejection, parameter/binding and type separation, ambiguity rejection, unchanged exact effect checks, and new-owner review."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060captured callback permissions survive formatting without authorizing new effects\u0060\u0060",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Workspace.review(System.String)",
+      "Reason": "Reviewed non-shipping capture regression: literal permissions and temporary consumer IO prove formatting stability, stale source rejection, parameter/binding and type separation, ambiguity rejection, unchanged exact effect checks, and new-owner review."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060captured callback permissions survive formatting without authorizing new effects\u0060\u0060",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.True(System.Boolean,System.String)",
+      "Reason": "Reviewed non-shipping capture regression: literal permissions and temporary consumer IO prove formatting stability, stale source rejection, parameter/binding and type separation, ambiguity rejection, unchanged exact effect checks, and new-owner review."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060captured callback permissions survive formatting without authorizing new effects\u0060\u0060",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Contains\u0060\u00601(System.Collections.Generic.IEnumerable{\u0060\u00600},System.Predicate{\u0060\u00600})",
+      "Reason": "Reviewed non-shipping capture regression: literal permissions and temporary consumer IO prove formatting stability, stale source rejection, parameter/binding and type separation, ambiguity rejection, unchanged exact effect checks, and new-owner review."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060captured callback permissions survive formatting without authorizing new effects\u0060\u0060",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspacePolicyDocument",
+      "Reason": "Reviewed non-shipping capture regression: literal permissions and temporary consumer IO prove formatting stability, stale source rejection, parameter/binding and type separation, ambiguity rejection, unchanged exact effect checks, and new-owner review."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060captured callback permissions survive formatting without authorizing new effects\u0060\u0060",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspaceProject",
+      "Reason": "Reviewed non-shipping capture regression: literal permissions and temporary consumer IO prove formatting stability, stale source rejection, parameter/binding and type separation, ambiguity rejection, unchanged exact effect checks, and new-owner review."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060captured callback permissions survive formatting without authorizing new effects\u0060\u0060",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspaceSource",
+      "Reason": "Reviewed non-shipping capture regression: literal permissions and temporary consumer IO prove formatting stability, stale source rejection, parameter/binding and type separation, ambiguity rejection, unchanged exact effect checks, and new-owner review."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060captured callback permissions survive formatting without authorizing new effects\u0060\u0060",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspaceReviewItem",
+      "Reason": "Reviewed non-shipping capture regression: literal permissions and temporary consumer IO prove formatting stability, stale source rejection, parameter/binding and type separation, ambiguity rejection, unchanged exact effect checks, and new-owner review."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060captured callback permissions survive formatting without authorizing new effects\u0060\u0060",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspaceReviewReport",
+      "Reason": "Reviewed non-shipping capture regression: literal permissions and temporary consumer IO prove formatting stability, stale source rejection, parameter/binding and type separation, ambiguity rejection, unchanged exact effect checks, and new-owner review."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060generated capture keys distinguish bindings parameters and authored numbered names\u0060\u0060",
+      "Kind": "attribute",
+      "Identity": "xunit.core, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | Xunit.TheoryAttribute |  | unit",
+      "Reason": "Reviewed non-shipping capture regression: literal permissions and temporary consumer IO prove formatting stability, stale source rejection, parameter/binding and type separation, ambiguity rejection, unchanged exact effect checks, and new-owner review."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060generated capture keys distinguish bindings parameters and authored numbered names\u0060\u0060",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Project.initialize(System.String)",
+      "Reason": "Reviewed non-shipping capture regression: literal permissions and temporary consumer IO prove formatting stability, stale source rejection, parameter/binding and type separation, ambiguity rejection, unchanged exact effect checks, and new-owner review."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060generated capture keys distinguish bindings parameters and authored numbered names\u0060\u0060",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Transport.Codec.encode\u0060\u00601(\u0060\u00600)",
+      "Reason": "Reviewed non-shipping capture regression: literal permissions and temporary consumer IO prove formatting stability, stale source rejection, parameter/binding and type separation, ambiguity rejection, unchanged exact effect checks, and new-owner review."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060generated capture keys distinguish bindings parameters and authored numbered names\u0060\u0060",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Workspace.review(System.String)",
+      "Reason": "Reviewed non-shipping capture regression: literal permissions and temporary consumer IO prove formatting stability, stale source rejection, parameter/binding and type separation, ambiguity rejection, unchanged exact effect checks, and new-owner review."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060generated capture keys distinguish bindings parameters and authored numbered names\u0060\u0060",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.True(System.Boolean,System.String)",
+      "Reason": "Reviewed non-shipping capture regression: literal permissions and temporary consumer IO prove formatting stability, stale source rejection, parameter/binding and type separation, ambiguity rejection, unchanged exact effect checks, and new-owner review."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060generated capture keys distinguish bindings parameters and authored numbered names\u0060\u0060",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Contains\u0060\u00601(System.Collections.Generic.IEnumerable{\u0060\u00600},System.Predicate{\u0060\u00600})",
+      "Reason": "Reviewed non-shipping capture regression: literal permissions and temporary consumer IO prove formatting stability, stale source rejection, parameter/binding and type separation, ambiguity rejection, unchanged exact effect checks, and new-owner review."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060generated capture keys distinguish bindings parameters and authored numbered names\u0060\u0060",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspacePolicyDocument",
+      "Reason": "Reviewed non-shipping capture regression: literal permissions and temporary consumer IO prove formatting stability, stale source rejection, parameter/binding and type separation, ambiguity rejection, unchanged exact effect checks, and new-owner review."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060generated capture keys distinguish bindings parameters and authored numbered names\u0060\u0060",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspaceProject",
+      "Reason": "Reviewed non-shipping capture regression: literal permissions and temporary consumer IO prove formatting stability, stale source rejection, parameter/binding and type separation, ambiguity rejection, unchanged exact effect checks, and new-owner review."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060generated capture keys distinguish bindings parameters and authored numbered names\u0060\u0060",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspaceSource",
+      "Reason": "Reviewed non-shipping capture regression: literal permissions and temporary consumer IO prove formatting stability, stale source rejection, parameter/binding and type separation, ambiguity rejection, unchanged exact effect checks, and new-owner review."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060generated capture keys distinguish bindings parameters and authored numbered names\u0060\u0060",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspaceReviewItem",
+      "Reason": "Reviewed non-shipping capture regression: literal permissions and temporary consumer IO prove formatting stability, stale source rejection, parameter/binding and type separation, ambiguity rejection, unchanged exact effect checks, and new-owner review."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060generated capture keys distinguish bindings parameters and authored numbered names\u0060\u0060",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspaceReviewReport",
+      "Reason": "Reviewed non-shipping capture regression: literal permissions and temporary consumer IO prove formatting stability, stale source rejection, parameter/binding and type separation, ambiguity rejection, unchanged exact effect checks, and new-owner review."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060capture identities separate types and reject ambiguous shadowed bindings\u0060\u0060",
+      "Kind": "attribute",
+      "Identity": "xunit.core, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | Xunit.TheoryAttribute |  | unit",
+      "Reason": "Reviewed non-shipping capture regression: literal permissions and temporary consumer IO prove formatting stability, stale source rejection, parameter/binding and type separation, ambiguity rejection, unchanged exact effect checks, and new-owner review."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060capture identities separate types and reject ambiguous shadowed bindings\u0060\u0060",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Project.initialize(System.String)",
+      "Reason": "Reviewed non-shipping capture regression: literal permissions and temporary consumer IO prove formatting stability, stale source rejection, parameter/binding and type separation, ambiguity rejection, unchanged exact effect checks, and new-owner review."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060capture identities separate types and reject ambiguous shadowed bindings\u0060\u0060",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Transport.Codec.encode\u0060\u00601(\u0060\u00600)",
+      "Reason": "Reviewed non-shipping capture regression: literal permissions and temporary consumer IO prove formatting stability, stale source rejection, parameter/binding and type separation, ambiguity rejection, unchanged exact effect checks, and new-owner review."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060capture identities separate types and reject ambiguous shadowed bindings\u0060\u0060",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Workspace.review(System.String)",
+      "Reason": "Reviewed non-shipping capture regression: literal permissions and temporary consumer IO prove formatting stability, stale source rejection, parameter/binding and type separation, ambiguity rejection, unchanged exact effect checks, and new-owner review."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060capture identities separate types and reject ambiguous shadowed bindings\u0060\u0060",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.True(System.Boolean,System.String)",
+      "Reason": "Reviewed non-shipping capture regression: literal permissions and temporary consumer IO prove formatting stability, stale source rejection, parameter/binding and type separation, ambiguity rejection, unchanged exact effect checks, and new-owner review."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060capture identities separate types and reject ambiguous shadowed bindings\u0060\u0060",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Contains\u0060\u00601(System.Collections.Generic.IEnumerable{\u0060\u00600},System.Predicate{\u0060\u00600})",
+      "Reason": "Reviewed non-shipping capture regression: literal permissions and temporary consumer IO prove formatting stability, stale source rejection, parameter/binding and type separation, ambiguity rejection, unchanged exact effect checks, and new-owner review."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060capture identities separate types and reject ambiguous shadowed bindings\u0060\u0060",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspacePolicyDocument",
+      "Reason": "Reviewed non-shipping capture regression: literal permissions and temporary consumer IO prove formatting stability, stale source rejection, parameter/binding and type separation, ambiguity rejection, unchanged exact effect checks, and new-owner review."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060capture identities separate types and reject ambiguous shadowed bindings\u0060\u0060",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspaceProject",
+      "Reason": "Reviewed non-shipping capture regression: literal permissions and temporary consumer IO prove formatting stability, stale source rejection, parameter/binding and type separation, ambiguity rejection, unchanged exact effect checks, and new-owner review."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060capture identities separate types and reject ambiguous shadowed bindings\u0060\u0060",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspaceSource",
+      "Reason": "Reviewed non-shipping capture regression: literal permissions and temporary consumer IO prove formatting stability, stale source rejection, parameter/binding and type separation, ambiguity rejection, unchanged exact effect checks, and new-owner review."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060capture identities separate types and reject ambiguous shadowed bindings\u0060\u0060",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspaceReviewItem",
+      "Reason": "Reviewed non-shipping capture regression: literal permissions and temporary consumer IO prove formatting stability, stale source rejection, parameter/binding and type separation, ambiguity rejection, unchanged exact effect checks, and new-owner review."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060capture identities separate types and reject ambiguous shadowed bindings\u0060\u0060",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspaceReviewReport",
+      "Reason": "Reviewed non-shipping capture regression: literal permissions and temporary consumer IO prove formatting stability, stale source rejection, parameter/binding and type separation, ambiguity rejection, unchanged exact effect checks, and new-owner review."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060generated capture keys distinguish bindings parameters and authored numbered names\u0060\u0060",
+      "Kind": "attribute",
+      "Identity": "xunit.core, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | Xunit.InlineDataAttribute |  | bool:False",
+      "Reason": "Reviewed non-shipping capture regression: literal permissions and temporary consumer IO prove formatting stability, stale source rejection, parameter/binding and type separation, ambiguity rejection, unchanged exact effect checks, and new-owner review."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060generated capture keys distinguish bindings parameters and authored numbered names\u0060\u0060",
+      "Kind": "attribute",
+      "Identity": "xunit.core, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | Xunit.InlineDataAttribute |  | bool:True",
+      "Reason": "Reviewed non-shipping capture regression: literal permissions and temporary consumer IO prove formatting stability, stale source rejection, parameter/binding and type separation, ambiguity rejection, unchanged exact effect checks, and new-owner review."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060capture identities separate types and reject ambiguous shadowed bindings\u0060\u0060",
+      "Kind": "attribute",
+      "Identity": "xunit.core, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | Xunit.InlineDataAttribute |  | bool:False",
+      "Reason": "Reviewed non-shipping capture regression: literal permissions and temporary consumer IO prove formatting stability, stale source rejection, parameter/binding and type separation, ambiguity rejection, unchanged exact effect checks, and new-owner review."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060capture identities separate types and reject ambiguous shadowed bindings\u0060\u0060",
+      "Kind": "attribute",
+      "Identity": "xunit.core, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | Xunit.InlineDataAttribute |  | bool:True",
+      "Reason": "Reviewed non-shipping capture regression: literal permissions and temporary consumer IO prove formatting stability, stale source rejection, parameter/binding and type separation, ambiguity rejection, unchanged exact effect checks, and new-owner review."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060captured callback permissions survive formatting without authorizing new effects\u0060\u0060",
+      "Kind": "member",
+      "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | M:System.String.Replace(System.String,System.String)",
+      "Reason": "Reviewed non-shipping capture regression: literal permissions and temporary consumer IO prove formatting stability, stale source rejection, parameter/binding and type separation, ambiguity rejection, unchanged exact effect checks, and new-owner review."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060captured callback permissions survive formatting without authorizing new effects\u0060\u0060",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Empty(System.Collections.IEnumerable)",
+      "Reason": "Reviewed non-shipping capture regression: literal permissions and temporary consumer IO prove formatting stability, stale source rejection, parameter/binding and type separation, ambiguity rejection, unchanged exact effect checks, and new-owner review."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060captured callback permissions survive formatting without authorizing new effects\u0060\u0060",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.False(System.Boolean)",
+      "Reason": "Reviewed non-shipping capture regression: literal permissions and temporary consumer IO prove formatting stability, stale source rejection, parameter/binding and type separation, ambiguity rejection, unchanged exact effect checks, and new-owner review."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060captured callback permissions survive formatting without authorizing new effects\u0060\u0060",
+      "Kind": "type",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | System.Collections.IEnumerable",
+      "Reason": "Reviewed non-shipping capture regression: literal permissions and temporary consumer IO prove formatting stability, stale source rejection, parameter/binding and type separation, ambiguity rejection, unchanged exact effect checks, and new-owner review."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060capture identities separate types and reject ambiguous shadowed bindings\u0060\u0060",
+      "Kind": "member",
+      "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | M:System.String.Replace(System.String,System.String)",
+      "Reason": "Reviewed non-shipping capture regression: literal permissions and temporary consumer IO prove formatting stability, stale source rejection, parameter/binding and type separation, ambiguity rejection, unchanged exact effect checks, and new-owner review."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060capture identities separate types and reject ambiguous shadowed bindings\u0060\u0060",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Empty(System.Collections.IEnumerable)",
+      "Reason": "Reviewed non-shipping capture regression: literal permissions and temporary consumer IO prove formatting stability, stale source rejection, parameter/binding and type separation, ambiguity rejection, unchanged exact effect checks, and new-owner review."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060capture identities separate types and reject ambiguous shadowed bindings\u0060\u0060",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.False(System.Boolean)",
+      "Reason": "Reviewed non-shipping capture regression: literal permissions and temporary consumer IO prove formatting stability, stale source rejection, parameter/binding and type separation, ambiguity rejection, unchanged exact effect checks, and new-owner review."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060capture identities separate types and reject ambiguous shadowed bindings\u0060\u0060",
+      "Kind": "type",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | System.Collections.IEnumerable",
+      "Reason": "Reviewed non-shipping capture regression: literal permissions and temporary consumer IO prove formatting stability, stale source rejection, parameter/binding and type separation, ambiguity rejection, unchanged exact effect checks, and new-owner review."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060captured callback permissions survive formatting without authorizing new effects\u0060\u0060",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Single\u0060\u00601(System.Collections.Generic.IEnumerable{\u0060\u00600})",
+      "Reason": "Reviewed non-shipping capture regression: literal permissions and temporary consumer IO prove formatting stability, stale source rejection, parameter/binding and type separation, ambiguity rejection, unchanged exact effect checks, and new-owner review."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060generated capture keys distinguish bindings parameters and authored numbered names\u0060\u0060",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Single\u0060\u00601(System.Collections.Generic.IEnumerable{\u0060\u00600})",
+      "Reason": "Reviewed non-shipping capture regression: literal permissions and temporary consumer IO prove formatting stability, stale source rejection, parameter/binding and type separation, ambiguity rejection, unchanged exact effect checks, and new-owner review."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060captured callback permissions survive formatting without authorizing new effects\u0060\u0060",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Equal\u0060\u00601(\u0060\u00600,\u0060\u00600)",
+      "Reason": "Reviewed non-shipping capture regression: literal permissions and temporary consumer IO prove formatting stability, stale source rejection, parameter/binding and type separation, ambiguity rejection, unchanged exact effect checks, and new-owner review."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060generated capture keys distinguish bindings parameters and authored numbered names\u0060\u0060",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Equal\u0060\u00601(\u0060\u00600,\u0060\u00600)",
+      "Reason": "Reviewed non-shipping capture regression: literal permissions and temporary consumer IO prove formatting stability, stale source rejection, parameter/binding and type separation, ambiguity rejection, unchanged exact effect checks, and new-owner review."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060capture identities separate types and reject ambiguous shadowed bindings\u0060\u0060",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Equal\u0060\u00601(\u0060\u00600,\u0060\u00600)",
+      "Reason": "Reviewed non-shipping capture regression: literal permissions and temporary consumer IO prove formatting stability, stale source rejection, parameter/binding and type separation, ambiguity rejection, unchanged exact effect checks, and new-owner review."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060captured callback permissions survive formatting without authorizing new effects\u0060\u0060",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Project.verify(System.String)",
+      "Reason": "Reviewed non-shipping capture regression: literal permissions and temporary consumer IO prove formatting stability, stale source rejection, parameter/binding and type separation, ambiguity rejection, unchanged exact effect checks, and new-owner review."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060captured callback permissions survive formatting without authorizing new effects\u0060\u0060",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.SafetyPolicy.fileDigest(System.String)",
+      "Reason": "Reviewed non-shipping capture regression: literal permissions and temporary consumer IO prove formatting stability, stale source rejection, parameter/binding and type separation, ambiguity rejection, unchanged exact effect checks, and new-owner review."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060captured callback permissions survive formatting without authorizing new effects\u0060\u0060",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Workspace.check(System.String)",
+      "Reason": "Reviewed non-shipping capture regression: literal permissions and temporary consumer IO prove formatting stability, stale source rejection, parameter/binding and type separation, ambiguity rejection, unchanged exact effect checks, and new-owner review."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060captured callback permissions survive formatting without authorizing new effects\u0060\u0060",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.File.WriteAllText(System.String,System.String)",
+      "Reason": "Reviewed non-shipping capture regression: literal permissions and temporary consumer IO prove formatting stability, stale source rejection, parameter/binding and type separation, ambiguity rejection, unchanged exact effect checks, and new-owner review."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060captured callback permissions survive formatting without authorizing new effects\u0060\u0060",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.Combine(System.String,System.String)",
+      "Reason": "Reviewed non-shipping capture regression: literal permissions and temporary consumer IO prove formatting stability, stale source rejection, parameter/binding and type separation, ambiguity rejection, unchanged exact effect checks, and new-owner review."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060captured callback permissions survive formatting without authorizing new effects\u0060\u0060",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.True(System.Boolean)",
+      "Reason": "Reviewed non-shipping capture regression: literal permissions and temporary consumer IO prove formatting stability, stale source rejection, parameter/binding and type separation, ambiguity rejection, unchanged exact effect checks, and new-owner review."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060captured callback permissions survive formatting without authorizing new effects\u0060\u0060",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspaceCapability",
+      "Reason": "Reviewed non-shipping capture regression: literal permissions and temporary consumer IO prove formatting stability, stale source rejection, parameter/binding and type separation, ambiguity rejection, unchanged exact effect checks, and new-owner review."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060captured callback permissions survive formatting without authorizing new effects\u0060\u0060",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspaceReport",
+      "Reason": "Reviewed non-shipping capture regression: literal permissions and temporary consumer IO prove formatting stability, stale source rejection, parameter/binding and type separation, ambiguity rejection, unchanged exact effect checks, and new-owner review."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060capture identities separate types and reject ambiguous shadowed bindings\u0060\u0060",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | FDull.SafetyDiagnostic",
+      "Reason": "Reviewed non-shipping capture regression: literal permissions and temporary consumer IO prove formatting stability, stale source rejection, parameter/binding and type separation, ambiguity rejection, unchanged exact effect checks, and new-owner review."
+    },
+    {
+      "File": "tests/FDull.Tests/WorkspaceTests.fs",
+      "Owner": "FDull.Tests.WorkspaceTests.\u0060\u0060policy and inventory drift cannot certify a workspace\u0060\u0060",
+      "Kind": "attribute",
+      "Identity": "xunit.core, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | Xunit.InlineDataAttribute |  | [\u0022string:\\u0022capture-pure\\u0022\u0022,\u0022string:\\u0022BUILD005\\u0022\u0022]",
+      "Reason": "Reviewed non-shipping capture regression: literal permissions and temporary consumer IO prove formatting stability, stale source rejection, parameter/binding and type separation, ambiguity rejection, unchanged exact effect checks, and new-owner review."
+    },
+    {
+      "File": "tests/FDull.Tests/WorkspaceTests.fs",
+      "Owner": "FDull.Tests.WorkspaceTests.\u0060\u0060policy and inventory drift cannot certify a workspace\u0060\u0060",
+      "Kind": "attribute",
+      "Identity": "xunit.core, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | Xunit.InlineDataAttribute |  | [\u0022string:\\u0022capture-malformed\\u0022\u0022,\u0022string:\\u0022BUILD005\\u0022\u0022]",
+      "Reason": "Reviewed non-shipping capture regression: literal permissions and temporary consumer IO prove formatting stability, stale source rejection, parameter/binding and type separation, ambiguity rejection, unchanged exact effect checks, and new-owner review."
+    },
+    {
+      "File": "tests/FDull.Tests/WorkspaceTests.fs",
+      "Owner": "FDull.Tests.WorkspaceTests.\u0060\u0060policy and inventory drift cannot certify a workspace\u0060\u0060",
+      "Kind": "attribute",
+      "Identity": "xunit.core, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | Xunit.InlineDataAttribute |  | [\u0022string:\\u0022capture-effect\\u0022\u0022,\u0022string:\\u0022BUILD005\\u0022\u0022]",
+      "Reason": "Reviewed non-shipping capture regression: literal permissions and temporary consumer IO prove formatting stability, stale source rejection, parameter/binding and type separation, ambiguity rejection, unchanged exact effect checks, and new-owner review."
     }
   ],
   "Domains": [],

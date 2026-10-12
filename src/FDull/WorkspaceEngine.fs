@@ -84,6 +84,7 @@ module WorkspaceProtocol =
                            [ "member"
                              "type"
                              "rule"
+                             "capture"
                              "profile"
                              "attribute"
                              "constructor"
@@ -131,7 +132,7 @@ module WorkspaceEngine =
             if not (SafetyRules.knownDiagnostic rule) then
                 invalidOp "Unknown diagnostic classification."
 
-            if not (context.Permit rule r symbol) then
+            if not (context.Permit rule r symbol contract) then
                 if diagnostics.Count >= 4096 then
                     invalidOp "Workspace diagnostic budget exceeded."
 

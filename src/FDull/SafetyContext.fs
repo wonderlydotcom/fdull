@@ -12,13 +12,15 @@ type internal SafetyReviewContract =
     | AttributeContract of SynAttribute * FSharpEntity
     | ConstructorContract of FSharpMemberOrFunctionOrValue
     | DataContract of FSharpEntity
+    | CaptureContract of sourcePath: string list * payloadPath: string list
 
 /// Platform policy supplies this context; application source cannot select it.
 [<NoEquality; NoComparison>]
 type internal SafetyContext =
     { Project: string
       Profile: range -> string
-      Permit: string -> range -> string -> bool
+      Permit: string -> range -> string -> SafetyReviewContract option -> bool
+      Capture: FSharpField -> string list option
       Member: range -> FSharpMemberOrFunctionOrValue -> bool
       Type: range -> FSharpEntity -> bool
       Data: range -> FSharpEntity -> (FSharpEntity -> unit) option
@@ -30,7 +32,8 @@ module internal SafetyContext =
     let application =
         { Project = "fdull.source"
           Profile = fun _ -> "PURE"
-          Permit = fun _ _ _ -> false
+          Permit = fun _ _ _ _ -> false
+          Capture = fun _ -> None
           Member = fun _ _ -> false
           Type = fun _ _ -> false
           Data = fun _ _ -> None

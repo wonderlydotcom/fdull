@@ -149,6 +149,35 @@ not grant I/O, mutation or reflection. Necessary operations need exact entries
 bound to a file, declaration, permission kind and resolved API identity. Every
 entry needs a reason; unused, duplicate and overbroad entries fail verification.
 
+Generated capture fields use `Kind: "capture"` for their rule permissions. FDull
+maps each field's resolved declaration location to its authored constructor
+parameter or named binding, retaining the enclosing type, lexical binding path
+and nested payload path. The key contains no source coordinates or generated field
+name. For example, a stored callback binding can have this manually reviewed entry:
+
+```json
+{
+  "File": "Service.fs",
+  "Owner": "App.Service.``.ctor``",
+  "Kind": "capture",
+  "Identity": "EFFECT003 | [[\"App.Service\",\"binding\",\"callback\"],[]]",
+  "Reason": "Reviewed callback storage; its authored body and exact effect calls remain checked."
+}
+```
+
+Constructor parameters use `"parameter"` instead of `"binding"`; the two never
+share a permission. The second array describes the payload location (`"field"`
+with a field name or `"tuple"` with an index). Existing rule restrictions also
+apply to capture permissions: pure/data profiles cannot grant callback exemptions.
+Unknown or ambiguous source mappings fail analysis; use distinct named bindings.
+Compiler names remain in diagnostic evidence. Actual external API identities stay
+exact, and anonymous lambda bodies remain checked under their authored declaration.
+Adding comments, lines or formatting does not change a capture key. Changed source
+still requires fingerprint review, and moving captures between owners/files needs
+new explicit review. Old permissions containing generated field names become
+unused; review the new `capture` findings and replace those entries intentionally.
+FDull never migrates or generates permissions automatically.
+
 `DataContracts` provides an optional, reviewed data vocabulary for a consuming
 project. An exact external F# record or union can be admitted once and then used
 by any declaration in that project, including newly extracted helpers. Existing
