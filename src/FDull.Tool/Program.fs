@@ -14,13 +14,30 @@ module Program =
 
         2
 
-    let private display format (report: WorkspaceReport) =
+    let private display command format (report: WorkspaceReport) =
+        let diagnostics =
+            report.Projects |> List.collect (fun project -> project.Report.Diagnostics)
+
+        let status =
+            if not report.Complete then
+                $"FDull %s{command}: BLOCKED — analysis incomplete; no clean result (exit %d{report.ExitCode})."
+            elif report.ExitCode <> 0 then
+                $"FDull %s{command}: FAIL — complete analysis found violations (exit %d{report.ExitCode})."
+            elif command = "verify" then
+                "FDull verify: PASS — verification completed."
+            else
+                "FDull lint: PASS — complete analysis found no violations."
+
+        let incomplete =
+            $"%d{diagnostics.Length} reported diagnostics; findings are partial and do not establish a clean result. Resolve the blockers and rerun fdull %s{command}."
+
+        if not report.Complete && format <> "text" then
+            Console.Error.WriteLine status
+            Console.Error.WriteLine incomplete
+
         match format with
         | "json" -> Console.WriteLine(Codec.encode report)
         | "sarif" ->
-            let diagnostics =
-                report.Projects |> List.collect (fun project -> project.Report.Diagnostics)
-
             let combined: SafetyReport =
                 { Policy = SafetyPolicy.version
                   Tool = SafetyPolicy.fileDigest typeof<SafetyReport>.Assembly.Location
@@ -34,13 +51,16 @@ module Program =
             Console.WriteLine(SafetyPolicy.toSarif combined)
             report.Errors |> List.iter Console.Error.WriteLine
         | _ ->
+            Console.WriteLine status
+
+            if not report.Complete then
+                Console.WriteLine incomplete
+
             report.Errors |> List.iter Console.Error.WriteLine
 
-            for project in report.Projects do
-                project.Report.Diagnostics
-                |> List.iter (SafetyPolicy.format >> Console.WriteLine)
+            diagnostics |> List.iter (SafetyPolicy.format >> Console.WriteLine)
 
-            printfn "FDull: %d projects, complete=%b, exit=%d" report.Projects.Length report.Complete report.ExitCode
+            printfn "%d projects; %d reported diagnostics." report.Projects.Length diagnostics.Length
 
         report.ExitCode
 
@@ -70,10 +90,10 @@ module Program =
             | [ "init"; root; "--scope"; scope ] ->
                 Project.initializeWithScope root (Some scope) |> Console.WriteLine
                 0
-            | [ "lint"; root ] -> Workspace.check root |> display "text"
+            | [ "lint"; root ] -> Workspace.check root |> display "lint" "text"
             | [ "lint"; root; "--format"; format ] when List.contains format [ "text"; "json"; "sarif" ] ->
-                Workspace.check root |> display format
-            | [ "verify"; root ] -> Project.verify root |> display "text"
+                Workspace.check root |> display "lint" format
+            | [ "verify"; root ] -> Project.verify root |> display "verify" "text"
             | [ "review"; root ] -> Workspace.review root |> displayReview "text"
             | [ "review"; root; "--format"; format ] when List.contains format [ "text"; "json" ] ->
                 Workspace.review root |> displayReview format
@@ -82,5 +102,6 @@ module Program =
                 0
             | _ -> usage ()
         with error ->
+            Console.Error.WriteLine "FDull: BLOCKED — command failed; no clean result (exit 3)."
             Console.Error.WriteLine("FDull failed: " + error.Message)
             3

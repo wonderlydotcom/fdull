@@ -38,6 +38,7 @@
       "Profile": "TEST",
       "References": [
         "src/FDull/FDull.fsproj",
+        "src/FDull.Tool/FDull.Tool.fsproj",
         "src/FDull.Worker/FDull.Worker.fsproj",
         "tests/FDull.ProcessFixture/FDull.ProcessFixture.fsproj"
       ]
@@ -168,7 +169,7 @@
       "File": "src/FDull.Tool/Program.fs",
       "Project": "src/FDull.Tool/FDull.Tool.fsproj",
       "Profile": "GUARD_TOOLING",
-      "Digest": "sha256:5b0287f085a96310ccd45b668485a46e8c05146d1f32f22cf2d5e86fdab96045"
+      "Digest": "sha256:a3021d5fb0109267d330828d4a663638f0068bfcfafce7efeb1a87d3998e4c55"
     },
     {
       "File": "src/FDull.Worker/Program.fs",
@@ -228,7 +229,7 @@
       "File": "tests/FDull.Tests/ProjectTests.fs",
       "Project": "tests/FDull.Tests/FDull.Tests.fsproj",
       "Profile": "TEST",
-      "Digest": "sha256:a8063e7960caf486c4245ed33e7be90a7d8bd035d672c96f9d6d7ffb08acec2f"
+      "Digest": "sha256:a679c198968719c77bf2d6585a8f2e4eecc19b96674cc10614d956db802dcab2"
     },
     {
       "File": "tests/FDull.Tests/Program.fs",
@@ -330,7 +331,7 @@
     },
     {
       "File": "tests/FDull.Tests/FDull.Tests.fsproj",
-      "Digest": "sha256:256b454f8535728a390963759be476dbcb2e5cd127702d7c5965bc6d6d4ec6ca"
+      "Digest": "sha256:51b68ab6a5f90820490545f7c748aca3c85751f2e12eb0f0ab53718201d102da"
     },
     {
       "File": "tests/FDull.Tests/packages.lock.json",
@@ -429,20 +430,6 @@
       "Owner": "FDull.Tool.Program.display",
       "Kind": "member",
       "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | P:System.Type.Assembly",
-      "Reason": "CLI boundary prints finite checker reports, routes explicit commands and maps infrastructure exceptions to exit 3. It cannot certify a caught failure or grant policy permissions."
-    },
-    {
-      "File": "src/FDull.Tool/Program.fs",
-      "Owner": "FDull.Tool.Program.display",
-      "Kind": "rule",
-      "Identity": "CAST004 | coercion -\u003E System.Object",
-      "Reason": "CLI boundary prints finite checker reports, routes explicit commands and maps infrastructure exceptions to exit 3. It cannot certify a caught failure or grant policy permissions."
-    },
-    {
-      "File": "src/FDull.Tool/Program.fs",
-      "Owner": "FDull.Tool.Program.display",
-      "Kind": "rule",
-      "Identity": "MUT009 | ",
       "Reason": "CLI boundary prints finite checker reports, routes explicit commands and maps infrastructure exceptions to exit 3. It cannot certify a caught failure or grant policy permissions."
     },
     {
@@ -16383,6 +16370,384 @@
       "Kind": "attribute",
       "Identity": "xunit.core, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | Xunit.InlineDataAttribute |  | [\u0022string:\\u0022capture-effect\\u0022\u0022,\u0022string:\\u0022BUILD005\\u0022\u0022]",
       "Reason": "Reviewed non-shipping capture regression: literal permissions and temporary consumer IO prove formatting stability, stale source rejection, parameter/binding and type separation, ambiguity rejection, unchanged exact effect checks, and new-owner review."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.runCli",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.SafetyProcess.run(FDull.SafetyProcessLimits,System.Diagnostics.ProcessStartInfo,System.String)",
+      "Reason": "Reviewed non-shipping CLI regression: a bounded dotnet subprocess captures real CLI output and exit codes in an isolated consumer; no shell or permission generation."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.runCli",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Core.Operators.FailWith\u0060\u00601(System.String)",
+      "Reason": "Reviewed non-shipping CLI regression: a bounded dotnet subprocess captures real CLI output and exit codes in an isolated consumer; no shell or permission generation."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.runCli",
+      "Kind": "member",
+      "Identity": "System.Diagnostics.Process, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.Diagnostics.ProcessStartInfo.#ctor(System.String)",
+      "Reason": "Reviewed non-shipping CLI regression: a bounded dotnet subprocess captures real CLI output and exit codes in an isolated consumer; no shell or permission generation."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.runCli",
+      "Kind": "member",
+      "Identity": "System.Diagnostics.Process, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:System.Diagnostics.ProcessStartInfo.ArgumentList",
+      "Reason": "Reviewed non-shipping CLI regression: a bounded dotnet subprocess captures real CLI output and exit codes in an isolated consumer; no shell or permission generation."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.runCli",
+      "Kind": "member",
+      "Identity": "System.Diagnostics.Process, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:System.Diagnostics.ProcessStartInfo.Environment",
+      "Reason": "Reviewed non-shipping CLI regression: a bounded dotnet subprocess captures real CLI output and exit codes in an isolated consumer; no shell or permission generation."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.runCli",
+      "Kind": "member",
+      "Identity": "System.Diagnostics.Process, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:System.Diagnostics.ProcessStartInfo.WorkingDirectory",
+      "Reason": "Reviewed non-shipping CLI regression: a bounded dotnet subprocess captures real CLI output and exit codes in an isolated consumer; no shell or permission generation."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.runCli",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.Collections.ObjectModel.Collection\u00601.Add(\u00600)",
+      "Reason": "Reviewed non-shipping CLI regression: a bounded dotnet subprocess captures real CLI output and exit codes in an isolated consumer; no shell or permission generation."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.runCli",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:System.Collections.Generic.IDictionary\u00602.Item(\u00600)",
+      "Reason": "Reviewed non-shipping CLI regression: a bounded dotnet subprocess captures real CLI output and exit codes in an isolated consumer; no shell or permission generation."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.runCli",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:System.AppContext.BaseDirectory",
+      "Reason": "Reviewed non-shipping CLI regression: a bounded dotnet subprocess captures real CLI output and exit codes in an isolated consumer; no shell or permission generation."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.runCli",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.GetFullPath(System.String)",
+      "Reason": "Reviewed non-shipping CLI regression: a bounded dotnet subprocess captures real CLI output and exit codes in an isolated consumer; no shell or permission generation."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.runCli",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.Combine(System.String,System.String)",
+      "Reason": "Reviewed non-shipping CLI regression: a bounded dotnet subprocess captures real CLI output and exit codes in an isolated consumer; no shell or permission generation."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.runCli",
+      "Kind": "rule",
+      "Identity": "CAST004 | coercion -\u003E System.Object",
+      "Reason": "Reviewed non-shipping CLI regression: a bounded dotnet subprocess captures real CLI output and exit codes in an isolated consumer; no shell or permission generation."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.runCli",
+      "Kind": "rule",
+      "Identity": "MUT002 | ",
+      "Reason": "Reviewed non-shipping CLI regression: a bounded dotnet subprocess captures real CLI output and exit codes in an isolated consumer; no shell or permission generation."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.runCli",
+      "Kind": "rule",
+      "Identity": "MUT009 | ",
+      "Reason": "Reviewed non-shipping CLI regression: a bounded dotnet subprocess captures real CLI output and exit codes in an isolated consumer; no shell or permission generation."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.runCli",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | FDull.SafetyProcessOutput",
+      "Reason": "Reviewed non-shipping CLI regression: a bounded dotnet subprocess captures real CLI output and exit codes in an isolated consumer; no shell or permission generation."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.runCli",
+      "Kind": "type",
+      "Identity": "System.Diagnostics.Process, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | System.Diagnostics.ProcessStartInfo",
+      "Reason": "Reviewed non-shipping CLI regression: a bounded dotnet subprocess captures real CLI output and exit codes in an isolated consumer; no shell or permission generation."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060CLI blocks unclassified trial automation even with zero diagnostics\u0060\u0060",
+      "Kind": "attribute",
+      "Identity": "xunit.core, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | Xunit.FactAttribute |  | unit",
+      "Reason": "Reviewed non-shipping end-to-end CLI status regression: temporary .trial automation must block lint and verify with exit 3 despite zero findings; text status, JSON completeness, and SARIF invocation failure remain explicit. Temporary IO and read-only JSON inspection assert the failure gate."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060CLI blocks unclassified trial automation even with zero diagnostics\u0060\u0060",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.Combine(System.String,System.String)",
+      "Reason": "Reviewed non-shipping end-to-end CLI status regression: temporary .trial automation must block lint and verify with exit 3 despite zero findings; text status, JSON completeness, and SARIF invocation failure remain explicit. Temporary IO and read-only JSON inspection assert the failure gate."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060CLI blocks unclassified trial automation even with zero diagnostics\u0060\u0060",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.File.WriteAllText(System.String,System.String)",
+      "Reason": "Reviewed non-shipping end-to-end CLI status regression: temporary .trial automation must block lint and verify with exit 3 despite zero findings; text status, JSON completeness, and SARIF invocation failure remain explicit. Temporary IO and read-only JSON inspection assert the failure gate."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060CLI blocks unclassified trial automation even with zero diagnostics\u0060\u0060",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Equal\u0060\u00601(\u0060\u00600,\u0060\u00600)",
+      "Reason": "Reviewed non-shipping end-to-end CLI status regression: temporary .trial automation must block lint and verify with exit 3 despite zero findings; text status, JSON completeness, and SARIF invocation failure remain explicit. Temporary IO and read-only JSON inspection assert the failure gate."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060CLI blocks unclassified trial automation even with zero diagnostics\u0060\u0060",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.StartsWith(System.String,System.String)",
+      "Reason": "Reviewed non-shipping end-to-end CLI status regression: temporary .trial automation must block lint and verify with exit 3 despite zero findings; text status, JSON completeness, and SARIF invocation failure remain explicit. Temporary IO and read-only JSON inspection assert the failure gate."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060CLI blocks unclassified trial automation even with zero diagnostics\u0060\u0060",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Contains(System.String,System.String)",
+      "Reason": "Reviewed non-shipping end-to-end CLI status regression: temporary .trial automation must block lint and verify with exit 3 despite zero findings; text status, JSON completeness, and SARIF invocation failure remain explicit. Temporary IO and read-only JSON inspection assert the failure gate."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060CLI blocks unclassified trial automation even with zero diagnostics\u0060\u0060",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.DoesNotContain(System.String,System.String)",
+      "Reason": "Reviewed non-shipping end-to-end CLI status regression: temporary .trial automation must block lint and verify with exit 3 despite zero findings; text status, JSON completeness, and SARIF invocation failure remain explicit. Temporary IO and read-only JSON inspection assert the failure gate."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060CLI blocks unclassified trial automation even with zero diagnostics\u0060\u0060",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | FDull.SafetyProcessOutput",
+      "Reason": "Reviewed non-shipping end-to-end CLI status regression: temporary .trial automation must block lint and verify with exit 3 despite zero findings; text status, JSON completeness, and SARIF invocation failure remain explicit. Temporary IO and read-only JSON inspection assert the failure gate."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060CLI blocks unclassified trial automation even with zero diagnostics\u0060\u0060",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Directory.CreateDirectory(System.String)",
+      "Reason": "Reviewed non-shipping end-to-end CLI status regression: temporary .trial automation must block lint and verify with exit 3 despite zero findings; text status, JSON completeness, and SARIF invocation failure remain explicit. Temporary IO and read-only JSON inspection assert the failure gate."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060CLI blocks unclassified trial automation even with zero diagnostics\u0060\u0060",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Transport.Codec.decode\u0060\u00601(System.String)",
+      "Reason": "Reviewed non-shipping end-to-end CLI status regression: temporary .trial automation must block lint and verify with exit 3 despite zero findings; text status, JSON completeness, and SARIF invocation failure remain explicit. Temporary IO and read-only JSON inspection assert the failure gate."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060CLI blocks unclassified trial automation even with zero diagnostics\u0060\u0060",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.False(System.Boolean)",
+      "Reason": "Reviewed non-shipping end-to-end CLI status regression: temporary .trial automation must block lint and verify with exit 3 despite zero findings; text status, JSON completeness, and SARIF invocation failure remain explicit. Temporary IO and read-only JSON inspection assert the failure gate."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060CLI blocks unclassified trial automation even with zero diagnostics\u0060\u0060",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Empty(System.Collections.IEnumerable)",
+      "Reason": "Reviewed non-shipping end-to-end CLI status regression: temporary .trial automation must block lint and verify with exit 3 despite zero findings; text status, JSON completeness, and SARIF invocation failure remain explicit. Temporary IO and read-only JSON inspection assert the failure gate."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060CLI blocks unclassified trial automation even with zero diagnostics\u0060\u0060",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Contains\u0060\u00601(System.Collections.Generic.IEnumerable{\u0060\u00600},System.Predicate{\u0060\u00600})",
+      "Reason": "Reviewed non-shipping end-to-end CLI status regression: temporary .trial automation must block lint and verify with exit 3 despite zero findings; text status, JSON completeness, and SARIF invocation failure remain explicit. Temporary IO and read-only JSON inspection assert the failure gate."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060CLI blocks unclassified trial automation even with zero diagnostics\u0060\u0060",
+      "Kind": "member",
+      "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | M:System.String.Contains(System.String)",
+      "Reason": "Reviewed non-shipping end-to-end CLI status regression: temporary .trial automation must block lint and verify with exit 3 despite zero findings; text status, JSON completeness, and SARIF invocation failure remain explicit. Temporary IO and read-only JSON inspection assert the failure gate."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060CLI blocks unclassified trial automation even with zero diagnostics\u0060\u0060",
+      "Kind": "member",
+      "Identity": "System.Text.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | M:System.Text.Json.JsonDocument.Parse(System.String,System.Text.Json.JsonDocumentOptions)",
+      "Reason": "Reviewed non-shipping end-to-end CLI status regression: temporary .trial automation must block lint and verify with exit 3 despite zero findings; text status, JSON completeness, and SARIF invocation failure remain explicit. Temporary IO and read-only JSON inspection assert the failure gate."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060CLI blocks unclassified trial automation even with zero diagnostics\u0060\u0060",
+      "Kind": "member",
+      "Identity": "System.Text.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | P:System.Text.Json.JsonDocument.RootElement",
+      "Reason": "Reviewed non-shipping end-to-end CLI status regression: temporary .trial automation must block lint and verify with exit 3 despite zero findings; text status, JSON completeness, and SARIF invocation failure remain explicit. Temporary IO and read-only JSON inspection assert the failure gate."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060CLI blocks unclassified trial automation even with zero diagnostics\u0060\u0060",
+      "Kind": "member",
+      "Identity": "System.Text.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | M:System.Text.Json.JsonElement.GetProperty(System.String)",
+      "Reason": "Reviewed non-shipping end-to-end CLI status regression: temporary .trial automation must block lint and verify with exit 3 despite zero findings; text status, JSON completeness, and SARIF invocation failure remain explicit. Temporary IO and read-only JSON inspection assert the failure gate."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060CLI blocks unclassified trial automation even with zero diagnostics\u0060\u0060",
+      "Kind": "member",
+      "Identity": "System.Text.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | P:System.Text.Json.JsonElement.Item(System.Int32)",
+      "Reason": "Reviewed non-shipping end-to-end CLI status regression: temporary .trial automation must block lint and verify with exit 3 despite zero findings; text status, JSON completeness, and SARIF invocation failure remain explicit. Temporary IO and read-only JSON inspection assert the failure gate."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060CLI blocks unclassified trial automation even with zero diagnostics\u0060\u0060",
+      "Kind": "member",
+      "Identity": "System.Text.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | M:System.Text.Json.JsonElement.GetBoolean",
+      "Reason": "Reviewed non-shipping end-to-end CLI status regression: temporary .trial automation must block lint and verify with exit 3 despite zero findings; text status, JSON completeness, and SARIF invocation failure remain explicit. Temporary IO and read-only JSON inspection assert the failure gate."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060CLI blocks unclassified trial automation even with zero diagnostics\u0060\u0060",
+      "Kind": "member",
+      "Identity": "System.Text.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | M:System.Text.Json.JsonElement.GetInt32",
+      "Reason": "Reviewed non-shipping end-to-end CLI status regression: temporary .trial automation must block lint and verify with exit 3 despite zero findings; text status, JSON completeness, and SARIF invocation failure remain explicit. Temporary IO and read-only JSON inspection assert the failure gate."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060CLI blocks unclassified trial automation even with zero diagnostics\u0060\u0060",
+      "Kind": "member",
+      "Identity": "System.Text.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | M:System.Text.Json.JsonElement.GetArrayLength",
+      "Reason": "Reviewed non-shipping end-to-end CLI status regression: temporary .trial automation must block lint and verify with exit 3 despite zero findings; text status, JSON completeness, and SARIF invocation failure remain explicit. Temporary IO and read-only JSON inspection assert the failure gate."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060CLI blocks unclassified trial automation even with zero diagnostics\u0060\u0060",
+      "Kind": "type",
+      "Identity": "System.Text.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | System.Text.Json.JsonDocument",
+      "Reason": "Reviewed non-shipping end-to-end CLI status regression: temporary .trial automation must block lint and verify with exit 3 despite zero findings; text status, JSON completeness, and SARIF invocation failure remain explicit. Temporary IO and read-only JSON inspection assert the failure gate."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060CLI blocks unclassified trial automation even with zero diagnostics\u0060\u0060",
+      "Kind": "type",
+      "Identity": "System.Text.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | System.Text.Json.JsonElement",
+      "Reason": "Reviewed non-shipping end-to-end CLI status regression: temporary .trial automation must block lint and verify with exit 3 despite zero findings; text status, JSON completeness, and SARIF invocation failure remain explicit. Temporary IO and read-only JSON inspection assert the failure gate."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060CLI blocks unclassified trial automation even with zero diagnostics\u0060\u0060",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspaceReport",
+      "Reason": "Reviewed non-shipping end-to-end CLI status regression: temporary .trial automation must block lint and verify with exit 3 despite zero findings; text status, JSON completeness, and SARIF invocation failure remain explicit. Temporary IO and read-only JSON inspection assert the failure gate."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060CLI blocks unclassified trial automation even with zero diagnostics\u0060\u0060",
+      "Kind": "type",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | System.Collections.IEnumerable",
+      "Reason": "Reviewed non-shipping end-to-end CLI status regression: temporary .trial automation must block lint and verify with exit 3 despite zero findings; text status, JSON completeness, and SARIF invocation failure remain explicit. Temporary IO and read-only JSON inspection assert the failure gate."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060CLI distinguishes complete violations from partial compiler findings\u0060\u0060",
+      "Kind": "attribute",
+      "Identity": "xunit.core, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | Xunit.FactAttribute |  | unit",
+      "Reason": "Reviewed non-shipping consumer regression: intentionally pin two literal fixture sources to distinguish complete policy violations (exit 1) from partial compiler findings (exit 3); assertions preserve reported evidence and reject a PASS label."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060CLI distinguishes complete violations from partial compiler findings\u0060\u0060",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.Combine(System.String,System.String)",
+      "Reason": "Reviewed non-shipping consumer regression: intentionally pin two literal fixture sources to distinguish complete policy violations (exit 1) from partial compiler findings (exit 3); assertions preserve reported evidence and reject a PASS label."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060CLI distinguishes complete violations from partial compiler findings\u0060\u0060",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.File.WriteAllText(System.String,System.String)",
+      "Reason": "Reviewed non-shipping consumer regression: intentionally pin two literal fixture sources to distinguish complete policy violations (exit 1) from partial compiler findings (exit 3); assertions preserve reported evidence and reject a PASS label."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060CLI distinguishes complete violations from partial compiler findings\u0060\u0060",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Equal\u0060\u00601(\u0060\u00600,\u0060\u00600)",
+      "Reason": "Reviewed non-shipping consumer regression: intentionally pin two literal fixture sources to distinguish complete policy violations (exit 1) from partial compiler findings (exit 3); assertions preserve reported evidence and reject a PASS label."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060CLI distinguishes complete violations from partial compiler findings\u0060\u0060",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.StartsWith(System.String,System.String)",
+      "Reason": "Reviewed non-shipping consumer regression: intentionally pin two literal fixture sources to distinguish complete policy violations (exit 1) from partial compiler findings (exit 3); assertions preserve reported evidence and reject a PASS label."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060CLI distinguishes complete violations from partial compiler findings\u0060\u0060",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Contains(System.String,System.String)",
+      "Reason": "Reviewed non-shipping consumer regression: intentionally pin two literal fixture sources to distinguish complete policy violations (exit 1) from partial compiler findings (exit 3); assertions preserve reported evidence and reject a PASS label."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060CLI distinguishes complete violations from partial compiler findings\u0060\u0060",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.DoesNotContain(System.String,System.String)",
+      "Reason": "Reviewed non-shipping consumer regression: intentionally pin two literal fixture sources to distinguish complete policy violations (exit 1) from partial compiler findings (exit 3); assertions preserve reported evidence and reject a PASS label."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060CLI distinguishes complete violations from partial compiler findings\u0060\u0060",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | FDull.SafetyProcessOutput",
+      "Reason": "Reviewed non-shipping consumer regression: intentionally pin two literal fixture sources to distinguish complete policy violations (exit 1) from partial compiler findings (exit 3); assertions preserve reported evidence and reject a PASS label."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060CLI distinguishes complete violations from partial compiler findings\u0060\u0060",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.SafetyPolicy.fileDigest(System.String)",
+      "Reason": "Reviewed non-shipping consumer regression: intentionally pin two literal fixture sources to distinguish complete policy violations (exit 1) from partial compiler findings (exit 3); assertions preserve reported evidence and reject a PASS label."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060CLI distinguishes complete violations from partial compiler findings\u0060\u0060",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Transport.Codec.encode\u0060\u00601(\u0060\u00600)",
+      "Reason": "Reviewed non-shipping consumer regression: intentionally pin two literal fixture sources to distinguish complete policy violations (exit 1) from partial compiler findings (exit 3); assertions preserve reported evidence and reject a PASS label."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060CLI distinguishes complete violations from partial compiler findings\u0060\u0060",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspacePolicyDocument",
+      "Reason": "Reviewed non-shipping consumer regression: intentionally pin two literal fixture sources to distinguish complete policy violations (exit 1) from partial compiler findings (exit 3); assertions preserve reported evidence and reject a PASS label."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060CLI distinguishes complete violations from partial compiler findings\u0060\u0060",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspaceSource",
+      "Reason": "Reviewed non-shipping consumer regression: intentionally pin two literal fixture sources to distinguish complete policy violations (exit 1) from partial compiler findings (exit 3); assertions preserve reported evidence and reject a PASS label."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060CLI blocks unclassified trial automation even with zero diagnostics\u0060\u0060",
+      "Kind": "rule",
+      "Identity": "ERR009 | ",
+      "Reason": "Reviewed non-shipping CLI regression acquires a read-only JsonDocument only to inspect captured SARIF; the FSharp use binding disposes it before leaving the isolated consumer test."
     }
   ],
   "Domains": [],
