@@ -74,7 +74,7 @@
       "File": "src/FDull/SafetyRules.fs",
       "Project": "src/FDull/FDull.fsproj",
       "Profile": "GUARD_TOOLING",
-      "Digest": "sha256:c5be662a67312b3655ffb1f163ba3b9d97db10c3099911612c279e3077583452"
+      "Digest": "sha256:32d3fa209009de2e226e9dc80d07df7032cbe167176439e0fff7d70bf44b74f3"
     },
     {
       "File": "src/FDull/SafetyPolicy.fs",
@@ -86,7 +86,7 @@
       "File": "src/FDull/SafetyLimits.fs",
       "Project": "src/FDull/FDull.fsproj",
       "Profile": "GUARD_TOOLING",
-      "Digest": "sha256:95440e5b47678c88c07bc32196f868d0a863c6b90c252f057f61ece152b98bc0"
+      "Digest": "sha256:8b9275c7c633968bc135ac7ae7f8cd9c22e5d8f74245a4973ef433ac2a66084e"
     },
     {
       "File": "src/FDull/SafetyRanges.fs",
@@ -206,7 +206,7 @@
       "File": "tests/FDull.Tests/SafetyWorkerTests.fs",
       "Project": "tests/FDull.Tests/FDull.Tests.fsproj",
       "Profile": "TEST",
-      "Digest": "sha256:defae463ad88bc74e038d8402a679ea298e954d473acb1ffc21e35c7c49b02b4"
+      "Digest": "sha256:c1393f39ed5fbf804afb00fb49fd68cd32e7fa16b8db85c5711850dbf3c80e6a"
     },
     {
       "File": "tests/FDull.Tests/SafetyRangeTests.fs",
@@ -236,7 +236,7 @@
       "File": "tests/FDull.Tests/ProjectTests.fs",
       "Project": "tests/FDull.Tests/FDull.Tests.fsproj",
       "Profile": "TEST",
-      "Digest": "sha256:7c998f7f1b69dddcbe2b00d0f9c6d593c69b1ea105064287518a5360cf844c8c"
+      "Digest": "sha256:f34eaf28966c5af3f0d50920435047a05f50a7ce42ff415f8d29050f3c234ebf"
     },
     {
       "File": "tests/FDull.Tests/Program.fs",
@@ -17841,6 +17841,76 @@
       "Kind": "type",
       "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | FDull.SafetyDiagnostic",
       "Reason": "Reviewed immutable worker report data, inspected only to require complete analysis and a MUT001 diagnostic; no new API or effect is approved."
+    },
+    {
+      "File": "tests/FDull.Tests/SafetyWorkerTests.fs",
+      "Owner": "FDull.Tests.SafetyWorkerTests.\u0060\u0060short lived processes retain their status and streams during memory sampling\u0060\u0060",
+      "Kind": "attribute",
+      "Identity": "xunit.core, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | Xunit.TheoryAttribute |  | unit",
+      "Reason": "Reviewed bounded 64-run process regression per case. Immediate success/failure fixtures must preserve their exact exit status and captured streams, and every child must have stopped; errors fail the test."
+    },
+    {
+      "File": "tests/FDull.Tests/SafetyWorkerTests.fs",
+      "Owner": "FDull.Tests.SafetyWorkerTests.\u0060\u0060short lived processes retain their status and streams during memory sampling\u0060\u0060",
+      "Kind": "attribute",
+      "Identity": "xunit.core, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | Xunit.InlineDataAttribute |  | [\"string:\\u0022exit\\u0022\",\"int32:17\",\"string:\\u0022\\u0022\",\"string:\\u0022deliberate worker failure\\u0022\"]",
+      "Reason": "Reviewed bounded 64-run process regression per case. Immediate success/failure fixtures must preserve their exact exit status and captured streams, and every child must have stopped; errors fail the test."
+    },
+    {
+      "File": "tests/FDull.Tests/SafetyWorkerTests.fs",
+      "Owner": "FDull.Tests.SafetyWorkerTests.\u0060\u0060short lived processes retain their status and streams during memory sampling\u0060\u0060",
+      "Kind": "attribute",
+      "Identity": "xunit.core, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | Xunit.InlineDataAttribute |  | [\"string:\\u0022heap-limit\\u0022\",\"int32:0\",\"string:\\u0022536870912\\u0022\",\"string:\\u0022\\u0022\"]",
+      "Reason": "Reviewed bounded 64-run process regression per case. Immediate success/failure fixtures must preserve their exact exit status and captured streams, and every child must have stopped; errors fail the test."
+    },
+    {
+      "File": "tests/FDull.Tests/SafetyWorkerTests.fs",
+      "Owner": "FDull.Tests.SafetyWorkerTests.\u0060\u0060short lived processes retain their status and streams during memory sampling\u0060\u0060",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Equal(System.String,System.String)",
+      "Reason": "Reviewed bounded 64-run process regression per case. Immediate success/failure fixtures must preserve their exact exit status and captured streams, and every child must have stopped; errors fail the test."
+    },
+    {
+      "File": "tests/FDull.Tests/SafetyWorkerTests.fs",
+      "Owner": "FDull.Tests.SafetyWorkerTests.\u0060\u0060short lived processes retain their status and streams during memory sampling\u0060\u0060",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Equal\u0060\u00601(\u0060\u00600,\u0060\u00600)",
+      "Reason": "Reviewed bounded 64-run process regression per case. Immediate success/failure fixtures must preserve their exact exit status and captured streams, and every child must have stopped; errors fail the test."
+    },
+    {
+      "File": "tests/FDull.Tests/SafetyWorkerTests.fs",
+      "Owner": "FDull.Tests.SafetyWorkerTests.\u0060\u0060short lived processes retain their status and streams during memory sampling\u0060\u0060",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Fail(System.String)",
+      "Reason": "Reviewed bounded 64-run process regression per case. Immediate success/failure fixtures must preserve their exact exit status and captured streams, and every child must have stopped; errors fail the test."
+    },
+    {
+      "File": "tests/FDull.Tests/SafetyWorkerTests.fs",
+      "Owner": "FDull.Tests.SafetyWorkerTests.\u0060\u0060short lived processes retain their status and streams during memory sampling\u0060\u0060",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | FDull.SafetyProcessOutput",
+      "Reason": "Reviewed bounded 64-run process regression per case. Immediate success/failure fixtures must preserve their exact exit status and captured streams, and every child must have stopped; errors fail the test."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060reusable data contracts reject unsafe nested payloads even with type grants\u0060\u0060",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.True(System.Boolean,System.String)",
+      "Reason": "Reviewed assertion requires the consumer project to finish analysis and advisory review to be complete before checking unsafe-data diagnostics. Errors and the bound advisory report explain failures; no blocked run can satisfy the regression."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060reusable data contracts reject unsafe nested payloads even with type grants\u0060\u0060",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Transport.Codec.encode\u0060\u00601(\u0060\u00600)",
+      "Reason": "Reviewed assertion requires the consumer project to finish analysis and advisory review to be complete before checking unsafe-data diagnostics. Errors and the bound advisory report explain failures; no blocked run can satisfy the regression."
+    },
+    {
+      "File": "tests/FDull.Tests/SafetyWorkerTests.fs",
+      "Owner": "FDull.Tests.SafetyWorkerTests.\u0060\u0060short lived processes retain their status and streams during memory sampling\u0060\u0060",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.ListModule.Initialize\u0060\u00601(System.Int32,Microsoft.FSharp.Core.FSharpFunc{System.Int32,\u0060\u00600})",
+      "Reason": "Reviewed fixed-size 64-element test traversal. The callback runs only the controlled fixture through existing bounded supervision and checks exact exit status, streams and termination; it cannot retry a failed assertion."
     }
   ],
   "Domains": [],

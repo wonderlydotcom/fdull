@@ -253,6 +253,7 @@ module SafetyRules =
                 "SafetyTests.diagnostic overflow cannot be a complete truncated report"
                 "SafetyTests.oversized sources are rejected before starting analysis"
                 "SafetyWorkerTests.bounded process failures terminate the worker"
+                "SafetyWorkerTests.short lived processes retain their status and streams during memory sampling"
                 "SafetyWorkerTests.crash or malformed output cannot certify inputs"
                 "SafetyWorkerTests.worker runtime configuration enforces the managed heap limit"
                 "SafetyWorkerTests.an allocation beyond the worker heap ceiling fails inside the child"

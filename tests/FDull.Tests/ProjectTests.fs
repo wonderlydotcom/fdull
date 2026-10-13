@@ -1539,6 +1539,14 @@ module ProjectTests =
 
                 write root review
                 let report = Workspace.check root
+
+                Assert.True(
+                    report.Projects
+                    |> List.exists (fun project ->
+                        project.Project = Path.Combine(root, "App.fsproj") && project.Report.Complete),
+                    Codec.encode report.Errors
+                )
+
                 Assert.NotEqual(0, report.ExitCode)
 
                 Assert.Contains(
@@ -1550,6 +1558,7 @@ module ProjectTests =
                 )
 
                 let advisory = Workspace.review root
+                Assert.True(advisory.AnalysisComplete, Codec.encode advisory)
                 Assert.NotEqual(0, advisory.ExitCode)
                 Assert.Contains(advisory.Items, fun item -> item.Kind = "data" && item.Resolution = "code-change"))
 

@@ -348,6 +348,24 @@ module SafetyWorkerTests =
 
             assertStopped marker)
 
+    [<Theory>]
+    [<InlineData("exit", 17, "", "deliberate worker failure")>]
+    [<InlineData("heap-limit", 0, "536870912", "")>]
+    let ``short lived processes retain their status and streams during memory sampling`` mode exitCode output error =
+        // Repeated immediate exits exercise the real OS sampling race without
+        // replacing process failures with a retry or a synthetic clean result.
+        List.init 64 (fun _iteration ->
+            runFixture mode limits (fun result marker ->
+                match result with
+                | Ok value ->
+                    Assert.Equal(exitCode, value.ExitCode)
+                    Assert.Equal(output, value.Output)
+                    Assert.Equal(error, value.Error)
+                | Error message -> Assert.Fail message
+
+                assertStopped marker))
+        |> ignore
+
     [<Fact>]
     let ``an allocation beyond the worker heap ceiling fails inside the child`` () =
         runFixture "oom" limits (fun result marker ->

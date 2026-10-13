@@ -125,12 +125,20 @@ module SafetyProcess =
                         elif output.IsFaulted || errors.IsFaulted then
                             failure <- Some "The safety worker exceeded its output budget."
                         else
-                            child.Refresh()
+                            let workingSet =
+                                try
+                                    child.Refresh()
 
-                            if not child.HasExited && child.WorkingSet64 > limits.WorkingSetBytes then
+                                    if child.HasExited then None else Some child.WorkingSet64
+                                with :? InvalidOperationException when child.HasExited ->
+                                    // Exit can race the OS memory query. Streams and
+                                    // the actual exit code still have to validate below.
+                                    None
+
+                            match workingSet with
+                            | Some bytes when bytes > limits.WorkingSetBytes ->
                                 failure <- Some "The safety worker exceeded its working-set budget."
-                            else
-                                child.WaitForExit(25) |> ignore
+                            | _ -> child.WaitForExit(25) |> ignore
 
                     match failure with
                     | Some reason ->
