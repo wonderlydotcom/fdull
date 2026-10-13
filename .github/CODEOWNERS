@@ -1,0 +1,13 @@
+# Repository administrator; review ownership can move to a maintainer team later.
+/.github/ @c10r
+/fdull.json @c10r
+/Directory.Build.* @c10r
+/global.json @c10r
+/NuGet.config @c10r
+/FDull.slnx @c10r
+/.config/dotnet-tools.json @c10r
+**/*.fsproj @c10r
+**/packages.lock.json @c10r
+/config/ @c10r
+/src/FDull/Policy/ @c10r
+/tools/ @c10r

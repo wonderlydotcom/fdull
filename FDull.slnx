@@ -5,4 +5,5 @@
   <Project Path="src/FDull.Tool/FDull.Tool.fsproj" />
   <Project Path="tests/FDull.Tests/FDull.Tests.fsproj" />
   <Project Path="tests/FDull.ProcessFixture/FDull.ProcessFixture.fsproj" />
+  <Project Path="tools/FDull.Ci/FDull.Ci.fsproj" />
 </Solution>

@@ -42,6 +42,13 @@
         "src/FDull.Worker/FDull.Worker.fsproj",
         "tests/FDull.ProcessFixture/FDull.ProcessFixture.fsproj"
       ]
+    },
+    {
+      "File": "tools/FDull.Ci/FDull.Ci.fsproj",
+      "Profile": "GUARD_TOOLING",
+      "References": [
+        "src/FDull/FDull.fsproj"
+      ]
     }
   ],
   "Sources": [
@@ -254,6 +261,12 @@
       "Project": "src/FDull/FDull.fsproj",
       "Profile": "GUARD_TOOLING",
       "Digest": "sha256:84441d1549d04b5197ca8fec544297f8cbb1c675c7c24e7b53552aa3c6fa4ca3"
+    },
+    {
+      "File": "tools/FDull.Ci/Program.fs",
+      "Project": "tools/FDull.Ci/FDull.Ci.fsproj",
+      "Profile": "GUARD_TOOLING",
+      "Digest": "sha256:a9aef35479ed6eb170c5e1ef465102658b2cae6e1f72687d8ee7b2d40db8118f"
     }
   ],
   "Inputs": [
@@ -271,7 +284,7 @@
     },
     {
       "File": "FDull.slnx",
-      "Digest": "sha256:3e2bf947ee6f824c09774b5d30b84b50c5f4fdac9f867063b8405ed6ea0ca4c3"
+      "Digest": "sha256:a1e943a0600a4a97e6f129b58d55d80f709dd49f1f769ae4f64859faeed32188"
     },
     {
       "File": "NuGet.config",
@@ -336,6 +349,22 @@
     {
       "File": "tests/FDull.Tests/packages.lock.json",
       "Digest": "sha256:e5c020bb2f7956243df005ce194d57b9e34f0487b6a92c5ae4e3a01f6af37585"
+    },
+    {
+      "File": ".github/workflows/ci.yml",
+      "Digest": "sha256:798b3c56c3f199ac5f5d9050302b23038113801a45ea044c58d41a8aaa30d569"
+    },
+    {
+      "File": ".github/CODEOWNERS",
+      "Digest": "sha256:36c69d277e4d5b71691f26efab1c642aa3626731dc8229de6b94c8e6382cdf65"
+    },
+    {
+      "File": "tools/FDull.Ci/FDull.Ci.fsproj",
+      "Digest": "sha256:1e8ba3a0feaf5dc752221ecc6ff82d73e322b2ba893f2fc0771d41a2104dad03"
+    },
+    {
+      "File": "tools/FDull.Ci/packages.lock.json",
+      "Digest": "sha256:be71107e85aaac6971195ec42d751a93f600e21f2408f5a8e17f9debe585e285"
     }
   ],
   "External": null,
@@ -17420,6 +17449,398 @@
       "Kind": "member",
       "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.True(System.Boolean,System.String)",
       "Reason": "Reviewed non-shipping oversized dependency-walk regression asserts the retained BUILD003 blocker, with the advisory report printed only on failure; incomplete and unused-contract checks remain independent."
+    },
+    {
+      "File": "tools/FDull.Ci/Program.fs",
+      "Owner": "FDull.Ci.Program.require",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Core.Operators.InvalidOp``1(System.String)",
+      "Reason": "Reviewed CI assertion: a violated precondition aborts the job. Package smoke exercises required success, violation and blocked exits."
+    },
+    {
+      "File": "tools/FDull.Ci/Program.fs",
+      "Owner": "FDull.Ci.Program.run",
+      "Kind": "member",
+      "Identity": "System.Diagnostics.Process, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.Diagnostics.ProcessStartInfo.#ctor(System.String)",
+      "Reason": "Reviewed bounded dotnet supervision: fixed executable, argument-list invocation, isolated package cache and CLI home, fixed resource limits and exact expected exits; logs do not replace exit validation."
+    },
+    {
+      "File": "tools/FDull.Ci/Program.fs",
+      "Owner": "FDull.Ci.Program.run",
+      "Kind": "member",
+      "Identity": "System.Diagnostics.Process, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:System.Diagnostics.ProcessStartInfo.WorkingDirectory",
+      "Reason": "Reviewed bounded dotnet supervision: fixed executable, argument-list invocation, isolated package cache and CLI home, fixed resource limits and exact expected exits; logs do not replace exit validation."
+    },
+    {
+      "File": "tools/FDull.Ci/Program.fs",
+      "Owner": "FDull.Ci.Program.run",
+      "Kind": "member",
+      "Identity": "System.Diagnostics.Process, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:System.Diagnostics.ProcessStartInfo.ArgumentList",
+      "Reason": "Reviewed bounded dotnet supervision: fixed executable, argument-list invocation, isolated package cache and CLI home, fixed resource limits and exact expected exits; logs do not replace exit validation."
+    },
+    {
+      "File": "tools/FDull.Ci/Program.fs",
+      "Owner": "FDull.Ci.Program.run",
+      "Kind": "member",
+      "Identity": "System.Diagnostics.Process, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:System.Diagnostics.ProcessStartInfo.Environment",
+      "Reason": "Reviewed bounded dotnet supervision: fixed executable, argument-list invocation, isolated package cache and CLI home, fixed resource limits and exact expected exits; logs do not replace exit validation."
+    },
+    {
+      "File": "tools/FDull.Ci/Program.fs",
+      "Owner": "FDull.Ci.Program.run",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.Collections.ObjectModel.Collection`1.Add(`0)",
+      "Reason": "Reviewed bounded dotnet supervision: fixed executable, argument-list invocation, isolated package cache and CLI home, fixed resource limits and exact expected exits; logs do not replace exit validation."
+    },
+    {
+      "File": "tools/FDull.Ci/Program.fs",
+      "Owner": "FDull.Ci.Program.run",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:System.Collections.Generic.IDictionary`2.Item(`0)",
+      "Reason": "Reviewed bounded dotnet supervision: fixed executable, argument-list invocation, isolated package cache and CLI home, fixed resource limits and exact expected exits; logs do not replace exit validation."
+    },
+    {
+      "File": "tools/FDull.Ci/Program.fs",
+      "Owner": "FDull.Ci.Program.run",
+      "Kind": "member",
+      "Identity": "System.Console, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.Console.WriteLine(System.String)",
+      "Reason": "Reviewed bounded dotnet supervision: fixed executable, argument-list invocation, isolated package cache and CLI home, fixed resource limits and exact expected exits; logs do not replace exit validation."
+    },
+    {
+      "File": "tools/FDull.Ci/Program.fs",
+      "Owner": "FDull.Ci.Program.run",
+      "Kind": "member",
+      "Identity": "System.Console, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.Console.Write(System.String)",
+      "Reason": "Reviewed bounded dotnet supervision: fixed executable, argument-list invocation, isolated package cache and CLI home, fixed resource limits and exact expected exits; logs do not replace exit validation."
+    },
+    {
+      "File": "tools/FDull.Ci/Program.fs",
+      "Owner": "FDull.Ci.Program.run",
+      "Kind": "member",
+      "Identity": "System.Console, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:System.Console.Error",
+      "Reason": "Reviewed bounded dotnet supervision: fixed executable, argument-list invocation, isolated package cache and CLI home, fixed resource limits and exact expected exits; logs do not replace exit validation."
+    },
+    {
+      "File": "tools/FDull.Ci/Program.fs",
+      "Owner": "FDull.Ci.Program.run",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.TextWriter.Write(System.String)",
+      "Reason": "Reviewed bounded dotnet supervision: fixed executable, argument-list invocation, isolated package cache and CLI home, fixed resource limits and exact expected exits; logs do not replace exit validation."
+    },
+    {
+      "File": "tools/FDull.Ci/Program.fs",
+      "Owner": "FDull.Ci.Program.run",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.SafetyProcess.run(FDull.SafetyProcessLimits,System.Diagnostics.ProcessStartInfo,System.String)",
+      "Reason": "Reviewed bounded dotnet supervision: fixed executable, argument-list invocation, isolated package cache and CLI home, fixed resource limits and exact expected exits; logs do not replace exit validation."
+    },
+    {
+      "File": "tools/FDull.Ci/Program.fs",
+      "Owner": "FDull.Ci.Program.run",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Core.Operators.InvalidOp``1(System.String)",
+      "Reason": "Reviewed bounded dotnet supervision: fixed executable, argument-list invocation, isolated package cache and CLI home, fixed resource limits and exact expected exits; logs do not replace exit validation."
+    },
+    {
+      "File": "tools/FDull.Ci/Program.fs",
+      "Owner": "FDull.Ci.Program.run",
+      "Kind": "rule",
+      "Identity": "CAST004 | coercion -> System.Object",
+      "Reason": "Reviewed bounded dotnet supervision: fixed executable, argument-list invocation, isolated package cache and CLI home, fixed resource limits and exact expected exits; logs do not replace exit validation."
+    },
+    {
+      "File": "tools/FDull.Ci/Program.fs",
+      "Owner": "FDull.Ci.Program.run",
+      "Kind": "rule",
+      "Identity": "MUT002 | ",
+      "Reason": "Reviewed bounded dotnet supervision: fixed executable, argument-list invocation, isolated package cache and CLI home, fixed resource limits and exact expected exits; logs do not replace exit validation."
+    },
+    {
+      "File": "tools/FDull.Ci/Program.fs",
+      "Owner": "FDull.Ci.Program.run",
+      "Kind": "rule",
+      "Identity": "MUT009 | ",
+      "Reason": "Reviewed bounded dotnet supervision: fixed executable, argument-list invocation, isolated package cache and CLI home, fixed resource limits and exact expected exits; logs do not replace exit validation."
+    },
+    {
+      "File": "tools/FDull.Ci/Program.fs",
+      "Owner": "FDull.Ci.Program.run",
+      "Kind": "type",
+      "Identity": "System.Diagnostics.Process, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | System.Diagnostics.ProcessStartInfo",
+      "Reason": "Reviewed bounded dotnet supervision: fixed executable, argument-list invocation, isolated package cache and CLI home, fixed resource limits and exact expected exits; logs do not replace exit validation."
+    },
+    {
+      "File": "tools/FDull.Ci/Program.fs",
+      "Owner": "FDull.Ci.Program.run",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | FDull.SafetyProcessOutput",
+      "Reason": "Reviewed bounded dotnet supervision: fixed executable, argument-list invocation, isolated package cache and CLI home, fixed resource limits and exact expected exits; logs do not replace exit validation."
+    },
+    {
+      "File": "tools/FDull.Ci/Program.fs",
+      "Owner": "FDull.Ci.Program.write",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.Combine(System.String,System.String)",
+      "Reason": "Reviewed fixture writes: names are fixed by the caller and files live only in the fresh temporary smoke workspace."
+    },
+    {
+      "File": "tools/FDull.Ci/Program.fs",
+      "Owner": "FDull.Ci.Program.write",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.File.WriteAllText(System.String,System.String)",
+      "Reason": "Reviewed fixture writes: names are fixed by the caller and files live only in the fresh temporary smoke workspace."
+    },
+    {
+      "File": "tools/FDull.Ci/Program.fs",
+      "Owner": "FDull.Ci.Program.coverage",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.Combine(System.String,System.String)",
+      "Reason": "Reviewed coverage freshness check: decode and compare the committed inventory with the CLI built from this source; mismatches fail without modifying evidence."
+    },
+    {
+      "File": "tools/FDull.Ci/Program.fs",
+      "Owner": "FDull.Ci.Program.coverage",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.File.ReadAllText(System.String)",
+      "Reason": "Reviewed coverage freshness check: decode and compare the committed inventory with the CLI built from this source; mismatches fail without modifying evidence."
+    },
+    {
+      "File": "tools/FDull.Ci/Program.fs",
+      "Owner": "FDull.Ci.Program.coverage",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Transport.Codec.decode``1(System.String)",
+      "Reason": "Reviewed coverage freshness check: decode and compare the committed inventory with the CLI built from this source; mismatches fail without modifying evidence."
+    },
+    {
+      "File": "tools/FDull.Ci/Program.fs",
+      "Owner": "FDull.Ci.Program.coverage",
+      "Kind": "member",
+      "Identity": "System.Console, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.Console.WriteLine(System.String)",
+      "Reason": "Reviewed coverage freshness check: decode and compare the committed inventory with the CLI built from this source; mismatches fail without modifying evidence."
+    },
+    {
+      "File": "tools/FDull.Ci/Program.fs",
+      "Owner": "FDull.Ci.Program.coverage",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | FDull.SafetyCoverageInventory",
+      "Reason": "Reviewed coverage freshness check: decode and compare the committed inventory with the CLI built from this source; mismatches fail without modifying evidence."
+    },
+    {
+      "File": "tools/FDull.Ci/Program.fs",
+      "Owner": "FDull.Ci.Program.configuration",
+      "Kind": "member",
+      "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | M:System.String.Replace(System.String,System.String)",
+      "Reason": "Reviewed source-mapping XML: escape the local feed path and force the three FDull package IDs to that feed; remaining dependencies use nuget.org."
+    },
+    {
+      "File": "tools/FDull.Ci/Program.fs",
+      "Owner": "FDull.Ci.Program.prepare",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Directory.CreateDirectory(System.String)",
+      "Reason": "Reviewed independent consumer creation: strict defaults and pinned SDK, literal project/source/configuration files in the temporary smoke workspace."
+    },
+    {
+      "File": "tools/FDull.Ci/Program.fs",
+      "Owner": "FDull.Ci.Program.smoke",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.GetTempPath",
+      "Reason": "Reviewed package integration smoke: fresh local tool installation and isolated cache, passing pure consumer, complete mutation rejection, blocked source drift, running library consumer and exact analyzer payload checks; cleanup never converts errors to success."
+    },
+    {
+      "File": "tools/FDull.Ci/Program.fs",
+      "Owner": "FDull.Ci.Program.smoke",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.Combine(System.String,System.String)",
+      "Reason": "Reviewed package integration smoke: fresh local tool installation and isolated cache, passing pure consumer, complete mutation rejection, blocked source drift, running library consumer and exact analyzer payload checks; cleanup never converts errors to success."
+    },
+    {
+      "File": "tools/FDull.Ci/Program.fs",
+      "Owner": "FDull.Ci.Program.smoke",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.Combine(System.String[])",
+      "Reason": "Reviewed package integration smoke: fresh local tool installation and isolated cache, passing pure consumer, complete mutation rejection, blocked source drift, running library consumer and exact analyzer payload checks; cleanup never converts errors to success."
+    },
+    {
+      "File": "tools/FDull.Ci/Program.fs",
+      "Owner": "FDull.Ci.Program.smoke",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.Guid.NewGuid",
+      "Reason": "Reviewed package integration smoke: fresh local tool installation and isolated cache, passing pure consumer, complete mutation rejection, blocked source drift, running library consumer and exact analyzer payload checks; cleanup never converts errors to success."
+    },
+    {
+      "File": "tools/FDull.Ci/Program.fs",
+      "Owner": "FDull.Ci.Program.smoke",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.Guid.ToString(System.String)",
+      "Reason": "Reviewed package integration smoke: fresh local tool installation and isolated cache, passing pure consumer, complete mutation rejection, blocked source drift, running library consumer and exact analyzer payload checks; cleanup never converts errors to success."
+    },
+    {
+      "File": "tools/FDull.Ci/Program.fs",
+      "Owner": "FDull.Ci.Program.smoke",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Directory.CreateDirectory(System.String)",
+      "Reason": "Reviewed package integration smoke: fresh local tool installation and isolated cache, passing pure consumer, complete mutation rejection, blocked source drift, running library consumer and exact analyzer payload checks; cleanup never converts errors to success."
+    },
+    {
+      "File": "tools/FDull.Ci/Program.fs",
+      "Owner": "FDull.Ci.Program.smoke",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Directory.Delete(System.String,System.Boolean)",
+      "Reason": "Reviewed package integration smoke: fresh local tool installation and isolated cache, passing pure consumer, complete mutation rejection, blocked source drift, running library consumer and exact analyzer payload checks; cleanup never converts errors to success."
+    },
+    {
+      "File": "tools/FDull.Ci/Program.fs",
+      "Owner": "FDull.Ci.Program.smoke",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.File.Exists(System.String)",
+      "Reason": "Reviewed package integration smoke: fresh local tool installation and isolated cache, passing pure consumer, complete mutation rejection, blocked source drift, running library consumer and exact analyzer payload checks; cleanup never converts errors to success."
+    },
+    {
+      "File": "tools/FDull.Ci/Program.fs",
+      "Owner": "FDull.Ci.Program.smoke",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.File.ReadAllText(System.String)",
+      "Reason": "Reviewed package integration smoke: fresh local tool installation and isolated cache, passing pure consumer, complete mutation rejection, blocked source drift, running library consumer and exact analyzer payload checks; cleanup never converts errors to success."
+    },
+    {
+      "File": "tools/FDull.Ci/Program.fs",
+      "Owner": "FDull.Ci.Program.smoke",
+      "Kind": "member",
+      "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | M:System.String.Contains(System.String)",
+      "Reason": "Reviewed package integration smoke: fresh local tool installation and isolated cache, passing pure consumer, complete mutation rejection, blocked source drift, running library consumer and exact analyzer payload checks; cleanup never converts errors to success."
+    },
+    {
+      "File": "tools/FDull.Ci/Program.fs",
+      "Owner": "FDull.Ci.Program.smoke",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Transport.Codec.decode``1(System.String)",
+      "Reason": "Reviewed package integration smoke: fresh local tool installation and isolated cache, passing pure consumer, complete mutation rejection, blocked source drift, running library consumer and exact analyzer payload checks; cleanup never converts errors to success."
+    },
+    {
+      "File": "tools/FDull.Ci/Program.fs",
+      "Owner": "FDull.Ci.Program.smoke",
+      "Kind": "member",
+      "Identity": "System.Console, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.Console.WriteLine(System.String)",
+      "Reason": "Reviewed package integration smoke: fresh local tool installation and isolated cache, passing pure consumer, complete mutation rejection, blocked source drift, running library consumer and exact analyzer payload checks; cleanup never converts errors to success."
+    },
+    {
+      "File": "tools/FDull.Ci/Program.fs",
+      "Owner": "FDull.Ci.Program.smoke",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspaceReport",
+      "Reason": "Reviewed package integration smoke: fresh local tool installation and isolated cache, passing pure consumer, complete mutation rejection, blocked source drift, running library consumer and exact analyzer payload checks; cleanup never converts errors to success."
+    },
+    {
+      "File": "tools/FDull.Ci/Program.fs",
+      "Owner": "FDull.Ci.Program.smoke",
+      "Kind": "rule",
+      "Identity": "ERR009 | ",
+      "Reason": "Reviewed package integration smoke: fresh local tool installation and isolated cache, passing pure consumer, complete mutation rejection, blocked source drift, running library consumer and exact analyzer payload checks; cleanup never converts errors to success."
+    },
+    {
+      "File": "tools/FDull.Ci/Program.fs",
+      "Owner": "FDull.Ci.Program.smoke",
+      "Kind": "rule",
+      "Identity": "MUT009 | ",
+      "Reason": "Reviewed package integration smoke: fresh local tool installation and isolated cache, passing pure consumer, complete mutation rejection, blocked source drift, running library consumer and exact analyzer payload checks; cleanup never converts errors to success."
+    },
+    {
+      "File": "tools/FDull.Ci/Program.fs",
+      "Owner": "FDull.Ci.Program.main",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.ArrayModule.ToList``1(``0[])",
+      "Reason": "Reviewed CI entry point: only the coverage and smoke commands are dispatched; unexpected arguments and exceptions return nonzero exits."
+    },
+    {
+      "File": "tools/FDull.Ci/Program.fs",
+      "Owner": "FDull.Ci.Program.main",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.GetFullPath(System.String)",
+      "Reason": "Reviewed CI entry point: only the coverage and smoke commands are dispatched; unexpected arguments and exceptions return nonzero exits."
+    },
+    {
+      "File": "tools/FDull.Ci/Program.fs",
+      "Owner": "FDull.Ci.Program.main",
+      "Kind": "member",
+      "Identity": "System.Console, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:System.Console.Error",
+      "Reason": "Reviewed CI entry point: only the coverage and smoke commands are dispatched; unexpected arguments and exceptions return nonzero exits."
+    },
+    {
+      "File": "tools/FDull.Ci/Program.fs",
+      "Owner": "FDull.Ci.Program.main",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.TextWriter.WriteLine(System.String)",
+      "Reason": "Reviewed CI entry point: only the coverage and smoke commands are dispatched; unexpected arguments and exceptions return nonzero exits."
+    },
+    {
+      "File": "tools/FDull.Ci/Program.fs",
+      "Owner": "FDull.Ci.Program.main",
+      "Kind": "member",
+      "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | P:System.Exception.Message",
+      "Reason": "Reviewed CI entry point: only the coverage and smoke commands are dispatched; unexpected arguments and exceptions return nonzero exits."
+    },
+    {
+      "File": "tools/FDull.Ci/Program.fs",
+      "Owner": "FDull.Ci.Program.main",
+      "Kind": "attribute",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | Microsoft.FSharp.Core.EntryPointAttribute |  | unit",
+      "Reason": "Reviewed CI entry point: only the coverage and smoke commands are dispatched; unexpected arguments and exceptions return nonzero exits."
+    },
+    {
+      "File": "tools/FDull.Ci/Program.fs",
+      "Owner": "FDull.Ci.Program.main",
+      "Kind": "type",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | []",
+      "Reason": "Reviewed CI entry point: only the coverage and smoke commands are dispatched; unexpected arguments and exceptions return nonzero exits."
+    },
+    {
+      "File": "tools/FDull.Ci/Program.fs",
+      "Owner": "FDull.Ci.Program.main",
+      "Kind": "type",
+      "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | System.Exception",
+      "Reason": "Reviewed CI entry point: only the coverage and smoke commands are dispatched; unexpected arguments and exceptions return nonzero exits."
+    },
+    {
+      "File": "tools/FDull.Ci/Program.fs",
+      "Owner": "FDull.Ci.Program.main",
+      "Kind": "rule",
+      "Identity": "ERR001 | ",
+      "Reason": "Reviewed CI entry point: only the coverage and smoke commands are dispatched; unexpected arguments and exceptions return nonzero exits."
+    },
+    {
+      "File": "tools/FDull.Ci/Program.fs",
+      "Owner": "FDull.Ci.Program.main",
+      "Kind": "rule",
+      "Identity": "ERR004 | exception handler",
+      "Reason": "Reviewed CI entry point: only the coverage and smoke commands are dispatched; unexpected arguments and exceptions return nonzero exits."
+    },
+    {
+      "File": "tools/FDull.Ci/Program.fs",
+      "Owner": "FDull.Ci.Program.run",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Core.StringModule.Concat(System.String,System.Collections.Generic.IEnumerable{System.String})",
+      "Reason": "Reviewed command logging joins the already fixed dotnet argument list; bounded subprocess output and exit validation remain authoritative."
+    },
+    {
+      "File": "tools/FDull.Ci/Program.fs",
+      "Owner": "FDull.Ci.Program.smoke",
+      "Kind": "rule",
+      "Identity": "CAST004 | coercion -> System.Object",
+      "Reason": "Reviewed compiler-generated boxing while enumerating fixed package/assembly name lists; no application payload is erased or cast."
+    },
+    {
+      "File": "tools/FDull.Ci/Program.fs",
+      "Owner": "FDull.Ci.Program.smoke",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspaceProjectReport",
+      "Reason": "Reviewed immutable worker report data, inspected only to require complete analysis and a MUT001 diagnostic; no new API or effect is approved."
+    },
+    {
+      "File": "tools/FDull.Ci/Program.fs",
+      "Owner": "FDull.Ci.Program.smoke",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | FDull.SafetyDiagnostic",
+      "Reason": "Reviewed immutable worker report data, inspected only to require complete analysis and a MUT001 diagnostic; no new API or effect is approved."
     }
   ],
   "Domains": [],
