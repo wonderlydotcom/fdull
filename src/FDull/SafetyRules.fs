@@ -118,6 +118,7 @@ module SafetyRules =
               [ syntax; analysis; "src/FDull/SafetyDataContracts.fs" ]
               true
               [ "ProjectTests.reusable data contracts allow helper extraction without declaration grants"
+                "ProjectTests.review exposes nested requirements before outer type approval"
                 "ProjectTests.reusable data contracts reject unsafe nested payloads even with type grants"
                 "ProjectTests.reusable data contracts do not approve methods or domain materialization" ]
               applicationMatrix
@@ -144,6 +145,7 @@ module SafetyRules =
               [ syntax; analysis; workspace ]
               true
               [ "ProjectTests.captured callback permissions survive formatting without authorizing new effects"
+                "ProjectTests.review exposes nested requirements before outer type approval"
                 "ProjectTests.generated capture keys distinguish bindings parameters and authored numbered names"
                 "ProjectTests.capture identities separate types and reject ambiguous shadowed bindings" ]
               applicationMatrix

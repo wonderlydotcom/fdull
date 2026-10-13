@@ -314,8 +314,16 @@ items, source drift or unused contracts; exit `1` means complete advisory analys
 with review work remaining; exit `3` means the inventory is incomplete or blocked.
 Neither a complete review report nor exit `0` certifies a build. Incomplete reports
 retain available evidence and blockers and make no unused-contract claims. Some
-nested requirements can still appear after earlier contracts are resolved; the
-review inventory covers findings reachable in the current analysis.
+nested requirements depend on admitting an outer type. Review reports these in
+the same run: it examines authored classes' stored fields and concrete payloads
+inside rejected arrays, byrefs and ruled generic types, while retaining each
+unsatisfied outer finding. This exposes nested type and stored-callback review
+keys before the outer approval. Existing permissions are still checked at each
+level; suppressing an outer rule does not imply admission of its type. These are
+advisory requirements for the current source and the chosen type-approval path.
+Changing the source or choosing a different policy path can change the inventory.
+Compiler failures, unresolved metadata and exhausted traversal/worker limits still
+make review incomplete; an incomplete run cannot promise the full inventory.
 
 The workflow is: run `review`, inspect the reported declarations and regression
 evidence, intentionally edit exact contracts and reviewed fingerprints, then run

@@ -529,6 +529,218 @@ module ProjectTests =
             Assert.Empty(buildDrift.Projects)
             Assert.Contains(buildDrift.Errors, fun error -> error.StartsWith("BUILD005:", StringComparison.Ordinal)))
 
+    [<Theory>]
+    [<InlineData("class")>]
+    [<InlineData("array")>]
+    [<InlineData("collection")>]
+    [<InlineData("nested")>]
+    let ``review exposes nested requirements before outer type approval`` variant =
+        withDirectory (fun root ->
+            prepare root
+            let policy = read root
+
+            let source, parents, nestedKind =
+                match variant with
+                | "class" ->
+                    "module App\ntype Service(callback: int -> int) =\n    let first value = callback value\n    let callback = first\n    member _.Run(value) = callback value\n",
+                    [ "App.Service.``.ctor``", "source:App.fs | App.Service"
+                      "App.Service.Run", "source:App.fs | App.Service" ],
+                    "capture"
+                | "array" ->
+                    "module App\nlet inspect (_: System.Uri array) = ()\n",
+                    [ "App.inspect",
+                      "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | []" ],
+                    "type"
+                | "collection" ->
+                    "module App\nlet inspect (_: System.Collections.Generic.List<System.Uri>) = ()\n",
+                    [ "App.inspect",
+                      "System.Collections, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | System.Collections.Generic.List`1" ],
+                    "type"
+                | "nested" ->
+                    "module App\nlet inspect (_: System.Collections.Generic.List<System.Uri array option>) = ()\n",
+                    [ "App.inspect",
+                      "System.Collections, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | System.Collections.Generic.List`1"
+                      "App.inspect",
+                      "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | []" ],
+                    "type"
+                | _ -> failwith "Unknown nested review regression."
+
+            File.WriteAllText(Path.Combine(root, "App.fs"), source)
+
+            let reviewed =
+                { policy with
+                    Projects =
+                        policy.Projects
+                        |> List.map (fun project -> { project with Profile = "ADAPTER" })
+                    Sources =
+                        policy.Sources
+                        |> List.map (fun entry ->
+                            { entry with
+                                Profile = "ADAPTER"
+                                Digest = SafetyPolicy.fileDigest (Path.Combine(root, entry.File)) }) }
+
+            let policyPath = Path.Combine(root, "fdull.json")
+            File.WriteAllText(policyPath, Codec.encode reviewed)
+            let policyBytes = File.ReadAllText policyPath
+            let before = Workspace.review root
+            Assert.True(before.AnalysisComplete, WorkspaceReview.format before)
+            Assert.Equal(1, before.ExitCode)
+            Assert.Equal(policyBytes, File.ReadAllText policyPath)
+            let beforeLint = Workspace.check root
+            Assert.True(beforeLint.Complete)
+            Assert.Equal(1, beforeLint.ExitCode)
+
+            let outerApproved =
+                { reviewed with
+                    Capabilities =
+                        parents
+                        |> List.map (fun (owner, identity) ->
+                            { File = "App.fs"
+                              Owner = owner
+                              Kind = "type"
+                              Identity = identity
+                              Reason =
+                                "Literal outer type approval exposes dependent findings without approving them." }) }
+
+            File.WriteAllText(policyPath, Codec.encode outerApproved)
+            let after = Workspace.review root
+            Assert.True(after.AnalysisComplete, WorkspaceReview.format after)
+            Assert.Equal(1, after.ExitCode)
+            Assert.Empty(after.UnusedCapabilities)
+
+            let keys report =
+                report.Items
+                |> List.filter (fun item ->
+                    item.Kind = nestedKind
+                    && (nestedKind = "capture"
+                        || item.Identity.EndsWith(" | System.Uri", StringComparison.Ordinal)))
+                |> List.map (fun item ->
+                    item.File, item.Owner, item.Profile, item.Kind, item.Identity, item.Resolution)
+                |> Set.ofList
+
+            let dependentKeys = keys after
+            Assert.NotEmpty(dependentKeys)
+            Assert.True((dependentKeys = keys before), WorkspaceReview.format before)
+            let afterLint = Workspace.check root
+            Assert.True(afterLint.Complete)
+            Assert.Equal(1, afterLint.ExitCode)
+            Assert.NotEmpty((Assert.Single afterLint.Projects).Report.Diagnostics))
+
+    [<Fact>]
+    let ``review does not invent payload approvals behind an existing rule exception`` () =
+        withDirectory (fun root ->
+            prepare root
+            let policy = read root
+            let sourcePath = Path.Combine(root, "App.fs")
+            File.WriteAllText(sourcePath, "module App\nlet inspect (_: System.Uri array) = ()\n")
+
+            let reviewed =
+                { policy with
+                    Projects =
+                        policy.Projects
+                        |> List.map (fun project -> { project with Profile = "ADAPTER" })
+                    Sources =
+                        policy.Sources
+                        |> List.map (fun entry ->
+                            { entry with
+                                Profile = "ADAPTER"
+                                Digest = SafetyPolicy.fileDigest sourcePath })
+                    Capabilities =
+                        [ { File = "App.fs"
+                            Owner = "App.inspect"
+                            Kind = "rule"
+                            Identity = "MUT008 | inspect"
+                            Reason = "Literal scoped array exception tests the existing opaque rule-approval path." } ] }
+
+            let policyPath = Path.Combine(root, "fdull.json")
+            File.WriteAllText(policyPath, Codec.encode reviewed)
+            let lint = Workspace.check root
+            Assert.True(lint.Complete, Codec.encode lint)
+            Assert.Equal(0, lint.ExitCode)
+            let inventory = Workspace.review root
+            Assert.True(inventory.AnalysisComplete, WorkspaceReview.format inventory)
+            Assert.Equal(0, inventory.ExitCode)
+            Assert.Empty(inventory.Items)
+
+            let unused =
+                { File = "App.fs"
+                  Owner = "App.inspect"
+                  Kind = "type"
+                  Identity =
+                    "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | System.Uri"
+                  Reason = "Unreachable child approval must remain unused under the existing rule exception." }
+
+            File.WriteAllText(
+                policyPath,
+                Codec.encode
+                    { reviewed with
+                        Capabilities = reviewed.Capabilities @ [ unused ] }
+            )
+
+            let extra = Workspace.review root
+            Assert.True(extra.AnalysisComplete, WorkspaceReview.format extra)
+            Assert.Equal(1, extra.ExitCode)
+            Assert.Empty(extra.Items)
+            Assert.Equal(unused, Assert.Single extra.UnusedCapabilities)
+            let rejected = Workspace.check root
+            Assert.False(rejected.Complete)
+            Assert.Equal(3, rejected.ExitCode)
+            Assert.Contains(rejected.Errors, fun error -> error.Contains("Unused protected capability")))
+
+    [<Fact>]
+    let ``nested review exhaustion stays incomplete and makes no unused permission claims`` () =
+        withDirectory (fun root ->
+            prepare root
+            let policy = read root
+            let levels = SafetyLimits.typeDepth / 2 + 5
+
+            let definitions =
+                [ yield "module App"
+                  yield
+                      "[<NoEquality; NoComparison>]\ntype Level0 = { Next: System.Collections.Generic.List<System.Uri> }"
+                  for level in 1..levels do
+                      yield
+                          $"[<NoEquality; NoComparison>]\ntype Level%d{level} = {{ Next: System.Collections.Generic.List<Level%d{level - 1}> }}"
+                  yield $"let inspect (_: Level%d{levels}) = ()" ]
+
+            let sourcePath = Path.Combine(root, "App.fs")
+            File.WriteAllText(sourcePath, String.concat "\n" definitions + "\n")
+
+            let reviewed =
+                { policy with
+                    Projects =
+                        policy.Projects
+                        |> List.map (fun project -> { project with Profile = "ADAPTER" })
+                    Sources =
+                        policy.Sources
+                        |> List.map (fun entry ->
+                            { entry with
+                                Profile = "ADAPTER"
+                                Digest = SafetyPolicy.fileDigest sourcePath })
+                    Capabilities =
+                        [ { File = "App.fs"
+                            Owner = "App.inspect"
+                            Kind = "type"
+                            Identity =
+                              "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | System.Uri"
+                            Reason = "The unreachable leaf approval must not be classified during partial traversal." } ] }
+
+            File.WriteAllText(Path.Combine(root, "fdull.json"), Codec.encode reviewed)
+            let report = Workspace.review root
+            Assert.False(report.AnalysisComplete)
+            Assert.Equal(3, report.ExitCode)
+            Assert.Empty(report.UnusedCapabilities)
+
+            Assert.True(
+                (report.Items
+                 |> List.exists (fun item ->
+                     item.Evidence
+                     |> List.exists (fun evidence -> evidence.Rule = "BUILD003" && evidence.Message.Contains("depth"))))
+                || (report.Errors
+                    |> List.exists (fun error -> error.Contains("BUILD003:") && error.Contains("output budget"))),
+                WorkspaceReview.format report
+            ))
+
     [<Fact>]
     let ``fold review guidance matches scoped permissions and retains pure restrictions`` () =
         withDirectory (fun root ->

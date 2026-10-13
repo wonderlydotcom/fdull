@@ -67,7 +67,7 @@
       "File": "src/FDull/SafetyRules.fs",
       "Project": "src/FDull/FDull.fsproj",
       "Profile": "GUARD_TOOLING",
-      "Digest": "sha256:915203471f06afa81c01079c744b71abf68f9abec3a16443acaaf4dd09dc7f95"
+      "Digest": "sha256:c5be662a67312b3655ffb1f163ba3b9d97db10c3099911612c279e3077583452"
     },
     {
       "File": "src/FDull/SafetyPolicy.fs",
@@ -109,13 +109,13 @@
       "File": "src/FDull/SafetyAnalysis.fs",
       "Project": "src/FDull/FDull.fsproj",
       "Profile": "GUARD_TOOLING",
-      "Digest": "sha256:196ae28a490c2aa17fd245290d4f968581b5834f3b7262e9e7e29be2b21e16e4"
+      "Digest": "sha256:7f12b076c382d9d113a5a173b3d3de8cd5477242929cd8fddc74ba6d82d84494"
     },
     {
       "File": "src/FDull/SafetyEngine.fs",
       "Project": "src/FDull/FDull.fsproj",
       "Profile": "GUARD_TOOLING",
-      "Digest": "sha256:3be9366e8918df271d90d25d5e47ca513748323f152ed7f1a5c439576b7b920b"
+      "Digest": "sha256:cc18577dbe6e1033dff530dc6cd90ef4f2638b634d654072af1d03cb8f52df2e"
     },
     {
       "File": "src/FDull/WorkspaceGenerated.fs",
@@ -139,7 +139,7 @@
       "File": "src/FDull/WorkspaceEngine.fs",
       "Project": "src/FDull/FDull.fsproj",
       "Profile": "GUARD_TOOLING",
-      "Digest": "sha256:f430331b3cc2e584bd898a84b11809d5181c3e26e5cbb9b28c3306b528e483b5"
+      "Digest": "sha256:859cc667e1c60c11c3b2b40dfe0c83d20525a3888ead5b019869e992b1b26330"
     },
     {
       "File": "src/FDull/Workspace.fs",
@@ -229,7 +229,7 @@
       "File": "tests/FDull.Tests/ProjectTests.fs",
       "Project": "tests/FDull.Tests/FDull.Tests.fsproj",
       "Profile": "TEST",
-      "Digest": "sha256:396d9b5295e5d280e2c3dd8260fbd7c13f90b9f3ebb416ff94a788b8af94ded8"
+      "Digest": "sha256:7c998f7f1b69dddcbe2b00d0f9c6d593c69b1ea105064287518a5360cf844c8c"
     },
     {
       "File": "tests/FDull.Tests/Program.fs",
@@ -16916,6 +16916,510 @@
       "Kind": "member",
       "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | M:System.String.Contains(System.String)",
       "Reason": "Reviewed non-shipping compiler-blocker regression reads advisory guidance to assert that compiler errors cannot be resolved with permission entries."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060review exposes nested requirements before outer type approval\u0060\u0060",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.Combine(System.String,System.String)",
+      "Reason": "Reviewed non-shipping nested review regression: literal outer approvals for authored classes, arrays and generic collections prove the first advisory inventory already contains the later nested type/capture keys. Temporary IO and exact-key assertions preserve lint failures and leave review policy bytes unchanged."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060review exposes nested requirements before outer type approval\u0060\u0060",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.File.WriteAllText(System.String,System.String)",
+      "Reason": "Reviewed non-shipping nested review regression: literal outer approvals for authored classes, arrays and generic collections prove the first advisory inventory already contains the later nested type/capture keys. Temporary IO and exact-key assertions preserve lint failures and leave review policy bytes unchanged."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060review exposes nested requirements before outer type approval\u0060\u0060",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.SafetyPolicy.fileDigest(System.String)",
+      "Reason": "Reviewed non-shipping nested review regression: literal outer approvals for authored classes, arrays and generic collections prove the first advisory inventory already contains the later nested type/capture keys. Temporary IO and exact-key assertions preserve lint failures and leave review policy bytes unchanged."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060review exposes nested requirements before outer type approval\u0060\u0060",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Transport.Codec.encode\u0060\u00601(\u0060\u00600)",
+      "Reason": "Reviewed non-shipping nested review regression: literal outer approvals for authored classes, arrays and generic collections prove the first advisory inventory already contains the later nested type/capture keys. Temporary IO and exact-key assertions preserve lint failures and leave review policy bytes unchanged."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060review exposes nested requirements before outer type approval\u0060\u0060",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Workspace.review(System.String)",
+      "Reason": "Reviewed non-shipping nested review regression: literal outer approvals for authored classes, arrays and generic collections prove the first advisory inventory already contains the later nested type/capture keys. Temporary IO and exact-key assertions preserve lint failures and leave review policy bytes unchanged."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060review exposes nested requirements before outer type approval\u0060\u0060",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.WorkspaceReview.format(FDull.WorkspaceReviewReport)",
+      "Reason": "Reviewed non-shipping nested review regression: literal outer approvals for authored classes, arrays and generic collections prove the first advisory inventory already contains the later nested type/capture keys. Temporary IO and exact-key assertions preserve lint failures and leave review policy bytes unchanged."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060review exposes nested requirements before outer type approval\u0060\u0060",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.True(System.Boolean,System.String)",
+      "Reason": "Reviewed non-shipping nested review regression: literal outer approvals for authored classes, arrays and generic collections prove the first advisory inventory already contains the later nested type/capture keys. Temporary IO and exact-key assertions preserve lint failures and leave review policy bytes unchanged."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060review exposes nested requirements before outer type approval\u0060\u0060",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Equal\u0060\u00601(\u0060\u00600,\u0060\u00600)",
+      "Reason": "Reviewed non-shipping nested review regression: literal outer approvals for authored classes, arrays and generic collections prove the first advisory inventory already contains the later nested type/capture keys. Temporary IO and exact-key assertions preserve lint failures and leave review policy bytes unchanged."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060review exposes nested requirements before outer type approval\u0060\u0060",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspacePolicyDocument",
+      "Reason": "Reviewed non-shipping nested review regression: literal outer approvals for authored classes, arrays and generic collections prove the first advisory inventory already contains the later nested type/capture keys. Temporary IO and exact-key assertions preserve lint failures and leave review policy bytes unchanged."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060review exposes nested requirements before outer type approval\u0060\u0060",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspaceProject",
+      "Reason": "Reviewed non-shipping nested review regression: literal outer approvals for authored classes, arrays and generic collections prove the first advisory inventory already contains the later nested type/capture keys. Temporary IO and exact-key assertions preserve lint failures and leave review policy bytes unchanged."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060review exposes nested requirements before outer type approval\u0060\u0060",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspaceSource",
+      "Reason": "Reviewed non-shipping nested review regression: literal outer approvals for authored classes, arrays and generic collections prove the first advisory inventory already contains the later nested type/capture keys. Temporary IO and exact-key assertions preserve lint failures and leave review policy bytes unchanged."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060review exposes nested requirements before outer type approval\u0060\u0060",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspaceReviewReport",
+      "Reason": "Reviewed non-shipping nested review regression: literal outer approvals for authored classes, arrays and generic collections prove the first advisory inventory already contains the later nested type/capture keys. Temporary IO and exact-key assertions preserve lint failures and leave review policy bytes unchanged."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060review exposes nested requirements before outer type approval\u0060\u0060",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspaceReviewItem",
+      "Reason": "Reviewed non-shipping nested review regression: literal outer approvals for authored classes, arrays and generic collections prove the first advisory inventory already contains the later nested type/capture keys. Temporary IO and exact-key assertions preserve lint failures and leave review policy bytes unchanged."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060review exposes nested requirements before outer type approval\u0060\u0060",
+      "Kind": "attribute",
+      "Identity": "xunit.core, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | Xunit.TheoryAttribute |  | unit",
+      "Reason": "Reviewed non-shipping nested review regression: literal outer approvals for authored classes, arrays and generic collections prove the first advisory inventory already contains the later nested type/capture keys. Temporary IO and exact-key assertions preserve lint failures and leave review policy bytes unchanged."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060review exposes nested requirements before outer type approval\u0060\u0060",
+      "Kind": "attribute",
+      "Identity": "xunit.core, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | Xunit.InlineDataAttribute |  | string:\u0022class\u0022",
+      "Reason": "Reviewed non-shipping nested review regression: literal outer approvals for authored classes, arrays and generic collections prove the first advisory inventory already contains the later nested type/capture keys. Temporary IO and exact-key assertions preserve lint failures and leave review policy bytes unchanged."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060review exposes nested requirements before outer type approval\u0060\u0060",
+      "Kind": "attribute",
+      "Identity": "xunit.core, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | Xunit.InlineDataAttribute |  | string:\u0022array\u0022",
+      "Reason": "Reviewed non-shipping nested review regression: literal outer approvals for authored classes, arrays and generic collections prove the first advisory inventory already contains the later nested type/capture keys. Temporary IO and exact-key assertions preserve lint failures and leave review policy bytes unchanged."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060review exposes nested requirements before outer type approval\u0060\u0060",
+      "Kind": "attribute",
+      "Identity": "xunit.core, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | Xunit.InlineDataAttribute |  | string:\u0022collection\u0022",
+      "Reason": "Reviewed non-shipping nested review regression: literal outer approvals for authored classes, arrays and generic collections prove the first advisory inventory already contains the later nested type/capture keys. Temporary IO and exact-key assertions preserve lint failures and leave review policy bytes unchanged."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060review exposes nested requirements before outer type approval\u0060\u0060",
+      "Kind": "attribute",
+      "Identity": "xunit.core, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | Xunit.InlineDataAttribute |  | string:\u0022nested\u0022",
+      "Reason": "Reviewed non-shipping nested review regression: literal outer approvals for authored classes, arrays and generic collections prove the first advisory inventory already contains the later nested type/capture keys. Temporary IO and exact-key assertions preserve lint failures and leave review policy bytes unchanged."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060review exposes nested requirements before outer type approval\u0060\u0060",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.File.ReadAllText(System.String)",
+      "Reason": "Reviewed non-shipping nested review regression: literal outer approvals for authored classes, arrays and generic collections prove the first advisory inventory already contains the later nested type/capture keys. Temporary IO and exact-key assertions preserve lint failures and leave review policy bytes unchanged."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060review exposes nested requirements before outer type approval\u0060\u0060",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Workspace.check(System.String)",
+      "Reason": "Reviewed non-shipping nested review regression: literal outer approvals for authored classes, arrays and generic collections prove the first advisory inventory already contains the later nested type/capture keys. Temporary IO and exact-key assertions preserve lint failures and leave review policy bytes unchanged."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060review exposes nested requirements before outer type approval\u0060\u0060",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.True(System.Boolean)",
+      "Reason": "Reviewed non-shipping nested review regression: literal outer approvals for authored classes, arrays and generic collections prove the first advisory inventory already contains the later nested type/capture keys. Temporary IO and exact-key assertions preserve lint failures and leave review policy bytes unchanged."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060review exposes nested requirements before outer type approval\u0060\u0060",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Equal(System.String,System.String)",
+      "Reason": "Reviewed non-shipping nested review regression: literal outer approvals for authored classes, arrays and generic collections prove the first advisory inventory already contains the later nested type/capture keys. Temporary IO and exact-key assertions preserve lint failures and leave review policy bytes unchanged."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060review exposes nested requirements before outer type approval\u0060\u0060",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Empty(System.Collections.IEnumerable)",
+      "Reason": "Reviewed non-shipping nested review regression: literal outer approvals for authored classes, arrays and generic collections prove the first advisory inventory already contains the later nested type/capture keys. Temporary IO and exact-key assertions preserve lint failures and leave review policy bytes unchanged."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060review exposes nested requirements before outer type approval\u0060\u0060",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.NotEmpty(System.Collections.IEnumerable)",
+      "Reason": "Reviewed non-shipping nested review regression: literal outer approvals for authored classes, arrays and generic collections prove the first advisory inventory already contains the later nested type/capture keys. Temporary IO and exact-key assertions preserve lint failures and leave review policy bytes unchanged."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060review exposes nested requirements before outer type approval\u0060\u0060",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Single\u0060\u00601(System.Collections.Generic.IEnumerable{\u0060\u00600})",
+      "Reason": "Reviewed non-shipping nested review regression: literal outer approvals for authored classes, arrays and generic collections prove the first advisory inventory already contains the later nested type/capture keys. Temporary IO and exact-key assertions preserve lint failures and leave review policy bytes unchanged."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060review exposes nested requirements before outer type approval\u0060\u0060",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Core.Operators.FailWith\u0060\u00601(System.String)",
+      "Reason": "Reviewed non-shipping nested review regression: literal outer approvals for authored classes, arrays and generic collections prove the first advisory inventory already contains the later nested type/capture keys. Temporary IO and exact-key assertions preserve lint failures and leave review policy bytes unchanged."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060review exposes nested requirements before outer type approval\u0060\u0060",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspaceReport",
+      "Reason": "Reviewed non-shipping nested review regression: literal outer approvals for authored classes, arrays and generic collections prove the first advisory inventory already contains the later nested type/capture keys. Temporary IO and exact-key assertions preserve lint failures and leave review policy bytes unchanged."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060review exposes nested requirements before outer type approval\u0060\u0060",
+      "Kind": "type",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | System.Collections.IEnumerable",
+      "Reason": "Reviewed non-shipping nested review regression: literal outer approvals for authored classes, arrays and generic collections prove the first advisory inventory already contains the later nested type/capture keys. Temporary IO and exact-key assertions preserve lint failures and leave review policy bytes unchanged."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060review does not invent payload approvals behind an existing rule exception\u0060\u0060",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.Combine(System.String,System.String)",
+      "Reason": "Reviewed non-shipping rule-path regression: a literal scoped array rule exception must not create prospective payload approvals; an unreachable child contract stays unused and verification remains rejected. Temporary policy IO and assertions do not widen checker permissions."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060review does not invent payload approvals behind an existing rule exception\u0060\u0060",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.File.WriteAllText(System.String,System.String)",
+      "Reason": "Reviewed non-shipping rule-path regression: a literal scoped array rule exception must not create prospective payload approvals; an unreachable child contract stays unused and verification remains rejected. Temporary policy IO and assertions do not widen checker permissions."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060review does not invent payload approvals behind an existing rule exception\u0060\u0060",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.SafetyPolicy.fileDigest(System.String)",
+      "Reason": "Reviewed non-shipping rule-path regression: a literal scoped array rule exception must not create prospective payload approvals; an unreachable child contract stays unused and verification remains rejected. Temporary policy IO and assertions do not widen checker permissions."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060review does not invent payload approvals behind an existing rule exception\u0060\u0060",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Transport.Codec.encode\u0060\u00601(\u0060\u00600)",
+      "Reason": "Reviewed non-shipping rule-path regression: a literal scoped array rule exception must not create prospective payload approvals; an unreachable child contract stays unused and verification remains rejected. Temporary policy IO and assertions do not widen checker permissions."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060review does not invent payload approvals behind an existing rule exception\u0060\u0060",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Workspace.review(System.String)",
+      "Reason": "Reviewed non-shipping rule-path regression: a literal scoped array rule exception must not create prospective payload approvals; an unreachable child contract stays unused and verification remains rejected. Temporary policy IO and assertions do not widen checker permissions."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060review does not invent payload approvals behind an existing rule exception\u0060\u0060",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.WorkspaceReview.format(FDull.WorkspaceReviewReport)",
+      "Reason": "Reviewed non-shipping rule-path regression: a literal scoped array rule exception must not create prospective payload approvals; an unreachable child contract stays unused and verification remains rejected. Temporary policy IO and assertions do not widen checker permissions."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060review does not invent payload approvals behind an existing rule exception\u0060\u0060",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.True(System.Boolean,System.String)",
+      "Reason": "Reviewed non-shipping rule-path regression: a literal scoped array rule exception must not create prospective payload approvals; an unreachable child contract stays unused and verification remains rejected. Temporary policy IO and assertions do not widen checker permissions."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060review does not invent payload approvals behind an existing rule exception\u0060\u0060",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Equal\u0060\u00601(\u0060\u00600,\u0060\u00600)",
+      "Reason": "Reviewed non-shipping rule-path regression: a literal scoped array rule exception must not create prospective payload approvals; an unreachable child contract stays unused and verification remains rejected. Temporary policy IO and assertions do not widen checker permissions."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060review does not invent payload approvals behind an existing rule exception\u0060\u0060",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspacePolicyDocument",
+      "Reason": "Reviewed non-shipping rule-path regression: a literal scoped array rule exception must not create prospective payload approvals; an unreachable child contract stays unused and verification remains rejected. Temporary policy IO and assertions do not widen checker permissions."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060review does not invent payload approvals behind an existing rule exception\u0060\u0060",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspaceProject",
+      "Reason": "Reviewed non-shipping rule-path regression: a literal scoped array rule exception must not create prospective payload approvals; an unreachable child contract stays unused and verification remains rejected. Temporary policy IO and assertions do not widen checker permissions."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060review does not invent payload approvals behind an existing rule exception\u0060\u0060",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspaceSource",
+      "Reason": "Reviewed non-shipping rule-path regression: a literal scoped array rule exception must not create prospective payload approvals; an unreachable child contract stays unused and verification remains rejected. Temporary policy IO and assertions do not widen checker permissions."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060review does not invent payload approvals behind an existing rule exception\u0060\u0060",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspaceReviewReport",
+      "Reason": "Reviewed non-shipping rule-path regression: a literal scoped array rule exception must not create prospective payload approvals; an unreachable child contract stays unused and verification remains rejected. Temporary policy IO and assertions do not widen checker permissions."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060review does not invent payload approvals behind an existing rule exception\u0060\u0060",
+      "Kind": "attribute",
+      "Identity": "xunit.core, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | Xunit.FactAttribute |  | unit",
+      "Reason": "Reviewed non-shipping rule-path regression: a literal scoped array rule exception must not create prospective payload approvals; an unreachable child contract stays unused and verification remains rejected. Temporary policy IO and assertions do not widen checker permissions."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060review does not invent payload approvals behind an existing rule exception\u0060\u0060",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Workspace.check(System.String)",
+      "Reason": "Reviewed non-shipping rule-path regression: a literal scoped array rule exception must not create prospective payload approvals; an unreachable child contract stays unused and verification remains rejected. Temporary policy IO and assertions do not widen checker permissions."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060review does not invent payload approvals behind an existing rule exception\u0060\u0060",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.False(System.Boolean)",
+      "Reason": "Reviewed non-shipping rule-path regression: a literal scoped array rule exception must not create prospective payload approvals; an unreachable child contract stays unused and verification remains rejected. Temporary policy IO and assertions do not widen checker permissions."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060review does not invent payload approvals behind an existing rule exception\u0060\u0060",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Empty(System.Collections.IEnumerable)",
+      "Reason": "Reviewed non-shipping rule-path regression: a literal scoped array rule exception must not create prospective payload approvals; an unreachable child contract stays unused and verification remains rejected. Temporary policy IO and assertions do not widen checker permissions."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060review does not invent payload approvals behind an existing rule exception\u0060\u0060",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Single\u0060\u00601(System.Collections.Generic.IEnumerable{\u0060\u00600})",
+      "Reason": "Reviewed non-shipping rule-path regression: a literal scoped array rule exception must not create prospective payload approvals; an unreachable child contract stays unused and verification remains rejected. Temporary policy IO and assertions do not widen checker permissions."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060review does not invent payload approvals behind an existing rule exception\u0060\u0060",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Contains\u0060\u00601(System.Collections.Generic.IEnumerable{\u0060\u00600},System.Predicate{\u0060\u00600})",
+      "Reason": "Reviewed non-shipping rule-path regression: a literal scoped array rule exception must not create prospective payload approvals; an unreachable child contract stays unused and verification remains rejected. Temporary policy IO and assertions do not widen checker permissions."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060review does not invent payload approvals behind an existing rule exception\u0060\u0060",
+      "Kind": "member",
+      "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | M:System.String.Contains(System.String)",
+      "Reason": "Reviewed non-shipping rule-path regression: a literal scoped array rule exception must not create prospective payload approvals; an unreachable child contract stays unused and verification remains rejected. Temporary policy IO and assertions do not widen checker permissions."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060review does not invent payload approvals behind an existing rule exception\u0060\u0060",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspaceReport",
+      "Reason": "Reviewed non-shipping rule-path regression: a literal scoped array rule exception must not create prospective payload approvals; an unreachable child contract stays unused and verification remains rejected. Temporary policy IO and assertions do not widen checker permissions."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060review does not invent payload approvals behind an existing rule exception\u0060\u0060",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspaceCapability",
+      "Reason": "Reviewed non-shipping rule-path regression: a literal scoped array rule exception must not create prospective payload approvals; an unreachable child contract stays unused and verification remains rejected. Temporary policy IO and assertions do not widen checker permissions."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060review does not invent payload approvals behind an existing rule exception\u0060\u0060",
+      "Kind": "type",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | System.Collections.IEnumerable",
+      "Reason": "Reviewed non-shipping rule-path regression: a literal scoped array rule exception must not create prospective payload approvals; an unreachable child contract stays unused and verification remains rejected. Temporary policy IO and assertions do not widen checker permissions."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060nested review exhaustion stays incomplete and makes no unused permission claims\u0060\u0060",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.Combine(System.String,System.String)",
+      "Reason": "Reviewed non-shipping oversized dependency-walk regression: a literal record/container chain exceeds existing depth or worker output limits; analysis remains incomplete with BUILD003 and no unused-contract conclusions. Temporary IO and read-only assertions exercise the fail-closed path."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060nested review exhaustion stays incomplete and makes no unused permission claims\u0060\u0060",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.File.WriteAllText(System.String,System.String)",
+      "Reason": "Reviewed non-shipping oversized dependency-walk regression: a literal record/container chain exceeds existing depth or worker output limits; analysis remains incomplete with BUILD003 and no unused-contract conclusions. Temporary IO and read-only assertions exercise the fail-closed path."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060nested review exhaustion stays incomplete and makes no unused permission claims\u0060\u0060",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.SafetyPolicy.fileDigest(System.String)",
+      "Reason": "Reviewed non-shipping oversized dependency-walk regression: a literal record/container chain exceeds existing depth or worker output limits; analysis remains incomplete with BUILD003 and no unused-contract conclusions. Temporary IO and read-only assertions exercise the fail-closed path."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060nested review exhaustion stays incomplete and makes no unused permission claims\u0060\u0060",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Transport.Codec.encode\u0060\u00601(\u0060\u00600)",
+      "Reason": "Reviewed non-shipping oversized dependency-walk regression: a literal record/container chain exceeds existing depth or worker output limits; analysis remains incomplete with BUILD003 and no unused-contract conclusions. Temporary IO and read-only assertions exercise the fail-closed path."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060nested review exhaustion stays incomplete and makes no unused permission claims\u0060\u0060",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Workspace.review(System.String)",
+      "Reason": "Reviewed non-shipping oversized dependency-walk regression: a literal record/container chain exceeds existing depth or worker output limits; analysis remains incomplete with BUILD003 and no unused-contract conclusions. Temporary IO and read-only assertions exercise the fail-closed path."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060nested review exhaustion stays incomplete and makes no unused permission claims\u0060\u0060",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Equal\u0060\u00601(\u0060\u00600,\u0060\u00600)",
+      "Reason": "Reviewed non-shipping oversized dependency-walk regression: a literal record/container chain exceeds existing depth or worker output limits; analysis remains incomplete with BUILD003 and no unused-contract conclusions. Temporary IO and read-only assertions exercise the fail-closed path."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060nested review exhaustion stays incomplete and makes no unused permission claims\u0060\u0060",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspacePolicyDocument",
+      "Reason": "Reviewed non-shipping oversized dependency-walk regression: a literal record/container chain exceeds existing depth or worker output limits; analysis remains incomplete with BUILD003 and no unused-contract conclusions. Temporary IO and read-only assertions exercise the fail-closed path."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060nested review exhaustion stays incomplete and makes no unused permission claims\u0060\u0060",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspaceProject",
+      "Reason": "Reviewed non-shipping oversized dependency-walk regression: a literal record/container chain exceeds existing depth or worker output limits; analysis remains incomplete with BUILD003 and no unused-contract conclusions. Temporary IO and read-only assertions exercise the fail-closed path."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060nested review exhaustion stays incomplete and makes no unused permission claims\u0060\u0060",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspaceSource",
+      "Reason": "Reviewed non-shipping oversized dependency-walk regression: a literal record/container chain exceeds existing depth or worker output limits; analysis remains incomplete with BUILD003 and no unused-contract conclusions. Temporary IO and read-only assertions exercise the fail-closed path."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060nested review exhaustion stays incomplete and makes no unused permission claims\u0060\u0060",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspaceReviewReport",
+      "Reason": "Reviewed non-shipping oversized dependency-walk regression: a literal record/container chain exceeds existing depth or worker output limits; analysis remains incomplete with BUILD003 and no unused-contract conclusions. Temporary IO and read-only assertions exercise the fail-closed path."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060nested review exhaustion stays incomplete and makes no unused permission claims\u0060\u0060",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspaceReviewItem",
+      "Reason": "Reviewed non-shipping oversized dependency-walk regression: a literal record/container chain exceeds existing depth or worker output limits; analysis remains incomplete with BUILD003 and no unused-contract conclusions. Temporary IO and read-only assertions exercise the fail-closed path."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060nested review exhaustion stays incomplete and makes no unused permission claims\u0060\u0060",
+      "Kind": "attribute",
+      "Identity": "xunit.core, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | Xunit.FactAttribute |  | unit",
+      "Reason": "Reviewed non-shipping oversized dependency-walk regression: a literal record/container chain exceeds existing depth or worker output limits; analysis remains incomplete with BUILD003 and no unused-contract conclusions. Temporary IO and read-only assertions exercise the fail-closed path."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060nested review exhaustion stays incomplete and makes no unused permission claims\u0060\u0060",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | P:FDull.SafetyLimits.typeDepth",
+      "Reason": "Reviewed non-shipping oversized dependency-walk regression: a literal record/container chain exceeds existing depth or worker output limits; analysis remains incomplete with BUILD003 and no unused-contract conclusions. Temporary IO and read-only assertions exercise the fail-closed path."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060nested review exhaustion stays incomplete and makes no unused permission claims\u0060\u0060",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.False(System.Boolean)",
+      "Reason": "Reviewed non-shipping oversized dependency-walk regression: a literal record/container chain exceeds existing depth or worker output limits; analysis remains incomplete with BUILD003 and no unused-contract conclusions. Temporary IO and read-only assertions exercise the fail-closed path."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060nested review exhaustion stays incomplete and makes no unused permission claims\u0060\u0060",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Empty(System.Collections.IEnumerable)",
+      "Reason": "Reviewed non-shipping oversized dependency-walk regression: a literal record/container chain exceeds existing depth or worker output limits; analysis remains incomplete with BUILD003 and no unused-contract conclusions. Temporary IO and read-only assertions exercise the fail-closed path."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060nested review exhaustion stays incomplete and makes no unused permission claims\u0060\u0060",
+      "Kind": "member",
+      "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | M:System.String.Contains(System.String)",
+      "Reason": "Reviewed non-shipping oversized dependency-walk regression: a literal record/container chain exceeds existing depth or worker output limits; analysis remains incomplete with BUILD003 and no unused-contract conclusions. Temporary IO and read-only assertions exercise the fail-closed path."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060nested review exhaustion stays incomplete and makes no unused permission claims\u0060\u0060",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | FDull.SafetyDiagnostic",
+      "Reason": "Reviewed non-shipping oversized dependency-walk regression: a literal record/container chain exceeds existing depth or worker output limits; analysis remains incomplete with BUILD003 and no unused-contract conclusions. Temporary IO and read-only assertions exercise the fail-closed path."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060nested review exhaustion stays incomplete and makes no unused permission claims\u0060\u0060",
+      "Kind": "type",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | System.Collections.IEnumerable",
+      "Reason": "Reviewed non-shipping oversized dependency-walk regression: a literal record/container chain exceeds existing depth or worker output limits; analysis remains incomplete with BUILD003 and no unused-contract conclusions. Temporary IO and read-only assertions exercise the fail-closed path."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060nested review exhaustion stays incomplete and makes no unused permission claims\u0060\u0060",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Core.StringModule.Concat(System.String,System.Collections.Generic.IEnumerable{System.String})",
+      "Reason": "Reviewed non-shipping depth regression joins finite literal record declarations, whose resolved metadata chain exceeds the existing type-depth limit without exceeding syntax nesting."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060nested review exhaustion stays incomplete and makes no unused permission claims\u0060\u0060",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Core.Operators.op_Range\u0060\u00601(Microsoft.FSharp.Core.FSharpFunc{Microsoft.FSharp.Core.Unit,\u0060\u00600},Microsoft.FSharp.Core.FSharpFunc{\u0060\u00600,Microsoft.FSharp.Core.FSharpFunc{\u0060\u00600,\u0060\u00600}},\u0060\u00600,\u0060\u00600)",
+      "Reason": "Reviewed non-shipping depth fixture generator uses a finite integer range bounded by the existing typeDepth constant to emit shallow record declarations; this does not authorize an application accumulation API."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060nested review exhaustion stays incomplete and makes no unused permission claims\u0060\u0060",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.1.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.WorkspaceReview.format(FDull.WorkspaceReviewReport)",
+      "Reason": "Reviewed non-shipping oversized dependency-walk regression formats advisory blockers only as assertion failure evidence; depth or output budget exhaustion must retain exit 3 and avoid unused-contract claims."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060nested review exhaustion stays incomplete and makes no unused permission claims\u0060\u0060",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.True(System.Boolean,System.String)",
+      "Reason": "Reviewed non-shipping oversized dependency-walk regression asserts the retained BUILD003 blocker, with the advisory report printed only on failure; incomplete and unused-contract checks remain independent."
     }
   ],
   "Domains": [],
