@@ -2,18 +2,13 @@ name: CI
 
 on:
   pull_request:
-  push:
-    branches: [main]
-  workflow_dispatch:
-  schedule:
-    - cron: '17 7 * * 1'
 
 permissions:
   contents: read
 
 concurrency:
-  group: ci-${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
-  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+  group: ci-${{ github.workflow }}-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
 
 defaults:
   run:

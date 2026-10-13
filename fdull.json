@@ -352,7 +352,7 @@
     },
     {
       "File": ".github/workflows/ci.yml",
-      "Digest": "sha256:67be8ed3f47d57b8e7ec9bc107556f2ca7e46324a9369e1ca0afbae0f3fcdb7b"
+      "Digest": "sha256:798b3c56c3f199ac5f5d9050302b23038113801a45ea044c58d41a8aaa30d569"
     },
     {
       "File": ".github/CODEOWNERS",

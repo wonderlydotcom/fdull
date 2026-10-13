@@ -387,9 +387,9 @@ dotnet tools/FDull.Ci/bin/Release/net10.0/FDull.Ci.dll smoke . artifacts
 dotnet tools/FDull.Ci/bin/Release/net10.0/FDull.Ci.dll coverage .
 ```
 
-GitHub Actions runs four Linux jobs on pull requests, pushes to `main`, manual
-runs and a weekly schedule: **Format**, **Build and test (Linux)**,
-**Self-verification**, and **Package and consumer smoke**. Jobs install the exact
+GitHub Actions runs four Linux jobs on pull requests: **Format**,
+**Build and test (Linux)**, **Self-verification**, and **Package and consumer smoke**.
+Jobs install the exact
 SDK from `global.json` (including its 10.0.4 runtime), restore locked dependencies,
 keep strict compiler settings and preserve nonzero command exits. NuGet downloads
 are cached by the lock files; results and logs are retained for seven days.
@@ -397,9 +397,10 @@ are cached by the lock files; results and logs are retained for seven days.
 The compiled `tools/FDull.Ci` helper is part of the reviewed repository graph.
 Its package smoke check uses fresh temporary projects and an isolated package
 cache and CLI home outside the checkout. Source mapping requires all FDull
-packages to come from the local feed. It installs the packed tool, checks the bundled worker via
-successful verification, requires complete mutation failures and blocked source
-drift, runs an independent library consumer and checks the analyzer payload.
+packages to come from the local feed. It installs the packed tool, checks the
+bundled worker via successful verification, requires complete mutation failures
+and blocked source drift, runs an independent library consumer and checks the
+analyzer payload.
 Self-verification also compares `site/public/coverage.json` with the built CLI's
 coverage inventory. The workflow never publishes packages or deploys the site.
 
