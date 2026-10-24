@@ -266,7 +266,7 @@
       "File": "tools/FDull.Ci/Program.fs",
       "Project": "tools/FDull.Ci/FDull.Ci.fsproj",
       "Profile": "GUARD_TOOLING",
-      "Digest": "sha256:a9aef35479ed6eb170c5e1ef465102658b2cae6e1f72687d8ee7b2d40db8118f"
+      "Digest": "sha256:05ea82e8cd77d90a22f40513d13c4d0337b863116e1f369946c435134d444fb7"
     }
   ],
   "Inputs": [
