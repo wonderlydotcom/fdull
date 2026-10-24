@@ -206,7 +206,9 @@ module SafetyRules =
               "Unapproved dependency assets"
               [ build; guard; audit ]
               false
-              [ "ProjectTests.initialization discovers reviewed mixed-language scope and exports Web SDK inputs without compiling" ]
+              [ "ProjectTests.initialization discovers reviewed mixed-language scope and exports Web SDK inputs without compiling"
+                "ProjectTests.excluded conditional project is neither exported nor built and remains visible in reports"
+                "ProjectTests.checked ownership of a shared excluded source still reports violations" ]
               "Complete transitive package/runtime/source/native asset inventory and tampering cases."
           rule
               "ARCH003"
@@ -281,6 +283,7 @@ module SafetyRules =
                 "WorkspaceTests.permissions bind exact owners and cannot survive as unused entries"
                 "ProjectTests.advisory review groups actual findings and preserves stale source rejection"
                 "ProjectTests.advisory review reports blockers and never infers unused contracts from partial analysis"
+                "ProjectTests.excluded project declarations and policy entries remain exact"
                 "WorkspaceTests.mixed-language scope and internal links preserve inventory boundaries" ]
               "Temporary exceptions are unsupported. Organizational review identities and expiry require an external policy authority."
           rule

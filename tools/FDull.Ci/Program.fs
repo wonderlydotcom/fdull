@@ -133,7 +133,10 @@ module Program =
             let valid = Path.Combine(temporary, "valid")
             checkConsumer valid packages defaults config "module App\nlet increment value = value + 1\n"
             let verified = run 0 valid packages [ "fdull"; "verify"; "." ]
-            require (verified.Contains("FDull verify: PASS — verification completed.")) "Valid consumer did not verify."
+
+            require
+                (verified.Contains("FDull verify: PASS — verification completed for the included projects."))
+                "Valid consumer did not verify."
 
             // A changed source must remain blocked, even when it would otherwise be valid.
             write valid "App.fs" "module App\nlet increment value = value + 2\n"

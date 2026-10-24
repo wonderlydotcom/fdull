@@ -24,7 +24,7 @@ module Program =
             elif report.ExitCode <> 0 then
                 $"FDull %s{command}: FAIL — complete analysis found violations (exit %d{report.ExitCode})."
             elif command = "verify" then
-                "FDull verify: PASS — verification completed."
+                "FDull verify: PASS — verification completed for the included projects."
             else
                 "FDull lint: PASS — complete analysis found no violations."
 
@@ -48,10 +48,17 @@ module Program =
                   Arguments = []
                   Diagnostics = diagnostics }
 
-            Console.WriteLine(SafetyPolicy.toSarif combined)
+            let exclusions =
+                report.ExcludedProjects |> List.map (fun entry -> entry.File, entry.Reason)
+
+            Console.WriteLine(SafetyPolicy.toSarifWithExclusions exclusions combined)
             report.Errors |> List.iter Console.Error.WriteLine
         | _ ->
             Console.WriteLine status
+
+            report.ExcludedProjects
+            |> List.iter (fun excluded ->
+                Console.WriteLine("Excluded project (not analyzed): " + excluded.File + " — " + excluded.Reason))
 
             if not report.Complete then
                 Console.WriteLine incomplete

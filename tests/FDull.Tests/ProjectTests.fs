@@ -210,6 +210,288 @@ module ProjectTests =
         | Ok result -> result
         | Error error -> failwith error
 
+    let private excludedFixture root (projectText: string) =
+        let fixture = Path.Combine(root, "Fixture")
+        Directory.CreateDirectory fixture |> ignore
+        File.WriteAllText(Path.Combine(fixture, "Fixture.fsproj"), projectText)
+        File.WriteAllText(Path.Combine(fixture, "Bad.fs"), "module Bad\nlet value: int = \"wrong\"\n")
+        File.WriteAllText(Path.Combine(fixture, "Inactive.fsi"), "module Inactive\nval value: int\n")
+
+        File.WriteAllText(
+            Path.Combine(root, "fdull.scope.json"),
+            "{\"Version\":1,\"ExcludedProjects\":[{\"File\":\"Fixture/Fixture.fsproj\",\"Reason\":\"Conditional test fixture is checked separately.\"}]}"
+        )
+
+    let private conditionalFixtureProject =
+        "<Project Sdk=\"Microsoft.NET.Sdk\">"
+        + "<ItemGroup Condition=\"'$(Configuration)' == 'Release'\"><Compile Include=\"Bad.fs\"/></ItemGroup>"
+        + "<ItemGroup Condition=\"'$(Configuration)' == 'Never'\"><Compile Include=\"Inactive.fsi\"/></ItemGroup>"
+        + "</Project>"
+
+    [<Fact>]
+    let ``excluded conditional project is neither exported nor built and remains visible in reports`` () =
+        withDirectory (fun root ->
+            restoreConsumer root None "module App\nlet increment value = value + 1\n"
+            excludedFixture root conditionalFixtureProject
+            let policyFile = Project.initialize root
+            let policy = read root
+
+            Assert.Equal(
+                "Fixture/Fixture.fsproj",
+                (Assert.Single(policy.ExcludedProjects |> Option.defaultValue [])).File
+            )
+
+            Assert.DoesNotContain(policy.Projects, fun project -> project.File = "Fixture/Fixture.fsproj")
+
+            Assert.DoesNotContain(
+                policy.Sources,
+                fun source -> source.File.StartsWith("Fixture/", StringComparison.Ordinal)
+            )
+
+            Assert.Contains(policy.Inputs, fun input -> input.File = "Fixture/Fixture.fsproj")
+            Assert.Contains(policy.Inputs, fun input -> input.File = "fdull.scope.json")
+            Assert.Equal(Ok(), Workspace.validatePolicy root)
+
+            let verified = Project.verify root
+            Assert.Equal(0, verified.ExitCode)
+            Assert.False(Directory.Exists(Path.Combine(root, "Fixture/obj")))
+
+            let lint = Workspace.check root
+            Assert.True(lint.Complete, Codec.encode lint)
+            Assert.Equal(0, lint.ExitCode)
+            Assert.Equal("Fixture/Fixture.fsproj", (Assert.Single lint.ExcludedProjects).File)
+            Assert.Equal(Path.Combine(root, "App.fsproj"), (Assert.Single lint.Projects).Project)
+
+            let review = Workspace.review root
+            Assert.True(review.AnalysisComplete, WorkspaceReview.format review)
+            Assert.Equal(0, review.ExitCode)
+            Assert.Equal("Fixture/Fixture.fsproj", (Assert.Single review.ExcludedProjects).File)
+            Assert.Contains("Fixture/Fixture.fsproj", WorkspaceReview.format review)
+
+            for format in [ "json"; "text"; "sarif" ] do
+                let result = runCli root [ "lint"; "."; "--format"; format ]
+                Assert.Equal(0, result.ExitCode)
+                Assert.Contains("Fixture/Fixture.fsproj", result.Output)
+
+                if format = "json" then
+                    let report = Codec.decode<WorkspaceReport> result.Output
+                    Assert.Equal("Fixture/Fixture.fsproj", (Assert.Single report.ExcludedProjects).File)
+                elif format = "sarif" then
+                    use document = JsonDocument.Parse result.Output
+
+                    let excluded =
+                        document.RootElement
+                            .GetProperty("runs")
+                            .[0].GetProperty("properties")
+                            .GetProperty("excludedProjects")
+                            .[0]
+
+                    Assert.Equal("Fixture/Fixture.fsproj", excluded.GetProperty("file").GetString())
+                    Assert.False(String.IsNullOrWhiteSpace(excluded.GetProperty("reason").GetString()))
+
+            Assert.True(File.Exists policyFile))
+
+    [<Fact>]
+    let ``excluded project declarations and policy entries remain exact`` () =
+        withDirectory (fun root ->
+            restoreConsumer root None "module App\nlet increment value = value + 1\n"
+            excludedFixture root conditionalFixtureProject
+            Project.initialize root |> ignore
+            let baseline = read root
+            let policyPath = Path.Combine(root, "fdull.json")
+            let projectPath = Path.Combine(root, "Fixture/Fixture.fsproj")
+            let originalProject = File.ReadAllText projectPath
+            let originalBad = File.ReadAllText(Path.Combine(root, "Fixture/Bad.fs"))
+            let exclusion = Assert.Single(baseline.ExcludedProjects |> Option.defaultValue [])
+
+            let checkInvalid label expected repinProject mutate =
+                File.WriteAllText(policyPath, Codec.encode baseline)
+                File.WriteAllText(projectPath, originalProject)
+                File.WriteAllText(Path.Combine(root, "Fixture/Bad.fs"), originalBad)
+
+                if File.Exists(Path.Combine(root, "Unrelated.fs")) then
+                    File.Delete(Path.Combine(root, "Unrelated.fs"))
+
+                mutate ()
+
+                if repinProject then
+                    let current = read root
+
+                    File.WriteAllText(
+                        policyPath,
+                        Codec.encode
+                            { current with
+                                Inputs =
+                                    current.Inputs
+                                    |> List.map (fun input ->
+                                        if input.File = exclusion.File then
+                                            { input with
+                                                Digest = SafetyPolicy.fileDigest projectPath }
+                                        else
+                                            input) }
+                    )
+
+                match Workspace.validatePolicy root with
+                | Error message -> Assert.StartsWith(expected + ":", message)
+                | Ok() -> failwith ("Accepted invalid excluded project case: " + label)
+
+            for label, includePath in
+                [ "wildcard", "*.fs"
+                  "property", "$(FixtureSource)"
+                  "item", "@(FixtureSources)"
+                  "semicolon", "Bad.fs;Inactive.fsi"
+                  "missing", "Missing.fs"
+                  "outside", "../../Escaping.fs" ] do
+                checkInvalid label "BUILD005" true (fun () ->
+                    File.WriteAllText(
+                        projectPath,
+                        "<Project Sdk=\"Microsoft.NET.Sdk\"><ItemGroup><Compile Include=\""
+                        + includePath
+                        + "\"/></ItemGroup></Project>"
+                    ))
+
+            checkInvalid "unowned linked source" "BUILD005" true (fun () ->
+                File.WriteAllText(Path.Combine(root, "Unrelated.fs"), "module Unrelated\nlet value = 1\n")
+
+                File.WriteAllText(
+                    projectPath,
+                    "<Project Sdk=\"Microsoft.NET.Sdk\"><ItemGroup Condition=\"'$(Configuration)' == 'Never'\"><Compile Include=\"../Unrelated.fs\"/><Compile Include=\"Bad.fs\"/><Compile Include=\"Inactive.fsi\"/></ItemGroup></Project>"
+                ))
+
+            checkInvalid "target-time Compile" "BUILD005" true (fun () ->
+                File.WriteAllText(
+                    projectPath,
+                    "<Project Sdk=\"Microsoft.NET.Sdk\"><ItemGroup><Compile Include=\"Inactive.fsi\"/></ItemGroup><Target Name=\"LateCompile\"><ItemGroup><Compile Include=\"Bad.fs\"/></ItemGroup></Target></Project>"
+                ))
+
+            checkInvalid "ignored ProjectExtensions Compile" "BUILD005" true (fun () ->
+                File.WriteAllText(
+                    projectPath,
+                    "<Project Sdk=\"Microsoft.NET.Sdk\"><ItemGroup><Compile Include=\"Inactive.fsi\"/></ItemGroup><ProjectExtensions><ItemGroup><Compile Include=\"Bad.fs\"/></ItemGroup></ProjectExtensions></Project>"
+                ))
+
+            for label, expected, entries in
+                [ "missing project",
+                  "BUILD005",
+                  [ { exclusion with
+                        File = "Fixture/Missing.fsproj" } ]
+                  "stale entry", "ARCH002", []
+                  "duplicate entry", "BUILD005", [ exclusion; exclusion ]
+                  "blank reason", "BUILD005", [ { exclusion with Reason = "  " } ]
+                  "checked project", "ARCH002", [ { exclusion with File = "App.fsproj" } ] ] do
+                checkInvalid label expected false (fun () ->
+                    File.WriteAllText(
+                        policyPath,
+                        Codec.encode
+                            { baseline with
+                                ExcludedProjects = Some entries }
+                    ))
+
+            checkInvalid "changed project pin" "BUILD005" false (fun () ->
+                File.AppendAllText(projectPath, "\n<!-- changed -->\n"))
+
+            checkInvalid "missing project pin" "BUILD005" false (fun () ->
+                File.WriteAllText(
+                    policyPath,
+                    Codec.encode
+                        { baseline with
+                            Inputs = baseline.Inputs |> List.filter (fun input -> input.File <> exclusion.File) }
+                ))
+
+            checkInvalid "orphan source beside excluded project" "ARCH002" false (fun () ->
+                File.WriteAllText(Path.Combine(root, "Fixture/Orphan.fs"), "module Orphan\nlet value = 1\n"))
+
+            File.Delete(Path.Combine(root, "Fixture/Orphan.fs"))
+
+            checkInvalid "unrelated project beside excluded project" "ARCH002" false (fun () ->
+                File.WriteAllText(
+                    Path.Combine(root, "Fixture/Other.fsproj"),
+                    "<Project Sdk=\"Microsoft.NET.Sdk\"><ItemGroup><Compile Include=\"Bad.fs\"/></ItemGroup></Project>"
+                ))
+
+            File.Delete(Path.Combine(root, "Fixture/Other.fsproj")))
+
+    [<Fact>]
+    let ``checked ownership of a shared excluded source still reports violations`` () =
+        withDirectory (fun root ->
+            restoreConsumer root None "module App\nlet increment value = value + 1\n"
+            excludedFixture root conditionalFixtureProject
+            File.WriteAllText(Path.Combine(root, "Shared.fs"), "module Shared\nlet first values = List.head values\n")
+
+            File.WriteAllText(
+                Path.Combine(root, "App.fsproj"),
+                "<Project Sdk=\"Microsoft.NET.Sdk\"><ItemGroup><Compile Include=\"Shared.fs\"/><Compile Include=\"App.fs\"/></ItemGroup></Project>"
+            )
+
+            File.WriteAllText(
+                Path.Combine(root, "Fixture/Fixture.fsproj"),
+                "<Project Sdk=\"Microsoft.NET.Sdk\"><ItemGroup Condition=\"'$(Configuration)' == 'Release'\"><Compile Include=\"..\\Shared.fs\"/><Compile Include=\"Bad.fs\"/></ItemGroup><ItemGroup Condition=\"'$(Configuration)' == 'Never'\"><Compile Include=\"Inactive.fsi\"/></ItemGroup></Project>"
+            )
+
+            run
+                root
+                [ "build"
+                  "App.fsproj"
+                  "-c"
+                  "Release"
+                  "--no-restore"
+                  "-m:1"
+                  "--disable-build-servers" ]
+
+            Project.initialize root |> ignore
+            let policy = read root
+            Assert.Contains(policy.Sources, fun source -> source.File = "Shared.fs" && source.Project = "App.fsproj")
+            Assert.Equal(Ok(), Workspace.validatePolicy root)
+            let report = Workspace.check root
+            Assert.Equal(1, report.ExitCode)
+
+            Assert.Contains(
+                report.Projects |> List.collect (fun project -> project.Report.Diagnostics),
+                fun diagnostic ->
+                    diagnostic.File.EndsWith("Shared.fs", StringComparison.Ordinal)
+                    && diagnostic.Rule = "ERR006"
+            )
+
+            let projectPath = Path.Combine(root, "App.fsproj")
+
+            File.WriteAllText(
+                projectPath,
+                "<Project Sdk=\"Microsoft.NET.Sdk\"><ItemGroup><ProjectReference Include=\"Fixture/Fixture.fsproj\"/><Compile Include=\"Shared.fs\"/><Compile Include=\"App.fs\"/></ItemGroup></Project>"
+            )
+
+            let repinned =
+                { policy with
+                    Inputs =
+                        policy.Inputs
+                        |> List.map (fun input ->
+                            if input.File = "App.fsproj" then
+                                { input with
+                                    Digest = SafetyPolicy.fileDigest projectPath }
+                            else
+                                input) }
+
+            File.WriteAllText(Path.Combine(root, "fdull.json"), Codec.encode repinned)
+
+            match Workspace.validatePolicy root with
+            | Error message -> Assert.StartsWith("ARCH001:", message)
+            | Ok() -> failwith "Checked project acquired an excluded FSharp project dependency.")
+
+    [<Fact>]
+    let ``initialization rejects a workspace with every FSharp project excluded`` () =
+        withDirectory (fun root ->
+            restoreConsumer root None "module App\nlet increment value = value + 1\n"
+
+            File.WriteAllText(
+                Path.Combine(root, "fdull.scope.json"),
+                "{\"Version\":1,\"External\":[],\"ExcludedProjects\":[{\"File\":\"App.fsproj\",\"Reason\":\"This fixture would leave no checked project.\"}]}"
+            )
+
+            let error =
+                Assert.Throws<InvalidOperationException>(fun () -> Project.initialize root |> ignore)
+
+            Assert.StartsWith("ARCH002:", error.Message)
+            Assert.False(File.Exists(Path.Combine(root, "fdull.json"))))
+
     [<Fact>]
     let ``CLI blocks unclassified trial automation even with zero diagnostics`` () =
         withDirectory (fun root ->
@@ -220,7 +502,11 @@ module ProjectTests =
             Assert.DoesNotContain("verification completed", clean.Output)
             let verified = runCli root [ "verify"; "." ]
             Assert.Equal(0, verified.ExitCode)
-            Assert.StartsWith("FDull verify: PASS — verification completed.", verified.Output)
+
+            Assert.StartsWith(
+                "FDull verify: PASS — verification completed for the included projects.",
+                verified.Output
+            )
 
             Directory.CreateDirectory(Path.Combine(root, ".trial")) |> ignore
             File.WriteAllText(Path.Combine(root, ".trial/check.py"), "print('checked')\n")
@@ -979,12 +1265,13 @@ module ProjectTests =
                 "<Project><Target Name=\"ClearPackageFSharpSuppressions\" BeforeTargets=\"CoreCompile\"><PropertyGroup><NoWarn></NoWarn></PropertyGroup></Target></Project>"
             )
 
+            // Pin the patched transitive dependency while retaining NuGet audit for this fixture.
             let host = Path.Combine(root, "Host")
             Directory.CreateDirectory host |> ignore
 
             File.WriteAllText(
                 Path.Combine(host, "Host.fsproj"),
-                "<Project Sdk=\"Aspire.AppHost.Sdk/13.4.6\"><PropertyGroup><OutputType>Library</OutputType><SkipValidateAspireHostProjectResources>true</SkipValidateAspireHostProjectResources></PropertyGroup><ItemGroup><Compile Include=\"Host.fs\"/></ItemGroup><ItemGroup><PackageReference Include=\"Aspire.Hosting.AppHost\" Version=\"13.4.6\"/><PackageReference Include=\"FSharp.Aspire.Hosting.AppHost\" Version=\"13.0.0\"/></ItemGroup><ItemGroup><ProjectReference Include=\"../App.fsproj\"/></ItemGroup><Target Name=\"TamperAspireMetadata\" AfterTargets=\"WriteAspireProjectMetadataSources\" BeforeTargets=\"CoreCompile\" Condition=\"Exists('tamper-generated-source')\"><WriteLinesToFile File=\"$(IntermediateOutputPath)Aspire/references/App.ProjectMetadata.g.fs\" Lines=\"// tampered\" Overwrite=\"false\"/></Target></Project>"
+                "<Project Sdk=\"Aspire.AppHost.Sdk/13.4.6\"><PropertyGroup><OutputType>Library</OutputType><SkipValidateAspireHostProjectResources>true</SkipValidateAspireHostProjectResources></PropertyGroup><ItemGroup><Compile Include=\"Host.fs\"/></ItemGroup><ItemGroup><PackageReference Include=\"Aspire.Hosting.AppHost\" Version=\"13.4.6\"/><PackageReference Include=\"FSharp.Aspire.Hosting.AppHost\" Version=\"13.0.0\"/><PackageReference Include=\"MessagePack\" Version=\"2.5.303\"/></ItemGroup><ItemGroup><ProjectReference Include=\"../App.fsproj\"/></ItemGroup><Target Name=\"TamperAspireMetadata\" AfterTargets=\"WriteAspireProjectMetadataSources\" BeforeTargets=\"CoreCompile\" Condition=\"Exists('tamper-generated-source')\"><WriteLinesToFile File=\"$(IntermediateOutputPath)Aspire/references/App.ProjectMetadata.g.fs\" Lines=\"// tampered\" Overwrite=\"false\"/></Target></Project>"
             )
 
             File.WriteAllText(Path.Combine(host, "Host.fs"), "module AppHost\nlet value = 1\n")

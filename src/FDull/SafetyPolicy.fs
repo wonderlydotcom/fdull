@@ -186,12 +186,16 @@ module SafetyPolicy =
     let toJson report =
         JsonSerializer.Serialize(report, JsonSerializerOptions(WriteIndented = true))
 
-    let toSarif (report: SafetyReport) =
+    let toSarifWithExclusions (exclusions: (string * string) list) (report: SafetyReport) =
         JsonSerializer.Serialize(
             {| version = "2.1.0"
                ``$schema`` = "https://json.schemastore.org/sarif-2.1.0.json"
                runs =
                 [ {| tool = {| driver = {| name = "FDull"; version = version |} |}
+                     properties =
+                      {| excludedProjects =
+                          exclusions
+                          |> List.map (fun (file, reason) -> {| file = file; reason = reason |}) |}
                      invocations =
                       [ {| executionSuccessful = report.Complete
                            exitCode = report.ExitCode |} ]
@@ -211,3 +215,5 @@ module SafetyPolicy =
                                            endColumn = max 1 d.EndColumn |} |} |} ] |}) |} ] |},
             JsonSerializerOptions(WriteIndented = true)
         )
+
+    let toSarif (report: SafetyReport) = toSarifWithExclusions [] report

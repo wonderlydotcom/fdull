@@ -11,6 +11,7 @@ type WorkspaceReport =
     { Complete: bool
       ExitCode: int
       Projects: WorkspaceProjectReport list
+      ExcludedProjects: WorkspaceProjectExclusion list
       Errors: string list }
 
 type WorkspaceInvocation =
@@ -304,10 +305,12 @@ module Workspace =
         let root = Path.GetFullPath platform
         let errors = ResizeArray<string>()
         let projects = ResizeArray<WorkspaceProjectReport>()
+        let exclusions = ResizeArray<WorkspaceProjectExclusion>()
 
         try
             let policy = WorkspacePolicy.read root
             WorkspaceAudit.validate root policy
+            exclusions.AddRange(WorkspacePolicy.excludedProjects policy)
             let projectFiles = WorkspaceAudit.order policy.Projects
 
             for project in projectFiles do
@@ -350,6 +353,7 @@ module Workspace =
             else
                 0
           Projects = List.ofSeq projects
+          ExcludedProjects = List.ofSeq exclusions
           Errors = List.ofSeq errors }
 
     let check platform =
@@ -399,6 +403,7 @@ module Workspace =
               AnalysisComplete = false
               ExitCode = 3
               Projects = []
+              ExcludedProjects = []
               Items = []
               SourceChanges = []
               UnusedCapabilities = []
