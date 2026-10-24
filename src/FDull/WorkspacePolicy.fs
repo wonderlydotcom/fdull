@@ -22,9 +22,13 @@ type WorkspaceExternal =
       Kind: string
       Reason: string }
 
+/// A project deliberately outside F# analysis; its build inputs remain protected.
+type WorkspaceProjectExclusion = { File: string; Reason: string }
+
 type WorkspaceScopeDocument =
     { Version: int
-      External: WorkspaceExternal list }
+      External: WorkspaceExternal list
+      ExcludedProjects: WorkspaceProjectExclusion list option }
 
 type WorkspaceCapability =
     { File: string
@@ -53,6 +57,7 @@ type WorkspacePolicyDocument =
       Sources: WorkspaceSource list
       Inputs: WorkspacePin list
       External: WorkspaceExternal list option
+      ExcludedProjects: WorkspaceProjectExclusion list option
       DataContracts: WorkspaceDataContract list option
       Capabilities: WorkspaceCapability list
       Domains: string list
@@ -299,6 +304,21 @@ module internal WorkspacePolicy =
     let dataContracts (document: WorkspacePolicyDocument) =
         document.DataContracts |> Option.defaultValue []
 
+    let excludedProjects (document: WorkspacePolicyDocument) =
+        document.ExcludedProjects |> Option.defaultValue []
+
+    let decodeScope (text: string) =
+        let json = JsonNode.Parse text |> External.required "workspace.scope"
+        let fields = json.AsObject()
+
+        if not (fields.ContainsKey "External") then
+            fields.Add("External", JsonArray())
+
+        if not (fields.ContainsKey "ExcludedProjects") then
+            fields.Add("ExcludedProjects", JsonArray())
+
+        fields.ToJsonString() |> Codec.decode<WorkspaceScopeDocument>
+
     let private decodeDocument (text: string) =
         let json = JsonNode.Parse text |> External.required "workspace.policy"
         let fields = json.AsObject()
@@ -309,7 +329,25 @@ module internal WorkspacePolicy =
         if not (fields.ContainsKey "DataContracts") then
             fields.Add("DataContracts", JsonArray())
 
+        if not (fields.ContainsKey "ExcludedProjects") then
+            fields.Add("ExcludedProjects", JsonArray())
+
         fields.ToJsonString() |> Codec.decode<WorkspacePolicyDocument>
+
+    let validateExcludedProjects (entries: WorkspaceProjectExclusion list) =
+        entries
+        |> List.iter (fun entry ->
+            if
+                not (localFile entry.File)
+                || Path.GetExtension entry.File <> ".fsproj"
+                || [ '*'; '?'; '$'; '%'; '@'; ';'; ':' ]
+                   |> List.exists (fun character -> entry.File.Contains character)
+                || String.IsNullOrWhiteSpace entry.Reason
+            then
+                invalidOp "BUILD005: A project exclusion requires an exact workspace-relative .fsproj path and reason.")
+
+        if entries.Length <> (entries |> List.map _.File |> Set.ofList).Count then
+            invalidOp "BUILD005: Duplicate project exclusion."
 
     let validateExternal entries =
         let contains (parent: string) (child: string) =
@@ -341,6 +379,7 @@ module internal WorkspacePolicy =
             invalidOp "BUILD005: Missing or unsupported workspace policy."
 
         validateExternal (externalEntries document)
+        validateExcludedProjects (excludedProjects document)
 
         for project in document.Projects do
             if

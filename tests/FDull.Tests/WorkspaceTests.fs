@@ -363,6 +363,7 @@ module WorkspaceTests =
                     Digest = "source" } ]
               Inputs = []
               External = None
+              ExcludedProjects = None
               DataContracts = None
               Capabilities = []
               Domains = []

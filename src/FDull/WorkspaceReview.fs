@@ -25,6 +25,7 @@ type WorkspaceReviewReport =
       AnalysisComplete: bool
       ExitCode: int
       Projects: WorkspaceReviewProjectReport list
+      ExcludedProjects: WorkspaceProjectExclusion list
       Items: WorkspaceReviewItem list
       SourceChanges: WorkspaceSourceReview list
       UnusedCapabilities: WorkspaceCapability list
@@ -196,6 +197,7 @@ module WorkspaceReview =
             else
                 0
           Projects = projects
+          ExcludedProjects = WorkspacePolicy.excludedProjects policy
           Items = items
           SourceChanges = changes
           UnusedCapabilities = unusedCapabilities
@@ -211,6 +213,8 @@ module WorkspaceReview =
             | _ -> "Resolve the analysis blocker; the review inventory is incomplete."
 
         [ yield "FDull review: ADVISORY. Verification has not run; no permissions or fingerprints were changed."
+          for excluded in report.ExcludedProjects do
+              yield "Excluded project (not analyzed): " + excluded.File + " — " + excluded.Reason
           yield
               sprintf
                   "Current-source analysis: %s; items=%d, changed files=%d, exit=%d"

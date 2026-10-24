@@ -261,9 +261,98 @@ module WorkspaceAudit =
             Path.GetRelativePath(root, Path.GetFullPath(path, directory)).Replace('\\', '/'))
         |> Seq.toList
 
+    /// Include every literal source declaration, including inactive fixture variants.
+    /// No directory or evaluated configuration can silently widen an exclusion.
+    let internal excludedSources root (files: string list) checkedSources (exclusions: WorkspaceProjectExclusion list) =
+        WorkspacePolicy.validateExcludedProjects exclusions
+        let inventory = Set.ofList files
+
+        exclusions
+        |> List.collect (fun entry ->
+            if not (Set.contains entry.File inventory) then
+                invalidOp (
+                    "BUILD005: Excluded project is missing from the workspace inventory: "
+                    + entry.File
+                )
+
+            let path = Path.Combine(root, entry.File)
+
+            let directory =
+                Path.GetDirectoryName path
+                |> Transport.External.required "exclusion.project-directory"
+
+            let relativeDirectory = Path.GetRelativePath(root, directory).Replace('\\', '/')
+            let xml = XDocument.Load path
+
+            if
+                xml.Descendants(XName.Get "Target")
+                |> Seq.exists (fun target -> target.Descendants(XName.Get "Compile") |> Seq.isEmpty |> not)
+            then
+                invalidOp (
+                    "BUILD005: Excluded project source declarations cannot be target-time Compile items: "
+                    + entry.File
+                )
+
+            xml.Descendants(XName.Get "Compile")
+            |> Seq.choose (fun item ->
+                match item.Attribute(XName.Get "Include") with
+                | null -> None
+                | includePath ->
+                    let group = item.Parent |> Transport.External.required "exclusion.source-parent"
+                    let source = includePath.Value.Replace('\\', '/')
+
+                    let projectLevel =
+                        match group.Parent with
+                        | null -> false
+                        | project -> project.Name = XName.Get "Project" && isNull project.Parent
+
+                    if
+                        group.Name <> XName.Get "ItemGroup"
+                        || not projectLevel
+                        || String.IsNullOrWhiteSpace source
+                        || Path.IsPathRooted source
+                        || [ '*'; '?'; '$'; '%'; '@'; ';'; ':' ]
+                           |> List.exists (fun character -> source.Contains character)
+                    then
+                        invalidOp (
+                            "BUILD005: Excluded project sources require literal relative Compile Include paths in project-level ItemGroups: "
+                            + entry.File
+                        )
+
+                    let relative =
+                        Path.GetRelativePath(root, Path.GetFullPath(source, directory)).Replace('\\', '/')
+
+                    if
+                        not (WorkspacePolicy.localFile relative)
+                        || not (List.contains (Path.GetExtension relative) [ ".fs"; ".fsi" ])
+                        || not (Set.contains relative inventory)
+                    then
+                        invalidOp (
+                            "BUILD005: Excluded source is missing or outside the authored workspace inventory: "
+                            + relative
+                        )
+
+                    if
+                        relativeDirectory <> "."
+                        && not (contains relativeDirectory relative)
+                        && not (Set.contains relative checkedSources)
+                    then
+                        invalidOp (
+                            "BUILD005: Excluded source outside its project directory must be checked by an included project: "
+                            + relative
+                        )
+
+                    Some relative)
+            |> Seq.toList)
+        |> Set.ofList
+
     let validate root (policy: WorkspacePolicyDocument) =
         let files = inventory root
         let external = WorkspacePolicy.externalEntries policy
+        let exclusions = WorkspacePolicy.excludedProjects policy
+        let excluded = exclusions |> List.map _.File |> Set.ofList
+        let declared = policy.Sources |> List.map _.File |> Set.ofList
+        let excludedSourceFiles = excludedSources root files declared exclusions
 
         let classified file =
             external |> List.exists (fun entry -> contains entry.Path file)
@@ -285,7 +374,8 @@ module WorkspaceAudit =
         if
             projects.IsEmpty
             || projects.Count <> policy.Projects.Length
-            || projects <> actualProjects
+            || not (Set.isEmpty (Set.intersect projects excluded))
+            || Set.union projects excluded <> actualProjects
         then
             invalidOp "ARCH002: Actual and protected project inventories must match exactly."
 
@@ -299,11 +389,12 @@ module WorkspaceAudit =
         if not (acyclic policy.Projects) then
             invalidOp "ARCH001: The protected F# project graph contains a cycle."
 
-        let declared = policy.Sources |> List.map _.File |> Set.ofList
-
         let actualSources =
             files
             |> List.filter (fun file -> List.contains (Path.GetExtension file) [ ".fs"; ".fsi" ])
+            // A source linked by a checked project is still checked, even when an excluded
+            // project also declares it. Exported source equality enforces that ownership.
+            |> List.filter (fun file -> not (Set.contains file excludedSourceFiles) || Set.contains file declared)
             |> Set.ofList
 
         if declared <> actualSources then

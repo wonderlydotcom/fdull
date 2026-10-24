@@ -50,9 +50,9 @@ module Project =
 
         let files = WorkspaceAudit.inventory root
 
-        let external, scopeInputs =
+        let external, exclusions, scopeInputs =
             match scopeFile with
-            | None -> [], []
+            | None -> [], [], []
             | Some supplied ->
                 let full = Path.GetFullPath(supplied, root)
                 let relative = Path.GetRelativePath(root, full).Replace('\\', '/')
@@ -60,19 +60,24 @@ module Project =
                 if not (WorkspacePolicy.localFile relative) || not (File.Exists full) then
                     invalidOp "BUILD005: The scope document must be a file inside the workspace."
 
-                let scope = File.ReadAllText full |> Codec.decode<WorkspaceScopeDocument>
+                let scope = File.ReadAllText full |> WorkspacePolicy.decodeScope
 
                 if scope.Version <> 1 then
                     invalidOp "BUILD005: Missing or unsupported workspace scope."
 
                 WorkspacePolicy.validateExternal scope.External
-                scope.External, [ relative ]
+                let exclusions = scope.ExcludedProjects |> Option.defaultValue []
+                scope.External, exclusions, [ relative ]
+
+        WorkspacePolicy.validateExcludedProjects exclusions
+        let excluded = exclusions |> List.map _.File |> Set.ofList
 
         let projectFiles =
-            files |> List.filter (fun file -> Path.GetExtension file = ".fsproj")
+            files
+            |> List.filter (fun file -> Path.GetExtension file = ".fsproj" && not (Set.contains file excluded))
 
         if projectFiles.IsEmpty then
-            invalidOp "ARCH002: No F# projects were found."
+            invalidOp "ARCH002: No included F# projects were found."
 
         let invocations =
             projectFiles
@@ -123,6 +128,7 @@ module Project =
                     { File = file
                       Digest = SafetyPolicy.fileDigest (Path.Combine(root, file)) })
               External = if external.IsEmpty then None else Some external
+              ExcludedProjects = if exclusions.IsEmpty then None else Some exclusions
               DataContracts = None
               Capabilities = []
               Domains = []

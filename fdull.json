@@ -74,13 +74,13 @@
       "File": "src/FDull/SafetyRules.fs",
       "Project": "src/FDull/FDull.fsproj",
       "Profile": "GUARD_TOOLING",
-      "Digest": "sha256:32d3fa209009de2e226e9dc80d07df7032cbe167176439e0fff7d70bf44b74f3"
+      "Digest": "sha256:0c02f2f6fb204b3002f734f47d6dd956b0cfea680d50c5835f3de85164a443d9"
     },
     {
       "File": "src/FDull/SafetyPolicy.fs",
       "Project": "src/FDull/FDull.fsproj",
       "Profile": "GUARD_TOOLING",
-      "Digest": "sha256:aa655c71cd26ef744c4b388d94ba3091f4c074420c71a7c5cc9cec8e797f86cf"
+      "Digest": "sha256:f499e9557c8c8da3530460edd8fb33c7adc53154f23172029c0663219a7d02fd"
     },
     {
       "File": "src/FDull/SafetyLimits.fs",
@@ -134,13 +134,13 @@
       "File": "src/FDull/WorkspacePolicy.fs",
       "Project": "src/FDull/FDull.fsproj",
       "Profile": "GUARD_TOOLING",
-      "Digest": "sha256:fa33426e867774e3bfd99dfdec68ef581b95d7ec8279fd85a1c1a4fb89e3317d"
+      "Digest": "sha256:7f51738fc7467dd20602be964ed425ca82042fef90427fe72d9d406752e2940e"
     },
     {
       "File": "src/FDull/WorkspaceAudit.fs",
       "Project": "src/FDull/FDull.fsproj",
       "Profile": "GUARD_TOOLING",
-      "Digest": "sha256:559b814853bf0dab5b3a37ec319775c7345a6081c6e1517adff8c5cf75380c02"
+      "Digest": "sha256:a63d3960165d739cdd4a757de90f3910de33244c5c3de20761df33d1a1cf7c60"
     },
     {
       "File": "src/FDull/WorkspaceEngine.fs",
@@ -152,7 +152,7 @@
       "File": "src/FDull/Workspace.fs",
       "Project": "src/FDull/FDull.fsproj",
       "Profile": "GUARD_TOOLING",
-      "Digest": "sha256:a1d75415140dc50eef999d424097c7e438fd9225f8673d1d3e52918f9cd7e176"
+      "Digest": "sha256:74b81e35e41802f4b2f84fe812c3081425ea46b8306a65ece4c553f5928ce6c6"
     },
     {
       "File": "src/FDull/Safety.fs",
@@ -164,7 +164,7 @@
       "File": "src/FDull/Project.fs",
       "Project": "src/FDull/FDull.fsproj",
       "Profile": "GUARD_TOOLING",
-      "Digest": "sha256:3e26fb71f5f8011faca45cf057c71f2b4e0317658301ddabcb7e8e3ab493f120"
+      "Digest": "sha256:acbc72b8583c38acc8e64f49c93e59d9b5de2f386e5d3eac4186b38851a41b49"
     },
     {
       "File": "src/FDull.Analyzers/Analyzer.fs",
@@ -176,7 +176,7 @@
       "File": "src/FDull.Tool/Program.fs",
       "Project": "src/FDull.Tool/FDull.Tool.fsproj",
       "Profile": "GUARD_TOOLING",
-      "Digest": "sha256:b5d999a1894cb0ee689958e5245c05ca3fa360f5ed2ba12fa57781ea6959d921"
+      "Digest": "sha256:58f9006208220107ec226eab8b9b87b067f6a2968ab6cb53c2ce4f9d294ea603"
     },
     {
       "File": "src/FDull.Worker/Program.fs",
@@ -200,7 +200,7 @@
       "File": "tests/FDull.Tests/SafetyTests.fs",
       "Project": "tests/FDull.Tests/FDull.Tests.fsproj",
       "Profile": "TEST",
-      "Digest": "sha256:9a5e51e97fcc15543264f57278253d13a2e98160551493cf8359d41fe4a6246b"
+      "Digest": "sha256:3809f6df9847573680e541c85d957cbb9436cd0af80af42347947cbb2b655135"
     },
     {
       "File": "tests/FDull.Tests/SafetyWorkerTests.fs",
@@ -230,13 +230,13 @@
       "File": "tests/FDull.Tests/WorkspaceTests.fs",
       "Project": "tests/FDull.Tests/FDull.Tests.fsproj",
       "Profile": "TEST",
-      "Digest": "sha256:cf745dd2e15fc2e223144c7bd424b0e73450a4824b2379ab0d58dae889edaa3c"
+      "Digest": "sha256:623f76452d58247810380c529fc0ca7fc4a80f3afc29d469d6c106d5816aaa39"
     },
     {
       "File": "tests/FDull.Tests/ProjectTests.fs",
       "Project": "tests/FDull.Tests/FDull.Tests.fsproj",
       "Profile": "TEST",
-      "Digest": "sha256:f34eaf28966c5af3f0d50920435047a05f50a7ce42ff415f8d29050f3c234ebf"
+      "Digest": "sha256:34510daa82218da17fa87f8ef357410e6ca9efa56312f4d175f6d6eae21db53c"
     },
     {
       "File": "tests/FDull.Tests/Program.fs",
@@ -248,7 +248,7 @@
       "File": "src/FDull/WorkspaceReview.fs",
       "Project": "src/FDull/FDull.fsproj",
       "Profile": "GUARD_TOOLING",
-      "Digest": "sha256:5a3756320bd810c121c9be57a3dc79291543b031d4ce7414015584b74049aed1"
+      "Digest": "sha256:ba17ead594947a41d91256a2c85ea39d6982c9bcad4fe6474ecb8b4db0fa44fd"
     },
     {
       "File": "src/FDull/DataContractPolicy.fs",
@@ -368,6 +368,7 @@
     }
   ],
   "External": null,
+  "ExcludedProjects": null,
   "DataContracts": null,
   "Capabilities": [
     {
@@ -388,8 +389,8 @@
       "File": "src/FDull.Tool/Program.fs",
       "Owner": "FDull.Tool.Program.display",
       "Kind": "member",
-      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.SafetyPolicy.toSarif(FDull.SafetyReport)",
-      "Reason": "CLI boundary prints finite checker reports, routes explicit commands and maps infrastructure exceptions to exit 3. It cannot certify a caught failure or grant policy permissions."
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.SafetyPolicy.toSarifWithExclusions(Microsoft.FSharp.Collections.FSharpList{System.Tuple{System.String,System.String}},FDull.SafetyReport)",
+      "Reason": "CLI renders audited exclusions in SARIF with their review reasons; exclusion regressions inspect the properties as well as text and JSON reports."
     },
     {
       "File": "src/FDull.Tool/Program.fs",
@@ -4334,45 +4335,45 @@
     },
     {
       "File": "src/FDull/SafetyPolicy.fs",
-      "Owner": "FDull.SafetyPolicy.toSarif",
+      "Owner": "FDull.SafetyPolicy.toSarifWithExclusions",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.GetFullPath(System.String)",
-      "Reason": "Protected catalog adapter reads pinned embedded symbol contracts, hashes inputs and formats data-only JSON/SARIF. Corrupt configuration stops verification."
+      "Reason": "Formats data-only SARIF with diagnostic locations and explicit excluded-project paths/reasons. Exclusion CLI regressions inspect the run properties; the original toSarif wrapper supplies an empty list."
     },
     {
       "File": "src/FDull/SafetyPolicy.fs",
-      "Owner": "FDull.SafetyPolicy.toSarif",
+      "Owner": "FDull.SafetyPolicy.toSarifWithExclusions",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.Uri.#ctor(System.String)",
-      "Reason": "Protected catalog adapter reads pinned embedded symbol contracts, hashes inputs and formats data-only JSON/SARIF. Corrupt configuration stops verification."
+      "Reason": "Formats data-only SARIF with diagnostic locations and explicit excluded-project paths/reasons. Exclusion CLI regressions inspect the run properties; the original toSarif wrapper supplies an empty list."
     },
     {
       "File": "src/FDull/SafetyPolicy.fs",
-      "Owner": "FDull.SafetyPolicy.toSarif",
+      "Owner": "FDull.SafetyPolicy.toSarifWithExclusions",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:System.Uri.AbsoluteUri",
-      "Reason": "Protected catalog adapter reads pinned embedded symbol contracts, hashes inputs and formats data-only JSON/SARIF. Corrupt configuration stops verification."
+      "Reason": "Formats data-only SARIF with diagnostic locations and explicit excluded-project paths/reasons. Exclusion CLI regressions inspect the run properties; the original toSarif wrapper supplies an empty list."
     },
     {
       "File": "src/FDull/SafetyPolicy.fs",
-      "Owner": "FDull.SafetyPolicy.toSarif",
+      "Owner": "FDull.SafetyPolicy.toSarifWithExclusions",
       "Kind": "member",
       "Identity": "System.Text.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | M:System.Text.Json.JsonSerializer.Serialize\u0060\u00601(\u0060\u00600,System.Text.Json.JsonSerializerOptions)",
-      "Reason": "Protected catalog adapter reads pinned embedded symbol contracts, hashes inputs and formats data-only JSON/SARIF. Corrupt configuration stops verification."
+      "Reason": "Formats data-only SARIF with diagnostic locations and explicit excluded-project paths/reasons. Exclusion CLI regressions inspect the run properties; the original toSarif wrapper supplies an empty list."
     },
     {
       "File": "src/FDull/SafetyPolicy.fs",
-      "Owner": "FDull.SafetyPolicy.toSarif",
+      "Owner": "FDull.SafetyPolicy.toSarifWithExclusions",
       "Kind": "member",
       "Identity": "System.Text.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | M:System.Text.Json.JsonSerializerOptions.#ctor",
-      "Reason": "Protected catalog adapter reads pinned embedded symbol contracts, hashes inputs and formats data-only JSON/SARIF. Corrupt configuration stops verification."
+      "Reason": "Formats data-only SARIF with diagnostic locations and explicit excluded-project paths/reasons. Exclusion CLI regressions inspect the run properties; the original toSarif wrapper supplies an empty list."
     },
     {
       "File": "src/FDull/SafetyPolicy.fs",
-      "Owner": "FDull.SafetyPolicy.toSarif",
+      "Owner": "FDull.SafetyPolicy.toSarifWithExclusions",
       "Kind": "member",
       "Identity": "System.Text.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | P:System.Text.Json.JsonSerializerOptions.WriteIndented",
-      "Reason": "Protected catalog adapter reads pinned embedded symbol contracts, hashes inputs and formats data-only JSON/SARIF. Corrupt configuration stops verification."
+      "Reason": "Formats data-only SARIF with diagnostic locations and explicit excluded-project paths/reasons. Exclusion CLI regressions inspect the run properties; the original toSarif wrapper supplies an empty list."
     },
     {
       "File": "src/FDull/SafetyPolicy.fs",
@@ -12856,56 +12857,56 @@
       "Owner": "FDull.WorkspacePolicy.decodeDocument",
       "Kind": "member",
       "Identity": "System.Text.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | M:System.Text.Json.Nodes.JsonArray.#ctor(System.Nullable{System.Text.Json.Nodes.JsonNodeOptions})",
-      "Reason": "Version-one compatibility migration inspects only the policy object shape, inserts an empty External field when absent, and immediately delegates to the same strict canonical codec. It cannot relax unknown-field or DTO validation."
+      "Reason": "Version-one compatibility parsing inserts absent empty External, DataContracts and ExcludedProjects collections, then uses the strict DTO codec. Existing policy and exclusion regressions preserve strict validation."
     },
     {
       "File": "src/FDull/WorkspacePolicy.fs",
       "Owner": "FDull.WorkspacePolicy.decodeDocument",
       "Kind": "member",
       "Identity": "System.Text.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | M:System.Text.Json.Nodes.JsonNode.AsObject",
-      "Reason": "Version-one compatibility migration inspects only the policy object shape, inserts an empty External field when absent, and immediately delegates to the same strict canonical codec. It cannot relax unknown-field or DTO validation."
+      "Reason": "Version-one compatibility parsing inserts absent empty External, DataContracts and ExcludedProjects collections, then uses the strict DTO codec. Existing policy and exclusion regressions preserve strict validation."
     },
     {
       "File": "src/FDull/WorkspacePolicy.fs",
       "Owner": "FDull.WorkspacePolicy.decodeDocument",
       "Kind": "member",
       "Identity": "System.Text.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | M:System.Text.Json.Nodes.JsonNode.Parse(System.String,System.Nullable{System.Text.Json.Nodes.JsonNodeOptions},System.Text.Json.JsonDocumentOptions)",
-      "Reason": "Version-one compatibility migration inspects only the policy object shape, inserts an empty External field when absent, and immediately delegates to the same strict canonical codec. It cannot relax unknown-field or DTO validation."
+      "Reason": "Version-one compatibility parsing inserts absent empty External, DataContracts and ExcludedProjects collections, then uses the strict DTO codec. Existing policy and exclusion regressions preserve strict validation."
     },
     {
       "File": "src/FDull/WorkspacePolicy.fs",
       "Owner": "FDull.WorkspacePolicy.decodeDocument",
       "Kind": "member",
       "Identity": "System.Text.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | M:System.Text.Json.Nodes.JsonNode.ToJsonString(System.Text.Json.JsonSerializerOptions)",
-      "Reason": "Version-one compatibility migration inspects only the policy object shape, inserts an empty External field when absent, and immediately delegates to the same strict canonical codec. It cannot relax unknown-field or DTO validation."
+      "Reason": "Version-one compatibility parsing inserts absent empty External, DataContracts and ExcludedProjects collections, then uses the strict DTO codec. Existing policy and exclusion regressions preserve strict validation."
     },
     {
       "File": "src/FDull/WorkspacePolicy.fs",
       "Owner": "FDull.WorkspacePolicy.decodeDocument",
       "Kind": "member",
       "Identity": "System.Text.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | M:System.Text.Json.Nodes.JsonObject.Add(System.String,System.Text.Json.Nodes.JsonNode)",
-      "Reason": "Version-one compatibility migration inspects only the policy object shape, inserts an empty External field when absent, and immediately delegates to the same strict canonical codec. It cannot relax unknown-field or DTO validation."
+      "Reason": "Version-one compatibility parsing inserts absent empty External, DataContracts and ExcludedProjects collections, then uses the strict DTO codec. Existing policy and exclusion regressions preserve strict validation."
     },
     {
       "File": "src/FDull/WorkspacePolicy.fs",
       "Owner": "FDull.WorkspacePolicy.decodeDocument",
       "Kind": "member",
       "Identity": "System.Text.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | M:System.Text.Json.Nodes.JsonObject.ContainsKey(System.String)",
-      "Reason": "Version-one compatibility migration inspects only the policy object shape, inserts an empty External field when absent, and immediately delegates to the same strict canonical codec. It cannot relax unknown-field or DTO validation."
+      "Reason": "Version-one compatibility parsing inserts absent empty External, DataContracts and ExcludedProjects collections, then uses the strict DTO codec. Existing policy and exclusion regressions preserve strict validation."
     },
     {
       "File": "src/FDull/WorkspacePolicy.fs",
       "Owner": "FDull.WorkspacePolicy.decodeDocument",
       "Kind": "type",
       "Identity": "System.Text.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | System.Text.Json.Nodes.JsonNode",
-      "Reason": "Version-one compatibility migration inspects only the policy object shape, inserts an empty External field when absent, and immediately delegates to the same strict canonical codec. It cannot relax unknown-field or DTO validation."
+      "Reason": "Version-one compatibility parsing inserts absent empty External, DataContracts and ExcludedProjects collections, then uses the strict DTO codec. Existing policy and exclusion regressions preserve strict validation."
     },
     {
       "File": "src/FDull/WorkspacePolicy.fs",
       "Owner": "FDull.WorkspacePolicy.decodeDocument",
       "Kind": "type",
       "Identity": "System.Text.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | System.Text.Json.Nodes.JsonObject",
-      "Reason": "Version-one compatibility migration inspects only the policy object shape, inserts an empty External field when absent, and immediately delegates to the same strict canonical codec. It cannot relax unknown-field or DTO validation."
+      "Reason": "Version-one compatibility parsing inserts absent empty External, DataContracts and ExcludedProjects collections, then uses the strict DTO codec. Existing policy and exclusion regressions preserve strict validation."
     },
     {
       "File": "src/FDull/WorkspacePolicy.fs",
@@ -17454,7 +17455,7 @@
       "File": "tools/FDull.Ci/Program.fs",
       "Owner": "FDull.Ci.Program.require",
       "Kind": "member",
-      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Core.Operators.InvalidOp``1(System.String)",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Core.Operators.InvalidOp\u0060\u00601(System.String)",
       "Reason": "Reviewed CI assertion: a violated precondition aborts the job. Package smoke exercises required success, violation and blocked exits."
     },
     {
@@ -17489,14 +17490,14 @@
       "File": "tools/FDull.Ci/Program.fs",
       "Owner": "FDull.Ci.Program.run",
       "Kind": "member",
-      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.Collections.ObjectModel.Collection`1.Add(`0)",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.Collections.ObjectModel.Collection\u00601.Add(\u00600)",
       "Reason": "Reviewed bounded dotnet supervision: fixed executable, argument-list invocation, isolated package cache and CLI home, fixed resource limits and exact expected exits; logs do not replace exit validation."
     },
     {
       "File": "tools/FDull.Ci/Program.fs",
       "Owner": "FDull.Ci.Program.run",
       "Kind": "member",
-      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:System.Collections.Generic.IDictionary`2.Item(`0)",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:System.Collections.Generic.IDictionary\u00602.Item(\u00600)",
       "Reason": "Reviewed bounded dotnet supervision: fixed executable, argument-list invocation, isolated package cache and CLI home, fixed resource limits and exact expected exits; logs do not replace exit validation."
     },
     {
@@ -17538,14 +17539,14 @@
       "File": "tools/FDull.Ci/Program.fs",
       "Owner": "FDull.Ci.Program.run",
       "Kind": "member",
-      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Core.Operators.InvalidOp``1(System.String)",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Core.Operators.InvalidOp\u0060\u00601(System.String)",
       "Reason": "Reviewed bounded dotnet supervision: fixed executable, argument-list invocation, isolated package cache and CLI home, fixed resource limits and exact expected exits; logs do not replace exit validation."
     },
     {
       "File": "tools/FDull.Ci/Program.fs",
       "Owner": "FDull.Ci.Program.run",
       "Kind": "rule",
-      "Identity": "CAST004 | coercion -> System.Object",
+      "Identity": "CAST004 | coercion -\u003E System.Object",
       "Reason": "Reviewed bounded dotnet supervision: fixed executable, argument-list invocation, isolated package cache and CLI home, fixed resource limits and exact expected exits; logs do not replace exit validation."
     },
     {
@@ -17608,7 +17609,7 @@
       "File": "tools/FDull.Ci/Program.fs",
       "Owner": "FDull.Ci.Program.coverage",
       "Kind": "member",
-      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Transport.Codec.decode``1(System.String)",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Transport.Codec.decode\u0060\u00601(System.String)",
       "Reason": "Reviewed coverage freshness check: decode and compare the committed inventory with the CLI built from this source; mismatches fail without modifying evidence."
     },
     {
@@ -17713,7 +17714,7 @@
       "File": "tools/FDull.Ci/Program.fs",
       "Owner": "FDull.Ci.Program.smoke",
       "Kind": "member",
-      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Transport.Codec.decode``1(System.String)",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Transport.Codec.decode\u0060\u00601(System.String)",
       "Reason": "Reviewed package integration smoke: fresh local tool installation and isolated cache, passing pure consumer, complete mutation rejection, blocked source drift, running library consumer and exact analyzer payload checks; cleanup never converts errors to success."
     },
     {
@@ -17748,7 +17749,7 @@
       "File": "tools/FDull.Ci/Program.fs",
       "Owner": "FDull.Ci.Program.main",
       "Kind": "member",
-      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.ArrayModule.ToList``1(``0[])",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.ArrayModule.ToList\u0060\u00601(\u0060\u00600[])",
       "Reason": "Reviewed CI entry point: only the coverage and smoke commands are dispatched; unexpected arguments and exceptions return nonzero exits."
     },
     {
@@ -17825,7 +17826,7 @@
       "File": "tools/FDull.Ci/Program.fs",
       "Owner": "FDull.Ci.Program.smoke",
       "Kind": "rule",
-      "Identity": "CAST004 | coercion -> System.Object",
+      "Identity": "CAST004 | coercion -\u003E System.Object",
       "Reason": "Reviewed compiler-generated boxing while enumerating fixed package/assembly name lists; no application payload is erased or cast."
     },
     {
@@ -17853,14 +17854,14 @@
       "File": "tests/FDull.Tests/SafetyWorkerTests.fs",
       "Owner": "FDull.Tests.SafetyWorkerTests.\u0060\u0060short lived processes retain their status and streams during memory sampling\u0060\u0060",
       "Kind": "attribute",
-      "Identity": "xunit.core, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | Xunit.InlineDataAttribute |  | [\"string:\\u0022exit\\u0022\",\"int32:17\",\"string:\\u0022\\u0022\",\"string:\\u0022deliberate worker failure\\u0022\"]",
+      "Identity": "xunit.core, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | Xunit.InlineDataAttribute |  | [\u0022string:\\u0022exit\\u0022\u0022,\u0022int32:17\u0022,\u0022string:\\u0022\\u0022\u0022,\u0022string:\\u0022deliberate worker failure\\u0022\u0022]",
       "Reason": "Reviewed bounded 64-run process regression per case. Immediate success/failure fixtures must preserve their exact exit status and captured streams, and every child must have stopped; errors fail the test."
     },
     {
       "File": "tests/FDull.Tests/SafetyWorkerTests.fs",
       "Owner": "FDull.Tests.SafetyWorkerTests.\u0060\u0060short lived processes retain their status and streams during memory sampling\u0060\u0060",
       "Kind": "attribute",
-      "Identity": "xunit.core, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | Xunit.InlineDataAttribute |  | [\"string:\\u0022heap-limit\\u0022\",\"int32:0\",\"string:\\u0022536870912\\u0022\",\"string:\\u0022\\u0022\"]",
+      "Identity": "xunit.core, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | Xunit.InlineDataAttribute |  | [\u0022string:\\u0022heap-limit\\u0022\u0022,\u0022int32:0\u0022,\u0022string:\\u0022536870912\\u0022\u0022,\u0022string:\\u0022\\u0022\u0022]",
       "Reason": "Reviewed bounded 64-run process regression per case. Immediate success/failure fixtures must preserve their exact exit status and captured streams, and every child must have stopped; errors fail the test."
     },
     {
@@ -17911,6 +17912,881 @@
       "Kind": "member",
       "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.ListModule.Initialize\u0060\u00601(System.Int32,Microsoft.FSharp.Core.FSharpFunc{System.Int32,\u0060\u00600})",
       "Reason": "Reviewed fixed-size 64-element test traversal. The callback runs only the controlled fixture through existing bounded supervision and checks exact exit status, streams and termination; it cannot retry a failed assertion."
+    },
+    {
+      "File": "src/FDull/WorkspacePolicy.fs",
+      "Owner": "FDull.WorkspacePolicy.decodeScope",
+      "Kind": "member",
+      "Identity": "System.Text.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | M:System.Text.Json.Nodes.JsonArray.#ctor(System.Nullable{System.Text.Json.Nodes.JsonNodeOptions})",
+      "Reason": "Scope compatibility parsing adds only absent empty collections, then uses the strict DTO codec; exclusion initialization and existing external-scope tests exercise the resulting policy."
+    },
+    {
+      "File": "src/FDull/WorkspacePolicy.fs",
+      "Owner": "FDull.WorkspacePolicy.decodeScope",
+      "Kind": "member",
+      "Identity": "System.Text.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | M:System.Text.Json.Nodes.JsonNode.AsObject",
+      "Reason": "Scope compatibility parsing adds only absent empty collections, then uses the strict DTO codec; exclusion initialization and existing external-scope tests exercise the resulting policy."
+    },
+    {
+      "File": "src/FDull/WorkspacePolicy.fs",
+      "Owner": "FDull.WorkspacePolicy.decodeScope",
+      "Kind": "member",
+      "Identity": "System.Text.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | M:System.Text.Json.Nodes.JsonNode.Parse(System.String,System.Nullable{System.Text.Json.Nodes.JsonNodeOptions},System.Text.Json.JsonDocumentOptions)",
+      "Reason": "Scope compatibility parsing adds only absent empty collections, then uses the strict DTO codec; exclusion initialization and existing external-scope tests exercise the resulting policy."
+    },
+    {
+      "File": "src/FDull/WorkspacePolicy.fs",
+      "Owner": "FDull.WorkspacePolicy.decodeScope",
+      "Kind": "member",
+      "Identity": "System.Text.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | M:System.Text.Json.Nodes.JsonNode.ToJsonString(System.Text.Json.JsonSerializerOptions)",
+      "Reason": "Scope compatibility parsing adds only absent empty collections, then uses the strict DTO codec; exclusion initialization and existing external-scope tests exercise the resulting policy."
+    },
+    {
+      "File": "src/FDull/WorkspacePolicy.fs",
+      "Owner": "FDull.WorkspacePolicy.decodeScope",
+      "Kind": "member",
+      "Identity": "System.Text.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | M:System.Text.Json.Nodes.JsonObject.Add(System.String,System.Text.Json.Nodes.JsonNode)",
+      "Reason": "Scope compatibility parsing adds only absent empty collections, then uses the strict DTO codec; exclusion initialization and existing external-scope tests exercise the resulting policy."
+    },
+    {
+      "File": "src/FDull/WorkspacePolicy.fs",
+      "Owner": "FDull.WorkspacePolicy.decodeScope",
+      "Kind": "member",
+      "Identity": "System.Text.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | M:System.Text.Json.Nodes.JsonObject.ContainsKey(System.String)",
+      "Reason": "Scope compatibility parsing adds only absent empty collections, then uses the strict DTO codec; exclusion initialization and existing external-scope tests exercise the resulting policy."
+    },
+    {
+      "File": "src/FDull/WorkspacePolicy.fs",
+      "Owner": "FDull.WorkspacePolicy.decodeScope",
+      "Kind": "type",
+      "Identity": "System.Text.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | System.Text.Json.Nodes.JsonNode",
+      "Reason": "Scope compatibility parsing adds only absent empty collections, then uses the strict DTO codec; exclusion initialization and existing external-scope tests exercise the resulting policy."
+    },
+    {
+      "File": "src/FDull/WorkspacePolicy.fs",
+      "Owner": "FDull.WorkspacePolicy.decodeScope",
+      "Kind": "type",
+      "Identity": "System.Text.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | System.Text.Json.Nodes.JsonObject",
+      "Reason": "Scope compatibility parsing adds only absent empty collections, then uses the strict DTO codec; exclusion initialization and existing external-scope tests exercise the resulting policy."
+    },
+    {
+      "File": "src/FDull/WorkspacePolicy.fs",
+      "Owner": "FDull.WorkspacePolicy.validateExcludedProjects",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.GetExtension(System.String)",
+      "Reason": "Validates exact local .fsproj paths, nonblank reasons and uniqueness; malformed exclusions fail closed. ProjectTests exercises invalid entries and all-excluded workspaces."
+    },
+    {
+      "File": "src/FDull/WorkspacePolicy.fs",
+      "Owner": "FDull.WorkspacePolicy.validateExcludedProjects",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Core.Operators.InvalidOp\u0060\u00601(System.String)",
+      "Reason": "Validates exact local .fsproj paths, nonblank reasons and uniqueness; malformed exclusions fail closed. ProjectTests exercises invalid entries and all-excluded workspaces."
+    },
+    {
+      "File": "src/FDull/WorkspaceAudit.fs",
+      "Owner": "FDull.WorkspaceAudit.excludedSources",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.SeqModule.ToList\u0060\u00601(System.Collections.Generic.IEnumerable{\u0060\u00600})",
+      "Reason": "Reads pinned excluded project XML without evaluating MSBuild, inventories every literal Compile Include including inactive conditions, rejects dynamic/target-time/missing/escaping sources, and requires linked sources outside the project directory to remain checked. Exclusion regressions cover these boundaries and shared-source violations."
+    },
+    {
+      "File": "src/FDull/WorkspaceAudit.fs",
+      "Owner": "FDull.WorkspaceAudit.excludedSources",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.Combine(System.String,System.String)",
+      "Reason": "Reads pinned excluded project XML without evaluating MSBuild, inventories every literal Compile Include including inactive conditions, rejects dynamic/target-time/missing/escaping sources, and requires linked sources outside the project directory to remain checked. Exclusion regressions cover these boundaries and shared-source violations."
+    },
+    {
+      "File": "src/FDull/WorkspaceAudit.fs",
+      "Owner": "FDull.WorkspaceAudit.excludedSources",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.GetDirectoryName(System.String)",
+      "Reason": "Reads pinned excluded project XML without evaluating MSBuild, inventories every literal Compile Include including inactive conditions, rejects dynamic/target-time/missing/escaping sources, and requires linked sources outside the project directory to remain checked. Exclusion regressions cover these boundaries and shared-source violations."
+    },
+    {
+      "File": "src/FDull/WorkspaceAudit.fs",
+      "Owner": "FDull.WorkspaceAudit.excludedSources",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.GetFullPath(System.String,System.String)",
+      "Reason": "Reads pinned excluded project XML without evaluating MSBuild, inventories every literal Compile Include including inactive conditions, rejects dynamic/target-time/missing/escaping sources, and requires linked sources outside the project directory to remain checked. Exclusion regressions cover these boundaries and shared-source violations."
+    },
+    {
+      "File": "src/FDull/WorkspaceAudit.fs",
+      "Owner": "FDull.WorkspaceAudit.excludedSources",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.GetRelativePath(System.String,System.String)",
+      "Reason": "Reads pinned excluded project XML without evaluating MSBuild, inventories every literal Compile Include including inactive conditions, rejects dynamic/target-time/missing/escaping sources, and requires linked sources outside the project directory to remain checked. Exclusion regressions cover these boundaries and shared-source violations."
+    },
+    {
+      "File": "src/FDull/WorkspaceAudit.fs",
+      "Owner": "FDull.WorkspaceAudit.excludedSources",
+      "Kind": "member",
+      "Identity": "System.Xml.XDocument, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.Xml.Linq.XContainer.Descendants(System.Xml.Linq.XName)",
+      "Reason": "Reads pinned excluded project XML without evaluating MSBuild, inventories every literal Compile Include including inactive conditions, rejects dynamic/target-time/missing/escaping sources, and requires linked sources outside the project directory to remain checked. Exclusion regressions cover these boundaries and shared-source violations."
+    },
+    {
+      "File": "src/FDull/WorkspaceAudit.fs",
+      "Owner": "FDull.WorkspaceAudit.excludedSources",
+      "Kind": "member",
+      "Identity": "System.Xml.XDocument, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.Xml.Linq.XDocument.Load(System.String)",
+      "Reason": "Reads pinned excluded project XML without evaluating MSBuild, inventories every literal Compile Include including inactive conditions, rejects dynamic/target-time/missing/escaping sources, and requires linked sources outside the project directory to remain checked. Exclusion regressions cover these boundaries and shared-source violations."
+    },
+    {
+      "File": "src/FDull/WorkspaceAudit.fs",
+      "Owner": "FDull.WorkspaceAudit.excludedSources",
+      "Kind": "member",
+      "Identity": "System.Xml.XDocument, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.Xml.Linq.XElement.Attribute(System.Xml.Linq.XName)",
+      "Reason": "Reads pinned excluded project XML without evaluating MSBuild, inventories every literal Compile Include including inactive conditions, rejects dynamic/target-time/missing/escaping sources, and requires linked sources outside the project directory to remain checked. Exclusion regressions cover these boundaries and shared-source violations."
+    },
+    {
+      "File": "src/FDull/WorkspaceAudit.fs",
+      "Owner": "FDull.WorkspaceAudit.excludedSources",
+      "Kind": "member",
+      "Identity": "System.Xml.XDocument, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.Xml.Linq.XName.Get(System.String)",
+      "Reason": "Reads pinned excluded project XML without evaluating MSBuild, inventories every literal Compile Include including inactive conditions, rejects dynamic/target-time/missing/escaping sources, and requires linked sources outside the project directory to remain checked. Exclusion regressions cover these boundaries and shared-source violations."
+    },
+    {
+      "File": "src/FDull/WorkspaceAudit.fs",
+      "Owner": "FDull.WorkspaceAudit.excludedSources",
+      "Kind": "member",
+      "Identity": "System.Xml.XDocument, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:System.Xml.Linq.XAttribute.Value",
+      "Reason": "Reads pinned excluded project XML without evaluating MSBuild, inventories every literal Compile Include including inactive conditions, rejects dynamic/target-time/missing/escaping sources, and requires linked sources outside the project directory to remain checked. Exclusion regressions cover these boundaries and shared-source violations."
+    },
+    {
+      "File": "src/FDull/WorkspaceAudit.fs",
+      "Owner": "FDull.WorkspaceAudit.excludedSources",
+      "Kind": "member",
+      "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | M:System.String.Replace(System.Char,System.Char)",
+      "Reason": "Reads pinned excluded project XML without evaluating MSBuild, inventories every literal Compile Include including inactive conditions, rejects dynamic/target-time/missing/escaping sources, and requires linked sources outside the project directory to remain checked. Exclusion regressions cover these boundaries and shared-source violations."
+    },
+    {
+      "File": "src/FDull/WorkspaceAudit.fs",
+      "Owner": "FDull.WorkspaceAudit.excludedSources",
+      "Kind": "type",
+      "Identity": "System.Xml.XDocument, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | System.Xml.Linq.XDocument",
+      "Reason": "Reads pinned excluded project XML without evaluating MSBuild, inventories every literal Compile Include including inactive conditions, rejects dynamic/target-time/missing/escaping sources, and requires linked sources outside the project directory to remain checked. Exclusion regressions cover these boundaries and shared-source violations."
+    },
+    {
+      "File": "src/FDull/WorkspaceAudit.fs",
+      "Owner": "FDull.WorkspaceAudit.excludedSources",
+      "Kind": "type",
+      "Identity": "System.Xml.XDocument, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | System.Xml.Linq.XElement",
+      "Reason": "Reads pinned excluded project XML without evaluating MSBuild, inventories every literal Compile Include including inactive conditions, rejects dynamic/target-time/missing/escaping sources, and requires linked sources outside the project directory to remain checked. Exclusion regressions cover these boundaries and shared-source violations."
+    },
+    {
+      "File": "src/FDull/WorkspaceAudit.fs",
+      "Owner": "FDull.WorkspaceAudit.excludedSources",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Core.Operators.InvalidOp\u0060\u00601(System.String)",
+      "Reason": "Reads pinned excluded project XML without evaluating MSBuild, inventories every literal Compile Include including inactive conditions, rejects dynamic/target-time/missing/escaping sources, and requires linked sources outside the project directory to remain checked. Exclusion regressions cover these boundaries and shared-source violations."
+    },
+    {
+      "File": "src/FDull/WorkspaceAudit.fs",
+      "Owner": "FDull.WorkspaceAudit.excludedSources",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.SeqModule.Choose\u0060\u00602(Microsoft.FSharp.Core.FSharpFunc{\u0060\u00600,Microsoft.FSharp.Core.FSharpOption{\u0060\u00601}},System.Collections.Generic.IEnumerable{\u0060\u00600})",
+      "Reason": "Reads pinned excluded project XML without evaluating MSBuild, inventories every literal Compile Include including inactive conditions, rejects dynamic/target-time/missing/escaping sources, and requires linked sources outside the project directory to remain checked. Exclusion regressions cover these boundaries and shared-source violations."
+    },
+    {
+      "File": "src/FDull/WorkspaceAudit.fs",
+      "Owner": "FDull.WorkspaceAudit.excludedSources",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.SeqModule.Exists\u0060\u00601(Microsoft.FSharp.Core.FSharpFunc{\u0060\u00600,System.Boolean},System.Collections.Generic.IEnumerable{\u0060\u00600})",
+      "Reason": "Reads pinned excluded project XML without evaluating MSBuild, inventories every literal Compile Include including inactive conditions, rejects dynamic/target-time/missing/escaping sources, and requires linked sources outside the project directory to remain checked. Exclusion regressions cover these boundaries and shared-source violations."
+    },
+    {
+      "File": "src/FDull/WorkspaceAudit.fs",
+      "Owner": "FDull.WorkspaceAudit.excludedSources",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.SeqModule.IsEmpty\u0060\u00601(System.Collections.Generic.IEnumerable{\u0060\u00600})",
+      "Reason": "Reads pinned excluded project XML without evaluating MSBuild, inventories every literal Compile Include including inactive conditions, rejects dynamic/target-time/missing/escaping sources, and requires linked sources outside the project directory to remain checked. Exclusion regressions cover these boundaries and shared-source violations."
+    },
+    {
+      "File": "src/FDull/WorkspaceAudit.fs",
+      "Owner": "FDull.WorkspaceAudit.excludedSources",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.GetExtension(System.String)",
+      "Reason": "Reads pinned excluded project XML without evaluating MSBuild, inventories every literal Compile Include including inactive conditions, rejects dynamic/target-time/missing/escaping sources, and requires linked sources outside the project directory to remain checked. Exclusion regressions cover these boundaries and shared-source violations."
+    },
+    {
+      "File": "src/FDull/WorkspaceAudit.fs",
+      "Owner": "FDull.WorkspaceAudit.excludedSources",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.IsPathRooted(System.String)",
+      "Reason": "Reads pinned excluded project XML without evaluating MSBuild, inventories every literal Compile Include including inactive conditions, rejects dynamic/target-time/missing/escaping sources, and requires linked sources outside the project directory to remain checked. Exclusion regressions cover these boundaries and shared-source violations."
+    },
+    {
+      "File": "src/FDull/WorkspaceAudit.fs",
+      "Owner": "FDull.WorkspaceAudit.excludedSources",
+      "Kind": "member",
+      "Identity": "System.Xml.XDocument, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:System.Xml.Linq.XObject.Parent",
+      "Reason": "Reads pinned excluded project XML without evaluating MSBuild, inventories every literal Compile Include including inactive conditions, rejects dynamic/target-time/missing/escaping sources, and requires linked sources outside the project directory to remain checked. Exclusion regressions cover these boundaries and shared-source violations."
+    },
+    {
+      "File": "src/FDull/WorkspaceAudit.fs",
+      "Owner": "FDull.WorkspaceAudit.excludedSources",
+      "Kind": "member",
+      "Identity": "System.Xml.XDocument, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:System.Xml.Linq.XElement.Name",
+      "Reason": "Reads pinned excluded project XML without evaluating MSBuild, inventories every literal Compile Include including inactive conditions, rejects dynamic/target-time/missing/escaping sources, and requires linked sources outside the project directory to remain checked. Exclusion regressions cover these boundaries and shared-source violations."
+    },
+    {
+      "File": "src/FDull/Workspace.fs",
+      "Owner": "FDull.Workspace.checkUsing",
+      "Kind": "member",
+      "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | M:System.Collections.Generic.List\u00601.AddRange(System.Collections.Generic.IEnumerable{\u00600})",
+      "Reason": "Collects only audited policy exclusions into the workspace report, making the omitted analysis scope visible even when a later project check fails. Exclusion reporting regression checks text, JSON and SARIF."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.excludedFixture",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.Combine(System.String,System.String)",
+      "Reason": "Creates the literal invalid FSharp fixture and reviewed scope only inside the disposable consumer directory."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.excludedFixture",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Directory.CreateDirectory(System.String)",
+      "Reason": "Creates the literal invalid FSharp fixture and reviewed scope only inside the disposable consumer directory."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.excludedFixture",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.File.WriteAllText(System.String,System.String)",
+      "Reason": "Creates the literal invalid FSharp fixture and reviewed scope only inside the disposable consumer directory."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060excluded conditional project is neither exported nor built and remains visible in reports\u0060\u0060",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Project.initialize(System.String)",
+      "Reason": "Checks that only App is verified and analyzed while the conditional fixture and its reason remain disclosed by all report formats."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060excluded conditional project is neither exported nor built and remains visible in reports\u0060\u0060",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Project.verify(System.String)",
+      "Reason": "Checks that only App is verified and analyzed while the conditional fixture and its reason remain disclosed by all report formats."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060excluded conditional project is neither exported nor built and remains visible in reports\u0060\u0060",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Workspace.validatePolicy(System.String)",
+      "Reason": "Checks that only App is verified and analyzed while the conditional fixture and its reason remain disclosed by all report formats."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060excluded conditional project is neither exported nor built and remains visible in reports\u0060\u0060",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Workspace.check(System.String)",
+      "Reason": "Checks that only App is verified and analyzed while the conditional fixture and its reason remain disclosed by all report formats."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060excluded conditional project is neither exported nor built and remains visible in reports\u0060\u0060",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Workspace.review(System.String)",
+      "Reason": "Checks that only App is verified and analyzed while the conditional fixture and its reason remain disclosed by all report formats."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060excluded conditional project is neither exported nor built and remains visible in reports\u0060\u0060",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.WorkspaceReview.format(FDull.WorkspaceReviewReport)",
+      "Reason": "Checks that only App is verified and analyzed while the conditional fixture and its reason remain disclosed by all report formats."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060excluded conditional project is neither exported nor built and remains visible in reports\u0060\u0060",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Transport.Codec.encode\u0060\u00601(\u0060\u00600)",
+      "Reason": "Checks that only App is verified and analyzed while the conditional fixture and its reason remain disclosed by all report formats."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060excluded conditional project is neither exported nor built and remains visible in reports\u0060\u0060",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Transport.Codec.decode\u0060\u00601(System.String)",
+      "Reason": "Checks that only App is verified and analyzed while the conditional fixture and its reason remain disclosed by all report formats."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060excluded conditional project is neither exported nor built and remains visible in reports\u0060\u0060",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.Combine(System.String,System.String)",
+      "Reason": "Checks that only App is verified and analyzed while the conditional fixture and its reason remain disclosed by all report formats."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060excluded conditional project is neither exported nor built and remains visible in reports\u0060\u0060",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Directory.Exists(System.String)",
+      "Reason": "Checks that only App is verified and analyzed while the conditional fixture and its reason remain disclosed by all report formats."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060excluded conditional project is neither exported nor built and remains visible in reports\u0060\u0060",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.File.Exists(System.String)",
+      "Reason": "Checks that only App is verified and analyzed while the conditional fixture and its reason remain disclosed by all report formats."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060excluded conditional project is neither exported nor built and remains visible in reports\u0060\u0060",
+      "Kind": "member",
+      "Identity": "System.Text.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | M:System.Text.Json.JsonDocument.Parse(System.String,System.Text.Json.JsonDocumentOptions)",
+      "Reason": "Checks that only App is verified and analyzed while the conditional fixture and its reason remain disclosed by all report formats."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060excluded conditional project is neither exported nor built and remains visible in reports\u0060\u0060",
+      "Kind": "member",
+      "Identity": "System.Text.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | P:System.Text.Json.JsonDocument.RootElement",
+      "Reason": "Checks that only App is verified and analyzed while the conditional fixture and its reason remain disclosed by all report formats."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060excluded conditional project is neither exported nor built and remains visible in reports\u0060\u0060",
+      "Kind": "member",
+      "Identity": "System.Text.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | M:System.Text.Json.JsonElement.GetProperty(System.String)",
+      "Reason": "Checks that only App is verified and analyzed while the conditional fixture and its reason remain disclosed by all report formats."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060excluded conditional project is neither exported nor built and remains visible in reports\u0060\u0060",
+      "Kind": "member",
+      "Identity": "System.Text.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | P:System.Text.Json.JsonElement.Item(System.Int32)",
+      "Reason": "Checks that only App is verified and analyzed while the conditional fixture and its reason remain disclosed by all report formats."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060excluded conditional project is neither exported nor built and remains visible in reports\u0060\u0060",
+      "Kind": "member",
+      "Identity": "System.Text.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | M:System.Text.Json.JsonElement.GetString",
+      "Reason": "Checks that only App is verified and analyzed while the conditional fixture and its reason remain disclosed by all report formats."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060excluded conditional project is neither exported nor built and remains visible in reports\u0060\u0060",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspacePolicyDocument",
+      "Reason": "Checks that only App is verified and analyzed while the conditional fixture and its reason remain disclosed by all report formats."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060excluded conditional project is neither exported nor built and remains visible in reports\u0060\u0060",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspaceProject",
+      "Reason": "Checks that only App is verified and analyzed while the conditional fixture and its reason remain disclosed by all report formats."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060excluded conditional project is neither exported nor built and remains visible in reports\u0060\u0060",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspaceSource",
+      "Reason": "Checks that only App is verified and analyzed while the conditional fixture and its reason remain disclosed by all report formats."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060excluded conditional project is neither exported nor built and remains visible in reports\u0060\u0060",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspacePin",
+      "Reason": "Checks that only App is verified and analyzed while the conditional fixture and its reason remain disclosed by all report formats."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060excluded conditional project is neither exported nor built and remains visible in reports\u0060\u0060",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspaceReport",
+      "Reason": "Checks that only App is verified and analyzed while the conditional fixture and its reason remain disclosed by all report formats."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060excluded conditional project is neither exported nor built and remains visible in reports\u0060\u0060",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspaceReviewReport",
+      "Reason": "Checks that only App is verified and analyzed while the conditional fixture and its reason remain disclosed by all report formats."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060excluded conditional project is neither exported nor built and remains visible in reports\u0060\u0060",
+      "Kind": "type",
+      "Identity": "System.Text.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | System.Text.Json.JsonDocument",
+      "Reason": "Checks that only App is verified and analyzed while the conditional fixture and its reason remain disclosed by all report formats."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060excluded conditional project is neither exported nor built and remains visible in reports\u0060\u0060",
+      "Kind": "type",
+      "Identity": "System.Text.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | System.Text.Json.JsonElement",
+      "Reason": "Checks that only App is verified and analyzed while the conditional fixture and its reason remain disclosed by all report formats."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060excluded conditional project is neither exported nor built and remains visible in reports\u0060\u0060",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Equal\u0060\u00601(\u0060\u00600,\u0060\u00600)",
+      "Reason": "Checks that only App is verified and analyzed while the conditional fixture and its reason remain disclosed by all report formats."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060excluded conditional project is neither exported nor built and remains visible in reports\u0060\u0060",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Single\u0060\u00601(System.Collections.Generic.IEnumerable{\u0060\u00600})",
+      "Reason": "Checks that only App is verified and analyzed while the conditional fixture and its reason remain disclosed by all report formats."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060excluded conditional project is neither exported nor built and remains visible in reports\u0060\u0060",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Contains\u0060\u00601(System.Collections.Generic.IEnumerable{\u0060\u00600},System.Predicate{\u0060\u00600})",
+      "Reason": "Checks that only App is verified and analyzed while the conditional fixture and its reason remain disclosed by all report formats."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060excluded conditional project is neither exported nor built and remains visible in reports\u0060\u0060",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.DoesNotContain\u0060\u00601(System.Collections.Generic.IEnumerable{\u0060\u00600},System.Predicate{\u0060\u00600})",
+      "Reason": "Checks that only App is verified and analyzed while the conditional fixture and its reason remain disclosed by all report formats."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060excluded conditional project is neither exported nor built and remains visible in reports\u0060\u0060",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Contains(System.String,System.String)",
+      "Reason": "Checks that only App is verified and analyzed while the conditional fixture and its reason remain disclosed by all report formats."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060excluded conditional project is neither exported nor built and remains visible in reports\u0060\u0060",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.True(System.Boolean)",
+      "Reason": "Checks that only App is verified and analyzed while the conditional fixture and its reason remain disclosed by all report formats."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060excluded conditional project is neither exported nor built and remains visible in reports\u0060\u0060",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.True(System.Boolean,System.String)",
+      "Reason": "Checks that only App is verified and analyzed while the conditional fixture and its reason remain disclosed by all report formats."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060excluded conditional project is neither exported nor built and remains visible in reports\u0060\u0060",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.False(System.Boolean)",
+      "Reason": "Checks that only App is verified and analyzed while the conditional fixture and its reason remain disclosed by all report formats."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060excluded conditional project is neither exported nor built and remains visible in reports\u0060\u0060",
+      "Kind": "attribute",
+      "Identity": "xunit.core, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | Xunit.FactAttribute |  | unit",
+      "Reason": "Checks that only App is verified and analyzed while the conditional fixture and its reason remain disclosed by all report formats."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060excluded conditional project is neither exported nor built and remains visible in reports\u0060\u0060",
+      "Kind": "rule",
+      "Identity": "ERR009 | ",
+      "Reason": "Checks that only App is verified and analyzed while the conditional fixture and its reason remain disclosed by all report formats."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060excluded project declarations and policy entries remain exact\u0060\u0060",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Project.initialize(System.String)",
+      "Reason": "Mutates only disposable fixture XML, policy pins, paths and files to assert precise rejection of invalid exclusions."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060excluded project declarations and policy entries remain exact\u0060\u0060",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Workspace.validatePolicy(System.String)",
+      "Reason": "Mutates only disposable fixture XML, policy pins, paths and files to assert precise rejection of invalid exclusions."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060excluded project declarations and policy entries remain exact\u0060\u0060",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Transport.Codec.encode\u0060\u00601(\u0060\u00600)",
+      "Reason": "Mutates only disposable fixture XML, policy pins, paths and files to assert precise rejection of invalid exclusions."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060excluded project declarations and policy entries remain exact\u0060\u0060",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.SafetyPolicy.fileDigest(System.String)",
+      "Reason": "Mutates only disposable fixture XML, policy pins, paths and files to assert precise rejection of invalid exclusions."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060excluded project declarations and policy entries remain exact\u0060\u0060",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.Combine(System.String,System.String)",
+      "Reason": "Mutates only disposable fixture XML, policy pins, paths and files to assert precise rejection of invalid exclusions."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060excluded project declarations and policy entries remain exact\u0060\u0060",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.File.ReadAllText(System.String)",
+      "Reason": "Mutates only disposable fixture XML, policy pins, paths and files to assert precise rejection of invalid exclusions."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060excluded project declarations and policy entries remain exact\u0060\u0060",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.File.WriteAllText(System.String,System.String)",
+      "Reason": "Mutates only disposable fixture XML, policy pins, paths and files to assert precise rejection of invalid exclusions."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060excluded project declarations and policy entries remain exact\u0060\u0060",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.File.Exists(System.String)",
+      "Reason": "Mutates only disposable fixture XML, policy pins, paths and files to assert precise rejection of invalid exclusions."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060excluded project declarations and policy entries remain exact\u0060\u0060",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.File.Delete(System.String)",
+      "Reason": "Mutates only disposable fixture XML, policy pins, paths and files to assert precise rejection of invalid exclusions."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060excluded project declarations and policy entries remain exact\u0060\u0060",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.File.AppendAllText(System.String,System.String)",
+      "Reason": "Mutates only disposable fixture XML, policy pins, paths and files to assert precise rejection of invalid exclusions."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060excluded project declarations and policy entries remain exact\u0060\u0060",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspacePolicyDocument",
+      "Reason": "Mutates only disposable fixture XML, policy pins, paths and files to assert precise rejection of invalid exclusions."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060excluded project declarations and policy entries remain exact\u0060\u0060",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspaceProjectExclusion",
+      "Reason": "Mutates only disposable fixture XML, policy pins, paths and files to assert precise rejection of invalid exclusions."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060excluded project declarations and policy entries remain exact\u0060\u0060",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspacePin",
+      "Reason": "Mutates only disposable fixture XML, policy pins, paths and files to assert precise rejection of invalid exclusions."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060excluded project declarations and policy entries remain exact\u0060\u0060",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Single\u0060\u00601(System.Collections.Generic.IEnumerable{\u0060\u00600})",
+      "Reason": "Mutates only disposable fixture XML, policy pins, paths and files to assert precise rejection of invalid exclusions."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060excluded project declarations and policy entries remain exact\u0060\u0060",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.StartsWith(System.String,System.String)",
+      "Reason": "Mutates only disposable fixture XML, policy pins, paths and files to assert precise rejection of invalid exclusions."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060excluded project declarations and policy entries remain exact\u0060\u0060",
+      "Kind": "attribute",
+      "Identity": "xunit.core, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | Xunit.FactAttribute |  | unit",
+      "Reason": "Mutates only disposable fixture XML, policy pins, paths and files to assert precise rejection of invalid exclusions."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060checked ownership of a shared excluded source still reports violations\u0060\u0060",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Project.initialize(System.String)",
+      "Reason": "Builds the checked App with a shared source, confirms its diagnostic, then rejects App referencing the excluded project after repinning."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060checked ownership of a shared excluded source still reports violations\u0060\u0060",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Workspace.validatePolicy(System.String)",
+      "Reason": "Builds the checked App with a shared source, confirms its diagnostic, then rejects App referencing the excluded project after repinning."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060checked ownership of a shared excluded source still reports violations\u0060\u0060",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Workspace.check(System.String)",
+      "Reason": "Builds the checked App with a shared source, confirms its diagnostic, then rejects App referencing the excluded project after repinning."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060checked ownership of a shared excluded source still reports violations\u0060\u0060",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.SafetyPolicy.fileDigest(System.String)",
+      "Reason": "Builds the checked App with a shared source, confirms its diagnostic, then rejects App referencing the excluded project after repinning."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060checked ownership of a shared excluded source still reports violations\u0060\u0060",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Transport.Codec.encode\u0060\u00601(\u0060\u00600)",
+      "Reason": "Builds the checked App with a shared source, confirms its diagnostic, then rejects App referencing the excluded project after repinning."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060checked ownership of a shared excluded source still reports violations\u0060\u0060",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.Combine(System.String,System.String)",
+      "Reason": "Builds the checked App with a shared source, confirms its diagnostic, then rejects App referencing the excluded project after repinning."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060checked ownership of a shared excluded source still reports violations\u0060\u0060",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.File.WriteAllText(System.String,System.String)",
+      "Reason": "Builds the checked App with a shared source, confirms its diagnostic, then rejects App referencing the excluded project after repinning."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060checked ownership of a shared excluded source still reports violations\u0060\u0060",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspacePolicyDocument",
+      "Reason": "Builds the checked App with a shared source, confirms its diagnostic, then rejects App referencing the excluded project after repinning."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060checked ownership of a shared excluded source still reports violations\u0060\u0060",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspaceSource",
+      "Reason": "Builds the checked App with a shared source, confirms its diagnostic, then rejects App referencing the excluded project after repinning."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060checked ownership of a shared excluded source still reports violations\u0060\u0060",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspaceReport",
+      "Reason": "Builds the checked App with a shared source, confirms its diagnostic, then rejects App referencing the excluded project after repinning."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060checked ownership of a shared excluded source still reports violations\u0060\u0060",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspaceProjectReport",
+      "Reason": "Builds the checked App with a shared source, confirms its diagnostic, then rejects App referencing the excluded project after repinning."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060checked ownership of a shared excluded source still reports violations\u0060\u0060",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | FDull.SafetyDiagnostic",
+      "Reason": "Builds the checked App with a shared source, confirms its diagnostic, then rejects App referencing the excluded project after repinning."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060checked ownership of a shared excluded source still reports violations\u0060\u0060",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspacePin",
+      "Reason": "Builds the checked App with a shared source, confirms its diagnostic, then rejects App referencing the excluded project after repinning."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060checked ownership of a shared excluded source still reports violations\u0060\u0060",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Contains\u0060\u00601(System.Collections.Generic.IEnumerable{\u0060\u00600},System.Predicate{\u0060\u00600})",
+      "Reason": "Builds the checked App with a shared source, confirms its diagnostic, then rejects App referencing the excluded project after repinning."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060checked ownership of a shared excluded source still reports violations\u0060\u0060",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Equal\u0060\u00601(\u0060\u00600,\u0060\u00600)",
+      "Reason": "Builds the checked App with a shared source, confirms its diagnostic, then rejects App referencing the excluded project after repinning."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060checked ownership of a shared excluded source still reports violations\u0060\u0060",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.StartsWith(System.String,System.String)",
+      "Reason": "Builds the checked App with a shared source, confirms its diagnostic, then rejects App referencing the excluded project after repinning."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060checked ownership of a shared excluded source still reports violations\u0060\u0060",
+      "Kind": "attribute",
+      "Identity": "xunit.core, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | Xunit.FactAttribute |  | unit",
+      "Reason": "Builds the checked App with a shared source, confirms its diagnostic, then rejects App referencing the excluded project after repinning."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060initialization rejects a workspace with every FSharp project excluded\u0060\u0060",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Project.initialize(System.String)",
+      "Reason": "Writes a scope excluding the sole App project and asserts initialization refuses to create a policy."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060initialization rejects a workspace with every FSharp project excluded\u0060\u0060",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.Combine(System.String,System.String)",
+      "Reason": "Writes a scope excluding the sole App project and asserts initialization refuses to create a policy."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060initialization rejects a workspace with every FSharp project excluded\u0060\u0060",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.File.WriteAllText(System.String,System.String)",
+      "Reason": "Writes a scope excluding the sole App project and asserts initialization refuses to create a policy."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060initialization rejects a workspace with every FSharp project excluded\u0060\u0060",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.File.Exists(System.String)",
+      "Reason": "Writes a scope excluding the sole App project and asserts initialization refuses to create a policy."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060initialization rejects a workspace with every FSharp project excluded\u0060\u0060",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Throws\u0060\u00601(System.Action)",
+      "Reason": "Writes a scope excluding the sole App project and asserts initialization refuses to create a policy."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060initialization rejects a workspace with every FSharp project excluded\u0060\u0060",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.False(System.Boolean)",
+      "Reason": "Writes a scope excluding the sole App project and asserts initialization refuses to create a policy."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060initialization rejects a workspace with every FSharp project excluded\u0060\u0060",
+      "Kind": "attribute",
+      "Identity": "xunit.core, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | Xunit.FactAttribute |  | unit",
+      "Reason": "Writes a scope excluding the sole App project and asserts initialization refuses to create a policy."
+    },
+    {
+      "File": "src/FDull.Tool/Program.fs",
+      "Owner": "FDull.Tool.Program.display",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspaceProjectExclusion",
+      "Reason": "Reads immutable exclusion paths/reasons from the audited report for text and SARIF disclosure. Exclusion CLI tests check all output formats."
+    },
+    {
+      "File": "src/FDull/WorkspaceAudit.fs",
+      "Owner": "FDull.WorkspaceAudit.excludedSources",
+      "Kind": "type",
+      "Identity": "System.Xml.XDocument, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | System.Xml.Linq.XAttribute",
+      "Reason": "Reads only the Include value from pinned project XML. Missing Include attributes are skipped; dynamic, missing and escaping declarations are rejected by tested validation."
+    },
+    {
+      "File": "src/FDull/WorkspaceAudit.fs",
+      "Owner": "FDull.WorkspaceAudit.excludedSources",
+      "Kind": "rule",
+      "Identity": "NULL001 | ",
+      "Reason": "XML interop checks absent Include attributes and parent elements explicitly. Missing Include attributes cannot classify sources, and only root project-level ItemGroups may own exclusions; malformed-context regressions verify rejection."
+    },
+    {
+      "File": "src/FDull/WorkspaceAudit.fs",
+      "Owner": "FDull.WorkspaceAudit.excludedSources",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Core.Operators.IsNull\u0060\u00601(\u0060\u00600)",
+      "Reason": "Checks the XML parent boundary to accept only root project-level item groups. ProjectExtensions and target-time Compile regression cases reject ignored or dynamic declarations."
+    },
+    {
+      "File": "src/FDull/WorkspacePolicy.fs",
+      "Owner": "FDull.WorkspacePolicy.validateExcludedProjects",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.ListModule.Iterate\u0060\u00601(Microsoft.FSharp.Core.FSharpFunc{\u0060\u00600,Microsoft.FSharp.Core.Unit},Microsoft.FSharp.Collections.FSharpList{\u0060\u00600})",
+      "Reason": "Iterates the finite exclusion list only to validate each path/reason and fail on invalid entries. The exclusion-entry regressions cover malformed and duplicate inputs."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060checked ownership of a shared excluded source still reports violations\u0060\u0060",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Core.Operators.FailWith\u0060\u00601(System.String)",
+      "Reason": "Fails the isolated regression immediately if policy validation accepts a checked App reference to the excluded fixture."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060excluded conditional project is neither exported nor built and remains visible in reports\u0060\u0060",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Equal(System.String,System.String)",
+      "Reason": "Compares exact excluded project paths and SARIF file text in the successful consumer report assertions."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060excluded conditional project is neither exported nor built and remains visible in reports\u0060\u0060",
+      "Kind": "rule",
+      "Identity": "MUT009 | ",
+      "Reason": "The for loop visits only the literal json, text and sarif format list to assert each CLI disclosure."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060excluded conditional project is neither exported nor built and remains visible in reports\u0060\u0060",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | FDull.SafetyProcessOutput",
+      "Reason": "Holds each bounded CLI result returned by runCli long enough to inspect its exit status and output."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060excluded conditional project is neither exported nor built and remains visible in reports\u0060\u0060",
+      "Kind": "type",
+      "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | System.Object",
+      "Reason": "Compiler representation of the bounded literal three-format for loop; no arbitrary object data enters the fixture."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060excluded project declarations and policy entries remain exact\u0060\u0060",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Core.Operators.FailWith\u0060\u00601(System.String)",
+      "Reason": "Fails the isolated negative test only when an intentionally invalid exclusion unexpectedly validates."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060excluded project declarations and policy entries remain exact\u0060\u0060",
+      "Kind": "rule",
+      "Identity": "MUT009 | ",
+      "Reason": "Two for loops iterate fixed invalid include paths and fixed policy-entry mutations to assert rejection."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060excluded project declarations and policy entries remain exact\u0060\u0060",
+      "Kind": "type",
+      "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | System.Object",
+      "Reason": "Compiler representation of the two finite literal-case for loops; the fixture has no object-typed application data."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060initialization rejects a workspace with every FSharp project excluded\u0060\u0060",
+      "Kind": "member",
+      "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | P:System.Exception.Message",
+      "Reason": "Checks the exact ARCH002 failure from initialization when the sole FSharp project is excluded."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060initialization rejects a workspace with every FSharp project excluded\u0060\u0060",
+      "Kind": "type",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | System.InvalidOperationException",
+      "Reason": "Assert.Throws expects initialization to reject the all-excluded scope with its documented invalid-operation failure."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.\u0060\u0060initialization rejects a workspace with every FSharp project excluded\u0060\u0060",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.StartsWith(System.String,System.String)",
+      "Reason": "Asserts the all-excluded initialization failure begins with the exact ARCH002 code."
     }
   ],
   "Domains": [],

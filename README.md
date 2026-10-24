@@ -129,6 +129,56 @@ exported compiler inputs remain exact. Inventory remains time/depth bounded and
 supports up to 100,000 traversal steps. Symlinks are accepted only when their resolved target exists
 inside the workspace; external and broken links fail inventory validation.
 
+### Excluding fixture projects
+
+A project can be deliberately excluded from F# analysis with an exact path and
+a review reason in `fdull.scope.json`:
+
+```json
+{
+  "Version": 1,
+  "ExcludedProjects": [
+    {
+      "File": "tests/fixtures/Crm.Definitions/Crm.Definitions.fsproj",
+      "Reason": "Conditional CRM fixtures are validated by the definitions integration tests."
+    }
+  ]
+}
+```
+
+`External` can coexist with `ExcludedProjects`; both default to empty when absent
+from a scope document. `init` copies the exclusions into `fdull.json`, fingerprints
+the scope document, and exports only included projects. At least one F# project
+must remain included. Existing policies without `ExcludedProjects` keep their
+previous behavior. To change an existing policy, review its exclusions, source
+assignments and protected input fingerprints together; `init` never overwrites it.
+
+An exclusion accounts for the project's explicitly listed `.fs` and `.fsi` files,
+including literal `Compile Include` entries in inactive conditional, project-level
+`ItemGroup` elements. Nested groups (including `Choose` and `ProjectExtensions`)
+are not supported for excluded source declarations.
+It does not exclude a directory: new orphan sources and unrelated projects still
+fail inventory validation. Wildcards, MSBuild expressions, item lists, missing
+files and target-time `Compile` declarations are rejected. Imported or implicit
+source lists are not inferred. Paths use forward slashes in the policy; literal
+source includes can use either slash style and are normalized inside the workspace.
+Excluded sources must be under their project's directory, except linked sources
+that are also assigned to an included project and remain fully checked there.
+An included project cannot reference an excluded F# project.
+
+The excluded project's source bodies are not analyzed or fingerprinted. Its
+project file and all ordinary protected build inputs (including props, targets
+and existing lock files) remain fingerprinted. Adding source declarations therefore
+requires review of the changed project input. FDull does not directly restore,
+export, analyze or build excluded projects; normal build hooks of included
+projects still execute. Exclusions do not sandbox those builds.
+
+Text, JSON and SARIF reports disclose excluded projects and reasons. A passing
+result covers only included projects, and never certifies excluded fixtures.
+JSON workspace/review reports contain `ExcludedProjects`; SARIF records them in
+`runs[].properties.excludedProjects`. Exclusions do not grant capabilities or
+suppress findings in included projects.
+
 For example, this passes:
 
 ```fsharp
