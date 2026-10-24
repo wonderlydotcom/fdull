@@ -435,6 +435,30 @@ module WorkspaceTests =
         Assert.True(validate 1 "" result |> Result.isError)
         Assert.True(validate 0 "worker failure" result |> Result.isError)
 
+        let compilerBlocker =
+            { violation with
+                Uses = []
+                Report =
+                    { violation.Report with
+                        Complete = false
+                        ExitCode = 3
+                        Diagnostics =
+                            [ { diagnostic with
+                                  Rule = "FS0193"
+                                  File = request.Project
+                                  Message = "Compiler input was unavailable." } ] } }
+
+        Assert.Equal(Ok(), validate 3 "" compilerBlocker)
+
+        Assert.True(
+            validate
+                3
+                ""
+                { compilerBlocker with
+                    Uses = [ { useSite with File = "Fixture.fsproj" } ] }
+            |> Result.isError
+        )
+
         Assert.True(
             validate
                 -1

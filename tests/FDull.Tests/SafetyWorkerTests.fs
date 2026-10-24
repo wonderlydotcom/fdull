@@ -11,6 +11,19 @@ open FDull
 open FDull.Transport
 
 module SafetyWorkerTests =
+    [<Fact>]
+    let ``workspace lint response can carry a bounded large diagnostic report`` () =
+        let payload = String('x', 6 * 1024 * 1024)
+
+        let read limit =
+            use input = new StringReader(payload)
+            SafetyProcess.readBounded limit input |> _.GetAwaiter().GetResult()
+
+        Assert.Equal(payload, read SafetyLimits.workspaceReportCharacters)
+
+        Assert.Throws<InvalidOperationException>(fun () -> read SafetyLimits.messageCharacters |> ignore)
+        |> ignore
+
     let private temporary action =
         let directory =
             Path.Combine(Path.GetTempPath(), "fdull-worker-test-" + Guid.NewGuid().ToString("N"))

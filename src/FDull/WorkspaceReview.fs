@@ -40,7 +40,7 @@ module WorkspaceReview =
         | Ok() ->
             if
                 not result.Advisory
-                || result.Findings.Length > 4097
+                || result.Findings.Length > SafetyLimits.workspaceDiagnosticCount + 1
                 || (result.Findings |> List.map _.Diagnostic |> Set.ofList)
                    <> Set.ofList result.Analysis.Report.Diagnostics
                 || result.Findings

@@ -32,6 +32,25 @@ requires **Microsoft.NETCore.App 10.0.4** and disables runtime roll-forward.
 Install the matching SDK/runtime first. New toolchains require compatibility
 tests; the preview rejects untested compiler flags.
 
+Projects affected by the pinned compiler's task-builder FS3180 warning may set
+`WarningsNotAsErrors` to **3180 only**. FDull accepts the exact exported
+`--warnaserror-:3180` argument and performs an additional compiler pass in its
+bounded worker. This pass permits only the known optimizer warning for `awaiter`
+at the compiler's `unknown(1,1)` location; every other compiler warning or error
+still fails analysis. The normal build continues to display that warning.
+For executables, the private diagnostic pass omits the Windows manifest, which
+FCS otherwise tries to load from the runtime directory. The SDK build still
+produces its normal manifest and remains part of verification.
+The default compiler preset remains strict, and `--nowarn` and other warning
+downgrades remain unsupported, including FS3186.
+
+This warning shape is a compatibility allowance, not proof of task provenance:
+an imported inline helper can produce the same diagnostic. Included projects
+are checked individually, so their authored captures still fail at their source
+locations. External inline APIs remain subject to their exact reviewed contracts.
+Do not use the warning setting without FDull's additional compilation check as
+evidence that authored capture warnings have passed.
+
 Workspaces contain ordinary F# SDK projects with literal project references and
 authored `.fs`/`.fsi` files. Release builds must use the standard
 `obj/Release/net10.0` generated metadata layout. Exact profiles cover SDK-owned
@@ -199,10 +218,21 @@ not grant I/O, mutation or reflection. Necessary operations need exact entries
 bound to a file, declaration, permission kind and resolved API identity. Every
 entry needs a reason; unused, duplicate and overbroad entries fail verification.
 
+Attribute permissions include the resolved attribute type, target, and exact
+arguments. Literal named arguments include both the name and value. Supported
+enum arguments include the resolved enum assembly, type, field, and 32-bit value;
+changing a flag or named value requires a new review. Combined enum expressions
+and other computed arguments remain unsupported. Simple `typeof<T>` and `nameof`
+operands are bound to their resolved symbols; literal arrays retain element order
+and are limited to 16 elements. Referenced string, Boolean and 32-bit integer
+constants include their resolved symbol and value. This permits narrowly reviewed
+test metadata such as `MethodImplOptions.NoInlining` without allowing attributes
+by name alone.
+
 Generated capture fields use `Kind: "capture"` for their rule permissions. FDull
 maps each field's resolved declaration location to its authored constructor
-parameter or named binding, retaining the enclosing type, lexical binding path
-and nested payload path. The key contains no source coordinates or generated field
+parameter, named binding or auto-property, retaining the enclosing type, lexical
+binding path and nested payload path. The key contains no source coordinates or generated field
 name. For example, a stored callback binding can have this manually reviewed entry:
 
 ```json
@@ -215,8 +245,9 @@ name. For example, a stored callback binding can have this manually reviewed ent
 }
 ```
 
-Constructor parameters use `"parameter"` instead of `"binding"`; the two never
-share a permission. The second array describes the payload location (`"field"`
+Constructor parameters use `"parameter"` instead of `"binding"`; auto-properties
+use `"property"` with the unique authored property name. These origins never share
+a permission. The second array describes the payload location (`"field"`
 with a field name or `"tuple"` with an index). Existing rule restrictions also
 apply to capture permissions: pure/data profiles cannot grant callback exemptions.
 Unknown or ambiguous source mappings fail analysis; use distinct named bindings.

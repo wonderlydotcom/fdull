@@ -232,7 +232,11 @@ module Workspace =
             match
                 SafetyProcess.run
                     { Milliseconds = 60000
-                      OutputCharacters = SafetyLimits.messageCharacters
+                      OutputCharacters =
+                        if advisory then
+                            SafetyLimits.workspaceReviewCharacters
+                        else
+                            SafetyLimits.workspaceReportCharacters
                       WorkingSetBytes = SafetyLimits.workingSetBytes }
                     start
                     text
