@@ -83,7 +83,7 @@ module WorkspaceCompilerPolicy =
         [ "--langversion:10.0"
           "--noframework"
           "--warn:5"
-          "--warnon:21,22,52,1178,1182,3180,3186,3218,3391,3395,3559,3570,3579,3582,3878"
+          "--warnon:21,22,52,1178,1182,3180,3218,3391,3395,3559,3570,3579,3582,3878"
           "--checked+"
           "--checknulls+"
           "--deterministic+"

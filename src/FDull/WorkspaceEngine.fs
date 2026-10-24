@@ -106,10 +106,9 @@ module WorkspaceProtocol =
 module WorkspaceEngine =
     let private checker = lazy (FSharpChecker.Create(keepAssemblyContents = true))
 
-    /// Optimizer diagnostics are absent from ParseAndCheckProject. Compile the exact
-    /// source/reference invocation into a private temporary output when FS3180 has
-    /// been kept as a warning, so authored captures cannot disappear at this stage.
-    let private compileForTaskAwaiterWarning (budget: SafetyBudget) (request: WorkspaceRequest) files =
+    /// Compile the exact source/reference invocation into a private temporary
+    /// output. ParseAndCheckProject does not report every compiler diagnostic.
+    let private compileForDiagnostics (budget: SafetyBudget) (request: WorkspaceRequest) files =
         let outputs =
             request.Arguments
             |> List.choose (fun argument ->
@@ -404,50 +403,50 @@ module WorkspaceEngine =
             for diagnostic in result.Diagnostics do
                 if
                     diagnostic.Severity = FSharpDiagnosticSeverity.Error
-                    || diagnostic.Severity = FSharpDiagnosticSeverity.Warning
+                    || (diagnostic.Severity = FSharpDiagnosticSeverity.Warning
+                        && not (SafetyPolicy.optionalCompilerWarning diagnostic))
                 then
                     emitCompiler diagnostic diagnostic.Range
 
             let compileFailed =
-                if List.contains "--warnaserror-:3180" request.Arguments then
-                    let compilerDiagnostics, failure, artifact =
-                        compileForTaskAwaiterWarning budget request files
+                let compilerDiagnostics, failure, artifact =
+                    compileForDiagnostics budget request files
 
-                    for diagnostic in compilerDiagnostics do
+                for diagnostic in compilerDiagnostics do
+                    if
+                        diagnostic.Severity = FSharpDiagnosticSeverity.Error
+                        || diagnostic.Severity = FSharpDiagnosticSeverity.Warning
+                    then
+                        let r = diagnostic.Range
+
+                        let compatibleAwaiter =
+                            List.contains "--warnaserror-:3180" request.Arguments
+                            && WorkspaceCompilerPolicy.compatibleTaskAwaiterWarning
+                                diagnostic.ErrorNumber
+                                diagnostic.Subcategory
+                                r.FileName
+                                r.StartLine
+                                r.StartColumn
+                                r.EndLine
+                                r.EndColumn
+                                diagnostic.Message
+
                         if
-                            diagnostic.Severity = FSharpDiagnosticSeverity.Error
-                            || diagnostic.Severity = FSharpDiagnosticSeverity.Warning
+                            not (SafetyPolicy.optionalCompilerWarning diagnostic)
+                            && (diagnostic.Severity <> FSharpDiagnosticSeverity.Warning || not compatibleAwaiter)
                         then
-                            let r = diagnostic.Range
+                            let location =
+                                if Set.contains r.FileName sourceFiles then
+                                    r
+                                else
+                                    Range.mkRange request.Project (Position.mkPos 1 0) (Position.mkPos 1 1)
 
-                            if
-                                diagnostic.Severity <> FSharpDiagnosticSeverity.Warning
-                                || not (
-                                    WorkspaceCompilerPolicy.compatibleTaskAwaiterWarning
-                                        diagnostic.ErrorNumber
-                                        diagnostic.Subcategory
-                                        r.FileName
-                                        r.StartLine
-                                        r.StartColumn
-                                        r.EndLine
-                                        r.EndColumn
-                                        diagnostic.Message
-                                )
-                            then
-                                let location =
-                                    if Set.contains r.FileName sourceFiles then
-                                        r
-                                    else
-                                        Range.mkRange request.Project (Position.mkPos 1 0) (Position.mkPos 1 1)
+                            emitCompiler diagnostic location
 
-                                emitCompiler diagnostic location
-
-                    failure.IsSome
-                    || not artifact
-                    || (compilerDiagnostics
-                        |> Array.exists (fun diagnostic -> diagnostic.Severity = FSharpDiagnosticSeverity.Error))
-                else
-                    false
+                failure.IsSome
+                || not artifact
+                || (compilerDiagnostics
+                    |> Array.exists (fun diagnostic -> diagnostic.Severity = FSharpDiagnosticSeverity.Error))
 
             if
                 result.HasCriticalErrors

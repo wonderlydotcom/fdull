@@ -61,6 +61,162 @@ module SafetyTests =
     let private check source =
         checkFiles [ "App.fs", "module SafetyFixture\n" + source + "\n" ] id
 
+    let private analyzeWorkspaceWithTarget
+        downgrade
+        target
+        expectCompilerFailure
+        (refs: string list)
+        directory
+        output
+        (files: string list)
+        =
+        let input path =
+            { Path = path
+              Digest = SafetyPolicy.fileDigest path }
+
+        let project = Path.Combine(directory, "Fixture.fsproj")
+        File.WriteAllText(project, "<Project />")
+        let generatedDirectory = Path.Combine(directory, "obj/Release/net10.0")
+        Directory.CreateDirectory generatedDirectory |> ignore
+
+        let generated =
+            [ Path.Combine(generatedDirectory, ".NETCoreApp,Version=v10.0.AssemblyAttributes.fs")
+              Path.Combine(generatedDirectory, "Fixture.AssemblyInfo.fs") ]
+
+        for file in generated do
+            File.WriteAllText(file, "namespace FixtureMetadata\n")
+
+        let policy: WorkspacePolicyDocument =
+            { Version = 1
+              Projects =
+                [ { File = "Fixture.fsproj"
+                    Profile = "ADAPTER"
+                    References = [] } ]
+              Sources =
+                files
+                |> List.map (fun file ->
+                    { File = Path.GetFileName file |> FDull.Transport.External.required "test.capture-source"
+                      Project = "Fixture.fsproj"
+                      Profile = "ADAPTER"
+                      Digest = SafetyPolicy.fileDigest file })
+              Inputs =
+                [ { File = "Fixture.fsproj"
+                    Digest = SafetyPolicy.fileDigest project } ]
+              External = None
+              ExcludedProjects = None
+              DataContracts = None
+              Capabilities = []
+              Domains = []
+              Constructors = [] }
+
+        let policyPath = Path.Combine(directory, "fdull.json")
+        File.WriteAllText(policyPath, FDull.Transport.Codec.encode policy)
+
+        let request =
+            { Root = directory
+              Project = project
+              ProjectReferences = []
+              Arguments =
+                WorkspaceCompilerPolicy.required
+                @ [ "--warnaserror" ]
+                @ (if String.IsNullOrEmpty downgrade then [] else [ downgrade ])
+                @ [ "--optimize+"; "--target:" + target; "-o:" + output ]
+                @ (refs |> List.map (fun path -> "-r:" + path))
+              Sources = generated @ files |> List.map input
+              References = refs |> List.map input
+              Generated = generated
+              BuildInputs = [ input project ]
+              Policy = input policyPath }
+
+        let manifest = if target = "exe" then [ "--nowin32manifest" ] else []
+
+        let rawDiagnostics, compilerFailure =
+            FSharpChecker
+                .Create()
+                .Compile(
+                    [ "fsc.exe" ] @ request.Arguments @ manifest @ (generated @ files)
+                    |> List.toArray
+                )
+            |> Async.RunSynchronously
+
+        Assert.Equal(expectCompilerFailure, compilerFailure.IsSome)
+        let result = WorkspaceEngine.check request
+
+        match WorkspaceProtocol.validate request policy result.Report.ExitCode "" result with
+        | Ok() -> ()
+        | Error error -> failwith error
+
+        result.Report, rawDiagnostics
+
+    [<Fact>]
+    let ``healthy anonymous record metadata is optional while needed missing types block`` () =
+        let root =
+            Path.Combine(Path.GetTempPath(), "fdull-anon-metadata-" + Guid.NewGuid().ToString("N"))
+
+        Directory.CreateDirectory root |> ignore
+
+        try
+            let producer = Path.Combine(root, "HealthyAnon.fs")
+            let assembly = Path.Combine(root, "HealthyAnon.dll")
+
+            File.WriteAllText(
+                producer,
+                "namespace HealthyAnon\nmodule Api =\n    let inline make (x: int) = {| Value = x |}\n"
+            )
+
+            let compile arguments =
+                FSharpChecker.Create().Compile(arguments |> List.toArray)
+                |> Async.RunSynchronously
+
+            let producerDiagnostics, producerFailure =
+                compile (
+                    [ "fsc.exe" ]
+                    @ WorkspaceCompilerPolicy.required
+                    @ [ "--warnaserror"; "--target:library"; "-o:" + assembly ]
+                    @ (references |> List.map (fun path -> "-r:" + path))
+                    @ [ producer ]
+                )
+
+            Assert.True(producerFailure.IsNone, String.Join("\n", producerDiagnostics |> Array.map _.Message))
+
+            let consumer = Path.Combine(root, "Consumer.fs")
+            let consumerOutput = Path.Combine(root, "Consumer.dll")
+            File.WriteAllText(consumer, "module HealthyConsumer\nlet value = 1\n")
+
+            let references = references @ [ assembly ]
+
+            let clean, baselineDiagnostics =
+                analyzeWorkspaceWithTarget "" "library" false references root consumerOutput [ consumer ]
+
+            Assert.Contains(baselineDiagnostics, fun diagnostic -> diagnostic.ErrorNumber = 3186)
+            Assert.True(clean.Complete, describe clean)
+            Assert.Equal(0, clean.ExitCode)
+            Assert.DoesNotContain(clean.Diagnostics, fun diagnostic -> diagnostic.Rule = "FS3186")
+
+
+            let optInDiagnostics, _ =
+                compile (
+                    [ "fsc.exe" ]
+                    @ WorkspaceCompilerPolicy.required
+                    @ [ "--warnaserror"; "--warnon:3186"; "--target:library"; "-o:" + consumerOutput ]
+                    @ (references |> List.map (fun path -> "-r:" + path))
+                    @ [ consumer ]
+                )
+
+            Assert.Contains(optInDiagnostics, fun diagnostic -> diagnostic.ErrorNumber = 3186)
+
+            File.WriteAllText(consumer, "module HealthyConsumer\nlet value: HealthyAnon.Missing = 1\n")
+
+            let blocked, _ =
+                analyzeWorkspaceWithTarget "" "library" true references root consumerOutput [ consumer ]
+
+            Assert.False(blocked.Complete)
+            Assert.Equal(3, blocked.ExitCode)
+            Assert.Contains(blocked.Diagnostics, fun diagnostic -> diagnostic.Rule = "FS0039")
+        finally
+            Directory.Delete(root, true)
+
+
     [<Fact>]
     let ``task awaiter compatibility preserves authored capture warnings`` () =
         let source =
@@ -73,88 +229,7 @@ module SafetyTests =
             + "    awaiter <- 1\n"
             + "    closure\n"
 
-        let analyzeWithTarget target (refs: string list) directory output (files: string list) =
-            let input path =
-                { Path = path
-                  Digest = SafetyPolicy.fileDigest path }
-
-            let project = Path.Combine(directory, "Fixture.fsproj")
-            File.WriteAllText(project, "<Project />")
-            let generatedDirectory = Path.Combine(directory, "obj/Release/net10.0")
-            Directory.CreateDirectory generatedDirectory |> ignore
-
-            let generated =
-                [ Path.Combine(generatedDirectory, ".NETCoreApp,Version=v10.0.AssemblyAttributes.fs")
-                  Path.Combine(generatedDirectory, "Fixture.AssemblyInfo.fs") ]
-
-            for file in generated do
-                File.WriteAllText(file, "namespace FixtureMetadata\n")
-
-            let policy: WorkspacePolicyDocument =
-                { Version = 1
-                  Projects =
-                    [ { File = "Fixture.fsproj"
-                        Profile = "ADAPTER"
-                        References = [] } ]
-                  Sources =
-                    files
-                    |> List.map (fun file ->
-                        { File = Path.GetFileName file |> FDull.Transport.External.required "test.capture-source"
-                          Project = "Fixture.fsproj"
-                          Profile = "ADAPTER"
-                          Digest = SafetyPolicy.fileDigest file })
-                  Inputs =
-                    [ { File = "Fixture.fsproj"
-                        Digest = SafetyPolicy.fileDigest project } ]
-                  External = None
-                  ExcludedProjects = None
-                  DataContracts = None
-                  Capabilities = []
-                  Domains = []
-                  Constructors = [] }
-
-            let policyPath = Path.Combine(directory, "fdull.json")
-            File.WriteAllText(policyPath, FDull.Transport.Codec.encode policy)
-
-            let request =
-                { Root = directory
-                  Project = project
-                  ProjectReferences = []
-                  Arguments =
-                    WorkspaceCompilerPolicy.required
-                    @ [ "--warnaserror"
-                        "--warnaserror-:3180"
-                        "--optimize+"
-                        "--target:" + target
-                        "-o:" + output ]
-                    @ (refs |> List.map (fun path -> "-r:" + path))
-                  Sources = generated @ files |> List.map input
-                  References = refs |> List.map input
-                  Generated = generated
-                  BuildInputs = [ input project ]
-                  Policy = input policyPath }
-
-            let manifest = if target = "exe" then [ "--nowin32manifest" ] else []
-
-            let rawDiagnostics, compilerFailure =
-                FSharpChecker
-                    .Create()
-                    .Compile(
-                        [ "fsc.exe" ] @ request.Arguments @ manifest @ (generated @ files)
-                        |> List.toArray
-                    )
-                |> Async.RunSynchronously
-
-            Assert.True(compilerFailure.IsNone, string compilerFailure)
-            let result = WorkspaceEngine.check request
-
-            match WorkspaceProtocol.validate request policy result.Report.ExitCode "" result with
-            | Ok() -> ()
-            | Error error -> failwith error
-
-            result.Report, rawDiagnostics
-
-        let analyze = analyzeWithTarget "library"
+        let analyze = analyzeWorkspaceWithTarget "--warnaserror-:3180" "library" false
 
         let unknownAwaiter (diagnostic: FSharpDiagnostic) =
             let r = diagnostic.Range
@@ -212,7 +287,7 @@ module SafetyTests =
 
         let executable, executableCompiler =
             checkFilesWith
-                (analyzeWithTarget "exe")
+                (analyzeWorkspaceWithTarget "--warnaserror-:3180" "exe" false)
                 [ "App.fs", "module CaptureFixture\n[<EntryPoint>]\nlet main _ = 0\n" ]
                 id
 
@@ -227,6 +302,14 @@ module SafetyTests =
         Assert.Contains(report.Diagnostics, fun diagnostic -> diagnostic.Rule = "MUT001")
         Assert.Contains(report.Diagnostics, fun diagnostic -> diagnostic.Rule = "FS3180")
         Assert.Equal(1, report.ExitCode)
+
+        let withoutDowngrade, authoredCompilerWithoutDowngrade =
+            checkFilesWith (analyzeWorkspaceWithTarget "" "library" true) [ "App.fs", source ] id
+
+        Assert.Contains(authoredCompilerWithoutDowngrade, sourceAwaiter)
+        Assert.Contains(withoutDowngrade.Diagnostics, fun diagnostic -> diagnostic.Rule = "FS3180")
+        Assert.False(withoutDowngrade.Complete)
+        Assert.Equal(3, withoutDowngrade.ExitCode)
 
         let inlineSource =
             "module CaptureFixture\n"

@@ -1625,7 +1625,7 @@ The following is a **baseline template for a compatible pinned compiler**. Verif
     <LangVersion>$(CompanyApprovedLangVersion)</LangVersion>
 
     <!-- One canonical list; do not let a later declaration replace it. -->
-    <WarnOn>21,22,52,1178,1182,3180,3186,3218,3391,3395,3559,3570,3579,3582,3878</WarnOn>
+    <WarnOn>21,22,52,1178,1182,3180,3218,3391,3395,3559,3570,3579,3582,3878</WarnOn>
 
     <OtherFlags>$(OtherFlags) --checked+</OtherFlags>
   </PropertyGroup>
@@ -1643,13 +1643,23 @@ Important warning intents:
 | `1178` | Implicit equality/comparison capability inference. |
 | `1182` | Unused bindings. |
 | `3180` | Captured mutable local becoming a reference cell. |
-| `3186` | F# metadata/declaration inconsistency. |
 | `3218` | Parameter-name differences between signature and implementation. |
 | `3391`, `3395` | .NET-style implicit conversions. |
 | `3559` | Type inferred as `obj`. |
 | `3570`, `3579`, `3582`, `3878` | Ambiguous underscore use, untyped interpolation, union-case shadowing, and invalid attribute usage. |
 
 The descriptions and availability must be validated against the chosen compiler. `3218` is documented with signature files; conversion warnings are documented separately. [S13][S02]
+
+Do not require FS3186 in this pinned compiler baseline. Its [anonymous-record
+linked-state check](https://github.com/dotnet/dotnet/blob/4d3023de605a78ba3e59e50c657eed70f125c68a/src/fsharp/src/Compiler/TypedTree/TypedTree.fs#L4553-L4570)
+returns true when the link is absent and false when present; the [metadata unpickler](https://github.com/dotnet/dotnet/blob/4d3023de605a78ba3e59e50c657eed70f125c68a/src/fsharp/src/Compiler/TypedTree/TypedTreePickle.fs#L1026-L1134)
+uses that value to emit the warning. A healthy referenced anonymous-record
+library can trigger it through the FCS API even without an opt-in, while an
+unlinked node can escape it. The linked-state check is in the reader/unpickler.
+The private compiler pass may exclude FS3186 warnings, but not compiler
+errors. Continue to require complete compiler output and typed analysis;
+missing required symbols,
+types, or bodies must fail the guard independently of FS3186.
 
 `FS0025` incomplete-match diagnostics must remain errors; do not suppress default compiler warnings simply because they are absent from the opt-in list. `<Nullable>enable</Nullable>` supplies F# null-checking configuration, but it does not prohibit unchecked null/default APIs by itself. [S15][S03]
 

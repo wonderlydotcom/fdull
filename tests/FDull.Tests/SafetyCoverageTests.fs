@@ -12,8 +12,8 @@ module SafetyCoverageTests =
     [<Theory>]
     [<InlineData("--warn:0")>]
     [<InlineData("--warnaserror-")>]
-    [<InlineData("--warnaserror-:3186")>]
-    [<InlineData("--warnaserror-:3180,3186")>]
+    [<InlineData("--warnaserror-:25")>]
+    [<InlineData("--warnaserror-:3180,25")>]
     [<InlineData("--nowarn:3180")>]
     [<InlineData("--nowarn:25")>]
     [<InlineData("--checknulls-")>]
@@ -50,14 +50,23 @@ module SafetyCoverageTests =
         Assert.Equal(Ok(), WorkspaceCompilerPolicy.validate (baseline @ [ "--define:NULLABLE" ]))
 
     [<Fact>]
-    let ``only the exact task awaiter downgrade is accepted`` () =
+    let ``only canonical task compatibility downgrade is accepted`` () =
         let baseline = WorkspaceCompilerPolicy.required @ [ "--warnaserror" ]
-        let compatible = baseline @ [ "--warnaserror-:3180" ]
 
-        Assert.Equal(Ok(), WorkspaceCompilerPolicy.validate compatible)
+        Assert.Equal(Ok(), WorkspaceCompilerPolicy.validate (baseline @ [ "--warnaserror-:3180" ]))
+
+        for downgrade in
+            [ "--warnaserror-:3186"
+              "--warnaserror-:3180,3186"
+              "--warnaserror-:3186,3180"
+              "--warnaserror-:3180" ] do
+            Assert.True(
+                WorkspaceCompilerPolicy.validate (baseline @ [ downgrade; downgrade ])
+                |> Result.isError
+            )
 
         Assert.True(
-            WorkspaceCompilerPolicy.validate (compatible @ [ "--warnaserror-:3180" ])
+            WorkspaceCompilerPolicy.validate (baseline @ [ "--warnaserror-:3186" ])
             |> Result.isError
         )
 

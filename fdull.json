@@ -80,7 +80,7 @@
       "File": "src/FDull/SafetyPolicy.fs",
       "Project": "src/FDull/FDull.fsproj",
       "Profile": "GUARD_TOOLING",
-      "Digest": "sha256:f499e9557c8c8da3530460edd8fb33c7adc53154f23172029c0663219a7d02fd"
+      "Digest": "sha256:e19ea10a57e13975b058f3eeb7d26dec87e9ea9a769e0012ab60beef2f2dea2e"
     },
     {
       "File": "src/FDull/SafetyLimits.fs",
@@ -122,7 +122,7 @@
       "File": "src/FDull/SafetyEngine.fs",
       "Project": "src/FDull/FDull.fsproj",
       "Profile": "GUARD_TOOLING",
-      "Digest": "sha256:cc18577dbe6e1033dff530dc6cd90ef4f2638b634d654072af1d03cb8f52df2e"
+      "Digest": "sha256:c92d55db0b1eacd4cfb95f3139e74817bc986f100bd3c545079ac45e6746c160"
     },
     {
       "File": "src/FDull/WorkspaceGenerated.fs",
@@ -134,7 +134,7 @@
       "File": "src/FDull/WorkspacePolicy.fs",
       "Project": "src/FDull/FDull.fsproj",
       "Profile": "GUARD_TOOLING",
-      "Digest": "sha256:ecba94fb34b38e0d9af6fc4b5a159b22578b9d8c0e5d3b231c0b1b389d5a30b9"
+      "Digest": "sha256:61e295d4ea71c80c3d0720b026fc89ceb31493083ae34ceb9ae804d66a87a6a4"
     },
     {
       "File": "src/FDull/WorkspaceAudit.fs",
@@ -146,7 +146,7 @@
       "File": "src/FDull/WorkspaceEngine.fs",
       "Project": "src/FDull/FDull.fsproj",
       "Profile": "GUARD_TOOLING",
-      "Digest": "sha256:71a933bb7d6238ac74c6aa4c84a2e0929196f1a857fb421d08ff343baa2b04a0"
+      "Digest": "sha256:d81d8b6670d30c6fda9f6c3e422a9d8366c9ced820560636c672f02800980c1c"
     },
     {
       "File": "src/FDull/Workspace.fs",
@@ -200,7 +200,7 @@
       "File": "tests/FDull.Tests/SafetyTests.fs",
       "Project": "tests/FDull.Tests/FDull.Tests.fsproj",
       "Profile": "TEST",
-      "Digest": "sha256:abf4826b222e1871b2cdec3591a7afee80c644d702a829597c11fbd9edf1031c"
+      "Digest": "sha256:0a2a511719be570fac076de3e1915dd4503ee67c99a300e4b94c1e90a2129cbd"
     },
     {
       "File": "tests/FDull.Tests/SafetyWorkerTests.fs",
@@ -218,7 +218,7 @@
       "File": "tests/FDull.Tests/SafetyCoverageTests.fs",
       "Project": "tests/FDull.Tests/FDull.Tests.fsproj",
       "Profile": "TEST",
-      "Digest": "sha256:4b2686a53e917c6827998ae913c3a1899459059c7f0c3a9aea1a421bd4004b1b"
+      "Digest": "sha256:e1dc7e2135d569f6e0c791d85c579ea301898d8eb47a319388f23bdfd0a6eedc"
     },
     {
       "File": "tests/FDull.Tests/TransportTests.fs",
@@ -276,11 +276,11 @@
     },
     {
       "File": "Directory.Build.props",
-      "Digest": "sha256:2e6100c7f356451a6d830a2d26af65a833fe8b171e14fc83afe55c2f0a60f434"
+      "Digest": "sha256:c32f22e6b9e6824584220bb5fb4afe2680c46cd33e65578687681c65c49e4277"
     },
     {
       "File": "Directory.Build.targets",
-      "Digest": "sha256:e712604219d9653fb5e0fe76678c65cc60628b9b51c3819d4f472f419ec24392"
+      "Digest": "sha256:ef089a5303b769aa9bac8f350013e8dd81200dc10a5af98cb0a80a867a29a3d1"
     },
     {
       "File": "FDull.slnx",
@@ -292,7 +292,7 @@
     },
     {
       "File": "config/FDull.props",
-      "Digest": "sha256:aaeaef3e184708cbb3a455296658638ac4ab7f7df1b70ab660666e71dd05564b"
+      "Digest": "sha256:331acd83adb1a8618b83abe5bdccb8b288284868f9245135cbfbc7f39dc3deb6"
     },
     {
       "File": "global.json",
@@ -18793,210 +18793,21 @@
       "Owner": "FDull.WorkspaceEngine.analyze",
       "Kind": "member",
       "Identity": "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:FSharp.Compiler.Diagnostics.FSharpDiagnostic.Subcategory",
-      "Reason": "The bounded workspace worker compares every optimizer diagnostic after the narrow FS3180 downgrade; the compiler diagnostic array is transient evidence, and unrelated warnings remain errors."
+      "Reason": "The bounded workspace worker compares every diagnostic from its private compile pass with the exact FS3180 compatibility allowance and compiler-wide FS3186 warning exclusion; all other warnings and every error remain reportable."
     },
     {
       "File": "src/FDull/WorkspaceEngine.fs",
       "Owner": "FDull.WorkspaceEngine.analyze",
       "Kind": "type",
       "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | []",
-      "Reason": "The bounded workspace worker compares every optimizer diagnostic after the narrow FS3180 downgrade; the compiler diagnostic array is transient evidence, and unrelated warnings remain errors."
-    },
-    {
-      "File": "src/FDull/WorkspaceEngine.fs",
-      "Owner": "FDull.WorkspaceEngine.compileForTaskAwaiterWarning",
-      "Kind": "member",
-      "Identity": "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:FSharp.Compiler.CodeAnalysis.FSharpChecker.Compile(System.String[],Microsoft.FSharp.Core.FSharpOption{System.String})",
-      "Reason": "Compiles fingerprinted sources and references with pinned FCS into private temporary outputs, omitting only executable manifest emission in this diagnostic pass. Every warning, compiler failure and output artifact is checked; the SDK build still emits its normal manifest. Temporary outputs are removed under the bounded worker lifecycle."
-    },
-    {
-      "File": "src/FDull/WorkspaceEngine.fs",
-      "Owner": "FDull.WorkspaceEngine.compileForTaskAwaiterWarning",
-      "Kind": "member",
-      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.ListModule.ToArray``1(Microsoft.FSharp.Collections.FSharpList{``0})",
-      "Reason": "Compiles fingerprinted sources and references with pinned FCS into private temporary outputs, omitting only executable manifest emission in this diagnostic pass. Every warning, compiler failure and output artifact is checked; the SDK build still emits its normal manifest. Temporary outputs are removed under the bounded worker lifecycle."
-    },
-    {
-      "File": "src/FDull/WorkspaceEngine.fs",
-      "Owner": "FDull.WorkspaceEngine.compileForTaskAwaiterWarning",
-      "Kind": "member",
-      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Control.FSharpAsync.RunSynchronously``1(Microsoft.FSharp.Control.FSharpAsync{``0},Microsoft.FSharp.Core.FSharpOption{System.Int32},Microsoft.FSharp.Core.FSharpOption{System.Threading.CancellationToken})",
-      "Reason": "Compiles fingerprinted sources and references with pinned FCS into private temporary outputs, omitting only executable manifest emission in this diagnostic pass. Every warning, compiler failure and output artifact is checked; the SDK build still emits its normal manifest. Temporary outputs are removed under the bounded worker lifecycle."
-    },
-    {
-      "File": "src/FDull/WorkspaceEngine.fs",
-      "Owner": "FDull.WorkspaceEngine.compileForTaskAwaiterWarning",
-      "Kind": "member",
-      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Core.Operators.InvalidOp``1(System.String)",
-      "Reason": "Compiles fingerprinted sources and references with pinned FCS into private temporary outputs, omitting only executable manifest emission in this diagnostic pass. Every warning, compiler failure and output artifact is checked; the SDK build still emits its normal manifest. Temporary outputs are removed under the bounded worker lifecycle."
-    },
-    {
-      "File": "src/FDull/WorkspaceEngine.fs",
-      "Owner": "FDull.WorkspaceEngine.compileForTaskAwaiterWarning",
-      "Kind": "member",
-      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Directory.CreateTempSubdirectory(System.String)",
-      "Reason": "Compiles fingerprinted sources and references with pinned FCS into private temporary outputs, omitting only executable manifest emission in this diagnostic pass. Every warning, compiler failure and output artifact is checked; the SDK build still emits its normal manifest. Temporary outputs are removed under the bounded worker lifecycle."
-    },
-    {
-      "File": "src/FDull/WorkspaceEngine.fs",
-      "Owner": "FDull.WorkspaceEngine.compileForTaskAwaiterWarning",
-      "Kind": "member",
-      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.DirectoryInfo.Delete(System.Boolean)",
-      "Reason": "Compiles fingerprinted sources and references with pinned FCS into private temporary outputs, omitting only executable manifest emission in this diagnostic pass. Every warning, compiler failure and output artifact is checked; the SDK build still emits its normal manifest. Temporary outputs are removed under the bounded worker lifecycle."
-    },
-    {
-      "File": "src/FDull/WorkspaceEngine.fs",
-      "Owner": "FDull.WorkspaceEngine.compileForTaskAwaiterWarning",
-      "Kind": "member",
-      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.File.Exists(System.String)",
-      "Reason": "Compiles fingerprinted sources and references with pinned FCS into private temporary outputs, omitting only executable manifest emission in this diagnostic pass. Every warning, compiler failure and output artifact is checked; the SDK build still emits its normal manifest. Temporary outputs are removed under the bounded worker lifecycle."
-    },
-    {
-      "File": "src/FDull/WorkspaceEngine.fs",
-      "Owner": "FDull.WorkspaceEngine.compileForTaskAwaiterWarning",
-      "Kind": "member",
-      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.Combine(System.String,System.String)",
-      "Reason": "Compiles fingerprinted sources and references with pinned FCS into private temporary outputs, omitting only executable manifest emission in this diagnostic pass. Every warning, compiler failure and output artifact is checked; the SDK build still emits its normal manifest. Temporary outputs are removed under the bounded worker lifecycle."
-    },
-    {
-      "File": "src/FDull/WorkspaceEngine.fs",
-      "Owner": "FDull.WorkspaceEngine.compileForTaskAwaiterWarning",
-      "Kind": "member",
-      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.GetFileName(System.String)",
-      "Reason": "Compiles fingerprinted sources and references with pinned FCS into private temporary outputs, omitting only executable manifest emission in this diagnostic pass. Every warning, compiler failure and output artifact is checked; the SDK build still emits its normal manifest. Temporary outputs are removed under the bounded worker lifecycle."
-    },
-    {
-      "File": "src/FDull/WorkspaceEngine.fs",
-      "Owner": "FDull.WorkspaceEngine.compileForTaskAwaiterWarning",
-      "Kind": "member",
-      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:System.IO.FileSystemInfo.FullName",
-      "Reason": "Compiles fingerprinted sources and references with pinned FCS into private temporary outputs, omitting only executable manifest emission in this diagnostic pass. Every warning, compiler failure and output artifact is checked; the SDK build still emits its normal manifest. Temporary outputs are removed under the bounded worker lifecycle."
-    },
-    {
-      "File": "src/FDull/WorkspaceEngine.fs",
-      "Owner": "FDull.WorkspaceEngine.compileForTaskAwaiterWarning",
-      "Kind": "member",
-      "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | P:System.Lazy`1.Value",
-      "Reason": "Compiles fingerprinted sources and references with pinned FCS into private temporary outputs, omitting only executable manifest emission in this diagnostic pass. Every warning, compiler failure and output artifact is checked; the SDK build still emits its normal manifest. Temporary outputs are removed under the bounded worker lifecycle."
-    },
-    {
-      "File": "src/FDull/WorkspaceEngine.fs",
-      "Owner": "FDull.WorkspaceEngine.compileForTaskAwaiterWarning",
-      "Kind": "rule",
-      "Identity": "ERR009 | ",
-      "Reason": "Compiles fingerprinted sources and references with pinned FCS into private temporary outputs, omitting only executable manifest emission in this diagnostic pass. Every warning, compiler failure and output artifact is checked; the SDK build still emits its normal manifest. Temporary outputs are removed under the bounded worker lifecycle."
-    },
-    {
-      "File": "src/FDull/WorkspaceEngine.fs",
-      "Owner": "FDull.WorkspaceEngine.compileForTaskAwaiterWarning",
-      "Kind": "type",
-      "Identity": "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | FSharp.Compiler.Diagnostics.FSharpDiagnostic",
-      "Reason": "Compiles fingerprinted sources and references with pinned FCS into private temporary outputs, omitting only executable manifest emission in this diagnostic pass. Every warning, compiler failure and output artifact is checked; the SDK build still emits its normal manifest. Temporary outputs are removed under the bounded worker lifecycle."
-    },
-    {
-      "File": "src/FDull/WorkspaceEngine.fs",
-      "Owner": "FDull.WorkspaceEngine.compileForTaskAwaiterWarning",
-      "Kind": "type",
-      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | Microsoft.FSharp.Control.FSharpAsync`1",
-      "Reason": "Compiles fingerprinted sources and references with pinned FCS into private temporary outputs, omitting only executable manifest emission in this diagnostic pass. Every warning, compiler failure and output artifact is checked; the SDK build still emits its normal manifest. Temporary outputs are removed under the bounded worker lifecycle."
-    },
-    {
-      "File": "src/FDull/WorkspaceEngine.fs",
-      "Owner": "FDull.WorkspaceEngine.compileForTaskAwaiterWarning",
-      "Kind": "type",
-      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | []",
-      "Reason": "Compiles fingerprinted sources and references with pinned FCS into private temporary outputs, omitting only executable manifest emission in this diagnostic pass. Every warning, compiler failure and output artifact is checked; the SDK build still emits its normal manifest. Temporary outputs are removed under the bounded worker lifecycle."
-    },
-    {
-      "File": "src/FDull/WorkspaceEngine.fs",
-      "Owner": "FDull.WorkspaceEngine.compileForTaskAwaiterWarning",
-      "Kind": "type",
-      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | System.IO.DirectoryInfo",
-      "Reason": "Compiles fingerprinted sources and references with pinned FCS into private temporary outputs, omitting only executable manifest emission in this diagnostic pass. Every warning, compiler failure and output artifact is checked; the SDK build still emits its normal manifest. Temporary outputs are removed under the bounded worker lifecycle."
-    },
-    {
-      "File": "src/FDull/WorkspaceEngine.fs",
-      "Owner": "FDull.WorkspaceEngine.compileForTaskAwaiterWarning",
-      "Kind": "type",
-      "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | System.Exception",
-      "Reason": "Compiles fingerprinted sources and references with pinned FCS into private temporary outputs, omitting only executable manifest emission in this diagnostic pass. Every warning, compiler failure and output artifact is checked; the SDK build still emits its normal manifest. Temporary outputs are removed under the bounded worker lifecycle."
-    },
-    {
-      "File": "src/FDull/WorkspaceEngine.fs",
-      "Owner": "FDull.WorkspaceEngine.compileForTaskAwaiterWarning",
-      "Kind": "type",
-      "Identity": "source:src/FDull/SafetyLimits.fs | FDull.SafetyBudget",
-      "Reason": "Compiles fingerprinted sources and references with pinned FCS into private temporary outputs, omitting only executable manifest emission in this diagnostic pass. Every warning, compiler failure and output artifact is checked; the SDK build still emits its normal manifest. Temporary outputs are removed under the bounded worker lifecycle."
+      "Reason": "The bounded workspace worker compares every diagnostic from its private compile pass with the exact FS3180 compatibility allowance and compiler-wide FS3186 warning exclusion; all other warnings and every error remain reportable."
     },
     {
       "File": "tests/FDull.Tests/SafetyCoverageTests.fs",
       "Owner": "FDull.Tests.SafetyCoverageTests.``late compiler flags cannot weaken exported policy``",
       "Kind": "attribute",
       "Identity": "xunit.core, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | Xunit.InlineDataAttribute |  | string:\"--nowarn:3180\"",
-      "Reason": "Exact compiler-flag and warning-shape regression assertions: only the exact FS3180 setting and known unknown-range awaiter optimizer warning shape are accepted; other flags and diagnostic shapes fail."
-    },
-    {
-      "File": "tests/FDull.Tests/SafetyCoverageTests.fs",
-      "Owner": "FDull.Tests.SafetyCoverageTests.``late compiler flags cannot weaken exported policy``",
-      "Kind": "attribute",
-      "Identity": "xunit.core, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | Xunit.InlineDataAttribute |  | string:\"--warnaserror-:3180,3186\"",
-      "Reason": "Exact compiler-flag and warning-shape regression assertions: only the exact FS3180 setting and known unknown-range awaiter optimizer warning shape are accepted; other flags and diagnostic shapes fail."
-    },
-    {
-      "File": "tests/FDull.Tests/SafetyCoverageTests.fs",
-      "Owner": "FDull.Tests.SafetyCoverageTests.``late compiler flags cannot weaken exported policy``",
-      "Kind": "attribute",
-      "Identity": "xunit.core, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | Xunit.InlineDataAttribute |  | string:\"--warnaserror-:3186\"",
-      "Reason": "Exact compiler-flag and warning-shape regression assertions: only the exact FS3180 setting and known unknown-range awaiter optimizer warning shape are accepted; other flags and diagnostic shapes fail."
-    },
-    {
-      "File": "tests/FDull.Tests/SafetyCoverageTests.fs",
-      "Owner": "FDull.Tests.SafetyCoverageTests.``only the exact task awaiter downgrade is accepted``",
-      "Kind": "attribute",
-      "Identity": "xunit.core, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | Xunit.FactAttribute |  | unit",
-      "Reason": "Exact compiler-flag and warning-shape regression assertions: only the exact FS3180 setting and known unknown-range awaiter optimizer warning shape are accepted; other flags and diagnostic shapes fail."
-    },
-    {
-      "File": "tests/FDull.Tests/SafetyCoverageTests.fs",
-      "Owner": "FDull.Tests.SafetyCoverageTests.``only the exact task awaiter downgrade is accepted``",
-      "Kind": "member",
-      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.WorkspaceCompilerPolicy.compatibleTaskAwaiterWarning(System.Int32,System.String,System.String,System.Int32,System.Int32,System.Int32,System.Int32,System.String)",
-      "Reason": "Exact compiler-flag and warning-shape regression assertions: only the exact FS3180 setting and known unknown-range awaiter optimizer warning shape are accepted; other flags and diagnostic shapes fail."
-    },
-    {
-      "File": "tests/FDull.Tests/SafetyCoverageTests.fs",
-      "Owner": "FDull.Tests.SafetyCoverageTests.``only the exact task awaiter downgrade is accepted``",
-      "Kind": "member",
-      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.WorkspaceCompilerPolicy.validate(Microsoft.FSharp.Collections.FSharpList{System.String})",
-      "Reason": "Exact compiler-flag and warning-shape regression assertions: only the exact FS3180 setting and known unknown-range awaiter optimizer warning shape are accepted; other flags and diagnostic shapes fail."
-    },
-    {
-      "File": "tests/FDull.Tests/SafetyCoverageTests.fs",
-      "Owner": "FDull.Tests.SafetyCoverageTests.``only the exact task awaiter downgrade is accepted``",
-      "Kind": "member",
-      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | P:FDull.WorkspaceCompilerPolicy.required",
-      "Reason": "Exact compiler-flag and warning-shape regression assertions: only the exact FS3180 setting and known unknown-range awaiter optimizer warning shape are accepted; other flags and diagnostic shapes fail."
-    },
-    {
-      "File": "tests/FDull.Tests/SafetyCoverageTests.fs",
-      "Owner": "FDull.Tests.SafetyCoverageTests.``only the exact task awaiter downgrade is accepted``",
-      "Kind": "member",
-      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Equal``1(``0,``0)",
-      "Reason": "Exact compiler-flag and warning-shape regression assertions: only the exact FS3180 setting and known unknown-range awaiter optimizer warning shape are accepted; other flags and diagnostic shapes fail."
-    },
-    {
-      "File": "tests/FDull.Tests/SafetyCoverageTests.fs",
-      "Owner": "FDull.Tests.SafetyCoverageTests.``only the exact task awaiter downgrade is accepted``",
-      "Kind": "member",
-      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.False(System.Boolean)",
-      "Reason": "Exact compiler-flag and warning-shape regression assertions: only the exact FS3180 setting and known unknown-range awaiter optimizer warning shape are accepted; other flags and diagnostic shapes fail."
-    },
-    {
-      "File": "tests/FDull.Tests/SafetyCoverageTests.fs",
-      "Owner": "FDull.Tests.SafetyCoverageTests.``only the exact task awaiter downgrade is accepted``",
-      "Kind": "member",
-      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.True(System.Boolean)",
-      "Reason": "Exact compiler-flag and warning-shape regression assertions: only the exact FS3180 setting and known unknown-range awaiter optimizer warning shape are accepted; other flags and diagnostic shapes fail."
+      "Reason": "Asserts only the exact FS3180 downgrade is accepted; other warning downgrades are rejected and the awaiter warning shape remains narrow."
     },
     {
       "File": "tests/FDull.Tests/SafetyTests.fs",
@@ -19009,56 +18820,7 @@
       "File": "tests/FDull.Tests/SafetyTests.fs",
       "Owner": "FDull.Tests.SafetyTests.``task awaiter compatibility preserves authored capture warnings``",
       "Kind": "member",
-      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.SafetyPolicy.fileDigest(System.String)",
-      "Reason": "Non-shipping isolated workspace fixture compiles a nested task with pinned FCS, confirms its optimizer warning is accepted, and confirms authored ordinary/inline captures remain errors. Files and compiler output stay in the fixture temporary directory."
-    },
-    {
-      "File": "tests/FDull.Tests/SafetyTests.fs",
-      "Owner": "FDull.Tests.SafetyTests.``task awaiter compatibility preserves authored capture warnings``",
-      "Kind": "member",
-      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Transport.Codec.encode``1(``0)",
-      "Reason": "Non-shipping isolated workspace fixture compiles a nested task with pinned FCS, confirms its optimizer warning is accepted, and confirms authored ordinary/inline captures remain errors. Files and compiler output stay in the fixture temporary directory."
-    },
-    {
-      "File": "tests/FDull.Tests/SafetyTests.fs",
-      "Owner": "FDull.Tests.SafetyTests.``task awaiter compatibility preserves authored capture warnings``",
-      "Kind": "member",
-      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Transport.External.required``1(System.String,``0)",
-      "Reason": "Non-shipping isolated workspace fixture compiles a nested task with pinned FCS, confirms its optimizer warning is accepted, and confirms authored ordinary/inline captures remain errors. Files and compiler output stay in the fixture temporary directory."
-    },
-    {
-      "File": "tests/FDull.Tests/SafetyTests.fs",
-      "Owner": "FDull.Tests.SafetyTests.``task awaiter compatibility preserves authored capture warnings``",
-      "Kind": "member",
       "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.WorkspaceCompilerPolicy.compatibleTaskAwaiterWarning(System.Int32,System.String,System.String,System.Int32,System.Int32,System.Int32,System.Int32,System.String)",
-      "Reason": "Non-shipping isolated workspace fixture compiles a nested task with pinned FCS, confirms its optimizer warning is accepted, and confirms authored ordinary/inline captures remain errors. Files and compiler output stay in the fixture temporary directory."
-    },
-    {
-      "File": "tests/FDull.Tests/SafetyTests.fs",
-      "Owner": "FDull.Tests.SafetyTests.``task awaiter compatibility preserves authored capture warnings``",
-      "Kind": "member",
-      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.WorkspaceEngine.check(FDull.WorkspaceRequest)",
-      "Reason": "Non-shipping isolated workspace fixture compiles a nested task with pinned FCS, confirms its optimizer warning is accepted, and confirms authored ordinary/inline captures remain errors. Files and compiler output stay in the fixture temporary directory."
-    },
-    {
-      "File": "tests/FDull.Tests/SafetyTests.fs",
-      "Owner": "FDull.Tests.SafetyTests.``task awaiter compatibility preserves authored capture warnings``",
-      "Kind": "member",
-      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | P:FDull.WorkspaceCompilerPolicy.required",
-      "Reason": "Non-shipping isolated workspace fixture compiles a nested task with pinned FCS, confirms its optimizer warning is accepted, and confirms authored ordinary/inline captures remain errors. Files and compiler output stay in the fixture temporary directory."
-    },
-    {
-      "File": "tests/FDull.Tests/SafetyTests.fs",
-      "Owner": "FDull.Tests.SafetyTests.``task awaiter compatibility preserves authored capture warnings``",
-      "Kind": "member",
-      "Identity": "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:FSharp.Compiler.CodeAnalysis.FSharpChecker.Compile(System.String[],Microsoft.FSharp.Core.FSharpOption{System.String})",
-      "Reason": "Non-shipping isolated workspace fixture compiles a nested task with pinned FCS, confirms its optimizer warning is accepted, and confirms authored ordinary/inline captures remain errors. Files and compiler output stay in the fixture temporary directory."
-    },
-    {
-      "File": "tests/FDull.Tests/SafetyTests.fs",
-      "Owner": "FDull.Tests.SafetyTests.``task awaiter compatibility preserves authored capture warnings``",
-      "Kind": "member",
-      "Identity": "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:FSharp.Compiler.CodeAnalysis.FSharpChecker.Create(Microsoft.FSharp.Core.FSharpOption{System.Int32},Microsoft.FSharp.Core.FSharpOption{System.Boolean},Microsoft.FSharp.Core.FSharpOption{System.Boolean},Microsoft.FSharp.Core.FSharpOption{FSharp.Compiler.CodeAnalysis.LegacyReferenceResolver},Microsoft.FSharp.Core.FSharpOption{Microsoft.FSharp.Core.FSharpFunc{System.Tuple{System.String,System.DateTime},Microsoft.FSharp.Core.FSharpOption{System.Tuple{System.Object,System.IntPtr,System.Int32}}}},Microsoft.FSharp.Core.FSharpOption{System.Boolean},Microsoft.FSharp.Core.FSharpOption{System.Boolean},Microsoft.FSharp.Core.FSharpOption{System.Boolean},Microsoft.FSharp.Core.FSharpOption{System.Boolean},Microsoft.FSharp.Core.FSharpOption{System.Boolean},Microsoft.FSharp.Core.FSharpOption{System.Boolean},Microsoft.FSharp.Core.FSharpOption{FSharp.Compiler.CodeAnalysis.DocumentSource},Microsoft.FSharp.Core.FSharpOption{System.Boolean},Microsoft.FSharp.Core.FSharpOption{FSharp.Compiler.CodeAnalysis.TransparentCompiler.CacheSizes})",
       "Reason": "Non-shipping isolated workspace fixture compiles a nested task with pinned FCS, confirms its optimizer warning is accepted, and confirms authored ordinary/inline captures remain errors. Files and compiler output stay in the fixture temporary directory."
     },
     {
@@ -19135,48 +18897,6 @@
       "File": "tests/FDull.Tests/SafetyTests.fs",
       "Owner": "FDull.Tests.SafetyTests.``task awaiter compatibility preserves authored capture warnings``",
       "Kind": "member",
-      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.ListModule.ToArray``1(Microsoft.FSharp.Collections.FSharpList{``0})",
-      "Reason": "Non-shipping isolated workspace fixture compiles a nested task with pinned FCS, confirms its optimizer warning is accepted, and confirms authored ordinary/inline captures remain errors. Files and compiler output stay in the fixture temporary directory."
-    },
-    {
-      "File": "tests/FDull.Tests/SafetyTests.fs",
-      "Owner": "FDull.Tests.SafetyTests.``task awaiter compatibility preserves authored capture warnings``",
-      "Kind": "member",
-      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Control.FSharpAsync.RunSynchronously``1(Microsoft.FSharp.Control.FSharpAsync{``0},Microsoft.FSharp.Core.FSharpOption{System.Int32},Microsoft.FSharp.Core.FSharpOption{System.Threading.CancellationToken})",
-      "Reason": "Non-shipping isolated workspace fixture compiles a nested task with pinned FCS, confirms its optimizer warning is accepted, and confirms authored ordinary/inline captures remain errors. Files and compiler output stay in the fixture temporary directory."
-    },
-    {
-      "File": "tests/FDull.Tests/SafetyTests.fs",
-      "Owner": "FDull.Tests.SafetyTests.``task awaiter compatibility preserves authored capture warnings``",
-      "Kind": "member",
-      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Directory.CreateDirectory(System.String)",
-      "Reason": "Non-shipping isolated workspace fixture compiles a nested task with pinned FCS, confirms its optimizer warning is accepted, and confirms authored ordinary/inline captures remain errors. Files and compiler output stay in the fixture temporary directory."
-    },
-    {
-      "File": "tests/FDull.Tests/SafetyTests.fs",
-      "Owner": "FDull.Tests.SafetyTests.``task awaiter compatibility preserves authored capture warnings``",
-      "Kind": "member",
-      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.File.WriteAllText(System.String,System.String)",
-      "Reason": "Non-shipping isolated workspace fixture compiles a nested task with pinned FCS, confirms its optimizer warning is accepted, and confirms authored ordinary/inline captures remain errors. Files and compiler output stay in the fixture temporary directory."
-    },
-    {
-      "File": "tests/FDull.Tests/SafetyTests.fs",
-      "Owner": "FDull.Tests.SafetyTests.``task awaiter compatibility preserves authored capture warnings``",
-      "Kind": "member",
-      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.Combine(System.String,System.String)",
-      "Reason": "Non-shipping isolated workspace fixture compiles a nested task with pinned FCS, confirms its optimizer warning is accepted, and confirms authored ordinary/inline captures remain errors. Files and compiler output stay in the fixture temporary directory."
-    },
-    {
-      "File": "tests/FDull.Tests/SafetyTests.fs",
-      "Owner": "FDull.Tests.SafetyTests.``task awaiter compatibility preserves authored capture warnings``",
-      "Kind": "member",
-      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.GetFileName(System.String)",
-      "Reason": "Non-shipping isolated workspace fixture compiles a nested task with pinned FCS, confirms its optimizer warning is accepted, and confirms authored ordinary/inline captures remain errors. Files and compiler output stay in the fixture temporary directory."
-    },
-    {
-      "File": "tests/FDull.Tests/SafetyTests.fs",
-      "Owner": "FDull.Tests.SafetyTests.``task awaiter compatibility preserves authored capture warnings``",
-      "Kind": "member",
       "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Contains``1(System.Collections.Generic.IEnumerable{``0},System.Predicate{``0})",
       "Reason": "Non-shipping isolated workspace fixture compiles a nested task with pinned FCS, confirms its optimizer warning is accepted, and confirms authored ordinary/inline captures remain errors. Files and compiler output stay in the fixture temporary directory."
     },
@@ -19211,13 +18931,6 @@
     {
       "File": "tests/FDull.Tests/SafetyTests.fs",
       "Owner": "FDull.Tests.SafetyTests.``task awaiter compatibility preserves authored capture warnings``",
-      "Kind": "rule",
-      "Identity": "MUT009 | ",
-      "Reason": "Non-shipping isolated workspace fixture compiles a nested task with pinned FCS, confirms its optimizer warning is accepted, and confirms authored ordinary/inline captures remain errors. Files and compiler output stay in the fixture temporary directory."
-    },
-    {
-      "File": "tests/FDull.Tests/SafetyTests.fs",
-      "Owner": "FDull.Tests.SafetyTests.``task awaiter compatibility preserves authored capture warnings``",
       "Kind": "type",
       "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | FDull.SafetyDiagnostic",
       "Reason": "Non-shipping isolated workspace fixture compiles a nested task with pinned FCS, confirms its optimizer warning is accepted, and confirms authored ordinary/inline captures remain errors. Files and compiler output stay in the fixture temporary directory."
@@ -19226,28 +18939,7 @@
       "File": "tests/FDull.Tests/SafetyTests.fs",
       "Owner": "FDull.Tests.SafetyTests.``task awaiter compatibility preserves authored capture warnings``",
       "Kind": "type",
-      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | FDull.SafetyInput",
-      "Reason": "Non-shipping isolated workspace fixture compiles a nested task with pinned FCS, confirms its optimizer warning is accepted, and confirms authored ordinary/inline captures remain errors. Files and compiler output stay in the fixture temporary directory."
-    },
-    {
-      "File": "tests/FDull.Tests/SafetyTests.fs",
-      "Owner": "FDull.Tests.SafetyTests.``task awaiter compatibility preserves authored capture warnings``",
-      "Kind": "type",
       "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | FDull.SafetyReport",
-      "Reason": "Non-shipping isolated workspace fixture compiles a nested task with pinned FCS, confirms its optimizer warning is accepted, and confirms authored ordinary/inline captures remain errors. Files and compiler output stay in the fixture temporary directory."
-    },
-    {
-      "File": "tests/FDull.Tests/SafetyTests.fs",
-      "Owner": "FDull.Tests.SafetyTests.``task awaiter compatibility preserves authored capture warnings``",
-      "Kind": "type",
-      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspacePolicyDocument",
-      "Reason": "Non-shipping isolated workspace fixture compiles a nested task with pinned FCS, confirms its optimizer warning is accepted, and confirms authored ordinary/inline captures remain errors. Files and compiler output stay in the fixture temporary directory."
-    },
-    {
-      "File": "tests/FDull.Tests/SafetyTests.fs",
-      "Owner": "FDull.Tests.SafetyTests.``task awaiter compatibility preserves authored capture warnings``",
-      "Kind": "type",
-      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspaceRequest",
       "Reason": "Non-shipping isolated workspace fixture compiles a nested task with pinned FCS, confirms its optimizer warning is accepted, and confirms authored ordinary/inline captures remain errors. Files and compiler output stay in the fixture temporary directory."
     },
     {
@@ -19283,20 +18975,6 @@
       "Owner": "FDull.Tests.SafetyTests.``task awaiter compatibility preserves authored capture warnings``",
       "Kind": "type",
       "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | System.Collections.Generic.IEnumerable`1",
-      "Reason": "Non-shipping isolated workspace fixture compiles a nested task with pinned FCS, confirms its optimizer warning is accepted, and confirms authored ordinary/inline captures remain errors. Files and compiler output stay in the fixture temporary directory."
-    },
-    {
-      "File": "tests/FDull.Tests/SafetyTests.fs",
-      "Owner": "FDull.Tests.SafetyTests.``task awaiter compatibility preserves authored capture warnings``",
-      "Kind": "type",
-      "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | System.Exception",
-      "Reason": "Non-shipping isolated workspace fixture compiles a nested task with pinned FCS, confirms its optimizer warning is accepted, and confirms authored ordinary/inline captures remain errors. Files and compiler output stay in the fixture temporary directory."
-    },
-    {
-      "File": "tests/FDull.Tests/SafetyTests.fs",
-      "Owner": "FDull.Tests.SafetyTests.``task awaiter compatibility preserves authored capture warnings``",
-      "Kind": "type",
-      "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | System.Object",
       "Reason": "Non-shipping isolated workspace fixture compiles a nested task with pinned FCS, confirms its optimizer warning is accepted, and confirms authored ordinary/inline captures remain errors. Files and compiler output stay in the fixture temporary directory."
     },
     {
@@ -19431,27 +19109,6 @@
       "Kind": "type",
       "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspaceSource",
       "Reason": "Typed temporary policy and advisory evidence for the exact auto-property capture regression."
-    },
-    {
-      "File": "tests/FDull.Tests/SafetyTests.fs",
-      "Owner": "FDull.Tests.SafetyTests.``task awaiter compatibility preserves authored capture warnings``",
-      "Kind": "member",
-      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.WorkspaceProtocol.validate(FDull.WorkspaceRequest,FDull.WorkspacePolicyDocument,System.Int32,System.String,FDull.WorkspaceProjectReport)",
-      "Reason": "The warning-pass regression inspects the worker report and rejects malformed process/report combinations as a test failure."
-    },
-    {
-      "File": "tests/FDull.Tests/SafetyTests.fs",
-      "Owner": "FDull.Tests.SafetyTests.``task awaiter compatibility preserves authored capture warnings``",
-      "Kind": "member",
-      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Core.Operators.FailWith``1(System.String)",
-      "Reason": "The warning-pass regression inspects the worker report and rejects malformed process/report combinations as a test failure."
-    },
-    {
-      "File": "tests/FDull.Tests/SafetyTests.fs",
-      "Owner": "FDull.Tests.SafetyTests.``task awaiter compatibility preserves authored capture warnings``",
-      "Kind": "type",
-      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspaceProjectReport",
-      "Reason": "The warning-pass regression inspects the worker report and rejects malformed process/report combinations as a test failure."
     },
     {
       "File": "src/FDull/WorkspacePolicy.fs",
@@ -19984,6 +19641,622 @@
       "Kind": "member",
       "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Project.initialize(System.String)",
       "Reason": "Initializes only the isolated temporary consumer after each version-specific locked restore and build."
+    },
+    {
+      "File": "src/FDull/WorkspaceEngine.fs",
+      "Owner": "FDull.WorkspaceEngine.compileForDiagnostics",
+      "Kind": "member",
+      "Identity": "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:FSharp.Compiler.CodeAnalysis.FSharpChecker.Compile(System.String[],Microsoft.FSharp.Core.FSharpOption{System.String})",
+      "Reason": "Compiles every fingerprinted workspace project with pinned FCS into a private temporary output, omitting only executable manifest emission. Compiler failures, missing output, errors and unrelated warnings block completion; the known FS3180 shape and unreliable FS3186 warnings are the only exclusions."
+    },
+    {
+      "File": "src/FDull/WorkspaceEngine.fs",
+      "Owner": "FDull.WorkspaceEngine.compileForDiagnostics",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.ListModule.ToArray``1(Microsoft.FSharp.Collections.FSharpList{``0})",
+      "Reason": "Compiles every fingerprinted workspace project with pinned FCS into a private temporary output, omitting only executable manifest emission. Compiler failures, missing output, errors and unrelated warnings block completion; the known FS3180 shape and unreliable FS3186 warnings are the only exclusions."
+    },
+    {
+      "File": "src/FDull/WorkspaceEngine.fs",
+      "Owner": "FDull.WorkspaceEngine.compileForDiagnostics",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Control.FSharpAsync.RunSynchronously``1(Microsoft.FSharp.Control.FSharpAsync{``0},Microsoft.FSharp.Core.FSharpOption{System.Int32},Microsoft.FSharp.Core.FSharpOption{System.Threading.CancellationToken})",
+      "Reason": "Compiles every fingerprinted workspace project with pinned FCS into a private temporary output, omitting only executable manifest emission. Compiler failures, missing output, errors and unrelated warnings block completion; the known FS3180 shape and unreliable FS3186 warnings are the only exclusions."
+    },
+    {
+      "File": "src/FDull/WorkspaceEngine.fs",
+      "Owner": "FDull.WorkspaceEngine.compileForDiagnostics",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Core.Operators.InvalidOp``1(System.String)",
+      "Reason": "Compiles every fingerprinted workspace project with pinned FCS into a private temporary output, omitting only executable manifest emission. Compiler failures, missing output, errors and unrelated warnings block completion; the known FS3180 shape and unreliable FS3186 warnings are the only exclusions."
+    },
+    {
+      "File": "src/FDull/WorkspaceEngine.fs",
+      "Owner": "FDull.WorkspaceEngine.compileForDiagnostics",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Directory.CreateTempSubdirectory(System.String)",
+      "Reason": "Compiles every fingerprinted workspace project with pinned FCS into a private temporary output, omitting only executable manifest emission. Compiler failures, missing output, errors and unrelated warnings block completion; the known FS3180 shape and unreliable FS3186 warnings are the only exclusions."
+    },
+    {
+      "File": "src/FDull/WorkspaceEngine.fs",
+      "Owner": "FDull.WorkspaceEngine.compileForDiagnostics",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.DirectoryInfo.Delete(System.Boolean)",
+      "Reason": "Compiles every fingerprinted workspace project with pinned FCS into a private temporary output, omitting only executable manifest emission. Compiler failures, missing output, errors and unrelated warnings block completion; the known FS3180 shape and unreliable FS3186 warnings are the only exclusions."
+    },
+    {
+      "File": "src/FDull/WorkspaceEngine.fs",
+      "Owner": "FDull.WorkspaceEngine.compileForDiagnostics",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.File.Exists(System.String)",
+      "Reason": "Compiles every fingerprinted workspace project with pinned FCS into a private temporary output, omitting only executable manifest emission. Compiler failures, missing output, errors and unrelated warnings block completion; the known FS3180 shape and unreliable FS3186 warnings are the only exclusions."
+    },
+    {
+      "File": "src/FDull/WorkspaceEngine.fs",
+      "Owner": "FDull.WorkspaceEngine.compileForDiagnostics",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.Combine(System.String,System.String)",
+      "Reason": "Compiles every fingerprinted workspace project with pinned FCS into a private temporary output, omitting only executable manifest emission. Compiler failures, missing output, errors and unrelated warnings block completion; the known FS3180 shape and unreliable FS3186 warnings are the only exclusions."
+    },
+    {
+      "File": "src/FDull/WorkspaceEngine.fs",
+      "Owner": "FDull.WorkspaceEngine.compileForDiagnostics",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.GetFileName(System.String)",
+      "Reason": "Compiles every fingerprinted workspace project with pinned FCS into a private temporary output, omitting only executable manifest emission. Compiler failures, missing output, errors and unrelated warnings block completion; the known FS3180 shape and unreliable FS3186 warnings are the only exclusions."
+    },
+    {
+      "File": "src/FDull/WorkspaceEngine.fs",
+      "Owner": "FDull.WorkspaceEngine.compileForDiagnostics",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:System.IO.FileSystemInfo.FullName",
+      "Reason": "Compiles every fingerprinted workspace project with pinned FCS into a private temporary output, omitting only executable manifest emission. Compiler failures, missing output, errors and unrelated warnings block completion; the known FS3180 shape and unreliable FS3186 warnings are the only exclusions."
+    },
+    {
+      "File": "src/FDull/WorkspaceEngine.fs",
+      "Owner": "FDull.WorkspaceEngine.compileForDiagnostics",
+      "Kind": "member",
+      "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | P:System.Lazy`1.Value",
+      "Reason": "Compiles every fingerprinted workspace project with pinned FCS into a private temporary output, omitting only executable manifest emission. Compiler failures, missing output, errors and unrelated warnings block completion; the known FS3180 shape and unreliable FS3186 warnings are the only exclusions."
+    },
+    {
+      "File": "src/FDull/WorkspaceEngine.fs",
+      "Owner": "FDull.WorkspaceEngine.compileForDiagnostics",
+      "Kind": "rule",
+      "Identity": "ERR009 | ",
+      "Reason": "Compiles every fingerprinted workspace project with pinned FCS into a private temporary output, omitting only executable manifest emission. Compiler failures, missing output, errors and unrelated warnings block completion; the known FS3180 shape and unreliable FS3186 warnings are the only exclusions."
+    },
+    {
+      "File": "src/FDull/WorkspaceEngine.fs",
+      "Owner": "FDull.WorkspaceEngine.compileForDiagnostics",
+      "Kind": "type",
+      "Identity": "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | FSharp.Compiler.Diagnostics.FSharpDiagnostic",
+      "Reason": "Compiles every fingerprinted workspace project with pinned FCS into a private temporary output, omitting only executable manifest emission. Compiler failures, missing output, errors and unrelated warnings block completion; the known FS3180 shape and unreliable FS3186 warnings are the only exclusions."
+    },
+    {
+      "File": "src/FDull/WorkspaceEngine.fs",
+      "Owner": "FDull.WorkspaceEngine.compileForDiagnostics",
+      "Kind": "type",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | Microsoft.FSharp.Control.FSharpAsync`1",
+      "Reason": "Compiles every fingerprinted workspace project with pinned FCS into a private temporary output, omitting only executable manifest emission. Compiler failures, missing output, errors and unrelated warnings block completion; the known FS3180 shape and unreliable FS3186 warnings are the only exclusions."
+    },
+    {
+      "File": "src/FDull/WorkspaceEngine.fs",
+      "Owner": "FDull.WorkspaceEngine.compileForDiagnostics",
+      "Kind": "type",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | []",
+      "Reason": "Compiles every fingerprinted workspace project with pinned FCS into a private temporary output, omitting only executable manifest emission. Compiler failures, missing output, errors and unrelated warnings block completion; the known FS3180 shape and unreliable FS3186 warnings are the only exclusions."
+    },
+    {
+      "File": "src/FDull/WorkspaceEngine.fs",
+      "Owner": "FDull.WorkspaceEngine.compileForDiagnostics",
+      "Kind": "type",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | System.IO.DirectoryInfo",
+      "Reason": "Compiles every fingerprinted workspace project with pinned FCS into a private temporary output, omitting only executable manifest emission. Compiler failures, missing output, errors and unrelated warnings block completion; the known FS3180 shape and unreliable FS3186 warnings are the only exclusions."
+    },
+    {
+      "File": "src/FDull/WorkspaceEngine.fs",
+      "Owner": "FDull.WorkspaceEngine.compileForDiagnostics",
+      "Kind": "type",
+      "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | System.Exception",
+      "Reason": "Compiles every fingerprinted workspace project with pinned FCS into a private temporary output, omitting only executable manifest emission. Compiler failures, missing output, errors and unrelated warnings block completion; the known FS3180 shape and unreliable FS3186 warnings are the only exclusions."
+    },
+    {
+      "File": "src/FDull/WorkspaceEngine.fs",
+      "Owner": "FDull.WorkspaceEngine.compileForDiagnostics",
+      "Kind": "type",
+      "Identity": "source:src/FDull/SafetyLimits.fs | FDull.SafetyBudget",
+      "Reason": "Compiles every fingerprinted workspace project with pinned FCS into a private temporary output, omitting only executable manifest emission. Compiler failures, missing output, errors and unrelated warnings block completion; the known FS3180 shape and unreliable FS3186 warnings are the only exclusions."
+    },
+    {
+      "File": "tests/FDull.Tests/SafetyCoverageTests.fs",
+      "Owner": "FDull.Tests.SafetyCoverageTests.``late compiler flags cannot weaken exported policy``",
+      "Kind": "attribute",
+      "Identity": "xunit.core, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | Xunit.InlineDataAttribute |  | string:\"--warnaserror-:25\"",
+      "Reason": "Asserts only the exact FS3180 downgrade is accepted; other warning downgrades are rejected and the awaiter warning shape remains narrow."
+    },
+    {
+      "File": "tests/FDull.Tests/SafetyCoverageTests.fs",
+      "Owner": "FDull.Tests.SafetyCoverageTests.``late compiler flags cannot weaken exported policy``",
+      "Kind": "attribute",
+      "Identity": "xunit.core, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | Xunit.InlineDataAttribute |  | string:\"--warnaserror-:3180,25\"",
+      "Reason": "Asserts only the exact FS3180 downgrade is accepted; other warning downgrades are rejected and the awaiter warning shape remains narrow."
+    },
+    {
+      "File": "tests/FDull.Tests/SafetyCoverageTests.fs",
+      "Owner": "FDull.Tests.SafetyCoverageTests.``only canonical task compatibility downgrade is accepted``",
+      "Kind": "attribute",
+      "Identity": "xunit.core, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | Xunit.FactAttribute |  | unit",
+      "Reason": "Asserts only the exact FS3180 downgrade is accepted; other warning downgrades are rejected and the awaiter warning shape remains narrow."
+    },
+    {
+      "File": "tests/FDull.Tests/SafetyCoverageTests.fs",
+      "Owner": "FDull.Tests.SafetyCoverageTests.``only canonical task compatibility downgrade is accepted``",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.WorkspaceCompilerPolicy.compatibleTaskAwaiterWarning(System.Int32,System.String,System.String,System.Int32,System.Int32,System.Int32,System.Int32,System.String)",
+      "Reason": "Asserts only the exact FS3180 downgrade is accepted; other warning downgrades are rejected and the awaiter warning shape remains narrow."
+    },
+    {
+      "File": "tests/FDull.Tests/SafetyCoverageTests.fs",
+      "Owner": "FDull.Tests.SafetyCoverageTests.``only canonical task compatibility downgrade is accepted``",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.WorkspaceCompilerPolicy.validate(Microsoft.FSharp.Collections.FSharpList{System.String})",
+      "Reason": "Asserts only the exact FS3180 downgrade is accepted; other warning downgrades are rejected and the awaiter warning shape remains narrow."
+    },
+    {
+      "File": "tests/FDull.Tests/SafetyCoverageTests.fs",
+      "Owner": "FDull.Tests.SafetyCoverageTests.``only canonical task compatibility downgrade is accepted``",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | P:FDull.WorkspaceCompilerPolicy.required",
+      "Reason": "Asserts only the exact FS3180 downgrade is accepted; other warning downgrades are rejected and the awaiter warning shape remains narrow."
+    },
+    {
+      "File": "tests/FDull.Tests/SafetyCoverageTests.fs",
+      "Owner": "FDull.Tests.SafetyCoverageTests.``only canonical task compatibility downgrade is accepted``",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Equal``1(``0,``0)",
+      "Reason": "Asserts only the exact FS3180 downgrade is accepted; other warning downgrades are rejected and the awaiter warning shape remains narrow."
+    },
+    {
+      "File": "tests/FDull.Tests/SafetyCoverageTests.fs",
+      "Owner": "FDull.Tests.SafetyCoverageTests.``only canonical task compatibility downgrade is accepted``",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.False(System.Boolean)",
+      "Reason": "Asserts only the exact FS3180 downgrade is accepted; other warning downgrades are rejected and the awaiter warning shape remains narrow."
+    },
+    {
+      "File": "tests/FDull.Tests/SafetyCoverageTests.fs",
+      "Owner": "FDull.Tests.SafetyCoverageTests.``only canonical task compatibility downgrade is accepted``",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.True(System.Boolean)",
+      "Reason": "Asserts only the exact FS3180 downgrade is accepted; other warning downgrades are rejected and the awaiter warning shape remains narrow."
+    },
+    {
+      "File": "tests/FDull.Tests/SafetyCoverageTests.fs",
+      "Owner": "FDull.Tests.SafetyCoverageTests.``only canonical task compatibility downgrade is accepted``",
+      "Kind": "rule",
+      "Identity": "MUT009 | ",
+      "Reason": "The loop iterates exactly four literal flag candidates to assert acceptance and rejection of duplicate downgrades."
+    },
+    {
+      "File": "tests/FDull.Tests/SafetyCoverageTests.fs",
+      "Owner": "FDull.Tests.SafetyCoverageTests.``only canonical task compatibility downgrade is accepted``",
+      "Kind": "type",
+      "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | System.Object",
+      "Reason": "xUnit assertion overloads box only finite in-memory test values while checking the compatibility matcher."
+    },
+    {
+      "File": "tests/FDull.Tests/SafetyTests.fs",
+      "Owner": "FDull.Tests.SafetyTests.``healthy anonymous record metadata is optional while needed missing types block``",
+      "Kind": "attribute",
+      "Identity": "xunit.core, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | Xunit.FactAttribute |  | unit",
+      "Reason": "Isolated non-shipping regression compiles a fresh anonymous-record reference, verifies FS3186 is optional for a healthy consumer, and requires incomplete analysis for a missing referenced type."
+    },
+    {
+      "File": "tests/FDull.Tests/SafetyTests.fs",
+      "Owner": "FDull.Tests.SafetyTests.``healthy anonymous record metadata is optional while needed missing types block``",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | P:FDull.WorkspaceCompilerPolicy.required",
+      "Reason": "Isolated non-shipping regression compiles a fresh anonymous-record reference, verifies FS3186 is optional for a healthy consumer, and requires incomplete analysis for a missing referenced type."
+    },
+    {
+      "File": "tests/FDull.Tests/SafetyTests.fs",
+      "Owner": "FDull.Tests.SafetyTests.``healthy anonymous record metadata is optional while needed missing types block``",
+      "Kind": "member",
+      "Identity": "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:FSharp.Compiler.CodeAnalysis.FSharpChecker.Compile(System.String[],Microsoft.FSharp.Core.FSharpOption{System.String})",
+      "Reason": "Isolated non-shipping regression compiles a fresh anonymous-record reference, verifies FS3186 is optional for a healthy consumer, and requires incomplete analysis for a missing referenced type."
+    },
+    {
+      "File": "tests/FDull.Tests/SafetyTests.fs",
+      "Owner": "FDull.Tests.SafetyTests.``healthy anonymous record metadata is optional while needed missing types block``",
+      "Kind": "member",
+      "Identity": "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:FSharp.Compiler.CodeAnalysis.FSharpChecker.Create(Microsoft.FSharp.Core.FSharpOption{System.Int32},Microsoft.FSharp.Core.FSharpOption{System.Boolean},Microsoft.FSharp.Core.FSharpOption{System.Boolean},Microsoft.FSharp.Core.FSharpOption{FSharp.Compiler.CodeAnalysis.LegacyReferenceResolver},Microsoft.FSharp.Core.FSharpOption{Microsoft.FSharp.Core.FSharpFunc{System.Tuple{System.String,System.DateTime},Microsoft.FSharp.Core.FSharpOption{System.Tuple{System.Object,System.IntPtr,System.Int32}}}},Microsoft.FSharp.Core.FSharpOption{System.Boolean},Microsoft.FSharp.Core.FSharpOption{System.Boolean},Microsoft.FSharp.Core.FSharpOption{System.Boolean},Microsoft.FSharp.Core.FSharpOption{System.Boolean},Microsoft.FSharp.Core.FSharpOption{System.Boolean},Microsoft.FSharp.Core.FSharpOption{System.Boolean},Microsoft.FSharp.Core.FSharpOption{FSharp.Compiler.CodeAnalysis.DocumentSource},Microsoft.FSharp.Core.FSharpOption{System.Boolean},Microsoft.FSharp.Core.FSharpOption{FSharp.Compiler.CodeAnalysis.TransparentCompiler.CacheSizes})",
+      "Reason": "Isolated non-shipping regression compiles a fresh anonymous-record reference, verifies FS3186 is optional for a healthy consumer, and requires incomplete analysis for a missing referenced type."
+    },
+    {
+      "File": "tests/FDull.Tests/SafetyTests.fs",
+      "Owner": "FDull.Tests.SafetyTests.``healthy anonymous record metadata is optional while needed missing types block``",
+      "Kind": "member",
+      "Identity": "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:FSharp.Compiler.Diagnostics.FSharpDiagnostic.ErrorNumber",
+      "Reason": "Isolated non-shipping regression compiles a fresh anonymous-record reference, verifies FS3186 is optional for a healthy consumer, and requires incomplete analysis for a missing referenced type."
+    },
+    {
+      "File": "tests/FDull.Tests/SafetyTests.fs",
+      "Owner": "FDull.Tests.SafetyTests.``healthy anonymous record metadata is optional while needed missing types block``",
+      "Kind": "member",
+      "Identity": "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:FSharp.Compiler.Diagnostics.FSharpDiagnostic.Message",
+      "Reason": "Isolated non-shipping regression compiles a fresh anonymous-record reference, verifies FS3186 is optional for a healthy consumer, and requires incomplete analysis for a missing referenced type."
+    },
+    {
+      "File": "tests/FDull.Tests/SafetyTests.fs",
+      "Owner": "FDull.Tests.SafetyTests.``healthy anonymous record metadata is optional while needed missing types block``",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.ArrayModule.Map``2(Microsoft.FSharp.Core.FSharpFunc{``0,``1},``0[])",
+      "Reason": "Isolated non-shipping regression compiles a fresh anonymous-record reference, verifies FS3186 is optional for a healthy consumer, and requires incomplete analysis for a missing referenced type."
+    },
+    {
+      "File": "tests/FDull.Tests/SafetyTests.fs",
+      "Owner": "FDull.Tests.SafetyTests.``healthy anonymous record metadata is optional while needed missing types block``",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.ListModule.ToArray``1(Microsoft.FSharp.Collections.FSharpList{``0})",
+      "Reason": "Isolated non-shipping regression compiles a fresh anonymous-record reference, verifies FS3186 is optional for a healthy consumer, and requires incomplete analysis for a missing referenced type."
+    },
+    {
+      "File": "tests/FDull.Tests/SafetyTests.fs",
+      "Owner": "FDull.Tests.SafetyTests.``healthy anonymous record metadata is optional while needed missing types block``",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Control.FSharpAsync.RunSynchronously``1(Microsoft.FSharp.Control.FSharpAsync{``0},Microsoft.FSharp.Core.FSharpOption{System.Int32},Microsoft.FSharp.Core.FSharpOption{System.Threading.CancellationToken})",
+      "Reason": "Isolated non-shipping regression compiles a fresh anonymous-record reference, verifies FS3186 is optional for a healthy consumer, and requires incomplete analysis for a missing referenced type."
+    },
+    {
+      "File": "tests/FDull.Tests/SafetyTests.fs",
+      "Owner": "FDull.Tests.SafetyTests.``healthy anonymous record metadata is optional while needed missing types block``",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.Guid.NewGuid",
+      "Reason": "Isolated non-shipping regression compiles a fresh anonymous-record reference, verifies FS3186 is optional for a healthy consumer, and requires incomplete analysis for a missing referenced type."
+    },
+    {
+      "File": "tests/FDull.Tests/SafetyTests.fs",
+      "Owner": "FDull.Tests.SafetyTests.``healthy anonymous record metadata is optional while needed missing types block``",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.Guid.ToString(System.String)",
+      "Reason": "Isolated non-shipping regression compiles a fresh anonymous-record reference, verifies FS3186 is optional for a healthy consumer, and requires incomplete analysis for a missing referenced type."
+    },
+    {
+      "File": "tests/FDull.Tests/SafetyTests.fs",
+      "Owner": "FDull.Tests.SafetyTests.``healthy anonymous record metadata is optional while needed missing types block``",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Directory.CreateDirectory(System.String)",
+      "Reason": "Isolated non-shipping regression compiles a fresh anonymous-record reference, verifies FS3186 is optional for a healthy consumer, and requires incomplete analysis for a missing referenced type."
+    },
+    {
+      "File": "tests/FDull.Tests/SafetyTests.fs",
+      "Owner": "FDull.Tests.SafetyTests.``healthy anonymous record metadata is optional while needed missing types block``",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Directory.Delete(System.String,System.Boolean)",
+      "Reason": "Isolated non-shipping regression compiles a fresh anonymous-record reference, verifies FS3186 is optional for a healthy consumer, and requires incomplete analysis for a missing referenced type."
+    },
+    {
+      "File": "tests/FDull.Tests/SafetyTests.fs",
+      "Owner": "FDull.Tests.SafetyTests.``healthy anonymous record metadata is optional while needed missing types block``",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.File.WriteAllText(System.String,System.String)",
+      "Reason": "Isolated non-shipping regression compiles a fresh anonymous-record reference, verifies FS3186 is optional for a healthy consumer, and requires incomplete analysis for a missing referenced type."
+    },
+    {
+      "File": "tests/FDull.Tests/SafetyTests.fs",
+      "Owner": "FDull.Tests.SafetyTests.``healthy anonymous record metadata is optional while needed missing types block``",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.Combine(System.String,System.String)",
+      "Reason": "Isolated non-shipping regression compiles a fresh anonymous-record reference, verifies FS3186 is optional for a healthy consumer, and requires incomplete analysis for a missing referenced type."
+    },
+    {
+      "File": "tests/FDull.Tests/SafetyTests.fs",
+      "Owner": "FDull.Tests.SafetyTests.``healthy anonymous record metadata is optional while needed missing types block``",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.GetTempPath",
+      "Reason": "Isolated non-shipping regression compiles a fresh anonymous-record reference, verifies FS3186 is optional for a healthy consumer, and requires incomplete analysis for a missing referenced type."
+    },
+    {
+      "File": "tests/FDull.Tests/SafetyTests.fs",
+      "Owner": "FDull.Tests.SafetyTests.``healthy anonymous record metadata is optional while needed missing types block``",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.String.Join(System.String,System.String[])",
+      "Reason": "Isolated non-shipping regression compiles a fresh anonymous-record reference, verifies FS3186 is optional for a healthy consumer, and requires incomplete analysis for a missing referenced type."
+    },
+    {
+      "File": "tests/FDull.Tests/SafetyTests.fs",
+      "Owner": "FDull.Tests.SafetyTests.``healthy anonymous record metadata is optional while needed missing types block``",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Contains``1(System.Collections.Generic.IEnumerable{``0},System.Predicate{``0})",
+      "Reason": "Isolated non-shipping regression compiles a fresh anonymous-record reference, verifies FS3186 is optional for a healthy consumer, and requires incomplete analysis for a missing referenced type."
+    },
+    {
+      "File": "tests/FDull.Tests/SafetyTests.fs",
+      "Owner": "FDull.Tests.SafetyTests.``healthy anonymous record metadata is optional while needed missing types block``",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.DoesNotContain``1(System.Collections.Generic.IEnumerable{``0},System.Predicate{``0})",
+      "Reason": "Isolated non-shipping regression compiles a fresh anonymous-record reference, verifies FS3186 is optional for a healthy consumer, and requires incomplete analysis for a missing referenced type."
+    },
+    {
+      "File": "tests/FDull.Tests/SafetyTests.fs",
+      "Owner": "FDull.Tests.SafetyTests.``healthy anonymous record metadata is optional while needed missing types block``",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Equal``1(``0,``0)",
+      "Reason": "Isolated non-shipping regression compiles a fresh anonymous-record reference, verifies FS3186 is optional for a healthy consumer, and requires incomplete analysis for a missing referenced type."
+    },
+    {
+      "File": "tests/FDull.Tests/SafetyTests.fs",
+      "Owner": "FDull.Tests.SafetyTests.``healthy anonymous record metadata is optional while needed missing types block``",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.False(System.Boolean)",
+      "Reason": "Isolated non-shipping regression compiles a fresh anonymous-record reference, verifies FS3186 is optional for a healthy consumer, and requires incomplete analysis for a missing referenced type."
+    },
+    {
+      "File": "tests/FDull.Tests/SafetyTests.fs",
+      "Owner": "FDull.Tests.SafetyTests.``healthy anonymous record metadata is optional while needed missing types block``",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.True(System.Boolean,System.String)",
+      "Reason": "Isolated non-shipping regression compiles a fresh anonymous-record reference, verifies FS3186 is optional for a healthy consumer, and requires incomplete analysis for a missing referenced type."
+    },
+    {
+      "File": "tests/FDull.Tests/SafetyTests.fs",
+      "Owner": "FDull.Tests.SafetyTests.``healthy anonymous record metadata is optional while needed missing types block``",
+      "Kind": "rule",
+      "Identity": "ERR009 | ",
+      "Reason": "Isolated non-shipping regression compiles a fresh anonymous-record reference, verifies FS3186 is optional for a healthy consumer, and requires incomplete analysis for a missing referenced type."
+    },
+    {
+      "File": "tests/FDull.Tests/SafetyTests.fs",
+      "Owner": "FDull.Tests.SafetyTests.``healthy anonymous record metadata is optional while needed missing types block``",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | FDull.SafetyDiagnostic",
+      "Reason": "Isolated non-shipping regression compiles a fresh anonymous-record reference, verifies FS3186 is optional for a healthy consumer, and requires incomplete analysis for a missing referenced type."
+    },
+    {
+      "File": "tests/FDull.Tests/SafetyTests.fs",
+      "Owner": "FDull.Tests.SafetyTests.``healthy anonymous record metadata is optional while needed missing types block``",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | FDull.SafetyReport",
+      "Reason": "Isolated non-shipping regression compiles a fresh anonymous-record reference, verifies FS3186 is optional for a healthy consumer, and requires incomplete analysis for a missing referenced type."
+    },
+    {
+      "File": "tests/FDull.Tests/SafetyTests.fs",
+      "Owner": "FDull.Tests.SafetyTests.``healthy anonymous record metadata is optional while needed missing types block``",
+      "Kind": "type",
+      "Identity": "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | FSharp.Compiler.Diagnostics.FSharpDiagnostic",
+      "Reason": "Isolated non-shipping regression compiles a fresh anonymous-record reference, verifies FS3186 is optional for a healthy consumer, and requires incomplete analysis for a missing referenced type."
+    },
+    {
+      "File": "tests/FDull.Tests/SafetyTests.fs",
+      "Owner": "FDull.Tests.SafetyTests.``healthy anonymous record metadata is optional while needed missing types block``",
+      "Kind": "type",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | []",
+      "Reason": "Isolated non-shipping regression compiles a fresh anonymous-record reference, verifies FS3186 is optional for a healthy consumer, and requires incomplete analysis for a missing referenced type."
+    },
+    {
+      "File": "tests/FDull.Tests/SafetyTests.fs",
+      "Owner": "FDull.Tests.SafetyTests.``healthy anonymous record metadata is optional while needed missing types block``",
+      "Kind": "type",
+      "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | System.Collections.Generic.IEnumerable`1",
+      "Reason": "Isolated non-shipping regression compiles a fresh anonymous-record reference, verifies FS3186 is optional for a healthy consumer, and requires incomplete analysis for a missing referenced type."
+    },
+    {
+      "File": "tests/FDull.Tests/SafetyTests.fs",
+      "Owner": "FDull.Tests.SafetyTests.``healthy anonymous record metadata is optional while needed missing types block``",
+      "Kind": "type",
+      "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | System.Exception",
+      "Reason": "Isolated non-shipping regression compiles a fresh anonymous-record reference, verifies FS3186 is optional for a healthy consumer, and requires incomplete analysis for a missing referenced type."
+    },
+    {
+      "File": "tests/FDull.Tests/SafetyTests.fs",
+      "Owner": "FDull.Tests.SafetyTests.analyzeWorkspaceWithTarget",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.SafetyPolicy.fileDigest(System.String)",
+      "Reason": "Isolated non-shipping fixture builds an exact FCS workspace request, compiles it in a temporary directory, validates the worker protocol and removes fixture outputs."
+    },
+    {
+      "File": "tests/FDull.Tests/SafetyTests.fs",
+      "Owner": "FDull.Tests.SafetyTests.analyzeWorkspaceWithTarget",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Transport.Codec.encode``1(``0)",
+      "Reason": "Isolated non-shipping fixture builds an exact FCS workspace request, compiles it in a temporary directory, validates the worker protocol and removes fixture outputs."
+    },
+    {
+      "File": "tests/FDull.Tests/SafetyTests.fs",
+      "Owner": "FDull.Tests.SafetyTests.analyzeWorkspaceWithTarget",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Transport.External.required``1(System.String,``0)",
+      "Reason": "Isolated non-shipping fixture builds an exact FCS workspace request, compiles it in a temporary directory, validates the worker protocol and removes fixture outputs."
+    },
+    {
+      "File": "tests/FDull.Tests/SafetyTests.fs",
+      "Owner": "FDull.Tests.SafetyTests.analyzeWorkspaceWithTarget",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.WorkspaceEngine.check(FDull.WorkspaceRequest)",
+      "Reason": "Isolated non-shipping fixture builds an exact FCS workspace request, compiles it in a temporary directory, validates the worker protocol and removes fixture outputs."
+    },
+    {
+      "File": "tests/FDull.Tests/SafetyTests.fs",
+      "Owner": "FDull.Tests.SafetyTests.analyzeWorkspaceWithTarget",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.WorkspaceProtocol.validate(FDull.WorkspaceRequest,FDull.WorkspacePolicyDocument,System.Int32,System.String,FDull.WorkspaceProjectReport)",
+      "Reason": "Isolated non-shipping fixture builds an exact FCS workspace request, compiles it in a temporary directory, validates the worker protocol and removes fixture outputs."
+    },
+    {
+      "File": "tests/FDull.Tests/SafetyTests.fs",
+      "Owner": "FDull.Tests.SafetyTests.analyzeWorkspaceWithTarget",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | P:FDull.WorkspaceCompilerPolicy.required",
+      "Reason": "Isolated non-shipping fixture builds an exact FCS workspace request, compiles it in a temporary directory, validates the worker protocol and removes fixture outputs."
+    },
+    {
+      "File": "tests/FDull.Tests/SafetyTests.fs",
+      "Owner": "FDull.Tests.SafetyTests.analyzeWorkspaceWithTarget",
+      "Kind": "member",
+      "Identity": "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:FSharp.Compiler.CodeAnalysis.FSharpChecker.Compile(System.String[],Microsoft.FSharp.Core.FSharpOption{System.String})",
+      "Reason": "Isolated non-shipping fixture builds an exact FCS workspace request, compiles it in a temporary directory, validates the worker protocol and removes fixture outputs."
+    },
+    {
+      "File": "tests/FDull.Tests/SafetyTests.fs",
+      "Owner": "FDull.Tests.SafetyTests.analyzeWorkspaceWithTarget",
+      "Kind": "member",
+      "Identity": "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:FSharp.Compiler.CodeAnalysis.FSharpChecker.Create(Microsoft.FSharp.Core.FSharpOption{System.Int32},Microsoft.FSharp.Core.FSharpOption{System.Boolean},Microsoft.FSharp.Core.FSharpOption{System.Boolean},Microsoft.FSharp.Core.FSharpOption{FSharp.Compiler.CodeAnalysis.LegacyReferenceResolver},Microsoft.FSharp.Core.FSharpOption{Microsoft.FSharp.Core.FSharpFunc{System.Tuple{System.String,System.DateTime},Microsoft.FSharp.Core.FSharpOption{System.Tuple{System.Object,System.IntPtr,System.Int32}}}},Microsoft.FSharp.Core.FSharpOption{System.Boolean},Microsoft.FSharp.Core.FSharpOption{System.Boolean},Microsoft.FSharp.Core.FSharpOption{System.Boolean},Microsoft.FSharp.Core.FSharpOption{System.Boolean},Microsoft.FSharp.Core.FSharpOption{System.Boolean},Microsoft.FSharp.Core.FSharpOption{System.Boolean},Microsoft.FSharp.Core.FSharpOption{FSharp.Compiler.CodeAnalysis.DocumentSource},Microsoft.FSharp.Core.FSharpOption{System.Boolean},Microsoft.FSharp.Core.FSharpOption{FSharp.Compiler.CodeAnalysis.TransparentCompiler.CacheSizes})",
+      "Reason": "Isolated non-shipping fixture builds an exact FCS workspace request, compiles it in a temporary directory, validates the worker protocol and removes fixture outputs."
+    },
+    {
+      "File": "tests/FDull.Tests/SafetyTests.fs",
+      "Owner": "FDull.Tests.SafetyTests.analyzeWorkspaceWithTarget",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.ListModule.ToArray``1(Microsoft.FSharp.Collections.FSharpList{``0})",
+      "Reason": "Isolated non-shipping fixture builds an exact FCS workspace request, compiles it in a temporary directory, validates the worker protocol and removes fixture outputs."
+    },
+    {
+      "File": "tests/FDull.Tests/SafetyTests.fs",
+      "Owner": "FDull.Tests.SafetyTests.analyzeWorkspaceWithTarget",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Control.FSharpAsync.RunSynchronously``1(Microsoft.FSharp.Control.FSharpAsync{``0},Microsoft.FSharp.Core.FSharpOption{System.Int32},Microsoft.FSharp.Core.FSharpOption{System.Threading.CancellationToken})",
+      "Reason": "Isolated non-shipping fixture builds an exact FCS workspace request, compiles it in a temporary directory, validates the worker protocol and removes fixture outputs."
+    },
+    {
+      "File": "tests/FDull.Tests/SafetyTests.fs",
+      "Owner": "FDull.Tests.SafetyTests.analyzeWorkspaceWithTarget",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Core.Operators.FailWith``1(System.String)",
+      "Reason": "Isolated non-shipping fixture builds an exact FCS workspace request, compiles it in a temporary directory, validates the worker protocol and removes fixture outputs."
+    },
+    {
+      "File": "tests/FDull.Tests/SafetyTests.fs",
+      "Owner": "FDull.Tests.SafetyTests.analyzeWorkspaceWithTarget",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Directory.CreateDirectory(System.String)",
+      "Reason": "Isolated non-shipping fixture builds an exact FCS workspace request, compiles it in a temporary directory, validates the worker protocol and removes fixture outputs."
+    },
+    {
+      "File": "tests/FDull.Tests/SafetyTests.fs",
+      "Owner": "FDull.Tests.SafetyTests.analyzeWorkspaceWithTarget",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.File.WriteAllText(System.String,System.String)",
+      "Reason": "Isolated non-shipping fixture builds an exact FCS workspace request, compiles it in a temporary directory, validates the worker protocol and removes fixture outputs."
+    },
+    {
+      "File": "tests/FDull.Tests/SafetyTests.fs",
+      "Owner": "FDull.Tests.SafetyTests.analyzeWorkspaceWithTarget",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.Combine(System.String,System.String)",
+      "Reason": "Isolated non-shipping fixture builds an exact FCS workspace request, compiles it in a temporary directory, validates the worker protocol and removes fixture outputs."
+    },
+    {
+      "File": "tests/FDull.Tests/SafetyTests.fs",
+      "Owner": "FDull.Tests.SafetyTests.analyzeWorkspaceWithTarget",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.GetFileName(System.String)",
+      "Reason": "Isolated non-shipping fixture builds an exact FCS workspace request, compiles it in a temporary directory, validates the worker protocol and removes fixture outputs."
+    },
+    {
+      "File": "tests/FDull.Tests/SafetyTests.fs",
+      "Owner": "FDull.Tests.SafetyTests.analyzeWorkspaceWithTarget",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Equal``1(``0,``0)",
+      "Reason": "Isolated non-shipping fixture builds an exact FCS workspace request, compiles it in a temporary directory, validates the worker protocol and removes fixture outputs."
+    },
+    {
+      "File": "tests/FDull.Tests/SafetyTests.fs",
+      "Owner": "FDull.Tests.SafetyTests.analyzeWorkspaceWithTarget",
+      "Kind": "rule",
+      "Identity": "MUT009 | ",
+      "Reason": "Isolated non-shipping fixture builds an exact FCS workspace request, compiles it in a temporary directory, validates the worker protocol and removes fixture outputs."
+    },
+    {
+      "File": "tests/FDull.Tests/SafetyTests.fs",
+      "Owner": "FDull.Tests.SafetyTests.analyzeWorkspaceWithTarget",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | FDull.SafetyInput",
+      "Reason": "Isolated non-shipping fixture builds an exact FCS workspace request, compiles it in a temporary directory, validates the worker protocol and removes fixture outputs."
+    },
+    {
+      "File": "tests/FDull.Tests/SafetyTests.fs",
+      "Owner": "FDull.Tests.SafetyTests.analyzeWorkspaceWithTarget",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | FDull.SafetyReport",
+      "Reason": "Isolated non-shipping fixture builds an exact FCS workspace request, compiles it in a temporary directory, validates the worker protocol and removes fixture outputs."
+    },
+    {
+      "File": "tests/FDull.Tests/SafetyTests.fs",
+      "Owner": "FDull.Tests.SafetyTests.analyzeWorkspaceWithTarget",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspacePolicyDocument",
+      "Reason": "Isolated non-shipping fixture builds an exact FCS workspace request, compiles it in a temporary directory, validates the worker protocol and removes fixture outputs."
+    },
+    {
+      "File": "tests/FDull.Tests/SafetyTests.fs",
+      "Owner": "FDull.Tests.SafetyTests.analyzeWorkspaceWithTarget",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspaceProjectReport",
+      "Reason": "Isolated non-shipping fixture builds an exact FCS workspace request, compiles it in a temporary directory, validates the worker protocol and removes fixture outputs."
+    },
+    {
+      "File": "tests/FDull.Tests/SafetyTests.fs",
+      "Owner": "FDull.Tests.SafetyTests.analyzeWorkspaceWithTarget",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspaceRequest",
+      "Reason": "Isolated non-shipping fixture builds an exact FCS workspace request, compiles it in a temporary directory, validates the worker protocol and removes fixture outputs."
+    },
+    {
+      "File": "tests/FDull.Tests/SafetyTests.fs",
+      "Owner": "FDull.Tests.SafetyTests.analyzeWorkspaceWithTarget",
+      "Kind": "type",
+      "Identity": "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | FSharp.Compiler.Diagnostics.FSharpDiagnostic",
+      "Reason": "Isolated non-shipping fixture builds an exact FCS workspace request, compiles it in a temporary directory, validates the worker protocol and removes fixture outputs."
+    },
+    {
+      "File": "tests/FDull.Tests/SafetyTests.fs",
+      "Owner": "FDull.Tests.SafetyTests.analyzeWorkspaceWithTarget",
+      "Kind": "type",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | []",
+      "Reason": "Isolated non-shipping fixture builds an exact FCS workspace request, compiles it in a temporary directory, validates the worker protocol and removes fixture outputs."
+    },
+    {
+      "File": "tests/FDull.Tests/SafetyTests.fs",
+      "Owner": "FDull.Tests.SafetyTests.analyzeWorkspaceWithTarget",
+      "Kind": "type",
+      "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | System.Exception",
+      "Reason": "Isolated non-shipping fixture builds an exact FCS workspace request, compiles it in a temporary directory, validates the worker protocol and removes fixture outputs."
+    },
+    {
+      "File": "tests/FDull.Tests/SafetyTests.fs",
+      "Owner": "FDull.Tests.SafetyTests.analyzeWorkspaceWithTarget",
+      "Kind": "type",
+      "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | System.Object",
+      "Reason": "Isolated non-shipping fixture builds an exact FCS workspace request, compiles it in a temporary directory, validates the worker protocol and removes fixture outputs."
+    },
+    {
+      "File": "src/FDull/SafetyPolicy.fs",
+      "Owner": "FDull.SafetyPolicy.optionalCompilerWarning",
+      "Kind": "member",
+      "Identity": "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:FSharp.Compiler.Diagnostics.FSharpDiagnostic.ErrorNumber",
+      "Reason": "Reads the pinned FCS diagnostic number and severity to classify only the unreliable FS3186 Warning as optional; compiler errors and all other warnings remain blockers."
+    },
+    {
+      "File": "src/FDull/SafetyPolicy.fs",
+      "Owner": "FDull.SafetyPolicy.optionalCompilerWarning",
+      "Kind": "member",
+      "Identity": "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:FSharp.Compiler.Diagnostics.FSharpDiagnostic.Severity",
+      "Reason": "Reads the pinned FCS diagnostic number and severity to classify only the unreliable FS3186 Warning as optional; compiler errors and all other warnings remain blockers."
+    },
+    {
+      "File": "src/FDull/SafetyPolicy.fs",
+      "Owner": "FDull.SafetyPolicy.optionalCompilerWarning",
+      "Kind": "type",
+      "Identity": "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | FSharp.Compiler.Diagnostics.FSharpDiagnostic",
+      "Reason": "Reads the pinned FCS diagnostic number and severity to classify only the unreliable FS3186 Warning as optional; compiler errors and all other warnings remain blockers."
+    },
+    {
+      "File": "tests/FDull.Tests/SafetyTests.fs",
+      "Owner": "FDull.Tests.SafetyTests.``task awaiter compatibility preserves authored capture warnings``",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.False(System.Boolean)",
+      "Reason": "Asserts the unsuppressed authored FS3180 compiler error makes the unconditional workspace compile pass report incomplete analysis."
     }
   ],
   "Domains": [],

@@ -33,23 +33,40 @@ Install the matching SDK/runtime first. New toolchains require compatibility
 tests; the preview rejects untested compiler flags.
 
 Projects affected by the pinned compiler's task-builder FS3180 warning may set
-`WarningsNotAsErrors` to **3180 only**. FDull accepts the exact exported
-`--warnaserror-:3180` argument and performs an additional compiler pass in its
-bounded worker. This pass permits only the known optimizer warning for `awaiter`
-at the compiler's `unknown(1,1)` location; every other compiler warning or error
-still fails analysis. The normal build continues to display that warning.
+`WarningsNotAsErrors` to **3180**. FDull accepts only that exact downgrade and
+performs a private compiler pass for every workspace project. It permits the
+known optimizer warning for `awaiter` at the compiler's `unknown(1,1)` location
+only when 3180 is opted in. It also excludes FS3186 warnings from that private
+pass for the compiler defect explained below. Other compiler warnings and all
+compiler errors still fail analysis. The normal build continues to display
+compatible warnings.
 For executables, the private diagnostic pass omits the Windows manifest, which
 FCS otherwise tries to load from the runtime directory. The SDK build still
 produces its normal manifest and remains part of verification.
-The default compiler preset remains strict, and `--nowarn` and other warning
-downgrades remain unsupported, including FS3186.
+The default compiler preset remains strict; `--nowarn` and other warning
+downgrades remain unsupported.
 
-This warning shape is a compatibility allowance, not proof of task provenance:
+The FS3180 warning shape is a compatibility allowance, not proof of task provenance:
 an imported inline helper can produce the same diagnostic. Included projects
 are checked individually, so their authored captures still fail at their source
 locations. External inline APIs remain subject to their exact reviewed contracts.
 Do not use the warning setting without FDull's additional compilation check as
 evidence that authored capture warnings have passed.
+
+FS3186 is not in the mandatory opt-in warning list. In the pinned FCS version,
+the F# metadata reader can emit it for healthy anonymous-record information in
+a referenced assembly even when the consumer does not need a missing type or
+member. The [FCS linked-state check](https://github.com/dotnet/dotnet/blob/4d3023de605a78ba3e59e50c657eed70f125c68a/src/fsharp/src/Compiler/TypedTree/TypedTree.fs#L4553-L4570)
+returns true for a missing link and false for a present one, while the
+[metadata unpickler](https://github.com/dotnet/dotnet/blob/4d3023de605a78ba3e59e50c657eed70f125c68a/src/fsharp/src/Compiler/TypedTree/TypedTreePickle.fs#L1026-L1134)
+uses that check when deciding whether to emit FS3186. The result can be a false
+positive and can miss an unlinked node, so FS3186 is not a reliable safety
+condition by itself. It can still appear in compiler output without an opt-in.
+The FCS API used for the private pass can return that warning even when the SDK
+compiler does not display it for the same healthy reference. Compiler errors,
+missing output, unresolved symbols and types, and
+incomplete typed analysis still block completion. Authored implementation
+analysis and exact review of external APIs remain required.
 
 Workspaces contain ordinary F# SDK projects with literal project references and
 authored `.fs`/`.fsi` files. Release builds must use the standard

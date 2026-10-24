@@ -136,7 +136,8 @@ module SafetyEngine =
                     for error in checkedProject.Diagnostics do
                         if
                             error.Severity = FSharpDiagnosticSeverity.Error
-                            || error.Severity = FSharpDiagnosticSeverity.Warning
+                            || (error.Severity = FSharpDiagnosticSeverity.Warning
+                                && not (SafetyPolicy.optionalCompilerWarning error))
                         then
                             emit
                                 ("FS" + error.ErrorNumber.ToString("0000"))
