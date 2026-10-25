@@ -590,6 +590,194 @@ module ProjectTests =
             Assert.DoesNotContain("PASS", blocked.Output + blocked.Error))
 
     [<Fact>]
+    let ``attribute contracts bind resolved enum fields and named literal values`` () =
+        withDirectory (fun root ->
+            prepare root
+            let policy = read root
+            let sourcePath = Path.Combine(root, "App.fs")
+            let policyPath = Path.Combine(root, "fdull.json")
+
+            let source =
+                "module App\n"
+                + "[<System.AttributeUsage(System.AttributeTargets.All, AllowMultiple=true)>]\n"
+                + "type MarkerAttribute() = inherit System.Attribute()\n"
+                + "[<System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.NoInlining)>]\n"
+                + "let increment value = value + 1\n"
+
+            File.WriteAllText(sourcePath, source)
+            let before = Workspace.review root
+            Assert.True(before.AnalysisComplete, WorkspaceReview.format before)
+            let attributes = before.Items |> List.filter (fun item -> item.Kind = "attribute")
+            Assert.Equal(2, attributes.Length)
+            Assert.All(attributes, fun item -> Assert.Contains("enum:", item.Identity))
+            Assert.Contains(attributes, fun item -> item.Identity.Contains("named:"))
+
+            let reviewed =
+                { policy with
+                    Capabilities =
+                        attributes
+                        |> List.map (fun item ->
+                            { File = item.File
+                              Owner = item.Owner
+                              Kind = "attribute"
+                              Identity = item.Identity
+                              Reason = "This regression approves only the displayed enum and named literal values." }) }
+
+            File.WriteAllText(policyPath, Codec.encode reviewed)
+            let after = Workspace.review root
+            Assert.True(after.AnalysisComplete, WorkspaceReview.format after)
+
+            Assert.DoesNotContain(
+                after.Items,
+                fun item -> item.Evidence |> List.exists (fun diagnostic -> diagnostic.Rule = "ATTR001")
+            )
+
+            File.WriteAllText(
+                sourcePath,
+                source
+                    .Replace("AllowMultiple=true", "AllowMultiple=false")
+                    .Replace("MethodImplOptions.NoInlining", "MethodImplOptions.NoOptimization")
+            )
+
+            let changed = Workspace.review root
+            Assert.True(changed.AnalysisComplete, WorkspaceReview.format changed)
+
+            let changedAttributes =
+                changed.Items |> List.filter (fun item -> item.Kind = "attribute")
+
+            Assert.Equal(2, changedAttributes.Length)
+
+            Assert.All(
+                changedAttributes,
+                fun item -> Assert.DoesNotContain(attributes, fun original -> original.Identity = item.Identity)
+            )
+
+            File.WriteAllText(
+                sourcePath,
+                source.Replace(
+                    "MethodImplOptions.NoInlining",
+                    "MethodImplOptions.NoInlining ||| System.Runtime.CompilerServices.MethodImplOptions.NoOptimization"
+                )
+            )
+
+            let expression = Workspace.review root
+            Assert.True(expression.AnalysisComplete, WorkspaceReview.format expression)
+
+            Assert.Contains(
+                expression.Items,
+                fun item ->
+                    item.Kind = "source"
+                    && item.Evidence |> List.exists (fun diagnostic -> diagnostic.Rule = "ATTR001")
+            ))
+
+    [<Theory>]
+    [<InlineData("10.0.100")>]
+    [<InlineData("10.1.201")>]
+    let ``attribute contracts bind typeof nameof and ordered literal arrays`` coreVersion =
+        withDirectory (fun root ->
+            restoreConsumer root (Some coreVersion) "module App\nlet increment value = value + 1\n"
+
+            run
+                root
+                [ "build"
+                  "App.fsproj"
+                  "-c"
+                  "Release"
+                  "--no-restore"
+                  "-m:1"
+                  "--disable-build-servers" ]
+
+            Project.initialize root |> ignore
+            let policy = read root
+            let sourcePath = Path.Combine(root, "App.fs")
+            let policyPath = Path.Combine(root, "fdull.json")
+
+            let source =
+                "module App\n"
+                + "open System\n"
+                + "[<Literal>]\nlet maxTest = 100\n"
+                + "type First = class end\n"
+                + "type Second = class end\n"
+                + "type Cases = static member One = 1; static member Two = 2\n"
+                + "type TypeMarkerAttribute(_value: Type) = inherit Attribute()\n"
+                + "type NameMarkerAttribute(_value: string) = inherit Attribute()\n"
+                + "type ArrayMarkerAttribute() =\n"
+                + "    inherit Attribute()\n"
+                + "    member val Arbitrary: Type array = [||] with get, set\n"
+                + "    member val MaxTest = 0 with get, set\n"
+                + "[<TypeMarker(typeof<First>)>] type TypeTarget = class end\n"
+                + "[<NameMarker(nameof Cases.One)>] type NameTarget = class end\n"
+                + "[<ArrayMarker(Arbitrary = [| typeof<First>; typeof<Second> |], MaxTest = maxTest)>]\n"
+                + "type ArrayTarget = class end\n"
+
+            File.WriteAllText(sourcePath, source)
+
+            let reviewedAttributes () =
+                let report = Workspace.review root
+                Assert.True(report.AnalysisComplete, WorkspaceReview.format report)
+
+                report.Items
+                |> List.filter (fun item ->
+                    item.Kind = "attribute"
+                    && (item.Owner = "App.TypeTarget"
+                        || item.Owner = "App.NameTarget"
+                        || item.Owner = "App.ArrayTarget"))
+
+            let initial = reviewedAttributes ()
+            Assert.Equal(3, initial.Length)
+            Assert.Contains(initial, fun item -> item.Identity.Contains("typeof:"))
+            Assert.Contains(initial, fun item -> item.Identity.Contains("nameof:"))
+
+            Assert.Contains(
+                initial,
+                fun item -> item.Identity.Contains("array:") && item.Identity.Contains("literal:")
+            )
+
+            let approved =
+                { policy with
+                    Capabilities =
+                        initial
+                        |> List.map (fun item ->
+                            { File = item.File
+                              Owner = item.Owner
+                              Kind = "attribute"
+                              Identity = item.Identity
+                              Reason =
+                                "The resolved local type, named member and literal array are fixed by this regression." }) }
+
+            File.WriteAllText(policyPath, Codec.encode approved)
+            Assert.Empty(reviewedAttributes ())
+
+            File.WriteAllText(
+                sourcePath,
+                source
+                    .Replace("TypeMarker(typeof<First>)", "TypeMarker(typeof<Second>)")
+                    .Replace("nameof Cases.One", "nameof Cases.Two")
+                    .Replace("let maxTest = 100", "let maxTest = 101")
+                    .Replace("[| typeof<First>; typeof<Second> |]", "[| typeof<Second>; typeof<First> |]")
+            )
+
+            let changed = reviewedAttributes ()
+            Assert.Equal(3, changed.Length)
+
+            Assert.All(
+                changed,
+                fun item -> Assert.DoesNotContain(initial, fun original -> original.Identity = item.Identity)
+            )
+
+            File.WriteAllText(sourcePath, source.Replace("MaxTest = maxTest", "MaxTest = 50 + 50"))
+            let computed = Workspace.review root
+
+            Assert.True(
+                computed.Items
+                |> List.exists (fun item ->
+                    item.Kind = "source"
+                    && item.Evidence |> List.exists (fun diagnostic -> diagnostic.Rule = "ATTR001"))
+                || not computed.AnalysisComplete,
+                WorkspaceReview.format computed
+            ))
+
+    [<Fact>]
     let ``advisory review groups actual findings and preserves stale source rejection`` () =
         withDirectory (fun root ->
             prepare root
@@ -1486,6 +1674,78 @@ module ProjectTests =
 
             Assert.Single(remaining.Items |> List.filter (fun item -> item.Kind = "capture"))
             |> ignore)
+
+    [<Fact>]
+    let ``auto property captures use an authored property key across source relocation`` () =
+        withDirectory (fun root ->
+            let source =
+                "module App\ntype Service() =\n"
+                + "    member val OnLoad: int -> int = (fun value -> value + 1) with get, set\n"
+                + "    member this.Run(value) = this.OnLoad value\n"
+
+            restoreConsumer root None source
+            Project.initialize root |> ignore
+            let policy = read root
+
+            let reviewed =
+                { policy with
+                    Projects =
+                        policy.Projects
+                        |> List.map (fun project -> { project with Profile = "ADAPTER" })
+                    Sources = policy.Sources |> List.map (fun item -> { item with Profile = "ADAPTER" })
+                    Capabilities =
+                        [ for scope in [ "App.Service.``.ctor``"; "App.Service.Run" ] ->
+                              { File = "App.fs"
+                                Owner = scope
+                                Kind = "type"
+                                Identity = "source:App.fs | App.Service"
+                                Reason = "Review class storage while preserving exact capture identity evidence." } ] }
+
+            write root reviewed
+
+            let captureIdentity () =
+                let report = Workspace.review root
+                Assert.True(report.AnalysisComplete, Codec.encode report)
+
+                report.Items
+                |> List.find (fun item -> item.Kind = "capture" && item.Identity.StartsWith("EFFECT003 | "))
+                |> _.Identity
+
+            let expected =
+                "EFFECT003 | "
+                + Codec.encode ([ "App.Service"; "property"; "OnLoad" ], ([]: string list))
+
+            Assert.Equal(expected, captureIdentity ())
+            File.WriteAllText(Path.Combine(root, "App.fs"), "// Relocate the authored property.\n\n" + source)
+            Assert.Equal(expected, captureIdentity ())
+
+            let approved =
+                { reviewed with
+                    Capabilities =
+                        reviewed.Capabilities
+                        @ [ { File = "App.fs"
+                              Owner = "App.Service.``.ctor``"
+                              Kind = "capture"
+                              Identity = expected
+                              Reason = "Review only this authored callback property; its body remains checked." } ] }
+
+            write root approved
+            let accepted = Workspace.review root
+            Assert.True(accepted.AnalysisComplete, Codec.encode accepted)
+            Assert.DoesNotContain(accepted.Items, fun item -> item.Kind = "capture")
+
+            File.WriteAllText(Path.Combine(root, "App.fs"), source.Replace("OnLoad", "OnRead"))
+            let renamed = Workspace.review root
+            Assert.True(renamed.AnalysisComplete, Codec.encode renamed)
+            Assert.Contains(renamed.UnusedCapabilities, fun entry -> entry.Kind = "capture")
+
+            Assert.Contains(
+                renamed.Items,
+                fun item ->
+                    item.Kind = "capture"
+                    && item.Identity = "EFFECT003 | "
+                                       + Codec.encode ([ "App.Service"; "property"; "OnRead" ], ([]: string list))
+            ))
 
     [<Theory>]
     [<InlineData(false)>]

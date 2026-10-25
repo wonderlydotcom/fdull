@@ -58,7 +58,7 @@ module WorkspaceProtocol =
                     || not (String.IsNullOrEmpty stderr)))
             || (report.ExitCode = 1 && (not report.Complete || report.Diagnostics.IsEmpty))
             || (report.ExitCode = 3 && (report.Complete || report.Diagnostics.IsEmpty))
-            || report.Diagnostics.Length > 4097
+            || report.Diagnostics.Length > SafetyLimits.workspaceDiagnosticCount + 1
             || report.Diagnostics
                |> List.exists (fun diagnostic ->
                    diagnostic.Severity <> "error"
@@ -106,6 +106,62 @@ module WorkspaceProtocol =
 module WorkspaceEngine =
     let private checker = lazy (FSharpChecker.Create(keepAssemblyContents = true))
 
+    /// Compile the exact source/reference invocation into a private temporary
+    /// output. ParseAndCheckProject does not report every compiler diagnostic.
+    let private compileForDiagnostics (budget: SafetyBudget) (request: WorkspaceRequest) files =
+        let outputs =
+            request.Arguments
+            |> List.choose (fun argument ->
+                if argument.StartsWith("-o:", StringComparison.Ordinal) then
+                    Some(argument.Substring 3)
+                else
+                    None)
+
+        match outputs with
+        | [ output ] ->
+            let temporary = Directory.CreateTempSubdirectory("fdull-compiler-")
+
+            try
+                let destination =
+                    Path.GetFileName output
+                    |> FDull.Transport.External.required "workspace.compiler-output"
+                    |> fun name -> Path.Combine(temporary.FullName, name)
+
+                let arguments =
+                    request.Arguments
+                    |> List.map (fun argument ->
+                        if argument.StartsWith("-o:", StringComparison.Ordinal) then
+                            "-o:" + destination
+                        elif argument.StartsWith("--doc:", StringComparison.Ordinal) then
+                            let name =
+                                Path.GetFileName(argument.Substring 6)
+                                |> FDull.Transport.External.required "workspace.compiler-documentation"
+
+                            "--doc:" + Path.Combine(temporary.FullName, name)
+                        else
+                            argument)
+
+                // FCS runs outside the SDK compiler host. For executables its
+                // implicit manifest lookup points at the runtime directory,
+                // which has no default.win32manifest. The manifest cannot
+                // affect source diagnostics, so suppress it for this private pass.
+                let manifest =
+                    if List.contains "--target:exe" arguments then
+                        [ "--nowin32manifest" ]
+                    else
+                        []
+
+                let command = [ "fsc.exe" ] @ arguments @ manifest @ files |> List.toArray
+
+                let diagnostics, failure =
+                    checker.Value.Compile command
+                    |> fun work -> Async.RunSynchronously(work, budget.RemainingMilliseconds)
+
+                diagnostics, failure, File.Exists destination
+            finally
+                temporary.Delete true
+        | _ -> invalidOp "BUILD002: The exported compiler invocation must have one output."
+
     let private analyze advisory (request: WorkspaceRequest) =
         let budget =
             SafetyBudget(maximumSteps = 2000000, maximumDepth = 512, milliseconds = 45000)
@@ -128,12 +184,12 @@ module WorkspaceEngine =
             { SafetyContext.application with
                 Project = request.Project }
 
-        let emitWith context describe rule (r: range) symbol message alternative contract =
+        let emitWith limit context describe rule (r: range) symbol message alternative contract =
             if not (SafetyRules.knownDiagnostic rule) then
                 invalidOp "Unknown diagnostic classification."
 
             if not (context.Permit rule r symbol contract) then
-                if diagnostics.Count >= 4096 then
+                if diagnostics.Count >= limit then
                     invalidOp "Workspace diagnostic budget exceeded."
 
                 let diagnostic =
@@ -158,6 +214,7 @@ module WorkspaceEngine =
 
         let globalError rule message =
             emitWith
+                (SafetyLimits.workspaceDiagnosticCount + 1)
                 initialContext
                 describeGlobal
                 rule
@@ -317,8 +374,28 @@ module WorkspaceEngine =
                     syntax
 
             let context = resolved
-            let emit = emitWith context explain
+            let emit = emitWith SafetyLimits.workspaceDiagnosticCount context explain
             observations <- observed
+
+            let emitCompiler (diagnostic: FSharpDiagnostic) (location: range) =
+                let rule = "FS" + diagnostic.ErrorNumber.ToString("0000")
+
+                if Set.contains location.FileName sourceFiles then
+                    emit rule location "" diagnostic.Message "Fix the compiler diagnostic." None
+                else
+                    // Compiler diagnostics can use a project, runtime or
+                    // unknown location. They are blockers, not source-level
+                    // permission uses, and must remain reportable by protocol.
+                    emitWith
+                        SafetyLimits.workspaceDiagnosticCount
+                        initialContext
+                        describeGlobal
+                        rule
+                        (Range.mkRange request.Project (Position.mkPos 1 0) (Position.mkPos 1 1))
+                        ""
+                        diagnostic.Message
+                        "Fix the compiler diagnostic."
+                        None
 
             for rule, r, symbol, message, alternative in syntaxDiagnostics do
                 emit rule r symbol message alternative None
@@ -326,18 +403,54 @@ module WorkspaceEngine =
             for diagnostic in result.Diagnostics do
                 if
                     diagnostic.Severity = FSharpDiagnosticSeverity.Error
-                    || diagnostic.Severity = FSharpDiagnosticSeverity.Warning
+                    || (diagnostic.Severity = FSharpDiagnosticSeverity.Warning
+                        && not (SafetyPolicy.optionalCompilerWarning diagnostic))
                 then
-                    emit
-                        ("FS" + diagnostic.ErrorNumber.ToString("0000"))
-                        diagnostic.Range
-                        ""
-                        diagnostic.Message
-                        "Fix the compiler diagnostic."
-                        None
+                    emitCompiler diagnostic diagnostic.Range
+
+            let compileFailed =
+                let compilerDiagnostics, failure, artifact =
+                    compileForDiagnostics budget request files
+
+                for diagnostic in compilerDiagnostics do
+                    if
+                        diagnostic.Severity = FSharpDiagnosticSeverity.Error
+                        || diagnostic.Severity = FSharpDiagnosticSeverity.Warning
+                    then
+                        let r = diagnostic.Range
+
+                        let compatibleAwaiter =
+                            List.contains "--warnaserror-:3180" request.Arguments
+                            && WorkspaceCompilerPolicy.compatibleTaskAwaiterWarning
+                                diagnostic.ErrorNumber
+                                diagnostic.Subcategory
+                                r.FileName
+                                r.StartLine
+                                r.StartColumn
+                                r.EndLine
+                                r.EndColumn
+                                diagnostic.Message
+
+                        if
+                            not (SafetyPolicy.optionalCompilerWarning diagnostic)
+                            && (diagnostic.Severity <> FSharpDiagnosticSeverity.Warning || not compatibleAwaiter)
+                        then
+                            let location =
+                                if Set.contains r.FileName sourceFiles then
+                                    r
+                                else
+                                    Range.mkRange request.Project (Position.mkPos 1 0) (Position.mkPos 1 1)
+
+                            emitCompiler diagnostic location
+
+                failure.IsSome
+                || not artifact
+                || (compilerDiagnostics
+                    |> Array.exists (fun diagnostic -> diagnostic.Severity = FSharpDiagnosticSeverity.Error))
 
             if
                 result.HasCriticalErrors
+                || compileFailed
                 || result.Diagnostics
                    |> Array.exists (fun diagnostic -> diagnostic.Severity = FSharpDiagnosticSeverity.Error)
             then

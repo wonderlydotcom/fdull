@@ -5,6 +5,7 @@ open System.IO
 open System.Security.Cryptography
 open System.Text
 open System.Text.Json
+open FSharp.Compiler.Diagnostics
 open FSharp.Compiler.Symbols
 
 type SafetyDiagnostic =
@@ -37,6 +38,13 @@ type SafetyReport =
 /// The policy is shipped inside the platform compiler. App/instance files cannot
 /// change profiles, select another policy, register helpers, or suppress a rule.
 module SafetyPolicy =
+    // In the pinned FCS version, the anonymous-record metadata link check is
+    // inverted. FS3186 can report healthy linked nodes and miss unlinked ones.
+    // Keep compiler errors and typed-analysis failures as blockers.
+    let optionalCompilerWarning (diagnostic: FSharpDiagnostic) =
+        diagnostic.Severity = FSharpDiagnosticSeverity.Warning
+        && diagnostic.ErrorNumber = 3186
+
     let version = "fdull.strict.v1"
 
     let fcsIdentity =
@@ -68,7 +76,7 @@ module SafetyPolicy =
           "--warnaserror+"
           "--warn:5"
           "--checknulls+"
-          "--warnon:21,22,52,1178,1182,3180,3186,3218,3391,3395,3559,3570,3579,3582,3878"
+          "--warnon:21,22,52,1178,1182,3180,3218,3391,3395,3559,3570,3579,3582,3878"
           "--deterministic+"
           "--checked+"
           "--nocopyfsharpcore" ]

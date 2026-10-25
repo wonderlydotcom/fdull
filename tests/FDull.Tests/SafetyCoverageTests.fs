@@ -12,6 +12,9 @@ module SafetyCoverageTests =
     [<Theory>]
     [<InlineData("--warn:0")>]
     [<InlineData("--warnaserror-")>]
+    [<InlineData("--warnaserror-:25")>]
+    [<InlineData("--warnaserror-:3180,25")>]
+    [<InlineData("--nowarn:3180")>]
     [<InlineData("--nowarn:25")>]
     [<InlineData("--checknulls-")>]
     [<InlineData("--checked-")>]
@@ -45,6 +48,48 @@ module SafetyCoverageTests =
 
         Assert.Equal(Ok(), WorkspaceCompilerPolicy.validate (baseline @ [ "--doc:obj/Release/net10.0/App.xml" ]))
         Assert.Equal(Ok(), WorkspaceCompilerPolicy.validate (baseline @ [ "--define:NULLABLE" ]))
+
+    [<Fact>]
+    let ``only canonical task compatibility downgrade is accepted`` () =
+        let baseline = WorkspaceCompilerPolicy.required @ [ "--warnaserror" ]
+
+        Assert.Equal(Ok(), WorkspaceCompilerPolicy.validate (baseline @ [ "--warnaserror-:3180" ]))
+
+        for downgrade in
+            [ "--warnaserror-:3186"
+              "--warnaserror-:3180,3186"
+              "--warnaserror-:3186,3180"
+              "--warnaserror-:3180" ] do
+            Assert.True(
+                WorkspaceCompilerPolicy.validate (baseline @ [ downgrade; downgrade ])
+                |> Result.isError
+            )
+
+        Assert.True(
+            WorkspaceCompilerPolicy.validate (baseline @ [ "--warnaserror-:3186" ])
+            |> Result.isError
+        )
+
+        let message =
+            "The mutable local 'awaiter' is implicitly allocated as a reference cell because it has been captured by a closure. This warning is for informational purposes only to indicate where implicit allocations are performed."
+
+        let matches number category file startLine startColumn endLine endColumn text =
+            WorkspaceCompilerPolicy.compatibleTaskAwaiterWarning
+                number
+                category
+                file
+                startLine
+                startColumn
+                endLine
+                endColumn
+                text
+
+        Assert.True(matches 3180 "optimize" "unknown" 1 0 1 0 message)
+        Assert.False(matches 3186 "optimize" "unknown" 1 0 1 0 message)
+        Assert.False(matches 3180 "typecheck" "unknown" 1 0 1 0 message)
+        Assert.False(matches 3180 "optimize" "/workspace/Lib.fs" 3 16 3 23 message)
+        Assert.False(matches 3180 "optimize" "unknown" 1 1 1 1 message)
+        Assert.False(matches 3180 "optimize" "unknown" 1 0 1 0 (message + " changed"))
 
     let private platform =
         Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "../../../../.."))

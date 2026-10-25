@@ -31,6 +31,7 @@ type internal SourceSyntax =
       Modules: range list
       Bindings: range list
       NamedBindings: SourceBinding list
+      AutoProperties: SourceBinding list
       ResourceBindings: range list
       Handlers: SynMatchClause list list }
 
@@ -68,6 +69,7 @@ module internal SafetySyntax =
         let modules = ResizeArray<range>()
         let bindings = ResizeArray<range>()
         let namedBindings = ResizeArray<SourceBinding>()
+        let autoProperties = ResizeArray<SourceBinding>()
         let resourceBindings = ResizeArray<range>()
         let handlers = ResizeArray<SynMatchClause list>()
         let error id location message alternative = emit id location "" message alternative
@@ -354,8 +356,13 @@ module internal SafetySyntax =
                         error "MUT003" r "Mutable fields are prohibited." "Use an immutable field."
                 | :? SynMemberDefn as memberDef ->
                     match memberDef with
-                    | SynMemberDefn.AutoProperty(range = r) ->
+                    | SynMemberDefn.AutoProperty(ident = identifier; range = r) ->
                         bindings.Add r
+
+                        autoProperties.Add
+                            { Name = identifier.idText
+                              NameRange = identifier.idRange
+                              Range = r }
 
                         error
                             "MUT003"
@@ -407,5 +414,6 @@ module internal SafetySyntax =
           Modules = List.ofSeq modules
           Bindings = List.ofSeq bindings
           NamedBindings = List.ofSeq namedBindings
+          AutoProperties = List.ofSeq autoProperties
           ResourceBindings = List.ofSeq resourceBindings
           Handlers = List.ofSeq handlers }

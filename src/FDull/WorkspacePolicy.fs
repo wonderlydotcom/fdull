@@ -83,7 +83,7 @@ module WorkspaceCompilerPolicy =
         [ "--langversion:10.0"
           "--noframework"
           "--warn:5"
-          "--warnon:21,22,52,1178,1182,3180,3186,3218,3391,3395,3559,3570,3579,3582,3878"
+          "--warnon:21,22,52,1178,1182,3180,3218,3391,3395,3559,3570,3579,3582,3878"
           "--checked+"
           "--checknulls+"
           "--deterministic+"
@@ -101,6 +101,7 @@ module WorkspaceCompilerPolicy =
                 "--warnaserror"
                 "--warnaserror+"
                 "--warnaserror:3239"
+                "--warnaserror-:3180"
                 "--fullpaths"
                 "--flaterrors"
                 "--highentropyva+"
@@ -141,10 +142,27 @@ module WorkspaceCompilerPolicy =
             )
         then
             Error "BUILD002: The exported compiler invocation omits a required safety setting."
-        elif arguments |> List.exists (fun argument -> not (approved argument)) then
+        elif
+            (arguments |> List.filter ((=) "--warnaserror-:3180") |> List.length) > 1
+            || (arguments |> List.exists (fun argument -> not (approved argument)))
+        then
             Error "BUILD002: The exported compiler invocation contains an unsupported or disabling flag."
         else
             Ok()
+
+    // FCS emits this optimize warning after ParseAndCheckProject, during task lowering.
+    // An external inline helper can produce the same unknown range and text, so this
+    // shape alone does not establish origin. Each included project's authored source
+    // diagnostics must also pass, and external API calls require exact review.
+    let compatibleTaskAwaiterWarning number subcategory file startLine startColumn endLine endColumn message =
+        number = 3180
+        && subcategory = "optimize"
+        && file = "unknown"
+        && startLine = 1
+        && startColumn = 0
+        && endLine = 1
+        && endColumn = 0
+        && message = "The mutable local 'awaiter' is implicitly allocated as a reference cell because it has been captured by a closure. This warning is for informational purposes only to indicate where implicit allocations are performed."
 
 module internal WorkspacePolicy =
     let profiles =
@@ -195,7 +213,8 @@ module internal WorkspacePolicy =
                 | [ path; payload ] ->
                     List.contains parts[0] [ "EFFECT003"; "NULL005"; "MUT010" ]
                     && path.Length >= 3
-                    && List.contains path[1] [ "binding"; "parameter" ]
+                    && List.contains path[1] [ "binding"; "parameter"; "property" ]
+                    && (path[1] <> "property" || path.Length = 3)
                     && path |> List.forall (String.IsNullOrWhiteSpace >> not)
                     && validPayload payload
                     && captureIdentity parts[0] (path, payload) = identity
@@ -244,7 +263,7 @@ module internal WorkspacePolicy =
             | "capture" ->
                 "Review a Capabilities entry with Kind=capture, "
                 + scope
-                + ". Its identity uses the authored binding/parameter and payload path; a generated field name or ordinary rule key cannot replace it. Callback bodies and effect calls remain checked."
+                + ". Its identity uses the authored binding, constructor parameter or auto property and payload path; a generated field name or ordinary rule key cannot replace it. Callback bodies and effect calls remain checked."
             | "rule" ->
                 "Review a Capabilities entry with Kind=rule, "
                 + scope
@@ -666,6 +685,14 @@ module internal WorkspacePolicy =
                     |> Seq.map snd
                     |> Seq.toList
 
+                let properties =
+                    source.AutoProperties
+                    |> List.filter (fun property ->
+                        budget.Visit 0
+
+                        container |> Option.exists (fun r -> within r property.NameRange)
+                        && within property.Range location)
+
                 let path (binding: SourceBinding) =
                     let parents =
                         named
@@ -698,9 +725,32 @@ module internal WorkspacePolicy =
 
                     Some identity
                 | [], [ name ] -> Some [ SafetyPolicy.entityName entity; "parameter"; name ]
+                | [], [] ->
+                    match properties with
+                    | [ property ] -> Some [ SafetyPolicy.entityName entity; "property"; property.Name ]
+                    | _ ->
+                        invalidOp (
+                            sprintf
+                                "BUILD003: Generated capture %s.%s at %s(%d,%d) maps to %d authored auto properties; use an unambiguous named binding, parameter or auto property."
+                                (SafetyPolicy.entityName entity)
+                                field.DisplayName
+                                (relative location.FileName)
+                                location.StartLine
+                                (location.StartColumn + 1)
+                                properties.Length
+                        )
                 | _ ->
-                    invalidOp
-                        "BUILD003: A generated capture cannot be mapped to exactly one authored binding or constructor parameter."
+                    invalidOp (
+                        sprintf
+                            "BUILD003: Generated capture %s.%s at %s(%d,%d) maps to %d authored bindings and %d constructor parameters; use an unambiguous named binding or parameter."
+                            (SafetyPolicy.entityName entity)
+                            field.DisplayName
+                            (relative location.FileName)
+                            location.StartLine
+                            (location.StartColumn + 1)
+                            bindings.Length
+                            parameterNames.Length
+                    )
             | Some _, None when field.IsCompilerGenerated ->
                 invalidOp "BUILD003: A generated capture has no resolved declaring type."
             | _ -> None
@@ -886,6 +936,144 @@ module internal WorkspacePolicy =
             + " -> "
             + memberInfo.FullType.Format(FSharpDisplayContext.Empty)
 
+        let attributeSymbols = lazy (checkedProject.GetAllUsesOfAllSymbols())
+
+        let enumArgument (r: range) =
+            attributeSymbols.Value
+            |> Array.choose (fun useSite ->
+                budget.Visit 0
+                let location = useSite.Range
+
+                if
+                    location.FileName = r.FileName
+                    && (r.StartLine, r.StartColumn) <= (location.StartLine, location.StartColumn)
+                    && (location.EndLine, location.EndColumn) <= (r.EndLine, r.EndColumn)
+                then
+                    match useSite.Symbol with
+                    | :? FSharpField as field when field.IsLiteral ->
+                        match field.DeclaringEntity, field.LiteralValue with
+                        | Some declaring, Some(:? int32 as value) when declaring.IsEnum ->
+                            Some(
+                                "enum:"
+                                + Codec.encode
+                                    [ declaring.Assembly.QualifiedName
+                                      SafetyPolicy.entityName declaring
+                                      field.Name
+                                      string value ]
+                            )
+                        | _ -> None
+                    | _ -> None
+                else
+                    None)
+            |> Array.distinct
+            |> function
+                | [| identity |] -> Some identity
+                | _ -> None
+
+        let exactSymbol (r: range) select =
+            attributeSymbols.Value
+            |> Array.choose (fun useSite ->
+                budget.Visit 0
+
+                if useSite.Range = r then select useSite.Symbol else None)
+            |> Array.distinct
+            |> function
+                | [| identity |] -> Some identity
+                | _ -> None
+
+        let intrinsic signature (identifier: Ident) =
+            exactSymbol identifier.idRange (fun symbol ->
+                match symbol with
+                | :? FSharpMemberOrFunctionOrValue as memberInfo when
+                    SafetyPolicy.isCoreIdentity memberInfo.Assembly.QualifiedName
+                    && memberInfo.XmlDocSig = signature
+                    ->
+                    Some(memberInfo.Assembly.QualifiedName + " | " + memberInfo.XmlDocSig)
+                | _ -> None)
+
+        let typeofArgument (identifier: Ident) (target: SynType) =
+            match target with
+            | SynType.LongIdent _ ->
+                match intrinsic "M:Microsoft.FSharp.Core.Operators.TypeOf``1" identifier with
+                | None -> None
+                | Some intrinsicIdentity ->
+                    exactSymbol target.Range (fun symbol ->
+                        match symbol with
+                        | :? FSharpEntity as entity ->
+                            Some("typeof:" + Codec.encode [ intrinsicIdentity; typeIdentity entity ])
+                        | _ -> None)
+            | _ -> None
+
+        let nameofArgument (identifier: Ident) (target: SynExpr) =
+            match target with
+            | SynExpr.Ident _
+            | SynExpr.LongIdent _ ->
+                match intrinsic "M:Microsoft.FSharp.Core.Operators.NameOf``1(``0)" identifier with
+                | None -> None
+                | Some intrinsicIdentity ->
+                    exactSymbol target.Range (fun symbol ->
+                        match symbol with
+                        | :? FSharpMemberOrFunctionOrValue as memberInfo ->
+                            let origin =
+                                if String.IsNullOrWhiteSpace memberInfo.Assembly.QualifiedName then
+                                    let location = memberInfo.DeclarationLocation
+                                    "source:" + relative location.FileName
+                                else
+                                    memberInfo.Assembly.QualifiedName
+
+                            Some(
+                                "nameof:"
+                                + Codec.encode
+                                    [ intrinsicIdentity
+                                      origin + " | " + memberInfo.XmlDocSig
+                                      memberInfo.DisplayName ]
+                            )
+                        | :? FSharpField as field ->
+                            field.DeclaringEntity
+                            |> Option.map (fun entity ->
+                                "nameof:"
+                                + Codec.encode
+                                    [ intrinsicIdentity
+                                      typeIdentity entity + " | field:" + field.Name
+                                      field.Name ])
+                        | _ -> None)
+            | _ -> None
+
+        let literalArgument (r: range) =
+            exactSymbol r (fun symbol ->
+                match symbol with
+                | :? FSharpMemberOrFunctionOrValue as memberInfo ->
+                    let value =
+                        memberInfo.LiteralValue
+                        |> Option.bind (fun value ->
+                            match value with
+                            | :? string as text -> Some("string:" + Codec.encode text)
+                            | :? bool as flag -> Some("bool:" + string flag)
+                            | :? int32 as number -> Some("int32:" + string number)
+                            | _ -> None)
+
+                    value
+                    |> Option.map (fun value ->
+                        let origin =
+                            if String.IsNullOrWhiteSpace memberInfo.Assembly.QualifiedName then
+                                let location = memberInfo.DeclarationLocation
+                                "source:" + relative location.FileName
+                            else
+                                memberInfo.Assembly.QualifiedName
+
+                        "literal:"
+                        + Codec.encode [ origin + " | " + memberInfo.XmlDocSig; memberInfo.DisplayName; value ])
+                | _ -> None)
+
+        let namedProperty (entity: FSharpEntity) (identifier: Ident) =
+            exactSymbol identifier.idRange (fun symbol ->
+                match symbol with
+                | :? FSharpMemberOrFunctionOrValue as memberInfo when memberInfo.IsProperty ->
+                    match memberInfo.DeclaringEntity with
+                    | Some declaring when typeIdentity declaring = typeIdentity entity -> Some identifier.idText
+                    | _ -> None
+                | _ -> None)
+
         let attributeIdentity (attribute: SynAttribute) (entity: FSharpEntity) =
             let rec argument expression =
                 match expression with
@@ -895,6 +1083,42 @@ module internal WorkspacePolicy =
                 | SynExpr.Const(SynConst.String(value, _, _), _) -> Some("string:" + Codec.encode value)
                 | SynExpr.Const(SynConst.Bool value, _) -> Some("bool:" + string value)
                 | SynExpr.Const(SynConst.Int32 value, _) -> Some("int32:" + string value)
+                | SynExpr.Ident identifier ->
+                    enumArgument identifier.idRange
+                    |> Option.orElseWith (fun () -> literalArgument identifier.idRange)
+                | SynExpr.LongIdent(_, _, _, r) -> enumArgument r |> Option.orElseWith (fun () -> literalArgument r)
+                | SynExpr.TypeApp(SynExpr.Ident identifier, _, [ target ], _, _, _, _) ->
+                    typeofArgument identifier target
+                | SynExpr.App(_, _, SynExpr.Ident identifier, target, _) -> nameofArgument identifier target
+                | SynExpr.ArrayOrListComputed(true, elements, _) ->
+                    let rec flatten expression =
+                        match expression with
+                        | SynExpr.Sequential(_, _, first, second, _, _) -> flatten first @ flatten second
+                        | item -> [ item ]
+
+                    let values = flatten elements
+
+                    if values.IsEmpty || values.Length > 16 then
+                        None
+                    else
+                        let encoded = values |> List.map argument
+
+                        if encoded |> List.exists Option.isNone then
+                            None
+                        else
+                            Some("array:" + Codec.encode (encoded |> List.choose id))
+                | SynExpr.App(_,
+                              _,
+                              SynExpr.App(_,
+                                          _,
+                                          SynExpr.LongIdent(_, SynLongIdent([ op ], _, _), _, _),
+                                          SynExpr.Ident name,
+                                          _),
+                              value,
+                              _) when op.idText = "op_Equality" ->
+                    match namedProperty entity name, argument value with
+                    | Some name, Some encoded -> Some("named:" + Codec.encode [ name; encoded ])
+                    | _ -> None
                 | SynExpr.Tuple(_, expressions, _, _) ->
                     let arguments = expressions |> List.map argument
 

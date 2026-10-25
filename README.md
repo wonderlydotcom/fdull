@@ -32,6 +32,42 @@ requires **Microsoft.NETCore.App 10.0.4** and disables runtime roll-forward.
 Install the matching SDK/runtime first. New toolchains require compatibility
 tests; the preview rejects untested compiler flags.
 
+Projects affected by the pinned compiler's task-builder FS3180 warning may set
+`WarningsNotAsErrors` to **3180**. FDull accepts only that exact downgrade and
+performs a private compiler pass for every workspace project. It permits the
+known optimizer warning for `awaiter` at the compiler's `unknown(1,1)` location
+only when 3180 is opted in. It also excludes FS3186 warnings from that private
+pass for the compiler defect explained below. Other compiler warnings and all
+compiler errors still fail analysis. The normal build continues to display
+compatible warnings.
+For executables, the private diagnostic pass omits the Windows manifest, which
+FCS otherwise tries to load from the runtime directory. The SDK build still
+produces its normal manifest and remains part of verification.
+The default compiler preset remains strict; `--nowarn` and other warning
+downgrades remain unsupported.
+
+The FS3180 warning shape is a compatibility allowance, not proof of task provenance:
+an imported inline helper can produce the same diagnostic. Included projects
+are checked individually, so their authored captures still fail at their source
+locations. External inline APIs remain subject to their exact reviewed contracts.
+Do not use the warning setting without FDull's additional compilation check as
+evidence that authored capture warnings have passed.
+
+FS3186 is not in the mandatory opt-in warning list. In the pinned FCS version,
+the F# metadata reader can emit it for healthy anonymous-record information in
+a referenced assembly even when the consumer does not need a missing type or
+member. The [FCS linked-state check](https://github.com/dotnet/dotnet/blob/4d3023de605a78ba3e59e50c657eed70f125c68a/src/fsharp/src/Compiler/TypedTree/TypedTree.fs#L4553-L4570)
+returns true for a missing link and false for a present one, while the
+[metadata unpickler](https://github.com/dotnet/dotnet/blob/4d3023de605a78ba3e59e50c657eed70f125c68a/src/fsharp/src/Compiler/TypedTree/TypedTreePickle.fs#L1026-L1134)
+uses that check when deciding whether to emit FS3186. The result can be a false
+positive and can miss an unlinked node, so FS3186 is not a reliable safety
+condition by itself. It can still appear in compiler output without an opt-in.
+The FCS API used for the private pass can return that warning even when the SDK
+compiler does not display it for the same healthy reference. Compiler errors,
+missing output, unresolved symbols and types, and
+incomplete typed analysis still block completion. Authored implementation
+analysis and exact review of external APIs remain required.
+
 Workspaces contain ordinary F# SDK projects with literal project references and
 authored `.fs`/`.fsi` files. Release builds must use the standard
 `obj/Release/net10.0` generated metadata layout. Exact profiles cover SDK-owned
@@ -199,10 +235,21 @@ not grant I/O, mutation or reflection. Necessary operations need exact entries
 bound to a file, declaration, permission kind and resolved API identity. Every
 entry needs a reason; unused, duplicate and overbroad entries fail verification.
 
+Attribute permissions include the resolved attribute type, target, and exact
+arguments. Literal named arguments include both the name and value. Supported
+enum arguments include the resolved enum assembly, type, field, and 32-bit value;
+changing a flag or named value requires a new review. Combined enum expressions
+and other computed arguments remain unsupported. Simple `typeof<T>` and `nameof`
+operands are bound to their resolved symbols; literal arrays retain element order
+and are limited to 16 elements. Referenced string, Boolean and 32-bit integer
+constants include their resolved symbol and value. This permits narrowly reviewed
+test metadata such as `MethodImplOptions.NoInlining` without allowing attributes
+by name alone.
+
 Generated capture fields use `Kind: "capture"` for their rule permissions. FDull
 maps each field's resolved declaration location to its authored constructor
-parameter or named binding, retaining the enclosing type, lexical binding path
-and nested payload path. The key contains no source coordinates or generated field
+parameter, named binding or auto-property, retaining the enclosing type, lexical
+binding path and nested payload path. The key contains no source coordinates or generated field
 name. For example, a stored callback binding can have this manually reviewed entry:
 
 ```json
@@ -215,8 +262,9 @@ name. For example, a stored callback binding can have this manually reviewed ent
 }
 ```
 
-Constructor parameters use `"parameter"` instead of `"binding"`; the two never
-share a permission. The second array describes the payload location (`"field"`
+Constructor parameters use `"parameter"` instead of `"binding"`; auto-properties
+use `"property"` with the unique authored property name. These origins never share
+a permission. The second array describes the payload location (`"field"`
 with a field name or `"tuple"` with an index). Existing rule restrictions also
 apply to capture permissions: pure/data profiles cannot grant callback exemptions.
 Unknown or ambiguous source mappings fail analysis; use distinct named bindings.
