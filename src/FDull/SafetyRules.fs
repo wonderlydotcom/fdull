@@ -72,7 +72,14 @@ module SafetyRules =
           rule "NULL003" "Unchecked nullability removal" [ analysis ] true [] applicationMatrix
           rule "NULL004" "Default/zero initialization" [ analysis ] true [] applicationMatrix
           rule "NULL005" "Unnormalized nullable data" [ analysis ] true [] profileMatrix
-          rule "ATTR001" "Unapproved attributes" [ analysis ] true [] applicationMatrix
+          rule
+              "ATTR001"
+              "Unapproved attributes"
+              [ analysis; workspace ]
+              true
+              [ "ProjectTests.attribute contracts bind resolved enum fields and named literal values"
+                "ProjectTests.attribute contracts bind typeof nameof and ordered literal arrays" ]
+              applicationMatrix
           rule "ATTR002" "Mutable/null/default representation attributes" [ analysis ] true [] profileMatrix
           rule
               "ATTR003"
@@ -147,6 +154,7 @@ module SafetyRules =
               [ "ProjectTests.captured callback permissions survive formatting without authorizing new effects"
                 "ProjectTests.review exposes nested requirements before outer type approval"
                 "ProjectTests.generated capture keys distinguish bindings parameters and authored numbered names"
+                "ProjectTests.auto property captures use an authored property key across source relocation"
                 "ProjectTests.capture identities separate types and reject ambiguous shadowed bindings" ]
               applicationMatrix
           rule "EFFECT004" "Unapproved executable abstractions" [ syntax; analysis ] true [] profileMatrix
@@ -199,6 +207,7 @@ module SafetyRules =
               [ build; guard; audit ]
               false
               [ "ProjectTests.every approved graph edge is exact and shipping cannot acquire a test dependency"
+                "ProjectTests.checked ownership of a shared excluded source still reports violations"
                 "ProjectTests.initialization discovers reviewed mixed-language scope and exports Web SDK inputs without compiling" ]
               "The preview supports an exact, acyclic Release/net10.0 F# project graph; cross-language references require pinned CSharp or Visual Basic projects inside reviewed external implementation scopes."
           rule
@@ -208,6 +217,8 @@ module SafetyRules =
               false
               [ "ProjectTests.initialization discovers reviewed mixed-language scope and exports Web SDK inputs without compiling"
                 "ProjectTests.excluded conditional project is neither exported nor built and remains visible in reports"
+                "ProjectTests.excluded project declarations and policy entries remain exact"
+                "ProjectTests.initialization rejects a workspace with every FSharp project excluded"
                 "ProjectTests.checked ownership of a shared excluded source still reports violations" ]
               "Complete transitive package/runtime/source/native asset inventory and tampering cases."
           rule
@@ -236,10 +247,11 @@ module SafetyRules =
           rule
               "BUILD002"
               "Compiler/toolchain policy drift"
-              [ engine; build; worker; "Directory.Build.targets" ]
+              [ engine; build; worker; workspace; "Directory.Build.targets" ]
               false
               [ "SafetyWorkerTests.compiler policy target accepts the pinned platform defaults"
-                "SafetyWorkerTests.compiler policy target rejects drift and downgrades" ]
+                "SafetyWorkerTests.compiler policy target rejects drift and downgrades"
+                "SafetyCoverageTests.only canonical task compatibility downgrade is accepted" ]
               "Complete tool/policy drift fixtures and protected release provenance."
           rule
               "BUILD003"
@@ -252,6 +264,8 @@ module SafetyRules =
               false
               [ "SafetyTests.unsupported type nesting cannot report complete analysis"
                 "SafetyTests.unsupported expression depth fails before typed traversal"
+                "SafetyTests.healthy anonymous record metadata is optional while needed missing types block"
+                "SafetyTests.task awaiter compatibility preserves authored capture warnings"
                 "SafetyTests.diagnostic overflow cannot be a complete truncated report"
                 "SafetyTests.oversized sources are rejected before starting analysis"
                 "SafetyWorkerTests.bounded process failures terminate the worker"

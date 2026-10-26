@@ -595,7 +595,7 @@ names.Add(<span class="example-string">&quot;Grace&quot;</span>)</code></pre>
     { Name: string }</code></pre>
                   </figure>
                 </div>
-                <p class="example-note">Leave an attribute out when its behavior is not needed. Necessary attributes require review of the exact use.</p>
+                <p class="example-note">Approve an attribute for a specific use, including its arguments. Changing a flag, a named argument or the order of array values requires another review. See <a href="https://github.com/wonderlydotcom/fdull#policy-and-review">how attribute approvals work</a>.</p>
               </article>
               <article class="rule" id="ATTR002"><a class="rule-id" href="#ATTR002" aria-label="Link to rule ATTR002">ATTR002</a><div><h4>Protect the representation.</h4><p>Restrict AllowNullLiteral, DefaultValue and CLIMutable to exact reviewed DTO or adapter needs.</p><p class="why"><strong>Why it helps:</strong> Framework convenience should not quietly make domain data nullable or writable.</p></div>
                 <div class="rule-examples" role="group" aria-label="Before and after for ATTR002">
@@ -1263,7 +1263,7 @@ task {
   Version=&quot;0.2.0-preview.1&quot; /&gt;</code></pre>
                   </figure>
                 </div>
-                <p class="example-note">Pin the reviewed version, commit the lock file and use locked restore. Version pinning alone does not complete the transitive asset inventory.</p>
+                <p class="example-note">Pin dependency versions, commit the lock file and use locked restore. These checks do not yet cover every asset brought in by dependencies. <a href="#project-exclusions">Excluded projects</a> still have their project files and build settings checked for changes.</p>
               </article>
               <article class="rule" id="ARCH003"><a class="rule-id" href="#ARCH003" aria-label="Link to rule ARCH003">ARCH003</a><div><h4>Keep executable inputs accounted for.</h4><p>Reject unapproved languages, scripts, projects and executable build extensions in checked workspaces.</p><p class="why"><strong>Why it helps:</strong> A second implementation path should not sidestep the source and build policy.</p></div>
                 <div class="rule-examples" role="group" aria-label="Before and after for ARCH003">
@@ -1330,7 +1330,7 @@ def can_ship(status):
                 </div>
                 <p class="example-note">Handle the missing cases instead of hiding the incomplete-match warning.</p>
               </article>
-              <article class="rule" id="BUILD002"><a class="rule-id" href="#BUILD002" aria-label="Link to rule BUILD002">BUILD002</a><div><h4>Pin the ground beneath you.</h4><p>Reject compiler and toolchain policy drift, warning downgrades and skipped checks.</p><p class="why"><strong>Why it helps:</strong> The same source should be evaluated against the same approved language and build settings.</p></div>
+              <article class="rule" id="BUILD002"><a class="rule-id" href="#BUILD002" aria-label="Link to rule BUILD002">BUILD002</a><div><h4>Pin the ground beneath you.</h4><p>Use the approved compiler version and settings. FDull rejects changes that turn off required checks.</p><p class="why"><strong>Why it helps:</strong> The same source should be evaluated against the same approved language and build settings.</p></div>
                 <div class="rule-examples" role="group" aria-label="Before and after for BUILD002">
                   <figure class="rule-example">
                     <figcaption><span class="example-label">Before</span><span>Project settings</span></figcaption>
@@ -1345,7 +1345,7 @@ def can_ship(status):
 &lt;/PropertyGroup&gt;</code></pre>
                   </figure>
                 </div>
-                <p class="example-note">Keep the full pinned compiler preset as well. Restoring one setting does not replace toolchain and build-policy verification.</p>
+                <p class="example-note">Use the complete settings supplied by <code>dotnet fdull defaults</code>. Turning on warnings as errors is only one part of the configuration. FDull has <a href="#compiler-compatibility">exceptions for known compiler warnings</a>, while errors in your code still fail verification.</p>
               </article>
               <article class="rule" id="BUILD003"><a class="rule-id" href="#BUILD003" aria-label="Link to rule BUILD003">BUILD003</a><div><h4>Incomplete is not a pass.</h4><p>Fail analysis that is incomplete, malformed, crashed or out of resources.</p><p class="why"><strong>Why it helps:</strong> A checker that did not finish cannot certify the input it was given.</p></div>
                 <div class="rule-examples" role="group" aria-label="Before and after for BUILD003">
@@ -1362,7 +1362,7 @@ def can_ship(status):
     &amp;&amp; report.Diagnostics.IsEmpty</code></pre>
                   </figure>
                 </div>
-                <p class="example-note">An empty diagnostic list cannot turn a crash, timeout or incomplete analysis into success. Check the complete report and the process exit.</p>
+                <p class="example-note">FDull must finish compiling and checking every included project. A failed build, missing output, timeout or unfinished check means verification did not pass—even if no violations were listed.</p>
               </article>
               <article class="rule" id="BUILD004"><a class="rule-id" href="#BUILD004" aria-label="Link to rule BUILD004">BUILD004</a><div><h4>Check the code you actually build.</h4><p>Bind analysis to source, reference, policy and compiler-input fingerprints.</p><p class="why"><strong>Why it helps:</strong> A clean report for yesterday’s inputs should not approve today’s artifact.</p><p class="limit">Deployment-side admission, trusted artifact signing and additional race fixtures remain outside or unfinished.</p></div>
                 <div class="rule-examples" role="group" aria-label="Before and after for BUILD004">
@@ -1379,7 +1379,7 @@ dotnet build -c Release</code></pre>
 dotnet fdull verify .</code></pre>
                   </figure>
                 </div>
-                <p class="example-note">verify rebuilds and compares inputs before accepting the result. Trusted artifact signing and deployment admission remain external responsibilities.</p>
+                <p class="example-note"><code>verify</code> rebuilds and checks the projects you included. The report lists <a href="#project-exclusions">excluded projects</a> separately so you can see exactly what was checked. Your deployment system must still ensure it ships the verified build.</p>
               </article>
               <article class="rule" id="BUILD005"><a class="rule-id" href="#BUILD005" aria-label="Link to rule BUILD005">BUILD005</a><div><h4>Exceptions must stay exact.</h4><p>Validate capability entries and reject invalid, stale, widened, duplicate or unused grants.</p><p class="why"><strong>Why it helps:</strong> A narrow exception should not quietly turn into permission for an entire file or profile.</p><p class="limit">Temporary exceptions are unsupported. Review identities and expiry require an external policy authority.</p></div>
                 <div class="rule-examples" role="group" aria-label="Before and after for BUILD005">
@@ -1424,7 +1424,7 @@ dotnet fdull verify .</code></pre>
         </div>
         <p class="empty" id="no-rules" hidden>No rules found. Try a different word or select “All rules.”</p>
         <p class="catalog-note">The examples are focused excerpts, with surrounding types or imports omitted where helpful. Application-specific helpers illustrate reviewed contracts; they are not FDull APIs. Each comparison explains one rule, rather than certifying a complete program.</p>
-        <p class="catalog-note">These are the standard’s rules, not a claim that every part is fully enforced. Scope and exact reviewed capabilities matter; an adapter or test profile never grants blanket permission. See the <a href="coverage.json">executable-evidence inventory</a> for implementation paths, test evidence and remaining work for each ID, or run <code>dotnet fdull coverage</code>. BUILD006 requires external organizational controls.</p>
+        <p class="catalog-note">Some parts of the standard are not fully implemented. The <a href="coverage.json">coverage report</a> lists the tests behind each rule and the work still needed. Run <code>dotnet fdull coverage</code> to see your installation’s report. Assigning a project to an adapter or test profile does not automatically approve its operations. BUILD006 requires controls in your repository and deployment system.</p>
       </div>
     </section>
 
@@ -1464,13 +1464,36 @@ dotnet tool install FDull.Tool --version 0.2.0-preview.1</code></pre></div>
           </article>
           <article class="install-step">
             <div class="step-heading"><span>03</span><h3>Build, initialize, check.</h3></div>
-            <p>Build once so the evaluated compiler inputs exist, then initialize a policy and check it. Pass a solution or project to restore/build if your directory is ambiguous.</p>
+            <p>Build your project, record the files and settings FDull should check, then run verification. Specify a solution or project when your directory contains more than one.</p>
             <div class="terminal"><div class="terminal-head"><span>TERMINAL</span><button class="copy" type="button" data-copy="verify-command" aria-label="Copy initialization and verification commands" hidden data-enhanced>Copy</button></div><pre><code id="verify-command">dotnet restore --use-lock-file
 dotnet build -c Release --no-restore -m:1 --disable-build-servers
 dotnet fdull init .
 dotnet fdull lint .
 dotnet fdull verify .</code></pre></div>
-            <p><code>init</code> starts every project in <code>PURE</code> with zero exceptions and records source/build fingerprints. It refuses to replace an existing <code>fdull.json</code>. A first lint failure means there’s code or explicit policy to review.</p>
+            <p><code>init</code> creates <code>fdull.json</code>, which records the projects, files and build settings to check. Every project starts in <code>PURE</code> with no exceptions. It never overwrites an existing policy. If the first check fails, review the reported code before approving any exceptions.</p>
+          </article>
+          <article class="install-step" id="compiler-compatibility">
+            <div class="step-heading"><h3>Handle known compiler warnings.</h3></div>
+            <p>The F# compiler sometimes warns about code it generates, even when your code is valid. FDull makes specific exceptions for these cases while continuing to check your code.</p>
+            <p>For task expressions, <code>WarningsNotAsErrors</code> may include <code>3180</code>. FDull accepts the known <code>awaiter</code> warning, but still rejects captures of mutable variables in your own code. It also leaves out the optional FS3186 warning, which a compiler bug can trigger for valid libraries.</p>
+            <p>These exceptions do not let you turn off other warnings. Run <code>dotnet fdull verify</code> to check both compilation and FDull’s rules. Compiler errors and unfinished checks still fail. See the <a href="https://github.com/wonderlydotcom/fdull#compatibility">compiler warning details</a>.</p>
+          </article>
+          <article class="install-step" id="project-exclusions">
+            <div class="step-heading"><h3>Choose which projects FDull checks.</h3></div>
+            <p>Some test projects deliberately contain code that breaks the rules. You can leave these projects out of FDull’s checks and validate them with your own tests. Add each project’s exact path and a reason to <code>fdull.scope.json</code> before running <code>init</code>:</p>
+            <div class="terminal"><div class="terminal-head"><span>FDULL.SCOPE.JSON · EXAMPLE</span></div><pre tabindex="0" aria-label="Example project exclusion scope"><code>{
+  "Version": 1,
+  "ExcludedProjects": [
+    {
+      "File": "tests/fixtures/InvalidCode/InvalidCode.fsproj",
+      "Reason": "Our integration tests check that this code is rejected."
+    }
+  ]
+}</code></pre></div>
+            <p>FDull skips the code in that project. It still records the project file and build settings, so changes to them require review. The exclusion applies to that project’s declared files, not everything in its directory. A file shared with an included project is still checked there.</p>
+            <p>You must keep at least one F# project included. Included projects cannot reference an excluded F# project. Exclusions also do not stop your own build scripts from running those projects.</p>
+            <p>Every report lists excluded projects and their reasons. <strong>A pass means the included projects passed; it says nothing about excluded code.</strong></p>
+            <p>If you already have <code>fdull.json</code>, update its exclusions and list of checked files together; <code>init</code> will not replace it. See the <a href="https://github.com/wonderlydotcom/fdull#excluding-fixture-projects">full configuration guide</a>.</p>
           </article>
         </div>
       </div>
@@ -1487,7 +1510,7 @@ dotnet fdull verify .</code></pre></div>
 
     <section class="honest wrap" aria-labelledby="limits-title">
       <div><span class="section-number">A little honesty</span><h2 id="limits-title">Dull. Not magic.</h2></div>
-      <div><p>FDull checks a deliberately restricted subset of ordinary F#. It uses FSharp.Compiler.Service to inspect resolved symbols, types and source syntax. Aliases and nested payloads are part of those checks. It is not a new language, and passing it is not proof of a bug-free program.</p><p>The broader standard is not fully implemented. Result-flow analysis, interprocedural validation and transitive dependency-asset checks have limits. Protected policy ownership, trusted CI, artifact signing and deployment admission need external infrastructure. Read the <a href="coverage.json">coverage inventory</a> alongside the rulebook.</p><p>The current preview supports ordinary F# SDK workspaces with literal project references, authored .fs/.fsi files and the standard Release/net10.0 metadata layout. Multi-targeting, custom source generators and non-F# authored automation are outside its supported workspace model.</p></div>
+      <div><p>FDull checks a deliberately restricted subset of ordinary F#. It uses FSharp.Compiler.Service to inspect resolved symbols, types and source syntax. Aliases and nested payloads are part of those checks. It is not a new language, and passing it is not proof of a bug-free program.</p><p>The broader standard is not fully implemented. Result-flow analysis, interprocedural validation and transitive dependency-asset checks have limits. Protected policy ownership, trusted CI, artifact signing and deployment admission need external infrastructure. Read the <a href="coverage.json">coverage inventory</a> alongside the rulebook.</p><p>FDull checks the F# projects included in your configuration. You can identify code in other languages and <a href="#project-exclusions">exclude specific F# projects</a>, but FDull does not verify that code. Projects must use the supported Release/net10.0 build settings; multi-targeting and unapproved source generators are not supported.</p></div>
     </section>
   </main>
 
