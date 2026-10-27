@@ -21,6 +21,13 @@ type WorkspaceInvocation =
       Generated: string list
       ProjectReferences: string list }
 
+/// Wall-clock cost of one project's analysis. Diagnostic output only; never part of a report.
+type WorkspaceTiming =
+    { Project: string
+      ExportMilliseconds: int64
+      WorkerMilliseconds: int64
+      ValidationMilliseconds: int64 }
+
 module Workspace =
     let validatePolicy platform =
         try
@@ -172,28 +179,69 @@ module Workspace =
                           Generated = generated
                           ProjectReferences = projectReferences }
 
-    let private requestUsing advisory root project =
-        export root project
-        |> Result.map (fun invocation ->
-            { Root = root
-              Project = Path.Combine(root, project)
-              ProjectReferences = invocation.ProjectReferences
-              Arguments = invocation.Arguments
-              Sources = invocation.Sources |> List.map input
-              References = invocation.References |> List.map input
-              Generated = invocation.Generated
-              BuildInputs =
-                (if advisory then
-                     WorkspacePolicy.readForReview root
-                 else
-                     WorkspacePolicy.read root)
-                    .Inputs
-                |> List.map (fun pin ->
-                    { Path = Path.Combine(root, pin.File)
-                      Digest = pin.Digest })
-              Policy = input (Path.Combine(root, "fdull.json")) })
+    let private requestFrom advisory root project (invocation: WorkspaceInvocation) =
+        { Root = root
+          Project = Path.Combine(root, project)
+          ProjectReferences = invocation.ProjectReferences
+          Arguments = invocation.Arguments
+          Sources = invocation.Sources |> List.map input
+          References = invocation.References |> List.map input
+          Generated = invocation.Generated
+          BuildInputs =
+            (if advisory then
+                 WorkspacePolicy.readForReview root
+             else
+                 WorkspacePolicy.read root)
+                .Inputs
+            |> List.map (fun pin ->
+                { Path = Path.Combine(root, pin.File)
+                  Digest = pin.Digest })
+          Policy = input (Path.Combine(root, "fdull.json")) }
 
-    let private analyzeUsing advisory (request: WorkspaceRequest) =
+    /// Trust a worker response only after it matches the request and passes protocol validation.
+    let private accept advisory (request: WorkspaceRequest) engine closureChanged (output: SafetyProcessOutput) =
+        let review =
+            if advisory then
+                Codec.decode<WorkspaceReviewProjectReport> output.Output
+            else
+                { Advisory = false
+                  Analysis = Codec.decode<WorkspaceProjectReport> output.Output
+                  Findings = [] }
+
+        let result = review.Analysis
+        let report = result.Report
+
+        if
+            report.Sources <> request.Sources
+            || report.References <> request.References
+            || report.Arguments <> request.Arguments
+            || report.Policy <> request.Policy.Digest
+            || report.Tool <> engine
+            || closureChanged
+            || request.Policy :: request.Sources @ request.References @ request.BuildInputs
+               |> List.exists (fun expected -> input expected.Path <> expected)
+        then
+            Error "BUILD004: The workspace worker report differs from its requested inputs."
+        else
+            let validation =
+                if advisory then
+                    WorkspaceReview.validate
+                        request
+                        (WorkspacePolicy.readForReview request.Root)
+                        output.ExitCode
+                        output.Error
+                        review
+                else
+                    WorkspaceProtocol.validate
+                        request
+                        (WorkspacePolicy.read request.Root)
+                        output.ExitCode
+                        output.Error
+                        result
+
+            validation |> Result.map (fun () -> review)
+
+    let private analyzeTimed advisory (request: WorkspaceRequest) =
         let worker = Path.Combine(AppContext.BaseDirectory, "safety-worker")
         let engine = Path.Combine(worker, "FDull.dll")
 
@@ -202,7 +250,7 @@ module Workspace =
             || SafetyPolicy.fileDigest engine
                <> SafetyPolicy.fileDigest typeof<SafetyReport>.Assembly.Location
         then
-            Error "BUILD002: The workspace worker differs from the invoking compiler."
+            Error "BUILD002: The workspace worker differs from the invoking compiler.", 0L
         else
             let closure () =
                 Directory.GetFiles(worker, "*", SearchOption.AllDirectories)
@@ -228,8 +276,9 @@ module Workspace =
             start.Environment["DOTNET_ROOT"] <- runtimeRoot ()
             start.Environment["DOTNET_GCHeapHardLimit"] <- "20000000"
             let text = Codec.encode request
+            let clock = Stopwatch.StartNew()
 
-            match
+            let run =
                 SafetyProcess.run
                     { Milliseconds = 60000
                       OutputCharacters =
@@ -240,54 +289,36 @@ module Workspace =
                       WorkingSetBytes = SafetyLimits.workingSetBytes }
                     start
                     text
-            with
-            | Error error -> Error("BUILD003: " + error)
+
+            let elapsed = clock.ElapsedMilliseconds
+
+            match run with
+            | Error error -> Error("BUILD003: " + error), elapsed
             | Ok output ->
-                let review =
-                    if advisory then
-                        Codec.decode<WorkspaceReviewProjectReport> output.Output
-                    else
-                        { Advisory = false
-                          Analysis = Codec.decode<WorkspaceProjectReport> output.Output
-                          Findings = [] }
+                accept advisory request (SafetyPolicy.fileDigest engine) (before <> closure ()) output, elapsed
 
-                let result = review.Analysis
-                let report = result.Report
+    /// The parent's own work is everything outside the export and worker processes.
+    let private measured advisory root project =
+        let clock = Stopwatch.StartNew()
+        let invocation = export root project
+        let exported = clock.ElapsedMilliseconds
 
-                if
-                    report.Sources <> request.Sources
-                    || report.References <> request.References
-                    || report.Arguments <> request.Arguments
-                    || report.Policy <> request.Policy.Digest
-                    || report.Tool <> SafetyPolicy.fileDigest engine
-                    || before <> closure ()
-                    || request.Policy :: request.Sources @ request.References @ request.BuildInputs
-                       |> List.exists (fun expected -> input expected.Path <> expected)
-                then
-                    Error "BUILD004: The workspace worker report differs from its requested inputs."
-                else
-                    let validation =
-                        if advisory then
-                            WorkspaceReview.validate
-                                request
-                                (WorkspacePolicy.readForReview request.Root)
-                                output.ExitCode
-                                output.Error
-                                review
-                        else
-                            WorkspaceProtocol.validate
-                                request
-                                (WorkspacePolicy.read request.Root)
-                                output.ExitCode
-                                output.Error
-                                result
+        let result, worker =
+            match invocation with
+            | Error error -> Error error, 0L
+            | Ok invocation -> requestFrom advisory root project invocation |> analyzeTimed advisory
 
-                    validation |> Result.map (fun () -> review)
+        result,
+        { Project = project
+          ExportMilliseconds = exported
+          WorkerMilliseconds = worker
+          ValidationMilliseconds = clock.ElapsedMilliseconds - exported - worker }
 
-    let private request root project = requestUsing false root project
+    let private request root project =
+        export root project |> Result.map (requestFrom false root project)
 
     let private analyze request =
-        analyzeUsing false request |> Result.map _.Analysis
+        analyzeTimed false request |> fst |> Result.map _.Analysis
 
     let checkProject platform project =
         try
@@ -305,11 +336,12 @@ module Workspace =
         with error ->
             Error("BUILD003: " + error.Message)
 
-    let internal checkUsing platform checkProject =
+    let private checkMeasured platform checkProject =
         let root = Path.GetFullPath platform
         let errors = ResizeArray<string>()
         let projects = ResizeArray<WorkspaceProjectReport>()
         let exclusions = ResizeArray<WorkspaceProjectExclusion>()
+        let timings = ResizeArray<WorkspaceTiming>()
 
         try
             let policy = WorkspacePolicy.read root
@@ -318,7 +350,10 @@ module Workspace =
             let projectFiles = WorkspaceAudit.order policy.Projects
 
             for project in projectFiles do
-                match checkProject project with
+                let result, timing = checkProject project
+                Option.iter timings.Add timing
+
+                match result with
                 | Ok report -> projects.Add report
                 | Error error -> errors.Add(project + ": " + error)
 
@@ -358,17 +393,28 @@ module Workspace =
                 0
           Projects = List.ofSeq projects
           ExcludedProjects = List.ofSeq exclusions
-          Errors = List.ofSeq errors }
+          Errors = List.ofSeq errors },
+        List.ofSeq timings
 
-    let check platform =
+    let internal checkUsing platform checkProject =
+        checkMeasured platform (fun project -> checkProject project, None) |> fst
+
+    /// Lint the workspace and report each project's export, worker and validation time.
+    let checkTimed platform =
         let root = Path.GetFullPath platform
-        checkUsing root (fun project -> request root project |> Result.bind analyze)
+
+        checkMeasured root (fun project ->
+            let result, timing = measured false root project
+            result |> Result.map _.Analysis, Some timing)
+
+    let check platform = checkTimed platform |> fst
 
     /// Analyze a current-source snapshot for human review, without updating or certifying policy.
-    let review platform =
+    let reviewTimed platform =
         let root = Path.GetFullPath platform
         let errors = ResizeArray<string>()
         let projects = ResizeArray<WorkspaceReviewProjectReport>()
+        let timings = ResizeArray<WorkspaceTiming>()
         let mutable policy = None
         let mutable snapshot = []
 
@@ -383,7 +429,10 @@ module Workspace =
                 |> List.map (fun source -> input (Path.Combine(root, source.File)))
 
             for project in WorkspaceAudit.order document.Projects do
-                match requestUsing true root project |> Result.bind (analyzeUsing true) with
+                let result, timing = measured true root project
+                timings.Add timing
+
+                match result with
                 | Ok report -> projects.Add report
                 | Error error -> errors.Add(project + ": " + error)
 
@@ -400,20 +449,25 @@ module Workspace =
         with error ->
             errors.Add error.Message
 
-        match policy with
-        | Some document -> WorkspaceReview.create root document snapshot (List.ofSeq projects) (List.ofSeq errors)
-        | None ->
-            { Advisory = true
-              AnalysisComplete = false
-              ExitCode = 3
-              Projects = []
-              ExcludedProjects = []
-              Items = []
-              SourceChanges = []
-              UnusedCapabilities = []
-              UnusedConstructors = []
-              UnusedDataContracts = []
-              Errors = List.ofSeq errors }
+        let report =
+            match policy with
+            | Some document -> WorkspaceReview.create root document snapshot (List.ofSeq projects) (List.ofSeq errors)
+            | None ->
+                { Advisory = true
+                  AnalysisComplete = false
+                  ExitCode = 3
+                  Projects = []
+                  ExcludedProjects = []
+                  Items = []
+                  SourceChanges = []
+                  UnusedCapabilities = []
+                  UnusedConstructors = []
+                  UnusedDataContracts = []
+                  Errors = List.ofSeq errors }
+
+        report, List.ofSeq timings
+
+    let review platform = reviewTimed platform |> fst
 
     let private serveUsing advisory (input: TextReader) (output: TextWriter) =
         try

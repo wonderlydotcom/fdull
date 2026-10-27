@@ -590,6 +590,29 @@ module ProjectTests =
             Assert.DoesNotContain("PASS", blocked.Output + blocked.Error))
 
     [<Fact>]
+    let ``timings write only to stderr and leave reports and exit codes unchanged`` () =
+        withDirectory (fun root ->
+            prepare root
+
+            for command, format in [ "lint", "json"; "lint", "text"; "review", "json" ] do
+                let plain = runCli root [ command; "."; "--format"; format ]
+                let timed = runCli root [ command; "."; "--timings"; "--format"; format ]
+                Assert.Equal(0, plain.ExitCode)
+                Assert.Equal(plain.ExitCode, timed.ExitCode)
+                Assert.Equal(plain.Output, timed.Output)
+                Assert.DoesNotContain("FDull timing:", plain.Output + plain.Error)
+                Assert.Matches("FDull timing: App.fsproj export=\\d+ms worker=\\d+ms validation=\\d+ms", timed.Error)
+                Assert.Matches("FDull timing: total=\\d+ms projects=1", timed.Error)
+
+            for invalid in
+                [ [ "lint"; "."; "--timings"; "--timings" ]
+                  [ "lint"; "."; "--format"; "json"; "--format"; "text" ]
+                  [ "review"; "."; "--format"; "sarif" ]
+                  [ "lint"; "."; "--unknown" ]
+                  [ "lint"; "--timings" ] ] do
+                Assert.Equal(2, (runCli root invalid).ExitCode))
+
+    [<Fact>]
     let ``attribute contracts bind resolved enum fields and named literal values`` () =
         withDirectory (fun root ->
             prepare root

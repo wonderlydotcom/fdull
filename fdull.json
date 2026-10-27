@@ -152,7 +152,7 @@
       "File": "src/FDull/Workspace.fs",
       "Project": "src/FDull/FDull.fsproj",
       "Profile": "GUARD_TOOLING",
-      "Digest": "sha256:36e713f8e950592b77b343f1aef3838c5212425981573cecd8c916cdcd89294e"
+      "Digest": "sha256:205b449e2222d903a75317362c4714d61b5be14d914325f633b13b5f364b3ee8"
     },
     {
       "File": "src/FDull/Safety.fs",
@@ -176,7 +176,7 @@
       "File": "src/FDull.Tool/Program.fs",
       "Project": "src/FDull.Tool/FDull.Tool.fsproj",
       "Profile": "GUARD_TOOLING",
-      "Digest": "sha256:58f9006208220107ec226eab8b9b87b067f6a2968ab6cb53c2ce4f9d294ea603"
+      "Digest": "sha256:477b02217605fd41a5d3f05f18a8c7f3d11c06a81467a8bb41e79bf0d309a7bf"
     },
     {
       "File": "src/FDull.Worker/Program.fs",
@@ -236,7 +236,7 @@
       "File": "tests/FDull.Tests/ProjectTests.fs",
       "Project": "tests/FDull.Tests/FDull.Tests.fsproj",
       "Profile": "TEST",
-      "Digest": "sha256:987c1b478f87115b26f50dedf4fa6cd3bfcca53d8da4bf8c986ef655a3073ba1"
+      "Digest": "sha256:7254db8f47b76eaa170bcdaebe845a3f677ad45de2e3d05513e9fac1a72d2302"
     },
     {
       "File": "tests/FDull.Tests/Program.fs",
@@ -550,7 +550,7 @@
       "File": "src/FDull.Tool/Program.fs",
       "Owner": "FDull.Tool.Program.main",
       "Kind": "member",
-      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Workspace.check(System.String)",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Workspace.checkTimed(System.String)",
       "Reason": "CLI boundary prints finite checker reports, routes explicit commands and maps infrastructure exceptions to exit 3. It cannot certify a caught failure or grant policy permissions."
     },
     {
@@ -5287,154 +5287,154 @@
     },
     {
       "File": "src/FDull/Workspace.fs",
-      "Owner": "FDull.Workspace.analyzeUsing",
+      "Owner": "FDull.Workspace.analyzeTimed",
       "Kind": "member",
       "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.ArrayModule.Map``2(Microsoft.FSharp.Core.FSharpFunc{``0,``1},``0[])",
       "Reason": "Workspace authority validates exact reviewed sources, graph and compiler flags, binds build/reference/policy inputs, and rejects incomplete or changed worker responses. Exceptions remain failed checks."
     },
     {
       "File": "src/FDull/Workspace.fs",
-      "Owner": "FDull.Workspace.analyzeUsing",
+      "Owner": "FDull.Workspace.analyzeTimed",
       "Kind": "member",
       "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.ArrayModule.Sort``1(``0[])",
       "Reason": "Workspace authority validates exact reviewed sources, graph and compiler flags, binds build/reference/policy inputs, and rejects incomplete or changed worker responses. Exceptions remain failed checks."
     },
     {
       "File": "src/FDull/Workspace.fs",
-      "Owner": "FDull.Workspace.analyzeUsing",
+      "Owner": "FDull.Workspace.analyzeTimed",
       "Kind": "member",
       "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Core.Operators.TypeOf``1",
       "Reason": "Workspace authority validates exact reviewed sources, graph and compiler flags, binds build/reference/policy inputs, and rejects incomplete or changed worker responses. Exceptions remain failed checks."
     },
     {
       "File": "src/FDull/Workspace.fs",
-      "Owner": "FDull.Workspace.analyzeUsing",
+      "Owner": "FDull.Workspace.analyzeTimed",
       "Kind": "member",
       "Identity": "System.Diagnostics.Process, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.Diagnostics.ProcessStartInfo.#ctor(System.String)",
       "Reason": "Workspace authority validates exact reviewed sources, graph and compiler flags, binds build/reference/policy inputs, and rejects incomplete or changed worker responses. Exceptions remain failed checks."
     },
     {
       "File": "src/FDull/Workspace.fs",
-      "Owner": "FDull.Workspace.analyzeUsing",
+      "Owner": "FDull.Workspace.analyzeTimed",
       "Kind": "member",
       "Identity": "System.Diagnostics.Process, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:System.Diagnostics.ProcessStartInfo.ArgumentList",
       "Reason": "Workspace authority validates exact reviewed sources, graph and compiler flags, binds build/reference/policy inputs, and rejects incomplete or changed worker responses. Exceptions remain failed checks."
     },
     {
       "File": "src/FDull/Workspace.fs",
-      "Owner": "FDull.Workspace.analyzeUsing",
+      "Owner": "FDull.Workspace.analyzeTimed",
       "Kind": "member",
       "Identity": "System.Diagnostics.Process, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:System.Diagnostics.ProcessStartInfo.Environment",
       "Reason": "Workspace authority validates exact reviewed sources, graph and compiler flags, binds build/reference/policy inputs, and rejects incomplete or changed worker responses. Exceptions remain failed checks."
     },
     {
       "File": "src/FDull/Workspace.fs",
-      "Owner": "FDull.Workspace.analyzeUsing",
+      "Owner": "FDull.Workspace.analyzeTimed",
       "Kind": "member",
       "Identity": "System.Diagnostics.Process, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:System.Diagnostics.ProcessStartInfo.WorkingDirectory",
       "Reason": "Workspace authority validates exact reviewed sources, graph and compiler flags, binds build/reference/policy inputs, and rejects incomplete or changed worker responses. Exceptions remain failed checks."
     },
     {
       "File": "src/FDull/Workspace.fs",
-      "Owner": "FDull.Workspace.analyzeUsing",
+      "Owner": "FDull.Workspace.analyzeTimed",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.Collections.Generic.ICollection`1.Clear",
       "Reason": "Workspace authority validates exact reviewed sources, graph and compiler flags, binds build/reference/policy inputs, and rejects incomplete or changed worker responses. Exceptions remain failed checks."
     },
     {
       "File": "src/FDull/Workspace.fs",
-      "Owner": "FDull.Workspace.analyzeUsing",
+      "Owner": "FDull.Workspace.analyzeTimed",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.Collections.ObjectModel.Collection`1.Add(`0)",
       "Reason": "Workspace authority validates exact reviewed sources, graph and compiler flags, binds build/reference/policy inputs, and rejects incomplete or changed worker responses. Exceptions remain failed checks."
     },
     {
       "File": "src/FDull/Workspace.fs",
-      "Owner": "FDull.Workspace.analyzeUsing",
+      "Owner": "FDull.Workspace.analyzeTimed",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Directory.GetFiles(System.String,System.String,System.IO.SearchOption)",
       "Reason": "Workspace authority validates exact reviewed sources, graph and compiler flags, binds build/reference/policy inputs, and rejects incomplete or changed worker responses. Exceptions remain failed checks."
     },
     {
       "File": "src/FDull/Workspace.fs",
-      "Owner": "FDull.Workspace.analyzeUsing",
+      "Owner": "FDull.Workspace.analyzeTimed",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.File.Exists(System.String)",
       "Reason": "Workspace authority validates exact reviewed sources, graph and compiler flags, binds build/reference/policy inputs, and rejects incomplete or changed worker responses. Exceptions remain failed checks."
     },
     {
       "File": "src/FDull/Workspace.fs",
-      "Owner": "FDull.Workspace.analyzeUsing",
+      "Owner": "FDull.Workspace.analyzeTimed",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.Combine(System.String,System.String)",
       "Reason": "Workspace authority validates exact reviewed sources, graph and compiler flags, binds build/reference/policy inputs, and rejects incomplete or changed worker responses. Exceptions remain failed checks."
     },
     {
       "File": "src/FDull/Workspace.fs",
-      "Owner": "FDull.Workspace.analyzeUsing",
+      "Owner": "FDull.Workspace.analyzeTimed",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.GetDirectoryName(System.String)",
       "Reason": "Workspace authority validates exact reviewed sources, graph and compiler flags, binds build/reference/policy inputs, and rejects incomplete or changed worker responses. Exceptions remain failed checks."
     },
     {
       "File": "src/FDull/Workspace.fs",
-      "Owner": "FDull.Workspace.analyzeUsing",
+      "Owner": "FDull.Workspace.analyzeTimed",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.Text.Encoding.GetBytes(System.String)",
       "Reason": "Reviewed standalone extension preserves exact project/metadata input validation and bounded analysis; independent project, graph and worker regression fixtures exercise the contract."
     },
     {
       "File": "src/FDull/Workspace.fs",
-      "Owner": "FDull.Workspace.analyzeUsing",
+      "Owner": "FDull.Workspace.analyzeTimed",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:System.AppContext.BaseDirectory",
       "Reason": "Workspace authority validates exact reviewed sources, graph and compiler flags, binds build/reference/policy inputs, and rejects incomplete or changed worker responses. Exceptions remain failed checks."
     },
     {
       "File": "src/FDull/Workspace.fs",
-      "Owner": "FDull.Workspace.analyzeUsing",
+      "Owner": "FDull.Workspace.analyzeTimed",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:System.Collections.Generic.IDictionary`2.Item(`0)",
       "Reason": "Workspace authority validates exact reviewed sources, graph and compiler flags, binds build/reference/policy inputs, and rejects incomplete or changed worker responses. Exceptions remain failed checks."
     },
     {
       "File": "src/FDull/Workspace.fs",
-      "Owner": "FDull.Workspace.analyzeUsing",
+      "Owner": "FDull.Workspace.analyzeTimed",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:System.Reflection.Assembly.Location",
       "Reason": "Workspace authority validates exact reviewed sources, graph and compiler flags, binds build/reference/policy inputs, and rejects incomplete or changed worker responses. Exceptions remain failed checks."
     },
     {
       "File": "src/FDull/Workspace.fs",
-      "Owner": "FDull.Workspace.analyzeUsing",
+      "Owner": "FDull.Workspace.analyzeTimed",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:System.Text.Encoding.UTF8",
       "Reason": "Reviewed standalone extension preserves exact project/metadata input validation and bounded analysis; independent project, graph and worker regression fixtures exercise the contract."
     },
     {
       "File": "src/FDull/Workspace.fs",
-      "Owner": "FDull.Workspace.analyzeUsing",
+      "Owner": "FDull.Workspace.analyzeTimed",
       "Kind": "member",
       "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | P:System.Type.Assembly",
       "Reason": "Workspace authority validates exact reviewed sources, graph and compiler flags, binds build/reference/policy inputs, and rejects incomplete or changed worker responses. Exceptions remain failed checks."
     },
     {
       "File": "src/FDull/Workspace.fs",
-      "Owner": "FDull.Workspace.analyzeUsing",
+      "Owner": "FDull.Workspace.analyzeTimed",
       "Kind": "rule",
       "Identity": "MUT002 | ",
       "Reason": "Workspace authority validates exact reviewed sources, graph and compiler flags, binds build/reference/policy inputs, and rejects incomplete or changed worker responses. Exceptions remain failed checks."
     },
     {
       "File": "src/FDull/Workspace.fs",
-      "Owner": "FDull.Workspace.analyzeUsing",
+      "Owner": "FDull.Workspace.analyzeTimed",
       "Kind": "type",
       "Identity": "System.Diagnostics.Process, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | System.Diagnostics.ProcessStartInfo",
       "Reason": "Workspace authority validates exact reviewed sources, graph and compiler flags, binds build/reference/policy inputs, and rejects incomplete or changed worker responses. Exceptions remain failed checks."
     },
     {
       "File": "src/FDull/Workspace.fs",
-      "Owner": "FDull.Workspace.check",
+      "Owner": "FDull.Workspace.checkTimed",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.GetFullPath(System.String)",
       "Reason": "Workspace authority validates exact reviewed sources, graph and compiler flags, binds build/reference/policy inputs, and rejects incomplete or changed worker responses. Exceptions remain failed checks."
@@ -5497,119 +5497,119 @@
     },
     {
       "File": "src/FDull/Workspace.fs",
-      "Owner": "FDull.Workspace.checkUsing",
+      "Owner": "FDull.Workspace.checkMeasured",
       "Kind": "member",
       "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.ListModule.OfSeq``1(System.Collections.Generic.IEnumerable{``0})",
       "Reason": "Workspace authority validates exact reviewed sources, graph and compiler flags, binds build/reference/policy inputs, and rejects incomplete or changed worker responses. Exceptions remain failed checks."
     },
     {
       "File": "src/FDull/Workspace.fs",
-      "Owner": "FDull.Workspace.checkUsing",
+      "Owner": "FDull.Workspace.checkMeasured",
       "Kind": "member",
       "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.SeqModule.Collect``3(Microsoft.FSharp.Core.FSharpFunc{``0,``1},System.Collections.Generic.IEnumerable{``0})",
       "Reason": "Workspace authority validates exact reviewed sources, graph and compiler flags, binds build/reference/policy inputs, and rejects incomplete or changed worker responses. Exceptions remain failed checks."
     },
     {
       "File": "src/FDull/Workspace.fs",
-      "Owner": "FDull.Workspace.checkUsing",
+      "Owner": "FDull.Workspace.checkMeasured",
       "Kind": "member",
       "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.SeqModule.Exists``1(Microsoft.FSharp.Core.FSharpFunc{``0,System.Boolean},System.Collections.Generic.IEnumerable{``0})",
       "Reason": "Workspace authority validates exact reviewed sources, graph and compiler flags, binds build/reference/policy inputs, and rejects incomplete or changed worker responses. Exceptions remain failed checks."
     },
     {
       "File": "src/FDull/Workspace.fs",
-      "Owner": "FDull.Workspace.checkUsing",
+      "Owner": "FDull.Workspace.checkMeasured",
       "Kind": "member",
       "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.SeqModule.ForAll``1(Microsoft.FSharp.Core.FSharpFunc{``0,System.Boolean},System.Collections.Generic.IEnumerable{``0})",
       "Reason": "Workspace authority validates exact reviewed sources, graph and compiler flags, binds build/reference/policy inputs, and rejects incomplete or changed worker responses. Exceptions remain failed checks."
     },
     {
       "File": "src/FDull/Workspace.fs",
-      "Owner": "FDull.Workspace.checkUsing",
+      "Owner": "FDull.Workspace.checkMeasured",
       "Kind": "member",
       "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.SeqModule.ToList``1(System.Collections.Generic.IEnumerable{``0})",
       "Reason": "Workspace authority validates exact reviewed sources, graph and compiler flags, binds build/reference/policy inputs, and rejects incomplete or changed worker responses. Exceptions remain failed checks."
     },
     {
       "File": "src/FDull/Workspace.fs",
-      "Owner": "FDull.Workspace.checkUsing",
+      "Owner": "FDull.Workspace.checkMeasured",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.GetFullPath(System.String)",
       "Reason": "Workspace authority validates exact reviewed sources, graph and compiler flags, binds build/reference/policy inputs, and rejects incomplete or changed worker responses. Exceptions remain failed checks."
     },
     {
       "File": "src/FDull/Workspace.fs",
-      "Owner": "FDull.Workspace.checkUsing",
+      "Owner": "FDull.Workspace.checkMeasured",
       "Kind": "member",
       "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | M:System.Collections.Generic.List`1.#ctor",
       "Reason": "Workspace authority validates exact reviewed sources, graph and compiler flags, binds build/reference/policy inputs, and rejects incomplete or changed worker responses. Exceptions remain failed checks."
     },
     {
       "File": "src/FDull/Workspace.fs",
-      "Owner": "FDull.Workspace.checkUsing",
+      "Owner": "FDull.Workspace.checkMeasured",
       "Kind": "member",
       "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | M:System.Collections.Generic.List`1.Add(`0)",
       "Reason": "Workspace authority validates exact reviewed sources, graph and compiler flags, binds build/reference/policy inputs, and rejects incomplete or changed worker responses. Exceptions remain failed checks."
     },
     {
       "File": "src/FDull/Workspace.fs",
-      "Owner": "FDull.Workspace.checkUsing",
+      "Owner": "FDull.Workspace.checkMeasured",
       "Kind": "member",
       "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | P:System.Collections.Generic.List`1.Count",
       "Reason": "Workspace authority validates exact reviewed sources, graph and compiler flags, binds build/reference/policy inputs, and rejects incomplete or changed worker responses. Exceptions remain failed checks."
     },
     {
       "File": "src/FDull/Workspace.fs",
-      "Owner": "FDull.Workspace.checkUsing",
+      "Owner": "FDull.Workspace.checkMeasured",
       "Kind": "member",
       "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | P:System.Exception.Message",
       "Reason": "Workspace authority validates exact reviewed sources, graph and compiler flags, binds build/reference/policy inputs, and rejects incomplete or changed worker responses. Exceptions remain failed checks."
     },
     {
       "File": "src/FDull/Workspace.fs",
-      "Owner": "FDull.Workspace.checkUsing",
+      "Owner": "FDull.Workspace.checkMeasured",
       "Kind": "rule",
       "Identity": "ERR001 | ",
       "Reason": "Workspace authority validates exact reviewed sources, graph and compiler flags, binds build/reference/policy inputs, and rejects incomplete or changed worker responses. Exceptions remain failed checks."
     },
     {
       "File": "src/FDull/Workspace.fs",
-      "Owner": "FDull.Workspace.checkUsing",
+      "Owner": "FDull.Workspace.checkMeasured",
       "Kind": "rule",
       "Identity": "ERR004 | exception handler",
       "Reason": "Workspace authority validates exact reviewed sources, graph and compiler flags, binds build/reference/policy inputs, and rejects incomplete or changed worker responses. Exceptions remain failed checks."
     },
     {
       "File": "src/FDull/Workspace.fs",
-      "Owner": "FDull.Workspace.checkUsing",
+      "Owner": "FDull.Workspace.checkMeasured",
       "Kind": "rule",
       "Identity": "MUT009 | ",
       "Reason": "Workspace authority validates exact reviewed sources, graph and compiler flags, binds build/reference/policy inputs, and rejects incomplete or changed worker responses. Exceptions remain failed checks."
     },
     {
       "File": "src/FDull/Workspace.fs",
-      "Owner": "FDull.Workspace.checkUsing",
+      "Owner": "FDull.Workspace.checkMeasured",
       "Kind": "type",
       "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | System.Collections.Generic.IEnumerable`1",
       "Reason": "Workspace authority validates exact reviewed sources, graph and compiler flags, binds build/reference/policy inputs, and rejects incomplete or changed worker responses. Exceptions remain failed checks."
     },
     {
       "File": "src/FDull/Workspace.fs",
-      "Owner": "FDull.Workspace.checkUsing",
+      "Owner": "FDull.Workspace.checkMeasured",
       "Kind": "type",
       "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | System.Collections.Generic.List`1",
       "Reason": "Workspace authority validates exact reviewed sources, graph and compiler flags, binds build/reference/policy inputs, and rejects incomplete or changed worker responses. Exceptions remain failed checks."
     },
     {
       "File": "src/FDull/Workspace.fs",
-      "Owner": "FDull.Workspace.checkUsing",
+      "Owner": "FDull.Workspace.checkMeasured",
       "Kind": "type",
       "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | System.Exception",
       "Reason": "Workspace authority validates exact reviewed sources, graph and compiler flags, binds build/reference/policy inputs, and rejects incomplete or changed worker responses. Exceptions remain failed checks."
     },
     {
       "File": "src/FDull/Workspace.fs",
-      "Owner": "FDull.Workspace.checkUsing",
+      "Owner": "FDull.Workspace.checkMeasured",
       "Kind": "type",
       "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | System.Object",
       "Reason": "Workspace authority validates exact reviewed sources, graph and compiler flags, binds build/reference/policy inputs, and rejects incomplete or changed worker responses. Exceptions remain failed checks."
@@ -5735,7 +5735,7 @@
     },
     {
       "File": "src/FDull/Workspace.fs",
-      "Owner": "FDull.Workspace.requestUsing",
+      "Owner": "FDull.Workspace.requestFrom",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.Combine(System.String,System.String)",
       "Reason": "Reviewed standalone extension preserves exact project/metadata input validation and bounded analysis; independent project, graph and worker regression fixtures exercise the contract."
@@ -13701,126 +13701,126 @@
     },
     {
       "File": "src/FDull/Workspace.fs",
-      "Owner": "FDull.Workspace.review",
+      "Owner": "FDull.Workspace.reviewTimed",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.GetFullPath(System.String)",
       "Reason": "Reviewed advisory tooling: exact current-source inputs, resolved finding evidence and bounded worker results remain separate from certification. Regression tests cover source drift, incomplete analysis and forbidden pure exemptions."
     },
     {
       "File": "src/FDull/Workspace.fs",
-      "Owner": "FDull.Workspace.review",
+      "Owner": "FDull.Workspace.reviewTimed",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.Combine(System.String,System.String)",
       "Reason": "Reviewed advisory tooling: exact current-source inputs, resolved finding evidence and bounded worker results remain separate from certification. Regression tests cover source drift, incomplete analysis and forbidden pure exemptions."
     },
     {
       "File": "src/FDull/Workspace.fs",
-      "Owner": "FDull.Workspace.review",
+      "Owner": "FDull.Workspace.reviewTimed",
       "Kind": "member",
       "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | M:System.Collections.Generic.List`1.#ctor",
       "Reason": "Reviewed advisory tooling: exact current-source inputs, resolved finding evidence and bounded worker results remain separate from certification. Regression tests cover source drift, incomplete analysis and forbidden pure exemptions."
     },
     {
       "File": "src/FDull/Workspace.fs",
-      "Owner": "FDull.Workspace.review",
+      "Owner": "FDull.Workspace.reviewTimed",
       "Kind": "member",
       "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | M:System.Collections.Generic.List`1.Add(`0)",
       "Reason": "Reviewed advisory tooling: exact current-source inputs, resolved finding evidence and bounded worker results remain separate from certification. Regression tests cover source drift, incomplete analysis and forbidden pure exemptions."
     },
     {
       "File": "src/FDull/Workspace.fs",
-      "Owner": "FDull.Workspace.review",
+      "Owner": "FDull.Workspace.reviewTimed",
       "Kind": "member",
       "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | P:System.Exception.Message",
       "Reason": "Reviewed advisory tooling: exact current-source inputs, resolved finding evidence and bounded worker results remain separate from certification. Regression tests cover source drift, incomplete analysis and forbidden pure exemptions."
     },
     {
       "File": "src/FDull/Workspace.fs",
-      "Owner": "FDull.Workspace.review",
+      "Owner": "FDull.Workspace.reviewTimed",
       "Kind": "member",
       "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.SeqModule.Exists``1(Microsoft.FSharp.Core.FSharpFunc{``0,System.Boolean},System.Collections.Generic.IEnumerable{``0})",
       "Reason": "Reviewed advisory tooling: exact current-source inputs, resolved finding evidence and bounded worker results remain separate from certification. Regression tests cover source drift, incomplete analysis and forbidden pure exemptions."
     },
     {
       "File": "src/FDull/Workspace.fs",
-      "Owner": "FDull.Workspace.review",
+      "Owner": "FDull.Workspace.reviewTimed",
       "Kind": "member",
       "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.ListModule.OfSeq``1(System.Collections.Generic.IEnumerable{``0})",
       "Reason": "Reviewed advisory tooling: exact current-source inputs, resolved finding evidence and bounded worker results remain separate from certification. Regression tests cover source drift, incomplete analysis and forbidden pure exemptions."
     },
     {
       "File": "src/FDull/Workspace.fs",
-      "Owner": "FDull.Workspace.review",
+      "Owner": "FDull.Workspace.reviewTimed",
       "Kind": "type",
       "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | System.Collections.Generic.List`1",
       "Reason": "Reviewed advisory tooling: exact current-source inputs, resolved finding evidence and bounded worker results remain separate from certification. Regression tests cover source drift, incomplete analysis and forbidden pure exemptions."
     },
     {
       "File": "src/FDull/Workspace.fs",
-      "Owner": "FDull.Workspace.review",
+      "Owner": "FDull.Workspace.reviewTimed",
       "Kind": "type",
       "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | System.Collections.Generic.IEnumerable`1",
       "Reason": "Reviewed advisory tooling: exact current-source inputs, resolved finding evidence and bounded worker results remain separate from certification. Regression tests cover source drift, incomplete analysis and forbidden pure exemptions."
     },
     {
       "File": "src/FDull/Workspace.fs",
-      "Owner": "FDull.Workspace.review",
+      "Owner": "FDull.Workspace.reviewTimed",
       "Kind": "type",
       "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | System.Exception",
       "Reason": "Reviewed advisory tooling: exact current-source inputs, resolved finding evidence and bounded worker results remain separate from certification. Regression tests cover source drift, incomplete analysis and forbidden pure exemptions."
     },
     {
       "File": "src/FDull/Workspace.fs",
-      "Owner": "FDull.Workspace.review",
+      "Owner": "FDull.Workspace.reviewTimed",
       "Kind": "type",
       "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | System.Object",
       "Reason": "Reviewed advisory tooling: exact current-source inputs, resolved finding evidence and bounded worker results remain separate from certification. Regression tests cover source drift, incomplete analysis and forbidden pure exemptions."
     },
     {
       "File": "src/FDull/Workspace.fs",
-      "Owner": "FDull.Workspace.review",
+      "Owner": "FDull.Workspace.reviewTimed",
       "Kind": "rule",
       "Identity": "MUT001 | ",
       "Reason": "Reviewed advisory tooling: exact current-source inputs, resolved finding evidence and bounded worker results remain separate from certification. Regression tests cover source drift, incomplete analysis and forbidden pure exemptions."
     },
     {
       "File": "src/FDull/Workspace.fs",
-      "Owner": "FDull.Workspace.review",
+      "Owner": "FDull.Workspace.reviewTimed",
       "Kind": "rule",
       "Identity": "MUT001 | policy",
       "Reason": "Reviewed advisory tooling: exact current-source inputs, resolved finding evidence and bounded worker results remain separate from certification. Regression tests cover source drift, incomplete analysis and forbidden pure exemptions."
     },
     {
       "File": "src/FDull/Workspace.fs",
-      "Owner": "FDull.Workspace.review",
+      "Owner": "FDull.Workspace.reviewTimed",
       "Kind": "rule",
       "Identity": "MUT001 | snapshot",
       "Reason": "Reviewed advisory tooling: exact current-source inputs, resolved finding evidence and bounded worker results remain separate from certification. Regression tests cover source drift, incomplete analysis and forbidden pure exemptions."
     },
     {
       "File": "src/FDull/Workspace.fs",
-      "Owner": "FDull.Workspace.review",
+      "Owner": "FDull.Workspace.reviewTimed",
       "Kind": "rule",
       "Identity": "MUT002 | ",
       "Reason": "Reviewed advisory tooling: exact current-source inputs, resolved finding evidence and bounded worker results remain separate from certification. Regression tests cover source drift, incomplete analysis and forbidden pure exemptions."
     },
     {
       "File": "src/FDull/Workspace.fs",
-      "Owner": "FDull.Workspace.review",
+      "Owner": "FDull.Workspace.reviewTimed",
       "Kind": "rule",
       "Identity": "MUT009 | ",
       "Reason": "Reviewed advisory tooling: exact current-source inputs, resolved finding evidence and bounded worker results remain separate from certification. Regression tests cover source drift, incomplete analysis and forbidden pure exemptions."
     },
     {
       "File": "src/FDull/Workspace.fs",
-      "Owner": "FDull.Workspace.review",
+      "Owner": "FDull.Workspace.reviewTimed",
       "Kind": "rule",
       "Identity": "ERR001 | ",
       "Reason": "Reviewed advisory tooling: exact current-source inputs, resolved finding evidence and bounded worker results remain separate from certification. Regression tests cover source drift, incomplete analysis and forbidden pure exemptions."
     },
     {
       "File": "src/FDull/Workspace.fs",
-      "Owner": "FDull.Workspace.review",
+      "Owner": "FDull.Workspace.reviewTimed",
       "Kind": "rule",
       "Identity": "ERR004 | exception handler",
       "Reason": "Reviewed advisory tooling: exact current-source inputs, resolved finding evidence and bounded worker results remain separate from certification. Regression tests cover source drift, incomplete analysis and forbidden pure exemptions."
@@ -13906,7 +13906,7 @@
       "File": "src/FDull.Tool/Program.fs",
       "Owner": "FDull.Tool.Program.main",
       "Kind": "member",
-      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Workspace.review(System.String)",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Workspace.reviewTimed(System.String)",
       "Reason": "Reviewed advisory tooling: exact current-source inputs, resolved finding evidence and bounded worker results remain separate from certification. Regression tests cover source drift, incomplete analysis and forbidden pure exemptions."
     },
     {
@@ -18132,7 +18132,7 @@
     },
     {
       "File": "src/FDull/Workspace.fs",
-      "Owner": "FDull.Workspace.checkUsing",
+      "Owner": "FDull.Workspace.checkMeasured",
       "Kind": "member",
       "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | M:System.Collections.Generic.List`1.AddRange(System.Collections.Generic.IEnumerable{`0})",
       "Reason": "Collects only audited policy exclusions into the workspace report, making the omitted analysis scope visible even when a later project check fails. Exclusion reporting regression checks text, JSON and SARIF."
@@ -20257,6 +20257,195 @@
       "Kind": "member",
       "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.False(System.Boolean)",
       "Reason": "Asserts the unsuppressed authored FS3180 compiler error makes the unconditional workspace compile pass report incomplete analysis."
+    },
+    {
+      "File": "src/FDull.Tool/Program.fs",
+      "Owner": "FDull.Tool.Program.options",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.FSharpMap`2.Add(`0,`1)",
+      "Reason": "CLI option parser accepts each of --format and --timings at most once from a fixed list into an immutable map; any other or repeated argument is a usage error (exit 2), covered by the timings regression."
+    },
+    {
+      "File": "src/FDull.Tool/Program.fs",
+      "Owner": "FDull.Tool.Program.options",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.FSharpMap`2.ContainsKey(`0)",
+      "Reason": "CLI option parser accepts each of --format and --timings at most once from a fixed list into an immutable map; any other or repeated argument is a usage error (exit 2), covered by the timings regression."
+    },
+    {
+      "File": "src/FDull.Tool/Program.fs",
+      "Owner": "FDull.Tool.Program.main",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.FSharpMap`2.ContainsKey(`0)",
+      "Reason": "CLI routes lint and review through the parsed immutable option map; a missing format defaults to text and parsing failures return usage exit 2."
+    },
+    {
+      "File": "src/FDull.Tool/Program.fs",
+      "Owner": "FDull.Tool.Program.main",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.FSharpMap`2.TryFind(`0)",
+      "Reason": "CLI routes lint and review through the parsed immutable option map; a missing format defaults to text and parsing failures return usage exit 2."
+    },
+    {
+      "File": "src/FDull.Tool/Program.fs",
+      "Owner": "FDull.Tool.Program.timed",
+      "Kind": "member",
+      "Identity": "System.Console, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:System.Console.Error",
+      "Reason": "Opt-in --timings writes per-project and total wall-clock lines to stderr only after analysis returns; the report value and exit code pass through unchanged. The timings regression compares stdout and exit codes with and without the flag."
+    },
+    {
+      "File": "src/FDull.Tool/Program.fs",
+      "Owner": "FDull.Tool.Program.timed",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.Diagnostics.Stopwatch.StartNew",
+      "Reason": "Opt-in --timings writes per-project and total wall-clock lines to stderr only after analysis returns; the report value and exit code pass through unchanged. The timings regression compares stdout and exit codes with and without the flag."
+    },
+    {
+      "File": "src/FDull.Tool/Program.fs",
+      "Owner": "FDull.Tool.Program.timed",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.TextWriter.WriteLine(System.String)",
+      "Reason": "Opt-in --timings writes per-project and total wall-clock lines to stderr only after analysis returns; the report value and exit code pass through unchanged. The timings regression compares stdout and exit codes with and without the flag."
+    },
+    {
+      "File": "src/FDull.Tool/Program.fs",
+      "Owner": "FDull.Tool.Program.timed",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:System.Diagnostics.Stopwatch.ElapsedMilliseconds",
+      "Reason": "Opt-in --timings writes per-project and total wall-clock lines to stderr only after analysis returns; the report value and exit code pass through unchanged. The timings regression compares stdout and exit codes with and without the flag."
+    },
+    {
+      "File": "src/FDull.Tool/Program.fs",
+      "Owner": "FDull.Tool.Program.timed",
+      "Kind": "rule",
+      "Identity": "MUT009 | ",
+      "Reason": "Opt-in --timings writes per-project and total wall-clock lines to stderr only after analysis returns; the report value and exit code pass through unchanged. The timings regression compares stdout and exit codes with and without the flag."
+    },
+    {
+      "File": "src/FDull.Tool/Program.fs",
+      "Owner": "FDull.Tool.Program.timed",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspaceTiming",
+      "Reason": "Opt-in --timings writes per-project and total wall-clock lines to stderr only after analysis returns; the report value and exit code pass through unchanged. The timings regression compares stdout and exit codes with and without the flag."
+    },
+    {
+      "File": "src/FDull.Tool/Program.fs",
+      "Owner": "FDull.Tool.Program.timed",
+      "Kind": "type",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | System.Diagnostics.Stopwatch",
+      "Reason": "Opt-in --timings writes per-project and total wall-clock lines to stderr only after analysis returns; the report value and exit code pass through unchanged. The timings regression compares stdout and exit codes with and without the flag."
+    },
+    {
+      "File": "src/FDull.Tool/Program.fs",
+      "Owner": "FDull.Tool.Program.timed",
+      "Kind": "type",
+      "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | System.Object",
+      "Reason": "Opt-in --timings writes per-project and total wall-clock lines to stderr only after analysis returns; the report value and exit code pass through unchanged. The timings regression compares stdout and exit codes with and without the flag."
+    },
+    {
+      "File": "src/FDull/Workspace.fs",
+      "Owner": "FDull.Workspace.analyzeTimed",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.Diagnostics.Stopwatch.StartNew",
+      "Reason": "Diagnostic timing only: a monotonic Stopwatch measures export, worker and parent validation wall-clock time; values never enter reports, digests or exit codes. The timings regression proves stdout and exit codes are unchanged."
+    },
+    {
+      "File": "src/FDull/Workspace.fs",
+      "Owner": "FDull.Workspace.analyzeTimed",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:System.Diagnostics.Stopwatch.ElapsedMilliseconds",
+      "Reason": "Diagnostic timing only: a monotonic Stopwatch measures export, worker and parent validation wall-clock time; values never enter reports, digests or exit codes. The timings regression proves stdout and exit codes are unchanged."
+    },
+    {
+      "File": "src/FDull/Workspace.fs",
+      "Owner": "FDull.Workspace.analyzeTimed",
+      "Kind": "type",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | System.Diagnostics.Stopwatch",
+      "Reason": "Diagnostic timing only: a monotonic Stopwatch measures export, worker and parent validation wall-clock time; values never enter reports, digests or exit codes. The timings regression proves stdout and exit codes are unchanged."
+    },
+    {
+      "File": "src/FDull/Workspace.fs",
+      "Owner": "FDull.Workspace.measured",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.Diagnostics.Stopwatch.StartNew",
+      "Reason": "Diagnostic timing only: a monotonic Stopwatch measures export, worker and parent validation wall-clock time; values never enter reports, digests or exit codes. The timings regression proves stdout and exit codes are unchanged."
+    },
+    {
+      "File": "src/FDull/Workspace.fs",
+      "Owner": "FDull.Workspace.measured",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:System.Diagnostics.Stopwatch.ElapsedMilliseconds",
+      "Reason": "Diagnostic timing only: a monotonic Stopwatch measures export, worker and parent validation wall-clock time; values never enter reports, digests or exit codes. The timings regression proves stdout and exit codes are unchanged."
+    },
+    {
+      "File": "src/FDull/Workspace.fs",
+      "Owner": "FDull.Workspace.measured",
+      "Kind": "type",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | System.Diagnostics.Stopwatch",
+      "Reason": "Diagnostic timing only: a monotonic Stopwatch measures export, worker and parent validation wall-clock time; values never enter reports, digests or exit codes. The timings regression proves stdout and exit codes are unchanged."
+    },
+    {
+      "File": "src/FDull/Workspace.fs",
+      "Owner": "FDull.Workspace.checkMeasured",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Core.OptionModule.Iterate``1(Microsoft.FSharp.Core.FSharpFunc{``0,Microsoft.FSharp.Core.Unit},Microsoft.FSharp.Core.FSharpOption{``0})",
+      "Reason": "Collects optional per-project timings into the run-local diagnostic list; verification passes None and timings never affect completeness or exit codes."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.``timings write only to stderr and leave reports and exit codes unchanged``",
+      "Kind": "attribute",
+      "Identity": "xunit.core, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | Xunit.FactAttribute |  | unit",
+      "Reason": "Reviewed non-shipping CLI regression: bounded CLI subprocesses in an isolated consumer prove --timings leaves stdout and exit codes identical, writes timing lines only to stderr, and that repeated or unknown options exit 2."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.``timings write only to stderr and leave reports and exit codes unchanged``",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.DoesNotContain(System.String,System.String)",
+      "Reason": "Reviewed non-shipping CLI regression: bounded CLI subprocesses in an isolated consumer prove --timings leaves stdout and exit codes identical, writes timing lines only to stderr, and that repeated or unknown options exit 2."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.``timings write only to stderr and leave reports and exit codes unchanged``",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Equal(System.String,System.String)",
+      "Reason": "Reviewed non-shipping CLI regression: bounded CLI subprocesses in an isolated consumer prove --timings leaves stdout and exit codes identical, writes timing lines only to stderr, and that repeated or unknown options exit 2."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.``timings write only to stderr and leave reports and exit codes unchanged``",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Equal``1(``0,``0)",
+      "Reason": "Reviewed non-shipping CLI regression: bounded CLI subprocesses in an isolated consumer prove --timings leaves stdout and exit codes identical, writes timing lines only to stderr, and that repeated or unknown options exit 2."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.``timings write only to stderr and leave reports and exit codes unchanged``",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Matches(System.String,System.String)",
+      "Reason": "Reviewed non-shipping CLI regression: bounded CLI subprocesses in an isolated consumer prove --timings leaves stdout and exit codes identical, writes timing lines only to stderr, and that repeated or unknown options exit 2."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.``timings write only to stderr and leave reports and exit codes unchanged``",
+      "Kind": "rule",
+      "Identity": "MUT009 | ",
+      "Reason": "Reviewed non-shipping CLI regression: bounded CLI subprocesses in an isolated consumer prove --timings leaves stdout and exit codes identical, writes timing lines only to stderr, and that repeated or unknown options exit 2."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.``timings write only to stderr and leave reports and exit codes unchanged``",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | FDull.SafetyProcessOutput",
+      "Reason": "Reviewed non-shipping CLI regression: bounded CLI subprocesses in an isolated consumer prove --timings leaves stdout and exit codes identical, writes timing lines only to stderr, and that repeated or unknown options exit 2."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.``timings write only to stderr and leave reports and exit codes unchanged``",
+      "Kind": "type",
+      "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | System.Object",
+      "Reason": "Reviewed non-shipping CLI regression: bounded CLI subprocesses in an isolated consumer prove --timings leaves stdout and exit codes identical, writes timing lines only to stderr, and that repeated or unknown options exit 2."
     }
   ],
   "Domains": [],

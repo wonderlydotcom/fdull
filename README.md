@@ -358,6 +358,10 @@ dotnet fdull review . --format json
 dotnet fdull coverage
 ```
 
+`lint` and `review` also accept `--timings`. It writes each project's MSBuild
+export, analysis worker and parent validation time, and the run's total, to stderr.
+Stdout and the exit code are unchanged.
+
 | Exit | Meaning |
 | --- | --- |
 | `0` | Complete analysis with no violations. |

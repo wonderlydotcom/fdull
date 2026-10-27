@@ -1,6 +1,7 @@
 namespace FDull.Tool
 
 open System
+open System.Diagnostics
 open System.IO
 open FDull
 open FDull.Transport
@@ -10,9 +11,34 @@ module Program =
         Console.WriteLine "FDull — F# with fewer sharp edges."
 
         Console.WriteLine
-            "fdull defaults | init <root> [--scope <file>] | lint <root> [--format text|json|sarif] | review <root> [--format text|json] | data-digest <assembly> | verify <root> | coverage"
+            "fdull defaults | init <root> [--scope <file>] | lint <root> [--format text|json|sarif] [--timings] | review <root> [--format text|json] [--timings] | data-digest <assembly> | verify <root> | coverage"
 
         2
+
+    /// Each option may appear once, in any order, after the root. Anything else is a usage error.
+    let rec private options formats (selected: Map<string, string>) arguments =
+        match arguments with
+        | [] -> Some selected
+        | "--format" :: format :: rest when List.contains format formats && not (selected.ContainsKey "format") ->
+            options formats (selected.Add("format", format)) rest
+        | "--timings" :: rest when not (selected.ContainsKey "timings") ->
+            options formats (selected.Add("timings", "")) rest
+        | _ -> None
+
+    /// Timings go to stderr so stdout and exit codes stay identical with or without them.
+    let private timed enabled analyze =
+        let clock = Stopwatch.StartNew()
+        let report, (timings: WorkspaceTiming list) = analyze ()
+
+        if enabled then
+            for timing in timings do
+                Console.Error.WriteLine(
+                    $"FDull timing: %s{timing.Project} export=%d{timing.ExportMilliseconds}ms worker=%d{timing.WorkerMilliseconds}ms validation=%d{timing.ValidationMilliseconds}ms"
+                )
+
+            Console.Error.WriteLine($"FDull timing: total=%d{clock.ElapsedMilliseconds}ms projects=%d{timings.Length}")
+
+        report
 
     let private display command format (report: WorkspaceReport) =
         let diagnostics =
@@ -97,13 +123,19 @@ module Program =
             | [ "init"; root; "--scope"; scope ] ->
                 Project.initializeWithScope root (Some scope) |> Console.WriteLine
                 0
-            | [ "lint"; root ] -> Workspace.check root |> display "lint" "text"
-            | [ "lint"; root; "--format"; format ] when List.contains format [ "text"; "json"; "sarif" ] ->
-                Workspace.check root |> display "lint" format
+            | "lint" :: root :: rest when not (root.StartsWith("--", StringComparison.Ordinal)) ->
+                match options [ "text"; "json"; "sarif" ] Map.empty rest with
+                | Some selected ->
+                    timed (selected.ContainsKey "timings") (fun () -> Workspace.checkTimed root)
+                    |> display "lint" (selected.TryFind "format" |> Option.defaultValue "text")
+                | None -> usage ()
             | [ "verify"; root ] -> Project.verify root |> display "verify" "text"
-            | [ "review"; root ] -> Workspace.review root |> displayReview "text"
-            | [ "review"; root; "--format"; format ] when List.contains format [ "text"; "json" ] ->
-                Workspace.review root |> displayReview format
+            | "review" :: root :: rest when not (root.StartsWith("--", StringComparison.Ordinal)) ->
+                match options [ "text"; "json" ] Map.empty rest with
+                | Some selected ->
+                    timed (selected.ContainsKey "timings") (fun () -> Workspace.reviewTimed root)
+                    |> displayReview (selected.TryFind "format" |> Option.defaultValue "text")
+                | None -> usage ()
             | [ "coverage" ] ->
                 SafetyRules.inventory SafetyPolicy.version |> Codec.encode |> Console.WriteLine
                 0
