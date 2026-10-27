@@ -336,7 +336,42 @@ module Workspace =
         with error ->
             Error("BUILD003: " + error.Message)
 
-    let private checkMeasured platform checkProject =
+    /// Projects analyzed at once by default. Each worker heap is capped at 512 MiB.
+    let defaultJobs = min Environment.ProcessorCount 4
+
+    let private attempt work item =
+        try
+            Ok(work item)
+        with error ->
+            Error error
+
+    /// Run independent project analyses, at most `jobs` at once, and return outcomes in input order.
+    /// Outcomes stop at the first exception, as the sequential loop did, so the job count never changes a report.
+    let private runAll jobs work items =
+        let outcomes =
+            if jobs = 1 then
+                let rec sequential completed remaining =
+                    match remaining with
+                    | [] -> List.rev completed
+                    | item :: rest ->
+                        match attempt work item with
+                        | Ok value -> sequential ((item, Ok value) :: completed) rest
+                        | Error error -> List.rev ((item, Error error) :: completed)
+
+                sequential [] items
+            else
+                Async.Parallel(
+                    items |> List.map (fun item -> async { return item, attempt work item }),
+                    maxDegreeOfParallelism = jobs
+                )
+                |> Async.RunSynchronously
+                |> List.ofArray
+
+        match outcomes |> List.tryFindIndex (fun (_, outcome) -> Result.isError outcome) with
+        | Some failed -> List.take (failed + 1) outcomes
+        | None -> outcomes
+
+    let private checkMeasured platform jobs checkProject =
         let root = Path.GetFullPath platform
         let errors = ResizeArray<string>()
         let projects = ResizeArray<WorkspaceProjectReport>()
@@ -349,13 +384,15 @@ module Workspace =
             exclusions.AddRange(WorkspacePolicy.excludedProjects policy)
             let projectFiles = WorkspaceAudit.order policy.Projects
 
-            for project in projectFiles do
-                let result, timing = checkProject project
-                Option.iter timings.Add timing
+            for project, outcome in runAll jobs checkProject projectFiles do
+                match outcome with
+                | Ok(result, timing) ->
+                    Option.iter timings.Add timing
 
-                match result with
-                | Ok report -> projects.Add report
-                | Error error -> errors.Add(project + ": " + error)
+                    match result with
+                    | Ok report -> projects.Add report
+                    | Error error -> errors.Add(project + ": " + error)
+                | Error(error: exn) -> errors.Add error.Message
 
             if
                 errors.Count = 0
@@ -396,21 +433,23 @@ module Workspace =
           Errors = List.ofSeq errors },
         List.ofSeq timings
 
+    /// Verification rebuilds between projects, so its checks stay strictly sequential.
     let internal checkUsing platform checkProject =
-        checkMeasured platform (fun project -> checkProject project, None) |> fst
+        checkMeasured platform 1 (fun project -> checkProject project, None) |> fst
 
-    /// Lint the workspace and report each project's export, worker and validation time.
-    let checkTimed platform =
+    /// Lint the workspace with up to `jobs` concurrent project analyses and report each project's
+    /// export, worker and validation time.
+    let checkTimed jobs platform =
         let root = Path.GetFullPath platform
 
-        checkMeasured root (fun project ->
+        checkMeasured root jobs (fun project ->
             let result, timing = measured false root project
             result |> Result.map _.Analysis, Some timing)
 
-    let check platform = checkTimed platform |> fst
+    let check platform = checkTimed defaultJobs platform |> fst
 
     /// Analyze a current-source snapshot for human review, without updating or certifying policy.
-    let reviewTimed platform =
+    let reviewTimed jobs platform =
         let root = Path.GetFullPath platform
         let errors = ResizeArray<string>()
         let projects = ResizeArray<WorkspaceReviewProjectReport>()
@@ -428,13 +467,15 @@ module Workspace =
                 document.Sources
                 |> List.map (fun source -> input (Path.Combine(root, source.File)))
 
-            for project in WorkspaceAudit.order document.Projects do
-                let result, timing = measured true root project
-                timings.Add timing
+            for project, outcome in runAll jobs (measured true root) (WorkspaceAudit.order document.Projects) do
+                match outcome with
+                | Ok(result, timing) ->
+                    timings.Add timing
 
-                match result with
-                | Ok report -> projects.Add report
-                | Error error -> errors.Add(project + ": " + error)
+                    match result with
+                    | Ok report -> projects.Add report
+                    | Error error -> errors.Add(project + ": " + error)
+                | Error(error: exn) -> errors.Add error.Message
 
             if
                 pin <> input pin.Path
@@ -467,7 +508,7 @@ module Workspace =
 
         report, List.ofSeq timings
 
-    let review platform = reviewTimed platform |> fst
+    let review platform = reviewTimed defaultJobs platform |> fst
 
     let private serveUsing advisory (input: TextReader) (output: TextWriter) =
         try

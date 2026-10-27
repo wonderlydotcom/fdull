@@ -152,7 +152,7 @@
       "File": "src/FDull/Workspace.fs",
       "Project": "src/FDull/FDull.fsproj",
       "Profile": "GUARD_TOOLING",
-      "Digest": "sha256:205b449e2222d903a75317362c4714d61b5be14d914325f633b13b5f364b3ee8"
+      "Digest": "sha256:2a1d450d79e1694236af30df1f6f5641489e29bfe47f9adbb283063c2efd96c0"
     },
     {
       "File": "src/FDull/Safety.fs",
@@ -176,7 +176,7 @@
       "File": "src/FDull.Tool/Program.fs",
       "Project": "src/FDull.Tool/FDull.Tool.fsproj",
       "Profile": "GUARD_TOOLING",
-      "Digest": "sha256:477b02217605fd41a5d3f05f18a8c7f3d11c06a81467a8bb41e79bf0d309a7bf"
+      "Digest": "sha256:bb52928ede4d5461c22b9c7b5e6a0dbe22d1ab70a84f8c559f86e439cafe6c73"
     },
     {
       "File": "src/FDull.Worker/Program.fs",
@@ -236,7 +236,7 @@
       "File": "tests/FDull.Tests/ProjectTests.fs",
       "Project": "tests/FDull.Tests/FDull.Tests.fsproj",
       "Profile": "TEST",
-      "Digest": "sha256:7254db8f47b76eaa170bcdaebe845a3f677ad45de2e3d05513e9fac1a72d2302"
+      "Digest": "sha256:f2628e954de52ce894d78d37cf45ed207d60fd1fcf5799421fc76338a0c2e657"
     },
     {
       "File": "tests/FDull.Tests/Program.fs",
@@ -550,7 +550,7 @@
       "File": "src/FDull.Tool/Program.fs",
       "Owner": "FDull.Tool.Program.main",
       "Kind": "member",
-      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Workspace.checkTimed(System.String)",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Workspace.checkTimed(System.Int32,System.String)",
       "Reason": "CLI boundary prints finite checker reports, routes explicit commands and maps infrastructure exceptions to exit 3. It cannot certify a caught failure or grant policy permissions."
     },
     {
@@ -13906,7 +13906,7 @@
       "File": "src/FDull.Tool/Program.fs",
       "Owner": "FDull.Tool.Program.main",
       "Kind": "member",
-      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Workspace.reviewTimed(System.String)",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Workspace.reviewTimed(System.Int32,System.String)",
       "Reason": "Reviewed advisory tooling: exact current-source inputs, resolved finding evidence and bounded worker results remain separate from certification. Regression tests cover source drift, incomplete analysis and forbidden pure exemptions."
     },
     {
@@ -20446,6 +20446,237 @@
       "Kind": "type",
       "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | System.Object",
       "Reason": "Reviewed non-shipping CLI regression: bounded CLI subprocesses in an isolated consumer prove --timings leaves stdout and exit codes identical, writes timing lines only to stderr, and that repeated or unknown options exit 2."
+    },
+    {
+      "File": "src/FDull.Tool/Program.fs",
+      "Owner": "FDull.Tool.Program.jobCount",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.Int32.TryParse(System.String,System.Globalization.NumberStyles,System.IFormatProvider,System.Int32@)",
+      "Reason": "Parses --jobs as invariant-culture decimal digits only (NumberStyles.None) and accepts 1 to 64; signs, words, zero and larger values are usage errors (exit 2), covered by the job-count regression."
+    },
+    {
+      "File": "src/FDull.Tool/Program.fs",
+      "Owner": "FDull.Tool.Program.jobCount",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:System.Globalization.CultureInfo.InvariantCulture",
+      "Reason": "Parses --jobs as invariant-culture decimal digits only (NumberStyles.None) and accepts 1 to 64; signs, words, zero and larger values are usage errors (exit 2), covered by the job-count regression."
+    },
+    {
+      "File": "src/FDull.Tool/Program.fs",
+      "Owner": "FDull.Tool.Program.jobCount",
+      "Kind": "type",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | System.IFormatProvider",
+      "Reason": "Parses --jobs as invariant-culture decimal digits only (NumberStyles.None) and accepts 1 to 64; signs, words, zero and larger values are usage errors (exit 2), covered by the job-count regression."
+    },
+    {
+      "File": "src/FDull.Tool/Program.fs",
+      "Owner": "FDull.Tool.Program.jobs",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | P:FDull.Workspace.defaultJobs",
+      "Reason": "Resolves the already validated --jobs value, or the library default, for lint and review; verify has no job option and stays sequential."
+    },
+    {
+      "File": "src/FDull.Tool/Program.fs",
+      "Owner": "FDull.Tool.Program.jobs",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.FSharpMap`2.TryFind(`0)",
+      "Reason": "Resolves the already validated --jobs value, or the library default, for lint and review; verify has no job option and stays sequential."
+    },
+    {
+      "File": "src/FDull/Workspace.fs",
+      "Owner": "FDull.Workspace.defaultJobs",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:System.Environment.ProcessorCount",
+      "Reason": "Default concurrent project analyses: processor count capped at 4, so at most four 512 MiB-heap workers run at once. Only lint and review use it; reports do not depend on the job count."
+    },
+    {
+      "File": "src/FDull/Workspace.fs",
+      "Owner": "FDull.Workspace.attempt",
+      "Kind": "rule",
+      "Identity": "ERR001 | ",
+      "Reason": "Captures one project analysis exception as a value so concurrent runs can return outcomes in dependency order; the caller reports the first exception as an error and drops later outcomes, exactly as the sequential loop stopped. A caught failure never becomes success."
+    },
+    {
+      "File": "src/FDull/Workspace.fs",
+      "Owner": "FDull.Workspace.attempt",
+      "Kind": "rule",
+      "Identity": "ERR004 | exception handler",
+      "Reason": "Captures one project analysis exception as a value so concurrent runs can return outcomes in dependency order; the caller reports the first exception as an error and drops later outcomes, exactly as the sequential loop stopped. A caught failure never becomes success."
+    },
+    {
+      "File": "src/FDull/Workspace.fs",
+      "Owner": "FDull.Workspace.attempt",
+      "Kind": "type",
+      "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | System.Exception",
+      "Reason": "Captures one project analysis exception as a value so concurrent runs can return outcomes in dependency order; the caller reports the first exception as an error and drops later outcomes, exactly as the sequential loop stopped. A caught failure never becomes success."
+    },
+    {
+      "File": "src/FDull/Workspace.fs",
+      "Owner": "FDull.Workspace.runAll",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.ListModule.OfArray``1(``0[])",
+      "Reason": "Bounded project scheduler: Async.Parallel with maxDegreeOfParallelism runs independent read-only analyses (each an existing bounded export and worker process) and returns outcomes in input order, truncated after the first exception. One job runs strictly sequentially for verify. The job-count regression proves identical reports and failure positions for 1 and 4 jobs."
+    },
+    {
+      "File": "src/FDull/Workspace.fs",
+      "Owner": "FDull.Workspace.runAll",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.ListModule.Take``1(System.Int32,Microsoft.FSharp.Collections.FSharpList{``0})",
+      "Reason": "Bounded project scheduler: Async.Parallel with maxDegreeOfParallelism runs independent read-only analyses (each an existing bounded export and worker process) and returns outcomes in input order, truncated after the first exception. One job runs strictly sequentially for verify. The job-count regression proves identical reports and failure positions for 1 and 4 jobs."
+    },
+    {
+      "File": "src/FDull/Workspace.fs",
+      "Owner": "FDull.Workspace.runAll",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.ListModule.TryFindIndex``1(Microsoft.FSharp.Core.FSharpFunc{``0,System.Boolean},Microsoft.FSharp.Collections.FSharpList{``0})",
+      "Reason": "Bounded project scheduler: Async.Parallel with maxDegreeOfParallelism runs independent read-only analyses (each an existing bounded export and worker process) and returns outcomes in input order, truncated after the first exception. One job runs strictly sequentially for verify. The job-count regression proves identical reports and failure positions for 1 and 4 jobs."
+    },
+    {
+      "File": "src/FDull/Workspace.fs",
+      "Owner": "FDull.Workspace.runAll",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Control.FSharpAsync.Parallel``1(System.Collections.Generic.IEnumerable{Microsoft.FSharp.Control.FSharpAsync{``0}},Microsoft.FSharp.Core.FSharpOption{System.Int32})",
+      "Reason": "Bounded project scheduler: Async.Parallel with maxDegreeOfParallelism runs independent read-only analyses (each an existing bounded export and worker process) and returns outcomes in input order, truncated after the first exception. One job runs strictly sequentially for verify. The job-count regression proves identical reports and failure positions for 1 and 4 jobs."
+    },
+    {
+      "File": "src/FDull/Workspace.fs",
+      "Owner": "FDull.Workspace.runAll",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Control.FSharpAsync.RunSynchronously``1(Microsoft.FSharp.Control.FSharpAsync{``0},Microsoft.FSharp.Core.FSharpOption{System.Int32},Microsoft.FSharp.Core.FSharpOption{System.Threading.CancellationToken})",
+      "Reason": "Bounded project scheduler: Async.Parallel with maxDegreeOfParallelism runs independent read-only analyses (each an existing bounded export and worker process) and returns outcomes in input order, truncated after the first exception. One job runs strictly sequentially for verify. The job-count regression proves identical reports and failure positions for 1 and 4 jobs."
+    },
+    {
+      "File": "src/FDull/Workspace.fs",
+      "Owner": "FDull.Workspace.runAll",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:Microsoft.FSharp.Core.ExtraTopLevelOperators.DefaultAsyncBuilder",
+      "Reason": "Bounded project scheduler: Async.Parallel with maxDegreeOfParallelism runs independent read-only analyses (each an existing bounded export and worker process) and returns outcomes in input order, truncated after the first exception. One job runs strictly sequentially for verify. The job-count regression proves identical reports and failure positions for 1 and 4 jobs."
+    },
+    {
+      "File": "src/FDull/Workspace.fs",
+      "Owner": "FDull.Workspace.runAll",
+      "Kind": "type",
+      "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | System.Exception",
+      "Reason": "Bounded project scheduler: Async.Parallel with maxDegreeOfParallelism runs independent read-only analyses (each an existing bounded export and worker process) and returns outcomes in input order, truncated after the first exception. One job runs strictly sequentially for verify. The job-count regression proves identical reports and failure positions for 1 and 4 jobs."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.``job count leaves reports and failure positions unchanged``",
+      "Kind": "attribute",
+      "Identity": "xunit.core, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | Xunit.FactAttribute |  | unit",
+      "Reason": "Reviewed non-shipping CLI regression: an isolated three-project consumer (dependency edge, a violating project and a deliberately failing export, repinned in temporary policy) proves --jobs 1 and 4 give identical lint/review JSON and exit codes, and invalid job counts exit 2. Filesystem changes stay in the unique temporary directory."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.``job count leaves reports and failure positions unchanged``",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Project.initialize(System.String)",
+      "Reason": "Reviewed non-shipping CLI regression: an isolated three-project consumer (dependency edge, a violating project and a deliberately failing export, repinned in temporary policy) proves --jobs 1 and 4 give identical lint/review JSON and exit codes, and invalid job counts exit 2. Filesystem changes stay in the unique temporary directory."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.``job count leaves reports and failure positions unchanged``",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.SafetyPolicy.fileDigest(System.String)",
+      "Reason": "Reviewed non-shipping CLI regression: an isolated three-project consumer (dependency edge, a violating project and a deliberately failing export, repinned in temporary policy) proves --jobs 1 and 4 give identical lint/review JSON and exit codes, and invalid job counts exit 2. Filesystem changes stay in the unique temporary directory."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.``job count leaves reports and failure positions unchanged``",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Transport.Codec.encode``1(``0)",
+      "Reason": "Reviewed non-shipping CLI regression: an isolated three-project consumer (dependency edge, a violating project and a deliberately failing export, repinned in temporary policy) proves --jobs 1 and 4 give identical lint/review JSON and exit codes, and invalid job counts exit 2. Filesystem changes stay in the unique temporary directory."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.``job count leaves reports and failure positions unchanged``",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Directory.CreateDirectory(System.String)",
+      "Reason": "Reviewed non-shipping CLI regression: an isolated three-project consumer (dependency edge, a violating project and a deliberately failing export, repinned in temporary policy) proves --jobs 1 and 4 give identical lint/review JSON and exit codes, and invalid job counts exit 2. Filesystem changes stay in the unique temporary directory."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.``job count leaves reports and failure positions unchanged``",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.File.WriteAllText(System.String,System.String)",
+      "Reason": "Reviewed non-shipping CLI regression: an isolated three-project consumer (dependency edge, a violating project and a deliberately failing export, repinned in temporary policy) proves --jobs 1 and 4 give identical lint/review JSON and exit codes, and invalid job counts exit 2. Filesystem changes stay in the unique temporary directory."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.``job count leaves reports and failure positions unchanged``",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.Combine(System.String,System.String)",
+      "Reason": "Reviewed non-shipping CLI regression: an isolated three-project consumer (dependency edge, a violating project and a deliberately failing export, repinned in temporary policy) proves --jobs 1 and 4 give identical lint/review JSON and exit codes, and invalid job counts exit 2. Filesystem changes stay in the unique temporary directory."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.``job count leaves reports and failure positions unchanged``",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.Combine(System.String,System.String,System.String)",
+      "Reason": "Reviewed non-shipping CLI regression: an isolated three-project consumer (dependency edge, a violating project and a deliberately failing export, repinned in temporary policy) proves --jobs 1 and 4 give identical lint/review JSON and exit codes, and invalid job counts exit 2. Filesystem changes stay in the unique temporary directory."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.``job count leaves reports and failure positions unchanged``",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Contains(System.String,System.String)",
+      "Reason": "Reviewed non-shipping CLI regression: an isolated three-project consumer (dependency edge, a violating project and a deliberately failing export, repinned in temporary policy) proves --jobs 1 and 4 give identical lint/review JSON and exit codes, and invalid job counts exit 2. Filesystem changes stay in the unique temporary directory."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.``job count leaves reports and failure positions unchanged``",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Equal(System.String,System.String)",
+      "Reason": "Reviewed non-shipping CLI regression: an isolated three-project consumer (dependency edge, a violating project and a deliberately failing export, repinned in temporary policy) proves --jobs 1 and 4 give identical lint/review JSON and exit codes, and invalid job counts exit 2. Filesystem changes stay in the unique temporary directory."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.``job count leaves reports and failure positions unchanged``",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Equal``1(``0,``0)",
+      "Reason": "Reviewed non-shipping CLI regression: an isolated three-project consumer (dependency edge, a violating project and a deliberately failing export, repinned in temporary policy) proves --jobs 1 and 4 give identical lint/review JSON and exit codes, and invalid job counts exit 2. Filesystem changes stay in the unique temporary directory."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.``job count leaves reports and failure positions unchanged``",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.True(System.Boolean,System.String)",
+      "Reason": "Reviewed non-shipping CLI regression: an isolated three-project consumer (dependency edge, a violating project and a deliberately failing export, repinned in temporary policy) proves --jobs 1 and 4 give identical lint/review JSON and exit codes, and invalid job counts exit 2. Filesystem changes stay in the unique temporary directory."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.``job count leaves reports and failure positions unchanged``",
+      "Kind": "rule",
+      "Identity": "MUT009 | ",
+      "Reason": "Reviewed non-shipping CLI regression: an isolated three-project consumer (dependency edge, a violating project and a deliberately failing export, repinned in temporary policy) proves --jobs 1 and 4 give identical lint/review JSON and exit codes, and invalid job counts exit 2. Filesystem changes stay in the unique temporary directory."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.``job count leaves reports and failure positions unchanged``",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | FDull.SafetyProcessOutput",
+      "Reason": "Reviewed non-shipping CLI regression: an isolated three-project consumer (dependency edge, a violating project and a deliberately failing export, repinned in temporary policy) proves --jobs 1 and 4 give identical lint/review JSON and exit codes, and invalid job counts exit 2. Filesystem changes stay in the unique temporary directory."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.``job count leaves reports and failure positions unchanged``",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspacePin",
+      "Reason": "Reviewed non-shipping CLI regression: an isolated three-project consumer (dependency edge, a violating project and a deliberately failing export, repinned in temporary policy) proves --jobs 1 and 4 give identical lint/review JSON and exit codes, and invalid job counts exit 2. Filesystem changes stay in the unique temporary directory."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.``job count leaves reports and failure positions unchanged``",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspacePolicyDocument",
+      "Reason": "Reviewed non-shipping CLI regression: an isolated three-project consumer (dependency edge, a violating project and a deliberately failing export, repinned in temporary policy) proves --jobs 1 and 4 give identical lint/review JSON and exit codes, and invalid job counts exit 2. Filesystem changes stay in the unique temporary directory."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.``job count leaves reports and failure positions unchanged``",
+      "Kind": "type",
+      "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | System.Object",
+      "Reason": "Reviewed non-shipping CLI regression: an isolated three-project consumer (dependency edge, a violating project and a deliberately failing export, repinned in temporary policy) proves --jobs 1 and 4 give identical lint/review JSON and exit codes, and invalid job counts exit 2. Filesystem changes stay in the unique temporary directory."
     }
   ],
   "Domains": [],

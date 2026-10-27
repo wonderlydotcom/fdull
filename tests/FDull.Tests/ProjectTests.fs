@@ -613,6 +613,96 @@ module ProjectTests =
                 Assert.Equal(2, (runCli root invalid).ExitCode))
 
     [<Fact>]
+    let ``job count leaves reports and failure positions unchanged`` () =
+        withDirectory (fun root ->
+            restoreConsumer
+                root
+                None
+                "module App\nlet count () =\n    let mutable total = 0\n    total <- total + 1\n    total\n"
+
+            for name in [ "Shared"; "Other" ] do
+                Directory.CreateDirectory(Path.Combine(root, name)) |> ignore
+
+                File.WriteAllText(
+                    Path.Combine(root, name, name + ".fsproj"),
+                    "<Project Sdk=\"Microsoft.NET.Sdk\"><ItemGroup><Compile Include=\""
+                    + name
+                    + ".fs\"/></ItemGroup></Project>"
+                )
+
+                File.WriteAllText(
+                    Path.Combine(root, name, name + ".fs"),
+                    "module " + name + "\nlet increment value = value + 1\n"
+                )
+
+            File.WriteAllText(
+                Path.Combine(root, "App.fsproj"),
+                "<Project Sdk=\"Microsoft.NET.Sdk\"><ItemGroup><ProjectReference Include=\"Shared/Shared.fsproj\"/><Compile Include=\"App.fs\"/></ItemGroup></Project>"
+            )
+
+            for project in [ "App.fsproj"; "Other/Other.fsproj" ] do
+                run root [ "restore"; project; "-m:1"; "-nr:false" ]
+
+                run
+                    root
+                    [ "build"
+                      project
+                      "-c"
+                      "Release"
+                      "--no-restore"
+                      "-m:1"
+                      "--disable-build-servers" ]
+
+            Project.initialize root |> ignore
+
+            let compare expected marker =
+                for command in [ "lint"; "review" ] do
+                    let one = runCli root [ command; "."; "--format"; "json"; "--jobs"; "1" ]
+                    let four = runCli root [ command; "."; "--jobs"; "4"; "--format"; "json" ]
+                    Assert.True(one.ExitCode = expected, one.Error + one.Output)
+                    Assert.Equal(one.ExitCode, four.ExitCode)
+                    Assert.Equal(one.Output, four.Output)
+                    Assert.Contains(marker, one.Output)
+
+            compare 1 "MUT001"
+            let other = Path.Combine(root, "Other/Other.fsproj")
+
+            File.WriteAllText(
+                other,
+                "<Project Sdk=\"Microsoft.NET.Sdk\"><ItemGroup><Compile Include=\"Other.fs\"/></ItemGroup>"
+                + "<Target Name=\"FixtureExportFailure\" BeforeTargets=\"CoreCompile\" Condition=\"'$(FDullExport)' == 'true'\">"
+                + "<Error Text=\"Fixture export failure.\"/></Target></Project>"
+            )
+
+            let current = read root
+
+            File.WriteAllText(
+                Path.Combine(root, "fdull.json"),
+                Codec.encode
+                    { current with
+                        Inputs =
+                            current.Inputs
+                            |> List.map (fun input ->
+                                if input.File = "Other/Other.fsproj" then
+                                    { input with
+                                        Digest = SafetyPolicy.fileDigest other }
+                                else
+                                    input) }
+            )
+
+            compare 3 "Other/Other.fsproj: "
+
+            for invalid in
+                [ [ "lint"; "."; "--jobs"; "0" ]
+                  [ "lint"; "."; "--jobs"; "-1" ]
+                  [ "lint"; "."; "--jobs"; "+2" ]
+                  [ "lint"; "."; "--jobs"; "65" ]
+                  [ "review"; "."; "--jobs"; "two" ]
+                  [ "review"; "."; "--jobs" ]
+                  [ "review"; "."; "--jobs"; "1"; "--jobs"; "2" ] ] do
+                Assert.Equal(2, (runCli root invalid).ExitCode))
+
+    [<Fact>]
     let ``attribute contracts bind resolved enum fields and named literal values`` () =
         withDirectory (fun root ->
             prepare root

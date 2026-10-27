@@ -2,6 +2,7 @@ namespace FDull.Tool
 
 open System
 open System.Diagnostics
+open System.Globalization
 open System.IO
 open FDull
 open FDull.Transport
@@ -11,9 +12,15 @@ module Program =
         Console.WriteLine "FDull — F# with fewer sharp edges."
 
         Console.WriteLine
-            "fdull defaults | init <root> [--scope <file>] | lint <root> [--format text|json|sarif] [--timings] | review <root> [--format text|json] [--timings] | data-digest <assembly> | verify <root> | coverage"
+            "fdull defaults | init <root> [--scope <file>] | lint <root> [--format text|json|sarif] [--jobs <1-64>] [--timings] | review <root> [--format text|json] [--jobs <1-64>] [--timings] | data-digest <assembly> | verify <root> | coverage"
 
         2
+
+    /// Concurrent project analyses: a decimal count from 1 to 64.
+    let private jobCount (value: string) =
+        match Int32.TryParse(value, NumberStyles.None, CultureInfo.InvariantCulture) with
+        | true, count when count >= 1 && count <= 64 -> Some count
+        | _ -> None
 
     /// Each option may appear once, in any order, after the root. Anything else is a usage error.
     let rec private options formats (selected: Map<string, string>) arguments =
@@ -21,9 +28,16 @@ module Program =
         | [] -> Some selected
         | "--format" :: format :: rest when List.contains format formats && not (selected.ContainsKey "format") ->
             options formats (selected.Add("format", format)) rest
+        | "--jobs" :: count :: rest when (jobCount count).IsSome && not (selected.ContainsKey "jobs") ->
+            options formats (selected.Add("jobs", count)) rest
         | "--timings" :: rest when not (selected.ContainsKey "timings") ->
             options formats (selected.Add("timings", "")) rest
         | _ -> None
+
+    let private jobs (selected: Map<string, string>) =
+        selected.TryFind "jobs"
+        |> Option.bind jobCount
+        |> Option.defaultValue Workspace.defaultJobs
 
     /// Timings go to stderr so stdout and exit codes stay identical with or without them.
     let private timed enabled analyze =
@@ -126,14 +140,14 @@ module Program =
             | "lint" :: root :: rest when not (root.StartsWith("--", StringComparison.Ordinal)) ->
                 match options [ "text"; "json"; "sarif" ] Map.empty rest with
                 | Some selected ->
-                    timed (selected.ContainsKey "timings") (fun () -> Workspace.checkTimed root)
+                    timed (selected.ContainsKey "timings") (fun () -> Workspace.checkTimed (jobs selected) root)
                     |> display "lint" (selected.TryFind "format" |> Option.defaultValue "text")
                 | None -> usage ()
             | [ "verify"; root ] -> Project.verify root |> display "verify" "text"
             | "review" :: root :: rest when not (root.StartsWith("--", StringComparison.Ordinal)) ->
                 match options [ "text"; "json" ] Map.empty rest with
                 | Some selected ->
-                    timed (selected.ContainsKey "timings") (fun () -> Workspace.reviewTimed root)
+                    timed (selected.ContainsKey "timings") (fun () -> Workspace.reviewTimed (jobs selected) root)
                     |> displayReview (selected.TryFind "format" |> Option.defaultValue "text")
                 | None -> usage ()
             | [ "coverage" ] ->
