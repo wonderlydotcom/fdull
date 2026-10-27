@@ -8,11 +8,15 @@ open System.Text.Json
 open FDull.Transport
 
 type WorkspaceReport =
-    { Complete: bool
-      ExitCode: int
-      Projects: WorkspaceProjectReport list
-      ExcludedProjects: WorkspaceProjectExclusion list
-      Errors: string list }
+    {
+        Complete: bool
+        ExitCode: int
+        Projects: WorkspaceProjectReport list
+        /// Projects served from the result cache; always 0 for `verify` and `--no-cache`.
+        Cached: int
+        ExcludedProjects: WorkspaceProjectExclusion list
+        Errors: string list
+    }
 
 type WorkspaceInvocation =
     { Sources: string list
@@ -27,6 +31,9 @@ type WorkspaceTiming =
       ExportMilliseconds: int64
       WorkerMilliseconds: int64
       ValidationMilliseconds: int64 }
+
+/// How `lint` and `review` run. Neither option changes a report except its `Cached` counts.
+type WorkspaceOptions = { Jobs: int; Cache: bool }
 
 module Workspace =
     let validatePolicy platform =
@@ -251,7 +258,9 @@ module Workspace =
 
             validation |> Result.map (fun () -> review)
 
-    let private analyzeTimed advisory document (request: WorkspaceRequest) =
+    /// Analyze one project. With `cache`, a stored response for the same key is accepted through the
+    /// same checks as a fresh one; anything else runs the worker, and a complete accepted response is stored.
+    let private analyzeTimed cache advisory document (request: WorkspaceRequest) =
         let worker = Path.Combine(AppContext.BaseDirectory, "safety-worker")
         let engine = Path.Combine(worker, "FDull.dll")
 
@@ -271,44 +280,70 @@ module Workspace =
                 |> SafetyPolicy.digest
 
             let before = closure ()
+            let key = WorkspaceCache.key advisory before request
 
-            let start =
-                ProcessStartInfo(
-                    Path.Combine(runtimeRoot (), "dotnet"),
-                    WorkingDirectory =
-                        (Path.GetDirectoryName request.Project
-                         |> FDull.Transport.External.required "workspace.project-parent")
-                )
+            let hit =
+                if cache then
+                    WorkspaceCache.read request.Root key
+                    |> Option.bind (fun output ->
+                        accept advisory document request (SafetyPolicy.fileDigest engine) false output
+                        |> Result.toOption)
+                else
+                    None
 
-            start.ArgumentList.Add(Path.Combine(worker, "fdull-worker.dll"))
-            start.ArgumentList.Add(if advisory then "--workspace-review" else "--workspace")
-            start.Environment.Clear()
-            start.Environment["DOTNET_ROOT"] <- runtimeRoot ()
-            start.Environment["DOTNET_GCHeapHardLimit"] <- "20000000"
-            let text = Codec.encode request
-            let clock = Stopwatch.StartNew()
+            match hit with
+            | Some review ->
+                Ok
+                    { review with
+                        Analysis = { review.Analysis with Cached = true } },
+                0L
+            | None ->
 
-            let run =
-                SafetyProcess.run
-                    { Milliseconds = 60000
-                      OutputCharacters =
-                        if advisory then
-                            SafetyLimits.workspaceReviewCharacters
-                        else
-                            SafetyLimits.workspaceReportCharacters
-                      WorkingSetBytes = SafetyLimits.workingSetBytes }
-                    start
-                    text
+                let start =
+                    ProcessStartInfo(
+                        Path.Combine(runtimeRoot (), "dotnet"),
+                        WorkingDirectory =
+                            (Path.GetDirectoryName request.Project
+                             |> FDull.Transport.External.required "workspace.project-parent")
+                    )
 
-            let elapsed = clock.ElapsedMilliseconds
+                start.ArgumentList.Add(Path.Combine(worker, "fdull-worker.dll"))
+                start.ArgumentList.Add(if advisory then "--workspace-review" else "--workspace")
+                start.Environment.Clear()
+                start.Environment["DOTNET_ROOT"] <- runtimeRoot ()
+                start.Environment["DOTNET_GCHeapHardLimit"] <- "20000000"
+                let text = Codec.encode request
+                let clock = Stopwatch.StartNew()
 
-            match run with
-            | Error error -> Error("BUILD003: " + error), elapsed
-            | Ok output ->
-                accept advisory document request (SafetyPolicy.fileDigest engine) (before <> closure ()) output, elapsed
+                let run =
+                    SafetyProcess.run
+                        { Milliseconds = 60000
+                          OutputCharacters =
+                            if advisory then
+                                SafetyLimits.workspaceReviewCharacters
+                            else
+                                SafetyLimits.workspaceReportCharacters
+                          WorkingSetBytes = SafetyLimits.workingSetBytes }
+                        start
+                        text
+
+                let elapsed = clock.ElapsedMilliseconds
+
+                match run with
+                | Error error -> Error("BUILD003: " + error), elapsed
+                | Ok output ->
+                    let accepted =
+                        accept advisory document request (SafetyPolicy.fileDigest engine) (before <> closure ()) output
+
+                    match accepted with
+                    | Ok review when cache && review.Analysis.Report.Complete ->
+                        WorkspaceCache.write request.Root key output
+                    | _ -> ()
+
+                    accepted, elapsed
 
     /// The parent's own work is everything outside the export and worker processes.
-    let private measured advisory root (document, pin) project =
+    let private measured cache advisory root (document, pin) project =
         let clock = Stopwatch.StartNew()
         let invocation = export root project
         let exported = clock.ElapsedMilliseconds
@@ -318,7 +353,7 @@ module Workspace =
             | Error error -> Error error, 0L
             | Ok invocation ->
                 requestFrom root project (document, pin) invocation
-                |> analyzeTimed advisory document
+                |> analyzeTimed cache advisory document
 
         result,
         { Project = project
@@ -346,7 +381,7 @@ module Workspace =
             if policy.Sources |> List.exists (fun source -> source.Project = relative) then
                 export root relative
                 |> Result.map (requestFrom root relative (policy, pin))
-                |> Result.bind (analyzeTimed false policy >> fst >> Result.map _.Analysis)
+                |> Result.bind (analyzeTimed false false policy >> fst >> Result.map _.Analysis)
             else
                 Error "ARCH002: The project is not assigned by workspace policy."
         with error ->
@@ -445,6 +480,7 @@ module Workspace =
             else
                 0
           Projects = List.ofSeq projects
+          Cached = projects |> Seq.filter _.Cached |> Seq.length
           ExcludedProjects = List.ofSeq exclusions
           Errors = List.ofSeq errors },
         List.ofSeq timings
@@ -453,19 +489,20 @@ module Workspace =
     let internal checkUsing platform checkProject =
         checkMeasured platform 1 (fun _ project -> checkProject project, None) |> fst
 
-    /// Lint the workspace with up to `jobs` concurrent project analyses and report each project's
-    /// export, worker and validation time.
-    let checkTimed jobs platform =
+    /// Lint the workspace with up to `options.Jobs` concurrent project analyses, optionally using the
+    /// result cache, and report each project's export, worker and validation time.
+    let checkTimed (options: WorkspaceOptions) platform =
         let root = Path.GetFullPath platform
 
-        checkMeasured root jobs (fun policy project ->
-            let result, timing = measured false root policy project
+        checkMeasured root options.Jobs (fun policy project ->
+            let result, timing = measured options.Cache false root policy project
             result |> Result.map _.Analysis, Some timing)
 
-    let check platform = checkTimed defaultJobs platform |> fst
+    let check platform =
+        checkTimed { Jobs = defaultJobs; Cache = false } platform |> fst
 
     /// Analyze a current-source snapshot for human review, without updating or certifying policy.
-    let reviewTimed jobs platform =
+    let reviewTimed (options: WorkspaceOptions) platform =
         let root = Path.GetFullPath platform
         let errors = ResizeArray<string>()
         let projects = ResizeArray<WorkspaceReviewProjectReport>()
@@ -483,7 +520,10 @@ module Workspace =
                 |> List.map (fun source -> input (Path.Combine(root, source.File)))
 
             for project, outcome in
-                runAll jobs (measured true root (document, pin)) (WorkspaceAudit.order document.Projects) do
+                runAll
+                    options.Jobs
+                    (measured options.Cache true root (document, pin))
+                    (WorkspaceAudit.order document.Projects) do
                 match outcome with
                 | Ok(result, timing) ->
                     timings.Add timing
@@ -514,6 +554,7 @@ module Workspace =
                   AnalysisComplete = false
                   ExitCode = 3
                   Projects = []
+                  Cached = 0
                   ExcludedProjects = []
                   Items = []
                   SourceChanges = []
@@ -524,7 +565,8 @@ module Workspace =
 
         report, List.ofSeq timings
 
-    let review platform = reviewTimed defaultJobs platform |> fst
+    let review platform =
+        reviewTimed { Jobs = defaultJobs; Cache = false } platform |> fst
 
     let private serveUsing advisory (input: TextReader) (output: TextWriter) =
         try

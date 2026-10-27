@@ -22,10 +22,14 @@ type WorkspaceRequest =
     }
 
 type WorkspaceProjectReport =
-    { Project: string
-      ProjectReferences: string list
-      Report: SafetyReport
-      Uses: WorkspaceUse list }
+    {
+        Project: string
+        ProjectReferences: string list
+        Report: SafetyReport
+        Uses: WorkspaceUse list
+        /// Set only by the parent, after a cached response passes the same checks as a fresh one.
+        Cached: bool
+    }
 
 /// A distinct worker response prevents advisory source analysis from certifying a build.
 type WorkspaceReviewProjectReport =
@@ -53,6 +57,7 @@ module WorkspaceProtocol =
 
         if
             result.Project <> request.Project
+            || result.Cached
             || result.ProjectReferences <> request.ProjectReferences
             || report.ExitCode <> processExit
             || not (List.contains report.ExitCode [ 0; 1; 3 ])
@@ -524,7 +529,8 @@ module WorkspaceEngine =
                   References = request.References
                   Arguments = request.Arguments
                   Diagnostics = ordered }
-              Uses = uses }
+              Uses = uses
+              Cached = false }
 
         { Advisory = advisory
           Analysis = analysis

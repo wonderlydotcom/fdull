@@ -403,7 +403,8 @@ module WorkspaceTests =
             { Project = request.Project
               ProjectReferences = []
               Report = report
-              Uses = [ useSite ] }
+              Uses = [ useSite ]
+              Cached = false }
 
         let validate code stderr value =
             WorkspaceProtocol.validate request policy code stderr value
@@ -514,6 +515,9 @@ module WorkspaceTests =
               { useSite with Kind = "permission" }
               { useSite with Identity = "" } ] do
             Assert.True(validate 0 "" { result with Uses = [ malformed ] } |> Result.isError)
+
+        // Only the parent marks a response as cached, after accepting it.
+        Assert.True(validate 0 "" { result with Cached = true } |> Result.isError)
 
         Assert.True(
             validate

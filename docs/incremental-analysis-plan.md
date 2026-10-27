@@ -1,6 +1,8 @@
 # Incremental workspace analysis: implementation plan
 
-**Status:** In progress. Phase 0 (`--timings`), Phase 1 (`--jobs`) and Phase 2a (the policy slice) are implemented.
+**Status:** Implemented through Phase 2: `--timings`, `--jobs`, the policy slice and the result cache.
+Phase 3 is not planned: Phase 0's timings put the MSBuild export at 5.7% of botf's `review` time.
+Where the implementation differs from this plan, an **As implemented** note says so.
 **Prepared:** 2026-10-27
 
 ## Why
@@ -147,6 +149,13 @@ For project references, the compiler is passed reference assemblies (`obj/.../re
 These are rewritten only when a public signature changes. A private change in one project
 therefore doesn't change the key of the projects that use it.
 
+**As implemented:** the key is the whole worker request (with the whole-file policy pin blanked;
+the slice digest stays), the mode, the worker closure's digest and the .NET runtime. Paths are
+absolute, so a moved checkout starts cold. F# reference assemblies are *not* stable: they carry
+the optimization data, and the compiler gives them a fresh MVID on every compile (measured with
+SDK 10.0.200). Any rebuild of A therefore re-analyzes A and every project that references it.
+Entries are sealed with HMAC-SHA256 under a per-user secret, so an edited entry is a miss.
+
 ### 2c. Storage
 
 - **Location:** `<root>/.fdull/cache/<key>.json`. `.fdull/` is already ignored here, and a
@@ -195,6 +204,12 @@ its JSON is byte-identical to the first.
 | A compiler argument of A's | A only |
 | `Inputs`, `Domains` or `Constructors` | Both |
 | A new FDull build | Both |
+
+**As implemented:** a private body and a compiler argument both re-analyze A and B. The first
+follows from the reference assemblies above. The second is because compiler settings live in a
+pinned project file, and `Inputs` are part of every slice. A stale source digest is tested
+through `review`, since `lint` blocks the whole workspace before analysis. Cached and cold JSON are
+identical apart from the `Cached` fields.
 
 **Robustness:**
 

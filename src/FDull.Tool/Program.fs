@@ -12,7 +12,7 @@ module Program =
         Console.WriteLine "FDull — F# with fewer sharp edges."
 
         Console.WriteLine
-            "fdull defaults | init <root> [--scope <file>] | lint <root> [--format text|json|sarif] [--jobs <1-64>] [--timings] | review <root> [--format text|json] [--jobs <1-64>] [--timings] | data-digest <assembly> | verify <root> | coverage"
+            "fdull defaults | init <root> [--scope <file>] | lint <root> [--format text|json|sarif] [--jobs <1-64>] [--no-cache] [--timings] | review <root> [--format text|json] [--jobs <1-64>] [--no-cache] [--timings] | cache clear <root> | data-digest <assembly> | verify <root> | coverage"
 
         2
 
@@ -32,12 +32,17 @@ module Program =
             options formats (selected.Add("jobs", count)) rest
         | "--timings" :: rest when not (selected.ContainsKey "timings") ->
             options formats (selected.Add("timings", "")) rest
+        | "--no-cache" :: rest when not (selected.ContainsKey "no-cache") ->
+            options formats (selected.Add("no-cache", "")) rest
         | _ -> None
 
-    let private jobs (selected: Map<string, string>) =
-        selected.TryFind "jobs"
-        |> Option.bind jobCount
-        |> Option.defaultValue Workspace.defaultJobs
+    /// `lint` and `review` use the result cache unless `--no-cache` is given; `verify` never does.
+    let private workspaceOptions (selected: Map<string, string>) : WorkspaceOptions =
+        { Jobs =
+            selected.TryFind "jobs"
+            |> Option.bind jobCount
+            |> Option.defaultValue Workspace.defaultJobs
+          Cache = not (selected.ContainsKey "no-cache") }
 
     /// Timings go to stderr so stdout and exit codes stay identical with or without them.
     let private timed enabled analyze =
@@ -107,7 +112,14 @@ module Program =
 
             diagnostics |> List.iter (SafetyPolicy.format >> Console.WriteLine)
 
-            printfn "%d projects; %d reported diagnostics." report.Projects.Length diagnostics.Length
+            if report.Cached > 0 then
+                printfn
+                    "%d projects (%d from cache); %d reported diagnostics."
+                    report.Projects.Length
+                    report.Cached
+                    diagnostics.Length
+            else
+                printfn "%d projects; %d reported diagnostics." report.Projects.Length diagnostics.Length
 
         report.ExitCode
 
@@ -140,16 +152,26 @@ module Program =
             | "lint" :: root :: rest when not (root.StartsWith("--", StringComparison.Ordinal)) ->
                 match options [ "text"; "json"; "sarif" ] Map.empty rest with
                 | Some selected ->
-                    timed (selected.ContainsKey "timings") (fun () -> Workspace.checkTimed (jobs selected) root)
+                    timed (selected.ContainsKey "timings") (fun () ->
+                        Workspace.checkTimed (workspaceOptions selected) root)
                     |> display "lint" (selected.TryFind "format" |> Option.defaultValue "text")
                 | None -> usage ()
             | [ "verify"; root ] -> Project.verify root |> display "verify" "text"
             | "review" :: root :: rest when not (root.StartsWith("--", StringComparison.Ordinal)) ->
                 match options [ "text"; "json" ] Map.empty rest with
                 | Some selected ->
-                    timed (selected.ContainsKey "timings") (fun () -> Workspace.reviewTimed (jobs selected) root)
+                    timed (selected.ContainsKey "timings") (fun () ->
+                        Workspace.reviewTimed (workspaceOptions selected) root)
                     |> displayReview (selected.TryFind "format" |> Option.defaultValue "text")
                 | None -> usage ()
+            | [ "cache"; "clear"; root ] ->
+                match WorkspaceCache.clear root with
+                | Ok message ->
+                    Console.WriteLine message
+                    0
+                | Error error ->
+                    Console.Error.WriteLine("FDull cache: " + error)
+                    3
             | [ "coverage" ] ->
                 SafetyRules.inventory SafetyPolicy.version |> Codec.encode |> Console.WriteLine
                 0
