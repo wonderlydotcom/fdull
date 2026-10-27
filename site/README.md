@@ -82,6 +82,12 @@ implementation. BUILD006 is external; per-rule remaining work lives in the linke
 coverage inventory. Examples are focused excerpts, not complete applications or
 standalone acceptance fixtures. Named application helpers illustrate reviewed
 contracts and are not FDull APIs; configuration sketches are labeled explicitly.
+Explain features through their behavior, configuration and limits. Keep release
+versions in the installation instructions; do not interrupt feature descriptions
+with branch names, source availability or release commentary. Explain exclusions
+plainly: a pass covers included projects only, and every report lists excluded
+projects and their reasons. Link detailed compiler diagnoses and policy schemas
+from the relevant feature rather than reproducing them on the landing page.
 When rules change, review the descriptions, rationales and both code examples,
 then refresh the inventory from the built CLI:
 
@@ -90,8 +96,10 @@ dotnet src/FDull.Tool/bin/Release/net10.0/FDull.Cli.dll coverage > site/public/c
 ```
 
 The repository guard checks the compiled F# projects; it is not a verifier for
-this page's browser JavaScript. No guard permissions or fingerprints were changed
-for the site. Validate the page separately, and run the repository's required
+this page's browser JavaScript. Changes to coverage evidence in
+`src/FDull/SafetyRules.fs` require review of that declaration's existing contracts
+and an updated source fingerprint; editing the HTML alone does not. Validate the
+page separately, and run the repository's required
 formatting, Release build, tests and CLI verification checks.
 
 ## Social card

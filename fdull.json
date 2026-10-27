@@ -74,7 +74,7 @@
       "File": "src/FDull/SafetyRules.fs",
       "Project": "src/FDull/FDull.fsproj",
       "Profile": "GUARD_TOOLING",
-      "Digest": "sha256:0c02f2f6fb204b3002f734f47d6dd956b0cfea680d50c5835f3de85164a443d9"
+      "Digest": "sha256:248f140349be3bd91c3a78c71283579454b7b614757b2c7989dbd91d033943b9"
     },
     {
       "File": "src/FDull/SafetyPolicy.fs",
