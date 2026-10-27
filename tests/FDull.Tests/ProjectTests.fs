@@ -885,7 +885,7 @@ module ProjectTests =
         |> Array.map (fun path -> path, File.ReadAllText path)
         |> List.ofArray
 
-    /// Rewrite one stored worker report, keeping the entry's original seal.
+    /// Rewrite one stored worker report in place, keeping the entry's key.
     let private tamper path (change: WorkspaceProjectReport -> WorkspaceProjectReport) =
         let entry = File.ReadAllText path |> Codec.decode<WorkspaceCacheEntry>
         let report = change (Codec.decode<WorkspaceProjectReport> entry.Output)
@@ -1071,49 +1071,34 @@ module ProjectTests =
                     Directory.Delete(copy, true))
 
     [<Fact>]
-    let ``damaged or tampered cache entries are re-analyzed and never trusted`` () =
+    let ``damaged, misplaced or inconsistent cache entries are re-analyzed`` () =
         withDirectory (fun root ->
             restoreProjects root (counter "App") (counter "Other")
             let cold = runCli root [ "lint"; "."; "--format"; "json" ]
             Assert.True(cold.ExitCode = 1, cold.Error + cold.Output)
             Assert.Equal(3, (cacheEntries root).Count)
 
-            let damage (change: Map<string, string> -> unit) =
+            let damage projects (change: Map<string, string> -> unit) =
                 change (cacheEntries root)
                 let result = runCli root [ "lint"; "."; "--format"; "json" ]
                 Assert.Equal(1, result.ExitCode)
                 Assert.Equal(uncached cold.Output, uncached result.Output)
-                Assert.Equal<string list>(projectNames, analyzed result.Output)
+                Assert.Equal<string list>(projects, analyzed result.Output)
 
-            damage (fun entries ->
-                tamper entries["App.fsproj"] hideDiagnostics
+            damage projectNames (fun entries ->
+                let text = File.ReadAllText entries["Shared.fsproj"]
+                File.WriteAllText(entries["Shared.fsproj"], text.Substring(0, text.Length / 2))
+                File.WriteAllBytes(entries["Other.fsproj"], [| 0uy; 255uy; 123uy |])
 
-                tamper entries["Other.fsproj"] (fun report ->
+                // A hit passes the same BUILD004 comparison as a fresh result.
+                tamper entries["App.fsproj"] (fun report ->
                     { report with
                         Report =
                             { report.Report with
-                                Diagnostics =
-                                    report.Report.Diagnostics
-                                    |> List.map (fun diagnostic ->
-                                        { diagnostic with
-                                            Message = "Tampered." }) } })
+                                Policy = "sha256:" + String('0', 64) } }))
 
-                let text = File.ReadAllText entries["Shared.fsproj"]
-                File.WriteAllText(entries["Shared.fsproj"], text.Substring(0, text.Length / 2)))
-
-            damage (fun entries ->
-                File.WriteAllBytes(entries["Shared.fsproj"], [| 0uy; 255uy; 123uy |])
-                // An authentic entry stored under another project's key.
-                File.Copy(entries["App.fsproj"], entries["Other.fsproj"], true)
-
-                tamper entries["App.fsproj"] (fun report ->
-                    { report with
-                        Uses =
-                            { File = "App.fs"
-                              Owner = "App.count"
-                              Kind = "rule"
-                              Identity = "MUT001 | total" }
-                            :: report.Uses }))
+            // An intact entry stored under another project's key.
+            damage [ "Other.fsproj" ] (fun entries -> File.Copy(entries["App.fsproj"], entries["Other.fsproj"], true))
 
             let warm = runCli root [ "lint"; "."; "--format"; "json" ]
             Assert.Empty(analyzed warm.Output)
@@ -1189,35 +1174,10 @@ module ProjectTests =
             let lint = runCli root [ "lint"; "."; "--format"; "json" ]
             Assert.True(lint.ExitCode = 1, lint.Error + lint.Output)
 
-            // Plant a clean App result sealed with this user's own secret. Lint, which trusts the
-            // user's cache for iteration, accepts it; verify must analyze from scratch regardless.
-            let secret =
-                Path.Combine(
-                    Environment.GetFolderPath Environment.SpecialFolder.LocalApplicationData,
-                    "FDull",
-                    "cache-secret"
-                )
-                |> File.ReadAllBytes
-
-            let path = (cacheEntries root)["App.fsproj"]
-            let entry = File.ReadAllText path |> Codec.decode<WorkspaceCacheEntry>
-            let report = hideDiagnostics (Codec.decode<WorkspaceProjectReport> entry.Output)
-
-            let planted =
-                { entry with
-                    ExitCode = 0
-                    Output = Codec.encode report
-                    Seal = "" }
-
-            let seal =
-                Convert.ToHexStringLower(
-                    System.Security.Cryptography.HMACSHA256.HashData(
-                        secret,
-                        System.Text.Encoding.UTF8.GetBytes(Codec.encode planted)
-                    )
-                )
-
-            File.WriteAllText(path, Codec.encode { planted with Seal = seal })
+            // The cache is trusted local state: lint believes an edited entry that stays consistent.
+            // Verify analyzes from scratch regardless.
+            let entries = cacheEntries root
+            tamper entries["App.fsproj"] hideDiagnostics
             let trusted = runCli root [ "lint"; "." ]
             Assert.Equal(0, trusted.ExitCode)
             Assert.Contains("3 projects (3 from cache); 0 reported diagnostics.", trusted.Output)

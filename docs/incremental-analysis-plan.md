@@ -154,7 +154,9 @@ the slice digest stays), the mode, the worker closure's digest and the .NET runt
 absolute, so a moved checkout starts cold. F# reference assemblies are *not* stable: they carry
 the optimization data, and the compiler gives them a fresh MVID on every compile (measured with
 SDK 10.0.200). Any rebuild of A therefore re-analyzes A and every project that references it.
-Entries are sealed with HMAC-SHA256 under a per-user secret, so an edited entry is a miss.
+Entries are trusted local state, like build output, and carry no seal: an edit that keeps an
+entry consistent with its request is believed. `verify`, which never reads the cache, is the
+trust boundary.
 
 ### 2c. Storage
 
@@ -215,6 +217,10 @@ identical apart from the `Cached` fields.
 
 - A truncated, corrupted or tampered entry, with a changed diagnostic or a changed use, is
   re-analyzed, never trusted.
+
+  **As implemented:** truncated, corrupted and misplaced entries, and one that fails the
+  `BUILD004` comparison, are re-analyzed. A deliberate edit that stays consistent is trusted;
+  the test shows `verify` still reports the violation it hides.
 - Two parallel runs on the same root don't corrupt the cache.
 
 **Trust boundary:**

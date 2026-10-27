@@ -152,7 +152,7 @@
       "File": "src/FDull/WorkspaceCache.fs",
       "Project": "src/FDull/FDull.fsproj",
       "Profile": "GUARD_TOOLING",
-      "Digest": "sha256:046c5ed13c3c96a6d1cf71bed0fc00334bf51561e7cbafe6c501e4bc786ba384"
+      "Digest": "sha256:a2ea1e68ff0fd903ec6ee2a5456f0b82255a04de8ac1b903df82bffac4071fca"
     },
     {
       "File": "src/FDull/Workspace.fs",
@@ -242,7 +242,7 @@
       "File": "tests/FDull.Tests/ProjectTests.fs",
       "Project": "tests/FDull.Tests/FDull.Tests.fsproj",
       "Profile": "TEST",
-      "Digest": "sha256:928e47e7ca1676c47ddad251518d1cdd623ab1b52d1b3f5d5c79f17acf5c96e4"
+      "Digest": "sha256:fc26628173ad5a2fdd77ec2861df39bc659625b20e67d33ebd467676e0ee6025"
     },
     {
       "File": "tests/FDull.Tests/Program.fs",
@@ -21143,526 +21143,253 @@
       "File": "src/FDull/WorkspaceCache.fs",
       "Owner": "FDull.WorkspaceCache.read",
       "Kind": "member",
-      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Control.LazyExtensions.Force``1(System.Lazy{``0})",
-      "Reason": "Returns a stored worker response only when the file is at most 64 MiB, decodes, carries exactly the requested key and its HMAC-SHA256 seal matches in constant time; every other case, including any exception, is a miss (None) and the worker runs. The caller still applies full acceptance to a hit."
-    },
-    {
-      "File": "src/FDull/WorkspaceCache.fs",
-      "Owner": "FDull.WorkspaceCache.read",
-      "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.File.Exists(System.String)",
-      "Reason": "Returns a stored worker response only when the file is at most 64 MiB, decodes, carries exactly the requested key and its HMAC-SHA256 seal matches in constant time; every other case, including any exception, is a miss (None) and the worker runs. The caller still applies full acceptance to a hit."
+      "Reason": "Returns a stored worker response only when the file is at most 64 MiB, decodes and carries exactly the requested key; every other case, including any exception, is a miss (None) and the worker runs. Entries are trusted local state; the caller still applies full acceptance to a hit, and verify never reads the cache."
     },
     {
       "File": "src/FDull/WorkspaceCache.fs",
       "Owner": "FDull.WorkspaceCache.read",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.File.ReadAllText(System.String)",
-      "Reason": "Returns a stored worker response only when the file is at most 64 MiB, decodes, carries exactly the requested key and its HMAC-SHA256 seal matches in constant time; every other case, including any exception, is a miss (None) and the worker runs. The caller still applies full acceptance to a hit."
+      "Reason": "Returns a stored worker response only when the file is at most 64 MiB, decodes and carries exactly the requested key; every other case, including any exception, is a miss (None) and the worker runs. Entries are trusted local state; the caller still applies full acceptance to a hit, and verify never reads the cache."
     },
     {
       "File": "src/FDull/WorkspaceCache.fs",
       "Owner": "FDull.WorkspaceCache.read",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.FileInfo.#ctor(System.String)",
-      "Reason": "Returns a stored worker response only when the file is at most 64 MiB, decodes, carries exactly the requested key and its HMAC-SHA256 seal matches in constant time; every other case, including any exception, is a miss (None) and the worker runs. The caller still applies full acceptance to a hit."
-    },
-    {
-      "File": "src/FDull/WorkspaceCache.fs",
-      "Owner": "FDull.WorkspaceCache.read",
-      "Kind": "member",
-      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.ReadOnlySpan`1.#ctor(`0[])",
-      "Reason": "Returns a stored worker response only when the file is at most 64 MiB, decodes, carries exactly the requested key and its HMAC-SHA256 seal matches in constant time; every other case, including any exception, is a miss (None) and the worker runs. The caller still applies full acceptance to a hit."
-    },
-    {
-      "File": "src/FDull/WorkspaceCache.fs",
-      "Owner": "FDull.WorkspaceCache.read",
-      "Kind": "member",
-      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.Text.Encoding.GetBytes(System.String)",
-      "Reason": "Returns a stored worker response only when the file is at most 64 MiB, decodes, carries exactly the requested key and its HMAC-SHA256 seal matches in constant time; every other case, including any exception, is a miss (None) and the worker runs. The caller still applies full acceptance to a hit."
+      "Reason": "Returns a stored worker response only when the file is at most 64 MiB, decodes and carries exactly the requested key; every other case, including any exception, is a miss (None) and the worker runs. Entries are trusted local state; the caller still applies full acceptance to a hit, and verify never reads the cache."
     },
     {
       "File": "src/FDull/WorkspaceCache.fs",
       "Owner": "FDull.WorkspaceCache.read",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:System.IO.FileInfo.Length",
-      "Reason": "Returns a stored worker response only when the file is at most 64 MiB, decodes, carries exactly the requested key and its HMAC-SHA256 seal matches in constant time; every other case, including any exception, is a miss (None) and the worker runs. The caller still applies full acceptance to a hit."
-    },
-    {
-      "File": "src/FDull/WorkspaceCache.fs",
-      "Owner": "FDull.WorkspaceCache.read",
-      "Kind": "member",
-      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:System.Text.Encoding.ASCII",
-      "Reason": "Returns a stored worker response only when the file is at most 64 MiB, decodes, carries exactly the requested key and its HMAC-SHA256 seal matches in constant time; every other case, including any exception, is a miss (None) and the worker runs. The caller still applies full acceptance to a hit."
-    },
-    {
-      "File": "src/FDull/WorkspaceCache.fs",
-      "Owner": "FDull.WorkspaceCache.read",
-      "Kind": "member",
-      "Identity": "System.Security.Cryptography, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.Security.Cryptography.CryptographicOperations.FixedTimeEquals(System.ReadOnlySpan{System.Byte},System.ReadOnlySpan{System.Byte})",
-      "Reason": "Returns a stored worker response only when the file is at most 64 MiB, decodes, carries exactly the requested key and its HMAC-SHA256 seal matches in constant time; every other case, including any exception, is a miss (None) and the worker runs. The caller still applies full acceptance to a hit."
+      "Reason": "Returns a stored worker response only when the file is at most 64 MiB, decodes and carries exactly the requested key; every other case, including any exception, is a miss (None) and the worker runs. Entries are trusted local state; the caller still applies full acceptance to a hit, and verify never reads the cache."
     },
     {
       "File": "src/FDull/WorkspaceCache.fs",
       "Owner": "FDull.WorkspaceCache.read",
       "Kind": "rule",
       "Identity": "ERR001 | ",
-      "Reason": "Returns a stored worker response only when the file is at most 64 MiB, decodes, carries exactly the requested key and its HMAC-SHA256 seal matches in constant time; every other case, including any exception, is a miss (None) and the worker runs. The caller still applies full acceptance to a hit."
+      "Reason": "Returns a stored worker response only when the file is at most 64 MiB, decodes and carries exactly the requested key; every other case, including any exception, is a miss (None) and the worker runs. Entries are trusted local state; the caller still applies full acceptance to a hit, and verify never reads the cache."
     },
     {
       "File": "src/FDull/WorkspaceCache.fs",
       "Owner": "FDull.WorkspaceCache.read",
       "Kind": "rule",
       "Identity": "ERR004 | exception handler",
-      "Reason": "Returns a stored worker response only when the file is at most 64 MiB, decodes, carries exactly the requested key and its HMAC-SHA256 seal matches in constant time; every other case, including any exception, is a miss (None) and the worker runs. The caller still applies full acceptance to a hit."
-    },
-    {
-      "File": "src/FDull/WorkspaceCache.fs",
-      "Owner": "FDull.WorkspaceCache.read",
-      "Kind": "type",
-      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | []",
-      "Reason": "Returns a stored worker response only when the file is at most 64 MiB, decodes, carries exactly the requested key and its HMAC-SHA256 seal matches in constant time; every other case, including any exception, is a miss (None) and the worker runs. The caller still applies full acceptance to a hit."
-    },
-    {
-      "File": "src/FDull/WorkspaceCache.fs",
-      "Owner": "FDull.WorkspaceCache.seal",
-      "Kind": "member",
-      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.Convert.ToHexStringLower(System.Byte[])",
-      "Reason": "HMAC-SHA256 with the per-user secret over the canonical Codec encoding of the entry with an empty seal."
-    },
-    {
-      "File": "src/FDull/WorkspaceCache.fs",
-      "Owner": "FDull.WorkspaceCache.seal",
-      "Kind": "member",
-      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.Text.Encoding.GetBytes(System.String)",
-      "Reason": "HMAC-SHA256 with the per-user secret over the canonical Codec encoding of the entry with an empty seal."
-    },
-    {
-      "File": "src/FDull/WorkspaceCache.fs",
-      "Owner": "FDull.WorkspaceCache.seal",
-      "Kind": "member",
-      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:System.Text.Encoding.UTF8",
-      "Reason": "HMAC-SHA256 with the per-user secret over the canonical Codec encoding of the entry with an empty seal."
-    },
-    {
-      "File": "src/FDull/WorkspaceCache.fs",
-      "Owner": "FDull.WorkspaceCache.seal",
-      "Kind": "member",
-      "Identity": "System.Security.Cryptography, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.Security.Cryptography.HMACSHA256.HashData(System.Byte[],System.Byte[])",
-      "Reason": "HMAC-SHA256 with the per-user secret over the canonical Codec encoding of the entry with an empty seal."
-    },
-    {
-      "File": "src/FDull/WorkspaceCache.fs",
-      "Owner": "FDull.WorkspaceCache.seal",
-      "Kind": "type",
-      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | []",
-      "Reason": "HMAC-SHA256 with the per-user secret over the canonical Codec encoding of the entry with an empty seal."
-    },
-    {
-      "File": "src/FDull/WorkspaceCache.fs",
-      "Owner": "FDull.WorkspaceCache.secret",
-      "Kind": "member",
-      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Core.Operators.op_BitwiseAnd``1(Microsoft.FSharp.Core.FSharpFunc{``0,Microsoft.FSharp.Core.FSharpFunc{``0,``0}},``0,``0)",
-      "Reason": "Lazily loads the per-user 32-byte cache secret from LocalApplicationData/FDull/cache-secret, creating it once with 32 random bytes through a mode-0600 temporary file and a non-overwriting move (a lost race deletes the temporary file). The secret is rejected, disabling the cache, when the file or folder is a symbolic link, the folder is group/other-writable, the length is not 32 or the file mode is not 0600; any exception also disables the cache."
-    },
-    {
-      "File": "src/FDull/WorkspaceCache.fs",
-      "Owner": "FDull.WorkspaceCache.secret",
-      "Kind": "member",
-      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Core.Operators.op_BitwiseOr``1(Microsoft.FSharp.Core.FSharpFunc{``0,Microsoft.FSharp.Core.FSharpFunc{``0,``0}},``0,``0)",
-      "Reason": "Lazily loads the per-user 32-byte cache secret from LocalApplicationData/FDull/cache-secret, creating it once with 32 random bytes through a mode-0600 temporary file and a non-overwriting move (a lost race deletes the temporary file). The secret is rejected, disabling the cache, when the file or folder is a symbolic link, the folder is group/other-writable, the length is not 32 or the file mode is not 0600; any exception also disables the cache."
-    },
-    {
-      "File": "src/FDull/WorkspaceCache.fs",
-      "Owner": "FDull.WorkspaceCache.secret",
-      "Kind": "member",
-      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.Environment.GetFolderPath(System.Environment.SpecialFolder,System.Environment.SpecialFolderOption)",
-      "Reason": "Lazily loads the per-user 32-byte cache secret from LocalApplicationData/FDull/cache-secret, creating it once with 32 random bytes through a mode-0600 temporary file and a non-overwriting move (a lost race deletes the temporary file). The secret is rejected, disabling the cache, when the file or folder is a symbolic link, the folder is group/other-writable, the length is not 32 or the file mode is not 0600; any exception also disables the cache."
-    },
-    {
-      "File": "src/FDull/WorkspaceCache.fs",
-      "Owner": "FDull.WorkspaceCache.secret",
-      "Kind": "member",
-      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.Guid.NewGuid",
-      "Reason": "Lazily loads the per-user 32-byte cache secret from LocalApplicationData/FDull/cache-secret, creating it once with 32 random bytes through a mode-0600 temporary file and a non-overwriting move (a lost race deletes the temporary file). The secret is rejected, disabling the cache, when the file or folder is a symbolic link, the folder is group/other-writable, the length is not 32 or the file mode is not 0600; any exception also disables the cache."
-    },
-    {
-      "File": "src/FDull/WorkspaceCache.fs",
-      "Owner": "FDull.WorkspaceCache.secret",
-      "Kind": "member",
-      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.Guid.ToString(System.String)",
-      "Reason": "Lazily loads the per-user 32-byte cache secret from LocalApplicationData/FDull/cache-secret, creating it once with 32 random bytes through a mode-0600 temporary file and a non-overwriting move (a lost race deletes the temporary file). The secret is rejected, disabling the cache, when the file or folder is a symbolic link, the folder is group/other-writable, the length is not 32 or the file mode is not 0600; any exception also disables the cache."
-    },
-    {
-      "File": "src/FDull/WorkspaceCache.fs",
-      "Owner": "FDull.WorkspaceCache.secret",
-      "Kind": "member",
-      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Directory.CreateDirectory(System.String)",
-      "Reason": "Lazily loads the per-user 32-byte cache secret from LocalApplicationData/FDull/cache-secret, creating it once with 32 random bytes through a mode-0600 temporary file and a non-overwriting move (a lost race deletes the temporary file). The secret is rejected, disabling the cache, when the file or folder is a symbolic link, the folder is group/other-writable, the length is not 32 or the file mode is not 0600; any exception also disables the cache."
-    },
-    {
-      "File": "src/FDull/WorkspaceCache.fs",
-      "Owner": "FDull.WorkspaceCache.secret",
-      "Kind": "member",
-      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Directory.CreateDirectory(System.String,System.IO.UnixFileMode)",
-      "Reason": "Lazily loads the per-user 32-byte cache secret from LocalApplicationData/FDull/cache-secret, creating it once with 32 random bytes through a mode-0600 temporary file and a non-overwriting move (a lost race deletes the temporary file). The secret is rejected, disabling the cache, when the file or folder is a symbolic link, the folder is group/other-writable, the length is not 32 or the file mode is not 0600; any exception also disables the cache."
-    },
-    {
-      "File": "src/FDull/WorkspaceCache.fs",
-      "Owner": "FDull.WorkspaceCache.secret",
-      "Kind": "member",
-      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.File.Delete(System.String)",
-      "Reason": "Lazily loads the per-user 32-byte cache secret from LocalApplicationData/FDull/cache-secret, creating it once with 32 random bytes through a mode-0600 temporary file and a non-overwriting move (a lost race deletes the temporary file). The secret is rejected, disabling the cache, when the file or folder is a symbolic link, the folder is group/other-writable, the length is not 32 or the file mode is not 0600; any exception also disables the cache."
-    },
-    {
-      "File": "src/FDull/WorkspaceCache.fs",
-      "Owner": "FDull.WorkspaceCache.secret",
-      "Kind": "member",
-      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.File.Exists(System.String)",
-      "Reason": "Lazily loads the per-user 32-byte cache secret from LocalApplicationData/FDull/cache-secret, creating it once with 32 random bytes through a mode-0600 temporary file and a non-overwriting move (a lost race deletes the temporary file). The secret is rejected, disabling the cache, when the file or folder is a symbolic link, the folder is group/other-writable, the length is not 32 or the file mode is not 0600; any exception also disables the cache."
-    },
-    {
-      "File": "src/FDull/WorkspaceCache.fs",
-      "Owner": "FDull.WorkspaceCache.secret",
-      "Kind": "member",
-      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.File.GetUnixFileMode(System.String)",
-      "Reason": "Lazily loads the per-user 32-byte cache secret from LocalApplicationData/FDull/cache-secret, creating it once with 32 random bytes through a mode-0600 temporary file and a non-overwriting move (a lost race deletes the temporary file). The secret is rejected, disabling the cache, when the file or folder is a symbolic link, the folder is group/other-writable, the length is not 32 or the file mode is not 0600; any exception also disables the cache."
-    },
-    {
-      "File": "src/FDull/WorkspaceCache.fs",
-      "Owner": "FDull.WorkspaceCache.secret",
-      "Kind": "member",
-      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.File.Move(System.String,System.String,System.Boolean)",
-      "Reason": "Lazily loads the per-user 32-byte cache secret from LocalApplicationData/FDull/cache-secret, creating it once with 32 random bytes through a mode-0600 temporary file and a non-overwriting move (a lost race deletes the temporary file). The secret is rejected, disabling the cache, when the file or folder is a symbolic link, the folder is group/other-writable, the length is not 32 or the file mode is not 0600; any exception also disables the cache."
-    },
-    {
-      "File": "src/FDull/WorkspaceCache.fs",
-      "Owner": "FDull.WorkspaceCache.secret",
-      "Kind": "member",
-      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.File.ReadAllBytes(System.String)",
-      "Reason": "Lazily loads the per-user 32-byte cache secret from LocalApplicationData/FDull/cache-secret, creating it once with 32 random bytes through a mode-0600 temporary file and a non-overwriting move (a lost race deletes the temporary file). The secret is rejected, disabling the cache, when the file or folder is a symbolic link, the folder is group/other-writable, the length is not 32 or the file mode is not 0600; any exception also disables the cache."
-    },
-    {
-      "File": "src/FDull/WorkspaceCache.fs",
-      "Owner": "FDull.WorkspaceCache.secret",
-      "Kind": "member",
-      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.File.SetUnixFileMode(System.String,System.IO.UnixFileMode)",
-      "Reason": "Lazily loads the per-user 32-byte cache secret from LocalApplicationData/FDull/cache-secret, creating it once with 32 random bytes through a mode-0600 temporary file and a non-overwriting move (a lost race deletes the temporary file). The secret is rejected, disabling the cache, when the file or folder is a symbolic link, the folder is group/other-writable, the length is not 32 or the file mode is not 0600; any exception also disables the cache."
-    },
-    {
-      "File": "src/FDull/WorkspaceCache.fs",
-      "Owner": "FDull.WorkspaceCache.secret",
-      "Kind": "member",
-      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.File.WriteAllBytes(System.String,System.Byte[])",
-      "Reason": "Lazily loads the per-user 32-byte cache secret from LocalApplicationData/FDull/cache-secret, creating it once with 32 random bytes through a mode-0600 temporary file and a non-overwriting move (a lost race deletes the temporary file). The secret is rejected, disabling the cache, when the file or folder is a symbolic link, the folder is group/other-writable, the length is not 32 or the file mode is not 0600; any exception also disables the cache."
-    },
-    {
-      "File": "src/FDull/WorkspaceCache.fs",
-      "Owner": "FDull.WorkspaceCache.secret",
-      "Kind": "member",
-      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.Combine(System.String,System.String)",
-      "Reason": "Lazily loads the per-user 32-byte cache secret from LocalApplicationData/FDull/cache-secret, creating it once with 32 random bytes through a mode-0600 temporary file and a non-overwriting move (a lost race deletes the temporary file). The secret is rejected, disabling the cache, when the file or folder is a symbolic link, the folder is group/other-writable, the length is not 32 or the file mode is not 0600; any exception also disables the cache."
-    },
-    {
-      "File": "src/FDull/WorkspaceCache.fs",
-      "Owner": "FDull.WorkspaceCache.secret",
-      "Kind": "member",
-      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.OperatingSystem.IsWindows",
-      "Reason": "Lazily loads the per-user 32-byte cache secret from LocalApplicationData/FDull/cache-secret, creating it once with 32 random bytes through a mode-0600 temporary file and a non-overwriting move (a lost race deletes the temporary file). The secret is rejected, disabling the cache, when the file or folder is a symbolic link, the folder is group/other-writable, the length is not 32 or the file mode is not 0600; any exception also disables the cache."
-    },
-    {
-      "File": "src/FDull/WorkspaceCache.fs",
-      "Owner": "FDull.WorkspaceCache.secret",
-      "Kind": "member",
-      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:System.Array.Length",
-      "Reason": "Lazily loads the per-user 32-byte cache secret from LocalApplicationData/FDull/cache-secret, creating it once with 32 random bytes through a mode-0600 temporary file and a non-overwriting move (a lost race deletes the temporary file). The secret is rejected, disabling the cache, when the file or folder is a symbolic link, the folder is group/other-writable, the length is not 32 or the file mode is not 0600; any exception also disables the cache."
-    },
-    {
-      "File": "src/FDull/WorkspaceCache.fs",
-      "Owner": "FDull.WorkspaceCache.secret",
-      "Kind": "member",
-      "Identity": "System.Security.Cryptography, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.Security.Cryptography.RandomNumberGenerator.GetBytes(System.Int32)",
-      "Reason": "Lazily loads the per-user 32-byte cache secret from LocalApplicationData/FDull/cache-secret, creating it once with 32 random bytes through a mode-0600 temporary file and a non-overwriting move (a lost race deletes the temporary file). The secret is rejected, disabling the cache, when the file or folder is a symbolic link, the folder is group/other-writable, the length is not 32 or the file mode is not 0600; any exception also disables the cache."
-    },
-    {
-      "File": "src/FDull/WorkspaceCache.fs",
-      "Owner": "FDull.WorkspaceCache.secret",
-      "Kind": "rule",
-      "Identity": "CAST005 | ",
-      "Reason": "Lazily loads the per-user 32-byte cache secret from LocalApplicationData/FDull/cache-secret, creating it once with 32 random bytes through a mode-0600 temporary file and a non-overwriting move (a lost race deletes the temporary file). The secret is rejected, disabling the cache, when the file or folder is a symbolic link, the folder is group/other-writable, the length is not 32 or the file mode is not 0600; any exception also disables the cache."
-    },
-    {
-      "File": "src/FDull/WorkspaceCache.fs",
-      "Owner": "FDull.WorkspaceCache.secret",
-      "Kind": "rule",
-      "Identity": "EFFECT003 | ",
-      "Reason": "Lazily loads the per-user 32-byte cache secret from LocalApplicationData/FDull/cache-secret, creating it once with 32 random bytes through a mode-0600 temporary file and a non-overwriting move (a lost race deletes the temporary file). The secret is rejected, disabling the cache, when the file or folder is a symbolic link, the folder is group/other-writable, the length is not 32 or the file mode is not 0600; any exception also disables the cache."
-    },
-    {
-      "File": "src/FDull/WorkspaceCache.fs",
-      "Owner": "FDull.WorkspaceCache.secret",
-      "Kind": "rule",
-      "Identity": "ERR001 | ",
-      "Reason": "Lazily loads the per-user 32-byte cache secret from LocalApplicationData/FDull/cache-secret, creating it once with 32 random bytes through a mode-0600 temporary file and a non-overwriting move (a lost race deletes the temporary file). The secret is rejected, disabling the cache, when the file or folder is a symbolic link, the folder is group/other-writable, the length is not 32 or the file mode is not 0600; any exception also disables the cache."
-    },
-    {
-      "File": "src/FDull/WorkspaceCache.fs",
-      "Owner": "FDull.WorkspaceCache.secret",
-      "Kind": "rule",
-      "Identity": "ERR004 | exception handler",
-      "Reason": "Lazily loads the per-user 32-byte cache secret from LocalApplicationData/FDull/cache-secret, creating it once with 32 random bytes through a mode-0600 temporary file and a non-overwriting move (a lost race deletes the temporary file). The secret is rejected, disabling the cache, when the file or folder is a symbolic link, the folder is group/other-writable, the length is not 32 or the file mode is not 0600; any exception also disables the cache."
-    },
-    {
-      "File": "src/FDull/WorkspaceCache.fs",
-      "Owner": "FDull.WorkspaceCache.secret",
-      "Kind": "type",
-      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | []",
-      "Reason": "Lazily loads the per-user 32-byte cache secret from LocalApplicationData/FDull/cache-secret, creating it once with 32 random bytes through a mode-0600 temporary file and a non-overwriting move (a lost race deletes the temporary file). The secret is rejected, disabling the cache, when the file or folder is a symbolic link, the folder is group/other-writable, the length is not 32 or the file mode is not 0600; any exception also disables the cache."
-    },
-    {
-      "File": "src/FDull/WorkspaceCache.fs",
-      "Owner": "FDull.WorkspaceCache.secret",
-      "Kind": "type",
-      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | System.IO.UnixFileMode",
-      "Reason": "Lazily loads the per-user 32-byte cache secret from LocalApplicationData/FDull/cache-secret, creating it once with 32 random bytes through a mode-0600 temporary file and a non-overwriting move (a lost race deletes the temporary file). The secret is rejected, disabling the cache, when the file or folder is a symbolic link, the folder is group/other-writable, the length is not 32 or the file mode is not 0600; any exception also disables the cache."
-    },
-    {
-      "File": "src/FDull/WorkspaceCache.fs",
-      "Owner": "FDull.WorkspaceCache.secret",
-      "Kind": "type",
-      "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | System.Lazy`1",
-      "Reason": "Lazily loads the per-user 32-byte cache secret from LocalApplicationData/FDull/cache-secret, creating it once with 32 random bytes through a mode-0600 temporary file and a non-overwriting move (a lost race deletes the temporary file). The secret is rejected, disabling the cache, when the file or folder is a symbolic link, the folder is group/other-writable, the length is not 32 or the file mode is not 0600; any exception also disables the cache."
-    },
-    {
-      "File": "src/FDull/WorkspaceCache.fs",
-      "Owner": "FDull.WorkspaceCache.write",
-      "Kind": "member",
-      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Control.LazyExtensions.Force``1(System.Lazy{``0})",
-      "Reason": "Best-effort store of a complete accepted response: skipped when .fdull or .fdull/cache is a symbolic link or the sealed entry exceeds 64 MiB; written to a random temporary file and moved over the entry, the temporary file always removed; any exception only costs a later miss."
+      "Reason": "Returns a stored worker response only when the file is at most 64 MiB, decodes and carries exactly the requested key; every other case, including any exception, is a miss (None) and the worker runs. Entries are trusted local state; the caller still applies full acceptance to a hit, and verify never reads the cache."
     },
     {
       "File": "src/FDull/WorkspaceCache.fs",
       "Owner": "FDull.WorkspaceCache.write",
       "Kind": "member",
       "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Core.Operators.Checked.ToInt64``1(Microsoft.FSharp.Core.FSharpFunc{``0,System.Int64},``0)",
-      "Reason": "Best-effort store of a complete accepted response: skipped when .fdull or .fdull/cache is a symbolic link or the sealed entry exceeds 64 MiB; written to a random temporary file and moved over the entry, the temporary file always removed; any exception only costs a later miss."
+      "Reason": "Best-effort store of a complete accepted response: skipped when .fdull or .fdull/cache is a symbolic link or the entry exceeds 64 MiB; written to a random temporary file and moved over the entry, the temporary file always removed; any exception only costs a later miss."
     },
     {
       "File": "src/FDull/WorkspaceCache.fs",
       "Owner": "FDull.WorkspaceCache.write",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.Guid.NewGuid",
-      "Reason": "Best-effort store of a complete accepted response: skipped when .fdull or .fdull/cache is a symbolic link or the sealed entry exceeds 64 MiB; written to a random temporary file and moved over the entry, the temporary file always removed; any exception only costs a later miss."
+      "Reason": "Best-effort store of a complete accepted response: skipped when .fdull or .fdull/cache is a symbolic link or the entry exceeds 64 MiB; written to a random temporary file and moved over the entry, the temporary file always removed; any exception only costs a later miss."
     },
     {
       "File": "src/FDull/WorkspaceCache.fs",
       "Owner": "FDull.WorkspaceCache.write",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.Guid.ToString(System.String)",
-      "Reason": "Best-effort store of a complete accepted response: skipped when .fdull or .fdull/cache is a symbolic link or the sealed entry exceeds 64 MiB; written to a random temporary file and moved over the entry, the temporary file always removed; any exception only costs a later miss."
+      "Reason": "Best-effort store of a complete accepted response: skipped when .fdull or .fdull/cache is a symbolic link or the entry exceeds 64 MiB; written to a random temporary file and moved over the entry, the temporary file always removed; any exception only costs a later miss."
     },
     {
       "File": "src/FDull/WorkspaceCache.fs",
       "Owner": "FDull.WorkspaceCache.write",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Directory.CreateDirectory(System.String)",
-      "Reason": "Best-effort store of a complete accepted response: skipped when .fdull or .fdull/cache is a symbolic link or the sealed entry exceeds 64 MiB; written to a random temporary file and moved over the entry, the temporary file always removed; any exception only costs a later miss."
+      "Reason": "Best-effort store of a complete accepted response: skipped when .fdull or .fdull/cache is a symbolic link or the entry exceeds 64 MiB; written to a random temporary file and moved over the entry, the temporary file always removed; any exception only costs a later miss."
     },
     {
       "File": "src/FDull/WorkspaceCache.fs",
       "Owner": "FDull.WorkspaceCache.write",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.File.Delete(System.String)",
-      "Reason": "Best-effort store of a complete accepted response: skipped when .fdull or .fdull/cache is a symbolic link or the sealed entry exceeds 64 MiB; written to a random temporary file and moved over the entry, the temporary file always removed; any exception only costs a later miss."
+      "Reason": "Best-effort store of a complete accepted response: skipped when .fdull or .fdull/cache is a symbolic link or the entry exceeds 64 MiB; written to a random temporary file and moved over the entry, the temporary file always removed; any exception only costs a later miss."
     },
     {
       "File": "src/FDull/WorkspaceCache.fs",
       "Owner": "FDull.WorkspaceCache.write",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.File.Exists(System.String)",
-      "Reason": "Best-effort store of a complete accepted response: skipped when .fdull or .fdull/cache is a symbolic link or the sealed entry exceeds 64 MiB; written to a random temporary file and moved over the entry, the temporary file always removed; any exception only costs a later miss."
+      "Reason": "Best-effort store of a complete accepted response: skipped when .fdull or .fdull/cache is a symbolic link or the entry exceeds 64 MiB; written to a random temporary file and moved over the entry, the temporary file always removed; any exception only costs a later miss."
     },
     {
       "File": "src/FDull/WorkspaceCache.fs",
       "Owner": "FDull.WorkspaceCache.write",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.File.Move(System.String,System.String,System.Boolean)",
-      "Reason": "Best-effort store of a complete accepted response: skipped when .fdull or .fdull/cache is a symbolic link or the sealed entry exceeds 64 MiB; written to a random temporary file and moved over the entry, the temporary file always removed; any exception only costs a later miss."
+      "Reason": "Best-effort store of a complete accepted response: skipped when .fdull or .fdull/cache is a symbolic link or the entry exceeds 64 MiB; written to a random temporary file and moved over the entry, the temporary file always removed; any exception only costs a later miss."
     },
     {
       "File": "src/FDull/WorkspaceCache.fs",
       "Owner": "FDull.WorkspaceCache.write",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.File.WriteAllText(System.String,System.String)",
-      "Reason": "Best-effort store of a complete accepted response: skipped when .fdull or .fdull/cache is a symbolic link or the sealed entry exceeds 64 MiB; written to a random temporary file and moved over the entry, the temporary file always removed; any exception only costs a later miss."
+      "Reason": "Best-effort store of a complete accepted response: skipped when .fdull or .fdull/cache is a symbolic link or the entry exceeds 64 MiB; written to a random temporary file and moved over the entry, the temporary file always removed; any exception only costs a later miss."
     },
     {
       "File": "src/FDull/WorkspaceCache.fs",
       "Owner": "FDull.WorkspaceCache.write",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.Combine(System.String,System.String)",
-      "Reason": "Best-effort store of a complete accepted response: skipped when .fdull or .fdull/cache is a symbolic link or the sealed entry exceeds 64 MiB; written to a random temporary file and moved over the entry, the temporary file always removed; any exception only costs a later miss."
+      "Reason": "Best-effort store of a complete accepted response: skipped when .fdull or .fdull/cache is a symbolic link or the entry exceeds 64 MiB; written to a random temporary file and moved over the entry, the temporary file always removed; any exception only costs a later miss."
     },
     {
       "File": "src/FDull/WorkspaceCache.fs",
       "Owner": "FDull.WorkspaceCache.write",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.Text.Encoding.GetByteCount(System.String)",
-      "Reason": "Best-effort store of a complete accepted response: skipped when .fdull or .fdull/cache is a symbolic link or the sealed entry exceeds 64 MiB; written to a random temporary file and moved over the entry, the temporary file always removed; any exception only costs a later miss."
+      "Reason": "Best-effort store of a complete accepted response: skipped when .fdull or .fdull/cache is a symbolic link or the entry exceeds 64 MiB; written to a random temporary file and moved over the entry, the temporary file always removed; any exception only costs a later miss."
     },
     {
       "File": "src/FDull/WorkspaceCache.fs",
       "Owner": "FDull.WorkspaceCache.write",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:System.Text.Encoding.UTF8",
-      "Reason": "Best-effort store of a complete accepted response: skipped when .fdull or .fdull/cache is a symbolic link or the sealed entry exceeds 64 MiB; written to a random temporary file and moved over the entry, the temporary file always removed; any exception only costs a later miss."
+      "Reason": "Best-effort store of a complete accepted response: skipped when .fdull or .fdull/cache is a symbolic link or the entry exceeds 64 MiB; written to a random temporary file and moved over the entry, the temporary file always removed; any exception only costs a later miss."
     },
     {
       "File": "src/FDull/WorkspaceCache.fs",
       "Owner": "FDull.WorkspaceCache.write",
       "Kind": "rule",
       "Identity": "ERR001 | ",
-      "Reason": "Best-effort store of a complete accepted response: skipped when .fdull or .fdull/cache is a symbolic link or the sealed entry exceeds 64 MiB; written to a random temporary file and moved over the entry, the temporary file always removed; any exception only costs a later miss."
+      "Reason": "Best-effort store of a complete accepted response: skipped when .fdull or .fdull/cache is a symbolic link or the entry exceeds 64 MiB; written to a random temporary file and moved over the entry, the temporary file always removed; any exception only costs a later miss."
     },
     {
       "File": "src/FDull/WorkspaceCache.fs",
       "Owner": "FDull.WorkspaceCache.write",
       "Kind": "rule",
       "Identity": "ERR004 | exception handler",
-      "Reason": "Best-effort store of a complete accepted response: skipped when .fdull or .fdull/cache is a symbolic link or the sealed entry exceeds 64 MiB; written to a random temporary file and moved over the entry, the temporary file always removed; any exception only costs a later miss."
+      "Reason": "Best-effort store of a complete accepted response: skipped when .fdull or .fdull/cache is a symbolic link or the entry exceeds 64 MiB; written to a random temporary file and moved over the entry, the temporary file always removed; any exception only costs a later miss."
     },
     {
       "File": "src/FDull/WorkspaceCache.fs",
       "Owner": "FDull.WorkspaceCache.write",
       "Kind": "rule",
       "Identity": "ERR009 | ",
-      "Reason": "Best-effort store of a complete accepted response: skipped when .fdull or .fdull/cache is a symbolic link or the sealed entry exceeds 64 MiB; written to a random temporary file and moved over the entry, the temporary file always removed; any exception only costs a later miss."
-    },
-    {
-      "File": "src/FDull/WorkspaceCache.fs",
-      "Owner": "FDull.WorkspaceCache.write",
-      "Kind": "type",
-      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | []",
-      "Reason": "Best-effort store of a complete accepted response: skipped when .fdull or .fdull/cache is a symbolic link or the sealed entry exceeds 64 MiB; written to a random temporary file and moved over the entry, the temporary file always removed; any exception only costs a later miss."
+      "Reason": "Best-effort store of a complete accepted response: skipped when .fdull or .fdull/cache is a symbolic link or the entry exceeds 64 MiB; written to a random temporary file and moved over the entry, the temporary file always removed; any exception only costs a later miss."
     },
     {
       "File": "tests/FDull.Tests/ProjectTests.fs",
-      "Owner": "FDull.Tests.ProjectTests.``damaged or tampered cache entries are re-analyzed and never trusted``",
+      "Owner": "FDull.Tests.ProjectTests.``damaged, misplaced or inconsistent cache entries are re-analyzed``",
       "Kind": "attribute",
       "Identity": "xunit.core, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | Xunit.FactAttribute |  | unit",
-      "Reason": "Non-shipping result-cache regression in a temporary consumer workspace: drives the real CLI and asserts which projects are re-analyzed, that cached output equals cold output modulo the cache counts, and that the cache stays under .fdull/cache. Truncates, overwrites with garbage, swaps and edits entries (keeping the old seal) and asserts each is re-analyzed with output equal to a cold run."
+      "Reason": "Non-shipping result-cache regression in a temporary consumer workspace: drives the real CLI and asserts which projects are re-analyzed, that cached output equals cold output modulo the cache counts, and that the cache stays under .fdull/cache. Truncates one entry, overwrites one with garbage, stores an intact entry under another project's key and edits one so it fails the BUILD004 policy comparison, and asserts each is re-analyzed with output equal to a cold run."
     },
     {
       "File": "tests/FDull.Tests/ProjectTests.fs",
-      "Owner": "FDull.Tests.ProjectTests.``damaged or tampered cache entries are re-analyzed and never trusted``",
+      "Owner": "FDull.Tests.ProjectTests.``damaged, misplaced or inconsistent cache entries are re-analyzed``",
       "Kind": "member",
       "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:Microsoft.FSharp.Collections.FSharpMap`2.Item(`0)",
-      "Reason": "Non-shipping result-cache regression in a temporary consumer workspace: drives the real CLI and asserts which projects are re-analyzed, that cached output equals cold output modulo the cache counts, and that the cache stays under .fdull/cache. Truncates, overwrites with garbage, swaps and edits entries (keeping the old seal) and asserts each is re-analyzed with output equal to a cold run."
+      "Reason": "Non-shipping result-cache regression in a temporary consumer workspace: drives the real CLI and asserts which projects are re-analyzed, that cached output equals cold output modulo the cache counts, and that the cache stays under .fdull/cache. Truncates one entry, overwrites one with garbage, stores an intact entry under another project's key and edits one so it fails the BUILD004 policy comparison, and asserts each is re-analyzed with output equal to a cold run."
     },
     {
       "File": "tests/FDull.Tests/ProjectTests.fs",
-      "Owner": "FDull.Tests.ProjectTests.``damaged or tampered cache entries are re-analyzed and never trusted``",
+      "Owner": "FDull.Tests.ProjectTests.``damaged, misplaced or inconsistent cache entries are re-analyzed``",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.File.Copy(System.String,System.String,System.Boolean)",
-      "Reason": "Non-shipping result-cache regression in a temporary consumer workspace: drives the real CLI and asserts which projects are re-analyzed, that cached output equals cold output modulo the cache counts, and that the cache stays under .fdull/cache. Truncates, overwrites with garbage, swaps and edits entries (keeping the old seal) and asserts each is re-analyzed with output equal to a cold run."
+      "Reason": "Non-shipping result-cache regression in a temporary consumer workspace: drives the real CLI and asserts which projects are re-analyzed, that cached output equals cold output modulo the cache counts, and that the cache stays under .fdull/cache. Truncates one entry, overwrites one with garbage, stores an intact entry under another project's key and edits one so it fails the BUILD004 policy comparison, and asserts each is re-analyzed with output equal to a cold run."
     },
     {
       "File": "tests/FDull.Tests/ProjectTests.fs",
-      "Owner": "FDull.Tests.ProjectTests.``damaged or tampered cache entries are re-analyzed and never trusted``",
+      "Owner": "FDull.Tests.ProjectTests.``damaged, misplaced or inconsistent cache entries are re-analyzed``",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.File.ReadAllText(System.String)",
-      "Reason": "Non-shipping result-cache regression in a temporary consumer workspace: drives the real CLI and asserts which projects are re-analyzed, that cached output equals cold output modulo the cache counts, and that the cache stays under .fdull/cache. Truncates, overwrites with garbage, swaps and edits entries (keeping the old seal) and asserts each is re-analyzed with output equal to a cold run."
+      "Reason": "Non-shipping result-cache regression in a temporary consumer workspace: drives the real CLI and asserts which projects are re-analyzed, that cached output equals cold output modulo the cache counts, and that the cache stays under .fdull/cache. Truncates one entry, overwrites one with garbage, stores an intact entry under another project's key and edits one so it fails the BUILD004 policy comparison, and asserts each is re-analyzed with output equal to a cold run."
     },
     {
       "File": "tests/FDull.Tests/ProjectTests.fs",
-      "Owner": "FDull.Tests.ProjectTests.``damaged or tampered cache entries are re-analyzed and never trusted``",
+      "Owner": "FDull.Tests.ProjectTests.``damaged, misplaced or inconsistent cache entries are re-analyzed``",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.File.WriteAllBytes(System.String,System.Byte[])",
-      "Reason": "Non-shipping result-cache regression in a temporary consumer workspace: drives the real CLI and asserts which projects are re-analyzed, that cached output equals cold output modulo the cache counts, and that the cache stays under .fdull/cache. Truncates, overwrites with garbage, swaps and edits entries (keeping the old seal) and asserts each is re-analyzed with output equal to a cold run."
+      "Reason": "Non-shipping result-cache regression in a temporary consumer workspace: drives the real CLI and asserts which projects are re-analyzed, that cached output equals cold output modulo the cache counts, and that the cache stays under .fdull/cache. Truncates one entry, overwrites one with garbage, stores an intact entry under another project's key and edits one so it fails the BUILD004 policy comparison, and asserts each is re-analyzed with output equal to a cold run."
     },
     {
       "File": "tests/FDull.Tests/ProjectTests.fs",
-      "Owner": "FDull.Tests.ProjectTests.``damaged or tampered cache entries are re-analyzed and never trusted``",
+      "Owner": "FDull.Tests.ProjectTests.``damaged, misplaced or inconsistent cache entries are re-analyzed``",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.File.WriteAllText(System.String,System.String)",
-      "Reason": "Non-shipping result-cache regression in a temporary consumer workspace: drives the real CLI and asserts which projects are re-analyzed, that cached output equals cold output modulo the cache counts, and that the cache stays under .fdull/cache. Truncates, overwrites with garbage, swaps and edits entries (keeping the old seal) and asserts each is re-analyzed with output equal to a cold run."
+      "Reason": "Non-shipping result-cache regression in a temporary consumer workspace: drives the real CLI and asserts which projects are re-analyzed, that cached output equals cold output modulo the cache counts, and that the cache stays under .fdull/cache. Truncates one entry, overwrites one with garbage, stores an intact entry under another project's key and edits one so it fails the BUILD004 policy comparison, and asserts each is re-analyzed with output equal to a cold run."
     },
     {
       "File": "tests/FDull.Tests/ProjectTests.fs",
-      "Owner": "FDull.Tests.ProjectTests.``damaged or tampered cache entries are re-analyzed and never trusted``",
+      "Owner": "FDull.Tests.ProjectTests.``damaged, misplaced or inconsistent cache entries are re-analyzed``",
       "Kind": "member",
       "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | M:System.String.Substring(System.Int32,System.Int32)",
-      "Reason": "Non-shipping result-cache regression in a temporary consumer workspace: drives the real CLI and asserts which projects are re-analyzed, that cached output equals cold output modulo the cache counts, and that the cache stays under .fdull/cache. Truncates, overwrites with garbage, swaps and edits entries (keeping the old seal) and asserts each is re-analyzed with output equal to a cold run."
+      "Reason": "Non-shipping result-cache regression in a temporary consumer workspace: drives the real CLI and asserts which projects are re-analyzed, that cached output equals cold output modulo the cache counts, and that the cache stays under .fdull/cache. Truncates one entry, overwrites one with garbage, stores an intact entry under another project's key and edits one so it fails the BUILD004 policy comparison, and asserts each is re-analyzed with output equal to a cold run."
     },
     {
       "File": "tests/FDull.Tests/ProjectTests.fs",
-      "Owner": "FDull.Tests.ProjectTests.``damaged or tampered cache entries are re-analyzed and never trusted``",
+      "Owner": "FDull.Tests.ProjectTests.``damaged, misplaced or inconsistent cache entries are re-analyzed``",
       "Kind": "member",
       "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Empty(System.Collections.IEnumerable)",
-      "Reason": "Non-shipping result-cache regression in a temporary consumer workspace: drives the real CLI and asserts which projects are re-analyzed, that cached output equals cold output modulo the cache counts, and that the cache stays under .fdull/cache. Truncates, overwrites with garbage, swaps and edits entries (keeping the old seal) and asserts each is re-analyzed with output equal to a cold run."
+      "Reason": "Non-shipping result-cache regression in a temporary consumer workspace: drives the real CLI and asserts which projects are re-analyzed, that cached output equals cold output modulo the cache counts, and that the cache stays under .fdull/cache. Truncates one entry, overwrites one with garbage, stores an intact entry under another project's key and edits one so it fails the BUILD004 policy comparison, and asserts each is re-analyzed with output equal to a cold run."
     },
     {
       "File": "tests/FDull.Tests/ProjectTests.fs",
-      "Owner": "FDull.Tests.ProjectTests.``damaged or tampered cache entries are re-analyzed and never trusted``",
+      "Owner": "FDull.Tests.ProjectTests.``damaged, misplaced or inconsistent cache entries are re-analyzed``",
       "Kind": "member",
       "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Equal(System.String,System.String)",
-      "Reason": "Non-shipping result-cache regression in a temporary consumer workspace: drives the real CLI and asserts which projects are re-analyzed, that cached output equals cold output modulo the cache counts, and that the cache stays under .fdull/cache. Truncates, overwrites with garbage, swaps and edits entries (keeping the old seal) and asserts each is re-analyzed with output equal to a cold run."
+      "Reason": "Non-shipping result-cache regression in a temporary consumer workspace: drives the real CLI and asserts which projects are re-analyzed, that cached output equals cold output modulo the cache counts, and that the cache stays under .fdull/cache. Truncates one entry, overwrites one with garbage, stores an intact entry under another project's key and edits one so it fails the BUILD004 policy comparison, and asserts each is re-analyzed with output equal to a cold run."
     },
     {
       "File": "tests/FDull.Tests/ProjectTests.fs",
-      "Owner": "FDull.Tests.ProjectTests.``damaged or tampered cache entries are re-analyzed and never trusted``",
+      "Owner": "FDull.Tests.ProjectTests.``damaged, misplaced or inconsistent cache entries are re-analyzed``",
       "Kind": "member",
       "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Equal``1(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IAsyncEnumerable{``0})",
-      "Reason": "Non-shipping result-cache regression in a temporary consumer workspace: drives the real CLI and asserts which projects are re-analyzed, that cached output equals cold output modulo the cache counts, and that the cache stays under .fdull/cache. Truncates, overwrites with garbage, swaps and edits entries (keeping the old seal) and asserts each is re-analyzed with output equal to a cold run."
+      "Reason": "Non-shipping result-cache regression in a temporary consumer workspace: drives the real CLI and asserts which projects are re-analyzed, that cached output equals cold output modulo the cache counts, and that the cache stays under .fdull/cache. Truncates one entry, overwrites one with garbage, stores an intact entry under another project's key and edits one so it fails the BUILD004 policy comparison, and asserts each is re-analyzed with output equal to a cold run."
     },
     {
       "File": "tests/FDull.Tests/ProjectTests.fs",
-      "Owner": "FDull.Tests.ProjectTests.``damaged or tampered cache entries are re-analyzed and never trusted``",
+      "Owner": "FDull.Tests.ProjectTests.``damaged, misplaced or inconsistent cache entries are re-analyzed``",
       "Kind": "member",
       "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Equal``1(``0,``0)",
-      "Reason": "Non-shipping result-cache regression in a temporary consumer workspace: drives the real CLI and asserts which projects are re-analyzed, that cached output equals cold output modulo the cache counts, and that the cache stays under .fdull/cache. Truncates, overwrites with garbage, swaps and edits entries (keeping the old seal) and asserts each is re-analyzed with output equal to a cold run."
+      "Reason": "Non-shipping result-cache regression in a temporary consumer workspace: drives the real CLI and asserts which projects are re-analyzed, that cached output equals cold output modulo the cache counts, and that the cache stays under .fdull/cache. Truncates one entry, overwrites one with garbage, stores an intact entry under another project's key and edits one so it fails the BUILD004 policy comparison, and asserts each is re-analyzed with output equal to a cold run."
     },
     {
       "File": "tests/FDull.Tests/ProjectTests.fs",
-      "Owner": "FDull.Tests.ProjectTests.``damaged or tampered cache entries are re-analyzed and never trusted``",
+      "Owner": "FDull.Tests.ProjectTests.``damaged, misplaced or inconsistent cache entries are re-analyzed``",
       "Kind": "member",
       "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.True(System.Boolean,System.String)",
-      "Reason": "Non-shipping result-cache regression in a temporary consumer workspace: drives the real CLI and asserts which projects are re-analyzed, that cached output equals cold output modulo the cache counts, and that the cache stays under .fdull/cache. Truncates, overwrites with garbage, swaps and edits entries (keeping the old seal) and asserts each is re-analyzed with output equal to a cold run."
+      "Reason": "Non-shipping result-cache regression in a temporary consumer workspace: drives the real CLI and asserts which projects are re-analyzed, that cached output equals cold output modulo the cache counts, and that the cache stays under .fdull/cache. Truncates one entry, overwrites one with garbage, stores an intact entry under another project's key and edits one so it fails the BUILD004 policy comparison, and asserts each is re-analyzed with output equal to a cold run."
     },
     {
       "File": "tests/FDull.Tests/ProjectTests.fs",
-      "Owner": "FDull.Tests.ProjectTests.``damaged or tampered cache entries are re-analyzed and never trusted``",
+      "Owner": "FDull.Tests.ProjectTests.``damaged, misplaced or inconsistent cache entries are re-analyzed``",
       "Kind": "rule",
       "Identity": "MUT008 | ",
-      "Reason": "Non-shipping result-cache regression in a temporary consumer workspace: drives the real CLI and asserts which projects are re-analyzed, that cached output equals cold output modulo the cache counts, and that the cache stays under .fdull/cache. Truncates, overwrites with garbage, swaps and edits entries (keeping the old seal) and asserts each is re-analyzed with output equal to a cold run."
+      "Reason": "Non-shipping result-cache regression in a temporary consumer workspace: drives the real CLI and asserts which projects are re-analyzed, that cached output equals cold output modulo the cache counts, and that the cache stays under .fdull/cache. Truncates one entry, overwrites one with garbage, stores an intact entry under another project's key and edits one so it fails the BUILD004 policy comparison, and asserts each is re-analyzed with output equal to a cold run."
     },
     {
       "File": "tests/FDull.Tests/ProjectTests.fs",
-      "Owner": "FDull.Tests.ProjectTests.``damaged or tampered cache entries are re-analyzed and never trusted``",
-      "Kind": "type",
-      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | FDull.SafetyDiagnostic",
-      "Reason": "Non-shipping result-cache regression in a temporary consumer workspace: drives the real CLI and asserts which projects are re-analyzed, that cached output equals cold output modulo the cache counts, and that the cache stays under .fdull/cache. Truncates, overwrites with garbage, swaps and edits entries (keeping the old seal) and asserts each is re-analyzed with output equal to a cold run."
-    },
-    {
-      "File": "tests/FDull.Tests/ProjectTests.fs",
-      "Owner": "FDull.Tests.ProjectTests.``damaged or tampered cache entries are re-analyzed and never trusted``",
+      "Owner": "FDull.Tests.ProjectTests.``damaged, misplaced or inconsistent cache entries are re-analyzed``",
       "Kind": "type",
       "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | FDull.SafetyProcessOutput",
-      "Reason": "Non-shipping result-cache regression in a temporary consumer workspace: drives the real CLI and asserts which projects are re-analyzed, that cached output equals cold output modulo the cache counts, and that the cache stays under .fdull/cache. Truncates, overwrites with garbage, swaps and edits entries (keeping the old seal) and asserts each is re-analyzed with output equal to a cold run."
+      "Reason": "Non-shipping result-cache regression in a temporary consumer workspace: drives the real CLI and asserts which projects are re-analyzed, that cached output equals cold output modulo the cache counts, and that the cache stays under .fdull/cache. Truncates one entry, overwrites one with garbage, stores an intact entry under another project's key and edits one so it fails the BUILD004 policy comparison, and asserts each is re-analyzed with output equal to a cold run."
     },
     {
       "File": "tests/FDull.Tests/ProjectTests.fs",
-      "Owner": "FDull.Tests.ProjectTests.``damaged or tampered cache entries are re-analyzed and never trusted``",
+      "Owner": "FDull.Tests.ProjectTests.``damaged, misplaced or inconsistent cache entries are re-analyzed``",
       "Kind": "type",
       "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspaceProjectReport",
-      "Reason": "Non-shipping result-cache regression in a temporary consumer workspace: drives the real CLI and asserts which projects are re-analyzed, that cached output equals cold output modulo the cache counts, and that the cache stays under .fdull/cache. Truncates, overwrites with garbage, swaps and edits entries (keeping the old seal) and asserts each is re-analyzed with output equal to a cold run."
+      "Reason": "Non-shipping result-cache regression in a temporary consumer workspace: drives the real CLI and asserts which projects are re-analyzed, that cached output equals cold output modulo the cache counts, and that the cache stays under .fdull/cache. Truncates one entry, overwrites one with garbage, stores an intact entry under another project's key and edits one so it fails the BUILD004 policy comparison, and asserts each is re-analyzed with output equal to a cold run."
     },
     {
       "File": "tests/FDull.Tests/ProjectTests.fs",
-      "Owner": "FDull.Tests.ProjectTests.``damaged or tampered cache entries are re-analyzed and never trusted``",
+      "Owner": "FDull.Tests.ProjectTests.``damaged, misplaced or inconsistent cache entries are re-analyzed``",
       "Kind": "type",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | System.Collections.IEnumerable",
-      "Reason": "Non-shipping result-cache regression in a temporary consumer workspace: drives the real CLI and asserts which projects are re-analyzed, that cached output equals cold output modulo the cache counts, and that the cache stays under .fdull/cache. Truncates, overwrites with garbage, swaps and edits entries (keeping the old seal) and asserts each is re-analyzed with output equal to a cold run."
+      "Reason": "Non-shipping result-cache regression in a temporary consumer workspace: drives the real CLI and asserts which projects are re-analyzed, that cached output equals cold output modulo the cache counts, and that the cache stays under .fdull/cache. Truncates one entry, overwrites one with garbage, stores an intact entry under another project's key and edits one so it fails the BUILD004 policy comparison, and asserts each is re-analyzed with output equal to a cold run."
     },
     {
       "File": "tests/FDull.Tests/ProjectTests.fs",
@@ -22208,147 +21935,49 @@
       "Owner": "FDull.Tests.ProjectTests.``verify neither reads nor writes the result cache``",
       "Kind": "attribute",
       "Identity": "xunit.core, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | Xunit.FactAttribute |  | unit",
-      "Reason": "Non-shipping result-cache regression in a temporary consumer workspace: drives the real CLI and asserts which projects are re-analyzed, that cached output equals cold output modulo the cache counts, and that the cache stays under .fdull/cache. Plants an entry hiding a violation, sealed with the per-user secret read from LocalApplicationData/FDull, and asserts lint trusts it while verify ignores it, still reports the violation and leaves the cache unchanged."
-    },
-    {
-      "File": "tests/FDull.Tests/ProjectTests.fs",
-      "Owner": "FDull.Tests.ProjectTests.``verify neither reads nor writes the result cache``",
-      "Kind": "member",
-      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Transport.Codec.decode``1(System.String)",
-      "Reason": "Non-shipping result-cache regression in a temporary consumer workspace: drives the real CLI and asserts which projects are re-analyzed, that cached output equals cold output modulo the cache counts, and that the cache stays under .fdull/cache. Plants an entry hiding a violation, sealed with the per-user secret read from LocalApplicationData/FDull, and asserts lint trusts it while verify ignores it, still reports the violation and leaves the cache unchanged."
-    },
-    {
-      "File": "tests/FDull.Tests/ProjectTests.fs",
-      "Owner": "FDull.Tests.ProjectTests.``verify neither reads nor writes the result cache``",
-      "Kind": "member",
-      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Transport.Codec.encode``1(``0)",
-      "Reason": "Non-shipping result-cache regression in a temporary consumer workspace: drives the real CLI and asserts which projects are re-analyzed, that cached output equals cold output modulo the cache counts, and that the cache stays under .fdull/cache. Plants an entry hiding a violation, sealed with the per-user secret read from LocalApplicationData/FDull, and asserts lint trusts it while verify ignores it, still reports the violation and leaves the cache unchanged."
+      "Reason": "Non-shipping result-cache regression in a temporary consumer workspace: drives the real CLI and asserts which projects are re-analyzed, that cached output equals cold output modulo the cache counts, and that the cache stays under .fdull/cache. Edits a stored entry to hide a violation while keeping its key, and asserts lint trusts it while verify ignores it, still reports the violation and leaves the cache unchanged."
     },
     {
       "File": "tests/FDull.Tests/ProjectTests.fs",
       "Owner": "FDull.Tests.ProjectTests.``verify neither reads nor writes the result cache``",
       "Kind": "member",
       "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:Microsoft.FSharp.Collections.FSharpMap`2.Item(`0)",
-      "Reason": "Non-shipping result-cache regression in a temporary consumer workspace: drives the real CLI and asserts which projects are re-analyzed, that cached output equals cold output modulo the cache counts, and that the cache stays under .fdull/cache. Plants an entry hiding a violation, sealed with the per-user secret read from LocalApplicationData/FDull, and asserts lint trusts it while verify ignores it, still reports the violation and leaves the cache unchanged."
-    },
-    {
-      "File": "tests/FDull.Tests/ProjectTests.fs",
-      "Owner": "FDull.Tests.ProjectTests.``verify neither reads nor writes the result cache``",
-      "Kind": "member",
-      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.Convert.ToHexStringLower(System.Byte[])",
-      "Reason": "Non-shipping result-cache regression in a temporary consumer workspace: drives the real CLI and asserts which projects are re-analyzed, that cached output equals cold output modulo the cache counts, and that the cache stays under .fdull/cache. Plants an entry hiding a violation, sealed with the per-user secret read from LocalApplicationData/FDull, and asserts lint trusts it while verify ignores it, still reports the violation and leaves the cache unchanged."
-    },
-    {
-      "File": "tests/FDull.Tests/ProjectTests.fs",
-      "Owner": "FDull.Tests.ProjectTests.``verify neither reads nor writes the result cache``",
-      "Kind": "member",
-      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.Environment.GetFolderPath(System.Environment.SpecialFolder)",
-      "Reason": "Non-shipping result-cache regression in a temporary consumer workspace: drives the real CLI and asserts which projects are re-analyzed, that cached output equals cold output modulo the cache counts, and that the cache stays under .fdull/cache. Plants an entry hiding a violation, sealed with the per-user secret read from LocalApplicationData/FDull, and asserts lint trusts it while verify ignores it, still reports the violation and leaves the cache unchanged."
-    },
-    {
-      "File": "tests/FDull.Tests/ProjectTests.fs",
-      "Owner": "FDull.Tests.ProjectTests.``verify neither reads nor writes the result cache``",
-      "Kind": "member",
-      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.File.ReadAllBytes(System.String)",
-      "Reason": "Non-shipping result-cache regression in a temporary consumer workspace: drives the real CLI and asserts which projects are re-analyzed, that cached output equals cold output modulo the cache counts, and that the cache stays under .fdull/cache. Plants an entry hiding a violation, sealed with the per-user secret read from LocalApplicationData/FDull, and asserts lint trusts it while verify ignores it, still reports the violation and leaves the cache unchanged."
-    },
-    {
-      "File": "tests/FDull.Tests/ProjectTests.fs",
-      "Owner": "FDull.Tests.ProjectTests.``verify neither reads nor writes the result cache``",
-      "Kind": "member",
-      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.File.ReadAllText(System.String)",
-      "Reason": "Non-shipping result-cache regression in a temporary consumer workspace: drives the real CLI and asserts which projects are re-analyzed, that cached output equals cold output modulo the cache counts, and that the cache stays under .fdull/cache. Plants an entry hiding a violation, sealed with the per-user secret read from LocalApplicationData/FDull, and asserts lint trusts it while verify ignores it, still reports the violation and leaves the cache unchanged."
-    },
-    {
-      "File": "tests/FDull.Tests/ProjectTests.fs",
-      "Owner": "FDull.Tests.ProjectTests.``verify neither reads nor writes the result cache``",
-      "Kind": "member",
-      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.File.WriteAllText(System.String,System.String)",
-      "Reason": "Non-shipping result-cache regression in a temporary consumer workspace: drives the real CLI and asserts which projects are re-analyzed, that cached output equals cold output modulo the cache counts, and that the cache stays under .fdull/cache. Plants an entry hiding a violation, sealed with the per-user secret read from LocalApplicationData/FDull, and asserts lint trusts it while verify ignores it, still reports the violation and leaves the cache unchanged."
-    },
-    {
-      "File": "tests/FDull.Tests/ProjectTests.fs",
-      "Owner": "FDull.Tests.ProjectTests.``verify neither reads nor writes the result cache``",
-      "Kind": "member",
-      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.Combine(System.String,System.String,System.String)",
-      "Reason": "Non-shipping result-cache regression in a temporary consumer workspace: drives the real CLI and asserts which projects are re-analyzed, that cached output equals cold output modulo the cache counts, and that the cache stays under .fdull/cache. Plants an entry hiding a violation, sealed with the per-user secret read from LocalApplicationData/FDull, and asserts lint trusts it while verify ignores it, still reports the violation and leaves the cache unchanged."
-    },
-    {
-      "File": "tests/FDull.Tests/ProjectTests.fs",
-      "Owner": "FDull.Tests.ProjectTests.``verify neither reads nor writes the result cache``",
-      "Kind": "member",
-      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.Text.Encoding.GetBytes(System.String)",
-      "Reason": "Non-shipping result-cache regression in a temporary consumer workspace: drives the real CLI and asserts which projects are re-analyzed, that cached output equals cold output modulo the cache counts, and that the cache stays under .fdull/cache. Plants an entry hiding a violation, sealed with the per-user secret read from LocalApplicationData/FDull, and asserts lint trusts it while verify ignores it, still reports the violation and leaves the cache unchanged."
-    },
-    {
-      "File": "tests/FDull.Tests/ProjectTests.fs",
-      "Owner": "FDull.Tests.ProjectTests.``verify neither reads nor writes the result cache``",
-      "Kind": "member",
-      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:System.Text.Encoding.UTF8",
-      "Reason": "Non-shipping result-cache regression in a temporary consumer workspace: drives the real CLI and asserts which projects are re-analyzed, that cached output equals cold output modulo the cache counts, and that the cache stays under .fdull/cache. Plants an entry hiding a violation, sealed with the per-user secret read from LocalApplicationData/FDull, and asserts lint trusts it while verify ignores it, still reports the violation and leaves the cache unchanged."
-    },
-    {
-      "File": "tests/FDull.Tests/ProjectTests.fs",
-      "Owner": "FDull.Tests.ProjectTests.``verify neither reads nor writes the result cache``",
-      "Kind": "member",
-      "Identity": "System.Security.Cryptography, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.Security.Cryptography.HMACSHA256.HashData(System.Byte[],System.Byte[])",
-      "Reason": "Non-shipping result-cache regression in a temporary consumer workspace: drives the real CLI and asserts which projects are re-analyzed, that cached output equals cold output modulo the cache counts, and that the cache stays under .fdull/cache. Plants an entry hiding a violation, sealed with the per-user secret read from LocalApplicationData/FDull, and asserts lint trusts it while verify ignores it, still reports the violation and leaves the cache unchanged."
+      "Reason": "Non-shipping result-cache regression in a temporary consumer workspace: drives the real CLI and asserts which projects are re-analyzed, that cached output equals cold output modulo the cache counts, and that the cache stays under .fdull/cache. Edits a stored entry to hide a violation while keeping its key, and asserts lint trusts it while verify ignores it, still reports the violation and leaves the cache unchanged."
     },
     {
       "File": "tests/FDull.Tests/ProjectTests.fs",
       "Owner": "FDull.Tests.ProjectTests.``verify neither reads nor writes the result cache``",
       "Kind": "member",
       "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Contains(System.String,System.String)",
-      "Reason": "Non-shipping result-cache regression in a temporary consumer workspace: drives the real CLI and asserts which projects are re-analyzed, that cached output equals cold output modulo the cache counts, and that the cache stays under .fdull/cache. Plants an entry hiding a violation, sealed with the per-user secret read from LocalApplicationData/FDull, and asserts lint trusts it while verify ignores it, still reports the violation and leaves the cache unchanged."
+      "Reason": "Non-shipping result-cache regression in a temporary consumer workspace: drives the real CLI and asserts which projects are re-analyzed, that cached output equals cold output modulo the cache counts, and that the cache stays under .fdull/cache. Edits a stored entry to hide a violation while keeping its key, and asserts lint trusts it while verify ignores it, still reports the violation and leaves the cache unchanged."
     },
     {
       "File": "tests/FDull.Tests/ProjectTests.fs",
       "Owner": "FDull.Tests.ProjectTests.``verify neither reads nor writes the result cache``",
       "Kind": "member",
       "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Equal``1(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IAsyncEnumerable{``0})",
-      "Reason": "Non-shipping result-cache regression in a temporary consumer workspace: drives the real CLI and asserts which projects are re-analyzed, that cached output equals cold output modulo the cache counts, and that the cache stays under .fdull/cache. Plants an entry hiding a violation, sealed with the per-user secret read from LocalApplicationData/FDull, and asserts lint trusts it while verify ignores it, still reports the violation and leaves the cache unchanged."
+      "Reason": "Non-shipping result-cache regression in a temporary consumer workspace: drives the real CLI and asserts which projects are re-analyzed, that cached output equals cold output modulo the cache counts, and that the cache stays under .fdull/cache. Edits a stored entry to hide a violation while keeping its key, and asserts lint trusts it while verify ignores it, still reports the violation and leaves the cache unchanged."
     },
     {
       "File": "tests/FDull.Tests/ProjectTests.fs",
       "Owner": "FDull.Tests.ProjectTests.``verify neither reads nor writes the result cache``",
       "Kind": "member",
       "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Equal``1(``0,``0)",
-      "Reason": "Non-shipping result-cache regression in a temporary consumer workspace: drives the real CLI and asserts which projects are re-analyzed, that cached output equals cold output modulo the cache counts, and that the cache stays under .fdull/cache. Plants an entry hiding a violation, sealed with the per-user secret read from LocalApplicationData/FDull, and asserts lint trusts it while verify ignores it, still reports the violation and leaves the cache unchanged."
+      "Reason": "Non-shipping result-cache regression in a temporary consumer workspace: drives the real CLI and asserts which projects are re-analyzed, that cached output equals cold output modulo the cache counts, and that the cache stays under .fdull/cache. Edits a stored entry to hide a violation while keeping its key, and asserts lint trusts it while verify ignores it, still reports the violation and leaves the cache unchanged."
     },
     {
       "File": "tests/FDull.Tests/ProjectTests.fs",
       "Owner": "FDull.Tests.ProjectTests.``verify neither reads nor writes the result cache``",
       "Kind": "member",
       "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.True(System.Boolean,System.String)",
-      "Reason": "Non-shipping result-cache regression in a temporary consumer workspace: drives the real CLI and asserts which projects are re-analyzed, that cached output equals cold output modulo the cache counts, and that the cache stays under .fdull/cache. Plants an entry hiding a violation, sealed with the per-user secret read from LocalApplicationData/FDull, and asserts lint trusts it while verify ignores it, still reports the violation and leaves the cache unchanged."
+      "Reason": "Non-shipping result-cache regression in a temporary consumer workspace: drives the real CLI and asserts which projects are re-analyzed, that cached output equals cold output modulo the cache counts, and that the cache stays under .fdull/cache. Edits a stored entry to hide a violation while keeping its key, and asserts lint trusts it while verify ignores it, still reports the violation and leaves the cache unchanged."
     },
     {
       "File": "tests/FDull.Tests/ProjectTests.fs",
       "Owner": "FDull.Tests.ProjectTests.``verify neither reads nor writes the result cache``",
       "Kind": "type",
       "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | FDull.SafetyProcessOutput",
-      "Reason": "Non-shipping result-cache regression in a temporary consumer workspace: drives the real CLI and asserts which projects are re-analyzed, that cached output equals cold output modulo the cache counts, and that the cache stays under .fdull/cache. Plants an entry hiding a violation, sealed with the per-user secret read from LocalApplicationData/FDull, and asserts lint trusts it while verify ignores it, still reports the violation and leaves the cache unchanged."
-    },
-    {
-      "File": "tests/FDull.Tests/ProjectTests.fs",
-      "Owner": "FDull.Tests.ProjectTests.``verify neither reads nor writes the result cache``",
-      "Kind": "type",
-      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspaceCacheEntry",
-      "Reason": "Non-shipping result-cache regression in a temporary consumer workspace: drives the real CLI and asserts which projects are re-analyzed, that cached output equals cold output modulo the cache counts, and that the cache stays under .fdull/cache. Plants an entry hiding a violation, sealed with the per-user secret read from LocalApplicationData/FDull, and asserts lint trusts it while verify ignores it, still reports the violation and leaves the cache unchanged."
-    },
-    {
-      "File": "tests/FDull.Tests/ProjectTests.fs",
-      "Owner": "FDull.Tests.ProjectTests.``verify neither reads nor writes the result cache``",
-      "Kind": "type",
-      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspaceProjectReport",
-      "Reason": "Non-shipping result-cache regression in a temporary consumer workspace: drives the real CLI and asserts which projects are re-analyzed, that cached output equals cold output modulo the cache counts, and that the cache stays under .fdull/cache. Plants an entry hiding a violation, sealed with the per-user secret read from LocalApplicationData/FDull, and asserts lint trusts it while verify ignores it, still reports the violation and leaves the cache unchanged."
-    },
-    {
-      "File": "tests/FDull.Tests/ProjectTests.fs",
-      "Owner": "FDull.Tests.ProjectTests.``verify neither reads nor writes the result cache``",
-      "Kind": "type",
-      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | []",
-      "Reason": "Non-shipping result-cache regression in a temporary consumer workspace: drives the real CLI and asserts which projects are re-analyzed, that cached output equals cold output modulo the cache counts, and that the cache stays under .fdull/cache. Plants an entry hiding a violation, sealed with the per-user secret read from LocalApplicationData/FDull, and asserts lint trusts it while verify ignores it, still reports the violation and leaves the cache unchanged."
+      "Reason": "Non-shipping result-cache regression in a temporary consumer workspace: drives the real CLI and asserts which projects are re-analyzed, that cached output equals cold output modulo the cache counts, and that the cache stays under .fdull/cache. Edits a stored entry to hide a violation while keeping its key, and asserts lint trusts it while verify ignores it, still reports the violation and leaves the cache unchanged."
     },
     {
       "File": "tests/FDull.Tests/ProjectTests.fs",

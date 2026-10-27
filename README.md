@@ -381,19 +381,15 @@ code depends on the cache. `--no-cache` turns it off, and `cache clear <root>`
 deletes `<root>/.fdull/cache` (exit `3` if it is a symbolic link). Entries are never
 evicted, and a new FDull build changes every key.
 
-Each entry is sealed with HMAC-SHA256 under a per-user secret,
-`FDull/cache-secret` in the local application-data folder (on macOS,
-`~/Library/Application Support`). It is created on first use and must be 32 bytes,
-mode `0600` and not a symbolic link on Unix; otherwise the cache stays off. The
-seal stops edited entries from being trusted, not a user who can read the secret.
-
 Rebuilding a project changes its F# reference assembly, so the project and every
 project that references it are re-analyzed. A policy edit re-analyzes only the
 projects whose slice it changes. Edits to `Inputs`, `Domains` or `Constructors`,
 including compiler settings in a pinned project file, re-analyze every project.
 
-The cache is for iteration. A cached `lint` is not certification: `verify` never
-reads or writes the cache. Don't run `lint` right before `verify`, which runs the
+The cache is for iteration. `lint` and `review` trust `.fdull/` as you trust your
+own build output: an entry edited to stay consistent is believed. A cached `lint`
+is therefore not certification, and `verify` never reads or writes the cache. For
+CI, or anything checked out from someone else, run `verify`, or `lint --no-cache`. Don't run `lint` right before `verify`, which runs the
 same per-project analysis and fails on the same diagnostics. A policy pass is
 `review`, fix, `review`, `verify`.
 
