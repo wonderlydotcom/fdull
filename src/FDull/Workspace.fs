@@ -179,7 +179,23 @@ module Workspace =
                           Generated = generated
                           ProjectReferences = projectReferences }
 
-    let private requestFrom advisory root project (invocation: WorkspaceInvocation) =
+    /// Read the policy once for a run, pinned to the exact file bytes it was read from.
+    let private pinned advisory root =
+        let path = Path.Combine(root, "fdull.json")
+        let before = input path
+
+        let document =
+            if advisory then
+                WorkspacePolicy.readForReview root
+            else
+                WorkspacePolicy.read root
+
+        if input path <> before then
+            invalidOp "BUILD004: The workspace policy changed while it was read."
+
+        document, before
+
+    let private requestFrom root project (document: WorkspacePolicyDocument, pin) (invocation: WorkspaceInvocation) =
         { Root = root
           Project = Path.Combine(root, project)
           ProjectReferences = invocation.ProjectReferences
@@ -188,18 +204,22 @@ module Workspace =
           References = invocation.References |> List.map input
           Generated = invocation.Generated
           BuildInputs =
-            (if advisory then
-                 WorkspacePolicy.readForReview root
-             else
-                 WorkspacePolicy.read root)
-                .Inputs
+            document.Inputs
             |> List.map (fun pin ->
                 { Path = Path.Combine(root, pin.File)
                   Digest = pin.Digest })
-          Policy = input (Path.Combine(root, "fdull.json")) }
+          Policy = pin
+          PolicySlice = WorkspaceSlice.digest project document }
 
     /// Trust a worker response only after it matches the request and passes protocol validation.
-    let private accept advisory (request: WorkspaceRequest) engine closureChanged (output: SafetyProcessOutput) =
+    let private accept
+        advisory
+        document
+        (request: WorkspaceRequest)
+        engine
+        closureChanged
+        (output: SafetyProcessOutput)
+        =
         let review =
             if advisory then
                 Codec.decode<WorkspaceReviewProjectReport> output.Output
@@ -215,7 +235,7 @@ module Workspace =
             report.Sources <> request.Sources
             || report.References <> request.References
             || report.Arguments <> request.Arguments
-            || report.Policy <> request.Policy.Digest
+            || report.Policy <> request.PolicySlice
             || report.Tool <> engine
             || closureChanged
             || request.Policy :: request.Sources @ request.References @ request.BuildInputs
@@ -225,23 +245,13 @@ module Workspace =
         else
             let validation =
                 if advisory then
-                    WorkspaceReview.validate
-                        request
-                        (WorkspacePolicy.readForReview request.Root)
-                        output.ExitCode
-                        output.Error
-                        review
+                    WorkspaceReview.validate request document output.ExitCode output.Error review
                 else
-                    WorkspaceProtocol.validate
-                        request
-                        (WorkspacePolicy.read request.Root)
-                        output.ExitCode
-                        output.Error
-                        result
+                    WorkspaceProtocol.validate request document output.ExitCode output.Error result
 
             validation |> Result.map (fun () -> review)
 
-    let private analyzeTimed advisory (request: WorkspaceRequest) =
+    let private analyzeTimed advisory document (request: WorkspaceRequest) =
         let worker = Path.Combine(AppContext.BaseDirectory, "safety-worker")
         let engine = Path.Combine(worker, "FDull.dll")
 
@@ -295,10 +305,10 @@ module Workspace =
             match run with
             | Error error -> Error("BUILD003: " + error), elapsed
             | Ok output ->
-                accept advisory request (SafetyPolicy.fileDigest engine) (before <> closure ()) output, elapsed
+                accept advisory document request (SafetyPolicy.fileDigest engine) (before <> closure ()) output, elapsed
 
     /// The parent's own work is everything outside the export and worker processes.
-    let private measured advisory root project =
+    let private measured advisory root (document, pin) project =
         let clock = Stopwatch.StartNew()
         let invocation = export root project
         let exported = clock.ElapsedMilliseconds
@@ -306,7 +316,9 @@ module Workspace =
         let result, worker =
             match invocation with
             | Error error -> Error error, 0L
-            | Ok invocation -> requestFrom advisory root project invocation |> analyzeTimed advisory
+            | Ok invocation ->
+                requestFrom root project (document, pin) invocation
+                |> analyzeTimed advisory document
 
         result,
         { Project = project
@@ -314,23 +326,27 @@ module Workspace =
           WorkerMilliseconds = worker
           ValidationMilliseconds = clock.ElapsedMilliseconds - exported - worker }
 
-    let private request root project =
-        export root project |> Result.map (requestFrom false root project)
-
-    let private analyze request =
-        analyzeTimed false request |> fst |> Result.map _.Analysis
+    /// The exact worker request `lint` sends for one workspace-relative project.
+    let request platform project =
+        try
+            let root = Path.GetFullPath platform
+            export root project |> Result.map (requestFrom root project (pinned false root))
+        with error ->
+            Error("BUILD003: " + error.Message)
 
     let checkProject platform project =
         try
             let root = Path.GetFullPath platform
-            let policy = WorkspacePolicy.read root
+            let policy, pin = pinned false root
             WorkspaceAudit.validate root policy
 
             let relative =
                 Path.GetRelativePath(root, Path.GetFullPath(project, root)).Replace('\\', '/')
 
             if policy.Sources |> List.exists (fun source -> source.Project = relative) then
-                request root relative |> Result.bind analyze
+                export root relative
+                |> Result.map (requestFrom root relative (policy, pin))
+                |> Result.bind (analyzeTimed false policy >> fst >> Result.map _.Analysis)
             else
                 Error "ARCH002: The project is not assigned by workspace policy."
         with error ->
@@ -379,12 +395,12 @@ module Workspace =
         let timings = ResizeArray<WorkspaceTiming>()
 
         try
-            let policy = WorkspacePolicy.read root
+            let policy, pin = pinned false root
             WorkspaceAudit.validate root policy
             exclusions.AddRange(WorkspacePolicy.excludedProjects policy)
             let projectFiles = WorkspaceAudit.order policy.Projects
 
-            for project, outcome in runAll jobs checkProject projectFiles do
+            for project, outcome in runAll jobs (checkProject (policy, pin)) projectFiles do
                 match outcome with
                 | Ok(result, timing) ->
                     Option.iter timings.Add timing
@@ -435,15 +451,15 @@ module Workspace =
 
     /// Verification rebuilds between projects, so its checks stay strictly sequential.
     let internal checkUsing platform checkProject =
-        checkMeasured platform 1 (fun project -> checkProject project, None) |> fst
+        checkMeasured platform 1 (fun _ project -> checkProject project, None) |> fst
 
     /// Lint the workspace with up to `jobs` concurrent project analyses and report each project's
     /// export, worker and validation time.
     let checkTimed jobs platform =
         let root = Path.GetFullPath platform
 
-        checkMeasured root jobs (fun project ->
-            let result, timing = measured false root project
+        checkMeasured root jobs (fun policy project ->
+            let result, timing = measured false root policy project
             result |> Result.map _.Analysis, Some timing)
 
     let check platform = checkTimed defaultJobs platform |> fst
@@ -458,16 +474,16 @@ module Workspace =
         let mutable snapshot = []
 
         try
-            let document = WorkspacePolicy.readForReview root
+            let document, pin = pinned true root
             WorkspaceAudit.validate root document
             policy <- Some document
-            let pin = input (Path.Combine(root, "fdull.json"))
 
             snapshot <-
                 document.Sources
                 |> List.map (fun source -> input (Path.Combine(root, source.File)))
 
-            for project, outcome in runAll jobs (measured true root) (WorkspaceAudit.order document.Projects) do
+            for project, outcome in
+                runAll jobs (measured true root (document, pin)) (WorkspaceAudit.order document.Projects) do
                 match outcome with
                 | Ok(result, timing) ->
                     timings.Add timing

@@ -381,6 +381,13 @@ dependency order without rebuilding its dependencies. Source, reference, policy
 and evaluated compiler inputs are compared before accepting the result. JSON includes completeness and errors.
 SARIF includes diagnostics and an invocation success flag; also check the exit code.
 
+Each project is analyzed against its policy slice: the whole `fdull.json` except
+other projects' `Sources` and the `Capabilities` keyed to their files. A project
+report's `Policy` and its diagnostics' policy field are the slice's `sha256:`
+digest, so a policy edit that another project's analysis can't observe leaves it
+unchanged. The worker re-reads the whole file, which stays pinned for the run, and
+rejects a slice that differs from the requested digest.
+
 Text output starts with `PASS`, `FAIL` or `BLOCKED`. `BLOCKED` means analysis did
 not complete and no clean result was established, even when zero diagnostics
 were reported. Resolve the reported blockers and rerun the command. `lint` only

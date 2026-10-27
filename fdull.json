@@ -134,7 +134,7 @@
       "File": "src/FDull/WorkspacePolicy.fs",
       "Project": "src/FDull/FDull.fsproj",
       "Profile": "GUARD_TOOLING",
-      "Digest": "sha256:61e295d4ea71c80c3d0720b026fc89ceb31493083ae34ceb9ae804d66a87a6a4"
+      "Digest": "sha256:33d507ecbee51dda804fc6ae486aa7d43fcef6bbb883951654727dcb3b6e105d"
     },
     {
       "File": "src/FDull/WorkspaceAudit.fs",
@@ -146,13 +146,13 @@
       "File": "src/FDull/WorkspaceEngine.fs",
       "Project": "src/FDull/FDull.fsproj",
       "Profile": "GUARD_TOOLING",
-      "Digest": "sha256:d81d8b6670d30c6fda9f6c3e422a9d8366c9ced820560636c672f02800980c1c"
+      "Digest": "sha256:a4d0755523a297b7c8fdd55f20ae51fb9d52ae83a7326090ec7de9f3aa179891"
     },
     {
       "File": "src/FDull/Workspace.fs",
       "Project": "src/FDull/FDull.fsproj",
       "Profile": "GUARD_TOOLING",
-      "Digest": "sha256:2a1d450d79e1694236af30df1f6f5641489e29bfe47f9adbb283063c2efd96c0"
+      "Digest": "sha256:166e75679bc4867da892b70bb999d09b0beb1b3b751d566d51cb24db6a70c585"
     },
     {
       "File": "src/FDull/Safety.fs",
@@ -200,7 +200,7 @@
       "File": "tests/FDull.Tests/SafetyTests.fs",
       "Project": "tests/FDull.Tests/FDull.Tests.fsproj",
       "Profile": "TEST",
-      "Digest": "sha256:0a2a511719be570fac076de3e1915dd4503ee67c99a300e4b94c1e90a2129cbd"
+      "Digest": "sha256:70c9c1b7b77f568c0f7208d26930753d774d2a5cd1bbda7e92fb230dd7aec20a"
     },
     {
       "File": "tests/FDull.Tests/SafetyWorkerTests.fs",
@@ -230,13 +230,13 @@
       "File": "tests/FDull.Tests/WorkspaceTests.fs",
       "Project": "tests/FDull.Tests/FDull.Tests.fsproj",
       "Profile": "TEST",
-      "Digest": "sha256:affa99605240014195f264bc7fa1f17c783ee97a23e1fd4fa7749eb1139ab2b3"
+      "Digest": "sha256:b391a6334bca11c4c3974b43ea7e8428f57df9315b4476b85df3c70e65ae4976"
     },
     {
       "File": "tests/FDull.Tests/ProjectTests.fs",
       "Project": "tests/FDull.Tests/FDull.Tests.fsproj",
       "Profile": "TEST",
-      "Digest": "sha256:f2628e954de52ce894d78d37cf45ed207d60fd1fcf5799421fc76338a0c2e657"
+      "Digest": "sha256:5dad639d1959b713b29aa94371e5882b180209d9bddba8bde1e2e34dfb905e83"
     },
     {
       "File": "tests/FDull.Tests/Program.fs",
@@ -20570,13 +20570,6 @@
       "File": "tests/FDull.Tests/ProjectTests.fs",
       "Owner": "FDull.Tests.ProjectTests.``job count leaves reports and failure positions unchanged``",
       "Kind": "member",
-      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Project.initialize(System.String)",
-      "Reason": "Reviewed non-shipping CLI regression: an isolated three-project consumer (dependency edge, a violating project and a deliberately failing export, repinned in temporary policy) proves --jobs 1 and 4 give identical lint/review JSON and exit codes, and invalid job counts exit 2. Filesystem changes stay in the unique temporary directory."
-    },
-    {
-      "File": "tests/FDull.Tests/ProjectTests.fs",
-      "Owner": "FDull.Tests.ProjectTests.``job count leaves reports and failure positions unchanged``",
-      "Kind": "member",
       "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.SafetyPolicy.fileDigest(System.String)",
       "Reason": "Reviewed non-shipping CLI regression: an isolated three-project consumer (dependency edge, a violating project and a deliberately failing export, repinned in temporary policy) proves --jobs 1 and 4 give identical lint/review JSON and exit codes, and invalid job counts exit 2. Filesystem changes stay in the unique temporary directory."
     },
@@ -20591,13 +20584,6 @@
       "File": "tests/FDull.Tests/ProjectTests.fs",
       "Owner": "FDull.Tests.ProjectTests.``job count leaves reports and failure positions unchanged``",
       "Kind": "member",
-      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Directory.CreateDirectory(System.String)",
-      "Reason": "Reviewed non-shipping CLI regression: an isolated three-project consumer (dependency edge, a violating project and a deliberately failing export, repinned in temporary policy) proves --jobs 1 and 4 give identical lint/review JSON and exit codes, and invalid job counts exit 2. Filesystem changes stay in the unique temporary directory."
-    },
-    {
-      "File": "tests/FDull.Tests/ProjectTests.fs",
-      "Owner": "FDull.Tests.ProjectTests.``job count leaves reports and failure positions unchanged``",
-      "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.File.WriteAllText(System.String,System.String)",
       "Reason": "Reviewed non-shipping CLI regression: an isolated three-project consumer (dependency edge, a violating project and a deliberately failing export, repinned in temporary policy) proves --jobs 1 and 4 give identical lint/review JSON and exit codes, and invalid job counts exit 2. Filesystem changes stay in the unique temporary directory."
     },
@@ -20606,13 +20592,6 @@
       "Owner": "FDull.Tests.ProjectTests.``job count leaves reports and failure positions unchanged``",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.Combine(System.String,System.String)",
-      "Reason": "Reviewed non-shipping CLI regression: an isolated three-project consumer (dependency edge, a violating project and a deliberately failing export, repinned in temporary policy) proves --jobs 1 and 4 give identical lint/review JSON and exit codes, and invalid job counts exit 2. Filesystem changes stay in the unique temporary directory."
-    },
-    {
-      "File": "tests/FDull.Tests/ProjectTests.fs",
-      "Owner": "FDull.Tests.ProjectTests.``job count leaves reports and failure positions unchanged``",
-      "Kind": "member",
-      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.Combine(System.String,System.String,System.String)",
       "Reason": "Reviewed non-shipping CLI regression: an isolated three-project consumer (dependency edge, a violating project and a deliberately failing export, repinned in temporary policy) proves --jobs 1 and 4 give identical lint/review JSON and exit codes, and invalid job counts exit 2. Filesystem changes stay in the unique temporary directory."
     },
     {
@@ -20677,6 +20656,349 @@
       "Kind": "type",
       "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | System.Object",
       "Reason": "Reviewed non-shipping CLI regression: an isolated three-project consumer (dependency edge, a violating project and a deliberately failing export, repinned in temporary policy) proves --jobs 1 and 4 give identical lint/review JSON and exit codes, and invalid job counts exit 2. Filesystem changes stay in the unique temporary directory."
+    },
+    {
+      "File": "src/FDull/Workspace.fs",
+      "Owner": "FDull.Workspace.pinned",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Core.Operators.InvalidOp``1(System.String)",
+      "Reason": "Reads the workspace policy once per run between two SHA-256 pins of fdull.json and raises a BUILD004 invalid-operation when the bytes changed during the read; requests carry the pin, the worker and acceptance re-check it, so a later edit still blocks."
+    },
+    {
+      "File": "src/FDull/Workspace.fs",
+      "Owner": "FDull.Workspace.pinned",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.Combine(System.String,System.String)",
+      "Reason": "Reads the workspace policy once per run between two SHA-256 pins of fdull.json and raises a BUILD004 invalid-operation when the bytes changed during the read; requests carry the pin, the worker and acceptance re-check it, so a later edit still blocks."
+    },
+    {
+      "File": "src/FDull/Workspace.fs",
+      "Owner": "FDull.Workspace.request",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.GetFullPath(System.String)",
+      "Reason": "Builds the exact lint worker request for one workspace-relative project (used by checkProject callers and the slice equivalence regression); export or policy-read exceptions become BUILD003 errors carrying the message, never a request."
+    },
+    {
+      "File": "src/FDull/Workspace.fs",
+      "Owner": "FDull.Workspace.request",
+      "Kind": "member",
+      "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | P:System.Exception.Message",
+      "Reason": "Builds the exact lint worker request for one workspace-relative project (used by checkProject callers and the slice equivalence regression); export or policy-read exceptions become BUILD003 errors carrying the message, never a request."
+    },
+    {
+      "File": "src/FDull/Workspace.fs",
+      "Owner": "FDull.Workspace.request",
+      "Kind": "rule",
+      "Identity": "ERR001 | ",
+      "Reason": "Builds the exact lint worker request for one workspace-relative project (used by checkProject callers and the slice equivalence regression); export or policy-read exceptions become BUILD003 errors carrying the message, never a request."
+    },
+    {
+      "File": "src/FDull/Workspace.fs",
+      "Owner": "FDull.Workspace.request",
+      "Kind": "rule",
+      "Identity": "ERR004 | exception handler",
+      "Reason": "Builds the exact lint worker request for one workspace-relative project (used by checkProject callers and the slice equivalence regression); export or policy-read exceptions become BUILD003 errors carrying the message, never a request."
+    },
+    {
+      "File": "src/FDull/Workspace.fs",
+      "Owner": "FDull.Workspace.request",
+      "Kind": "type",
+      "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | System.Exception",
+      "Reason": "Builds the exact lint worker request for one workspace-relative project (used by checkProject callers and the slice equivalence regression); export or policy-read exceptions become BUILD003 errors carrying the message, never a request."
+    },
+    {
+      "File": "src/FDull/WorkspacePolicy.fs",
+      "Owner": "FDull.WorkspaceSlice.digest",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.Text.Encoding.GetBytes(System.String)",
+      "Reason": "UTF-8 bytes of the canonical Codec encoding of a project policy slice, hashed with SHA-256; parent and worker compute the same digest from the same document, and the slice equivalence regression pins its sensitivity."
+    },
+    {
+      "File": "src/FDull/WorkspacePolicy.fs",
+      "Owner": "FDull.WorkspaceSlice.digest",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:System.Text.Encoding.UTF8",
+      "Reason": "UTF-8 bytes of the canonical Codec encoding of a project policy slice, hashed with SHA-256; parent and worker compute the same digest from the same document, and the slice equivalence regression pins its sensitivity."
+    },
+    {
+      "File": "tests/FDull.Tests/SafetyTests.fs",
+      "Owner": "FDull.Tests.SafetyTests.analyzeWorkspaceWithTarget",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.WorkspaceSlice.digest(System.String,FDull.WorkspacePolicyDocument)",
+      "Reason": "The in-process workspace fixture requests the slice digest of its own one-project policy, as the parent does."
+    },
+    {
+      "File": "tests/FDull.Tests/SafetyTests.fs",
+      "Owner": "FDull.Tests.SafetyTests.``protected invariant designations require private representations``",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.WorkspaceSlice.digest(System.String,FDull.WorkspacePolicyDocument)",
+      "Reason": "The in-process workspace fixture requests the slice digest of its own one-project policy, as the parent does."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.restoreProjects",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Project.initialize(System.String)",
+      "Reason": "Temporary consumer fixture shared by the job-count and slice regressions: writes Shared and Other project files inside the test directory, builds them, and initializes the fixture policy."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.restoreProjects",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Directory.CreateDirectory(System.String)",
+      "Reason": "Temporary consumer fixture shared by the job-count and slice regressions: writes Shared and Other project files inside the test directory, builds them, and initializes the fixture policy."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.restoreProjects",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.File.WriteAllText(System.String,System.String)",
+      "Reason": "Temporary consumer fixture shared by the job-count and slice regressions: writes Shared and Other project files inside the test directory, builds them, and initializes the fixture policy."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.restoreProjects",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.Combine(System.String,System.String)",
+      "Reason": "Temporary consumer fixture shared by the job-count and slice regressions: writes Shared and Other project files inside the test directory, builds them, and initializes the fixture policy."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.restoreProjects",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.Combine(System.String,System.String,System.String)",
+      "Reason": "Temporary consumer fixture shared by the job-count and slice regressions: writes Shared and Other project files inside the test directory, builds them, and initializes the fixture policy."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.restoreProjects",
+      "Kind": "rule",
+      "Identity": "MUT009 | ",
+      "Reason": "Temporary consumer fixture shared by the job-count and slice regressions: writes Shared and Other project files inside the test directory, builds them, and initializes the fixture policy."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.restoreProjects",
+      "Kind": "type",
+      "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | System.Object",
+      "Reason": "Temporary consumer fixture shared by the job-count and slice regressions: writes Shared and Other project files inside the test directory, builds them, and initializes the fixture policy."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.``policy slices analyze each project as the whole policy does``",
+      "Kind": "attribute",
+      "Identity": "xunit.core, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | Xunit.FactAttribute |  | unit",
+      "Reason": "Slice equivalence regression: writes reviewed fixture policies in its temporary workspace, builds real lint requests, and asserts the slice equals an independent filter, that sliced and whole-policy check/review results are identical, that another project's capability leaves a slice and report unchanged, and that a mismatched slice digest is BUILD004."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.``policy slices analyze each project as the whole policy does``",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Transport.Codec.encode``1(``0)",
+      "Reason": "Slice equivalence regression: writes reviewed fixture policies in its temporary workspace, builds real lint requests, and asserts the slice equals an independent filter, that sliced and whole-policy check/review results are identical, that another project's capability leaves a slice and report unchanged, and that a mismatched slice digest is BUILD004."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.``policy slices analyze each project as the whole policy does``",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Workspace.request(System.String,System.String)",
+      "Reason": "Slice equivalence regression: writes reviewed fixture policies in its temporary workspace, builds real lint requests, and asserts the slice equals an independent filter, that sliced and whole-policy check/review results are identical, that another project's capability leaves a slice and report unchanged, and that a mismatched slice digest is BUILD004."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.``policy slices analyze each project as the whole policy does``",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.WorkspaceEngine.check(FDull.WorkspaceRequest)",
+      "Reason": "Slice equivalence regression: writes reviewed fixture policies in its temporary workspace, builds real lint requests, and asserts the slice equals an independent filter, that sliced and whole-policy check/review results are identical, that another project's capability leaves a slice and report unchanged, and that a mismatched slice digest is BUILD004."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.``policy slices analyze each project as the whole policy does``",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.WorkspaceEngine.checkWholePolicy(FDull.WorkspaceRequest)",
+      "Reason": "Slice equivalence regression: writes reviewed fixture policies in its temporary workspace, builds real lint requests, and asserts the slice equals an independent filter, that sliced and whole-policy check/review results are identical, that another project's capability leaves a slice and report unchanged, and that a mismatched slice digest is BUILD004."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.``policy slices analyze each project as the whole policy does``",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.WorkspaceEngine.review(FDull.WorkspaceRequest)",
+      "Reason": "Slice equivalence regression: writes reviewed fixture policies in its temporary workspace, builds real lint requests, and asserts the slice equals an independent filter, that sliced and whole-policy check/review results are identical, that another project's capability leaves a slice and report unchanged, and that a mismatched slice digest is BUILD004."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.``policy slices analyze each project as the whole policy does``",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.WorkspaceEngine.reviewWholePolicy(FDull.WorkspaceRequest)",
+      "Reason": "Slice equivalence regression: writes reviewed fixture policies in its temporary workspace, builds real lint requests, and asserts the slice equals an independent filter, that sliced and whole-policy check/review results are identical, that another project's capability leaves a slice and report unchanged, and that a mismatched slice digest is BUILD004."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.``policy slices analyze each project as the whole policy does``",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.WorkspaceSlice.create(System.String,FDull.WorkspacePolicyDocument)",
+      "Reason": "Slice equivalence regression: writes reviewed fixture policies in its temporary workspace, builds real lint requests, and asserts the slice equals an independent filter, that sliced and whole-policy check/review results are identical, that another project's capability leaves a slice and report unchanged, and that a mismatched slice digest is BUILD004."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.``policy slices analyze each project as the whole policy does``",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.WorkspaceSlice.digest(System.String,FDull.WorkspacePolicyDocument)",
+      "Reason": "Slice equivalence regression: writes reviewed fixture policies in its temporary workspace, builds real lint requests, and asserts the slice equals an independent filter, that sliced and whole-policy check/review results are identical, that another project's capability leaves a slice and report unchanged, and that a mismatched slice digest is BUILD004."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.``policy slices analyze each project as the whole policy does``",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Core.ExtraTopLevelOperators.CreateSet``1(System.Collections.Generic.IEnumerable{``0})",
+      "Reason": "Slice equivalence regression: writes reviewed fixture policies in its temporary workspace, builds real lint requests, and asserts the slice equals an independent filter, that sliced and whole-policy check/review results are identical, that another project's capability leaves a slice and report unchanged, and that a mismatched slice digest is BUILD004."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.``policy slices analyze each project as the whole policy does``",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Core.Operators.FailWith``1(System.String)",
+      "Reason": "Slice equivalence regression: writes reviewed fixture policies in its temporary workspace, builds real lint requests, and asserts the slice equals an independent filter, that sliced and whole-policy check/review results are identical, that another project's capability leaves a slice and report unchanged, and that a mismatched slice digest is BUILD004."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.``policy slices analyze each project as the whole policy does``",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.File.WriteAllText(System.String,System.String)",
+      "Reason": "Slice equivalence regression: writes reviewed fixture policies in its temporary workspace, builds real lint requests, and asserts the slice equals an independent filter, that sliced and whole-policy check/review results are identical, that another project's capability leaves a slice and report unchanged, and that a mismatched slice digest is BUILD004."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.``policy slices analyze each project as the whole policy does``",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.Combine(System.String,System.String)",
+      "Reason": "Slice equivalence regression: writes reviewed fixture policies in its temporary workspace, builds real lint requests, and asserts the slice equals an independent filter, that sliced and whole-policy check/review results are identical, that another project's capability leaves a slice and report unchanged, and that a mismatched slice digest is BUILD004."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.``policy slices analyze each project as the whole policy does``",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Contains``1(System.Collections.Generic.IEnumerable{``0},System.Predicate{``0})",
+      "Reason": "Slice equivalence regression: writes reviewed fixture policies in its temporary workspace, builds real lint requests, and asserts the slice equals an independent filter, that sliced and whole-policy check/review results are identical, that another project's capability leaves a slice and report unchanged, and that a mismatched slice digest is BUILD004."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.``policy slices analyze each project as the whole policy does``",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Equal(System.String,System.String)",
+      "Reason": "Slice equivalence regression: writes reviewed fixture policies in its temporary workspace, builds real lint requests, and asserts the slice equals an independent filter, that sliced and whole-policy check/review results are identical, that another project's capability leaves a slice and report unchanged, and that a mismatched slice digest is BUILD004."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.``policy slices analyze each project as the whole policy does``",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Equal``1(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IAsyncEnumerable{``0})",
+      "Reason": "Slice equivalence regression: writes reviewed fixture policies in its temporary workspace, builds real lint requests, and asserts the slice equals an independent filter, that sliced and whole-policy check/review results are identical, that another project's capability leaves a slice and report unchanged, and that a mismatched slice digest is BUILD004."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.``policy slices analyze each project as the whole policy does``",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Equal``1(``0,``0)",
+      "Reason": "Slice equivalence regression: writes reviewed fixture policies in its temporary workspace, builds real lint requests, and asserts the slice equals an independent filter, that sliced and whole-policy check/review results are identical, that another project's capability leaves a slice and report unchanged, and that a mismatched slice digest is BUILD004."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.``policy slices analyze each project as the whole policy does``",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.False(System.Boolean)",
+      "Reason": "Slice equivalence regression: writes reviewed fixture policies in its temporary workspace, builds real lint requests, and asserts the slice equals an independent filter, that sliced and whole-policy check/review results are identical, that another project's capability leaves a slice and report unchanged, and that a mismatched slice digest is BUILD004."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.``policy slices analyze each project as the whole policy does``",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.NotEqual``1(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IAsyncEnumerable{``0})",
+      "Reason": "Slice equivalence regression: writes reviewed fixture policies in its temporary workspace, builds real lint requests, and asserts the slice equals an independent filter, that sliced and whole-policy check/review results are identical, that another project's capability leaves a slice and report unchanged, and that a mismatched slice digest is BUILD004."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.``policy slices analyze each project as the whole policy does``",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.NotEqual``1(``0,``0)",
+      "Reason": "Slice equivalence regression: writes reviewed fixture policies in its temporary workspace, builds real lint requests, and asserts the slice equals an independent filter, that sliced and whole-policy check/review results are identical, that another project's capability leaves a slice and report unchanged, and that a mismatched slice digest is BUILD004."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.``policy slices analyze each project as the whole policy does``",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.True(System.Boolean,System.String)",
+      "Reason": "Slice equivalence regression: writes reviewed fixture policies in its temporary workspace, builds real lint requests, and asserts the slice equals an independent filter, that sliced and whole-policy check/review results are identical, that another project's capability leaves a slice and report unchanged, and that a mismatched slice digest is BUILD004."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.``policy slices analyze each project as the whole policy does``",
+      "Kind": "rule",
+      "Identity": "MUT009 | ",
+      "Reason": "Slice equivalence regression: writes reviewed fixture policies in its temporary workspace, builds real lint requests, and asserts the slice equals an independent filter, that sliced and whole-policy check/review results are identical, that another project's capability leaves a slice and report unchanged, and that a mismatched slice digest is BUILD004."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.``policy slices analyze each project as the whole policy does``",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | FDull.SafetyDiagnostic",
+      "Reason": "Slice equivalence regression: writes reviewed fixture policies in its temporary workspace, builds real lint requests, and asserts the slice equals an independent filter, that sliced and whole-policy check/review results are identical, that another project's capability leaves a slice and report unchanged, and that a mismatched slice digest is BUILD004."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.``policy slices analyze each project as the whole policy does``",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspaceCapability",
+      "Reason": "Slice equivalence regression: writes reviewed fixture policies in its temporary workspace, builds real lint requests, and asserts the slice equals an independent filter, that sliced and whole-policy check/review results are identical, that another project's capability leaves a slice and report unchanged, and that a mismatched slice digest is BUILD004."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.``policy slices analyze each project as the whole policy does``",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspacePolicyDocument",
+      "Reason": "Slice equivalence regression: writes reviewed fixture policies in its temporary workspace, builds real lint requests, and asserts the slice equals an independent filter, that sliced and whole-policy check/review results are identical, that another project's capability leaves a slice and report unchanged, and that a mismatched slice digest is BUILD004."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.``policy slices analyze each project as the whole policy does``",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspaceProject",
+      "Reason": "Slice equivalence regression: writes reviewed fixture policies in its temporary workspace, builds real lint requests, and asserts the slice equals an independent filter, that sliced and whole-policy check/review results are identical, that another project's capability leaves a slice and report unchanged, and that a mismatched slice digest is BUILD004."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.``policy slices analyze each project as the whole policy does``",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspaceProjectReport",
+      "Reason": "Slice equivalence regression: writes reviewed fixture policies in its temporary workspace, builds real lint requests, and asserts the slice equals an independent filter, that sliced and whole-policy check/review results are identical, that another project's capability leaves a slice and report unchanged, and that a mismatched slice digest is BUILD004."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.``policy slices analyze each project as the whole policy does``",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspaceRequest",
+      "Reason": "Slice equivalence regression: writes reviewed fixture policies in its temporary workspace, builds real lint requests, and asserts the slice equals an independent filter, that sliced and whole-policy check/review results are identical, that another project's capability leaves a slice and report unchanged, and that a mismatched slice digest is BUILD004."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.``policy slices analyze each project as the whole policy does``",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspaceSource",
+      "Reason": "Slice equivalence regression: writes reviewed fixture policies in its temporary workspace, builds real lint requests, and asserts the slice equals an independent filter, that sliced and whole-policy check/review results are identical, that another project's capability leaves a slice and report unchanged, and that a mismatched slice digest is BUILD004."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.``policy slices analyze each project as the whole policy does``",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspaceUse",
+      "Reason": "Slice equivalence regression: writes reviewed fixture policies in its temporary workspace, builds real lint requests, and asserts the slice equals an independent filter, that sliced and whole-policy check/review results are identical, that another project's capability leaves a slice and report unchanged, and that a mismatched slice digest is BUILD004."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.``policy slices analyze each project as the whole policy does``",
+      "Kind": "type",
+      "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | System.Object",
+      "Reason": "Slice equivalence regression: writes reviewed fixture policies in its temporary workspace, builds real lint requests, and asserts the slice equals an independent filter, that sliced and whole-policy check/review results are identical, that another project's capability leaves a slice and report unchanged, and that a mismatched slice digest is BUILD004."
     }
   ],
   "Domains": [],

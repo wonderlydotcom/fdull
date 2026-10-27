@@ -1,6 +1,6 @@
 # Incremental workspace analysis: implementation plan
 
-**Status:** In progress. Phase 0 (`--timings`) and Phase 1 (`--jobs`) are implemented.
+**Status:** In progress. Phase 0 (`--timings`), Phase 1 (`--jobs`) and Phase 2a (the policy slice) are implemented.
 **Prepared:** 2026-10-27
 
 ## Why

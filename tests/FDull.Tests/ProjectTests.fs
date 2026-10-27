@@ -612,48 +612,55 @@ module ProjectTests =
                   [ "lint"; "--timings" ] ] do
                 Assert.Equal(2, (runCli root invalid).ExitCode))
 
+    /// A counter with one local mutation, which `PURE` reports and `ADAPTER` can approve as a rule.
+    let private counter name =
+        "module "
+        + name
+        + "\nlet count () =\n    let mutable total = 0\n    total <- total + 1\n    total\n"
+
+    let private increment name =
+        "module " + name + "\nlet increment value = value + 1\n"
+
+    /// Initialize a Release-built workspace where App references Shared and Other stands alone.
+    let private restoreProjects root app other =
+        restoreConsumer root None app
+
+        for name, source in [ "Shared", increment "Shared"; "Other", other ] do
+            Directory.CreateDirectory(Path.Combine(root, name)) |> ignore
+
+            File.WriteAllText(
+                Path.Combine(root, name, name + ".fsproj"),
+                "<Project Sdk=\"Microsoft.NET.Sdk\"><ItemGroup><Compile Include=\""
+                + name
+                + ".fs\"/></ItemGroup></Project>"
+            )
+
+            File.WriteAllText(Path.Combine(root, name, name + ".fs"), source)
+
+        File.WriteAllText(
+            Path.Combine(root, "App.fsproj"),
+            "<Project Sdk=\"Microsoft.NET.Sdk\"><ItemGroup><ProjectReference Include=\"Shared/Shared.fsproj\"/><Compile Include=\"App.fs\"/></ItemGroup></Project>"
+        )
+
+        for project in [ "App.fsproj"; "Other/Other.fsproj" ] do
+            run root [ "restore"; project; "-m:1"; "-nr:false" ]
+
+            run
+                root
+                [ "build"
+                  project
+                  "-c"
+                  "Release"
+                  "--no-restore"
+                  "-m:1"
+                  "--disable-build-servers" ]
+
+        Project.initialize root |> ignore
+
     [<Fact>]
     let ``job count leaves reports and failure positions unchanged`` () =
         withDirectory (fun root ->
-            restoreConsumer
-                root
-                None
-                "module App\nlet count () =\n    let mutable total = 0\n    total <- total + 1\n    total\n"
-
-            for name in [ "Shared"; "Other" ] do
-                Directory.CreateDirectory(Path.Combine(root, name)) |> ignore
-
-                File.WriteAllText(
-                    Path.Combine(root, name, name + ".fsproj"),
-                    "<Project Sdk=\"Microsoft.NET.Sdk\"><ItemGroup><Compile Include=\""
-                    + name
-                    + ".fs\"/></ItemGroup></Project>"
-                )
-
-                File.WriteAllText(
-                    Path.Combine(root, name, name + ".fs"),
-                    "module " + name + "\nlet increment value = value + 1\n"
-                )
-
-            File.WriteAllText(
-                Path.Combine(root, "App.fsproj"),
-                "<Project Sdk=\"Microsoft.NET.Sdk\"><ItemGroup><ProjectReference Include=\"Shared/Shared.fsproj\"/><Compile Include=\"App.fs\"/></ItemGroup></Project>"
-            )
-
-            for project in [ "App.fsproj"; "Other/Other.fsproj" ] do
-                run root [ "restore"; project; "-m:1"; "-nr:false" ]
-
-                run
-                    root
-                    [ "build"
-                      project
-                      "-c"
-                      "Release"
-                      "--no-restore"
-                      "-m:1"
-                      "--disable-build-servers" ]
-
-            Project.initialize root |> ignore
+            restoreProjects root (counter "App") (increment "Other")
 
             let compare expected marker =
                 for command in [ "lint"; "review" ] do
@@ -701,6 +708,117 @@ module ProjectTests =
                   [ "review"; "."; "--jobs" ]
                   [ "review"; "."; "--jobs"; "1"; "--jobs"; "2" ] ] do
                 Assert.Equal(2, (runCli root invalid).ExitCode))
+
+    [<Fact>]
+    let ``policy slices analyze each project as the whole policy does`` () =
+        withDirectory (fun root ->
+            restoreProjects root (counter "App") (counter "Other")
+            let initial = read root
+            let adapters = set [ "App.fsproj"; "Other/Other.fsproj" ]
+
+            let approval file owner kind identity =
+                { File = file
+                  Owner = owner
+                  Kind = kind
+                  Identity = identity
+                  Reason = "Fixture approval keyed to one project's source." }
+
+            let reviewed =
+                { initial with
+                    Projects =
+                        initial.Projects
+                        |> List.map (fun project ->
+                            if Set.contains project.File adapters then
+                                { project with Profile = "ADAPTER" }
+                            else
+                                project)
+                    Sources =
+                        initial.Sources
+                        |> List.map (fun source ->
+                            if Set.contains source.Project adapters then
+                                { source with Profile = "ADAPTER" }
+                            else
+                                source)
+                    Capabilities =
+                        [ for file, owner in [ "App.fs", "App.count"; "Other/Other.fs", "Other.count" ] do
+                              for identity in [ "MUT001 | "; "MUT001 | total"; "MUT002 | " ] do
+                                  approval file owner "rule" identity ] }
+
+            let projects = [ "Shared/Shared.fsproj"; "App.fsproj"; "Other/Other.fsproj" ]
+
+            let analyze document =
+                File.WriteAllText(Path.Combine(root, "fdull.json"), Codec.encode document)
+
+                projects
+                |> List.map (fun project ->
+                    match Workspace.request root project with
+                    | Error error -> failwith error
+                    | Ok request ->
+                        let expected =
+                            { document with
+                                Sources = document.Sources |> List.filter (fun source -> source.Project = project)
+                                Capabilities =
+                                    document.Capabilities
+                                    |> List.filter (fun entry ->
+                                        document.Sources
+                                        |> List.exists (fun source ->
+                                            source.File = entry.File && source.Project = project)) }
+
+                        Assert.Equal(Codec.encode expected, Codec.encode (WorkspaceSlice.create project document))
+                        Assert.Equal(WorkspaceSlice.digest project document, request.PolicySlice)
+                        let sliced = WorkspaceEngine.check request
+                        Assert.True(sliced.Report.Complete, Codec.encode sliced)
+                        Assert.True(sliced.Report.ExitCode = 0, Codec.encode sliced.Report.Diagnostics)
+                        Assert.Equal(request.PolicySlice, sliced.Report.Policy)
+                        Assert.Equal(Codec.encode sliced, Codec.encode (WorkspaceEngine.checkWholePolicy request))
+
+                        Assert.Equal(
+                            Codec.encode (WorkspaceEngine.review request),
+                            Codec.encode (WorkspaceEngine.reviewWholePolicy request)
+                        )
+
+                        request, sliced)
+
+            let before = analyze reviewed
+
+            let after =
+                analyze
+                    { reviewed with
+                        Capabilities =
+                            reviewed.Capabilities
+                            @ [ approval
+                                    "Other/Other.fs"
+                                    "Other.count"
+                                    "type"
+                                    "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | System.Uri" ] }
+
+            match before, after with
+            | [ shared; app; other ], [ sharedAfter; appAfter; otherAfter ] ->
+                Assert.Equal<string list>(
+                    [ "App.fs | App.count | rule | MUT001 | "
+                      "App.fs | App.count | rule | MUT001 | total"
+                      "App.fs | App.count | rule | MUT002 | " ],
+                    (snd app).Uses
+                    |> List.filter (fun item -> item.File = "App.fs")
+                    |> List.map (fun item ->
+                        item.File + " | " + item.Owner + " | " + item.Kind + " | " + item.Identity)
+                )
+
+                // Another project's capability changes neither the slice nor the report.
+                for (request, report), (changedRequest, changedReport) in [ shared, sharedAfter; app, appAfter ] do
+                    Assert.Equal(request.PolicySlice, changedRequest.PolicySlice)
+                    Assert.Equal(Codec.encode report, Codec.encode changedReport)
+
+                Assert.NotEqual<string>((fst other).PolicySlice, (fst otherAfter).PolicySlice)
+
+                let mismatch =
+                    WorkspaceEngine.check
+                        { fst appAfter with
+                            PolicySlice = (fst otherAfter).PolicySlice }
+
+                Assert.False(mismatch.Report.Complete)
+                Assert.Contains(mismatch.Report.Diagnostics, fun diagnostic -> diagnostic.Rule = "BUILD004")
+            | _ -> failwith "Each policy analyzes the three fixture projects.")
 
     [<Fact>]
     let ``attribute contracts bind resolved enum fields and named literal values`` () =

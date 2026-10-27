@@ -126,7 +126,8 @@ module SafetyTests =
               References = refs |> List.map input
               Generated = generated
               BuildInputs = [ input project ]
-              Policy = input policyPath }
+              Policy = input policyPath
+              PolicySlice = WorkspaceSlice.digest "Fixture.fsproj" policy }
 
         let manifest = if target = "exe" then [ "--nowin32manifest" ] else []
 
@@ -410,7 +411,8 @@ module SafetyTests =
                   References = references |> List.map input
                   Generated = generated
                   BuildInputs = [ input project ]
-                  Policy = input policyPath }
+                  Policy = input policyPath
+                  PolicySlice = WorkspaceSlice.digest "Fixture.fsproj" policy }
 
             (WorkspaceEngine.check request).Report
 

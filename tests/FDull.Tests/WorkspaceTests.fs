@@ -380,7 +380,8 @@ module WorkspaceTests =
               References = []
               Generated = []
               BuildInputs = []
-              Policy = { Path = policyFile; Digest = "policy" } }
+              Policy = { Path = policyFile; Digest = "whole" }
+              PolicySlice = "policy" }
 
         let report =
             { Policy = "policy"
@@ -484,6 +485,7 @@ module WorkspaceTests =
             [ { diagnostic with Severity = "warning" }
               { diagnostic with Rule = "UNKNOWN001" }
               { diagnostic with Policy = "different" }
+              { diagnostic with Policy = "whole" }
               { diagnostic with
                   Project = "different" }
               { diagnostic with Profile = "TRUSTED" }
