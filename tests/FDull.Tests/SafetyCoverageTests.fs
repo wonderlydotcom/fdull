@@ -48,6 +48,7 @@ module SafetyCoverageTests =
 
         Assert.Equal(Ok(), WorkspaceCompilerPolicy.validate (baseline @ [ "--doc:obj/Release/net10.0/App.xml" ]))
         Assert.Equal(Ok(), WorkspaceCompilerPolicy.validate (baseline @ [ "--define:NULLABLE" ]))
+        Assert.Equal(Ok(), WorkspaceCompilerPolicy.validate (baseline @ [ "--crossoptimize-" ]))
 
     [<Fact>]
     let ``only canonical task compatibility downgrade is accepted`` () =

@@ -96,6 +96,8 @@ module WorkspaceCompilerPolicy =
             @ [ "-g"
                 "--debug:portable"
                 "--optimize+"
+                // Only withholds other assemblies' inlining data from the optimizer; checking and warnings are unchanged.
+                "--crossoptimize-"
                 "--target:library"
                 "--target:exe"
                 "--warnaserror"
