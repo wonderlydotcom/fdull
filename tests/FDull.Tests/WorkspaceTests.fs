@@ -597,3 +597,81 @@ module WorkspaceTests =
 
         Assert.ThrowsAny<Exception>(fun () -> Codec.encode review |> Codec.decode<WorkspaceProjectReport> |> ignore)
         |> ignore
+
+    /// B and C reference A; D references B, C and an item outside the scheduled list.
+    let private diamond =
+        Map.ofList [ "B", [ "A" ]; "C", [ "A" ]; "D", [ "B"; "C"; "Outside" ] ]
+
+    [<Fact>]
+    let ``schedule starts an item only after its references finish and keeps item order`` () =
+        let span item =
+            let start = DateTime.UtcNow
+            Threading.Thread.Sleep 200
+            item, (start, DateTime.UtcNow)
+
+        for jobs in [ 1; 4 ] do
+            let outcomes = Workspace.schedule jobs diamond span [ "A"; "B"; "C"; "D" ]
+            Assert.Equal<string list>([ "A"; "B"; "C"; "D" ], outcomes |> List.map fst)
+
+            let spans =
+                outcomes
+                |> List.choose (fun (_, outcome) -> Result.toOption outcome)
+                |> Map.ofList
+
+            Assert.Equal(4, spans.Count)
+
+            for item, references in Map.toList diamond do
+                for reference in references |> List.filter spans.ContainsKey do
+                    Assert.True(snd spans[reference] <= fst spans[item], item + " started before " + reference)
+
+            Assert.Equal(jobs > 1, fst spans["B"] < snd spans["C"] && fst spans["C"] < snd spans["B"])
+
+    [<Fact>]
+    let ``schedule stops outcomes at the first failure for every job count`` () =
+        let work item =
+            if item = "C" then
+                invalidOp "Fixture failure."
+
+            item
+
+        let outcomes =
+            [ for jobs in [ 1; 2; 4; 8 ] ->
+                  Workspace.schedule jobs diamond work [ "A"; "B"; "C"; "D"; "E" ]
+                  |> List.map (fun (item, outcome) ->
+                      item,
+                      match outcome with
+                      | Ok value -> value
+                      | Error error -> error.Message) ]
+
+        for outcome in outcomes do
+            Assert.Equal<(string * string) list>([ "A", "A"; "B", "B"; "C", "Fixture failure." ], outcome)
+
+        Assert.Throws<InvalidOperationException>(fun () ->
+            Workspace.schedule 4 (Map.ofList [ "A", [ "B" ]; "B", [ "A" ] ]) id [ "A"; "B" ]
+            |> ignore)
+        |> ignore
+
+    [<Fact>]
+    let ``shared output directories are equal or nested directories of two projects`` () =
+        let under (path: string) = Path.Combine(root, path)
+
+        let separate =
+            [ "A.fsproj", [ under "A/obj"; under "A/bin" ]
+              "B.fsproj", [ under "B/obj"; under "A/bin-other" ] ]
+
+        Assert.Empty(Workspace.sharedDirectories root separate)
+
+        Assert.Equal<string list>(
+            [ "Verify runs one project at a time: A.fsproj and C.fsproj share A/bin."
+              "Verify runs one project at a time: B.fsproj and C.fsproj share C/obj." ],
+            Workspace.sharedDirectories
+                root
+                (separate
+                 @ [ "C.fsproj", [ under "C/obj"; under "A/bin/nested" ]
+                     "D.fsproj", [ under "D/obj"; under "D/bin" ] ]
+                 |> List.map (fun (project, directories) ->
+                     if project = "B.fsproj" then
+                         project, [ under "C/obj"; under "B/bin" ]
+                     else
+                         project, directories))
+        )

@@ -5,6 +5,7 @@ open System.Diagnostics
 open System.IO
 open System.Runtime.InteropServices
 open System.Text.Json
+open System.Threading.Tasks
 open FDull.Transport
 
 type WorkspaceReport =
@@ -15,6 +16,8 @@ type WorkspaceReport =
         /// Projects served from the result cache; always 0 for `verify` and `--no-cache`.
         Cached: int
         ExcludedProjects: WorkspaceProjectExclusion list
+        /// Why `verify` ran one project at a time whatever its job count; always empty for `lint`.
+        Sequential: string list
         Errors: string list
     }
 
@@ -185,6 +188,74 @@ module Workspace =
                           Arguments = flags
                           Generated = generated
                           ProjectReferences = projectReferences }
+
+    /// The intermediate and build output directories MSBuild evaluates for a Release project. Only
+    /// evaluates the project; no target runs and nothing is written.
+    let outputDirectories root project =
+        let path = Path.Combine(root, project)
+
+        let directory =
+            Path.GetDirectoryName path
+            |> FDull.Transport.External.required "workspace.project-parent"
+
+        let args =
+            [ "msbuild"
+              path
+              "-p:Configuration=Release"
+              "-getProperty:BaseIntermediateOutputPath"
+              "-getProperty:OutDir"
+              "-m:1"
+              "-nr:false"
+              "-nologo" ]
+
+        match runTool root args 30000 SafetyLimits.messageCharacters with
+        | Error error -> Error error
+        | Ok result when result.ExitCode <> 0 -> Error(result.Error + result.Output)
+        | Ok result ->
+            use document = JsonDocument.Parse result.Output
+            let properties = document.RootElement.GetProperty "Properties"
+
+            [ "BaseIntermediateOutputPath"; "OutDir" ]
+            |> List.map (fun name ->
+                properties.GetProperty(name).GetString()
+                |> External.required "workspace.output-directory"
+                |> fun value ->
+                    Path.TrimEndingDirectorySeparator(Path.GetFullPath(value.Replace('\\', '/'), directory)))
+            |> Ok
+
+    /// One line for each pair of projects whose output directories are equal or nested. Concurrent builds
+    /// of such projects would write the same files, so `verify` then runs one project at a time.
+    let sharedDirectories root (directories: (string * string list) list) =
+        let within (parent: string) (child: string) =
+            let relative = Path.GetRelativePath(parent, child).Replace('\\', '/')
+
+            not (
+                relative = ".."
+                || relative.StartsWith("../", StringComparison.Ordinal)
+                || Path.IsPathRooted relative
+            )
+
+        let shared (first: string list) (second: string list) =
+            first
+            |> List.collect (fun one -> second |> List.map (fun other -> one, other))
+            |> List.tryPick (fun (one, other) ->
+                if within one other then Some one
+                elif within other one then Some other
+                else None)
+
+        let rec pairs entries =
+            match entries with
+            | [] -> []
+            | (project, owned) :: rest ->
+                (rest
+                 |> List.choose (fun (other, others) ->
+                     shared owned others
+                     |> Option.map (fun directory ->
+                         let relative = Path.GetRelativePath(root, directory).Replace('\\', '/')
+                         $"Verify runs one project at a time: %s{project} and %s{other} share %s{relative}.")))
+                @ pairs rest
+
+        pairs directories
 
     /// Read the policy once for a run, pinned to the exact file bytes it was read from.
     let private pinned advisory root =
@@ -396,38 +467,71 @@ module Workspace =
         with error ->
             Error error
 
-    /// Run independent project analyses, at most `jobs` at once, and return outcomes in input order.
-    /// Outcomes stop at the first exception, as the sequential loop did, so the job count never changes a report.
-    let private runAll jobs work items =
-        let outcomes =
-            if jobs = 1 then
-                let rec sequential completed remaining =
-                    match remaining with
-                    | [] -> List.rev completed
-                    | item :: rest ->
-                        match attempt work item with
-                        | Ok value -> sequential ((item, Ok value) :: completed) rest
-                        | Error error -> List.rev ((item, Error error) :: completed)
+    /// Run `work` for each of `items`, at most `jobs` at once. An item starts only after every item it
+    /// references in `dependencies` has finished; references outside `items` are ignored, and `items`
+    /// lists dependencies first. Once an item throws, only items before it still start, and in-flight
+    /// work is awaited. Outcomes come back in `items` order and stop at the first exception, as a
+    /// sequential loop would, so the job count never changes them.
+    let schedule jobs (dependencies: Map<string, string list>) work (items: string list) =
+        let indexed = items |> List.mapi (fun index item -> index, item)
 
-                sequential [] items
-            else
-                Async.Parallel(
-                    items |> List.map (fun item -> async { return item, attempt work item }),
-                    maxDegreeOfParallelism = jobs
+        let rec run finished running =
+            let completed item =
+                finished |> List.exists (fun (_, name, _) -> name = item)
+
+            let startable (index, item) =
+                not (completed item)
+                && not (running |> List.exists (fun (_, name, _) -> name = item))
+                && not (
+                    finished
+                    |> List.exists (fun (failed, _, outcome) -> failed < index && Result.isError outcome)
                 )
-                |> Async.RunSynchronously
-                |> List.ofArray
+                && (dependencies
+                    |> Map.tryFind item
+                    |> Option.defaultValue []
+                    |> List.forall (fun dependency -> completed dependency || not (List.contains dependency items)))
 
-        match outcomes |> List.tryFindIndex (fun (_, outcome) -> Result.isError outcome) with
-        | Some failed -> List.take (failed + 1) outcomes
-        | None -> outcomes
+            let running =
+                running
+                @ (indexed
+                   |> List.filter startable
+                   |> List.truncate (jobs - running.Length)
+                   |> List.map (fun (index, item) -> index, item, Task.Run(fun () -> attempt work item)))
 
-    let private checkMeasured platform jobs checkProject =
+            if running.IsEmpty then
+                finished
+            else
+                Task.WaitAny(running |> List.map (fun (_, _, task) -> task :> Task) |> Array.ofList)
+                |> ignore
+
+                let ended, pending =
+                    running |> List.partition (fun (_, _, task) -> task.IsCompleted)
+
+                run
+                    (finished
+                     @ (ended |> List.map (fun (index, item, task) -> index, item, task.Result)))
+                    pending
+
+        let finished = run [] []
+
+        let rec collect remaining =
+            match remaining with
+            | [] -> []
+            | item :: rest ->
+                match finished |> List.tryFind (fun (_, name, _) -> name = item) with
+                | Some(_, _, Ok value) -> (item, Ok value) :: collect rest
+                | Some(_, _, Error error) -> [ item, Error error ]
+                | None -> invalidOp "ARCH001: The project graph contains a cycle."
+
+        collect items
+
+    /// With `ordered`, a project's analysis waits for every project it references, as `verify` requires.
+    let private checkMeasured platform jobs ordered checkProject =
         let root = Path.GetFullPath platform
         let errors = ResizeArray<string>()
         let projects = ResizeArray<WorkspaceProjectReport>()
         let exclusions = ResizeArray<WorkspaceProjectExclusion>()
-        let timings = ResizeArray<WorkspaceTiming>()
+        let timings = ResizeArray()
 
         try
             let policy, pin = pinned false root
@@ -435,7 +539,15 @@ module Workspace =
             exclusions.AddRange(WorkspacePolicy.excludedProjects policy)
             let projectFiles = WorkspaceAudit.order policy.Projects
 
-            for project, outcome in runAll jobs (checkProject (policy, pin)) projectFiles do
+            let dependencies =
+                if ordered then
+                    policy.Projects
+                    |> List.map (fun project -> project.File, project.References)
+                    |> Map.ofList
+                else
+                    Map.empty
+
+            for project, outcome in schedule jobs dependencies (checkProject (policy, pin)) projectFiles do
                 match outcome with
                 | Ok(result, timing) ->
                     Option.iter timings.Add timing
@@ -482,19 +594,23 @@ module Workspace =
           Projects = List.ofSeq projects
           Cached = projects |> Seq.filter _.Cached |> Seq.length
           ExcludedProjects = List.ofSeq exclusions
+          Sequential = []
           Errors = List.ofSeq errors },
         List.ofSeq timings
 
-    /// Verification rebuilds between projects, so its checks stay strictly sequential.
-    let internal checkUsing platform checkProject =
-        checkMeasured platform 1 (fun _ project -> checkProject project, None) |> fst
+    /// Verification rebuilds each analyzed project, rewriting its consumers' inputs, so a project's check
+    /// starts only after every project it references has finished. `checkProject` returns its timing.
+    let internal checkUsing platform jobs checkProject =
+        checkMeasured platform jobs true (fun _ project ->
+            let result, timing = checkProject project
+            result, Some timing)
 
     /// Lint the workspace with up to `options.Jobs` concurrent project analyses, optionally using the
     /// result cache, and report each project's export, worker and validation time.
     let checkTimed (options: WorkspaceOptions) platform =
         let root = Path.GetFullPath platform
 
-        checkMeasured root options.Jobs (fun policy project ->
+        checkMeasured root options.Jobs false (fun policy project ->
             let result, timing = measured options.Cache false root policy project
             result |> Result.map _.Analysis, Some timing)
 
@@ -520,8 +636,9 @@ module Workspace =
                 |> List.map (fun source -> input (Path.Combine(root, source.File)))
 
             for project, outcome in
-                runAll
+                schedule
                     options.Jobs
+                    Map.empty
                     (measured options.Cache true root (document, pin))
                     (WorkspaceAudit.order document.Projects) do
                 match outcome with

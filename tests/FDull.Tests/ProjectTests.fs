@@ -133,7 +133,7 @@ module ProjectTests =
         | Ok result -> Assert.True(result.ExitCode = 0, result.Error + result.Output)
         | Error error -> failwith error
 
-    let private restoreConsumer (root: string) (coreVersion: string option) (source: string) =
+    let private writeConsumerSettings (root: string) =
         File.WriteAllText(
             Path.Combine(root, "global.json"),
             "{\"sdk\":{\"version\":\"10.0.200\",\"rollForward\":\"disable\"}}"
@@ -145,6 +145,9 @@ module ProjectTests =
             Path.Combine(root, "NuGet.config"),
             "<configuration><packageSources><clear/><add key=\"nuget.org\" value=\"https://api.nuget.org/v3/index.json\"/></packageSources></configuration>"
         )
+
+    let private restoreConsumer (root: string) (coreVersion: string option) (source: string) =
+        writeConsumerSettings root
 
         let coreProperty =
             coreVersion
@@ -743,6 +746,239 @@ module ProjectTests =
                   [ "review"; "."; "--jobs"; "two" ]
                   [ "review"; "."; "--jobs" ]
                   [ "review"; "."; "--jobs"; "1"; "--jobs"; "2" ] ] do
+                Assert.Equal(2, (runCli root invalid).ExitCode))
+
+    /// Probes for graph fixtures. While `bin/probe` exists, a project touches `bin/probe/<name>.start`
+    /// when its first export starts and `bin/probe/<name>.end` when its rebuild ends. A `bin/mutate-<name>`
+    /// file names a source that the project's rebuild appends to. `bin` is outside the policy inventory.
+    let private graphTargets =
+        "<Project>"
+        + "<Target Name=\"FixtureStart\" BeforeTargets=\"CoreCompile\" Condition=\"'$(FDullExport)' == 'true' And Exists('$(MSBuildThisFileDirectory)bin/probe') And !Exists('$(MSBuildThisFileDirectory)bin/probe/$(MSBuildProjectName).start')\">"
+        + "<Touch Files=\"$(MSBuildThisFileDirectory)bin/probe/$(MSBuildProjectName).start\" AlwaysCreate=\"true\"/></Target>"
+        + "<Target Name=\"FixtureEnd\" AfterTargets=\"Rebuild\" Condition=\"Exists('$(MSBuildThisFileDirectory)bin/probe')\">"
+        + "<Touch Files=\"$(MSBuildThisFileDirectory)bin/probe/$(MSBuildProjectName).end\" AlwaysCreate=\"true\"/></Target>"
+        + "<Target Name=\"FixtureMutate\" AfterTargets=\"Rebuild\" Condition=\"Exists('$(MSBuildThisFileDirectory)bin/mutate-$(MSBuildProjectName)')\">"
+        + "<ReadLinesFromFile File=\"$(MSBuildThisFileDirectory)bin/mutate-$(MSBuildProjectName)\"><Output TaskParameter=\"Lines\" PropertyName=\"FixtureSource\"/></ReadLinesFromFile>"
+        + "<WriteLinesToFile File=\"$(MSBuildThisFileDirectory)$(FixtureSource)\" Lines=\"// Changed by $(MSBuildProjectName).\"/></Target>"
+        + "</Project>"
+
+    /// Initialize a Release-built workspace of `projects`: a name, the names it references and extra project
+    /// XML, references first. Each project lives in `<name>/<name>.fsproj` and shares `graphTargets`.
+    let private restoreGraph root (projects: (string * string list * string) list) =
+        writeConsumerSettings root
+        File.WriteAllText(Path.Combine(root, "Directory.Build.targets"), graphTargets)
+
+        for name, references, extra in projects do
+            Directory.CreateDirectory(Path.Combine(root, name)) |> ignore
+
+            File.WriteAllText(
+                Path.Combine(root, name, name + ".fsproj"),
+                "<Project Sdk=\"Microsoft.NET.Sdk\">"
+                + extra
+                + "<ItemGroup>"
+                + (references
+                   |> List.map (fun reference ->
+                       "<ProjectReference Include=\"../" + reference + "/" + reference + ".fsproj\"/>")
+                   |> String.concat "")
+                + "<Compile Include=\""
+                + name
+                + ".fs\"/></ItemGroup></Project>"
+            )
+
+            // Edges come from the project references alone; a use of a referenced API needs its own approval.
+            File.WriteAllText(Path.Combine(root, name, name + ".fs"), "module " + name + "\nlet value = 1\n")
+
+        for name, _, _ in projects do
+            let project = name + "/" + name + ".fsproj"
+            run root [ "restore"; project; "-m:1"; "-nr:false" ]
+
+            run
+                root
+                [ "build"
+                  project
+                  "-c"
+                  "Release"
+                  "--no-restore"
+                  "-m:1"
+                  "--disable-build-servers" ]
+
+        Project.initialize root |> ignore
+
+    /// B and C reference A; D references B and C.
+    let private diamond =
+        [ "A", [], ""; "B", [ "A" ], ""; "C", [ "A" ], ""; "D", [ "B"; "C" ], "" ]
+
+    /// A fresh `bin/probe` directory, and a reader of each project's recorded start and rebuild end.
+    let private probe root =
+        let directory = Path.Combine(root, "bin", "probe")
+
+        if Directory.Exists directory then
+            Directory.Delete(directory, true)
+
+        Directory.CreateDirectory directory |> ignore
+
+        fun name ->
+            File.GetLastWriteTimeUtc(Path.Combine(directory, name + ".start")),
+            File.GetLastWriteTimeUtc(Path.Combine(directory, name + ".end"))
+
+    /// A verify report without reference digests. F# reference assemblies differ on every rebuild of unchanged
+    /// source, so consecutive runs record new digests for each consumer's references whatever the job count.
+    let private comparable (report: WorkspaceReport) =
+        Codec.encode
+            { report with
+                Projects =
+                    report.Projects
+                    |> List.map (fun project ->
+                        { project with
+                            Report =
+                                { project.Report with
+                                    References =
+                                        project.Report.References
+                                        |> List.map (fun reference -> { reference with Digest = "" }) } }) }
+
+    [<Fact>]
+    let ``verify reports a diamond identically for every job count and waits for references`` () =
+        withDirectory (fun root ->
+            restoreGraph root diamond
+
+            let verify jobs =
+                let span = probe root
+                let report, (timings: VerifyTiming list, _) = Project.verifyTimed jobs root
+                let spans = diamond |> List.map (fun (name, _, _) -> name, span name) |> Map.ofList
+                report, timings, spans
+
+            let one, timings, sequential = verify 1
+            let four, _, concurrent = verify 4
+            Assert.True(one.Complete && one.ExitCode = 0, Codec.encode one)
+            Assert.Equal(comparable one, comparable four)
+            Assert.Empty one.Sequential
+
+            Assert.Equal<string list>(
+                [ for name in [ "A"; "B"; "C"; "D" ] -> Path.Combine(root, name, name + ".fsproj") ],
+                one.Projects |> List.map _.Project
+            )
+
+            Assert.Equal<string list>(
+                [ "A/A.fsproj"; "B/B.fsproj"; "C/C.fsproj"; "D/D.fsproj" ],
+                timings |> List.map _.Project
+            )
+
+            Assert.True(
+                timings
+                |> List.forall (fun timing -> timing.AnalyzeMilliseconds > 0L && timing.RebuildMilliseconds > 0L)
+            )
+
+            for spans in [ sequential; concurrent ] do
+                for name, references, _ in diamond do
+                    for reference in references do
+                        Assert.True(snd spans[reference] < fst spans[name], name + " started before " + reference)
+
+            let overlap (spans: Map<string, DateTime * DateTime>) =
+                fst spans["B"] < snd spans["C"] && fst spans["C"] < snd spans["B"]
+
+            Assert.False(overlap sequential)
+            Assert.True(overlap concurrent))
+
+    [<Fact>]
+    let ``verify fails identically for every job count and a concurrent source change never passes`` () =
+        withDirectory (fun root ->
+            restoreGraph root diamond
+            let source name = Path.Combine(root, name, name + ".fs")
+
+            let originals =
+                diamond |> List.map (fun (name, _, _) -> name, File.ReadAllText(source name))
+
+            let verify jobs =
+                for name, text in originals do
+                    File.WriteAllText(source name, text)
+
+                Project.verifyTimed jobs root |> fst
+
+            let mutate project target =
+                let flag = Path.Combine(root, "bin", "mutate-" + project)
+                Directory.CreateDirectory(Path.Combine(root, "bin")) |> ignore
+                File.WriteAllText(flag, target + "/" + target + ".fs\n")
+                flag
+
+            // C's rebuild changes C's own source, so C fails and the report stops at C.
+            let own = mutate "C" "C"
+            let failures = [ for jobs in [ 1; 2; 4 ] -> comparable (verify jobs) ]
+            Assert.Single(List.distinct failures) |> ignore
+            let failure = Codec.decode<WorkspaceReport> failures.Head
+            Assert.Equal(3, failure.ExitCode)
+
+            Assert.Equal<string list>(
+                [ Path.Combine(root, "A", "A.fsproj"); Path.Combine(root, "B", "B.fsproj") ],
+                failure.Projects |> List.map _.Project
+            )
+
+            Assert.Equal<string list>(
+                [ "BUILD004: Source/reference inputs changed while compiling C/C.fsproj" ],
+                failure.Errors
+            )
+
+            File.Delete own
+
+            // D's rebuild changes A's source after every project's own check passed.
+            let sink = mutate "D" "A"
+
+            for jobs in [ 1; 4 ] do
+                let error =
+                    Assert.Throws<InvalidOperationException>(fun () -> verify jobs |> ignore)
+
+                Assert.Equal("BUILD004: Source/reference inputs changed during compilation.", error.Message)
+
+            File.Delete sink
+
+            // B's rebuild changes C's source, before or while C is analyzed.
+            mutate "B" "C" |> ignore
+
+            for jobs in [ 1; 4 ] do
+                let report = verify jobs
+                Assert.True(report.ExitCode = 3, Codec.encode report)
+                Assert.NotEmpty report.Errors)
+
+    [<Fact>]
+    let ``verify runs projects sharing an output directory one at a time and says why`` () =
+        withDirectory (fun root ->
+            let shared =
+                "<PropertyGroup><OutDir>$(MSBuildThisFileDirectory)../bin/shared/</OutDir></PropertyGroup>"
+
+            restoreGraph root [ "A", [], shared; "B", [], shared ]
+            let span = probe root
+            let timed = runCli root [ "verify"; "."; "--timings"; "--jobs"; "4" ]
+            Assert.True(timed.ExitCode = 0, timed.Error + timed.Output)
+            Assert.True(snd (span "A") < fst (span "B"), "B started before A finished")
+
+            Assert.Contains(
+                "Verify runs one project at a time: A/A.fsproj and B/B.fsproj share bin/shared.",
+                timed.Output
+            )
+
+            for name in [ "A"; "B" ] do
+                Assert.Matches(
+                    "FDull timing: "
+                    + name
+                    + "/"
+                    + name
+                    + ".fsproj evaluate=\\d+ms restore=\\d+ms build=\\d+ms analyze=\\d+ms rebuild=\\d+ms reexport=\\d+ms",
+                    timed.Error
+                )
+
+            Assert.Matches("FDull timing: final-validation=\\d+ms total=\\d+ms projects=2", timed.Error)
+            let plain = runCli root [ "verify"; "." ]
+            Assert.Equal(0, plain.ExitCode)
+            Assert.Equal(timed.Output, plain.Output)
+            Assert.DoesNotContain("FDull timing:", plain.Output + plain.Error)
+
+            for invalid in
+                [ [ "verify"; "."; "--jobs"; "0" ]
+                  [ "verify"; "."; "--jobs"; "65" ]
+                  [ "verify"; "."; "--jobs"; "1"; "--jobs"; "2" ]
+                  [ "verify"; "."; "--timings"; "--timings" ]
+                  [ "verify"; "."; "--no-cache" ]
+                  [ "verify"; "."; "--format"; "text" ]
+                  [ "verify"; "--jobs"; "2" ] ] do
                 Assert.Equal(2, (runCli root invalid).ExitCode))
 
     [<Fact>]
