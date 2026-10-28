@@ -88,6 +88,7 @@ module SafetyTests =
 
         let policy: WorkspacePolicyDocument =
             { Version = 1
+              Repository = None
               Projects =
                 [ { File = "Fixture.fsproj"
                     Profile = "ADAPTER"
@@ -126,6 +127,7 @@ module SafetyTests =
               References = refs |> List.map input
               Generated = generated
               BuildInputs = [ input project ]
+              ImportedBuildInputs = []
               Policy = input policyPath
               PolicySlice = WorkspaceSlice.digest "Fixture.fsproj" policy }
 
@@ -367,6 +369,7 @@ module SafetyTests =
 
             let policy: WorkspacePolicyDocument =
                 { Version = 1
+                  Repository = None
                   Projects =
                     [ { File = "Fixture.fsproj"
                         Profile = "PURE"
@@ -411,6 +414,7 @@ module SafetyTests =
                   References = references |> List.map input
                   Generated = generated
                   BuildInputs = [ input project ]
+                  ImportedBuildInputs = []
                   Policy = input policyPath
                   PolicySlice = WorkspaceSlice.digest "Fixture.fsproj" policy }
 

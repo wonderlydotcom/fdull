@@ -63,6 +63,7 @@ module ProjectTests =
               References = [ "Library.dll" ]
               Arguments = [ "--checked+" ]
               Generated = []
+              ImportedBuildInputs = []
               ProjectReferences = [ "Library.fsproj" ] }
 
         let result =

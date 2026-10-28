@@ -13,7 +13,7 @@
     <Compile Include="Fixtures.fs" /><Compile Include="SafetyTests.fs" />
     <Compile Include="SafetyWorkerTests.fs" /><Compile Include="SafetyRangeTests.fs" />
     <Compile Include="SafetyCoverageTests.fs" /><Compile Include="TransportTests.fs" /><Compile Include="WorkspaceTests.fs" />
-    <Compile Include="ProjectTests.fs" /><Compile Include="Program.fs" />
+    <Compile Include="ProjectTests.fs" /><Compile Include="RepositoryTests.fs" /><Compile Include="Program.fs" />
     <Content Include="xunit.runner.json" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 </Project>

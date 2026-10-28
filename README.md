@@ -227,6 +227,97 @@ let firstPositive values = values |> List.tryFind (fun value -> value > 0)
 Authored mutation reports `MUT001`/`MUT002`. A partial operation such as `List.head`
 reports `ERR006`. Unapproved external calls report `EFFECT001`.
 
+## Service-owned monorepos
+
+`verify` can discover service policies beneath a repository root without a root
+`fdull.json`:
+
+```sh
+dotnet fdull verify . --all
+dotnet fdull verify . --since <comparison-commit>
+dotnet fdull verify services/billing
+```
+
+Bare repository verification selects every service. `--since` requires Git and
+resolves the supplied commit once; it compares that revision with the current
+working snapshot, including committed, staged, unstaged and untracked changes.
+The initial affected mode supports Git repositories using SHA-1 object IDs.
+CI should supply its intended comparison commit, such as a computed merge base.
+An unavailable baseline blocks verification. `--all` and `--since` are mutually
+exclusive. An empty selection reports **no affected services**, and skipped
+services are never reported as verified. A baseline commit is not evidence that
+unchanged services passed FDull; enforcing that is the responsibility of CI.
+
+Existing version-one policies retain their single-workspace meaning. Services
+below a coordination root use version two, with this additional field:
+
+```json
+{
+  "Version": 2,
+  "Repository": {
+    "Root": "../..",
+    "SharedInputs": [
+      { "File": "Directory.Build.props", "Digest": "sha256:<reviewed hash>" }
+    ],
+    "References": [
+      {
+        "Project": "Billing.fsproj",
+        "Target": "libraries/contracts/Contracts.fsproj",
+        "Policy": "libraries/contracts/fdull.json",
+        "PolicyDigest": "sha256:<reviewed policy hash>",
+        "Profile": "CONTRACTS"
+      }
+    ]
+  }
+}
+```
+
+This is an extension to the ordinary policy document: its projects, sources,
+inputs and capabilities are still required and service-relative. Only the new
+`Repository.Root` field accepts a bounded ancestor path. `SharedInputs`, cross
+reference `Target` and `Policy` paths are repository-relative. Local references
+remain in `Projects[].References`; cross-service references go in
+`Repository.References`. Every target has an exact owner, profile and policy
+digest. Cross-service references obey the same profile-direction rules as local
+references and grant no capability. Capability and data approvals remain owned
+by the consuming service. The initial version blocks domain or constructor
+contracts on either side of a cross-service edge; no contracts are merged across
+owners.
+
+Start with explicit `init <service>` calls, then review a version-two migration.
+Initialization never discovers and writes policies for other services. Pin all
+ancestor `global.json`, NuGet configuration and Directory.Build/Packages controls
+that exist inside the repository, plus repository-local imports used by the
+service. Changing a shared input selects its consumers but still requires every
+reviewed digest to match. Changed libraries select their transitive consumers;
+required dependencies are separately identified in the report. Changed ownership
+or dependency graphs conservatively select all current services. An explicit
+service invocation verifies that service and its dependencies, without selecting
+unrelated reverse consumers.
+
+Ownership is checked repository-wide even for affected runs. Nested policies,
+unowned F# sources/projects, unknown or excluded targets, dependency cycles and
+symlink aliases are blocked in coordination mode. Repository content outside
+service scopes is outside the verification claim. Discovery is bounded to 256
+policies, 2,048 included projects, 100,000 traversal steps, depth 32 and 512 MiB of
+selection inputs (64 MiB per file); each service retains its 128-project limit.
+Generated and dependency directories use the ordinary inventory exclusions.
+Protected local/shared pins inside those excluded trees are rejected, so a
+reviewed input cannot disappear from the selection snapshot.
+
+All selected projects share one `--jobs` budget. Restores are sequential;
+overlapping output directories force sequential builds. Dependencies finish
+analysis and rebuilding before consumers are analyzed, followed by final input,
+ownership and invocation checks. Verification never uses the analysis cache.
+Authored project, props and targets imports must be literal, repository-local
+paths with reviewed pins, including imports under inactive conditions. Dynamic,
+wildcard and SDK-qualified authored imports are blocked. Evaluated imports
+reported by MSBuild are checked as an additional signal. Custom SDK property-driven
+import hooks and arbitrary target-time file reads are outside this dependency
+model; ordinary build trust and sandbox
+requirements still apply. `lint` and advisory `review` retain their single-policy report
+schemas; repository coordination currently applies to text `verify` reports.
+
 ## Policy and review
 
 `fdull.json` assigns `PURE`, `PURE_HELPER`, `CONTRACTS`, `BOUNDARY`, `ADAPTER`,

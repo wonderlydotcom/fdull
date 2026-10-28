@@ -12,7 +12,7 @@ module Program =
         Console.WriteLine "FDull — F# with fewer sharp edges."
 
         Console.WriteLine
-            "fdull defaults | init <root> [--scope <file>] | lint <root> [--format text|json|sarif] [--jobs <1-64>] [--no-cache] [--timings] | review <root> [--format text|json] [--jobs <1-64>] [--no-cache] [--timings] | cache clear <root> | data-digest <assembly> | verify <root> [--jobs <1-64>] [--timings] | coverage"
+            "fdull defaults | init <root> [--scope <file>] | lint <root> [--format text|json|sarif] [--jobs <1-64>] [--no-cache] [--timings] | review <root> [--format text|json] [--jobs <1-64>] [--no-cache] [--timings] | cache clear <root> | data-digest <assembly> | verify <root> [--all | --since <commit>] [--jobs <1-64>] [--timings] | coverage"
 
         2
 
@@ -40,6 +40,20 @@ module Program =
         selected.TryFind "jobs"
         |> Option.bind jobCount
         |> Option.defaultValue Workspace.defaultJobs
+
+    let rec private verificationOptions selected (selection: RepositorySelection option) arguments =
+        match arguments with
+        | [] -> Some(selected, selection)
+        | "--all" :: rest when selection.IsNone -> verificationOptions selected (Some All) rest
+        | "--since" :: baseline :: rest when
+            selection.IsNone && not (baseline.StartsWith("--", StringComparison.Ordinal))
+            ->
+            verificationOptions selected (Some(Since baseline)) rest
+        | "--jobs" :: count :: rest when (jobCount count).IsSome && not (Map.containsKey "jobs" selected) ->
+            verificationOptions (Map.add "jobs" count selected) selection rest
+        | "--timings" :: rest when not (Map.containsKey "timings" selected) ->
+            verificationOptions (Map.add "timings" "" selected) selection rest
+        | _ -> None
 
     /// `lint` and `review` use the result cache unless `--no-cache` is given; `verify` never does.
     let private workspaceOptions (selected: Map<string, string>) : WorkspaceOptions =
@@ -148,6 +162,67 @@ module Program =
 
         report.ExitCode
 
+    let private displayRepository (report: RepositoryReport) =
+        let plan = report.Plan
+
+        let mode =
+            match plan.Selection with
+            | All -> "all"
+            | Since _ -> "affected"
+            | Service _ -> "explicit service"
+
+        Console.WriteLine("FDull repository verify: " + mode + " scope at " + plan.Root)
+
+        plan.Baseline
+        |> Option.iter (fun commit -> Console.WriteLine("Comparison commit: " + commit))
+
+        Console.WriteLine("Repository content outside policy roots is outside the verification claim.")
+
+        for service in plan.Services do
+            let status =
+                if List.contains service.Id plan.Affected then
+                    "affected"
+                elif List.contains service.Id plan.Dependencies then
+                    "dependency"
+                else
+                    "skipped (not verified)"
+
+            let reasons =
+                Map.tryFind service.Id plan.Reasons
+                |> Option.defaultValue []
+                |> String.concat "; "
+
+            Console.WriteLine(service.Id + ": " + status + (if reasons = "" then "" else " — " + reasons))
+
+        for service in report.Services do
+            Console.WriteLine("Service: " + service.Service)
+            display "verify" "text" service.Report |> ignore
+
+        report.Errors |> List.iter Console.Error.WriteLine
+
+        if not report.Complete then
+            Console.WriteLine "FDull repository verify: BLOCKED — requested scope is incomplete (exit 3)."
+        elif report.ExitCode <> 0 then
+            Console.WriteLine "FDull repository verify: FAIL — requested scope found violations (exit 1)."
+        elif plan.Affected.IsEmpty && plan.Dependencies.IsEmpty then
+            Console.WriteLine "FDull repository verify: no affected services; unchanged services were not verified."
+        else
+            Console.WriteLine "FDull repository verify: PASS — selected services completed verification."
+
+        report.ExitCode
+
+    let private verify root selected (selection: RepositorySelection option) =
+        if selection.IsNone && Repository.standalone root then
+            timed (Map.containsKey "timings" selected) verifyTimings (fun () ->
+                Project.verifyTimed (jobs selected) root)
+            |> display "verify" "text"
+        else
+            let full, selection = Repository.resolveSelection root selection
+
+            timed (Map.containsKey "timings" selected) verifyTimings (fun () ->
+                Repository.verifyTimed (jobs selected) full (Option.defaultValue All selection))
+            |> displayRepository
+
     [<EntryPoint>]
     let main arguments =
         try
@@ -176,11 +251,8 @@ module Program =
                 | None -> usage ()
             | "verify" :: root :: rest when not (root.StartsWith("--", StringComparison.Ordinal)) ->
                 // Verify reports only text and never uses the result cache.
-                match options [] Map.empty rest with
-                | Some selected when not (selected.ContainsKey "no-cache") ->
-                    timed (selected.ContainsKey "timings") verifyTimings (fun () ->
-                        Project.verifyTimed (jobs selected) root)
-                    |> display "verify" "text"
+                match verificationOptions Map.empty None rest with
+                | Some(selected, selection) -> verify root selected selection
                 | _ -> usage ()
             | "review" :: root :: rest when not (root.StartsWith("--", StringComparison.Ordinal)) ->
                 match options [ "text"; "json" ] Map.empty rest with

@@ -3,6 +3,7 @@ namespace FDull
 open System
 open System.IO
 open System.Text.Json.Nodes
+open System.Xml.Linq
 open FSharp.Compiler.CodeAnalysis
 open FSharp.Compiler.Symbols
 open FSharp.Compiler.Text
@@ -42,6 +43,20 @@ type WorkspaceProject =
       Profile: string
       References: string list }
 
+/// A dependency on an exact F# project owned by another policy. All paths except
+/// Project are relative to the repository root declared by Repository.Root.
+type WorkspaceRepositoryReference =
+    { Project: string
+      Target: string
+      Policy: string
+      PolicyDigest: string
+      Profile: string }
+
+type WorkspaceRepository =
+    { Root: string
+      SharedInputs: WorkspacePin list
+      References: WorkspaceRepositoryReference list }
+
 type WorkspaceAssemblyPin = { Identity: string; Digest: string }
 
 /// One reviewed data vocabulary entry for a consuming project, independent of declaration count.
@@ -53,6 +68,7 @@ type WorkspaceDataContract =
 
 type WorkspacePolicyDocument =
     { Version: int
+      Repository: WorkspaceRepository option
       Projects: WorkspaceProject list
       Sources: WorkspaceSource list
       Inputs: WorkspacePin list
@@ -317,6 +333,222 @@ module internal WorkspacePolicy =
         && file.Split('/')
            |> Array.forall (fun part -> part <> "" && part <> "." && part <> "..")
 
+    let internal digest (value: string) =
+        not (String.IsNullOrEmpty value)
+        && value.Length = 71
+        && value.StartsWith("sha256:", StringComparison.Ordinal)
+        && value.Substring(7)
+           |> Seq.forall (fun character ->
+               (character >= '0' && character <= '9') || (character >= 'a' && character <= 'f'))
+
+    let private validRepositoryRoot value =
+        let rec segments count (text: string) =
+            if text = ".." then
+                true
+            elif count < 16 && text.StartsWith("../", StringComparison.Ordinal) then
+                segments (count + 1) (text.Substring 3)
+            else
+                false
+
+        not (String.IsNullOrWhiteSpace value) && segments 1 value
+
+    let repositoryRoot root (document: WorkspacePolicyDocument) =
+        match document.Repository with
+        | None -> Path.GetFullPath root
+        | Some repository -> Path.GetFullPath(repository.Root, root)
+
+    let private inside root path =
+        let relative = Path.GetRelativePath(root, path).Replace('\\', '/')
+
+        relative <> ".."
+        && not (relative.StartsWith("../", StringComparison.Ordinal))
+        && not (Path.IsPathRooted relative)
+
+    let private realInside root path =
+        let root = Path.GetFullPath root
+        let path = Path.GetFullPath path
+
+        if not (inside root path) then
+            false
+        else
+            let rec check (seen: Set<string>) current =
+                if Set.contains current seen || seen.Count >= 128 then
+                    false
+                elif current = root then
+                    true
+                else
+                    let seen = Set.add current seen
+
+                    let linked =
+                        (Directory.Exists current || File.Exists current)
+                        && File.GetAttributes(current) &&& FileAttributes.ReparsePoint = FileAttributes.ReparsePoint
+
+                    let target =
+                        if not linked then
+                            None
+                        elif Directory.Exists current then
+                            DirectoryInfo(current).ResolveLinkTarget(true)
+                            |> External.required "repository.real-directory"
+                            |> _.FullName
+                            |> Some
+                        else
+                            FileInfo(current).ResolveLinkTarget(true)
+                            |> External.required "repository.real-file"
+                            |> _.FullName
+                            |> Some
+
+                    (target |> Option.forall (fun path -> inside root path && check seen path))
+                    && check seen (Path.GetDirectoryName current |> External.required "repository.parent")
+
+            check Set.empty path
+
+    let internal validateRepositoryStructure root (document: WorkspacePolicyDocument) =
+        match document.Version, document.Repository with
+        | 1, None -> ()
+        | 2, Some repository ->
+            if not (validRepositoryRoot repository.Root) then
+                invalidOp "BUILD005: Repository.Root must name a bounded ancestor."
+
+            let repoRoot = repositoryRoot root document
+
+            if not (realInside repoRoot (Path.GetFullPath root)) then
+                invalidOp "BUILD005: Invalid repository root."
+
+            let shared = repository.SharedInputs |> List.map _.File
+
+            if shared.Length <> (Set.ofList shared).Count then
+                invalidOp "BUILD005: Duplicate shared input."
+
+            repository.SharedInputs
+            |> List.iter (fun pin ->
+                let full = Path.Combine(repoRoot, pin.File)
+
+                if
+                    not (localFile pin.File)
+                    || not (digest pin.Digest)
+                    || not (realInside repoRoot full)
+                    || inside (Path.GetFullPath root) full
+                then
+                    invalidOp "BUILD005: Invalid repository shared-input pin.")
+
+            let projects = document.Projects |> List.map _.File |> Set.ofList
+
+            let edges =
+                repository.References |> List.map (fun edge -> edge.Project, edge.Target)
+
+            if edges.Length <> (Set.ofList edges).Count then
+                invalidOp "BUILD005: Duplicate cross-policy project reference."
+
+            if
+                not repository.References.IsEmpty
+                && (not document.Domains.IsEmpty || not document.Constructors.IsEmpty)
+            then
+                invalidOp "BUILD005: Cross-policy domain and constructor visibility is unsupported."
+
+            repository.References
+            |> List.iter (fun edge ->
+                let target = Path.Combine(repoRoot, edge.Target)
+                let policy = Path.Combine(repoRoot, edge.Policy)
+
+                if
+                    not (Set.contains edge.Project projects)
+                    || not (localFile edge.Target)
+                    || not (localFile edge.Policy)
+                    || Path.GetFileName edge.Policy <> "fdull.json"
+                    || Path.GetExtension edge.Target <> ".fsproj"
+                    || not (digest edge.PolicyDigest)
+                    || not (Set.contains edge.Profile profiles)
+                    || inside (Path.GetFullPath root) target
+                    || inside (Path.GetFullPath root) policy
+                    || not (
+                        inside (Path.GetDirectoryName policy |> External.required "repository.policy-parent") target
+                    )
+                    || not (realInside repoRoot target)
+                    || not (realInside repoRoot policy)
+                then
+                    invalidOp "BUILD005: Invalid cross-policy project reference.")
+        | _ -> invalidOp "BUILD005: Missing or unsupported workspace policy version."
+
+    let crossReferences root (document: WorkspacePolicyDocument) project =
+        match document.Repository with
+        | None -> []
+        | Some repository ->
+            let repoRoot = repositoryRoot root document
+
+            repository.References
+            |> List.filter (fun edge -> edge.Project = project)
+            |> List.map (fun edge ->
+                edge, Path.GetRelativePath(root, Path.Combine(repoRoot, edge.Target)).Replace('\\', '/'))
+
+    let buildInputPaths root (document: WorkspacePolicyDocument) =
+        let local =
+            document.Inputs
+            |> List.map (fun pin -> Path.Combine(root, pin.File), pin.Digest)
+
+        let shared =
+            match document.Repository with
+            | None -> []
+            | Some repository ->
+                let repoRoot = repositoryRoot root document
+
+                repository.SharedInputs
+                |> List.map (fun pin -> Path.Combine(repoRoot, pin.File), pin.Digest)
+
+        local @ shared
+
+    /// MSBuildAllProjects is advisory: a custom Import need not append itself to that
+    /// property. Review every authored pinned project/control file's literal imports.
+    let internal validatePinnedImports root (document: WorkspacePolicyDocument) =
+        match document.Repository with
+        | None -> ()
+        | Some _ ->
+            let repoRoot = repositoryRoot root document
+            let pins = buildInputPaths root document |> List.map fst |> Set.ofList
+
+            pins
+            |> Set.iter (fun file ->
+                if
+                    List.contains
+                        (Path.GetExtension file
+                         |> Option.ofObj
+                         |> Option.defaultValue ""
+                         |> _.ToLowerInvariant())
+                        [ ".fsproj"; ".csproj"; ".vbproj"; ".props"; ".targets" ]
+                then
+                    let directory =
+                        Path.GetDirectoryName file |> External.required "repository.import-parent"
+
+                    let xml = XDocument.Load file
+
+                    xml.Descendants()
+                    |> Seq.filter (fun item -> item.Name.LocalName = "Import")
+                    |> Seq.iter (fun item ->
+                        if item.Attribute(XName.Get "Sdk") |> Option.ofObj |> Option.isSome then
+                            invalidOp "BUILD005: Authored SDK or missing-path import is unsupported."
+
+                        let literal =
+                            item.Attribute(XName.Get "Project")
+                            |> External.required "BUILD005: Authored import has no Project path."
+                            |> _.Value
+
+                        if
+                            String.IsNullOrWhiteSpace literal
+                            || literal <> literal.Trim()
+                            || Path.IsPathRooted literal
+                            || [ '$'; '@'; '%'; '*'; '?'; ';'; '|' ] |> List.exists literal.Contains
+                        then
+                            invalidOp "BUILD005: Authored dynamic or ambiguous import is unsupported."
+
+                        let normalized = literal.Replace('\\', Path.DirectorySeparatorChar)
+                        let target = Path.GetFullPath(normalized, directory)
+
+                        if
+                            not (realInside repoRoot target)
+                            || not (Set.contains target pins)
+                            || not (File.Exists target)
+                        then
+                            invalidOp ("BUILD005: Authored repository import is unpinned: " + literal)))
+
     let externalEntries (document: WorkspacePolicyDocument) =
         match document.External with
         | Some entries -> entries
@@ -353,7 +585,247 @@ module internal WorkspacePolicy =
         if not (fields.ContainsKey "ExcludedProjects") then
             fields.Add("ExcludedProjects", JsonArray())
 
+        if not (fields.ContainsKey "Repository") then
+            fields.Add("Repository", JsonNode.Parse("null"))
+
         fields.ToJsonString() |> Codec.decode<WorkspacePolicyDocument>
+
+    /// Parse historical policy metadata without touching the current checkout.
+    let decodeStructure text =
+        let document = decodeDocument text
+
+        if document.Sources.IsEmpty || document.Projects.IsEmpty then
+            invalidOp "BUILD005: Missing workspace project or source assignments."
+
+        match document.Version, document.Repository with
+        | 1, None -> ()
+        | 2, Some repository ->
+            if not (validRepositoryRoot repository.Root) then
+                invalidOp "BUILD005: Repository.Root must name a bounded ancestor."
+
+            if
+                repository.SharedInputs.Length
+                <> (repository.SharedInputs |> List.map _.File |> Set.ofList).Count
+            then
+                invalidOp "BUILD005: Duplicate shared input."
+
+            let projects = document.Projects |> List.map _.File |> Set.ofList
+
+            let edges =
+                repository.References |> List.map (fun edge -> edge.Project, edge.Target)
+
+            if edges.Length <> (Set.ofList edges).Count then
+                invalidOp "BUILD005: Duplicate cross-policy project reference."
+
+            repository.SharedInputs
+            |> List.iter (fun pin ->
+                if not (localFile pin.File) || not (digest pin.Digest) then
+                    invalidOp "BUILD005: Invalid shared-input pin.")
+
+            repository.References
+            |> List.iter (fun edge ->
+                if
+                    not (Set.contains edge.Project projects)
+                    || not (localFile edge.Target)
+                    || not (localFile edge.Policy)
+                    || Path.GetFileName edge.Policy <> "fdull.json"
+                    || Path.GetExtension edge.Target <> ".fsproj"
+                    || not (digest edge.PolicyDigest)
+                    || not (Set.contains edge.Profile profiles)
+                then
+                    invalidOp "BUILD005: Invalid cross-policy reference.")
+        | _ -> invalidOp "BUILD005: Missing or unsupported workspace policy version."
+
+        document.Projects
+        |> List.iter (fun project ->
+            if
+                not (localFile project.File)
+                || Path.GetExtension project.File <> ".fsproj"
+                || not (Set.contains project.Profile profiles)
+                || project.References |> List.exists (fun file -> not (localFile file))
+            then
+                invalidOp "BUILD005: Invalid workspace project assignment.")
+
+        let sources = document.Sources |> List.map _.File
+        let inputs = document.Inputs |> List.map _.File
+
+        if
+            sources.Length <> (Set.ofList sources).Count
+            || inputs.IsEmpty
+            || inputs.Length <> (Set.ofList inputs).Count
+        then
+            invalidOp "BUILD005: Duplicate source or missing/duplicate build input."
+
+        document.Sources
+        |> List.iter (fun source ->
+            if
+                not (localFile source.File)
+                || not (localFile source.Project)
+                || not (Set.contains source.Profile profiles)
+                || not (digest source.Digest)
+            then
+                invalidOp "BUILD005: Invalid workspace source assignment.")
+
+        document.Inputs
+        |> List.iter (fun pin ->
+            if not (localFile pin.File) || not (digest pin.Digest) then
+                invalidOp "BUILD005: Invalid workspace build input.")
+
+        let projects = document.Projects |> List.map _.File |> Set.ofList
+        let inputFiles = Set.ofList inputs
+
+        if document.Version = 2 then
+            document.Projects
+            |> List.iter (fun project ->
+                let directory =
+                    Path.GetDirectoryName project.File |> Option.ofObj |> Option.defaultValue ""
+
+                let lock = Path.Combine(directory, "packages.lock.json").Replace('\\', '/')
+
+                if
+                    not (Set.contains project.File inputFiles)
+                    || not (Set.contains lock inputFiles)
+                    || not (
+                        document.Sources
+                        |> List.exists (fun source ->
+                            source.Project = project.File && source.Profile = project.Profile)
+                    )
+                then
+                    invalidOp "BUILD005: Project, lock, or source assignment is missing from the policy.")
+
+        document.Sources
+        |> List.iter (fun source ->
+            if
+                not (Set.contains source.Project projects)
+                || (document.Version = 2
+                    && not (
+                        document.Projects
+                        |> List.exists (fun project ->
+                            project.File = source.Project && project.Profile = source.Profile)
+                    ))
+            then
+                invalidOp "BUILD005: Source belongs to an unknown project.")
+
+        [ document.Domains; document.Constructors ]
+        |> List.iter (fun identities ->
+            if
+                identities.Length <> (Set.ofList identities).Count
+                || identities |> List.exists String.IsNullOrWhiteSpace
+            then
+                invalidOp "BUILD005: Empty or duplicate domain/constructor identity.")
+
+        let capabilities =
+            document.Capabilities
+            |> List.map (fun entry -> entry.File, entry.Owner, entry.Kind, entry.Identity)
+
+        if capabilities.Length <> (Set.ofList capabilities).Count then
+            invalidOp "BUILD005: Duplicate workspace capability."
+
+        document.Capabilities
+        |> List.iter (fun entry ->
+            if
+                not (Set.contains entry.File (Set.ofList sources))
+                || String.IsNullOrWhiteSpace entry.Owner
+                || String.IsNullOrWhiteSpace entry.Identity
+                || String.IsNullOrWhiteSpace entry.Reason
+                || not (List.contains entry.Kind [ "member"; "type"; "rule"; "capture"; "profile"; "attribute" ])
+            then
+                invalidOp "BUILD005: Invalid workspace capability.")
+
+        dataContracts document
+        |> List.iter (fun entry ->
+            if
+                not (Set.contains entry.Project projects)
+                || String.IsNullOrWhiteSpace entry.Identity
+                || String.IsNullOrWhiteSpace entry.Reason
+                || entry.Assemblies.IsEmpty
+                || entry.Assemblies
+                   |> List.exists (fun pin -> String.IsNullOrWhiteSpace pin.Identity || not (digest pin.Digest))
+            then
+                invalidOp "BUILD005: Invalid reusable data contract.")
+
+        let exclusions = excludedProjects document
+        let exclusionFiles = exclusions |> List.map _.File
+
+        if exclusionFiles.Length <> (Set.ofList exclusionFiles).Count then
+            invalidOp "BUILD005: Duplicate project exclusion."
+
+        exclusions
+        |> List.iter (fun entry ->
+            if
+                not (localFile entry.File)
+                || Path.GetExtension entry.File <> ".fsproj"
+                || String.IsNullOrWhiteSpace entry.Reason
+            then
+                invalidOp "BUILD005: Invalid project exclusion.")
+
+        let external = externalEntries document
+        let externalPaths = external |> List.map _.Path
+
+        if
+            externalPaths.Length <> (Set.ofList externalPaths).Count
+            || externalPaths
+               |> List.exists (fun path ->
+                   externalPaths
+                   |> List.exists (fun other ->
+                       path <> other && path.StartsWith(other + "/", StringComparison.Ordinal)))
+        then
+            invalidOp "BUILD005: Duplicate or overlapping external classification."
+
+        external
+        |> List.iter (fun entry ->
+            if
+                not (localFile entry.Path)
+                || not (List.contains entry.Kind externalKinds)
+                || String.IsNullOrWhiteSpace entry.Reason
+            then
+                invalidOp "BUILD005: Invalid external classification.")
+
+        document
+
+    let readStructure root =
+        let document = File.ReadAllText(Path.Combine(root, "fdull.json")) |> decodeStructure
+        validateRepositoryStructure root document
+
+        match document.Repository with
+        | None -> ()
+        | Some repository ->
+            let repoRoot = repositoryRoot root document
+            let shared = repository.SharedInputs |> List.map _.File |> Set.ofList
+
+            let rec ancestors directory =
+                if directory = repoRoot then
+                    []
+                else
+                    (Path.GetDirectoryName directory |> External.required "repository.ancestor")
+                    |> fun parent -> parent :: ancestors parent
+
+            ancestors (Path.GetFullPath root)
+            |> List.iter (fun directory ->
+                let files = Directory.EnumerateFiles directory |> Seq.truncate 100001 |> Seq.toList
+
+                if files.Length > 100000 then
+                    invalidOp "BUILD005: Ancestor build-input inventory exceeds the supported limit."
+
+                files
+                |> List.filter (fun path ->
+                    let name = Path.GetFileName path |> External.required "repository.ancestor-file"
+
+                    List.contains
+                        (name.ToLowerInvariant())
+                        [ "global.json"
+                          "nuget.config"
+                          "directory.build.props"
+                          "directory.build.targets"
+                          "directory.packages.props" ])
+                |> List.iter (fun path ->
+                    let relative = Path.GetRelativePath(repoRoot, path).Replace('\\', '/')
+
+                    if not (Set.contains relative shared) then
+                        invalidOp ("BUILD005: Missing ancestor shared-input pin: " + relative)))
+
+        validatePinnedImports root document
+        document
 
     let validateExcludedProjects (entries: WorkspaceProjectExclusion list) =
         entries
@@ -392,12 +864,15 @@ module internal WorkspacePolicy =
         then
             invalidOp "BUILD005: Duplicate or overlapping external workspace classification."
 
-    let private readWithSourceDrift allowSourceDrift root =
-        let path = Path.Combine(root, "fdull.json")
-        let document = File.ReadAllText path |> decodeDocument
+    let rec private readWithSourceDrift allowSourceDrift (budget: SafetyBudget) (visited: Set<string>) root =
+        let root = Path.GetFullPath root
+        budget.Visit visited.Count
 
-        if document.Version <> 1 || document.Sources.IsEmpty || document.Projects.IsEmpty then
-            invalidOp "BUILD005: Missing or unsupported workspace policy."
+        if Set.contains root visited || visited.Count >= 128 then
+            invalidOp "ARCH001: Cross-policy dependency cycle or repository graph limit."
+
+        let visited = Set.add root visited
+        let document = readStructure root
 
         validateExternal (externalEntries document)
         validateExcludedProjects (excludedProjects document)
@@ -414,13 +889,6 @@ module internal WorkspacePolicy =
         let keys = document.Sources |> List.map _.File
 
         let contracts = dataContracts document
-
-        let digest (value: string) =
-            value.Length = 71
-            && value.StartsWith("sha256:", StringComparison.Ordinal)
-            && value.Substring(7)
-               |> Seq.forall (fun character ->
-                   (character >= '0' && character <= '9') || (character >= 'a' && character <= 'f'))
 
         for contract in contracts do
             let identity = contract.Identity.Split(" | ")
@@ -498,6 +966,47 @@ module internal WorkspacePolicy =
             then
                 invalidOp ("BUILD005: Protected build input differs: " + pin.File)
 
+        match document.Repository with
+        | None -> ()
+        | Some repository ->
+            let repoRoot = repositoryRoot root document
+
+            for pin in repository.SharedInputs do
+                if SafetyPolicy.fileDigest (Path.Combine(repoRoot, pin.File)) <> pin.Digest then
+                    invalidOp ("BUILD005: Shared build input differs: " + pin.File)
+
+            for edge in repository.References do
+                let policyPath = Path.Combine(repoRoot, edge.Policy)
+
+                if SafetyPolicy.fileDigest policyPath <> edge.PolicyDigest then
+                    invalidOp ("BUILD005: Dependency policy differs: " + edge.Policy)
+
+                let dependencyRoot =
+                    Path.GetDirectoryName policyPath
+                    |> External.required "repository.dependency-parent"
+
+                let dependency = readWithSourceDrift false budget visited dependencyRoot
+
+                let project =
+                    Path.GetRelativePath(dependencyRoot, Path.Combine(repoRoot, edge.Target)).Replace('\\', '/')
+
+                if
+                    not (
+                        dependency.Projects
+                        |> List.exists (fun item -> item.File = project && item.Profile = edge.Profile)
+                    )
+                    || (dependency.Repository
+                        |> Option.map (fun other ->
+                            other.Root <> Path.GetRelativePath(dependencyRoot, repoRoot).Replace('\\', '/'))
+                        |> Option.defaultValue true)
+                    || not dependency.Domains.IsEmpty
+                    || not dependency.Constructors.IsEmpty
+                then
+                    invalidOp "BUILD005: Cross-policy target or domain/constructor visibility differs."
+
+                if SafetyPolicy.fileDigest policyPath <> edge.PolicyDigest then
+                    invalidOp ("BUILD005: Dependency policy changed while loading: " + edge.Policy)
+
         for entry in document.Capabilities do
             if
                 not (Set.contains entry.File (Set.ofList keys))
@@ -557,10 +1066,20 @@ module internal WorkspacePolicy =
 
         document
 
-    let read root = readWithSourceDrift false root
+    let read root =
+        readWithSourceDrift
+            false
+            (SafetyBudget(maximumSteps = 512, maximumDepth = 128, milliseconds = 30000))
+            Set.empty
+            root
 
     /// Only authored source drift is allowed. Build fingerprints and policy structure remain exact.
-    let readForReview root = readWithSourceDrift true root
+    let readForReview root =
+        readWithSourceDrift
+            true
+            (SafetyBudget(maximumSteps = 512, maximumDepth = 128, milliseconds = 30000))
+            Set.empty
+            root
 
     let private region (r: range) =
         { File = r.FileName

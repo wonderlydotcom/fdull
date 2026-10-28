@@ -26,7 +26,8 @@ type WorkspaceInvocation =
       References: string list
       Arguments: string list
       Generated: string list
-      ProjectReferences: string list }
+      ProjectReferences: string list
+      ImportedBuildInputs: string list }
 
 /// Wall-clock cost of one project's analysis. Diagnostic output only; never part of a report.
 type WorkspaceTiming =
@@ -97,6 +98,7 @@ module Workspace =
               "-p:BuildProjectReferences=false"
               "-p:FDullExport=true"
               "-getItem:FscCommandLineArgs,ProjectReference"
+              "-getProperty:MSBuildAllProjects"
               "-m:1"
               "-nr:false"
               "-nologo" ]
@@ -113,6 +115,16 @@ module Workspace =
                     item.GetProperty("Identity").GetString()
                     |> FDull.Transport.External.required "workspace.argument")
                 |> Seq.toList
+
+            let importedBuildInputs =
+                document.RootElement.GetProperty("Properties").GetProperty("MSBuildAllProjects").GetString()
+                |> Option.ofObj
+                |> Option.defaultValue ""
+                |> fun value -> value.Split(';', StringSplitOptions.RemoveEmptyEntries)
+                |> Array.map (fun file -> Path.GetFullPath(file, directory))
+                |> Array.distinct
+                |> Array.sort
+                |> Array.toList
 
             let full file = Path.GetFullPath(file, directory)
 
@@ -187,7 +199,8 @@ module Workspace =
                           References = references
                           Arguments = flags
                           Generated = generated
-                          ProjectReferences = projectReferences }
+                          ProjectReferences = projectReferences
+                          ImportedBuildInputs = importedBuildInputs }
 
     /// The intermediate and build output directories MSBuild evaluates for a Release project. Only
     /// evaluates the project; no target runs and nothing is written.
@@ -273,7 +286,51 @@ module Workspace =
 
         document, before
 
+    let validateImports root project (document: WorkspacePolicyDocument) (invocation: WorkspaceInvocation) =
+        WorkspacePolicy.validatePinnedImports root document
+
+        let buildInputs =
+            WorkspacePolicy.buildInputPaths root document
+            |> List.map (fun (path, digest) -> { Path = path; Digest = digest })
+
+        match document.Repository with
+        | None -> []
+        | Some _ ->
+            let repoRoot = WorkspacePolicy.repositoryRoot root document
+            let projectFile = Path.Combine(root, project)
+
+            let projectDirectory =
+                Path.GetDirectoryName projectFile
+                |> External.required "workspace.project-parent"
+
+            let projectName =
+                Path.GetFileName projectFile |> External.required "workspace.project-name"
+
+            let inside parent path =
+                let relative = Path.GetRelativePath(parent, path).Replace('\\', '/')
+                relative <> ".." && not (relative.StartsWith("../", StringComparison.Ordinal))
+
+            let generated path =
+                List.contains
+                    path
+                    [ Path.Combine(projectDirectory, "obj", projectName + ".nuget.g.props")
+                      Path.Combine(projectDirectory, "obj", projectName + ".nuget.g.targets") ]
+
+            invocation.ImportedBuildInputs
+            |> List.filter (inside repoRoot)
+            |> List.filter (generated >> not)
+            |> List.map (fun path ->
+                match buildInputs |> List.tryFind (fun item -> item.Path = path) with
+                | Some item -> item
+                | None -> invalidOp ("BUILD005: Evaluated repository import is unpinned: " + path))
+
     let private requestFrom root project (document: WorkspacePolicyDocument, pin) (invocation: WorkspaceInvocation) =
+        let buildInputs =
+            WorkspacePolicy.buildInputPaths root document
+            |> List.map (fun (path, digest) -> { Path = path; Digest = digest })
+
+        let importedBuildInputs = validateImports root project document invocation
+
         { Root = root
           Project = Path.Combine(root, project)
           ProjectReferences = invocation.ProjectReferences
@@ -281,11 +338,8 @@ module Workspace =
           Sources = invocation.Sources |> List.map input
           References = invocation.References |> List.map input
           Generated = invocation.Generated
-          BuildInputs =
-            document.Inputs
-            |> List.map (fun pin ->
-                { Path = Path.Combine(root, pin.File)
-                  Digest = pin.Digest })
+          BuildInputs = buildInputs
+          ImportedBuildInputs = importedBuildInputs
           Policy = pin
           PolicySlice = WorkspaceSlice.digest project document }
 
@@ -316,7 +370,10 @@ module Workspace =
             || report.Policy <> request.PolicySlice
             || report.Tool <> engine
             || closureChanged
-            || request.Policy :: request.Sources @ request.References @ request.BuildInputs
+            || request.Policy :: request.Sources
+               @ request.References
+               @ request.BuildInputs
+               @ request.ImportedBuildInputs
                |> List.exists (fun expected -> input expected.Path <> expected)
         then
             Error "BUILD004: The workspace worker report differs from its requested inputs."

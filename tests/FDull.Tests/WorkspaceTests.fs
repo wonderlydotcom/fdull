@@ -47,7 +47,10 @@ module WorkspaceTests =
     let ``mixed-language scope and internal links preserve inventory boundaries`` () =
         withPolicy (fun directory policy ->
             let path = Path.Combine(directory, policyFile)
-            let legacy = File.ReadAllText(path).Replace("  \"External\": null,\n", "")
+
+            let legacy =
+                File.ReadAllText(path).Replace("  \"External\": null,\n", "").Replace("  \"Repository\": null,\n", "")
+
             File.WriteAllText(path, legacy)
 
             match Workspace.validatePolicy directory with
@@ -352,6 +355,7 @@ module WorkspaceTests =
     let ``workspace reports reject inconsistent process diagnostics and observations`` () =
         let policy =
             { Version = 1
+              Repository = None
               Projects =
                 [ { File = "Fixture.fsproj"
                     Profile = "PURE"
@@ -380,6 +384,7 @@ module WorkspaceTests =
               References = []
               Generated = []
               BuildInputs = []
+              ImportedBuildInputs = []
               Policy = { Path = policyFile; Digest = "whole" }
               PolicySlice = "policy" }
 

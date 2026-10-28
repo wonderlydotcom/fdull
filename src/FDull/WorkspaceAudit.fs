@@ -83,6 +83,38 @@ module WorkspaceAudit =
     let internal validateEdgesWithExternal projects external project references =
         validateEdgesCore projects external true project references
 
+    let private policyEdges exact root (policy: WorkspacePolicyDocument) project references =
+        let cross = WorkspacePolicy.crossReferences root policy project
+
+        let externalGraph =
+            match policy.Repository with
+            | None -> []
+            | Some repository ->
+                repository.References
+                |> List.map (fun edge ->
+                    let path = Path.Combine(WorkspacePolicy.repositoryRoot root policy, edge.Target)
+
+                    { File = Path.GetRelativePath(root, path).Replace('\\', '/')
+                      Profile = edge.Profile
+                      References = [] })
+
+        let graph =
+            policy.Projects
+            |> List.map (fun item ->
+                if item.File = project then
+                    { item with
+                        References = item.References @ (cross |> List.map snd) }
+                else
+                    item)
+
+        validateEdgesCore (graph @ externalGraph) (externalProjects policy) exact project references
+
+    let validatePolicyEdges root policy project references =
+        policyEdges true root policy project references
+
+    let internal validateDeclaredPolicyEdges root policy project references =
+        policyEdges false root policy project references
+
     let private protectedGraph (projects: WorkspaceProject list) =
         let names = projects |> List.map _.File |> Set.ofList
 
@@ -94,14 +126,14 @@ module WorkspaceAudit =
                     |> List.filter (fun reference -> Set.contains reference names) })
 
     let private acyclic (projects: WorkspaceProject list) =
-        let rec removeLeaves remaining =
+        let rec removeLeaves (remaining: WorkspaceProject list) =
             match remaining with
             | [] -> true
             | _ ->
                 let leaves =
                     remaining
-                    |> List.filter (fun item -> item.References.IsEmpty)
-                    |> List.map _.File
+                    |> List.filter (fun (item: WorkspaceProject) -> item.References.IsEmpty)
+                    |> List.map (fun (item: WorkspaceProject) -> item.File)
                     |> Set.ofList
 
                 if leaves.IsEmpty then
@@ -117,16 +149,19 @@ module WorkspaceAudit =
         removeLeaves (protectedGraph projects)
 
     let internal order (projects: WorkspaceProject list) =
-        let rec dependencyFirst remaining =
+        let rec dependencyFirst (remaining: WorkspaceProject list) =
             match remaining with
             | [] -> []
             | _ ->
-                let leaves = remaining |> List.filter (fun item -> item.References.IsEmpty)
+                let leaves =
+                    remaining
+                    |> List.filter (fun (item: WorkspaceProject) -> item.References.IsEmpty)
 
                 if leaves.IsEmpty then
                     invalidOp "ARCH001: The project graph contains a cycle."
 
-                let names = leaves |> List.map _.File |> Set.ofList
+                let names =
+                    leaves |> List.map (fun (item: WorkspaceProject) -> item.File) |> Set.ofList
 
                 let next =
                     remaining
@@ -452,19 +487,11 @@ module WorkspaceAudit =
             then
                 invalidOp ("BUILD005: Unpinned build input: " + file)
 
-        let externalProjectReferences = externalProjects policy
-
         for project in policy.Projects do
             if not (Set.contains project.Profile WorkspacePolicy.profiles) then
                 invalidOp "ARCH002: Unknown project profile."
 
-            match
-                validateDeclaredEdges
-                    policy.Projects
-                    externalProjectReferences
-                    project.File
-                    (references root project.File)
-            with
+            match validateDeclaredPolicyEdges root policy project.File (references root project.File) with
             | Error error -> invalidOp error
             | Ok() -> ()
 

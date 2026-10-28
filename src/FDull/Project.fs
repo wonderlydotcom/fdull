@@ -26,7 +26,7 @@ module Project =
         use reader = new StreamReader(stream)
         reader.ReadToEnd()
 
-    let private run root (arguments: string list) =
+    let internal run root (arguments: string list) =
         let start = ProcessStartInfo("dotnet", WorkingDirectory = root)
 
         for argument in arguments do
@@ -125,6 +125,7 @@ module Project =
 
         let policy =
             { Version = 1
+              Repository = None
               Sources = sources
               Projects =
                 invocations
@@ -183,6 +184,11 @@ module Project =
     let verifyTimed jobs directory =
         let root = Path.GetFullPath directory
         let policy = WorkspacePolicy.read root
+
+        if policy.Repository.IsSome then
+            invalidOp
+                "BUILD005: Version-two policies require Repository.verify so cross-policy dependencies share one verification schedule."
+
         WorkspaceAudit.validate root policy
         let projects = WorkspaceAudit.order policy.Projects
 
@@ -274,6 +280,7 @@ module Project =
                         invalidOp ("BUILD004: Source/reference inputs changed while compiling " + project)
 
                     let invocation = Workspace.export root project |> require
+                    Workspace.validateImports root project policy invocation |> ignore
 
                     if not (matchesInvocation result invocation) then
                         invalidOp ("BUILD004: The evaluated compiler invocation changed while compiling " + project)
@@ -288,6 +295,7 @@ module Project =
                     invalidOp "BUILD004: Source/reference inputs changed during compilation."
 
                 let invocation = Workspace.export root project.Project |> require
+                Workspace.validateImports root project.Project policy invocation |> ignore
 
                 if not (matchesInvocation project invocation) then
                     invalidOp "BUILD004: The evaluated compiler invocation changed during compilation."

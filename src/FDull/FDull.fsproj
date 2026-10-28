@@ -31,5 +31,7 @@
     <Compile Include="Workspace.fs" />
     <Compile Include="Safety.fs" />
     <Compile Include="Project.fs" />
+    <Compile Include="RepositoryPlan.fs" />
+    <Compile Include="Repository.fs" />
   </ItemGroup>
 </Project>
