@@ -25,10 +25,10 @@ worker and dependencies and does not require a source checkout.
 
 ## Compatibility
 
-The preview supports **.NET SDK 10.0.200, F# 10.0, net10.0**, with
+The preview supports **.NET SDK 10.0.403, F# 10.0, net10.0**, with
 **FSharp.Core 10.0.x or 10.1.x**. FDull itself pins **FSharp.Core 10.1.201** and
 **FSharp.Compiler.Service 43.12.201**. The worker
-requires **Microsoft.NETCore.App 10.0.4** and disables runtime roll-forward.
+requires **Microsoft.NETCore.App 10.0.14** and disables runtime roll-forward.
 Install the matching SDK/runtime first. New toolchains require compatibility
 tests; the preview rejects untested compiler flags.
 
@@ -91,7 +91,7 @@ dotnet tool install FDull.Tool --version 0.2.0-preview.3
 Pin `global.json`:
 
 ```json
-{ "sdk": { "version": "10.0.200", "rollForward": "disable" } }
+{ "sdk": { "version": "10.0.403", "rollForward": "disable" } }
 ```
 
 For a new repository without `Directory.Build.props`, create the compiler preset:
@@ -546,7 +546,7 @@ dotnet tools/FDull.Ci/bin/Release/net10.0/FDull.Ci.dll coverage .
 GitHub Actions runs four Linux jobs on pull requests: **Format**,
 **Build and test (Linux)**, **Self-verification**, and **Package and consumer smoke**.
 Jobs install the exact
-SDK from `global.json` (including its 10.0.4 runtime), restore locked dependencies,
+SDK from `global.json` (including its 10.0.14 runtime), restore locked dependencies,
 keep strict compiler settings and preserve nonzero command exits. NuGet downloads
 are cached by the lock files; results and logs are retained for seven days.
 

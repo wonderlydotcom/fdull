@@ -73,7 +73,7 @@ module Program =
 
     let private prepare directory defaults config source project =
         Directory.CreateDirectory directory |> ignore
-        write directory "global.json" "{\"sdk\":{\"version\":\"10.0.200\",\"rollForward\":\"disable\"}}"
+        write directory "global.json" "{\"sdk\":{\"version\":\"10.0.403\",\"rollForward\":\"disable\"}}"
         write directory "Directory.Build.props" defaults
         write directory "NuGet.config" config
         write directory "App.fs" source
