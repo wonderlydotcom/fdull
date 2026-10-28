@@ -182,7 +182,7 @@
       "File": "src/FDull.Tool/Program.fs",
       "Project": "src/FDull.Tool/FDull.Tool.fsproj",
       "Profile": "GUARD_TOOLING",
-      "Digest": "sha256:1dbc01d5f939df9d8a98c23a555ffdfd7ea58149b46e1227847b6611cfb5677b"
+      "Digest": "sha256:7f83a81aa36727c268a12609472c460382c5baf45d4ec2b89adce0fc1a855c5e"
     },
     {
       "File": "src/FDull.Worker/Program.fs",
@@ -282,7 +282,7 @@
     },
     {
       "File": "Directory.Build.props",
-      "Digest": "sha256:c32f22e6b9e6824584220bb5fb4afe2680c46cd33e65578687681c65c49e4277"
+      "Digest": "sha256:4857b7f87203e5a6031b714cb685c5e9dd804d5718695979f3d4e2ce6bab854d"
     },
     {
       "File": "Directory.Build.targets",
