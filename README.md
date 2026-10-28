@@ -552,4 +552,37 @@ administrator `@c10r`; select another trusted maintainer or team when independen
 code-owner approval is needed for that administrator's own changes. These
 repository settings are external controls, not guarantees made by `fdull verify`.
 
+## Releases
+
+Publishing is manual; CI builds and checks packages but does not upload them to
+NuGet or create a GitHub release.
+
+1. Prepare a release PR with a new, unused package version. Update `<Version>` in
+   `Directory.Build.props`, the CLI's `--version` response in
+   `src/FDull.Tool/Program.fs`, and the version references in this README and
+   `site/public/index.html`. All three packages share that version. Review changed
+   source/build contracts and update their SHA-256 fingerprints in `fdull.json`
+   as described under **Policy and review**.
+2. Wait for all four required PR checks to pass, then merge the release PR. From
+   a clean checkout of the merged release commit, use the pinned SDK and run all
+   commands under **Develop and package**, including verification, packing and
+   the independent consumer smoke check. Keep the three `.nupkg` files for the
+   new version from `artifacts/`; publish these packages from the same checked build.
+3. Create and push a tag named `v<version>` at that exact tested commit. In
+   [GitHub Releases](https://github.com/wonderlydotcom/fdull/releases), draft a
+   release using that tag, add release notes and attach the three `.nupkg` files.
+   Mark preview versions as a pre-release. See GitHub's
+   [release instructions](https://docs.github.com/en/repositories/releasing-projects-on-github/managing-releases-in-a-repository)
+   for the standard UI steps.
+4. Wonderly employees should look up the NuGet credentials in 1Password in the
+   login titled **Nuget Account**. Use that login to sign in to
+   [NuGet.org](https://www.nuget.org/), then use **Upload** to publish a new version
+   of **all three packages**: `FDull`, `FDull.Tool` and `FDull.Analyzers`. Upload
+   each matching `.nupkg` from the checked build in `artifacts/`, review its ID
+   and version, and submit it. See NuGet's
+   [publishing instructions](https://learn.microsoft.com/en-us/nuget/nuget-org/publish-a-package#upload-to-the-nugetorg-web-portal).
+5. Wait for NuGet validation and indexing, confirm the new version is available
+   for all three packages, then publish the GitHub release. NuGet package versions
+   cannot be overwritten; corrections require a new version and release build.
+
 MIT licensed. Copyright 2026 Wonderly.
