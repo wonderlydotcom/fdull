@@ -21,17 +21,21 @@ type WorkspaceSourceReview =
 
 /// Advisory reports never represent a completed verification or permission approval.
 type WorkspaceReviewReport =
-    { Advisory: bool
-      AnalysisComplete: bool
-      ExitCode: int
-      Projects: WorkspaceReviewProjectReport list
-      ExcludedProjects: WorkspaceProjectExclusion list
-      Items: WorkspaceReviewItem list
-      SourceChanges: WorkspaceSourceReview list
-      UnusedCapabilities: WorkspaceCapability list
-      UnusedConstructors: string list
-      UnusedDataContracts: WorkspaceDataContract list
-      Errors: string list }
+    {
+        Advisory: bool
+        AnalysisComplete: bool
+        ExitCode: int
+        Projects: WorkspaceReviewProjectReport list
+        /// Projects served from the result cache; always 0 with `--no-cache`.
+        Cached: int
+        ExcludedProjects: WorkspaceProjectExclusion list
+        Items: WorkspaceReviewItem list
+        SourceChanges: WorkspaceSourceReview list
+        UnusedCapabilities: WorkspaceCapability list
+        UnusedConstructors: string list
+        UnusedDataContracts: WorkspaceDataContract list
+        Errors: string list
+    }
 
 module WorkspaceReview =
     let validate request policy processExit stderr (result: WorkspaceReviewProjectReport) =
@@ -197,6 +201,7 @@ module WorkspaceReview =
             else
                 0
           Projects = projects
+          Cached = projects |> List.filter _.Analysis.Cached |> List.length
           ExcludedProjects = WorkspacePolicy.excludedProjects policy
           Items = items
           SourceChanges = changes
@@ -222,6 +227,8 @@ module WorkspaceReview =
                   report.Items.Length
                   report.SourceChanges.Length
                   report.ExitCode
+          if report.Cached > 0 then
+              yield sprintf "%d projects (%d from cache)." report.Projects.Length report.Cached
           if not report.AnalysisComplete then
               yield "Findings are partial. An empty list does not establish that no review is needed."
           for error in report.Errors do

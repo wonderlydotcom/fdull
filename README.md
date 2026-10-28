@@ -112,15 +112,15 @@ warnings do not yet pass:
 dotnet restore --use-lock-file
 dotnet fdull init .
 dotnet build -c Release --no-restore -m:1 --disable-build-servers
-dotnet fdull lint .
 dotnet fdull verify .
 ```
 
 Pass a solution or project to restore/build when several projects exist without
 a solution. `init` records the exact graph, source files and build fingerprints.
 It starts every project in `PURE`, grants **zero exceptions**, and refuses to
-replace an existing `fdull.json`. Review and commit policy and lock files. An
-initial lint failure means the code or its explicit policy needs work.
+replace an existing `fdull.json`. Review and commit policy and lock files, and add
+`.fdull/` to `.gitignore` for the local result cache. An initial `verify` failure
+means the code or its explicit policy needs work.
 
 For a mixed-language repository, create a reviewed scope document before init:
 
@@ -355,8 +355,43 @@ dotnet fdull lint . --format json
 dotnet fdull lint . --format sarif
 dotnet fdull review .
 dotnet fdull review . --format json
+dotnet fdull cache clear .
 dotnet fdull coverage
 ```
+
+`lint` and `review` analyze independent projects concurrently. `--jobs <n>` sets
+how many run at once, from 1 to 64. The default is the processor count, capped at
+4. Each analysis worker's heap is capped at 512 MiB. Reports list projects in
+dependency order, and the output doesn't depend on the job count. `verify` always
+analyzes one project at a time, because it rebuilds between projects.
+
+`lint` and `review` also accept `--timings`. It writes each project's MSBuild
+export, analysis worker and parent validation time, and the run's total, to stderr.
+Stdout and the exit code are unchanged.
+
+`lint` and `review` keep a per-project result cache in `<root>/.fdull/cache`. A
+project is served from it only when everything its analysis reads is unchanged:
+the exact compiler invocation, source and reference fingerprints, policy slice,
+FDull build and .NET runtime. A cached result still passes the same input
+comparison and validation as a fresh one, and unused-permission checks still see
+every project. A damaged, edited or mismatched entry is ignored and the project is
+re-analyzed. Text output then reads `N projects (M from cache)`, and JSON has a
+`Cached` count and a per-project `Cached` flag; nothing else in the output or exit
+code depends on the cache. `--no-cache` turns it off, and `cache clear <root>`
+deletes `<root>/.fdull/cache` (exit `3` if it is a symbolic link). Entries are never
+evicted, and a new FDull build changes every key.
+
+Rebuilding a project changes its F# reference assembly, so the project and every
+project that references it are re-analyzed. A policy edit re-analyzes only the
+projects whose slice it changes. Edits to `Inputs`, `Domains` or `Constructors`,
+including compiler settings in a pinned project file, re-analyze every project.
+
+The cache is for iteration. `lint` and `review` trust `.fdull/` as you trust your
+own build output: an entry edited to stay consistent is believed. A cached `lint`
+is therefore not certification, and `verify` never reads or writes the cache. For
+CI, or anything checked out from someone else, run `verify`, or `lint --no-cache`. Don't run `lint` right before `verify`, which runs the
+same per-project analysis and fails on the same diagnostics. A policy pass is
+`review`, fix, `review`, `verify`.
 
 | Exit | Meaning |
 | --- | --- |
@@ -370,6 +405,13 @@ locked restores and serial builds, then analyzes and recompiles each project in
 dependency order without rebuilding its dependencies. Source, reference, policy
 and evaluated compiler inputs are compared before accepting the result. JSON includes completeness and errors.
 SARIF includes diagnostics and an invocation success flag; also check the exit code.
+
+Each project is analyzed against its policy slice: the whole `fdull.json` except
+other projects' `Sources` and the `Capabilities` keyed to their files. A project
+report's `Policy` and its diagnostics' policy field are the slice's `sha256:`
+digest, so a policy edit that another project's analysis can't observe leaves it
+unchanged. The worker re-reads the whole file, which stays pinned for the run, and
+rejects a slice that differs from the requested digest.
 
 Text output starts with `PASS`, `FAIL` or `BLOCKED`. `BLOCKED` means analysis did
 not complete and no clean result was established, even when zero diagnostics
@@ -426,7 +468,7 @@ make review incomplete; an incomplete run cannot promise the full inventory.
 The workflow is: run `review`, inspect the reported declarations and regression
 evidence, intentionally edit exact contracts and reviewed fingerprints, then run
 `verify`. JSON review reports have a distinct advisory schema (`Advisory`,
-`AnalysisComplete`, `Items`, `SourceChanges`, `UnusedCapabilities`,
+`AnalysisComplete`, `Cached`, `Items`, `SourceChanges`, `UnusedCapabilities`,
 `UnusedConstructors`, `Errors` and per-project analysis/evidence); they cannot be
 decoded as authoritative workspace reports.
 
@@ -451,7 +493,8 @@ Reference `FDull` version `0.2.0-preview.1` to consume `SafetyDiagnostic`,
 engine accepts ordered, fingerprinted source/reference inputs. Hosts must enforce
 process limits themselves; the library package does not install a worker beside
 arbitrary executables. `FDull.Tool` supplies the supported bounded host for
-`Workspace.check`, `Project.verify` and source-only `Safety.check`.
+`Workspace.check`, `Project.verify` and source-only `Safety.check`. The library's
+`Workspace.check` and `Workspace.review` never use the result cache.
 
 The worker has a 512 MiB managed heap ceiling, a 1 GiB working-set limit and a
 60-second wall-time limit per project. Output and traversal are also bounded.

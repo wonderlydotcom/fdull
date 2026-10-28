@@ -1,6 +1,8 @@
 namespace FDull.Tool
 
 open System
+open System.Diagnostics
+open System.Globalization
 open System.IO
 open FDull
 open FDull.Transport
@@ -10,9 +12,52 @@ module Program =
         Console.WriteLine "FDull — F# with fewer sharp edges."
 
         Console.WriteLine
-            "fdull defaults | init <root> [--scope <file>] | lint <root> [--format text|json|sarif] | review <root> [--format text|json] | data-digest <assembly> | verify <root> | coverage"
+            "fdull defaults | init <root> [--scope <file>] | lint <root> [--format text|json|sarif] [--jobs <1-64>] [--no-cache] [--timings] | review <root> [--format text|json] [--jobs <1-64>] [--no-cache] [--timings] | cache clear <root> | data-digest <assembly> | verify <root> | coverage"
 
         2
+
+    /// Concurrent project analyses: a decimal count from 1 to 64.
+    let private jobCount (value: string) =
+        match Int32.TryParse(value, NumberStyles.None, CultureInfo.InvariantCulture) with
+        | true, count when count >= 1 && count <= 64 -> Some count
+        | _ -> None
+
+    /// Each option may appear once, in any order, after the root. Anything else is a usage error.
+    let rec private options formats (selected: Map<string, string>) arguments =
+        match arguments with
+        | [] -> Some selected
+        | "--format" :: format :: rest when List.contains format formats && not (selected.ContainsKey "format") ->
+            options formats (selected.Add("format", format)) rest
+        | "--jobs" :: count :: rest when (jobCount count).IsSome && not (selected.ContainsKey "jobs") ->
+            options formats (selected.Add("jobs", count)) rest
+        | "--timings" :: rest when not (selected.ContainsKey "timings") ->
+            options formats (selected.Add("timings", "")) rest
+        | "--no-cache" :: rest when not (selected.ContainsKey "no-cache") ->
+            options formats (selected.Add("no-cache", "")) rest
+        | _ -> None
+
+    /// `lint` and `review` use the result cache unless `--no-cache` is given; `verify` never does.
+    let private workspaceOptions (selected: Map<string, string>) : WorkspaceOptions =
+        { Jobs =
+            selected.TryFind "jobs"
+            |> Option.bind jobCount
+            |> Option.defaultValue Workspace.defaultJobs
+          Cache = not (selected.ContainsKey "no-cache") }
+
+    /// Timings go to stderr so stdout and exit codes stay identical with or without them.
+    let private timed enabled analyze =
+        let clock = Stopwatch.StartNew()
+        let report, (timings: WorkspaceTiming list) = analyze ()
+
+        if enabled then
+            for timing in timings do
+                Console.Error.WriteLine(
+                    $"FDull timing: %s{timing.Project} export=%d{timing.ExportMilliseconds}ms worker=%d{timing.WorkerMilliseconds}ms validation=%d{timing.ValidationMilliseconds}ms"
+                )
+
+            Console.Error.WriteLine($"FDull timing: total=%d{clock.ElapsedMilliseconds}ms projects=%d{timings.Length}")
+
+        report
 
     let private display command format (report: WorkspaceReport) =
         let diagnostics =
@@ -67,7 +112,14 @@ module Program =
 
             diagnostics |> List.iter (SafetyPolicy.format >> Console.WriteLine)
 
-            printfn "%d projects; %d reported diagnostics." report.Projects.Length diagnostics.Length
+            if report.Cached > 0 then
+                printfn
+                    "%d projects (%d from cache); %d reported diagnostics."
+                    report.Projects.Length
+                    report.Cached
+                    diagnostics.Length
+            else
+                printfn "%d projects; %d reported diagnostics." report.Projects.Length diagnostics.Length
 
         report.ExitCode
 
@@ -97,13 +149,29 @@ module Program =
             | [ "init"; root; "--scope"; scope ] ->
                 Project.initializeWithScope root (Some scope) |> Console.WriteLine
                 0
-            | [ "lint"; root ] -> Workspace.check root |> display "lint" "text"
-            | [ "lint"; root; "--format"; format ] when List.contains format [ "text"; "json"; "sarif" ] ->
-                Workspace.check root |> display "lint" format
+            | "lint" :: root :: rest when not (root.StartsWith("--", StringComparison.Ordinal)) ->
+                match options [ "text"; "json"; "sarif" ] Map.empty rest with
+                | Some selected ->
+                    timed (selected.ContainsKey "timings") (fun () ->
+                        Workspace.checkTimed (workspaceOptions selected) root)
+                    |> display "lint" (selected.TryFind "format" |> Option.defaultValue "text")
+                | None -> usage ()
             | [ "verify"; root ] -> Project.verify root |> display "verify" "text"
-            | [ "review"; root ] -> Workspace.review root |> displayReview "text"
-            | [ "review"; root; "--format"; format ] when List.contains format [ "text"; "json" ] ->
-                Workspace.review root |> displayReview format
+            | "review" :: root :: rest when not (root.StartsWith("--", StringComparison.Ordinal)) ->
+                match options [ "text"; "json" ] Map.empty rest with
+                | Some selected ->
+                    timed (selected.ContainsKey "timings") (fun () ->
+                        Workspace.reviewTimed (workspaceOptions selected) root)
+                    |> displayReview (selected.TryFind "format" |> Option.defaultValue "text")
+                | None -> usage ()
+            | [ "cache"; "clear"; root ] ->
+                match WorkspaceCache.clear root with
+                | Ok message ->
+                    Console.WriteLine message
+                    0
+                | Error error ->
+                    Console.Error.WriteLine("FDull cache: " + error)
+                    3
             | [ "coverage" ] ->
                 SafetyRules.inventory SafetyPolicy.version |> Codec.encode |> Console.WriteLine
                 0

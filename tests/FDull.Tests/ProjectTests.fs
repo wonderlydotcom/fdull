@@ -69,6 +69,7 @@ module ProjectTests =
             { Project = "App.fsproj"
               ProjectReferences = invocation.ProjectReferences
               Uses = []
+              Cached = false
               Report =
                 { Complete = true
                   ExitCode = 0
@@ -182,15 +183,10 @@ module ProjectTests =
         File.ReadAllText(Path.Combine(root, "fdull.json"))
         |> Codec.decode<WorkspacePolicyDocument>
 
-    let private runCli root (arguments: string list) =
-        let cli =
-            Path.GetFullPath(
-                Path.Combine(
-                    AppContext.BaseDirectory,
-                    "../../../../../src/FDull.Tool/bin/Release/net10.0/FDull.Cli.dll"
-                )
-            )
+    let private cliDirectory =
+        Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "../../../../../src/FDull.Tool/bin/Release/net10.0"))
 
+    let private runCliAt (cli: string) root (arguments: string list) =
         let start = ProcessStartInfo("dotnet", WorkingDirectory = root)
 
         for argument in cli :: arguments do
@@ -209,6 +205,9 @@ module ProjectTests =
         with
         | Ok result -> result
         | Error error -> failwith error
+
+    let private runCli root arguments =
+        runCliAt (Path.Combine(cliDirectory, "FDull.Cli.dll")) root arguments
 
     let private excludedFixture root (projectText: string) =
         let fixture = Path.Combine(root, "Fixture")
@@ -588,6 +587,653 @@ module ProjectTests =
             Assert.Contains("findings are partial", blocked.Output)
             Assert.Contains("FS0001:", blocked.Output)
             Assert.DoesNotContain("PASS", blocked.Output + blocked.Error))
+
+    [<Fact>]
+    let ``timings write only to stderr and leave reports and exit codes unchanged`` () =
+        withDirectory (fun root ->
+            prepare root
+
+            for command, format in [ "lint", "json"; "lint", "text"; "review", "json" ] do
+                let plain = runCli root [ command; "."; "--format"; format; "--no-cache" ]
+
+                let timed =
+                    runCli root [ command; "."; "--timings"; "--no-cache"; "--format"; format ]
+
+                Assert.Equal(0, plain.ExitCode)
+                Assert.Equal(plain.ExitCode, timed.ExitCode)
+                Assert.Equal(plain.Output, timed.Output)
+                Assert.DoesNotContain("FDull timing:", plain.Output + plain.Error)
+                Assert.Matches("FDull timing: App.fsproj export=\\d+ms worker=\\d+ms validation=\\d+ms", timed.Error)
+                Assert.Matches("FDull timing: total=\\d+ms projects=1", timed.Error)
+
+            for invalid in
+                [ [ "lint"; "."; "--timings"; "--timings" ]
+                  [ "lint"; "."; "--no-cache"; "--no-cache" ]
+                  [ "lint"; "."; "--format"; "json"; "--format"; "text" ]
+                  [ "review"; "."; "--format"; "sarif" ]
+                  [ "lint"; "."; "--unknown" ]
+                  [ "lint"; "--timings" ] ] do
+                Assert.Equal(2, (runCli root invalid).ExitCode))
+
+    /// A counter with one local mutation, which `PURE` reports and `ADAPTER` can approve as a rule.
+    let private counter name =
+        "module "
+        + name
+        + "\nlet count () =\n    let mutable total = 0\n    total <- total + 1\n    total\n"
+
+    let private increment name =
+        "module " + name + "\nlet increment value = value + 1\n"
+
+    /// Initialize a Release-built workspace where App references Shared and Other stands alone.
+    let private restoreProjects root app other =
+        restoreConsumer root None app
+
+        for name, source in [ "Shared", increment "Shared"; "Other", other ] do
+            Directory.CreateDirectory(Path.Combine(root, name)) |> ignore
+
+            File.WriteAllText(
+                Path.Combine(root, name, name + ".fsproj"),
+                "<Project Sdk=\"Microsoft.NET.Sdk\"><ItemGroup><Compile Include=\""
+                + name
+                + ".fs\"/></ItemGroup></Project>"
+            )
+
+            File.WriteAllText(Path.Combine(root, name, name + ".fs"), source)
+
+        File.WriteAllText(
+            Path.Combine(root, "App.fsproj"),
+            "<Project Sdk=\"Microsoft.NET.Sdk\"><ItemGroup><ProjectReference Include=\"Shared/Shared.fsproj\"/><Compile Include=\"App.fs\"/></ItemGroup></Project>"
+        )
+
+        for project in [ "App.fsproj"; "Other/Other.fsproj" ] do
+            run root [ "restore"; project; "-m:1"; "-nr:false" ]
+
+            run
+                root
+                [ "build"
+                  project
+                  "-c"
+                  "Release"
+                  "--no-restore"
+                  "-m:1"
+                  "--disable-build-servers" ]
+
+        Project.initialize root |> ignore
+
+    let private approval file owner kind identity =
+        { File = file
+          Owner = owner
+          Kind = kind
+          Identity = identity
+          Reason = "Fixture approval keyed to one project's source." }
+
+    /// The initial policy with `adapters` in ADAPTER and the counters' rule uses approved, so lint is clean.
+    let private adapterPolicy (initial: WorkspacePolicyDocument) adapters =
+        { initial with
+            Projects =
+                initial.Projects
+                |> List.map (fun project ->
+                    if Set.contains project.File adapters then
+                        { project with Profile = "ADAPTER" }
+                    else
+                        project)
+            Sources =
+                initial.Sources
+                |> List.map (fun source ->
+                    if Set.contains source.Project adapters then
+                        { source with Profile = "ADAPTER" }
+                    else
+                        source)
+            Capabilities =
+                [ for file, owner in [ "App.fs", "App.count"; "Other/Other.fs", "Other.count" ] do
+                      for identity in [ "MUT001 | "; "MUT001 | total"; "MUT002 | " ] do
+                          approval file owner "rule" identity ] }
+
+    [<Fact>]
+    let ``job count leaves reports and failure positions unchanged`` () =
+        withDirectory (fun root ->
+            restoreProjects root (counter "App") (increment "Other")
+
+            let compare expected marker =
+                for command in [ "lint"; "review" ] do
+                    let one =
+                        runCli root [ command; "."; "--format"; "json"; "--jobs"; "1"; "--no-cache" ]
+
+                    let four =
+                        runCli root [ command; "."; "--jobs"; "4"; "--no-cache"; "--format"; "json" ]
+
+                    Assert.True(one.ExitCode = expected, one.Error + one.Output)
+                    Assert.Equal(one.ExitCode, four.ExitCode)
+                    Assert.Equal(one.Output, four.Output)
+                    Assert.Contains(marker, one.Output)
+
+            compare 1 "MUT001"
+            let other = Path.Combine(root, "Other/Other.fsproj")
+
+            File.WriteAllText(
+                other,
+                "<Project Sdk=\"Microsoft.NET.Sdk\"><ItemGroup><Compile Include=\"Other.fs\"/></ItemGroup>"
+                + "<Target Name=\"FixtureExportFailure\" BeforeTargets=\"CoreCompile\" Condition=\"'$(FDullExport)' == 'true'\">"
+                + "<Error Text=\"Fixture export failure.\"/></Target></Project>"
+            )
+
+            let current = read root
+
+            File.WriteAllText(
+                Path.Combine(root, "fdull.json"),
+                Codec.encode
+                    { current with
+                        Inputs =
+                            current.Inputs
+                            |> List.map (fun input ->
+                                if input.File = "Other/Other.fsproj" then
+                                    { input with
+                                        Digest = SafetyPolicy.fileDigest other }
+                                else
+                                    input) }
+            )
+
+            compare 3 "Other/Other.fsproj: "
+
+            for invalid in
+                [ [ "lint"; "."; "--jobs"; "0" ]
+                  [ "lint"; "."; "--jobs"; "-1" ]
+                  [ "lint"; "."; "--jobs"; "+2" ]
+                  [ "lint"; "."; "--jobs"; "65" ]
+                  [ "review"; "."; "--jobs"; "two" ]
+                  [ "review"; "."; "--jobs" ]
+                  [ "review"; "."; "--jobs"; "1"; "--jobs"; "2" ] ] do
+                Assert.Equal(2, (runCli root invalid).ExitCode))
+
+    [<Fact>]
+    let ``policy slices analyze each project as the whole policy does`` () =
+        withDirectory (fun root ->
+            restoreProjects root (counter "App") (counter "Other")
+
+            let reviewed =
+                adapterPolicy (read root) (set [ "App.fsproj"; "Other/Other.fsproj" ])
+
+            let projects = [ "Shared/Shared.fsproj"; "App.fsproj"; "Other/Other.fsproj" ]
+
+            let analyze document =
+                File.WriteAllText(Path.Combine(root, "fdull.json"), Codec.encode document)
+
+                projects
+                |> List.map (fun project ->
+                    match Workspace.request root project with
+                    | Error error -> failwith error
+                    | Ok request ->
+                        let expected =
+                            { document with
+                                Sources = document.Sources |> List.filter (fun source -> source.Project = project)
+                                Capabilities =
+                                    document.Capabilities
+                                    |> List.filter (fun entry ->
+                                        document.Sources
+                                        |> List.exists (fun source ->
+                                            source.File = entry.File && source.Project = project)) }
+
+                        Assert.Equal(Codec.encode expected, Codec.encode (WorkspaceSlice.create project document))
+                        Assert.Equal(WorkspaceSlice.digest project document, request.PolicySlice)
+                        let sliced = WorkspaceEngine.check request
+                        Assert.True(sliced.Report.Complete, Codec.encode sliced)
+                        Assert.True(sliced.Report.ExitCode = 0, Codec.encode sliced.Report.Diagnostics)
+                        Assert.Equal(request.PolicySlice, sliced.Report.Policy)
+                        Assert.Equal(Codec.encode sliced, Codec.encode (WorkspaceEngine.checkWholePolicy request))
+
+                        Assert.Equal(
+                            Codec.encode (WorkspaceEngine.review request),
+                            Codec.encode (WorkspaceEngine.reviewWholePolicy request)
+                        )
+
+                        request, sliced)
+
+            let before = analyze reviewed
+
+            let after =
+                analyze
+                    { reviewed with
+                        Capabilities =
+                            reviewed.Capabilities
+                            @ [ approval
+                                    "Other/Other.fs"
+                                    "Other.count"
+                                    "type"
+                                    "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | System.Uri" ] }
+
+            match before, after with
+            | [ shared; app; other ], [ sharedAfter; appAfter; otherAfter ] ->
+                Assert.Equal<string list>(
+                    [ "App.fs | App.count | rule | MUT001 | "
+                      "App.fs | App.count | rule | MUT001 | total"
+                      "App.fs | App.count | rule | MUT002 | " ],
+                    (snd app).Uses
+                    |> List.filter (fun item -> item.File = "App.fs")
+                    |> List.map (fun item ->
+                        item.File + " | " + item.Owner + " | " + item.Kind + " | " + item.Identity)
+                )
+
+                // Another project's capability changes neither the slice nor the report.
+                for (request, report), (changedRequest, changedReport) in [ shared, sharedAfter; app, appAfter ] do
+                    Assert.Equal(request.PolicySlice, changedRequest.PolicySlice)
+                    Assert.Equal(Codec.encode report, Codec.encode changedReport)
+
+                Assert.NotEqual<string>((fst other).PolicySlice, (fst otherAfter).PolicySlice)
+
+                let mismatch =
+                    WorkspaceEngine.check
+                        { fst appAfter with
+                            PolicySlice = (fst otherAfter).PolicySlice }
+
+                Assert.False(mismatch.Report.Complete)
+                Assert.Contains(mismatch.Report.Diagnostics, fun diagnostic -> diagnostic.Rule = "BUILD004")
+            | _ -> failwith "Each policy analyzes the three fixture projects.")
+
+    let private projectNames = [ "Other.fsproj"; "Shared.fsproj"; "App.fsproj" ]
+
+    /// Lint JSON with its cache count and flags cleared, to compare runs across cache states.
+    let private uncached (output: string) =
+        let report = Codec.decode<WorkspaceReport> output
+
+        Codec.encode
+            { report with
+                Cached = 0
+                Projects = report.Projects |> List.map (fun project -> { project with Cached = false }) }
+
+    let private reviewUncached (output: string) =
+        let report = Codec.decode<WorkspaceReviewReport> output
+
+        Codec.encode
+            { report with
+                Cached = 0
+                Projects =
+                    report.Projects
+                    |> List.map (fun project ->
+                        { project with
+                            Analysis = { project.Analysis with Cached = false } }) }
+
+    /// Project file names a review JSON report analyzed afresh instead of serving from cache.
+    let private reviewAnalyzed (output: string) =
+        (Codec.decode<WorkspaceReviewReport> output).Projects
+        |> List.filter (fun project -> not project.Analysis.Cached)
+        |> List.map (fun project ->
+            Path.GetFileName project.Analysis.Project
+            |> External.required "test.project-name")
+
+    /// Project file names a lint JSON report analyzed afresh instead of serving from cache.
+    let private analyzed (output: string) =
+        (Codec.decode<WorkspaceReport> output).Projects
+        |> List.filter (fun project -> not project.Cached)
+        |> List.map (fun project -> Path.GetFileName project.Project |> External.required "test.project-name")
+
+    let private cacheDirectory root = Path.Combine(root, ".fdull", "cache")
+
+    /// Each cache entry's path by the file name of the project it stores.
+    let private cacheEntries root =
+        Directory.GetFiles(cacheDirectory root, "*.json")
+        |> Array.map (fun path ->
+            let entry = File.ReadAllText path |> Codec.decode<WorkspaceCacheEntry>
+
+            (Path.GetFileName entry.Key.Request.Project
+             |> External.required "test.project-name"),
+            path)
+        |> Map.ofArray
+
+    let private cacheSnapshot root =
+        Directory.GetFiles(cacheDirectory root, "*", SearchOption.AllDirectories)
+        |> Array.sort
+        |> Array.map (fun path -> path, File.ReadAllText path)
+        |> List.ofArray
+
+    /// Rewrite one stored worker report in place, keeping the entry's key.
+    let private tamper path (change: WorkspaceProjectReport -> WorkspaceProjectReport) =
+        let entry = File.ReadAllText path |> Codec.decode<WorkspaceCacheEntry>
+        let report = change (Codec.decode<WorkspaceProjectReport> entry.Output)
+
+        File.WriteAllText(
+            path,
+            Codec.encode
+                { entry with
+                    ExitCode = report.Report.ExitCode
+                    Output = Codec.encode report }
+        )
+
+    /// A validly shaped clean report: the edit an entry would need to hide a violation.
+    let private hideDiagnostics (report: WorkspaceProjectReport) =
+        { report with
+            Report =
+                { report.Report with
+                    ExitCode = 0
+                    Diagnostics = [] } }
+
+    [<Fact>]
+    let ``result cache serves unchanged projects and re-analyzes exactly the changed ones`` () =
+        withDirectory (fun root ->
+            restoreProjects root (counter "App") (counter "Other")
+            let policyPath = Path.Combine(root, "fdull.json")
+
+            let update (change: WorkspacePolicyDocument -> WorkspacePolicyDocument) () =
+                File.WriteAllText(policyPath, Codec.encode (change (read root)))
+
+            update
+                (fun policy ->
+                    adapterPolicy policy (set [ "Shared/Shared.fsproj"; "App.fsproj"; "Other/Other.fsproj" ]))
+                ()
+
+            let lintAt cli =
+                let result = runCliAt cli root [ "lint"; "."; "--format"; "json" ]
+                Assert.True(List.contains result.ExitCode [ 0; 1; 3 ], result.Error + result.Output)
+                result
+
+            let lint () =
+                lintAt (Path.Combine(cliDirectory, "FDull.Cli.dll"))
+
+            let cold = lint ()
+            Assert.True(cold.ExitCode = 0, cold.Error + cold.Output)
+            Assert.Equal<string list>(projectNames, analyzed cold.Output)
+            Assert.Equal(0, (Codec.decode<WorkspaceReport> cold.Output).Cached)
+            let warm = lint ()
+            Assert.Equal(0, warm.ExitCode)
+            Assert.Empty(analyzed warm.Output)
+            Assert.Equal(3, (Codec.decode<WorkspaceReport> warm.Output).Cached)
+            Assert.Equal(uncached cold.Output, uncached warm.Output)
+            Assert.Contains("3 projects (3 from cache); 0 reported diagnostics.", (runCli root [ "lint"; "." ]).Output)
+
+            let reviewCold = runCli root [ "review"; "."; "--format"; "json" ]
+            let reviewWarm = runCli root [ "review"; "."; "--format"; "json" ]
+            Assert.True(reviewCold.ExitCode = 0, reviewCold.Error + reviewCold.Output)
+            Assert.Equal(0, reviewWarm.ExitCode)
+            Assert.Equal(0, (Codec.decode<WorkspaceReviewReport> reviewCold.Output).Cached)
+            Assert.Equal(3, (Codec.decode<WorkspaceReviewReport> reviewWarm.Output).Cached)
+            Assert.Equal(reviewUncached reviewCold.Output, reviewUncached reviewWarm.Output)
+            Assert.Contains("3 projects (3 from cache).", (runCli root [ "review"; "." ]).Output)
+
+            let review () =
+                let result = runCli root [ "review"; "."; "--format"; "json" ]
+                Assert.True(List.contains result.ExitCode [ 0; 1 ], result.Error + result.Output)
+                reviewAnalyzed result.Output
+
+            let expectReview projects change =
+                change ()
+                Assert.Equal<string list>(projects, review ())
+
+            let expect projects change =
+                expectReview projects change
+                Assert.Equal<string list>(projects, analyzed (lint ()).Output)
+
+            let shared = Path.Combine(root, "Shared", "Shared.fs")
+
+            let setDigest file digest =
+                update (fun policy ->
+                    { policy with
+                        Sources =
+                            policy.Sources
+                            |> List.map (fun source ->
+                                if source.File = file then
+                                    { source with Digest = digest }
+                                else
+                                    source) })
+
+            let rebuild (source: string) () =
+                File.WriteAllText(shared, source)
+
+                run
+                    root
+                    [ "build"
+                      "App.fsproj"
+                      "-c"
+                      "Release"
+                      "--no-restore"
+                      "-m:1"
+                      "--disable-build-servers" ]
+
+                setDigest "Shared/Shared.fs" (SafetyPolicy.fileDigest shared) ()
+
+            // A's policy slice: one of its capabilities, then one of its source fingerprints.
+            expect
+                [ "Shared.fsproj" ]
+                (update (fun policy ->
+                    { policy with
+                        Capabilities =
+                            policy.Capabilities
+                            @ [ approval
+                                    "Shared/Shared.fs"
+                                    "Shared.increment"
+                                    "type"
+                                    "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | System.Uri" ] }))
+
+            // Lint blocks the whole workspace on a stale fingerprint; review reports it per source.
+            expectReview [ "Shared.fsproj" ] (setDigest "Shared/Shared.fs" ("sha256:" + String('0', 64)))
+            // F# reference assemblies carry optimization data and a fresh MVID per compile, so even a
+            // private body change reaches B's key. Over-keying costs time, never correctness.
+            expect [ "Shared.fsproj"; "App.fsproj" ] (rebuild "module Shared\nlet increment value = value + 2\n")
+            // A public signature changes the reference assembly B compiles against.
+            expect
+                [ "Shared.fsproj"; "App.fsproj" ]
+                (rebuild "module Shared\nlet increment value = value + 2\nlet twice value = value * 2\n")
+
+            // A compiler argument lives in a pinned build file, and `Inputs` are part of every slice.
+            let sharedProject = Path.Combine(root, "Shared", "Shared.fsproj")
+
+            expect projectNames (fun () ->
+                File.WriteAllText(
+                    sharedProject,
+                    "<Project Sdk=\"Microsoft.NET.Sdk\"><PropertyGroup><DefineConstants>$(DefineConstants);NULLABLE</DefineConstants></PropertyGroup>"
+                    + "<ItemGroup><Compile Include=\"Shared.fs\"/></ItemGroup></Project>"
+                )
+
+                update
+                    (fun policy ->
+                        { policy with
+                            Inputs =
+                                policy.Inputs
+                                |> List.map (fun input ->
+                                    if input.File = "Shared/Shared.fsproj" then
+                                        { input with
+                                            Digest = SafetyPolicy.fileDigest sharedProject }
+                                    else
+                                        input) })
+                    ())
+
+            expect
+                projectNames
+                (update (fun policy ->
+                    { policy with
+                        Domains = [ "Fixture.Domain" ] }))
+
+            expect
+                projectNames
+                (update (fun policy ->
+                    { policy with
+                        Constructors = [ "Fixture.Constructor" ] }))
+
+            // A new FDull build: the same CLI with one more file in its worker closure.
+            let copy = root + "-cli"
+
+            try
+                for file in Directory.GetFiles(cliDirectory, "*", SearchOption.AllDirectories) do
+                    let target = Path.Combine(copy, Path.GetRelativePath(cliDirectory, file))
+
+                    Directory.CreateDirectory(
+                        Path.GetDirectoryName target
+                        |> FDull.Transport.External.required "test.cli-copy"
+                    )
+                    |> ignore
+
+                    File.Copy(file, target)
+
+                File.WriteAllText(Path.Combine(copy, "safety-worker", "fixture-build.txt"), "another build")
+                let rebuilt = lintAt (Path.Combine(copy, "FDull.Cli.dll"))
+                Assert.Equal<string list>(projectNames, analyzed rebuilt.Output)
+                Assert.Empty(analyzed (lint ()).Output)
+            finally
+                if Directory.Exists copy then
+                    Directory.Delete(copy, true))
+
+    [<Fact>]
+    let ``damaged, misplaced or inconsistent cache entries are re-analyzed`` () =
+        withDirectory (fun root ->
+            restoreProjects root (counter "App") (counter "Other")
+            let cold = runCli root [ "lint"; "."; "--format"; "json" ]
+            Assert.True(cold.ExitCode = 1, cold.Error + cold.Output)
+            Assert.Equal(3, (cacheEntries root).Count)
+
+            let damage projects (change: Map<string, string> -> unit) =
+                change (cacheEntries root)
+                let result = runCli root [ "lint"; "."; "--format"; "json" ]
+                Assert.Equal(1, result.ExitCode)
+                Assert.Equal(uncached cold.Output, uncached result.Output)
+                Assert.Equal<string list>(projects, analyzed result.Output)
+
+            damage projectNames (fun entries ->
+                let text = File.ReadAllText entries["Shared.fsproj"]
+                File.WriteAllText(entries["Shared.fsproj"], text.Substring(0, text.Length / 2))
+                File.WriteAllBytes(entries["Other.fsproj"], [| 0uy; 255uy; 123uy |])
+
+                // A hit passes the same BUILD004 comparison as a fresh result.
+                tamper entries["App.fsproj"] (fun report ->
+                    { report with
+                        Report =
+                            { report.Report with
+                                Policy = "sha256:" + String('0', 64) } }))
+
+            // An intact entry stored under another project's key.
+            damage [ "Other.fsproj" ] (fun entries -> File.Copy(entries["App.fsproj"], entries["Other.fsproj"], true))
+
+            let warm = runCli root [ "lint"; "."; "--format"; "json" ]
+            Assert.Empty(analyzed warm.Output)
+            Assert.Equal(uncached cold.Output, uncached warm.Output))
+
+    [<Fact>]
+    let ``parallel runs share the cache safely and cache clear removes only the cache`` () =
+        withDirectory (fun root ->
+            restoreProjects root (increment "App") (increment "Other")
+
+            let runs =
+                [ for _ in 1..2 -> async { return runCli root [ "lint"; "."; "--format"; "json"; "--jobs"; "2" ] } ]
+                |> Async.Parallel
+                |> Async.RunSynchronously
+
+            for result in runs do
+                Assert.True(result.ExitCode = 0, result.Error + result.Output)
+                Assert.Equal(uncached runs[0].Output, uncached result.Output)
+
+            Assert.Equal(3, (cacheEntries root).Count)
+            Assert.Empty(Directory.GetFiles(cacheDirectory root, "*.tmp"))
+            let entries = cacheEntries root
+            let warm = runCli root [ "lint"; "."; "--format"; "json" ]
+
+            Assert.True(
+                (analyzed warm.Output).IsEmpty,
+                String.Join(", ", analyzed warm.Output)
+                + " missed; entries before: "
+                + Codec.encode entries
+                + "; after: "
+                + Codec.encode (cacheEntries root)
+            )
+
+            Assert.Equal(uncached runs[0].Output, uncached warm.Output)
+
+            let cleared = runCli root [ "cache"; "clear"; "." ]
+            Assert.Equal(0, cleared.ExitCode)
+            Assert.False(Directory.Exists(cacheDirectory root))
+            Assert.True(File.Exists(Path.Combine(root, "fdull.json")))
+            Assert.Equal<string list>(projectNames, analyzed (runCli root [ "lint"; "."; "--format"; "json" ]).Output)
+
+            // A linked `.fdull` is neither cleared nor written through.
+            let outside = root + "-outside"
+
+            try
+                Directory.CreateDirectory(Path.Combine(outside, "cache")) |> ignore
+                File.WriteAllText(Path.Combine(outside, "cache", "keep.json"), "{}")
+                Directory.Delete(Path.Combine(root, ".fdull"), true)
+                Directory.CreateSymbolicLink(Path.Combine(root, ".fdull"), outside) |> ignore
+                let refused = runCli root [ "cache"; "clear"; "." ]
+                Assert.Equal(3, refused.ExitCode)
+                Assert.Contains("symbolic link", refused.Error)
+                let linked = runCli root [ "lint"; "."; "--format"; "json" ]
+                Assert.Equal(0, linked.ExitCode)
+                Assert.Equal<string list>(projectNames, analyzed linked.Output)
+
+                Assert.Equal<string list>(
+                    [ "keep.json" ],
+                    Directory.GetFiles(outside, "*", SearchOption.AllDirectories)
+                    |> Array.map (fun path -> Path.GetFileName path |> FDull.Transport.External.required "test.file")
+                    |> List.ofArray
+                )
+
+                for invalid in [ [ "cache"; "clear" ]; [ "cache"; "list"; "." ] ] do
+                    Assert.Equal(2, (runCli root invalid).ExitCode)
+            finally
+                Directory.Delete(outside, true))
+
+    [<Fact>]
+    let ``verify neither reads nor writes the result cache`` () =
+        withDirectory (fun root ->
+            restoreProjects root (counter "App") (increment "Other")
+            let lint = runCli root [ "lint"; "."; "--format"; "json" ]
+            Assert.True(lint.ExitCode = 1, lint.Error + lint.Output)
+
+            // The cache is trusted local state: lint believes an edited entry that stays consistent.
+            // Verify analyzes from scratch regardless.
+            let entries = cacheEntries root
+            tamper entries["App.fsproj"] hideDiagnostics
+            let trusted = runCli root [ "lint"; "." ]
+            Assert.Equal(0, trusted.ExitCode)
+            Assert.Contains("3 projects (3 from cache); 0 reported diagnostics.", trusted.Output)
+            let before = cacheSnapshot root
+
+            let verify = runCli root [ "verify"; "." ]
+            Assert.Equal(1, verify.ExitCode)
+            Assert.Contains("MUT001", verify.Output)
+            Assert.Contains("3 projects; ", verify.Output)
+            Assert.Equal<(string * string) list>(before, cacheSnapshot root)
+
+            let fresh = runCli root [ "lint"; "."; "--no-cache" ]
+            Assert.Equal(1, fresh.ExitCode)
+            Assert.Contains("MUT001", fresh.Output)
+            Assert.Equal<(string * string) list>(before, cacheSnapshot root))
+
+    [<Fact>]
+    let ``unused permissions are reported while other projects come from cache`` () =
+        withDirectory (fun root ->
+            restoreProjects root (counter "App") (counter "Other")
+            let policyPath = Path.Combine(root, "fdull.json")
+
+            File.WriteAllText(
+                policyPath,
+                Codec.encode (adapterPolicy (read root) (set [ "App.fsproj"; "Other/Other.fsproj" ]))
+            )
+
+            let cold = runCli root [ "lint"; "."; "--format"; "json" ]
+            Assert.True(cold.ExitCode = 0, cold.Error + cold.Output)
+            let app = Path.Combine(root, "App.fs")
+            File.WriteAllText(app, increment "App")
+            let current = read root
+
+            File.WriteAllText(
+                policyPath,
+                Codec.encode
+                    { current with
+                        Sources =
+                            current.Sources
+                            |> List.map (fun source ->
+                                if source.File = "App.fs" then
+                                    { source with
+                                        Digest = SafetyPolicy.fileDigest app }
+                                else
+                                    source) }
+            )
+
+            let result = runCli root [ "lint"; "."; "--format"; "json" ]
+            Assert.Equal(3, result.ExitCode)
+            Assert.Equal<string list>([ "App.fsproj" ], analyzed result.Output)
+
+            Assert.Equal<string list>(
+                [ for identity in [ "MUT001 | "; "MUT001 | total"; "MUT002 | " ] ->
+                      "BUILD005: Unused protected capability: App.fs | App.count | rule | " + identity ],
+                (Codec.decode<WorkspaceReport> result.Output).Errors
+            ))
 
     [<Fact>]
     let ``attribute contracts bind resolved enum fields and named literal values`` () =

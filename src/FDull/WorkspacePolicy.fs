@@ -96,6 +96,8 @@ module WorkspaceCompilerPolicy =
             @ [ "-g"
                 "--debug:portable"
                 "--optimize+"
+                // Only withholds other assemblies' inlining data from the optimizer; checking and warnings are unchanged.
+                "--crossoptimize-"
                 "--target:library"
                 "--target:exe"
                 "--warnaserror"
@@ -1279,3 +1281,24 @@ module internal WorkspacePolicy =
               Resolution = reviewResolution diagnostic.Profile diagnostic.Rule kind }
 
         context, (fun () -> observed |> Seq.distinct |> Seq.sort |> Seq.toList), describe
+
+/// The policy entries one project's analysis can observe: the project's own sources and
+/// the capabilities keyed to them. Every other section stays whole.
+module WorkspaceSlice =
+    let create project (document: WorkspacePolicyDocument) =
+        let sources =
+            document.Sources |> List.filter (fun source -> source.Project = project)
+
+        let files = sources |> List.map _.File |> Set.ofList
+
+        { document with
+            Sources = sources
+            Capabilities =
+                document.Capabilities
+                |> List.filter (fun entry -> Set.contains entry.File files) }
+
+    let digest project document =
+        create project document
+        |> Codec.encode
+        |> System.Text.Encoding.UTF8.GetBytes
+        |> SafetyPolicy.digest

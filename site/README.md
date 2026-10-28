@@ -88,6 +88,14 @@ with branch names, source availability or release commentary. Explain exclusions
 plainly: a pass covers included projects only, and every report lists excluded
 projects and their reasons. Link detailed compiler diagnoses and policy schemas
 from the relevant feature rather than reproducing them on the landing page.
+
+The installation guide also covers the review workflow, per-project result cache,
+parallel analysis and timing output. Keep the cache’s local trust boundary explicit:
+`verify` never uses it, and a cached result is not certification. The behavior and
+regression evidence live in `src/FDull/WorkspaceCache.fs`, `src/FDull/Workspace.fs`,
+`src/FDull.Tool/Program.fs` and `tests/FDull.Tests/ProjectTests.fs`; no rule-coverage
+claim changes when documenting these execution options.
+
 When rules change, review the descriptions, rationales and both code examples,
 then refresh the inventory from the built CLI:
 

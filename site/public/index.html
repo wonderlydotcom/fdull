@@ -1463,14 +1463,39 @@ dotnet tool install FDull.Tool --version 0.2.0-preview.1</code></pre></div>
             <p>If the file exists, inspect <code>dotnet fdull defaults</code> and merge its settings. The preset enables checked arithmetic, nullability, strict warnings, deterministic compilation, dependency locks and NuGet auditing.</p>
           </article>
           <article class="install-step">
-            <div class="step-heading"><span>03</span><h3>Build, initialize, check.</h3></div>
-            <p>Build your project, record the files and settings FDull should check, then run verification. Specify a solution or project when your directory contains more than one.</p>
+            <div class="step-heading"><span>03</span><h3>Initialize, build, verify.</h3></div>
+            <p>Restore dependencies, record the files and settings FDull should check, then build and verify. Specify a solution or project when your directory contains more than one.</p>
             <div class="terminal"><div class="terminal-head"><span>TERMINAL</span><button class="copy" type="button" data-copy="verify-command" aria-label="Copy initialization and verification commands" hidden data-enhanced>Copy</button></div><pre><code id="verify-command">dotnet restore --use-lock-file
-dotnet build -c Release --no-restore -m:1 --disable-build-servers
 dotnet fdull init .
-dotnet fdull lint .
+dotnet build -c Release --no-restore -m:1 --disable-build-servers
 dotnet fdull verify .</code></pre></div>
-            <p><code>init</code> creates <code>fdull.json</code>, which records the projects, files and build settings to check. Every project starts in <code>PURE</code> with no exceptions. It never overwrites an existing policy. If the first check fails, review the reported code before approving any exceptions.</p>
+            <p><code>init</code> creates <code>fdull.json</code> without compiling your source. Every project starts in <code>PURE</code> with no exceptions. It never overwrites an existing policy. Review and commit your policy and lock files, and add <code>.fdull/</code> to <code>.gitignore</code> for the local result cache. If verification fails, review the reported code before approving any exceptions.</p>
+          </article>
+          <article class="install-step" id="review-workflow">
+            <div class="step-heading"><span>04</span><h3>Review, refine, verify.</h3></div>
+            <p>Run <code>review</code> to see findings, changed source fingerprints and contracts that need another look. Inspect the declarations and their tests, fix the code or intentionally update exact contracts and fingerprints, then review again. Finish with <code>verify</code>:</p>
+            <div class="terminal"><div class="terminal-head"><span>REVIEW WORKFLOW</span><button class="copy" type="button" data-copy="review-command" aria-label="Copy review workflow commands" hidden data-enhanced>Copy</button></div><pre><code id="review-command">dotnet fdull review .
+# Make and review your changes, then:
+dotnet fdull review .
+dotnet fdull verify .</code></pre></div>
+            <p><code>review</code> is advisory: it never approves contracts or updates fingerprints for you. There’s no need to run <code>lint</code> immediately before <code>verify</code>; verification runs the same analysis along with its build and input checks.</p>
+          </article>
+          <article class="install-step" id="incremental-analysis">
+            <div class="step-heading"><h3>Reuse unchanged analysis.</h3></div>
+            <p><code>lint</code> and <code>review</code> cache each project’s results in <code>.fdull/cache</code>. Reuse requires matching source, compiler inputs, references, the project’s policy, FDull build and runtime. Cached results still go through input and report validation, and unused contracts are still checked.</p>
+            <p>Changing one project’s source fingerprints or capability entries in policy leaves unrelated projects’ cached results usable. Rebuilding a project also invalidates results for projects that reference it. Shared policy changes, such as build inputs, domains or constructors, invalidate every project. Reports show how many projects came from cache.</p>
+            <p><strong>The cache is trusted local state, like your build output.</strong> A consistently edited entry can be accepted. For CI or a checkout from someone else, use <code>verify</code>, which never reads or writes the cache, or <code>lint --no-cache</code> for fresh analysis. A cached result is not certification.</p>
+            <div class="terminal"><div class="terminal-head"><span>CACHE CONTROLS</span><button class="copy" type="button" data-copy="cache-command" aria-label="Copy cache control commands" hidden data-enhanced>Copy</button></div><pre><code id="cache-command"># Analyze without reading or writing cached results.
+dotnet fdull lint . --no-cache
+# Remove stored results; entries are not evicted automatically.
+dotnet fdull cache clear .</code></pre></div>
+            <p><code>review</code> also accepts <code>--no-cache</code>. Clearing the cache leaves your policy and source files alone.</p>
+          </article>
+          <article class="install-step" id="analysis-options">
+            <div class="step-heading"><h3>Choose how checks run.</h3></div>
+            <p><code>lint</code> and <code>review</code> analyze independent projects concurrently. Use <code>--jobs</code> to choose between 1 and 64 workers; the default is your processor count, capped at 4. Each worker has a 512 MiB heap limit. Reports stay in dependency order. <code>verify</code> always analyzes one project at a time.</p>
+            <div class="terminal"><div class="terminal-head"><span>ANALYSIS OPTIONS</span><button class="copy" type="button" data-copy="timings-command" aria-label="Copy review command with worker count and timings" hidden data-enhanced>Copy</button></div><pre><code id="timings-command">dotnet fdull review . --jobs 2 --timings</code></pre></div>
+            <p><code>--timings</code> writes each project’s MSBuild export, worker and validation time, plus the run’s total, to stderr. Your report stays on stdout and the exit code is unchanged. See the <a href="https://github.com/wonderlydotcom/fdull#commands-and-exits">command and report reference</a> for details.</p>
           </article>
           <article class="install-step" id="compiler-compatibility">
             <div class="step-heading"><h3>Handle known compiler warnings.</h3></div>

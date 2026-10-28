@@ -8,11 +8,15 @@ open System.Text.Json
 open FDull.Transport
 
 type WorkspaceReport =
-    { Complete: bool
-      ExitCode: int
-      Projects: WorkspaceProjectReport list
-      ExcludedProjects: WorkspaceProjectExclusion list
-      Errors: string list }
+    {
+        Complete: bool
+        ExitCode: int
+        Projects: WorkspaceProjectReport list
+        /// Projects served from the result cache; always 0 for `verify` and `--no-cache`.
+        Cached: int
+        ExcludedProjects: WorkspaceProjectExclusion list
+        Errors: string list
+    }
 
 type WorkspaceInvocation =
     { Sources: string list
@@ -20,6 +24,16 @@ type WorkspaceInvocation =
       Arguments: string list
       Generated: string list
       ProjectReferences: string list }
+
+/// Wall-clock cost of one project's analysis. Diagnostic output only; never part of a report.
+type WorkspaceTiming =
+    { Project: string
+      ExportMilliseconds: int64
+      WorkerMilliseconds: int64
+      ValidationMilliseconds: int64 }
+
+/// How `lint` and `review` run. Neither option changes a report except its `Cached` counts.
+type WorkspaceOptions = { Jobs: int; Cache: bool }
 
 module Workspace =
     let validatePolicy platform =
@@ -172,28 +186,81 @@ module Workspace =
                           Generated = generated
                           ProjectReferences = projectReferences }
 
-    let private requestUsing advisory root project =
-        export root project
-        |> Result.map (fun invocation ->
-            { Root = root
-              Project = Path.Combine(root, project)
-              ProjectReferences = invocation.ProjectReferences
-              Arguments = invocation.Arguments
-              Sources = invocation.Sources |> List.map input
-              References = invocation.References |> List.map input
-              Generated = invocation.Generated
-              BuildInputs =
-                (if advisory then
-                     WorkspacePolicy.readForReview root
-                 else
-                     WorkspacePolicy.read root)
-                    .Inputs
-                |> List.map (fun pin ->
-                    { Path = Path.Combine(root, pin.File)
-                      Digest = pin.Digest })
-              Policy = input (Path.Combine(root, "fdull.json")) })
+    /// Read the policy once for a run, pinned to the exact file bytes it was read from.
+    let private pinned advisory root =
+        let path = Path.Combine(root, "fdull.json")
+        let before = input path
 
-    let private analyzeUsing advisory (request: WorkspaceRequest) =
+        let document =
+            if advisory then
+                WorkspacePolicy.readForReview root
+            else
+                WorkspacePolicy.read root
+
+        if input path <> before then
+            invalidOp "BUILD004: The workspace policy changed while it was read."
+
+        document, before
+
+    let private requestFrom root project (document: WorkspacePolicyDocument, pin) (invocation: WorkspaceInvocation) =
+        { Root = root
+          Project = Path.Combine(root, project)
+          ProjectReferences = invocation.ProjectReferences
+          Arguments = invocation.Arguments
+          Sources = invocation.Sources |> List.map input
+          References = invocation.References |> List.map input
+          Generated = invocation.Generated
+          BuildInputs =
+            document.Inputs
+            |> List.map (fun pin ->
+                { Path = Path.Combine(root, pin.File)
+                  Digest = pin.Digest })
+          Policy = pin
+          PolicySlice = WorkspaceSlice.digest project document }
+
+    /// Trust a worker response only after it matches the request and passes protocol validation.
+    let private accept
+        advisory
+        document
+        (request: WorkspaceRequest)
+        engine
+        closureChanged
+        (output: SafetyProcessOutput)
+        =
+        let review =
+            if advisory then
+                Codec.decode<WorkspaceReviewProjectReport> output.Output
+            else
+                { Advisory = false
+                  Analysis = Codec.decode<WorkspaceProjectReport> output.Output
+                  Findings = [] }
+
+        let result = review.Analysis
+        let report = result.Report
+
+        if
+            report.Sources <> request.Sources
+            || report.References <> request.References
+            || report.Arguments <> request.Arguments
+            || report.Policy <> request.PolicySlice
+            || report.Tool <> engine
+            || closureChanged
+            || request.Policy :: request.Sources @ request.References @ request.BuildInputs
+               |> List.exists (fun expected -> input expected.Path <> expected)
+        then
+            Error "BUILD004: The workspace worker report differs from its requested inputs."
+        else
+            let validation =
+                if advisory then
+                    WorkspaceReview.validate request document output.ExitCode output.Error review
+                else
+                    WorkspaceProtocol.validate request document output.ExitCode output.Error result
+
+            validation |> Result.map (fun () -> review)
+
+    /// Analyze one project. With `cache`, a stored response for the same key is accepted through the
+    /// same checks as a fresh one; anything else runs the worker, and a complete accepted response is stored.
+    let private analyzeTimed cache advisory document (request: WorkspaceRequest) =
         let worker = Path.Combine(AppContext.BaseDirectory, "safety-worker")
         let engine = Path.Combine(worker, "FDull.dll")
 
@@ -202,7 +269,7 @@ module Workspace =
             || SafetyPolicy.fileDigest engine
                <> SafetyPolicy.fileDigest typeof<SafetyReport>.Assembly.Location
         then
-            Error "BUILD002: The workspace worker differs from the invoking compiler."
+            Error "BUILD002: The workspace worker differs from the invoking compiler.", 0L
         else
             let closure () =
                 Directory.GetFiles(worker, "*", SearchOption.AllDirectories)
@@ -213,114 +280,170 @@ module Workspace =
                 |> SafetyPolicy.digest
 
             let before = closure ()
+            let key = WorkspaceCache.key advisory before request
 
-            let start =
-                ProcessStartInfo(
-                    Path.Combine(runtimeRoot (), "dotnet"),
-                    WorkingDirectory =
-                        (Path.GetDirectoryName request.Project
-                         |> FDull.Transport.External.required "workspace.project-parent")
-                )
-
-            start.ArgumentList.Add(Path.Combine(worker, "fdull-worker.dll"))
-            start.ArgumentList.Add(if advisory then "--workspace-review" else "--workspace")
-            start.Environment.Clear()
-            start.Environment["DOTNET_ROOT"] <- runtimeRoot ()
-            start.Environment["DOTNET_GCHeapHardLimit"] <- "20000000"
-            let text = Codec.encode request
-
-            match
-                SafetyProcess.run
-                    { Milliseconds = 60000
-                      OutputCharacters =
-                        if advisory then
-                            SafetyLimits.workspaceReviewCharacters
-                        else
-                            SafetyLimits.workspaceReportCharacters
-                      WorkingSetBytes = SafetyLimits.workingSetBytes }
-                    start
-                    text
-            with
-            | Error error -> Error("BUILD003: " + error)
-            | Ok output ->
-                let review =
-                    if advisory then
-                        Codec.decode<WorkspaceReviewProjectReport> output.Output
-                    else
-                        { Advisory = false
-                          Analysis = Codec.decode<WorkspaceProjectReport> output.Output
-                          Findings = [] }
-
-                let result = review.Analysis
-                let report = result.Report
-
-                if
-                    report.Sources <> request.Sources
-                    || report.References <> request.References
-                    || report.Arguments <> request.Arguments
-                    || report.Policy <> request.Policy.Digest
-                    || report.Tool <> SafetyPolicy.fileDigest engine
-                    || before <> closure ()
-                    || request.Policy :: request.Sources @ request.References @ request.BuildInputs
-                       |> List.exists (fun expected -> input expected.Path <> expected)
-                then
-                    Error "BUILD004: The workspace worker report differs from its requested inputs."
+            let hit =
+                if cache then
+                    WorkspaceCache.read request.Root key
+                    |> Option.bind (fun output ->
+                        accept advisory document request (SafetyPolicy.fileDigest engine) false output
+                        |> Result.toOption)
                 else
-                    let validation =
-                        if advisory then
-                            WorkspaceReview.validate
-                                request
-                                (WorkspacePolicy.readForReview request.Root)
-                                output.ExitCode
-                                output.Error
-                                review
-                        else
-                            WorkspaceProtocol.validate
-                                request
-                                (WorkspacePolicy.read request.Root)
-                                output.ExitCode
-                                output.Error
-                                result
+                    None
 
-                    validation |> Result.map (fun () -> review)
+            match hit with
+            | Some review ->
+                Ok
+                    { review with
+                        Analysis = { review.Analysis with Cached = true } },
+                0L
+            | None ->
 
-    let private request root project = requestUsing false root project
+                let start =
+                    ProcessStartInfo(
+                        Path.Combine(runtimeRoot (), "dotnet"),
+                        WorkingDirectory =
+                            (Path.GetDirectoryName request.Project
+                             |> FDull.Transport.External.required "workspace.project-parent")
+                    )
 
-    let private analyze request =
-        analyzeUsing false request |> Result.map _.Analysis
+                start.ArgumentList.Add(Path.Combine(worker, "fdull-worker.dll"))
+                start.ArgumentList.Add(if advisory then "--workspace-review" else "--workspace")
+                start.Environment.Clear()
+                start.Environment["DOTNET_ROOT"] <- runtimeRoot ()
+                start.Environment["DOTNET_GCHeapHardLimit"] <- "20000000"
+                let text = Codec.encode request
+                let clock = Stopwatch.StartNew()
+
+                let run =
+                    SafetyProcess.run
+                        { Milliseconds = 60000
+                          OutputCharacters =
+                            if advisory then
+                                SafetyLimits.workspaceReviewCharacters
+                            else
+                                SafetyLimits.workspaceReportCharacters
+                          WorkingSetBytes = SafetyLimits.workingSetBytes }
+                        start
+                        text
+
+                let elapsed = clock.ElapsedMilliseconds
+
+                match run with
+                | Error error -> Error("BUILD003: " + error), elapsed
+                | Ok output ->
+                    let accepted =
+                        accept advisory document request (SafetyPolicy.fileDigest engine) (before <> closure ()) output
+
+                    match accepted with
+                    | Ok review when cache && review.Analysis.Report.Complete ->
+                        WorkspaceCache.write request.Root key output
+                    | _ -> ()
+
+                    accepted, elapsed
+
+    /// The parent's own work is everything outside the export and worker processes.
+    let private measured cache advisory root (document, pin) project =
+        let clock = Stopwatch.StartNew()
+        let invocation = export root project
+        let exported = clock.ElapsedMilliseconds
+
+        let result, worker =
+            match invocation with
+            | Error error -> Error error, 0L
+            | Ok invocation ->
+                requestFrom root project (document, pin) invocation
+                |> analyzeTimed cache advisory document
+
+        result,
+        { Project = project
+          ExportMilliseconds = exported
+          WorkerMilliseconds = worker
+          ValidationMilliseconds = clock.ElapsedMilliseconds - exported - worker }
+
+    /// The exact worker request `lint` sends for one workspace-relative project.
+    let request platform project =
+        try
+            let root = Path.GetFullPath platform
+            export root project |> Result.map (requestFrom root project (pinned false root))
+        with error ->
+            Error("BUILD003: " + error.Message)
 
     let checkProject platform project =
         try
             let root = Path.GetFullPath platform
-            let policy = WorkspacePolicy.read root
+            let policy, pin = pinned false root
             WorkspaceAudit.validate root policy
 
             let relative =
                 Path.GetRelativePath(root, Path.GetFullPath(project, root)).Replace('\\', '/')
 
             if policy.Sources |> List.exists (fun source -> source.Project = relative) then
-                request root relative |> Result.bind analyze
+                export root relative
+                |> Result.map (requestFrom root relative (policy, pin))
+                |> Result.bind (analyzeTimed false false policy >> fst >> Result.map _.Analysis)
             else
                 Error "ARCH002: The project is not assigned by workspace policy."
         with error ->
             Error("BUILD003: " + error.Message)
 
-    let internal checkUsing platform checkProject =
+    /// Projects analyzed at once by default. Each worker heap is capped at 512 MiB.
+    let defaultJobs = min Environment.ProcessorCount 4
+
+    let private attempt work item =
+        try
+            Ok(work item)
+        with error ->
+            Error error
+
+    /// Run independent project analyses, at most `jobs` at once, and return outcomes in input order.
+    /// Outcomes stop at the first exception, as the sequential loop did, so the job count never changes a report.
+    let private runAll jobs work items =
+        let outcomes =
+            if jobs = 1 then
+                let rec sequential completed remaining =
+                    match remaining with
+                    | [] -> List.rev completed
+                    | item :: rest ->
+                        match attempt work item with
+                        | Ok value -> sequential ((item, Ok value) :: completed) rest
+                        | Error error -> List.rev ((item, Error error) :: completed)
+
+                sequential [] items
+            else
+                Async.Parallel(
+                    items |> List.map (fun item -> async { return item, attempt work item }),
+                    maxDegreeOfParallelism = jobs
+                )
+                |> Async.RunSynchronously
+                |> List.ofArray
+
+        match outcomes |> List.tryFindIndex (fun (_, outcome) -> Result.isError outcome) with
+        | Some failed -> List.take (failed + 1) outcomes
+        | None -> outcomes
+
+    let private checkMeasured platform jobs checkProject =
         let root = Path.GetFullPath platform
         let errors = ResizeArray<string>()
         let projects = ResizeArray<WorkspaceProjectReport>()
         let exclusions = ResizeArray<WorkspaceProjectExclusion>()
+        let timings = ResizeArray<WorkspaceTiming>()
 
         try
-            let policy = WorkspacePolicy.read root
+            let policy, pin = pinned false root
             WorkspaceAudit.validate root policy
             exclusions.AddRange(WorkspacePolicy.excludedProjects policy)
             let projectFiles = WorkspaceAudit.order policy.Projects
 
-            for project in projectFiles do
-                match checkProject project with
-                | Ok report -> projects.Add report
-                | Error error -> errors.Add(project + ": " + error)
+            for project, outcome in runAll jobs (checkProject (policy, pin)) projectFiles do
+                match outcome with
+                | Ok(result, timing) ->
+                    Option.iter timings.Add timing
+
+                    match result with
+                    | Ok report -> projects.Add report
+                    | Error error -> errors.Add(project + ": " + error)
+                | Error(error: exn) -> errors.Add error.Message
 
             if
                 errors.Count = 0
@@ -357,35 +480,58 @@ module Workspace =
             else
                 0
           Projects = List.ofSeq projects
+          Cached = projects |> Seq.filter _.Cached |> Seq.length
           ExcludedProjects = List.ofSeq exclusions
-          Errors = List.ofSeq errors }
+          Errors = List.ofSeq errors },
+        List.ofSeq timings
+
+    /// Verification rebuilds between projects, so its checks stay strictly sequential.
+    let internal checkUsing platform checkProject =
+        checkMeasured platform 1 (fun _ project -> checkProject project, None) |> fst
+
+    /// Lint the workspace with up to `options.Jobs` concurrent project analyses, optionally using the
+    /// result cache, and report each project's export, worker and validation time.
+    let checkTimed (options: WorkspaceOptions) platform =
+        let root = Path.GetFullPath platform
+
+        checkMeasured root options.Jobs (fun policy project ->
+            let result, timing = measured options.Cache false root policy project
+            result |> Result.map _.Analysis, Some timing)
 
     let check platform =
-        let root = Path.GetFullPath platform
-        checkUsing root (fun project -> request root project |> Result.bind analyze)
+        checkTimed { Jobs = defaultJobs; Cache = false } platform |> fst
 
     /// Analyze a current-source snapshot for human review, without updating or certifying policy.
-    let review platform =
+    let reviewTimed (options: WorkspaceOptions) platform =
         let root = Path.GetFullPath platform
         let errors = ResizeArray<string>()
         let projects = ResizeArray<WorkspaceReviewProjectReport>()
+        let timings = ResizeArray<WorkspaceTiming>()
         let mutable policy = None
         let mutable snapshot = []
 
         try
-            let document = WorkspacePolicy.readForReview root
+            let document, pin = pinned true root
             WorkspaceAudit.validate root document
             policy <- Some document
-            let pin = input (Path.Combine(root, "fdull.json"))
 
             snapshot <-
                 document.Sources
                 |> List.map (fun source -> input (Path.Combine(root, source.File)))
 
-            for project in WorkspaceAudit.order document.Projects do
-                match requestUsing true root project |> Result.bind (analyzeUsing true) with
-                | Ok report -> projects.Add report
-                | Error error -> errors.Add(project + ": " + error)
+            for project, outcome in
+                runAll
+                    options.Jobs
+                    (measured options.Cache true root (document, pin))
+                    (WorkspaceAudit.order document.Projects) do
+                match outcome with
+                | Ok(result, timing) ->
+                    timings.Add timing
+
+                    match result with
+                    | Ok report -> projects.Add report
+                    | Error error -> errors.Add(project + ": " + error)
+                | Error(error: exn) -> errors.Add error.Message
 
             if
                 pin <> input pin.Path
@@ -400,20 +546,27 @@ module Workspace =
         with error ->
             errors.Add error.Message
 
-        match policy with
-        | Some document -> WorkspaceReview.create root document snapshot (List.ofSeq projects) (List.ofSeq errors)
-        | None ->
-            { Advisory = true
-              AnalysisComplete = false
-              ExitCode = 3
-              Projects = []
-              ExcludedProjects = []
-              Items = []
-              SourceChanges = []
-              UnusedCapabilities = []
-              UnusedConstructors = []
-              UnusedDataContracts = []
-              Errors = List.ofSeq errors }
+        let report =
+            match policy with
+            | Some document -> WorkspaceReview.create root document snapshot (List.ofSeq projects) (List.ofSeq errors)
+            | None ->
+                { Advisory = true
+                  AnalysisComplete = false
+                  ExitCode = 3
+                  Projects = []
+                  Cached = 0
+                  ExcludedProjects = []
+                  Items = []
+                  SourceChanges = []
+                  UnusedCapabilities = []
+                  UnusedConstructors = []
+                  UnusedDataContracts = []
+                  Errors = List.ofSeq errors }
+
+        report, List.ofSeq timings
+
+    let review platform =
+        reviewTimed { Jobs = defaultJobs; Cache = false } platform |> fst
 
     let private serveUsing advisory (input: TextReader) (output: TextWriter) =
         try

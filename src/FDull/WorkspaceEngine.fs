@@ -7,21 +7,29 @@ open FSharp.Compiler.Diagnostics
 open FSharp.Compiler.Text
 
 type WorkspaceRequest =
-    { Root: string
-      Project: string
-      ProjectReferences: string list
-      Arguments: string list
-      Sources: SafetyInput list
-      References: SafetyInput list
-      Generated: string list
-      BuildInputs: SafetyInput list
-      Policy: SafetyInput }
+    {
+        Root: string
+        Project: string
+        ProjectReferences: string list
+        Arguments: string list
+        Sources: SafetyInput list
+        References: SafetyInput list
+        Generated: string list
+        BuildInputs: SafetyInput list
+        Policy: SafetyInput
+        /// Digest of the policy slice the project's analysis can observe; reports carry it as `Policy`.
+        PolicySlice: string
+    }
 
 type WorkspaceProjectReport =
-    { Project: string
-      ProjectReferences: string list
-      Report: SafetyReport
-      Uses: WorkspaceUse list }
+    {
+        Project: string
+        ProjectReferences: string list
+        Report: SafetyReport
+        Uses: WorkspaceUse list
+        /// Set only by the parent, after a cached response passes the same checks as a fresh one.
+        Cached: bool
+    }
 
 /// A distinct worker response prevents advisory source analysis from certifying a build.
 type WorkspaceReviewProjectReport =
@@ -49,6 +57,7 @@ module WorkspaceProtocol =
 
         if
             result.Project <> request.Project
+            || result.Cached
             || result.ProjectReferences <> request.ProjectReferences
             || report.ExitCode <> processExit
             || not (List.contains report.ExitCode [ 0; 1; 3 ])
@@ -62,7 +71,7 @@ module WorkspaceProtocol =
             || report.Diagnostics
                |> List.exists (fun diagnostic ->
                    diagnostic.Severity <> "error"
-                   || diagnostic.Policy <> request.Policy.Digest
+                   || diagnostic.Policy <> request.PolicySlice
                    || diagnostic.Project <> request.Project
                    || not (Set.contains diagnostic.Profile WorkspacePolicy.profiles)
                    || not (Set.contains diagnostic.File files)
@@ -162,7 +171,7 @@ module WorkspaceEngine =
                 temporary.Delete true
         | _ -> invalidOp "BUILD002: The exported compiler invocation must have one output."
 
-    let private analyze advisory (request: WorkspaceRequest) =
+    let private analyze advisory whole (request: WorkspaceRequest) =
         let budget =
             SafetyBudget(maximumSteps = 2000000, maximumDepth = 512, milliseconds = 45000)
 
@@ -205,7 +214,7 @@ module WorkspaceEngine =
                       Symbol = symbol
                       Message = message
                       Alternative = alternative
-                      Policy = request.Policy.Digest }
+                      Policy = request.PolicySlice }
 
                 diagnostics.Add diagnostic
 
@@ -245,11 +254,22 @@ module WorkspaceEngine =
             | Error error -> invalidOp error
             | Ok() -> ()
 
-            let policy =
+            let project = Path.GetRelativePath(request.Root, request.Project).Replace('\\', '/')
+
+            let document =
                 if advisory then
                     WorkspacePolicy.readForReview request.Root
                 else
                     WorkspacePolicy.read request.Root
+
+            if WorkspaceSlice.digest project document <> request.PolicySlice then
+                invalidOp "BUILD004: Worker policy slice differs from the requested slice."
+
+            let policy =
+                if whole then
+                    document
+                else
+                    WorkspaceSlice.create project document
 
             let buildInputs =
                 policy.Inputs
@@ -259,8 +279,6 @@ module WorkspaceEngine =
 
             if request.BuildInputs <> buildInputs then
                 invalidOp "BUILD004: Worker build inputs differ from the protected inventory."
-
-            let project = Path.GetRelativePath(request.Root, request.Project).Replace('\\', '/')
 
             match
                 WorkspaceAudit.validateEdgesWithExternal
@@ -500,7 +518,7 @@ module WorkspaceEngine =
             { Project = request.Project
               ProjectReferences = request.ProjectReferences
               Report =
-                { Policy = request.Policy.Digest
+                { Policy = request.PolicySlice
                   Tool = SafetyPolicy.fileDigest typeof<SafetyReport>.Assembly.Location
                   Complete = complete
                   ExitCode =
@@ -511,7 +529,8 @@ module WorkspaceEngine =
                   References = request.References
                   Arguments = request.Arguments
                   Diagnostics = ordered }
-              Uses = uses }
+              Uses = uses
+              Cached = false }
 
         { Advisory = advisory
           Analysis = analysis
@@ -526,6 +545,12 @@ module WorkspaceEngine =
                 item.Identity)
             |> Seq.toList }
 
-    let check request = (analyze false request).Analysis
+    let check request = (analyze false false request).Analysis
 
-    let review request = analyze true request
+    let review request = analyze true false request
+
+    /// Analyze with the whole policy document instead of the project's slice. This is
+    /// equivalence evidence for the slice; workspace commands never call it.
+    let checkWholePolicy request = (analyze false true request).Analysis
+
+    let reviewWholePolicy request = analyze true true request

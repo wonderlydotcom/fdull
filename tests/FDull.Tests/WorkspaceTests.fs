@@ -380,7 +380,8 @@ module WorkspaceTests =
               References = []
               Generated = []
               BuildInputs = []
-              Policy = { Path = policyFile; Digest = "policy" } }
+              Policy = { Path = policyFile; Digest = "whole" }
+              PolicySlice = "policy" }
 
         let report =
             { Policy = "policy"
@@ -402,7 +403,8 @@ module WorkspaceTests =
             { Project = request.Project
               ProjectReferences = []
               Report = report
-              Uses = [ useSite ] }
+              Uses = [ useSite ]
+              Cached = false }
 
         let validate code stderr value =
             WorkspaceProtocol.validate request policy code stderr value
@@ -484,6 +486,7 @@ module WorkspaceTests =
             [ { diagnostic with Severity = "warning" }
               { diagnostic with Rule = "UNKNOWN001" }
               { diagnostic with Policy = "different" }
+              { diagnostic with Policy = "whole" }
               { diagnostic with
                   Project = "different" }
               { diagnostic with Profile = "TRUSTED" }
@@ -512,6 +515,9 @@ module WorkspaceTests =
               { useSite with Kind = "permission" }
               { useSite with Identity = "" } ] do
             Assert.True(validate 0 "" { result with Uses = [ malformed ] } |> Result.isError)
+
+        // Only the parent marks a response as cached, after accepting it.
+        Assert.True(validate 0 "" { result with Cached = true } |> Result.isError)
 
         Assert.True(
             validate
