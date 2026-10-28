@@ -26,14 +26,14 @@ module SafetyTests =
 
             parent 3 (DirectoryInfo(RuntimeEnvironment.GetRuntimeDirectory()))
 
-        Directory.GetFiles(Path.Combine(runtimeRoot, "packs/Microsoft.NETCore.App.Ref/10.0.4/ref/net10.0"), "*.dll")
+        Directory.GetFiles(Path.Combine(runtimeRoot, "packs/Microsoft.NETCore.App.Ref/10.0.14/ref/net10.0"), "*.dll")
         |> Array.sort
         |> Array.toList
         |> fun refs ->
             refs
             @ [ Path.Combine(
                     runtimeRoot,
-                    "packs/Microsoft.AspNetCore.App.Ref/10.0.4/ref/net10.0/Microsoft.AspNetCore.Mvc.Core.dll"
+                    "packs/Microsoft.AspNetCore.App.Ref/10.0.14/ref/net10.0/Microsoft.AspNetCore.Mvc.Core.dll"
                 )
                 typeof<unit>.Assembly.Location ]
 

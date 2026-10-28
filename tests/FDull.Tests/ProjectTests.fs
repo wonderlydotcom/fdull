@@ -136,7 +136,7 @@ module ProjectTests =
     let private writeConsumerSettings (root: string) =
         File.WriteAllText(
             Path.Combine(root, "global.json"),
-            "{\"sdk\":{\"version\":\"10.0.200\",\"rollForward\":\"disable\"}}"
+            "{\"sdk\":{\"version\":\"10.0.403\",\"rollForward\":\"disable\"}}"
         )
 
         File.WriteAllText(Path.Combine(root, "Directory.Build.props"), Project.defaults ())
