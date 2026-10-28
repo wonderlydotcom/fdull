@@ -326,7 +326,7 @@
     },
     {
       "File": "src/FDull.Tool/FDull.Tool.fsproj",
-      "Digest": "sha256:79c9d33f5017a3f90b0ab70b54c1d02a77741b3a1853301484a94444462d4594"
+      "Digest": "sha256:9a9da2b64dd5fb2e61df0118d550bd53e4e5a37fe76bc378f1b00fb9f1ac33d9"
     },
     {
       "File": "src/FDull.Tool/packages.lock.json",

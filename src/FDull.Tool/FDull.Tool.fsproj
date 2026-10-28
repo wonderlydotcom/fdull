@@ -1,6 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup><OutputType>Exe</OutputType><AssemblyName>FDull.Cli</AssemblyName><PackageId>FDull.Tool</PackageId>
     <PackAsTool>true</PackAsTool><ToolCommandName>fdull</ToolCommandName><IsPackable>true</IsPackable>
+    <RuntimeFrameworkVersion>10.0.14</RuntimeFrameworkVersion>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="../FDull/FDull.fsproj" />

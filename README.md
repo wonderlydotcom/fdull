@@ -27,8 +27,8 @@ worker and dependencies and does not require a source checkout.
 
 The preview supports **.NET SDK 10.0.403, F# 10.0, net10.0**, with
 **FSharp.Core 10.0.x or 10.1.x**. FDull itself pins **FSharp.Core 10.1.201** and
-**FSharp.Compiler.Service 43.12.201**. The worker
-requires **Microsoft.NETCore.App 10.0.14** and disables runtime roll-forward.
+**FSharp.Compiler.Service 43.12.201**. The CLI and worker
+require **Microsoft.NETCore.App 10.0.14**. The worker disables runtime roll-forward.
 Install the matching SDK/runtime first. New toolchains require compatibility
 tests; the preview rejects untested compiler flags.
 
