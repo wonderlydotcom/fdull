@@ -158,7 +158,7 @@
       "File": "src/FDull/Workspace.fs",
       "Project": "src/FDull/FDull.fsproj",
       "Profile": "GUARD_TOOLING",
-      "Digest": "sha256:48a5f3441599ebd3093a6065aafb060e160afa8d14dec14440595c2441893001"
+      "Digest": "sha256:6b8ac0176488ecd3e0439c9213361b9271db31b1ebdb4eecf67de55e21f55ac9"
     },
     {
       "File": "src/FDull/Safety.fs",
@@ -170,7 +170,7 @@
       "File": "src/FDull/Project.fs",
       "Project": "src/FDull/FDull.fsproj",
       "Profile": "GUARD_TOOLING",
-      "Digest": "sha256:acbc72b8583c38acc8e64f49c93e59d9b5de2f386e5d3eac4186b38851a41b49"
+      "Digest": "sha256:8781eb4cfb8bbe22aa28f72cd82c0fdea13593d0f3b86029ef339b77f4008179"
     },
     {
       "File": "src/FDull.Analyzers/Analyzer.fs",
@@ -182,7 +182,7 @@
       "File": "src/FDull.Tool/Program.fs",
       "Project": "src/FDull.Tool/FDull.Tool.fsproj",
       "Profile": "GUARD_TOOLING",
-      "Digest": "sha256:7f83a81aa36727c268a12609472c460382c5baf45d4ec2b89adce0fc1a855c5e"
+      "Digest": "sha256:a0129d67f44f346212be60cf0137751f3433da1a3782bef4f46dcf477932bd9e"
     },
     {
       "File": "src/FDull.Worker/Program.fs",
@@ -236,13 +236,13 @@
       "File": "tests/FDull.Tests/WorkspaceTests.fs",
       "Project": "tests/FDull.Tests/FDull.Tests.fsproj",
       "Profile": "TEST",
-      "Digest": "sha256:8fdd14616bae62e1c2df81519ee3db7df4b491283d164bca732094b263f55902"
+      "Digest": "sha256:387b0320f78cc93a5afb91274befa00eff5488efc84ecc0a92c0d6058f1ab503"
     },
     {
       "File": "tests/FDull.Tests/ProjectTests.fs",
       "Project": "tests/FDull.Tests/FDull.Tests.fsproj",
       "Profile": "TEST",
-      "Digest": "sha256:fc26628173ad5a2fdd77ec2861df39bc659625b20e67d33ebd467676e0ee6025"
+      "Digest": "sha256:7a9add7b8d934b6bbe702c9fa38262ffb65c1f00e68ab7c115a53baee90712da"
     },
     {
       "File": "tests/FDull.Tests/Program.fs",
@@ -529,13 +529,6 @@
       "Owner": "FDull.Tool.Program.main",
       "Kind": "member",
       "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Project.initialize(System.String)",
-      "Reason": "CLI boundary prints finite checker reports, routes explicit commands and maps infrastructure exceptions to exit 3. It cannot certify a caught failure or grant policy permissions."
-    },
-    {
-      "File": "src/FDull.Tool/Program.fs",
-      "Owner": "FDull.Tool.Program.main",
-      "Kind": "member",
-      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Project.verify(System.String)",
       "Reason": "CLI boundary prints finite checker reports, routes explicit commands and maps infrastructure exceptions to exit 3. It cannot certify a caught failure or grant policy permissions."
     },
     {
@@ -1362,34 +1355,6 @@
       "Owner": "FDull.Project.run",
       "Kind": "type",
       "Identity": "System.Diagnostics.Process, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | System.Diagnostics.ProcessStartInfo",
-      "Reason": "Standalone lifecycle uses bounded child processes and exact input snapshots. Initialization grants no exceptions and refuses overwrite; ProjectTests exercises verification and changed-input failures."
-    },
-    {
-      "File": "src/FDull/Project.fs",
-      "Owner": "FDull.Project.verify",
-      "Kind": "member",
-      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Core.Operators.InvalidOp``1(System.String)",
-      "Reason": "Standalone lifecycle uses bounded child processes and exact input snapshots. Initialization grants no exceptions and refuses overwrite; ProjectTests exercises verification and changed-input failures."
-    },
-    {
-      "File": "src/FDull/Project.fs",
-      "Owner": "FDull.Project.verify",
-      "Kind": "member",
-      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.GetFullPath(System.String)",
-      "Reason": "Standalone lifecycle uses bounded child processes and exact input snapshots. Initialization grants no exceptions and refuses overwrite; ProjectTests exercises verification and changed-input failures."
-    },
-    {
-      "File": "src/FDull/Project.fs",
-      "Owner": "FDull.Project.verify",
-      "Kind": "rule",
-      "Identity": "CAST004 | coercion -> System.Object",
-      "Reason": "Standalone lifecycle uses bounded child processes and exact input snapshots. Initialization grants no exceptions and refuses overwrite; ProjectTests exercises verification and changed-input failures."
-    },
-    {
-      "File": "src/FDull/Project.fs",
-      "Owner": "FDull.Project.verify",
-      "Kind": "rule",
-      "Identity": "MUT009 | ",
       "Reason": "Standalone lifecycle uses bounded child processes and exact input snapshots. Initialization grants no exceptions and refuses overwrite; ProjectTests exercises verification and changed-input failures."
     },
     {
@@ -7788,13 +7753,6 @@
       "Owner": "FDull.Tests.ProjectTests.graph",
       "Kind": "type",
       "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspaceProject",
-      "Reason": "Isolated test fixture constructs finite input graphs, uses bounded dotnet subprocesses and verifies rejection behavior. Filesystem changes are confined to a unique temporary directory and cleaned up; assertions cannot be shipping dependencies."
-    },
-    {
-      "File": "tests/FDull.Tests/ProjectTests.fs",
-      "Owner": "FDull.Tests.ProjectTests.restoreConsumer",
-      "Kind": "member",
-      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Project.defaults",
       "Reason": "Isolated test fixture constructs finite input graphs, uses bounded dotnet subprocesses and verifies rejection behavior. Filesystem changes are confined to a unique temporary directory and cleaned up; assertions cannot be shipping dependencies."
     },
     {
@@ -20324,13 +20282,6 @@
       "File": "src/FDull.Tool/Program.fs",
       "Owner": "FDull.Tool.Program.timed",
       "Kind": "type",
-      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspaceTiming",
-      "Reason": "Opt-in --timings writes per-project and total wall-clock lines to stderr only after analysis returns; the report value and exit code pass through unchanged. The timings regression compares stdout and exit codes with and without the flag."
-    },
-    {
-      "File": "src/FDull.Tool/Program.fs",
-      "Owner": "FDull.Tool.Program.timed",
-      "Kind": "type",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | System.Diagnostics.Stopwatch",
       "Reason": "Opt-in --timings writes per-project and total wall-clock lines to stderr only after analysis returns; the report value and exit code pass through unchanged. The timings regression compares stdout and exit codes with and without the flag."
     },
@@ -20388,7 +20339,7 @@
       "Owner": "FDull.Workspace.checkMeasured",
       "Kind": "member",
       "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Core.OptionModule.Iterate``1(Microsoft.FSharp.Core.FSharpFunc{``0,Microsoft.FSharp.Core.Unit},Microsoft.FSharp.Core.FSharpOption{``0})",
-      "Reason": "Collects optional per-project timings into the run-local diagnostic list; verification passes None and timings never affect completeness or exit codes."
+      "Reason": "Collects optional per-project timings into the run-local diagnostic list; timings never affect completeness, reports or exit codes."
     },
     {
       "File": "tests/FDull.Tests/ProjectTests.fs",
@@ -20468,95 +20419,32 @@
       "Reason": "Parses --jobs as invariant-culture decimal digits only (NumberStyles.None) and accepts 1 to 64; signs, words, zero and larger values are usage errors (exit 2), covered by the job-count regression."
     },
     {
-      "File": "src/FDull.Tool/Program.fs",
-      "Owner": "FDull.Tool.Program.workspaceOptions",
-      "Kind": "member",
-      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | P:FDull.Workspace.defaultJobs",
-      "Reason": "Resolves the already validated --jobs value, or the library default, and --no-cache into lint and review options; verify takes neither option, stays sequential and never uses the cache."
-    },
-    {
-      "File": "src/FDull.Tool/Program.fs",
-      "Owner": "FDull.Tool.Program.workspaceOptions",
-      "Kind": "member",
-      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.FSharpMap`2.TryFind(`0)",
-      "Reason": "Resolves the already validated --jobs value, or the library default, and --no-cache into lint and review options; verify takes neither option, stays sequential and never uses the cache."
-    },
-    {
       "File": "src/FDull/Workspace.fs",
       "Owner": "FDull.Workspace.defaultJobs",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:System.Environment.ProcessorCount",
-      "Reason": "Default concurrent project analyses: processor count capped at 4, so at most four 512 MiB-heap workers run at once. Only lint and review use it; reports do not depend on the job count."
+      "Reason": "Default concurrent projects: processor count capped at 4, so at most four 512 MiB-heap workers (and, in verify, four bounded builds) run at once. Used by lint, review and verify; reports do not depend on the job count."
     },
     {
       "File": "src/FDull/Workspace.fs",
       "Owner": "FDull.Workspace.attempt",
       "Kind": "rule",
       "Identity": "ERR001 | ",
-      "Reason": "Captures one project analysis exception as a value so concurrent runs can return outcomes in dependency order; the caller reports the first exception as an error and drops later outcomes, exactly as the sequential loop stopped. A caught failure never becomes success."
+      "Reason": "Captures one scheduled item's exception as a value so concurrent runs can return outcomes in item order; schedule truncates at the first exception and callers report it as an error, exactly as the sequential loop stopped. A caught failure never becomes success."
     },
     {
       "File": "src/FDull/Workspace.fs",
       "Owner": "FDull.Workspace.attempt",
       "Kind": "rule",
       "Identity": "ERR004 | exception handler",
-      "Reason": "Captures one project analysis exception as a value so concurrent runs can return outcomes in dependency order; the caller reports the first exception as an error and drops later outcomes, exactly as the sequential loop stopped. A caught failure never becomes success."
+      "Reason": "Captures one scheduled item's exception as a value so concurrent runs can return outcomes in item order; schedule truncates at the first exception and callers report it as an error, exactly as the sequential loop stopped. A caught failure never becomes success."
     },
     {
       "File": "src/FDull/Workspace.fs",
       "Owner": "FDull.Workspace.attempt",
       "Kind": "type",
       "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | System.Exception",
-      "Reason": "Captures one project analysis exception as a value so concurrent runs can return outcomes in dependency order; the caller reports the first exception as an error and drops later outcomes, exactly as the sequential loop stopped. A caught failure never becomes success."
-    },
-    {
-      "File": "src/FDull/Workspace.fs",
-      "Owner": "FDull.Workspace.runAll",
-      "Kind": "member",
-      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.ListModule.OfArray``1(``0[])",
-      "Reason": "Bounded project scheduler: Async.Parallel with maxDegreeOfParallelism runs independent read-only analyses (each an existing bounded export and worker process) and returns outcomes in input order, truncated after the first exception. One job runs strictly sequentially for verify. The job-count regression proves identical reports and failure positions for 1 and 4 jobs."
-    },
-    {
-      "File": "src/FDull/Workspace.fs",
-      "Owner": "FDull.Workspace.runAll",
-      "Kind": "member",
-      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.ListModule.Take``1(System.Int32,Microsoft.FSharp.Collections.FSharpList{``0})",
-      "Reason": "Bounded project scheduler: Async.Parallel with maxDegreeOfParallelism runs independent read-only analyses (each an existing bounded export and worker process) and returns outcomes in input order, truncated after the first exception. One job runs strictly sequentially for verify. The job-count regression proves identical reports and failure positions for 1 and 4 jobs."
-    },
-    {
-      "File": "src/FDull/Workspace.fs",
-      "Owner": "FDull.Workspace.runAll",
-      "Kind": "member",
-      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.ListModule.TryFindIndex``1(Microsoft.FSharp.Core.FSharpFunc{``0,System.Boolean},Microsoft.FSharp.Collections.FSharpList{``0})",
-      "Reason": "Bounded project scheduler: Async.Parallel with maxDegreeOfParallelism runs independent read-only analyses (each an existing bounded export and worker process) and returns outcomes in input order, truncated after the first exception. One job runs strictly sequentially for verify. The job-count regression proves identical reports and failure positions for 1 and 4 jobs."
-    },
-    {
-      "File": "src/FDull/Workspace.fs",
-      "Owner": "FDull.Workspace.runAll",
-      "Kind": "member",
-      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Control.FSharpAsync.Parallel``1(System.Collections.Generic.IEnumerable{Microsoft.FSharp.Control.FSharpAsync{``0}},Microsoft.FSharp.Core.FSharpOption{System.Int32})",
-      "Reason": "Bounded project scheduler: Async.Parallel with maxDegreeOfParallelism runs independent read-only analyses (each an existing bounded export and worker process) and returns outcomes in input order, truncated after the first exception. One job runs strictly sequentially for verify. The job-count regression proves identical reports and failure positions for 1 and 4 jobs."
-    },
-    {
-      "File": "src/FDull/Workspace.fs",
-      "Owner": "FDull.Workspace.runAll",
-      "Kind": "member",
-      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Control.FSharpAsync.RunSynchronously``1(Microsoft.FSharp.Control.FSharpAsync{``0},Microsoft.FSharp.Core.FSharpOption{System.Int32},Microsoft.FSharp.Core.FSharpOption{System.Threading.CancellationToken})",
-      "Reason": "Bounded project scheduler: Async.Parallel with maxDegreeOfParallelism runs independent read-only analyses (each an existing bounded export and worker process) and returns outcomes in input order, truncated after the first exception. One job runs strictly sequentially for verify. The job-count regression proves identical reports and failure positions for 1 and 4 jobs."
-    },
-    {
-      "File": "src/FDull/Workspace.fs",
-      "Owner": "FDull.Workspace.runAll",
-      "Kind": "member",
-      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:Microsoft.FSharp.Core.ExtraTopLevelOperators.DefaultAsyncBuilder",
-      "Reason": "Bounded project scheduler: Async.Parallel with maxDegreeOfParallelism runs independent read-only analyses (each an existing bounded export and worker process) and returns outcomes in input order, truncated after the first exception. One job runs strictly sequentially for verify. The job-count regression proves identical reports and failure positions for 1 and 4 jobs."
-    },
-    {
-      "File": "src/FDull/Workspace.fs",
-      "Owner": "FDull.Workspace.runAll",
-      "Kind": "type",
-      "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | System.Exception",
-      "Reason": "Bounded project scheduler: Async.Parallel with maxDegreeOfParallelism runs independent read-only analyses (each an existing bounded export and worker process) and returns outcomes in input order, truncated after the first exception. One job runs strictly sequentially for verify. The job-count regression proves identical reports and failure positions for 1 and 4 jobs."
+      "Reason": "Captures one scheduled item's exception as a value so concurrent runs can return outcomes in item order; schedule truncates at the first exception and callers report it as an error, exactly as the sequential loop stopped. A caught failure never becomes success."
     },
     {
       "File": "tests/FDull.Tests/ProjectTests.fs",
@@ -21004,14 +20892,14 @@
       "Owner": "FDull.Tool.Program.workspaceOptions",
       "Kind": "member",
       "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.FSharpMap`2.ContainsKey(`0)",
-      "Reason": "Resolves the already validated --jobs value, or the library default, and --no-cache into lint and review options; verify takes neither option, stays sequential and never uses the cache."
+      "Reason": "Builds lint and review options from the resolved job count and --no-cache; verify takes its job count separately and never uses the cache."
     },
     {
       "File": "src/FDull.Tool/Program.fs",
       "Owner": "FDull.Tool.Program.workspaceOptions",
       "Kind": "type",
       "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspaceOptions",
-      "Reason": "Resolves the already validated --jobs value, or the library default, and --no-cache into lint and review options; verify takes neither option, stays sequential and never uses the cache."
+      "Reason": "Builds lint and review options from the resolved job count and --no-cache; verify takes its job count separately and never uses the cache."
     },
     {
       "File": "src/FDull/Workspace.fs",
@@ -22286,6 +22174,1035 @@
       "Kind": "type",
       "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | System.Object",
       "Reason": "Reviewed non-shipping CLI regression: a bounded dotnet subprocess captures real CLI output and exit codes in an isolated consumer; no shell or permission generation."
+    },
+    {
+      "File": "src/FDull.Tool/Program.fs",
+      "Owner": "FDull.Tool.Program.jobs",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | P:FDull.Workspace.defaultJobs",
+      "Reason": "Resolves the already validated --jobs count (1-64) or Workspace.defaultJobs for lint, review and verify; out-of-range or repeated options are usage errors before any analysis. The shared-directory CLI regression checks the usage errors."
+    },
+    {
+      "File": "src/FDull.Tool/Program.fs",
+      "Owner": "FDull.Tool.Program.jobs",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.FSharpMap`2.TryFind(`0)",
+      "Reason": "Resolves the already validated --jobs count (1-64) or Workspace.defaultJobs for lint, review and verify; out-of-range or repeated options are usage errors before any analysis. The shared-directory CLI regression checks the usage errors."
+    },
+    {
+      "File": "src/FDull.Tool/Program.fs",
+      "Owner": "FDull.Tool.Program.main",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Project.verifyTimed(System.Int32,System.String)",
+      "Reason": "CLI boundary prints finite checker reports, routes explicit commands and maps infrastructure exceptions to exit 3. verify passes the validated job count to Project.verifyTimed, prints only text and rejects --format and --no-cache; it cannot certify a caught failure or grant policy permissions."
+    },
+    {
+      "File": "src/FDull.Tool/Program.fs",
+      "Owner": "FDull.Tool.Program.verifyTimings",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | FDull.VerifyTiming",
+      "Reason": "Formats immutable verify step timings for the opt-in --timings stderr lines; the report value and exit code pass through unchanged. The shared-directory CLI regression compares stdout with and without the flag."
+    },
+    {
+      "File": "src/FDull.Tool/Program.fs",
+      "Owner": "FDull.Tool.Program.workspaceTimings",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspaceTiming",
+      "Reason": "Formats immutable lint/review timings for the opt-in --timings stderr lines; the report value and exit code pass through unchanged. The timings regression compares stdout and exit codes with and without the flag."
+    },
+    {
+      "File": "src/FDull/Project.fs",
+      "Owner": "FDull.Project.completed",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Core.Operators.InvalidOp``1(System.String)",
+      "Reason": "Returns the values of steps run through Workspace.schedule in project order and raises the first failure's message as a failed verification, as the sequential loop did; a failure never becomes a value. The failure-determinism regression compares job counts."
+    },
+    {
+      "File": "src/FDull/Project.fs",
+      "Owner": "FDull.Project.completed",
+      "Kind": "member",
+      "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | P:System.Exception.Message",
+      "Reason": "Returns the values of steps run through Workspace.schedule in project order and raises the first failure's message as a failed verification, as the sequential loop did; a failure never becomes a value. The failure-determinism regression compares job counts."
+    },
+    {
+      "File": "src/FDull/Project.fs",
+      "Owner": "FDull.Project.completed",
+      "Kind": "type",
+      "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | System.Exception",
+      "Reason": "Returns the values of steps run through Workspace.schedule in project order and raises the first failure's message as a failed verification, as the sequential loop did; a failure never becomes a value. The failure-determinism regression compares job counts."
+    },
+    {
+      "File": "src/FDull/Project.fs",
+      "Owner": "FDull.Project.measure",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.Diagnostics.Stopwatch.StartNew",
+      "Reason": "Diagnostic timing only: a monotonic Stopwatch measures one verify step; values never enter reports, digests or exit codes. The diamond regression checks the timings and that reports are identical for every job count."
+    },
+    {
+      "File": "src/FDull/Project.fs",
+      "Owner": "FDull.Project.measure",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:System.Diagnostics.Stopwatch.ElapsedMilliseconds",
+      "Reason": "Diagnostic timing only: a monotonic Stopwatch measures one verify step; values never enter reports, digests or exit codes. The diamond regression checks the timings and that reports are identical for every job count."
+    },
+    {
+      "File": "src/FDull/Project.fs",
+      "Owner": "FDull.Project.measure",
+      "Kind": "type",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | System.Diagnostics.Stopwatch",
+      "Reason": "Diagnostic timing only: a monotonic Stopwatch measures one verify step; values never enter reports, digests or exit codes. The diamond regression checks the timings and that reports are identical for every job count."
+    },
+    {
+      "File": "src/FDull/Project.fs",
+      "Owner": "FDull.Project.verifyTimed",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.ListModule.Zip3``3(Microsoft.FSharp.Collections.FSharpList{``0},Microsoft.FSharp.Collections.FSharpList{``1},Microsoft.FSharp.Collections.FSharpList{``2})",
+      "Reason": "Standalone lifecycle uses bounded child processes and exact input snapshots. Projects build, analyze and rebuild through Workspace.schedule only after every referenced project finishes; restores stay sequential, and shared output directories or external references force one job. Changed inputs, invocations or policy throw BUILD004 and Stopwatch values are diagnostic only. ProjectTests compares job counts, ordering and concurrent changed-input failures."
+    },
+    {
+      "File": "src/FDull/Project.fs",
+      "Owner": "FDull.Project.verifyTimed",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.ListModule.Zip``2(Microsoft.FSharp.Collections.FSharpList{``0},Microsoft.FSharp.Collections.FSharpList{``1})",
+      "Reason": "Standalone lifecycle uses bounded child processes and exact input snapshots. Projects build, analyze and rebuild through Workspace.schedule only after every referenced project finishes; restores stay sequential, and shared output directories or external references force one job. Changed inputs, invocations or policy throw BUILD004 and Stopwatch values are diagnostic only. ProjectTests compares job counts, ordering and concurrent changed-input failures."
+    },
+    {
+      "File": "src/FDull/Project.fs",
+      "Owner": "FDull.Project.verifyTimed",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Core.Operators.InvalidOp``1(System.String)",
+      "Reason": "Standalone lifecycle uses bounded child processes and exact input snapshots. Projects build, analyze and rebuild through Workspace.schedule only after every referenced project finishes; restores stay sequential, and shared output directories or external references force one job. Changed inputs, invocations or policy throw BUILD004 and Stopwatch values are diagnostic only. ProjectTests compares job counts, ordering and concurrent changed-input failures."
+    },
+    {
+      "File": "src/FDull/Project.fs",
+      "Owner": "FDull.Project.verifyTimed",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.Diagnostics.Stopwatch.StartNew",
+      "Reason": "Standalone lifecycle uses bounded child processes and exact input snapshots. Projects build, analyze and rebuild through Workspace.schedule only after every referenced project finishes; restores stay sequential, and shared output directories or external references force one job. Changed inputs, invocations or policy throw BUILD004 and Stopwatch values are diagnostic only. ProjectTests compares job counts, ordering and concurrent changed-input failures."
+    },
+    {
+      "File": "src/FDull/Project.fs",
+      "Owner": "FDull.Project.verifyTimed",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.GetFullPath(System.String)",
+      "Reason": "Standalone lifecycle uses bounded child processes and exact input snapshots. Projects build, analyze and rebuild through Workspace.schedule only after every referenced project finishes; restores stay sequential, and shared output directories or external references force one job. Changed inputs, invocations or policy throw BUILD004 and Stopwatch values are diagnostic only. ProjectTests compares job counts, ordering and concurrent changed-input failures."
+    },
+    {
+      "File": "src/FDull/Project.fs",
+      "Owner": "FDull.Project.verifyTimed",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:System.Diagnostics.Stopwatch.ElapsedMilliseconds",
+      "Reason": "Standalone lifecycle uses bounded child processes and exact input snapshots. Projects build, analyze and rebuild through Workspace.schedule only after every referenced project finishes; restores stay sequential, and shared output directories or external references force one job. Changed inputs, invocations or policy throw BUILD004 and Stopwatch values are diagnostic only. ProjectTests compares job counts, ordering and concurrent changed-input failures."
+    },
+    {
+      "File": "src/FDull/Project.fs",
+      "Owner": "FDull.Project.verifyTimed",
+      "Kind": "rule",
+      "Identity": "MUT009 | ",
+      "Reason": "Standalone lifecycle uses bounded child processes and exact input snapshots. Projects build, analyze and rebuild through Workspace.schedule only after every referenced project finishes; restores stay sequential, and shared output directories or external references force one job. Changed inputs, invocations or policy throw BUILD004 and Stopwatch values are diagnostic only. ProjectTests compares job counts, ordering and concurrent changed-input failures."
+    },
+    {
+      "File": "src/FDull/Project.fs",
+      "Owner": "FDull.Project.verifyTimed",
+      "Kind": "type",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | System.Diagnostics.Stopwatch",
+      "Reason": "Standalone lifecycle uses bounded child processes and exact input snapshots. Projects build, analyze and rebuild through Workspace.schedule only after every referenced project finishes; restores stay sequential, and shared output directories or external references force one job. Changed inputs, invocations or policy throw BUILD004 and Stopwatch values are diagnostic only. ProjectTests compares job counts, ordering and concurrent changed-input failures."
+    },
+    {
+      "File": "src/FDull/Project.fs",
+      "Owner": "FDull.Project.verifyTimed",
+      "Kind": "type",
+      "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | System.Object",
+      "Reason": "Standalone lifecycle uses bounded child processes and exact input snapshots. Projects build, analyze and rebuild through Workspace.schedule only after every referenced project finishes; restores stay sequential, and shared output directories or external references force one job. Changed inputs, invocations or policy throw BUILD004 and Stopwatch values are diagnostic only. ProjectTests compares job counts, ordering and concurrent changed-input failures."
+    },
+    {
+      "File": "src/FDull/Workspace.fs",
+      "Owner": "FDull.Workspace.outputDirectories",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.Combine(System.String,System.String)",
+      "Reason": "Evaluation-only msbuild probe through the bounded runTool process: reads BaseIntermediateOutputPath and OutDir as JSON and resolves them against the project directory; no target runs and nothing is written. A non-zero exit, missing property or malformed output fails verification. The shared-directory regression exercises it."
+    },
+    {
+      "File": "src/FDull/Workspace.fs",
+      "Owner": "FDull.Workspace.outputDirectories",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.GetDirectoryName(System.String)",
+      "Reason": "Evaluation-only msbuild probe through the bounded runTool process: reads BaseIntermediateOutputPath and OutDir as JSON and resolves them against the project directory; no target runs and nothing is written. A non-zero exit, missing property or malformed output fails verification. The shared-directory regression exercises it."
+    },
+    {
+      "File": "src/FDull/Workspace.fs",
+      "Owner": "FDull.Workspace.outputDirectories",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.GetFullPath(System.String,System.String)",
+      "Reason": "Evaluation-only msbuild probe through the bounded runTool process: reads BaseIntermediateOutputPath and OutDir as JSON and resolves them against the project directory; no target runs and nothing is written. A non-zero exit, missing property or malformed output fails verification. The shared-directory regression exercises it."
+    },
+    {
+      "File": "src/FDull/Workspace.fs",
+      "Owner": "FDull.Workspace.outputDirectories",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.TrimEndingDirectorySeparator(System.String)",
+      "Reason": "Evaluation-only msbuild probe through the bounded runTool process: reads BaseIntermediateOutputPath and OutDir as JSON and resolves them against the project directory; no target runs and nothing is written. A non-zero exit, missing property or malformed output fails verification. The shared-directory regression exercises it."
+    },
+    {
+      "File": "src/FDull/Workspace.fs",
+      "Owner": "FDull.Workspace.outputDirectories",
+      "Kind": "member",
+      "Identity": "System.Text.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | M:System.Text.Json.JsonDocument.Parse(System.String,System.Text.Json.JsonDocumentOptions)",
+      "Reason": "Evaluation-only msbuild probe through the bounded runTool process: reads BaseIntermediateOutputPath and OutDir as JSON and resolves them against the project directory; no target runs and nothing is written. A non-zero exit, missing property or malformed output fails verification. The shared-directory regression exercises it."
+    },
+    {
+      "File": "src/FDull/Workspace.fs",
+      "Owner": "FDull.Workspace.outputDirectories",
+      "Kind": "member",
+      "Identity": "System.Text.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | M:System.Text.Json.JsonElement.GetProperty(System.String)",
+      "Reason": "Evaluation-only msbuild probe through the bounded runTool process: reads BaseIntermediateOutputPath and OutDir as JSON and resolves them against the project directory; no target runs and nothing is written. A non-zero exit, missing property or malformed output fails verification. The shared-directory regression exercises it."
+    },
+    {
+      "File": "src/FDull/Workspace.fs",
+      "Owner": "FDull.Workspace.outputDirectories",
+      "Kind": "member",
+      "Identity": "System.Text.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | M:System.Text.Json.JsonElement.GetString",
+      "Reason": "Evaluation-only msbuild probe through the bounded runTool process: reads BaseIntermediateOutputPath and OutDir as JSON and resolves them against the project directory; no target runs and nothing is written. A non-zero exit, missing property or malformed output fails verification. The shared-directory regression exercises it."
+    },
+    {
+      "File": "src/FDull/Workspace.fs",
+      "Owner": "FDull.Workspace.outputDirectories",
+      "Kind": "member",
+      "Identity": "System.Text.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | P:System.Text.Json.JsonDocument.RootElement",
+      "Reason": "Evaluation-only msbuild probe through the bounded runTool process: reads BaseIntermediateOutputPath and OutDir as JSON and resolves them against the project directory; no target runs and nothing is written. A non-zero exit, missing property or malformed output fails verification. The shared-directory regression exercises it."
+    },
+    {
+      "File": "src/FDull/Workspace.fs",
+      "Owner": "FDull.Workspace.outputDirectories",
+      "Kind": "member",
+      "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | M:System.String.Replace(System.Char,System.Char)",
+      "Reason": "Evaluation-only msbuild probe through the bounded runTool process: reads BaseIntermediateOutputPath and OutDir as JSON and resolves them against the project directory; no target runs and nothing is written. A non-zero exit, missing property or malformed output fails verification. The shared-directory regression exercises it."
+    },
+    {
+      "File": "src/FDull/Workspace.fs",
+      "Owner": "FDull.Workspace.outputDirectories",
+      "Kind": "rule",
+      "Identity": "ERR009 | ",
+      "Reason": "Evaluation-only msbuild probe through the bounded runTool process: reads BaseIntermediateOutputPath and OutDir as JSON and resolves them against the project directory; no target runs and nothing is written. A non-zero exit, missing property or malformed output fails verification. The shared-directory regression exercises it."
+    },
+    {
+      "File": "src/FDull/Workspace.fs",
+      "Owner": "FDull.Workspace.outputDirectories",
+      "Kind": "type",
+      "Identity": "System.Text.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | System.Text.Json.JsonDocument",
+      "Reason": "Evaluation-only msbuild probe through the bounded runTool process: reads BaseIntermediateOutputPath and OutDir as JSON and resolves them against the project directory; no target runs and nothing is written. A non-zero exit, missing property or malformed output fails verification. The shared-directory regression exercises it."
+    },
+    {
+      "File": "src/FDull/Workspace.fs",
+      "Owner": "FDull.Workspace.outputDirectories",
+      "Kind": "type",
+      "Identity": "System.Text.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | System.Text.Json.JsonElement",
+      "Reason": "Evaluation-only msbuild probe through the bounded runTool process: reads BaseIntermediateOutputPath and OutDir as JSON and resolves them against the project directory; no target runs and nothing is written. A non-zero exit, missing property or malformed output fails verification. The shared-directory regression exercises it."
+    },
+    {
+      "File": "src/FDull/Workspace.fs",
+      "Owner": "FDull.Workspace.schedule",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.ArrayModule.OfList``1(Microsoft.FSharp.Collections.FSharpList{``0})",
+      "Reason": "Bounded ready-queue scheduler: at most `jobs` tasks run the caller's work (existing bounded export, worker and build steps), each only after its in-set references finish. attempt captures exceptions per item; outcomes return in item order and stop at the first failure, and an unschedulable graph fails as ARCH001. WorkspaceTests schedule facts and the ProjectTests diamond and failure regressions compare job counts 1 to 8."
+    },
+    {
+      "File": "src/FDull/Workspace.fs",
+      "Owner": "FDull.Workspace.schedule",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Core.Operators.InvalidOp``1(System.String)",
+      "Reason": "Bounded ready-queue scheduler: at most `jobs` tasks run the caller's work (existing bounded export, worker and build steps), each only after its in-set references finish. attempt captures exceptions per item; outcomes return in item order and stop at the first failure, and an unschedulable graph fails as ARCH001. WorkspaceTests schedule facts and the ProjectTests diamond and failure regressions compare job counts 1 to 8."
+    },
+    {
+      "File": "src/FDull/Workspace.fs",
+      "Owner": "FDull.Workspace.schedule",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.Threading.Tasks.Task.Run``1(System.Func{``0})",
+      "Reason": "Bounded ready-queue scheduler: at most `jobs` tasks run the caller's work (existing bounded export, worker and build steps), each only after its in-set references finish. attempt captures exceptions per item; outcomes return in item order and stop at the first failure, and an unschedulable graph fails as ARCH001. WorkspaceTests schedule facts and the ProjectTests diamond and failure regressions compare job counts 1 to 8."
+    },
+    {
+      "File": "src/FDull/Workspace.fs",
+      "Owner": "FDull.Workspace.schedule",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.Threading.Tasks.Task.WaitAny(System.Threading.Tasks.Task[])",
+      "Reason": "Bounded ready-queue scheduler: at most `jobs` tasks run the caller's work (existing bounded export, worker and build steps), each only after its in-set references finish. attempt captures exceptions per item; outcomes return in item order and stop at the first failure, and an unschedulable graph fails as ARCH001. WorkspaceTests schedule facts and the ProjectTests diamond and failure regressions compare job counts 1 to 8."
+    },
+    {
+      "File": "src/FDull/Workspace.fs",
+      "Owner": "FDull.Workspace.schedule",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:System.Threading.Tasks.Task.IsCompleted",
+      "Reason": "Bounded ready-queue scheduler: at most `jobs` tasks run the caller's work (existing bounded export, worker and build steps), each only after its in-set references finish. attempt captures exceptions per item; outcomes return in item order and stop at the first failure, and an unschedulable graph fails as ARCH001. WorkspaceTests schedule facts and the ProjectTests diamond and failure regressions compare job counts 1 to 8."
+    },
+    {
+      "File": "src/FDull/Workspace.fs",
+      "Owner": "FDull.Workspace.schedule",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:System.Threading.Tasks.Task`1.Result",
+      "Reason": "Bounded ready-queue scheduler: at most `jobs` tasks run the caller's work (existing bounded export, worker and build steps), each only after its in-set references finish. attempt captures exceptions per item; outcomes return in item order and stop at the first failure, and an unschedulable graph fails as ARCH001. WorkspaceTests schedule facts and the ProjectTests diamond and failure regressions compare job counts 1 to 8."
+    },
+    {
+      "File": "src/FDull/Workspace.fs",
+      "Owner": "FDull.Workspace.schedule",
+      "Kind": "rule",
+      "Identity": "EFFECT003 | FDull.Workspace.schedule",
+      "Reason": "Bounded ready-queue scheduler: at most `jobs` tasks run the caller's work (existing bounded export, worker and build steps), each only after its in-set references finish. attempt captures exceptions per item; outcomes return in item order and stop at the first failure, and an unschedulable graph fails as ARCH001. WorkspaceTests schedule facts and the ProjectTests diamond and failure regressions compare job counts 1 to 8."
+    },
+    {
+      "File": "src/FDull/Workspace.fs",
+      "Owner": "FDull.Workspace.schedule",
+      "Kind": "type",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | System.Threading.Tasks.Task",
+      "Reason": "Bounded ready-queue scheduler: at most `jobs` tasks run the caller's work (existing bounded export, worker and build steps), each only after its in-set references finish. attempt captures exceptions per item; outcomes return in item order and stop at the first failure, and an unschedulable graph fails as ARCH001. WorkspaceTests schedule facts and the ProjectTests diamond and failure regressions compare job counts 1 to 8."
+    },
+    {
+      "File": "src/FDull/Workspace.fs",
+      "Owner": "FDull.Workspace.schedule",
+      "Kind": "type",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | System.Threading.Tasks.Task`1",
+      "Reason": "Bounded ready-queue scheduler: at most `jobs` tasks run the caller's work (existing bounded export, worker and build steps), each only after its in-set references finish. attempt captures exceptions per item; outcomes return in item order and stop at the first failure, and an unschedulable graph fails as ARCH001. WorkspaceTests schedule facts and the ProjectTests diamond and failure regressions compare job counts 1 to 8."
+    },
+    {
+      "File": "src/FDull/Workspace.fs",
+      "Owner": "FDull.Workspace.schedule",
+      "Kind": "type",
+      "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | System.Exception",
+      "Reason": "Bounded ready-queue scheduler: at most `jobs` tasks run the caller's work (existing bounded export, worker and build steps), each only after its in-set references finish. attempt captures exceptions per item; outcomes return in item order and stop at the first failure, and an unschedulable graph fails as ARCH001. WorkspaceTests schedule facts and the ProjectTests diamond and failure regressions compare job counts 1 to 8."
+    },
+    {
+      "File": "src/FDull/Workspace.fs",
+      "Owner": "FDull.Workspace.sharedDirectories",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.GetRelativePath(System.String,System.String)",
+      "Reason": "Pure path comparison: each pair of projects whose evaluated output directories are equal or nested yields one line naming the workspace-relative directory; sibling prefixes do not match. The WorkspaceTests shared-directory fact covers equal, nested and prefix-only paths."
+    },
+    {
+      "File": "src/FDull/Workspace.fs",
+      "Owner": "FDull.Workspace.sharedDirectories",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.IsPathRooted(System.String)",
+      "Reason": "Pure path comparison: each pair of projects whose evaluated output directories are equal or nested yields one line naming the workspace-relative directory; sibling prefixes do not match. The WorkspaceTests shared-directory fact covers equal, nested and prefix-only paths."
+    },
+    {
+      "File": "src/FDull/Workspace.fs",
+      "Owner": "FDull.Workspace.sharedDirectories",
+      "Kind": "member",
+      "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | M:System.String.Replace(System.Char,System.Char)",
+      "Reason": "Pure path comparison: each pair of projects whose evaluated output directories are equal or nested yields one line naming the workspace-relative directory; sibling prefixes do not match. The WorkspaceTests shared-directory fact covers equal, nested and prefix-only paths."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.``verify fails identically for every job count and a concurrent source change never passes``",
+      "Kind": "attribute",
+      "Identity": "xunit.core, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | Xunit.FactAttribute |  | unit",
+      "Reason": "Reviewed non-shipping verify regression: a temporary four-project diamond whose fixture targets append to a reviewed source after a rebuild. Asserts identical BUILD004 failures for job counts 1, 2 and 4 and that a concurrent change never passes. Files stay in a unique temporary directory."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.``verify fails identically for every job count and a concurrent source change never passes``",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Project.verifyTimed(System.Int32,System.String)",
+      "Reason": "Reviewed non-shipping verify regression: a temporary four-project diamond whose fixture targets append to a reviewed source after a rebuild. Asserts identical BUILD004 failures for job counts 1, 2 and 4 and that a concurrent change never passes. Files stay in a unique temporary directory."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.``verify fails identically for every job count and a concurrent source change never passes``",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Transport.Codec.decode``1(System.String)",
+      "Reason": "Reviewed non-shipping verify regression: a temporary four-project diamond whose fixture targets append to a reviewed source after a rebuild. Asserts identical BUILD004 failures for job counts 1, 2 and 4 and that a concurrent change never passes. Files stay in a unique temporary directory."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.``verify fails identically for every job count and a concurrent source change never passes``",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Transport.Codec.encode``1(``0)",
+      "Reason": "Reviewed non-shipping verify regression: a temporary four-project diamond whose fixture targets append to a reviewed source after a rebuild. Asserts identical BUILD004 failures for job counts 1, 2 and 4 and that a concurrent change never passes. Files stay in a unique temporary directory."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.``verify fails identically for every job count and a concurrent source change never passes``",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:Microsoft.FSharp.Collections.FSharpList`1.Head",
+      "Reason": "Reviewed non-shipping verify regression: a temporary four-project diamond whose fixture targets append to a reviewed source after a rebuild. Asserts identical BUILD004 failures for job counts 1, 2 and 4 and that a concurrent change never passes. Files stay in a unique temporary directory."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.``verify fails identically for every job count and a concurrent source change never passes``",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Directory.CreateDirectory(System.String)",
+      "Reason": "Reviewed non-shipping verify regression: a temporary four-project diamond whose fixture targets append to a reviewed source after a rebuild. Asserts identical BUILD004 failures for job counts 1, 2 and 4 and that a concurrent change never passes. Files stay in a unique temporary directory."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.``verify fails identically for every job count and a concurrent source change never passes``",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.File.Delete(System.String)",
+      "Reason": "Reviewed non-shipping verify regression: a temporary four-project diamond whose fixture targets append to a reviewed source after a rebuild. Asserts identical BUILD004 failures for job counts 1, 2 and 4 and that a concurrent change never passes. Files stay in a unique temporary directory."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.``verify fails identically for every job count and a concurrent source change never passes``",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.File.ReadAllText(System.String)",
+      "Reason": "Reviewed non-shipping verify regression: a temporary four-project diamond whose fixture targets append to a reviewed source after a rebuild. Asserts identical BUILD004 failures for job counts 1, 2 and 4 and that a concurrent change never passes. Files stay in a unique temporary directory."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.``verify fails identically for every job count and a concurrent source change never passes``",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.File.WriteAllText(System.String,System.String)",
+      "Reason": "Reviewed non-shipping verify regression: a temporary four-project diamond whose fixture targets append to a reviewed source after a rebuild. Asserts identical BUILD004 failures for job counts 1, 2 and 4 and that a concurrent change never passes. Files stay in a unique temporary directory."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.``verify fails identically for every job count and a concurrent source change never passes``",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.Combine(System.String,System.String)",
+      "Reason": "Reviewed non-shipping verify regression: a temporary four-project diamond whose fixture targets append to a reviewed source after a rebuild. Asserts identical BUILD004 failures for job counts 1, 2 and 4 and that a concurrent change never passes. Files stay in a unique temporary directory."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.``verify fails identically for every job count and a concurrent source change never passes``",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.Combine(System.String,System.String,System.String)",
+      "Reason": "Reviewed non-shipping verify regression: a temporary four-project diamond whose fixture targets append to a reviewed source after a rebuild. Asserts identical BUILD004 failures for job counts 1, 2 and 4 and that a concurrent change never passes. Files stay in a unique temporary directory."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.``verify fails identically for every job count and a concurrent source change never passes``",
+      "Kind": "member",
+      "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | P:System.Exception.Message",
+      "Reason": "Reviewed non-shipping verify regression: a temporary four-project diamond whose fixture targets append to a reviewed source after a rebuild. Asserts identical BUILD004 failures for job counts 1, 2 and 4 and that a concurrent change never passes. Files stay in a unique temporary directory."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.``verify fails identically for every job count and a concurrent source change never passes``",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Equal(System.String,System.String)",
+      "Reason": "Reviewed non-shipping verify regression: a temporary four-project diamond whose fixture targets append to a reviewed source after a rebuild. Asserts identical BUILD004 failures for job counts 1, 2 and 4 and that a concurrent change never passes. Files stay in a unique temporary directory."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.``verify fails identically for every job count and a concurrent source change never passes``",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Equal``1(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IAsyncEnumerable{``0})",
+      "Reason": "Reviewed non-shipping verify regression: a temporary four-project diamond whose fixture targets append to a reviewed source after a rebuild. Asserts identical BUILD004 failures for job counts 1, 2 and 4 and that a concurrent change never passes. Files stay in a unique temporary directory."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.``verify fails identically for every job count and a concurrent source change never passes``",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Equal``1(``0,``0)",
+      "Reason": "Reviewed non-shipping verify regression: a temporary four-project diamond whose fixture targets append to a reviewed source after a rebuild. Asserts identical BUILD004 failures for job counts 1, 2 and 4 and that a concurrent change never passes. Files stay in a unique temporary directory."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.``verify fails identically for every job count and a concurrent source change never passes``",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.NotEmpty(System.Collections.IEnumerable)",
+      "Reason": "Reviewed non-shipping verify regression: a temporary four-project diamond whose fixture targets append to a reviewed source after a rebuild. Asserts identical BUILD004 failures for job counts 1, 2 and 4 and that a concurrent change never passes. Files stay in a unique temporary directory."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.``verify fails identically for every job count and a concurrent source change never passes``",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Single``1(System.Collections.Generic.IEnumerable{``0})",
+      "Reason": "Reviewed non-shipping verify regression: a temporary four-project diamond whose fixture targets append to a reviewed source after a rebuild. Asserts identical BUILD004 failures for job counts 1, 2 and 4 and that a concurrent change never passes. Files stay in a unique temporary directory."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.``verify fails identically for every job count and a concurrent source change never passes``",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Throws``1(System.Action)",
+      "Reason": "Reviewed non-shipping verify regression: a temporary four-project diamond whose fixture targets append to a reviewed source after a rebuild. Asserts identical BUILD004 failures for job counts 1, 2 and 4 and that a concurrent change never passes. Files stay in a unique temporary directory."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.``verify fails identically for every job count and a concurrent source change never passes``",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.True(System.Boolean,System.String)",
+      "Reason": "Reviewed non-shipping verify regression: a temporary four-project diamond whose fixture targets append to a reviewed source after a rebuild. Asserts identical BUILD004 failures for job counts 1, 2 and 4 and that a concurrent change never passes. Files stay in a unique temporary directory."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.``verify fails identically for every job count and a concurrent source change never passes``",
+      "Kind": "rule",
+      "Identity": "MUT009 | ",
+      "Reason": "Reviewed non-shipping verify regression: a temporary four-project diamond whose fixture targets append to a reviewed source after a rebuild. Asserts identical BUILD004 failures for job counts 1, 2 and 4 and that a concurrent change never passes. Files stay in a unique temporary directory."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.``verify fails identically for every job count and a concurrent source change never passes``",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspaceReport",
+      "Reason": "Reviewed non-shipping verify regression: a temporary four-project diamond whose fixture targets append to a reviewed source after a rebuild. Asserts identical BUILD004 failures for job counts 1, 2 and 4 and that a concurrent change never passes. Files stay in a unique temporary directory."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.``verify fails identically for every job count and a concurrent source change never passes``",
+      "Kind": "type",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | System.Collections.IEnumerable",
+      "Reason": "Reviewed non-shipping verify regression: a temporary four-project diamond whose fixture targets append to a reviewed source after a rebuild. Asserts identical BUILD004 failures for job counts 1, 2 and 4 and that a concurrent change never passes. Files stay in a unique temporary directory."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.``verify fails identically for every job count and a concurrent source change never passes``",
+      "Kind": "type",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | System.InvalidOperationException",
+      "Reason": "Reviewed non-shipping verify regression: a temporary four-project diamond whose fixture targets append to a reviewed source after a rebuild. Asserts identical BUILD004 failures for job counts 1, 2 and 4 and that a concurrent change never passes. Files stay in a unique temporary directory."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.``verify fails identically for every job count and a concurrent source change never passes``",
+      "Kind": "type",
+      "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | System.Object",
+      "Reason": "Reviewed non-shipping verify regression: a temporary four-project diamond whose fixture targets append to a reviewed source after a rebuild. Asserts identical BUILD004 failures for job counts 1, 2 and 4 and that a concurrent change never passes. Files stay in a unique temporary directory."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.``verify reports a diamond identically for every job count and waits for references``",
+      "Kind": "attribute",
+      "Identity": "xunit.core, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | Xunit.FactAttribute |  | unit",
+      "Reason": "Reviewed non-shipping verify regression: a temporary four-project diamond with probe files written by fixture targets. Asserts identical reports for 1 and 4 jobs, that every reference finishes before its consumer starts, and that independent projects overlap only with more than one job."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.``verify reports a diamond identically for every job count and waits for references``",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Project.verifyTimed(System.Int32,System.String)",
+      "Reason": "Reviewed non-shipping verify regression: a temporary four-project diamond with probe files written by fixture targets. Asserts identical reports for 1 and 4 jobs, that every reference finishes before its consumer starts, and that independent projects overlap only with more than one job."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.``verify reports a diamond identically for every job count and waits for references``",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Transport.Codec.encode``1(``0)",
+      "Reason": "Reviewed non-shipping verify regression: a temporary four-project diamond with probe files written by fixture targets. Asserts identical reports for 1 and 4 jobs, that every reference finishes before its consumer starts, and that independent projects overlap only with more than one job."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.``verify reports a diamond identically for every job count and waits for references``",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:Microsoft.FSharp.Collections.FSharpMap`2.Item(`0)",
+      "Reason": "Reviewed non-shipping verify regression: a temporary four-project diamond with probe files written by fixture targets. Asserts identical reports for 1 and 4 jobs, that every reference finishes before its consumer starts, and that independent projects overlap only with more than one job."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.``verify reports a diamond identically for every job count and waits for references``",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.Combine(System.String,System.String,System.String)",
+      "Reason": "Reviewed non-shipping verify regression: a temporary four-project diamond with probe files written by fixture targets. Asserts identical reports for 1 and 4 jobs, that every reference finishes before its consumer starts, and that independent projects overlap only with more than one job."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.``verify reports a diamond identically for every job count and waits for references``",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Empty(System.Collections.IEnumerable)",
+      "Reason": "Reviewed non-shipping verify regression: a temporary four-project diamond with probe files written by fixture targets. Asserts identical reports for 1 and 4 jobs, that every reference finishes before its consumer starts, and that independent projects overlap only with more than one job."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.``verify reports a diamond identically for every job count and waits for references``",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Equal(System.String,System.String)",
+      "Reason": "Reviewed non-shipping verify regression: a temporary four-project diamond with probe files written by fixture targets. Asserts identical reports for 1 and 4 jobs, that every reference finishes before its consumer starts, and that independent projects overlap only with more than one job."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.``verify reports a diamond identically for every job count and waits for references``",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Equal``1(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IAsyncEnumerable{``0})",
+      "Reason": "Reviewed non-shipping verify regression: a temporary four-project diamond with probe files written by fixture targets. Asserts identical reports for 1 and 4 jobs, that every reference finishes before its consumer starts, and that independent projects overlap only with more than one job."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.``verify reports a diamond identically for every job count and waits for references``",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Equal``1(``0,``0)",
+      "Reason": "Reviewed non-shipping verify regression: a temporary four-project diamond with probe files written by fixture targets. Asserts identical reports for 1 and 4 jobs, that every reference finishes before its consumer starts, and that independent projects overlap only with more than one job."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.``verify reports a diamond identically for every job count and waits for references``",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.False(System.Boolean)",
+      "Reason": "Reviewed non-shipping verify regression: a temporary four-project diamond with probe files written by fixture targets. Asserts identical reports for 1 and 4 jobs, that every reference finishes before its consumer starts, and that independent projects overlap only with more than one job."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.``verify reports a diamond identically for every job count and waits for references``",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.True(System.Boolean)",
+      "Reason": "Reviewed non-shipping verify regression: a temporary four-project diamond with probe files written by fixture targets. Asserts identical reports for 1 and 4 jobs, that every reference finishes before its consumer starts, and that independent projects overlap only with more than one job."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.``verify reports a diamond identically for every job count and waits for references``",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.True(System.Boolean,System.String)",
+      "Reason": "Reviewed non-shipping verify regression: a temporary four-project diamond with probe files written by fixture targets. Asserts identical reports for 1 and 4 jobs, that every reference finishes before its consumer starts, and that independent projects overlap only with more than one job."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.``verify reports a diamond identically for every job count and waits for references``",
+      "Kind": "rule",
+      "Identity": "MUT009 | ",
+      "Reason": "Reviewed non-shipping verify regression: a temporary four-project diamond with probe files written by fixture targets. Asserts identical reports for 1 and 4 jobs, that every reference finishes before its consumer starts, and that independent projects overlap only with more than one job."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.``verify reports a diamond identically for every job count and waits for references``",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | FDull.VerifyTiming",
+      "Reason": "Reviewed non-shipping verify regression: a temporary four-project diamond with probe files written by fixture targets. Asserts identical reports for 1 and 4 jobs, that every reference finishes before its consumer starts, and that independent projects overlap only with more than one job."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.``verify reports a diamond identically for every job count and waits for references``",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspaceReport",
+      "Reason": "Reviewed non-shipping verify regression: a temporary four-project diamond with probe files written by fixture targets. Asserts identical reports for 1 and 4 jobs, that every reference finishes before its consumer starts, and that independent projects overlap only with more than one job."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.``verify reports a diamond identically for every job count and waits for references``",
+      "Kind": "type",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | System.Collections.IEnumerable",
+      "Reason": "Reviewed non-shipping verify regression: a temporary four-project diamond with probe files written by fixture targets. Asserts identical reports for 1 and 4 jobs, that every reference finishes before its consumer starts, and that independent projects overlap only with more than one job."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.``verify reports a diamond identically for every job count and waits for references``",
+      "Kind": "type",
+      "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | System.Object",
+      "Reason": "Reviewed non-shipping verify regression: a temporary four-project diamond with probe files written by fixture targets. Asserts identical reports for 1 and 4 jobs, that every reference finishes before its consumer starts, and that independent projects overlap only with more than one job."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.``verify runs projects sharing an output directory one at a time and says why``",
+      "Kind": "attribute",
+      "Identity": "xunit.core, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | Xunit.FactAttribute |  | unit",
+      "Reason": "Reviewed non-shipping CLI regression: two temporary projects sharing one OutDir must verify one at a time with the reason printed, --timings lines on stderr only, and usage errors for invalid or repeated verify options."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.``verify runs projects sharing an output directory one at a time and says why``",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Contains(System.String,System.String)",
+      "Reason": "Reviewed non-shipping CLI regression: two temporary projects sharing one OutDir must verify one at a time with the reason printed, --timings lines on stderr only, and usage errors for invalid or repeated verify options."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.``verify runs projects sharing an output directory one at a time and says why``",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.DoesNotContain(System.String,System.String)",
+      "Reason": "Reviewed non-shipping CLI regression: two temporary projects sharing one OutDir must verify one at a time with the reason printed, --timings lines on stderr only, and usage errors for invalid or repeated verify options."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.``verify runs projects sharing an output directory one at a time and says why``",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Equal(System.String,System.String)",
+      "Reason": "Reviewed non-shipping CLI regression: two temporary projects sharing one OutDir must verify one at a time with the reason printed, --timings lines on stderr only, and usage errors for invalid or repeated verify options."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.``verify runs projects sharing an output directory one at a time and says why``",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Equal``1(``0,``0)",
+      "Reason": "Reviewed non-shipping CLI regression: two temporary projects sharing one OutDir must verify one at a time with the reason printed, --timings lines on stderr only, and usage errors for invalid or repeated verify options."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.``verify runs projects sharing an output directory one at a time and says why``",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Matches(System.String,System.String)",
+      "Reason": "Reviewed non-shipping CLI regression: two temporary projects sharing one OutDir must verify one at a time with the reason printed, --timings lines on stderr only, and usage errors for invalid or repeated verify options."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.``verify runs projects sharing an output directory one at a time and says why``",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.True(System.Boolean,System.String)",
+      "Reason": "Reviewed non-shipping CLI regression: two temporary projects sharing one OutDir must verify one at a time with the reason printed, --timings lines on stderr only, and usage errors for invalid or repeated verify options."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.``verify runs projects sharing an output directory one at a time and says why``",
+      "Kind": "rule",
+      "Identity": "MUT009 | ",
+      "Reason": "Reviewed non-shipping CLI regression: two temporary projects sharing one OutDir must verify one at a time with the reason printed, --timings lines on stderr only, and usage errors for invalid or repeated verify options."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.``verify runs projects sharing an output directory one at a time and says why``",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | FDull.SafetyProcessOutput",
+      "Reason": "Reviewed non-shipping CLI regression: two temporary projects sharing one OutDir must verify one at a time with the reason printed, --timings lines on stderr only, and usage errors for invalid or repeated verify options."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.``verify runs projects sharing an output directory one at a time and says why``",
+      "Kind": "type",
+      "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | System.Object",
+      "Reason": "Reviewed non-shipping CLI regression: two temporary projects sharing one OutDir must verify one at a time with the reason printed, --timings lines on stderr only, and usage errors for invalid or repeated verify options."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.comparable",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Transport.Codec.encode``1(``0)",
+      "Reason": "Test helper encodes a verify report with reference digests cleared, because the SDK's F# reference assemblies differ on every rebuild; all other fields are compared exactly."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.comparable",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | FDull.SafetyInput",
+      "Reason": "Test helper encodes a verify report with reference digests cleared, because the SDK's F# reference assemblies differ on every rebuild; all other fields are compared exactly."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.comparable",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspaceProjectReport",
+      "Reason": "Test helper encodes a verify report with reference digests cleared, because the SDK's F# reference assemblies differ on every rebuild; all other fields are compared exactly."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.comparable",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspaceReport",
+      "Reason": "Test helper encodes a verify report with reference digests cleared, because the SDK's F# reference assemblies differ on every rebuild; all other fields are compared exactly."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.probe",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Directory.CreateDirectory(System.String)",
+      "Reason": "Test helper recreates the probe directory inside the temporary fixture and reads the start/end marker times written by fixture targets."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.probe",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Directory.Delete(System.String,System.Boolean)",
+      "Reason": "Test helper recreates the probe directory inside the temporary fixture and reads the start/end marker times written by fixture targets."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.probe",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Directory.Exists(System.String)",
+      "Reason": "Test helper recreates the probe directory inside the temporary fixture and reads the start/end marker times written by fixture targets."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.probe",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.File.GetLastWriteTimeUtc(System.String)",
+      "Reason": "Test helper recreates the probe directory inside the temporary fixture and reads the start/end marker times written by fixture targets."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.probe",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.Combine(System.String,System.String)",
+      "Reason": "Test helper recreates the probe directory inside the temporary fixture and reads the start/end marker times written by fixture targets."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.probe",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.Combine(System.String,System.String,System.String)",
+      "Reason": "Test helper recreates the probe directory inside the temporary fixture and reads the start/end marker times written by fixture targets."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.restoreGraph",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Project.initialize(System.String)",
+      "Reason": "Isolated test fixture constructs finite input graphs, uses bounded dotnet subprocesses and verifies rejection behavior. Filesystem changes are confined to a unique temporary directory and cleaned up; assertions cannot be shipping dependencies."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.restoreGraph",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Core.StringModule.Concat(System.String,System.Collections.Generic.IEnumerable{System.String})",
+      "Reason": "Isolated test fixture constructs finite input graphs, uses bounded dotnet subprocesses and verifies rejection behavior. Filesystem changes are confined to a unique temporary directory and cleaned up; assertions cannot be shipping dependencies."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.restoreGraph",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Directory.CreateDirectory(System.String)",
+      "Reason": "Isolated test fixture constructs finite input graphs, uses bounded dotnet subprocesses and verifies rejection behavior. Filesystem changes are confined to a unique temporary directory and cleaned up; assertions cannot be shipping dependencies."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.restoreGraph",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.File.WriteAllText(System.String,System.String)",
+      "Reason": "Isolated test fixture constructs finite input graphs, uses bounded dotnet subprocesses and verifies rejection behavior. Filesystem changes are confined to a unique temporary directory and cleaned up; assertions cannot be shipping dependencies."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.restoreGraph",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.Combine(System.String,System.String)",
+      "Reason": "Isolated test fixture constructs finite input graphs, uses bounded dotnet subprocesses and verifies rejection behavior. Filesystem changes are confined to a unique temporary directory and cleaned up; assertions cannot be shipping dependencies."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.restoreGraph",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.Combine(System.String,System.String,System.String)",
+      "Reason": "Isolated test fixture constructs finite input graphs, uses bounded dotnet subprocesses and verifies rejection behavior. Filesystem changes are confined to a unique temporary directory and cleaned up; assertions cannot be shipping dependencies."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.restoreGraph",
+      "Kind": "rule",
+      "Identity": "MUT009 | ",
+      "Reason": "Isolated test fixture constructs finite input graphs, uses bounded dotnet subprocesses and verifies rejection behavior. Filesystem changes are confined to a unique temporary directory and cleaned up; assertions cannot be shipping dependencies."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.restoreGraph",
+      "Kind": "type",
+      "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | System.Object",
+      "Reason": "Isolated test fixture constructs finite input graphs, uses bounded dotnet subprocesses and verifies rejection behavior. Filesystem changes are confined to a unique temporary directory and cleaned up; assertions cannot be shipping dependencies."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.writeConsumerSettings",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Project.defaults",
+      "Reason": "Isolated test fixture constructs finite input graphs, uses bounded dotnet subprocesses and verifies rejection behavior. Filesystem changes are confined to a unique temporary directory and cleaned up; assertions cannot be shipping dependencies."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.writeConsumerSettings",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.File.WriteAllText(System.String,System.String)",
+      "Reason": "Isolated test fixture constructs finite input graphs, uses bounded dotnet subprocesses and verifies rejection behavior. Filesystem changes are confined to a unique temporary directory and cleaned up; assertions cannot be shipping dependencies."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.writeConsumerSettings",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.Combine(System.String,System.String)",
+      "Reason": "Isolated test fixture constructs finite input graphs, uses bounded dotnet subprocesses and verifies rejection behavior. Filesystem changes are confined to a unique temporary directory and cleaned up; assertions cannot be shipping dependencies."
+    },
+    {
+      "File": "tests/FDull.Tests/WorkspaceTests.fs",
+      "Owner": "FDull.Tests.WorkspaceTests.``schedule starts an item only after its references finish and keeps item order``",
+      "Kind": "attribute",
+      "Identity": "xunit.core, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | Xunit.FactAttribute |  | unit",
+      "Reason": "Reviewed non-shipping scheduler regression: a finite in-memory diamond with sleeps records start and end times, asserting reference ordering, item-order outcomes and overlap only when more than one job runs."
+    },
+    {
+      "File": "tests/FDull.Tests/WorkspaceTests.fs",
+      "Owner": "FDull.Tests.WorkspaceTests.``schedule starts an item only after its references finish and keeps item order``",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Workspace.schedule``1(System.Int32,Microsoft.FSharp.Collections.FSharpMap{System.String,Microsoft.FSharp.Collections.FSharpList{System.String}},Microsoft.FSharp.Core.FSharpFunc{System.String,``0},Microsoft.FSharp.Collections.FSharpList{System.String})",
+      "Reason": "Reviewed non-shipping scheduler regression: a finite in-memory diamond with sleeps records start and end times, asserting reference ordering, item-order outcomes and overlap only when more than one job runs."
+    },
+    {
+      "File": "tests/FDull.Tests/WorkspaceTests.fs",
+      "Owner": "FDull.Tests.WorkspaceTests.``schedule starts an item only after its references finish and keeps item order``",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.FSharpMap`2.ContainsKey(`0)",
+      "Reason": "Reviewed non-shipping scheduler regression: a finite in-memory diamond with sleeps records start and end times, asserting reference ordering, item-order outcomes and overlap only when more than one job runs."
+    },
+    {
+      "File": "tests/FDull.Tests/WorkspaceTests.fs",
+      "Owner": "FDull.Tests.WorkspaceTests.``schedule starts an item only after its references finish and keeps item order``",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Core.ResultModule.ToOption``2(Microsoft.FSharp.Core.FSharpResult{``0,``1})",
+      "Reason": "Reviewed non-shipping scheduler regression: a finite in-memory diamond with sleeps records start and end times, asserting reference ordering, item-order outcomes and overlap only when more than one job runs."
+    },
+    {
+      "File": "tests/FDull.Tests/WorkspaceTests.fs",
+      "Owner": "FDull.Tests.WorkspaceTests.``schedule starts an item only after its references finish and keeps item order``",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:Microsoft.FSharp.Collections.FSharpMap`2.Item(`0)",
+      "Reason": "Reviewed non-shipping scheduler regression: a finite in-memory diamond with sleeps records start and end times, asserting reference ordering, item-order outcomes and overlap only when more than one job runs."
+    },
+    {
+      "File": "tests/FDull.Tests/WorkspaceTests.fs",
+      "Owner": "FDull.Tests.WorkspaceTests.``schedule starts an item only after its references finish and keeps item order``",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:System.DateTime.UtcNow",
+      "Reason": "Reviewed non-shipping scheduler regression: a finite in-memory diamond with sleeps records start and end times, asserting reference ordering, item-order outcomes and overlap only when more than one job runs."
+    },
+    {
+      "File": "tests/FDull.Tests/WorkspaceTests.fs",
+      "Owner": "FDull.Tests.WorkspaceTests.``schedule starts an item only after its references finish and keeps item order``",
+      "Kind": "member",
+      "Identity": "System.Threading.Thread, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.Threading.Thread.Sleep(System.Int32)",
+      "Reason": "Reviewed non-shipping scheduler regression: a finite in-memory diamond with sleeps records start and end times, asserting reference ordering, item-order outcomes and overlap only when more than one job runs."
+    },
+    {
+      "File": "tests/FDull.Tests/WorkspaceTests.fs",
+      "Owner": "FDull.Tests.WorkspaceTests.``schedule starts an item only after its references finish and keeps item order``",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Equal``1(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IAsyncEnumerable{``0})",
+      "Reason": "Reviewed non-shipping scheduler regression: a finite in-memory diamond with sleeps records start and end times, asserting reference ordering, item-order outcomes and overlap only when more than one job runs."
+    },
+    {
+      "File": "tests/FDull.Tests/WorkspaceTests.fs",
+      "Owner": "FDull.Tests.WorkspaceTests.``schedule starts an item only after its references finish and keeps item order``",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Equal``1(``0,``0)",
+      "Reason": "Reviewed non-shipping scheduler regression: a finite in-memory diamond with sleeps records start and end times, asserting reference ordering, item-order outcomes and overlap only when more than one job runs."
+    },
+    {
+      "File": "tests/FDull.Tests/WorkspaceTests.fs",
+      "Owner": "FDull.Tests.WorkspaceTests.``schedule starts an item only after its references finish and keeps item order``",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.True(System.Boolean,System.String)",
+      "Reason": "Reviewed non-shipping scheduler regression: a finite in-memory diamond with sleeps records start and end times, asserting reference ordering, item-order outcomes and overlap only when more than one job runs."
+    },
+    {
+      "File": "tests/FDull.Tests/WorkspaceTests.fs",
+      "Owner": "FDull.Tests.WorkspaceTests.``schedule starts an item only after its references finish and keeps item order``",
+      "Kind": "rule",
+      "Identity": "MUT009 | ",
+      "Reason": "Reviewed non-shipping scheduler regression: a finite in-memory diamond with sleeps records start and end times, asserting reference ordering, item-order outcomes and overlap only when more than one job runs."
+    },
+    {
+      "File": "tests/FDull.Tests/WorkspaceTests.fs",
+      "Owner": "FDull.Tests.WorkspaceTests.``schedule starts an item only after its references finish and keeps item order``",
+      "Kind": "type",
+      "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | System.Exception",
+      "Reason": "Reviewed non-shipping scheduler regression: a finite in-memory diamond with sleeps records start and end times, asserting reference ordering, item-order outcomes and overlap only when more than one job runs."
+    },
+    {
+      "File": "tests/FDull.Tests/WorkspaceTests.fs",
+      "Owner": "FDull.Tests.WorkspaceTests.``schedule starts an item only after its references finish and keeps item order``",
+      "Kind": "type",
+      "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | System.Object",
+      "Reason": "Reviewed non-shipping scheduler regression: a finite in-memory diamond with sleeps records start and end times, asserting reference ordering, item-order outcomes and overlap only when more than one job runs."
+    },
+    {
+      "File": "tests/FDull.Tests/WorkspaceTests.fs",
+      "Owner": "FDull.Tests.WorkspaceTests.``schedule stops outcomes at the first failure for every job count``",
+      "Kind": "attribute",
+      "Identity": "xunit.core, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | Xunit.FactAttribute |  | unit",
+      "Reason": "Reviewed non-shipping scheduler regression: a finite in-memory list with one throwing item yields identical truncated outcomes for job counts 1, 2, 4 and 8, and a cyclic graph raises InvalidOperationException."
+    },
+    {
+      "File": "tests/FDull.Tests/WorkspaceTests.fs",
+      "Owner": "FDull.Tests.WorkspaceTests.``schedule stops outcomes at the first failure for every job count``",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Workspace.schedule``1(System.Int32,Microsoft.FSharp.Collections.FSharpMap{System.String,Microsoft.FSharp.Collections.FSharpList{System.String}},Microsoft.FSharp.Core.FSharpFunc{System.String,``0},Microsoft.FSharp.Collections.FSharpList{System.String})",
+      "Reason": "Reviewed non-shipping scheduler regression: a finite in-memory list with one throwing item yields identical truncated outcomes for job counts 1, 2, 4 and 8, and a cyclic graph raises InvalidOperationException."
+    },
+    {
+      "File": "tests/FDull.Tests/WorkspaceTests.fs",
+      "Owner": "FDull.Tests.WorkspaceTests.``schedule stops outcomes at the first failure for every job count``",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Core.Operators.InvalidOp``1(System.String)",
+      "Reason": "Reviewed non-shipping scheduler regression: a finite in-memory list with one throwing item yields identical truncated outcomes for job counts 1, 2, 4 and 8, and a cyclic graph raises InvalidOperationException."
+    },
+    {
+      "File": "tests/FDull.Tests/WorkspaceTests.fs",
+      "Owner": "FDull.Tests.WorkspaceTests.``schedule stops outcomes at the first failure for every job count``",
+      "Kind": "member",
+      "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | P:System.Exception.Message",
+      "Reason": "Reviewed non-shipping scheduler regression: a finite in-memory list with one throwing item yields identical truncated outcomes for job counts 1, 2, 4 and 8, and a cyclic graph raises InvalidOperationException."
+    },
+    {
+      "File": "tests/FDull.Tests/WorkspaceTests.fs",
+      "Owner": "FDull.Tests.WorkspaceTests.``schedule stops outcomes at the first failure for every job count``",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Equal``1(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IAsyncEnumerable{``0})",
+      "Reason": "Reviewed non-shipping scheduler regression: a finite in-memory list with one throwing item yields identical truncated outcomes for job counts 1, 2, 4 and 8, and a cyclic graph raises InvalidOperationException."
+    },
+    {
+      "File": "tests/FDull.Tests/WorkspaceTests.fs",
+      "Owner": "FDull.Tests.WorkspaceTests.``schedule stops outcomes at the first failure for every job count``",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Equal``1(``0,``0)",
+      "Reason": "Reviewed non-shipping scheduler regression: a finite in-memory list with one throwing item yields identical truncated outcomes for job counts 1, 2, 4 and 8, and a cyclic graph raises InvalidOperationException."
+    },
+    {
+      "File": "tests/FDull.Tests/WorkspaceTests.fs",
+      "Owner": "FDull.Tests.WorkspaceTests.``schedule stops outcomes at the first failure for every job count``",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Throws``1(System.Action)",
+      "Reason": "Reviewed non-shipping scheduler regression: a finite in-memory list with one throwing item yields identical truncated outcomes for job counts 1, 2, 4 and 8, and a cyclic graph raises InvalidOperationException."
+    },
+    {
+      "File": "tests/FDull.Tests/WorkspaceTests.fs",
+      "Owner": "FDull.Tests.WorkspaceTests.``schedule stops outcomes at the first failure for every job count``",
+      "Kind": "rule",
+      "Identity": "MUT009 | ",
+      "Reason": "Reviewed non-shipping scheduler regression: a finite in-memory list with one throwing item yields identical truncated outcomes for job counts 1, 2, 4 and 8, and a cyclic graph raises InvalidOperationException."
+    },
+    {
+      "File": "tests/FDull.Tests/WorkspaceTests.fs",
+      "Owner": "FDull.Tests.WorkspaceTests.``schedule stops outcomes at the first failure for every job count``",
+      "Kind": "type",
+      "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | System.Exception",
+      "Reason": "Reviewed non-shipping scheduler regression: a finite in-memory list with one throwing item yields identical truncated outcomes for job counts 1, 2, 4 and 8, and a cyclic graph raises InvalidOperationException."
+    },
+    {
+      "File": "tests/FDull.Tests/WorkspaceTests.fs",
+      "Owner": "FDull.Tests.WorkspaceTests.``schedule stops outcomes at the first failure for every job count``",
+      "Kind": "type",
+      "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | System.Object",
+      "Reason": "Reviewed non-shipping scheduler regression: a finite in-memory list with one throwing item yields identical truncated outcomes for job counts 1, 2, 4 and 8, and a cyclic graph raises InvalidOperationException."
+    },
+    {
+      "File": "tests/FDull.Tests/WorkspaceTests.fs",
+      "Owner": "FDull.Tests.WorkspaceTests.``shared output directories are equal or nested directories of two projects``",
+      "Kind": "attribute",
+      "Identity": "xunit.core, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | Xunit.FactAttribute |  | unit",
+      "Reason": "Reviewed non-shipping regression for the pure shared-directory comparison: separate and prefix-only directories are not shared; equal and nested ones produce the exact messages."
+    },
+    {
+      "File": "tests/FDull.Tests/WorkspaceTests.fs",
+      "Owner": "FDull.Tests.WorkspaceTests.``shared output directories are equal or nested directories of two projects``",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Workspace.sharedDirectories(System.String,Microsoft.FSharp.Collections.FSharpList{System.Tuple{System.String,Microsoft.FSharp.Collections.FSharpList{System.String}}})",
+      "Reason": "Reviewed non-shipping regression for the pure shared-directory comparison: separate and prefix-only directories are not shared; equal and nested ones produce the exact messages."
+    },
+    {
+      "File": "tests/FDull.Tests/WorkspaceTests.fs",
+      "Owner": "FDull.Tests.WorkspaceTests.``shared output directories are equal or nested directories of two projects``",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.Combine(System.String,System.String)",
+      "Reason": "Reviewed non-shipping regression for the pure shared-directory comparison: separate and prefix-only directories are not shared; equal and nested ones produce the exact messages."
+    },
+    {
+      "File": "tests/FDull.Tests/WorkspaceTests.fs",
+      "Owner": "FDull.Tests.WorkspaceTests.``shared output directories are equal or nested directories of two projects``",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Empty(System.Collections.IEnumerable)",
+      "Reason": "Reviewed non-shipping regression for the pure shared-directory comparison: separate and prefix-only directories are not shared; equal and nested ones produce the exact messages."
+    },
+    {
+      "File": "tests/FDull.Tests/WorkspaceTests.fs",
+      "Owner": "FDull.Tests.WorkspaceTests.``shared output directories are equal or nested directories of two projects``",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Equal``1(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IAsyncEnumerable{``0})",
+      "Reason": "Reviewed non-shipping regression for the pure shared-directory comparison: separate and prefix-only directories are not shared; equal and nested ones produce the exact messages."
+    },
+    {
+      "File": "tests/FDull.Tests/WorkspaceTests.fs",
+      "Owner": "FDull.Tests.WorkspaceTests.``shared output directories are equal or nested directories of two projects``",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Equal``1(``0,``0)",
+      "Reason": "Reviewed non-shipping regression for the pure shared-directory comparison: separate and prefix-only directories are not shared; equal and nested ones produce the exact messages."
+    },
+    {
+      "File": "tests/FDull.Tests/WorkspaceTests.fs",
+      "Owner": "FDull.Tests.WorkspaceTests.``shared output directories are equal or nested directories of two projects``",
+      "Kind": "type",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | System.Collections.IEnumerable",
+      "Reason": "Reviewed non-shipping regression for the pure shared-directory comparison: separate and prefix-only directories are not shared; equal and nested ones produce the exact messages."
     }
   ],
   "Domains": [],

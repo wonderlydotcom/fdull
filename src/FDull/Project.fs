@@ -5,6 +5,17 @@ open System.IO
 open System.Diagnostics
 open FDull.Transport
 
+/// Wall-clock cost of one project's `verify` steps, 0 for a step that did not run. Diagnostic output only;
+/// never part of a report.
+type VerifyTiming =
+    { Project: string
+      EvaluateMilliseconds: int64
+      RestoreMilliseconds: int64
+      BuildMilliseconds: int64
+      AnalyzeMilliseconds: int64
+      RebuildMilliseconds: int64
+      ReexportMilliseconds: int64 }
+
 /// Standalone project lifecycle. Policy creation records inputs, never exemptions.
 module Project =
     let defaults () =
@@ -152,34 +163,98 @@ module Project =
         && (project.Report.References |> List.map _.Path) = invocation.References
         && project.ProjectReferences = invocation.ProjectReferences
 
-    let verify directory =
+    let private measure action =
+        let clock = Stopwatch.StartNew()
+        let value = action ()
+        value, clock.ElapsedMilliseconds
+
+    /// Values of steps run through `Workspace.schedule`, in project order. The first failure in that
+    /// order fails verification, as it would have when the steps ran one at a time.
+    let private completed outcomes =
+        outcomes
+        |> List.map (fun (_, outcome) ->
+            match outcome with
+            | Ok value -> value
+            | Error(error: exn) -> invalidOp error.Message)
+
+    /// Verify with up to `jobs` projects building or analyzing at once, and report each project's timing
+    /// and the final validation time. A project is built, analyzed and rebuilt only after every project it
+    /// references has finished, so the job count never changes a passing report.
+    let verifyTimed jobs directory =
         let root = Path.GetFullPath directory
         let policy = WorkspacePolicy.read root
         WorkspaceAudit.validate root policy
+        let projects = WorkspaceAudit.order policy.Projects
 
-        for project in policy.Projects do
-            run root [ "restore"; project.File; "--locked-mode"; "-m:1"; "-nr:false" ]
-            |> require
+        let references =
+            policy.Projects
+            |> List.map (fun project -> project.File, project.References)
+            |> Map.ofList
 
-            run
-                root
-                [ "build"
-                  project.File
-                  "-c"
-                  "Release"
-                  "--no-restore"
-                  "-m:1"
-                  "--disable-build-servers" ]
-            |> require
+        let evaluated =
+            Workspace.schedule
+                jobs
+                Map.empty
+                (fun project -> measure (fun () -> Workspace.outputDirectories root project |> require))
+                projects
+            |> completed
+
+        // Concurrent builds of projects sharing a directory would write the same files.
+        let sequential =
+            Workspace.sharedDirectories root (List.zip projects (evaluated |> List.map fst))
+
+        let concurrent = if sequential.IsEmpty then jobs else 1
+
+        // A restore writes its project's whole reference closure, so restores stay sequential.
+        let restored =
+            projects
+            |> List.map (fun project ->
+                measure (fun () -> run root [ "restore"; project; "--locked-mode"; "-m:1"; "-nr:false" ] |> require)
+                |> snd)
+
+        // A reviewed external project is built only through its consumers, one project at a time.
+        let external =
+            policy.Projects
+            |> List.exists (fun project ->
+                project.References
+                |> List.exists (fun reference -> not (Map.containsKey reference references)))
+
+        let built =
+            Workspace.schedule
+                (if external then 1 else concurrent)
+                references
+                (fun project ->
+                    measure (fun () ->
+                        run
+                            root
+                            ([ "build"
+                               project
+                               "-c"
+                               "Release"
+                               "--no-restore"
+                               "-m:1"
+                               "--disable-build-servers" ]
+                             @ (if external then
+                                    []
+                                else
+                                    [ "-p:BuildProjectReferences=false" ]))
+                        |> require)
+                    |> snd)
+                projects
+            |> completed
 
         // Analyze each consumer against its dependencies' final compiled bytes.
         // Rebuilding a previously analyzed dependency would invalidate its consumers.
-        let report =
-            Workspace.checkUsing root (fun project ->
+        let report, analyzed =
+            Workspace.checkUsing root concurrent (fun project ->
+                let clock = Stopwatch.StartNew()
+
                 match Workspace.checkProject root project with
-                | Error error -> Error error
-                | Ok result when result.Report.ExitCode <> 0 -> Ok result
+                | Error error -> Error error, (project, clock.ElapsedMilliseconds, 0L, 0L)
+                | Ok result when result.Report.ExitCode <> 0 -> Ok result, (project, clock.ElapsedMilliseconds, 0L, 0L)
                 | Ok result ->
+                    let analyze = clock.ElapsedMilliseconds
+
                     run
                         root
                         [ "build"
@@ -193,6 +268,8 @@ module Project =
                           "--disable-build-servers" ]
                     |> require
 
+                    let rebuild = clock.ElapsedMilliseconds - analyze
+
                     if not (Safety.verifyInputs result.Report) then
                         invalidOp ("BUILD004: Source/reference inputs changed while compiling " + project)
 
@@ -201,7 +278,9 @@ module Project =
                     if not (matchesInvocation result invocation) then
                         invalidOp ("BUILD004: The evaluated compiler invocation changed while compiling " + project)
 
-                    Ok result)
+                    Ok result, (project, analyze, rebuild, clock.ElapsedMilliseconds - analyze - rebuild))
+
+        let clock = Stopwatch.StartNew()
 
         if report.ExitCode = 0 then
             for project in report.Projects do
@@ -220,4 +299,27 @@ module Project =
 
             WorkspaceAudit.validate root finalPolicy
 
-        report
+        let finalValidation = clock.ElapsedMilliseconds
+
+        let timings =
+            List.zip projects (List.zip3 evaluated restored built)
+            |> List.map (fun (project, ((_, evaluate), restore, build)) ->
+                let analyze, rebuild, reexport =
+                    analyzed
+                    |> List.tryFind (fun (file, _, _, _) -> file = project)
+                    |> Option.map (fun (_, analyze, rebuild, reexport) -> analyze, rebuild, reexport)
+                    |> Option.defaultValue (0L, 0L, 0L)
+
+                ({ Project = project
+                   EvaluateMilliseconds = evaluate
+                   RestoreMilliseconds = restore
+                   BuildMilliseconds = build
+                   AnalyzeMilliseconds = analyze
+                   RebuildMilliseconds = rebuild
+                   ReexportMilliseconds = reexport }
+                : VerifyTiming))
+
+        { report with Sequential = sequential }, (timings, finalValidation)
+
+    let verify directory =
+        verifyTimed Workspace.defaultJobs directory |> fst

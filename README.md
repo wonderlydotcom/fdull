@@ -355,19 +355,33 @@ dotnet fdull lint . --format json
 dotnet fdull lint . --format sarif
 dotnet fdull review .
 dotnet fdull review . --format json
+dotnet fdull verify . --jobs 4 --timings
 dotnet fdull cache clear .
 dotnet fdull coverage
 ```
 
-`lint` and `review` analyze independent projects concurrently. `--jobs <n>` sets
-how many run at once, from 1 to 64. The default is the processor count, capped at
-4. Each analysis worker's heap is capped at 512 MiB. Reports list projects in
-dependency order, and the output doesn't depend on the job count. `verify` always
-analyzes one project at a time, because it rebuilds between projects.
+`lint`, `review` and `verify` run independent projects concurrently. `--jobs <n>`
+sets how many run at once, from 1 to 64. The default is the processor count, capped
+at 4. Reports list projects in dependency order, and the output doesn't depend on
+the job count. Each analysis worker's heap is capped at 512 MiB.
 
-`lint` and `review` also accept `--timings`. It writes each project's MSBuild
-export, analysis worker and parent validation time, and the run's total, to stderr.
-Stdout and the exit code are unchanged.
+`verify` rebuilds each project after analyzing it, which changes the inputs of
+every project that references it. So a project starts only after every project it
+references has finished, and `--jobs 1` is the fully sequential schedule. If a
+project throws, the report stops at the first failure in dependency order, as it
+would with one job. Within a job, analysis (1 GiB working set) and the rebuild
+(2 GiB) run one after the other, so allow about 2 GiB of memory per job. When two
+projects share an intermediate or output directory, their builds would write the
+same files: `verify` then runs one project at a time whatever `--jobs` says, and
+the text report says which projects share which directory. The report's
+`Sequential` field carries those lines; it is always empty in `lint` JSON. `verify`
+takes no `--format` or `--no-cache`.
+
+`--timings` writes per-project times, and the run's total, to stderr. For `lint`
+and `review` they are MSBuild export, analysis worker and parent validation; for
+`verify` they are output-directory evaluation, restore, build, analysis, rebuild
+and re-export, plus the final validation pass. Stdout and the exit code are
+unchanged.
 
 `lint` and `review` keep a per-project result cache in `<root>/.fdull/cache`. A
 project is served from it only when everything its analysis reads is unchanged:
@@ -401,8 +415,9 @@ same per-project analysis and fails on the same diagnostics. A policy pass is
 | `3` | Incomplete/failed analysis, invalid policy, changed inputs, or unavailable worker. |
 
 `lint` checks current Release compiler inputs and fingerprints. `verify` performs
-locked restores and serial builds, then analyzes and recompiles each project in
-dependency order without rebuilding its dependencies. Source, reference, policy
+locked restores one project at a time, builds each project once its references are
+built, then analyzes and recompiles each project after its references without
+rebuilding them. A final pass re-checks every project once all builds have finished. Source, reference, policy
 and evaluated compiler inputs are compared before accepting the result. JSON includes completeness and errors.
 SARIF includes diagnostics and an invocation success flag; also check the exit code.
 

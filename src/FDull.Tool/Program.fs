@@ -12,11 +12,11 @@ module Program =
         Console.WriteLine "FDull — F# with fewer sharp edges."
 
         Console.WriteLine
-            "fdull defaults | init <root> [--scope <file>] | lint <root> [--format text|json|sarif] [--jobs <1-64>] [--no-cache] [--timings] | review <root> [--format text|json] [--jobs <1-64>] [--no-cache] [--timings] | cache clear <root> | data-digest <assembly> | verify <root> | coverage"
+            "fdull defaults | init <root> [--scope <file>] | lint <root> [--format text|json|sarif] [--jobs <1-64>] [--no-cache] [--timings] | review <root> [--format text|json] [--jobs <1-64>] [--no-cache] [--timings] | cache clear <root> | data-digest <assembly> | verify <root> [--jobs <1-64>] [--timings] | coverage"
 
         2
 
-    /// Concurrent project analyses: a decimal count from 1 to 64.
+    /// Concurrent projects: a decimal count from 1 to 64.
     let private jobCount (value: string) =
         match Int32.TryParse(value, NumberStyles.None, CultureInfo.InvariantCulture) with
         | true, count when count >= 1 && count <= 64 -> Some count
@@ -36,28 +36,45 @@ module Program =
             options formats (selected.Add("no-cache", "")) rest
         | _ -> None
 
+    let private jobs (selected: Map<string, string>) =
+        selected.TryFind "jobs"
+        |> Option.bind jobCount
+        |> Option.defaultValue Workspace.defaultJobs
+
     /// `lint` and `review` use the result cache unless `--no-cache` is given; `verify` never does.
     let private workspaceOptions (selected: Map<string, string>) : WorkspaceOptions =
-        { Jobs =
-            selected.TryFind "jobs"
-            |> Option.bind jobCount
-            |> Option.defaultValue Workspace.defaultJobs
+        { Jobs = jobs selected
           Cache = not (selected.ContainsKey "no-cache") }
 
     /// Timings go to stderr so stdout and exit codes stay identical with or without them.
-    let private timed enabled analyze =
+    /// `describe` gives one line per project and a prefix for the summary line.
+    let private timed enabled describe analyze =
         let clock = Stopwatch.StartNew()
-        let report, (timings: WorkspaceTiming list) = analyze ()
+        let report, timings = analyze ()
 
         if enabled then
-            for timing in timings do
-                Console.Error.WriteLine(
-                    $"FDull timing: %s{timing.Project} export=%d{timing.ExportMilliseconds}ms worker=%d{timing.WorkerMilliseconds}ms validation=%d{timing.ValidationMilliseconds}ms"
-                )
+            let (lines: string list), (summary: string) = describe timings
 
-            Console.Error.WriteLine($"FDull timing: total=%d{clock.ElapsedMilliseconds}ms projects=%d{timings.Length}")
+            for line in lines do
+                Console.Error.WriteLine("FDull timing: " + line)
+
+            Console.Error.WriteLine(
+                $"FDull timing: %s{summary}total=%d{clock.ElapsedMilliseconds}ms projects=%d{lines.Length}"
+            )
 
         report
+
+    let private workspaceTimings (timings: WorkspaceTiming list) =
+        timings
+        |> List.map (fun timing ->
+            $"%s{timing.Project} export=%d{timing.ExportMilliseconds}ms worker=%d{timing.WorkerMilliseconds}ms validation=%d{timing.ValidationMilliseconds}ms"),
+        ""
+
+    let private verifyTimings (timings: VerifyTiming list, finalValidation: int64) =
+        timings
+        |> List.map (fun timing ->
+            $"%s{timing.Project} evaluate=%d{timing.EvaluateMilliseconds}ms restore=%d{timing.RestoreMilliseconds}ms build=%d{timing.BuildMilliseconds}ms analyze=%d{timing.AnalyzeMilliseconds}ms rebuild=%d{timing.RebuildMilliseconds}ms reexport=%d{timing.ReexportMilliseconds}ms"),
+        $"final-validation=%d{finalValidation}ms "
 
     let private display command format (report: WorkspaceReport) =
         let diagnostics =
@@ -100,6 +117,7 @@ module Program =
             report.Errors |> List.iter Console.Error.WriteLine
         | _ ->
             Console.WriteLine status
+            report.Sequential |> List.iter Console.WriteLine
 
             report.ExcludedProjects
             |> List.iter (fun excluded ->
@@ -152,15 +170,22 @@ module Program =
             | "lint" :: root :: rest when not (root.StartsWith("--", StringComparison.Ordinal)) ->
                 match options [ "text"; "json"; "sarif" ] Map.empty rest with
                 | Some selected ->
-                    timed (selected.ContainsKey "timings") (fun () ->
+                    timed (selected.ContainsKey "timings") workspaceTimings (fun () ->
                         Workspace.checkTimed (workspaceOptions selected) root)
                     |> display "lint" (selected.TryFind "format" |> Option.defaultValue "text")
                 | None -> usage ()
-            | [ "verify"; root ] -> Project.verify root |> display "verify" "text"
+            | "verify" :: root :: rest when not (root.StartsWith("--", StringComparison.Ordinal)) ->
+                // Verify reports only text and never uses the result cache.
+                match options [] Map.empty rest with
+                | Some selected when not (selected.ContainsKey "no-cache") ->
+                    timed (selected.ContainsKey "timings") verifyTimings (fun () ->
+                        Project.verifyTimed (jobs selected) root)
+                    |> display "verify" "text"
+                | _ -> usage ()
             | "review" :: root :: rest when not (root.StartsWith("--", StringComparison.Ordinal)) ->
                 match options [ "text"; "json" ] Map.empty rest with
                 | Some selected ->
-                    timed (selected.ContainsKey "timings") (fun () ->
+                    timed (selected.ContainsKey "timings") workspaceTimings (fun () ->
                         Workspace.reviewTimed (workspaceOptions selected) root)
                     |> displayReview (selected.TryFind "format" |> Option.defaultValue "text")
                 | None -> usage ()
