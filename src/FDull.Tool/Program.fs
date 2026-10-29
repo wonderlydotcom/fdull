@@ -249,7 +249,7 @@ module Program =
         try
             match Array.toList arguments with
             | [ "--version" ] ->
-                Console.WriteLine "0.3.0-preview-1"
+                Console.WriteLine "0.3.0-preview.1"
                 0
             | [ "defaults" ] ->
                 Project.defaults () |> Console.Write
