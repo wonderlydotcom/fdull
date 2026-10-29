@@ -1,7 +1,9 @@
 namespace FDull
 
+open System
 open System.Diagnostics
 open System.IO
+open System.Security
 
 type RepositoryServiceResult =
     { Service: string
@@ -117,27 +119,83 @@ module Repository =
             else
                 0
           Projects = projects
-          Cached = 0
+          Cached = projects |> List.filter _.Cached |> List.length
           ExcludedProjects = WorkspacePolicy.excludedProjects policy
           Sequential = []
           Errors = errors @ unused }
 
-    let private execute jobs (plan: RepositoryPlanResult) =
+    let private linked (path: string) =
+        (FileInfo path).LinkTarget |> isNull |> not
+
+    /// Restore, then build, every selected project in one MSBuild invocation each, through a solution
+    /// written under `<root>/.fdull/verify` and deleted afterwards. As in any solution build, MSBuild builds
+    /// each project once, including unowned projects such as C# protocol projects through their consumers.
+    let private buildSelection root nodes (projects: string list) =
+        let parent = Path.Combine(root, ".fdull")
+        let directory = Path.Combine(parent, "verify")
+
+        if linked parent || linked directory then
+            invalidOp "BUILD005: The .fdull directory is a symbolic link."
+
+        Directory.CreateDirectory directory |> ignore
+
+        let solution =
+            Path.Combine(directory, "selection-" + Guid.NewGuid().ToString("N") + ".slnx")
+
+        let entries =
+            projects
+            |> List.map (fun project ->
+                "  <Project Path=\""
+                + SecurityElement.Escape(Path.GetRelativePath(directory, project).Replace('\\', '/'))
+                + "\" />")
+
+        File.WriteAllText(solution, "<Solution>\n" + String.concat "\n" entries + "\n</Solution>\n")
+
+        try
+            let _, restore =
+                measure (fun () ->
+                    Project.run root [ "restore"; solution; "--locked-mode"; "-m:1"; "-nr:false"; "-v:q" ]
+                    |> require)
+
+            let _, build =
+                measure (fun () ->
+                    Project.run
+                        root
+                        [ "build"
+                          solution
+                          "-c"
+                          "Release"
+                          "--no-restore"
+                          // A solution builds references outside it in their default configuration otherwise.
+                          "-p:ShouldUnsetParentConfigurationAndPlatform=false"
+                          "-m:" + string nodes
+                          "--disable-build-servers"
+                          "-v:q" ]
+                    |> require)
+
+            restore, build
+        finally
+            File.Delete solution
+
+    let private execute (options: WorkspaceOptions) (plan: RepositoryPlanResult) =
+        let jobs = options.Jobs
         let selected = Set.ofList (plan.Affected @ plan.Dependencies)
 
         let services =
             plan.Services |> List.filter (fun service -> Set.contains service.Id selected)
-        // Full validation is deliberately deferred until after structural selection.
+        // Full validation is deliberately deferred until after structural selection. Each policy is read,
+        // pinned and audited once here; every project's analysis uses it, and final validation re-reads it.
         let policies =
             services
             |> List.map (fun service ->
-                let policy = WorkspacePolicy.read service.Root
+                let root = Path.GetFullPath service.Root
+                let policy, pin = Workspace.readPinned root
 
                 if policy <> service.Policy then
                     invalidOp "BUILD004: Policy changed after selection."
 
-                WorkspaceAudit.validate service.Root policy
-                service.Id, policy)
+                WorkspaceAudit.validate root policy
+                service.Id, (root, policy, pin))
             |> Map.ofList
 
         let owned =
@@ -197,50 +255,8 @@ module Repository =
                 (projects |> List.map (fun project -> project, fst (Map.find project evaluated)))
 
         let concurrent = if sequential.IsEmpty then jobs else 1
-        // Restore traverses reference closures. Even independent service runs share this one sequence.
-        let restored =
-            projects
-            |> List.map (fun project ->
-                let service, _ = Map.find project owned
-
-                project,
-                (measure (fun () ->
-                    Project.run service.Root [ "restore"; project; "--locked-mode"; "-m:1"; "-nr:false" ]
-                    |> require)
-                 |> snd))
-            |> Map.ofList
-
-        let external =
-            graph
-            |> List.exists (fun project ->
-                project.References
-                |> List.exists (fun reference -> not (Map.containsKey reference owned)))
-
-        let built =
-            Workspace.schedule
-                (if external then 1 else concurrent)
-                dependencies
-                (fun project ->
-                    let service, _ = Map.find project owned
-
-                    measure (fun () ->
-                        Project.run
-                            service.Root
-                            ([ "build"
-                               project
-                               "-c"
-                               "Release"
-                               "--no-restore"
-                               "-m:1"
-                               "--disable-build-servers" ]
-                             @ (if external then
-                                    []
-                                else
-                                    [ "-p:BuildProjectReferences=false" ]))
-                        |> require)
-                    |> snd)
-                projects
-            |> completed
+        // Projects sharing an output directory build on one MSBuild node, as they analyze one at a time.
+        let restored, built = buildSelection plan.Root concurrent projects
         // A dependency reaches its final bytes before any consumer is analyzed.
         let analyzed =
             Workspace.schedule
@@ -249,10 +265,15 @@ module Repository =
                 (fun project ->
                     let service, local = Map.find project owned
 
+                    let root, policy, pin = Map.find service.Id policies
+
                     let result, analyze =
-                        measure (fun () -> Workspace.checkProject service.Root local.File)
+                        measure (fun () -> Workspace.checkPinned options.Cache root (policy, pin) local.File)
 
                     match result with
+                    // An accepted cache entry answers for exactly these sources, compiler invocation and
+                    // reference bytes, so the clean rebuild is skipped; final validation re-exports it.
+                    | Ok result when result.Report.ExitCode = 0 && result.Cached -> Ok result, (analyze, 0L, 0L)
                     | Ok result when result.Report.ExitCode = 0 ->
                         let _, rebuild =
                             measure (fun () ->
@@ -300,29 +321,38 @@ module Repository =
                         else
                             None)
 
+                let _, policy, _ = Map.find service.Id policies
+
                 { Service = service.Id
                   Report =
-                    { summarize (Map.find service.Id policies) results with
+                    { summarize policy results with
                         Sequential = sequential } })
 
         let _, finalValidation =
             measure (fun () ->
-                for project in analyzedProjects do
-                    match fst (Map.find project analyzed) with
-                    | Ok result when result.Report.ExitCode = 0 ->
-                        let service, local = Map.find project owned
+                // Exports of different projects run concurrently, as in `lint`, unless they share a directory.
+                Workspace.schedule
+                    concurrent
+                    Map.empty
+                    (fun project ->
+                        match fst (Map.find project analyzed) with
+                        | Ok result when result.Report.ExitCode = 0 ->
+                            let service, local = Map.find project owned
 
-                        if not (Safety.verifyInputs result.Report) then
-                            invalidOp "BUILD004: Inputs changed during repository compilation."
+                            if not (Safety.verifyInputs result.Report) then
+                                invalidOp "BUILD004: Inputs changed during repository compilation."
 
-                        let invocation = Workspace.export service.Root local.File |> require
+                            let invocation = Workspace.export service.Root local.File |> require
 
-                        Workspace.validateImports service.Root local.File service.Policy invocation
-                        |> ignore
+                            Workspace.validateImports service.Root local.File service.Policy invocation
+                            |> ignore
 
-                        if not (Project.matchesInvocation result invocation) then
-                            invalidOp "BUILD004: Invocation changed during repository compilation."
-                    | _ -> ()
+                            if not (Project.matchesInvocation result invocation) then
+                                invalidOp "BUILD004: Invocation changed during repository compilation."
+                        | _ -> ())
+                    analyzedProjects
+                |> completed
+                |> ignore
 
                 // Exports execute MSBuild targets too. Check all accepted bytes after the last export.
                 for project in analyzedProjects do
@@ -331,15 +361,21 @@ module Repository =
                         invalidOp "BUILD004: Inputs changed during final repository exports."
                     | _ -> ()
 
+                // Every request carried the pin read before analysis, so the policy bytes must still match it.
                 for service in services do
-                    let current = WorkspacePolicy.read service.Root
+                    let root, policy, pin = Map.find service.Id policies
+                    let current, currentPin = Workspace.readPinned root
 
-                    if current <> Map.find service.Id policies then
+                    if current <> policy || currentPin <> pin then
                         invalidOp "BUILD004: Policy changed during repository verification."
 
-                    WorkspaceAudit.validate service.Root current
+                    WorkspaceAudit.validate root current
 
                 RepositoryPlan.revalidate plan |> require)
+
+        if options.Cache then
+            for service in verified do
+                WorkspaceCache.prune service.Root
 
         let timings =
             projects
@@ -351,19 +387,25 @@ module Repository =
 
                 { Project = Path.GetRelativePath(plan.Root, project).Replace('\\', '/')
                   EvaluateMilliseconds = snd (Map.find project evaluated)
-                  RestoreMilliseconds = Map.find project restored
-                  BuildMilliseconds = Map.find project built
+                  RestoreMilliseconds = 0L
+                  BuildMilliseconds = 0L
                   AnalyzeMilliseconds = analyze
                   RebuildMilliseconds = rebuild
                   ReexportMilliseconds = reexport })
 
-        reports, (timings, finalValidation)
+        reports,
+        (timings,
+         { Restore = restored
+           Build = built
+           FinalValidation = finalValidation })
 
-    let verifyTimed jobs directory selection =
+    /// Verify the selection with `options.Jobs` concurrent projects. With `options.Cache`, a project whose
+    /// stored result is accepted is not re-analyzed or rebuilt, and complete fresh results are stored.
+    let verifyTimedWith (options: WorkspaceOptions) directory selection =
         let plan = RepositoryPlan.plan directory selection |> require
 
         try
-            let reports, timings = execute jobs plan
+            let reports, timings = execute options plan
             let complete = reports |> List.forall (fun service -> service.Report.Complete)
 
             { Complete = complete
@@ -384,7 +426,13 @@ module Repository =
               Plan = plan
               Services = []
               Errors = [ error.Message ] },
-            ([], 0L)
+            ([],
+             { Restore = 0L
+               Build = 0L
+               FinalValidation = 0L })
+
+    let verifyTimed jobs directory selection =
+        verifyTimedWith { Jobs = jobs; Cache = false } directory selection
 
     let verify directory selection =
         verifyTimed Workspace.defaultJobs directory selection |> fst

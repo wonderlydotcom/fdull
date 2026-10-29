@@ -584,25 +584,55 @@ module RepositoryPlan =
 
         fromDirectory @ fromShared
 
-    let private planCore (root: string) selection =
+    let rec private checkRootAlias (path: string) =
+        if File.GetAttributes(path) &&& FileAttributes.ReparsePoint = FileAttributes.ReparsePoint then
+            invalidOp ("ARCH003: Repository root uses a linked path: " + path)
+
+        let pathRoot =
+            Path.GetPathRoot path |> Transport.External.required "repository.path-root"
+
+        if path <> pathRoot then
+            Path.GetDirectoryName path
+            |> Transport.External.required "repository.root-parent"
+            |> checkRootAlias
+
+    let private existingRoot (root: string) =
         let root = Path.GetFullPath root |> Path.TrimEndingDirectorySeparator
 
         if not (Directory.Exists root) then
             invalidOp "ARCH002: Repository root does not exist."
 
-        let rec checkRootAlias (path: string) =
-            if File.GetAttributes(path) &&& FileAttributes.ReparsePoint = FileAttributes.ReparsePoint then
-                invalidOp ("ARCH003: Repository root uses a linked path: " + path)
-
-            let pathRoot =
-                Path.GetPathRoot path |> Transport.External.required "repository.path-root"
-
-            if path <> pathRoot then
-                Path.GetDirectoryName path
-                |> Transport.External.required "repository.root-parent"
-                |> checkRootAlias
-
         checkRootAlias root
+        root
+
+    /// The repository checks every `verify` runs before it builds, for a `lint` of the service at
+    /// `service`: discovery of every policy, ownership and the cross-policy graph, then each service that
+    /// depends on it, re-read with its pins. Returns every failure, so an empty list predicts that these
+    /// checks pass in `verify`.
+    let check root service =
+        try
+            let root = existingRoot root
+            let files = inventory root
+            let services = discover root files
+            validateOwnership files services
+
+            let id =
+                serviceId root (Path.GetFullPath service |> Path.TrimEndingDirectorySeparator)
+
+            reverseClosure (validateGraph services) (Set.singleton id)
+            |> Set.remove id
+            |> Set.toList
+            |> List.choose (fun consumer ->
+                try
+                    WorkspacePolicy.read (Path.Combine(root, consumer)) |> ignore
+                    None
+                with error ->
+                    Some(consumer + ": " + error.Message))
+        with error ->
+            [ error.Message ]
+
+    let private planCore (root: string) selection =
+        let root = existingRoot root
         let files = inventory root
         let currentSnapshot = snapshot root files
         let services = discover root files

@@ -16,6 +16,13 @@ type VerifyTiming =
       RebuildMilliseconds: int64
       ReexportMilliseconds: int64 }
 
+/// Wall-clock cost of `verify`'s steps that cover the whole selection: one restore and one build, both 0
+/// when each project was restored and built on its own, and the final validation pass. Diagnostic output only.
+type VerifyTotals =
+    { Restore: int64
+      Build: int64
+      FinalValidation: int64 }
+
 /// Standalone project lifecycle. Policy creation records inputs, never exemptions.
 module Project =
     let defaults () =
@@ -327,7 +334,11 @@ module Project =
                    ReexportMilliseconds = reexport }
                 : VerifyTiming))
 
-        { report with Sequential = sequential }, (timings, finalValidation)
+        { report with Sequential = sequential },
+        (timings,
+         { Restore = 0L
+           Build = 0L
+           FinalValidation = finalValidation })
 
     let verify directory =
         verifyTimed Workspace.defaultJobs directory |> fst

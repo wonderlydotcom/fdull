@@ -23,11 +23,15 @@ type WorkspaceCacheEntry =
       Output: string
       Error: string }
 
-/// Per-project result cache for `lint` and `review`. Never used by `verify`. Every hit is still
-/// checked by the parent exactly as a fresh worker response is. Entries are trusted local state,
-/// like build output: an entry edited to stay consistent is believed, so certification is `verify`'s.
+/// Per-project result cache for `lint`, `review` and `verify`. Every hit is still checked by the parent
+/// exactly as a fresh worker response is. Entries are trusted state, like build output: an entry edited
+/// to stay consistent is believed, so only trusted runs may write a cache that `verify` later reads.
 module WorkspaceCache =
     let private maximumBytes = 64L * 1024L * 1024L
+
+    let private maximumTotalBytes = 256L * 1024L * 1024L
+
+    let private maximumAge = TimeSpan.FromDays 30.0
 
     let private directory root = Path.Combine(root, ".fdull", "cache")
 
@@ -65,6 +69,14 @@ module WorkspaceCache =
                 let entry = File.ReadAllText path |> Codec.decode<WorkspaceCacheEntry>
 
                 if entry.Key = key then
+                    // The write time records the last use, so pruning keeps entries that are still read.
+                    // Best effort: a failed update only makes the entry look older.
+                    try
+                        if not (linked (Path.Combine(root, ".fdull"))) && not (linked (directory root)) then
+                            File.SetLastWriteTimeUtc(path, DateTime.UtcNow)
+                    with _ ->
+                        ()
+
                     Some
                         { ExitCode = entry.ExitCode
                           Output = entry.Output
@@ -101,6 +113,31 @@ module WorkspaceCache =
                         finally
                             if File.Exists temporary then
                                 File.Delete temporary
+        with _ ->
+            ()
+
+    /// Delete entries unused for 30 days, and the least recently used ones beyond 256 MiB in total.
+    /// Best effort, like `write`: an entry that survives a failed deletion only waits for a later prune.
+    let prune root =
+        try
+            let parent = Path.Combine(root, ".fdull")
+            let cache = directory root
+
+            if Directory.Exists cache && not (linked parent) && not (linked cache) then
+                let now = DateTime.UtcNow
+
+                DirectoryInfo(cache).GetFiles "*.json"
+                |> Array.sortByDescending _.LastWriteTimeUtc
+                |> Array.fold
+                    (fun total (entry: FileInfo) ->
+                        let total = total + entry.Length
+
+                        if total > maximumTotalBytes || now - entry.LastWriteTimeUtc > maximumAge then
+                            entry.Delete()
+
+                        total)
+                    0L
+                |> ignore
         with _ ->
             ()
 

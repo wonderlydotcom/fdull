@@ -12,7 +12,7 @@ module Program =
         Console.WriteLine "FDull — F# with fewer sharp edges."
 
         Console.WriteLine
-            "fdull defaults | init <root> [--scope <file>] | lint <root> [--format text|json|sarif] [--jobs <1-64>] [--no-cache] [--timings] | review <root> [--format text|json] [--jobs <1-64>] [--no-cache] [--timings] | cache clear <root> | data-digest <assembly> | policy-digest <fdull.json> | verify <root> [--all | --since <commit>] [--jobs <1-64>] [--timings] | coverage"
+            "fdull defaults | init <root> [--scope <file>] | lint <root> [--format text|json|sarif] [--jobs <1-64>] [--no-cache] [--timings] | review <root> [--format text|json] [--jobs <1-64>] [--no-cache] [--timings] | cache clear <root> | data-digest <assembly> | policy-digest <fdull.json> | verify <root> [--all | --since <commit>] [--jobs <1-64>] [--no-cache] [--timings] | coverage"
 
         2
 
@@ -53,9 +53,11 @@ module Program =
             verificationOptions (Map.add "jobs" count selected) selection rest
         | "--timings" :: rest when not (Map.containsKey "timings" selected) ->
             verificationOptions (Map.add "timings" "" selected) selection rest
+        | "--no-cache" :: rest when not (Map.containsKey "no-cache" selected) ->
+            verificationOptions (Map.add "no-cache" "" selected) selection rest
         | _ -> None
 
-    /// `lint` and `review` use the result cache unless `--no-cache` is given; `verify` never does.
+    /// `lint`, `review` and repository `verify` use the result cache unless `--no-cache` is given.
     let private workspaceOptions (selected: Map<string, string>) : WorkspaceOptions =
         { Jobs = jobs selected
           Cache = not (selected.ContainsKey "no-cache") }
@@ -84,11 +86,11 @@ module Program =
             $"%s{timing.Project} export=%d{timing.ExportMilliseconds}ms worker=%d{timing.WorkerMilliseconds}ms validation=%d{timing.ValidationMilliseconds}ms"),
         ""
 
-    let private verifyTimings (timings: VerifyTiming list, finalValidation: int64) =
+    let private verifyTimings (timings: VerifyTiming list, totals: VerifyTotals) =
         timings
         |> List.map (fun timing ->
             $"%s{timing.Project} evaluate=%d{timing.EvaluateMilliseconds}ms restore=%d{timing.RestoreMilliseconds}ms build=%d{timing.BuildMilliseconds}ms analyze=%d{timing.AnalyzeMilliseconds}ms rebuild=%d{timing.RebuildMilliseconds}ms reexport=%d{timing.ReexportMilliseconds}ms"),
-        $"final-validation=%d{finalValidation}ms "
+        $"restore=%d{totals.Restore}ms build=%d{totals.Build}ms final-validation=%d{totals.FinalValidation}ms "
 
     let private display command format (report: WorkspaceReport) =
         let diagnostics =
@@ -209,18 +211,29 @@ module Program =
         elif plan.Affected.IsEmpty && plan.Dependencies.IsEmpty then
             Console.WriteLine "FDull repository verify: no affected services; unchanged services were not verified."
         else
+            let projects = report.Services |> List.sumBy _.Report.Projects.Length
+            let cached = report.Services |> List.sumBy _.Report.Cached
+
             Console.WriteLine(
                 "FDull repository verify: PASS — selected services completed verification"
                 + (if plan.BuildOnly.IsEmpty then
-                       "."
+                       ""
                    else
-                       "; build-only dependencies rely on the comparison commit's verification.")
+                       "; build-only dependencies rely on the comparison commit's verification")
+                + $" (%d{projects} projects, %d{cached} from cache)."
             )
 
         report.ExitCode
 
     let private verify root selected (selection: RepositorySelection option) =
-        if selection.IsNone && Repository.standalone root then
+        // A standalone (version-one) verify never uses the result cache, so it rejects `--no-cache`.
+        if
+            selection.IsNone
+            && Repository.standalone root
+            && Map.containsKey "no-cache" selected
+        then
+            usage ()
+        elif selection.IsNone && Repository.standalone root then
             timed (Map.containsKey "timings" selected) verifyTimings (fun () ->
                 Project.verifyTimed (jobs selected) root)
             |> display "verify" "text"
@@ -228,7 +241,7 @@ module Program =
             let full, selection = Repository.resolveSelection root selection
 
             timed (Map.containsKey "timings" selected) verifyTimings (fun () ->
-                Repository.verifyTimed (jobs selected) full (Option.defaultValue All selection))
+                Repository.verifyTimedWith (workspaceOptions selected) full (Option.defaultValue All selection))
             |> displayRepository
 
     [<EntryPoint>]
@@ -261,7 +274,7 @@ module Program =
                     |> display "lint" (selected.TryFind "format" |> Option.defaultValue "text")
                 | None -> usage ()
             | "verify" :: root :: rest when not (root.StartsWith("--", StringComparison.Ordinal)) ->
-                // Verify reports only text and never uses the result cache.
+                // Verify reports only text.
                 match verificationOptions Map.empty None rest with
                 | Some(selected, selection) -> verify root selected selection
                 | _ -> usage ()

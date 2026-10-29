@@ -57,19 +57,19 @@
       "File": "src/FDull/Repository.fs",
       "Project": "src/FDull/FDull.fsproj",
       "Profile": "GUARD_TOOLING",
-      "Digest": "sha256:c43755cfcb743d8be915abaa7095630485bd5162dd3d280df613442c767b095a"
+      "Digest": "sha256:6f23f1258505a76584ae8b92c4f12c1278d46e545a52ede773f74779357ddac6"
     },
     {
       "File": "src/FDull/RepositoryPlan.fs",
       "Project": "src/FDull/FDull.fsproj",
       "Profile": "GUARD_TOOLING",
-      "Digest": "sha256:1a82c48a0a9da830b506e7e5e46ddb79b09ff3fb37eb32abf33ce92a3b7ca033"
+      "Digest": "sha256:473e48ba09deeb867a7f6a126503d5c46d7d5cacded137e75512df101c30fa1c"
     },
     {
       "File": "tests/FDull.Tests/RepositoryTests.fs",
       "Project": "tests/FDull.Tests/FDull.Tests.fsproj",
       "Profile": "TEST",
-      "Digest": "sha256:6d43442bc4d32de806836a2f7e2e510ec50dc3281aedff6518228b49bb38b090"
+      "Digest": "sha256:3a41b2b1058a28ffcdbc5231f2975945167b216585e1b592ea7e19a298b6da70"
     },
     {
       "File": "src/FDull/External.fs",
@@ -171,13 +171,13 @@
       "File": "src/FDull/WorkspaceCache.fs",
       "Project": "src/FDull/FDull.fsproj",
       "Profile": "GUARD_TOOLING",
-      "Digest": "sha256:a2ea1e68ff0fd903ec6ee2a5456f0b82255a04de8ac1b903df82bffac4071fca"
+      "Digest": "sha256:7b695912f9c68c57e105fead2a05c896ba24143baf055a612f81d2451654913b"
     },
     {
       "File": "src/FDull/Workspace.fs",
       "Project": "src/FDull/FDull.fsproj",
       "Profile": "GUARD_TOOLING",
-      "Digest": "sha256:9dc9a422f6139d0fe1374264991ec0ed52f89f35aee1cb6daaf897b356336f1d"
+      "Digest": "sha256:ac77a702a9ce5e9368001ec1044b0f12b3c52a705a1992fe5e7eb76c50096d5a"
     },
     {
       "File": "src/FDull/Safety.fs",
@@ -189,7 +189,7 @@
       "File": "src/FDull/Project.fs",
       "Project": "src/FDull/FDull.fsproj",
       "Profile": "GUARD_TOOLING",
-      "Digest": "sha256:2a982f152689186524b0f62546ef665074b6ef537e17c04816ee61ec3586d3b3"
+      "Digest": "sha256:68bbab5e0ee65528856fac42dc60043ac697f56e73f4e93af5568d2bf1242765"
     },
     {
       "File": "src/FDull.Analyzers/Analyzer.fs",
@@ -201,7 +201,7 @@
       "File": "src/FDull.Tool/Program.fs",
       "Project": "src/FDull.Tool/FDull.Tool.fsproj",
       "Profile": "GUARD_TOOLING",
-      "Digest": "sha256:dddd7f5e79930b9f610499546ccd038b01a195000572f540b0f5778938c18a3f"
+      "Digest": "sha256:28f823761fd73b5bd25671eba88c5dbb7080606f54711a5a5a456e1ca812f975"
     },
     {
       "File": "src/FDull.Worker/Program.fs",
@@ -261,7 +261,7 @@
       "File": "tests/FDull.Tests/ProjectTests.fs",
       "Project": "tests/FDull.Tests/FDull.Tests.fsproj",
       "Profile": "TEST",
-      "Digest": "sha256:3c406369c2960e93c96f59fa9366f6bc18236a32255b1866e0a3a8eef631130a"
+      "Digest": "sha256:ec212c0b88ba35d0dca41422545e8c05252b79a3670068d0abb4a45af1121698"
     },
     {
       "File": "tests/FDull.Tests/Program.fs",
@@ -325,7 +325,7 @@
     },
     {
       "File": "src/FDull/FDull.fsproj",
-      "Digest": "sha256:f9e81b68d68eccac415432d26c6527fcd2ea8bd683488b021c9049cae3f570fe"
+      "Digest": "sha256:db8c8f566585ef2e95433b1d595231ab74f37d9a645ffe0c5063d7d4c02bb77c"
     },
     {
       "File": "src/FDull/Policy/approved-apis.json",
@@ -930,70 +930,70 @@
     },
     {
       "File": "tests/FDull.Tests/RepositoryTests.fs",
-      "Owner": "FDull.Tests.RepositoryTests.service",
+      "Owner": "FDull.Tests.RepositoryTests.serviceWith",
       "Kind": "member",
       "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Project.defaults",
       "Reason": "Creates or deliberately changes exact fixture project, policy and lock files under the unique test root. Hash updates are limited to those explicit fixture changes; no capabilities are generated or transferred between service owners."
     },
     {
       "File": "tests/FDull.Tests/RepositoryTests.fs",
-      "Owner": "FDull.Tests.RepositoryTests.service",
+      "Owner": "FDull.Tests.RepositoryTests.serviceWith",
       "Kind": "member",
       "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Project.initialize(System.String)",
       "Reason": "Creates or deliberately changes exact fixture project, policy and lock files under the unique test root. Hash updates are limited to those explicit fixture changes; no capabilities are generated or transferred between service owners."
     },
     {
       "File": "tests/FDull.Tests/RepositoryTests.fs",
-      "Owner": "FDull.Tests.RepositoryTests.service",
+      "Owner": "FDull.Tests.RepositoryTests.serviceWith",
       "Kind": "member",
       "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Transport.Codec.decode``1(System.String)",
       "Reason": "Creates or deliberately changes exact fixture project, policy and lock files under the unique test root. Hash updates are limited to those explicit fixture changes; no capabilities are generated or transferred between service owners."
     },
     {
       "File": "tests/FDull.Tests/RepositoryTests.fs",
-      "Owner": "FDull.Tests.RepositoryTests.service",
+      "Owner": "FDull.Tests.RepositoryTests.serviceWith",
       "Kind": "member",
       "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Transport.Codec.encode``1(``0)",
       "Reason": "Creates or deliberately changes exact fixture project, policy and lock files under the unique test root. Hash updates are limited to those explicit fixture changes; no capabilities are generated or transferred between service owners."
     },
     {
       "File": "tests/FDull.Tests/RepositoryTests.fs",
-      "Owner": "FDull.Tests.RepositoryTests.service",
+      "Owner": "FDull.Tests.RepositoryTests.serviceWith",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Directory.CreateDirectory(System.String)",
       "Reason": "Creates or deliberately changes exact fixture project, policy and lock files under the unique test root. Hash updates are limited to those explicit fixture changes; no capabilities are generated or transferred between service owners."
     },
     {
       "File": "tests/FDull.Tests/RepositoryTests.fs",
-      "Owner": "FDull.Tests.RepositoryTests.service",
+      "Owner": "FDull.Tests.RepositoryTests.serviceWith",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.File.ReadAllText(System.String)",
       "Reason": "Creates or deliberately changes exact fixture project, policy and lock files under the unique test root. Hash updates are limited to those explicit fixture changes; no capabilities are generated or transferred between service owners."
     },
     {
       "File": "tests/FDull.Tests/RepositoryTests.fs",
-      "Owner": "FDull.Tests.RepositoryTests.service",
+      "Owner": "FDull.Tests.RepositoryTests.serviceWith",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.File.WriteAllText(System.String,System.String)",
       "Reason": "Creates or deliberately changes exact fixture project, policy and lock files under the unique test root. Hash updates are limited to those explicit fixture changes; no capabilities are generated or transferred between service owners."
     },
     {
       "File": "tests/FDull.Tests/RepositoryTests.fs",
-      "Owner": "FDull.Tests.RepositoryTests.service",
+      "Owner": "FDull.Tests.RepositoryTests.serviceWith",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.Combine(System.String,System.String)",
       "Reason": "Creates or deliberately changes exact fixture project, policy and lock files under the unique test root. Hash updates are limited to those explicit fixture changes; no capabilities are generated or transferred between service owners."
     },
     {
       "File": "tests/FDull.Tests/RepositoryTests.fs",
-      "Owner": "FDull.Tests.RepositoryTests.service",
+      "Owner": "FDull.Tests.RepositoryTests.serviceWith",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.Combine(System.String,System.String,System.String)",
       "Reason": "Creates or deliberately changes exact fixture project, policy and lock files under the unique test root. Hash updates are limited to those explicit fixture changes; no capabilities are generated or transferred between service owners."
     },
     {
       "File": "tests/FDull.Tests/RepositoryTests.fs",
-      "Owner": "FDull.Tests.RepositoryTests.service",
+      "Owner": "FDull.Tests.RepositoryTests.serviceWith",
       "Kind": "type",
       "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspacePolicyDocument",
       "Reason": "Creates or deliberately changes exact fixture project, policy and lock files under the unique test root. Hash updates are limited to those explicit fixture changes; no capabilities are generated or transferred between service owners."
@@ -2428,7 +2428,7 @@
     },
     {
       "File": "src/FDull/RepositoryPlan.fs",
-      "Owner": "FDull.RepositoryPlan.planCore",
+      "Owner": "FDull.RepositoryPlan.checkRootAlias",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.GetPathRoot(System.String)",
       "Reason": "Terminates the bounded repository ancestor walk at the filesystem root while rejecting linked path components; it reads path syntax and grants no filesystem mutation."
@@ -2533,7 +2533,7 @@
     },
     {
       "File": "src/FDull/RepositoryPlan.fs",
-      "Owner": "FDull.RepositoryPlan.planCore",
+      "Owner": "FDull.RepositoryPlan.checkRootAlias",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.File.GetAttributes(System.String)",
       "Reason": "Rejects symlink aliases in every ancestor component of the supplied repository root before planning ownership."
@@ -3009,14 +3009,14 @@
     },
     {
       "File": "src/FDull/RepositoryPlan.fs",
-      "Owner": "FDull.RepositoryPlan.planCore",
+      "Owner": "FDull.RepositoryPlan.existingRoot",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Directory.Exists(System.String)",
       "Reason": "Builds a bounded current snapshot, resolves an explicit Git baseline once, selects affected owners and closure, and blocks ambiguous ownership or metadata."
     },
     {
       "File": "src/FDull/RepositoryPlan.fs",
-      "Owner": "FDull.RepositoryPlan.planCore",
+      "Owner": "FDull.RepositoryPlan.checkRootAlias",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.GetDirectoryName(System.String)",
       "Reason": "Builds a bounded current snapshot, resolves an explicit Git baseline once, selects affected owners and closure, and blocks ambiguous ownership or metadata."
@@ -3030,7 +3030,7 @@
     },
     {
       "File": "src/FDull/RepositoryPlan.fs",
-      "Owner": "FDull.RepositoryPlan.planCore",
+      "Owner": "FDull.RepositoryPlan.checkRootAlias",
       "Kind": "member",
       "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Core.Operators.op_BitwiseAnd``1(Microsoft.FSharp.Core.FSharpFunc{``0,Microsoft.FSharp.Core.FSharpFunc{``0,``0}},``0,``0)",
       "Reason": "Builds a bounded current snapshot, resolves an explicit Git baseline once, selects affected owners and closure, and blocks ambiguous ownership or metadata."
@@ -3835,28 +3835,28 @@
     },
     {
       "File": "src/FDull/Repository.fs",
-      "Owner": "FDull.Repository.verifyTimed",
+      "Owner": "FDull.Repository.verifyTimedWith",
       "Kind": "member",
       "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | P:System.Exception.Message",
       "Reason": "Infrastructure exceptions become incomplete repository reports with exit 3; they never become successful service results."
     },
     {
       "File": "src/FDull/Repository.fs",
-      "Owner": "FDull.Repository.verifyTimed",
+      "Owner": "FDull.Repository.verifyTimedWith",
       "Kind": "type",
       "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | System.Exception",
       "Reason": "Infrastructure exceptions become incomplete repository reports with exit 3; they never become successful service results."
     },
     {
       "File": "src/FDull/Repository.fs",
-      "Owner": "FDull.Repository.verifyTimed",
+      "Owner": "FDull.Repository.verifyTimedWith",
       "Kind": "rule",
       "Identity": "ERR001 | ",
       "Reason": "Infrastructure exceptions become incomplete repository reports with exit 3; they never become successful service results."
     },
     {
       "File": "src/FDull/Repository.fs",
-      "Owner": "FDull.Repository.verifyTimed",
+      "Owner": "FDull.Repository.verifyTimedWith",
       "Kind": "rule",
       "Identity": "ERR004 | exception handler",
       "Reason": "Infrastructure exceptions become incomplete repository reports with exit 3; they never become successful service results."
@@ -3936,13 +3936,6 @@
       "Owner": "FDull.Tool.Program.verify",
       "Kind": "member",
       "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Repository.resolveSelection(System.String,Microsoft.FSharp.Core.FSharpOption{FDull.RepositorySelection})",
-      "Reason": "Routes unchanged version-one policy verification through its existing lifecycle; version-two and repository selections use the combined scheduler, with no cache and one parsed jobs budget."
-    },
-    {
-      "File": "src/FDull.Tool/Program.fs",
-      "Owner": "FDull.Tool.Program.verify",
-      "Kind": "member",
-      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Repository.verifyTimed(System.Int32,System.String,FDull.RepositorySelection)",
       "Reason": "Routes unchanged version-one policy verification through its existing lifecycle; version-two and repository selections use the combined scheduler, with no cache and one parsed jobs budget."
     },
     {
@@ -9001,56 +8994,56 @@
     },
     {
       "File": "src/FDull/Workspace.fs",
-      "Owner": "FDull.Workspace.checkProject",
+      "Owner": "FDull.Workspace.checkProjectWith",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.GetFullPath(System.String)",
       "Reason": "Workspace authority validates exact reviewed sources, graph and compiler flags, binds build/reference/policy inputs, and rejects incomplete or changed worker responses. Exceptions remain failed checks."
     },
     {
       "File": "src/FDull/Workspace.fs",
-      "Owner": "FDull.Workspace.checkProject",
+      "Owner": "FDull.Workspace.checkPinned",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.GetFullPath(System.String,System.String)",
       "Reason": "Workspace authority validates exact reviewed sources, graph and compiler flags, binds build/reference/policy inputs, and rejects incomplete or changed worker responses. Exceptions remain failed checks."
     },
     {
       "File": "src/FDull/Workspace.fs",
-      "Owner": "FDull.Workspace.checkProject",
+      "Owner": "FDull.Workspace.checkPinned",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.GetRelativePath(System.String,System.String)",
       "Reason": "Workspace authority validates exact reviewed sources, graph and compiler flags, binds build/reference/policy inputs, and rejects incomplete or changed worker responses. Exceptions remain failed checks."
     },
     {
       "File": "src/FDull/Workspace.fs",
-      "Owner": "FDull.Workspace.checkProject",
+      "Owner": "FDull.Workspace.checkPinned",
       "Kind": "member",
       "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | M:System.String.Replace(System.Char,System.Char)",
       "Reason": "Workspace authority validates exact reviewed sources, graph and compiler flags, binds build/reference/policy inputs, and rejects incomplete or changed worker responses. Exceptions remain failed checks."
     },
     {
       "File": "src/FDull/Workspace.fs",
-      "Owner": "FDull.Workspace.checkProject",
+      "Owner": "FDull.Workspace.checkProjectWith",
       "Kind": "member",
       "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | P:System.Exception.Message",
       "Reason": "Workspace authority validates exact reviewed sources, graph and compiler flags, binds build/reference/policy inputs, and rejects incomplete or changed worker responses. Exceptions remain failed checks."
     },
     {
       "File": "src/FDull/Workspace.fs",
-      "Owner": "FDull.Workspace.checkProject",
+      "Owner": "FDull.Workspace.checkProjectWith",
       "Kind": "rule",
       "Identity": "ERR001 | ",
       "Reason": "Workspace authority validates exact reviewed sources, graph and compiler flags, binds build/reference/policy inputs, and rejects incomplete or changed worker responses. Exceptions remain failed checks."
     },
     {
       "File": "src/FDull/Workspace.fs",
-      "Owner": "FDull.Workspace.checkProject",
+      "Owner": "FDull.Workspace.checkProjectWith",
       "Kind": "rule",
       "Identity": "ERR004 | exception handler",
       "Reason": "Workspace authority validates exact reviewed sources, graph and compiler flags, binds build/reference/policy inputs, and rejects incomplete or changed worker responses. Exceptions remain failed checks."
     },
     {
       "File": "src/FDull/Workspace.fs",
-      "Owner": "FDull.Workspace.checkProject",
+      "Owner": "FDull.Workspace.checkProjectWith",
       "Kind": "type",
       "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | System.Exception",
       "Reason": "Workspace authority validates exact reviewed sources, graph and compiler flags, binds build/reference/policy inputs, and rejects incomplete or changed worker responses. Exceptions remain failed checks."
@@ -28003,6 +27996,811 @@
       "Kind": "type",
       "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspaceSource",
       "Reason": "Verifies that --since builds an unchanged dependency without re-analysis and certifies only the changed service."
+    },
+    {
+      "File": "src/FDull.Tool/Program.fs",
+      "Owner": "FDull.Tool.Program.verify",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Repository.verifyTimedWith(FDull.WorkspaceOptions,System.String,FDull.RepositorySelection)",
+      "Reason": "Routes repository verification through Repository.verifyTimedWith with the CLI's job count and cache option; --no-cache disables the cache, and standalone version-one verification still rejects it."
+    },
+    {
+      "File": "src/FDull.Tool/Program.fs",
+      "Owner": "FDull.Tool.Program.verifyTimings",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | FDull.VerifyTotals",
+      "Reason": "Formats the selection-wide restore, build and final-validation wall times into --timings diagnostic output only; no report or exit code depends on them."
+    },
+    {
+      "File": "src/FDull/Repository.fs",
+      "Owner": "FDull.Repository.linked",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Core.Operators.IsNull``1(``0)",
+      "Reason": "Detects a symbolic link at the fixed .fdull or .fdull/verify path so the generated solution is never written through a link outside the repository root."
+    },
+    {
+      "File": "src/FDull/Repository.fs",
+      "Owner": "FDull.Repository.linked",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.FileInfo.#ctor(System.String)",
+      "Reason": "Detects a symbolic link at the fixed .fdull or .fdull/verify path so the generated solution is never written through a link outside the repository root."
+    },
+    {
+      "File": "src/FDull/Repository.fs",
+      "Owner": "FDull.Repository.linked",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:System.IO.FileSystemInfo.LinkTarget",
+      "Reason": "Detects a symbolic link at the fixed .fdull or .fdull/verify path so the generated solution is never written through a link outside the repository root."
+    },
+    {
+      "File": "src/FDull/Repository.fs",
+      "Owner": "FDull.Repository.buildSelection",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Core.Operators.InvalidOp``1(System.String)",
+      "Reason": "Writes one uniquely named, XML-escaped .slnx listing exactly the selected owned projects under <root>/.fdull/verify (refused when linked), runs a locked restore and one Release build of it through Project.run's bounded dotnet process, and deletes the solution in finally. Failures raise and become an incomplete exit-3 report."
+    },
+    {
+      "File": "src/FDull/Repository.fs",
+      "Owner": "FDull.Repository.buildSelection",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Core.StringModule.Concat(System.String,System.Collections.Generic.IEnumerable{System.String})",
+      "Reason": "Writes one uniquely named, XML-escaped .slnx listing exactly the selected owned projects under <root>/.fdull/verify (refused when linked), runs a locked restore and one Release build of it through Project.run's bounded dotnet process, and deletes the solution in finally. Failures raise and become an incomplete exit-3 report."
+    },
+    {
+      "File": "src/FDull/Repository.fs",
+      "Owner": "FDull.Repository.buildSelection",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.Guid.NewGuid",
+      "Reason": "Writes one uniquely named, XML-escaped .slnx listing exactly the selected owned projects under <root>/.fdull/verify (refused when linked), runs a locked restore and one Release build of it through Project.run's bounded dotnet process, and deletes the solution in finally. Failures raise and become an incomplete exit-3 report."
+    },
+    {
+      "File": "src/FDull/Repository.fs",
+      "Owner": "FDull.Repository.buildSelection",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.Guid.ToString(System.String)",
+      "Reason": "Writes one uniquely named, XML-escaped .slnx listing exactly the selected owned projects under <root>/.fdull/verify (refused when linked), runs a locked restore and one Release build of it through Project.run's bounded dotnet process, and deletes the solution in finally. Failures raise and become an incomplete exit-3 report."
+    },
+    {
+      "File": "src/FDull/Repository.fs",
+      "Owner": "FDull.Repository.buildSelection",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Directory.CreateDirectory(System.String)",
+      "Reason": "Writes one uniquely named, XML-escaped .slnx listing exactly the selected owned projects under <root>/.fdull/verify (refused when linked), runs a locked restore and one Release build of it through Project.run's bounded dotnet process, and deletes the solution in finally. Failures raise and become an incomplete exit-3 report."
+    },
+    {
+      "File": "src/FDull/Repository.fs",
+      "Owner": "FDull.Repository.buildSelection",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.File.Delete(System.String)",
+      "Reason": "Writes one uniquely named, XML-escaped .slnx listing exactly the selected owned projects under <root>/.fdull/verify (refused when linked), runs a locked restore and one Release build of it through Project.run's bounded dotnet process, and deletes the solution in finally. Failures raise and become an incomplete exit-3 report."
+    },
+    {
+      "File": "src/FDull/Repository.fs",
+      "Owner": "FDull.Repository.buildSelection",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.File.WriteAllText(System.String,System.String)",
+      "Reason": "Writes one uniquely named, XML-escaped .slnx listing exactly the selected owned projects under <root>/.fdull/verify (refused when linked), runs a locked restore and one Release build of it through Project.run's bounded dotnet process, and deletes the solution in finally. Failures raise and become an incomplete exit-3 report."
+    },
+    {
+      "File": "src/FDull/Repository.fs",
+      "Owner": "FDull.Repository.buildSelection",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.Combine(System.String,System.String)",
+      "Reason": "Writes one uniquely named, XML-escaped .slnx listing exactly the selected owned projects under <root>/.fdull/verify (refused when linked), runs a locked restore and one Release build of it through Project.run's bounded dotnet process, and deletes the solution in finally. Failures raise and become an incomplete exit-3 report."
+    },
+    {
+      "File": "src/FDull/Repository.fs",
+      "Owner": "FDull.Repository.buildSelection",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.GetRelativePath(System.String,System.String)",
+      "Reason": "Writes one uniquely named, XML-escaped .slnx listing exactly the selected owned projects under <root>/.fdull/verify (refused when linked), runs a locked restore and one Release build of it through Project.run's bounded dotnet process, and deletes the solution in finally. Failures raise and become an incomplete exit-3 report."
+    },
+    {
+      "File": "src/FDull/Repository.fs",
+      "Owner": "FDull.Repository.buildSelection",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.Security.SecurityElement.Escape(System.String)",
+      "Reason": "Writes one uniquely named, XML-escaped .slnx listing exactly the selected owned projects under <root>/.fdull/verify (refused when linked), runs a locked restore and one Release build of it through Project.run's bounded dotnet process, and deletes the solution in finally. Failures raise and become an incomplete exit-3 report."
+    },
+    {
+      "File": "src/FDull/Repository.fs",
+      "Owner": "FDull.Repository.buildSelection",
+      "Kind": "member",
+      "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | M:System.String.Replace(System.Char,System.Char)",
+      "Reason": "Writes one uniquely named, XML-escaped .slnx listing exactly the selected owned projects under <root>/.fdull/verify (refused when linked), runs a locked restore and one Release build of it through Project.run's bounded dotnet process, and deletes the solution in finally. Failures raise and become an incomplete exit-3 report."
+    },
+    {
+      "File": "src/FDull/Repository.fs",
+      "Owner": "FDull.Repository.buildSelection",
+      "Kind": "rule",
+      "Identity": "ERR009 | ",
+      "Reason": "Writes one uniquely named, XML-escaped .slnx listing exactly the selected owned projects under <root>/.fdull/verify (refused when linked), runs a locked restore and one Release build of it through Project.run's bounded dotnet process, and deletes the solution in finally. Failures raise and become an incomplete exit-3 report."
+    },
+    {
+      "File": "src/FDull/RepositoryPlan.fs",
+      "Owner": "FDull.RepositoryPlan.checkRootAlias",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Core.Operators.InvalidOp``1(System.String)",
+      "Reason": "Rejects symlink aliases in every ancestor component of the supplied repository root before planning ownership."
+    },
+    {
+      "File": "src/FDull/RepositoryPlan.fs",
+      "Owner": "FDull.RepositoryPlan.existingRoot",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Core.Operators.InvalidOp``1(System.String)",
+      "Reason": "Rejects symlink aliases in every ancestor component of the supplied repository root before planning ownership."
+    },
+    {
+      "File": "src/FDull/RepositoryPlan.fs",
+      "Owner": "FDull.RepositoryPlan.existingRoot",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.GetFullPath(System.String)",
+      "Reason": "Rejects symlink aliases in every ancestor component of the supplied repository root before planning ownership."
+    },
+    {
+      "File": "src/FDull/RepositoryPlan.fs",
+      "Owner": "FDull.RepositoryPlan.existingRoot",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.TrimEndingDirectorySeparator(System.String)",
+      "Reason": "Rejects symlink aliases in every ancestor component of the supplied repository root before planning ownership."
+    },
+    {
+      "File": "src/FDull/RepositoryPlan.fs",
+      "Owner": "FDull.RepositoryPlan.check",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.Combine(System.String,System.String)",
+      "Reason": "Runs for lint the same discovery, ownership, graph and consumer-pin reads that verify runs before building, and returns every failure as a lint error string. It only reads policies; a caught exception never becomes success because each one is returned as an error."
+    },
+    {
+      "File": "src/FDull/RepositoryPlan.fs",
+      "Owner": "FDull.RepositoryPlan.check",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.GetFullPath(System.String)",
+      "Reason": "Runs for lint the same discovery, ownership, graph and consumer-pin reads that verify runs before building, and returns every failure as a lint error string. It only reads policies; a caught exception never becomes success because each one is returned as an error."
+    },
+    {
+      "File": "src/FDull/RepositoryPlan.fs",
+      "Owner": "FDull.RepositoryPlan.check",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.TrimEndingDirectorySeparator(System.String)",
+      "Reason": "Runs for lint the same discovery, ownership, graph and consumer-pin reads that verify runs before building, and returns every failure as a lint error string. It only reads policies; a caught exception never becomes success because each one is returned as an error."
+    },
+    {
+      "File": "src/FDull/RepositoryPlan.fs",
+      "Owner": "FDull.RepositoryPlan.check",
+      "Kind": "member",
+      "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | P:System.Exception.Message",
+      "Reason": "Runs for lint the same discovery, ownership, graph and consumer-pin reads that verify runs before building, and returns every failure as a lint error string. It only reads policies; a caught exception never becomes success because each one is returned as an error."
+    },
+    {
+      "File": "src/FDull/RepositoryPlan.fs",
+      "Owner": "FDull.RepositoryPlan.check",
+      "Kind": "rule",
+      "Identity": "ERR001 | ",
+      "Reason": "Runs for lint the same discovery, ownership, graph and consumer-pin reads that verify runs before building, and returns every failure as a lint error string. It only reads policies; a caught exception never becomes success because each one is returned as an error."
+    },
+    {
+      "File": "src/FDull/RepositoryPlan.fs",
+      "Owner": "FDull.RepositoryPlan.check",
+      "Kind": "rule",
+      "Identity": "ERR004 | exception handler",
+      "Reason": "Runs for lint the same discovery, ownership, graph and consumer-pin reads that verify runs before building, and returns every failure as a lint error string. It only reads policies; a caught exception never becomes success because each one is returned as an error."
+    },
+    {
+      "File": "src/FDull/RepositoryPlan.fs",
+      "Owner": "FDull.RepositoryPlan.check",
+      "Kind": "type",
+      "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | System.Exception",
+      "Reason": "Runs for lint the same discovery, ownership, graph and consumer-pin reads that verify runs before building, and returns every failure as a lint error string. It only reads policies; a caught exception never becomes success because each one is returned as an error."
+    },
+    {
+      "File": "src/FDull/Workspace.fs",
+      "Owner": "FDull.Workspace.analyzeTimed",
+      "Kind": "rule",
+      "Identity": "ERR001 | ",
+      "Reason": "A stored cache entry that cannot be decoded or accepted is treated as a miss and analyzed fresh; the handler returns None only, so a corrupt entry can never pass or fail a project."
+    },
+    {
+      "File": "src/FDull/Workspace.fs",
+      "Owner": "FDull.Workspace.analyzeTimed",
+      "Kind": "rule",
+      "Identity": "ERR004 | exception handler",
+      "Reason": "A stored cache entry that cannot be decoded or accepted is treated as a miss and analyzed fresh; the handler returns None only, so a corrupt entry can never pass or fail a project."
+    },
+    {
+      "File": "src/FDull/WorkspaceCache.fs",
+      "Owner": "FDull.WorkspaceCache.maximumAge",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.TimeSpan.FromDays(System.Double)",
+      "Reason": "Constant 30-day eviction age for cache entries."
+    },
+    {
+      "File": "src/FDull/WorkspaceCache.fs",
+      "Owner": "FDull.WorkspaceCache.read",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.File.SetLastWriteTimeUtc(System.String,System.DateTime)",
+      "Reason": "On an exact key match, best-effort touches the entry's write time to record its last use for pruning, only when neither .fdull nor .fdull/cache is a symbolic link; a failed touch only makes the entry look older."
+    },
+    {
+      "File": "src/FDull/WorkspaceCache.fs",
+      "Owner": "FDull.WorkspaceCache.read",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.Combine(System.String,System.String)",
+      "Reason": "On an exact key match, best-effort touches the entry's write time to record its last use for pruning, only when neither .fdull nor .fdull/cache is a symbolic link; a failed touch only makes the entry look older."
+    },
+    {
+      "File": "src/FDull/WorkspaceCache.fs",
+      "Owner": "FDull.WorkspaceCache.read",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:System.DateTime.UtcNow",
+      "Reason": "On an exact key match, best-effort touches the entry's write time to record its last use for pruning, only when neither .fdull nor .fdull/cache is a symbolic link; a failed touch only makes the entry look older."
+    },
+    {
+      "File": "src/FDull/WorkspaceCache.fs",
+      "Owner": "FDull.WorkspaceCache.prune",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.ArrayModule.Fold``2(Microsoft.FSharp.Core.FSharpFunc{``1,Microsoft.FSharp.Core.FSharpFunc{``0,``1}},``1,``0[])",
+      "Reason": "Best-effort eviction inside <root>/.fdull/cache only (refused when .fdull or the cache is linked): deletes top-level *.json entries unused for 30 days and the least recently used ones beyond 256 MiB in total. A failure leaves entries for a later prune and never affects a report."
+    },
+    {
+      "File": "src/FDull/WorkspaceCache.fs",
+      "Owner": "FDull.WorkspaceCache.prune",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.ArrayModule.SortByDescending``2(Microsoft.FSharp.Core.FSharpFunc{``0,``1},``0[])",
+      "Reason": "Best-effort eviction inside <root>/.fdull/cache only (refused when .fdull or the cache is linked): deletes top-level *.json entries unused for 30 days and the least recently used ones beyond 256 MiB in total. A failure leaves entries for a later prune and never affects a report."
+    },
+    {
+      "File": "src/FDull/WorkspaceCache.fs",
+      "Owner": "FDull.WorkspaceCache.prune",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Directory.Exists(System.String)",
+      "Reason": "Best-effort eviction inside <root>/.fdull/cache only (refused when .fdull or the cache is linked): deletes top-level *.json entries unused for 30 days and the least recently used ones beyond 256 MiB in total. A failure leaves entries for a later prune and never affects a report."
+    },
+    {
+      "File": "src/FDull/WorkspaceCache.fs",
+      "Owner": "FDull.WorkspaceCache.prune",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.DirectoryInfo.#ctor(System.String)",
+      "Reason": "Best-effort eviction inside <root>/.fdull/cache only (refused when .fdull or the cache is linked): deletes top-level *.json entries unused for 30 days and the least recently used ones beyond 256 MiB in total. A failure leaves entries for a later prune and never affects a report."
+    },
+    {
+      "File": "src/FDull/WorkspaceCache.fs",
+      "Owner": "FDull.WorkspaceCache.prune",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.DirectoryInfo.GetFiles(System.String)",
+      "Reason": "Best-effort eviction inside <root>/.fdull/cache only (refused when .fdull or the cache is linked): deletes top-level *.json entries unused for 30 days and the least recently used ones beyond 256 MiB in total. A failure leaves entries for a later prune and never affects a report."
+    },
+    {
+      "File": "src/FDull/WorkspaceCache.fs",
+      "Owner": "FDull.WorkspaceCache.prune",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.FileInfo.Delete",
+      "Reason": "Best-effort eviction inside <root>/.fdull/cache only (refused when .fdull or the cache is linked): deletes top-level *.json entries unused for 30 days and the least recently used ones beyond 256 MiB in total. A failure leaves entries for a later prune and never affects a report."
+    },
+    {
+      "File": "src/FDull/WorkspaceCache.fs",
+      "Owner": "FDull.WorkspaceCache.prune",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.Combine(System.String,System.String)",
+      "Reason": "Best-effort eviction inside <root>/.fdull/cache only (refused when .fdull or the cache is linked): deletes top-level *.json entries unused for 30 days and the least recently used ones beyond 256 MiB in total. A failure leaves entries for a later prune and never affects a report."
+    },
+    {
+      "File": "src/FDull/WorkspaceCache.fs",
+      "Owner": "FDull.WorkspaceCache.prune",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:System.DateTime.UtcNow",
+      "Reason": "Best-effort eviction inside <root>/.fdull/cache only (refused when .fdull or the cache is linked): deletes top-level *.json entries unused for 30 days and the least recently used ones beyond 256 MiB in total. A failure leaves entries for a later prune and never affects a report."
+    },
+    {
+      "File": "src/FDull/WorkspaceCache.fs",
+      "Owner": "FDull.WorkspaceCache.prune",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:System.IO.FileInfo.Length",
+      "Reason": "Best-effort eviction inside <root>/.fdull/cache only (refused when .fdull or the cache is linked): deletes top-level *.json entries unused for 30 days and the least recently used ones beyond 256 MiB in total. A failure leaves entries for a later prune and never affects a report."
+    },
+    {
+      "File": "src/FDull/WorkspaceCache.fs",
+      "Owner": "FDull.WorkspaceCache.prune",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:System.IO.FileSystemInfo.LastWriteTimeUtc",
+      "Reason": "Best-effort eviction inside <root>/.fdull/cache only (refused when .fdull or the cache is linked): deletes top-level *.json entries unused for 30 days and the least recently used ones beyond 256 MiB in total. A failure leaves entries for a later prune and never affects a report."
+    },
+    {
+      "File": "src/FDull/WorkspaceCache.fs",
+      "Owner": "FDull.WorkspaceCache.prune",
+      "Kind": "rule",
+      "Identity": "ERR001 | ",
+      "Reason": "Best-effort eviction inside <root>/.fdull/cache only (refused when .fdull or the cache is linked): deletes top-level *.json entries unused for 30 days and the least recently used ones beyond 256 MiB in total. A failure leaves entries for a later prune and never affects a report."
+    },
+    {
+      "File": "src/FDull/WorkspaceCache.fs",
+      "Owner": "FDull.WorkspaceCache.prune",
+      "Kind": "rule",
+      "Identity": "ERR004 | exception handler",
+      "Reason": "Best-effort eviction inside <root>/.fdull/cache only (refused when .fdull or the cache is linked): deletes top-level *.json entries unused for 30 days and the least recently used ones beyond 256 MiB in total. A failure leaves entries for a later prune and never affects a report."
+    },
+    {
+      "File": "src/FDull/WorkspaceCache.fs",
+      "Owner": "FDull.WorkspaceCache.prune",
+      "Kind": "type",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | System.IO.FileInfo",
+      "Reason": "Best-effort eviction inside <root>/.fdull/cache only (refused when .fdull or the cache is linked): deletes top-level *.json entries unused for 30 days and the least recently used ones beyond 256 MiB in total. A failure leaves entries for a later prune and never affects a report."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.analyzedFresh",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.GetRelativePath(System.String,System.String)",
+      "Reason": "Lists the repository-relative projects a fixture verify analyzed instead of serving from cache, for exact assertions."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.analyzedFresh",
+      "Kind": "member",
+      "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | M:System.String.Replace(System.Char,System.Char)",
+      "Reason": "Lists the repository-relative projects a fixture verify analyzed instead of serving from cache, for exact assertions."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.analyzedFresh",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | FDull.RepositoryReport",
+      "Reason": "Lists the repository-relative projects a fixture verify analyzed instead of serving from cache, for exact assertions."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.analyzedFresh",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | FDull.RepositoryServiceResult",
+      "Reason": "Lists the repository-relative projects a fixture verify analyzed instead of serving from cache, for exact assertions."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.analyzedFresh",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspaceProjectReport",
+      "Reason": "Lists the repository-relative projects a fixture verify analyzed instead of serving from cache, for exact assertions."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``since selection builds unchanged dependencies without re-verifying them``",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.File.Exists(System.String)",
+      "Reason": "Asserts the single selection build ran and produced the unchanged dependency's Release assembly in the isolated fixture."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``since selection builds unchanged dependencies without re-verifying them``",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | FDull.VerifyTotals",
+      "Reason": "Asserts the single selection build ran and produced the unchanged dependency's Release assembly in the isolated fixture."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``verify serves unchanged projects from the cache and re-analyzes exactly the changed ones``",
+      "Kind": "attribute",
+      "Identity": "xunit.core, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | Xunit.FactAttribute |  | unit",
+      "Reason": "Builds an isolated three-project fixture, verifies it repeatedly with the cache on, and changes only fixture sources, fixture policy and its own .fdull/cache entries to assert exactly which projects are analyzed fresh and rebuilt; runs the already-built CLI twice for the cache count. Grants no application capability."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``verify serves unchanged projects from the cache and re-analyzes exactly the changed ones``",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Repository.verifyTimedWith(FDull.WorkspaceOptions,System.String,FDull.RepositorySelection)",
+      "Reason": "Builds an isolated three-project fixture, verifies it repeatedly with the cache on, and changes only fixture sources, fixture policy and its own .fdull/cache entries to assert exactly which projects are analyzed fresh and rebuilt; runs the already-built CLI twice for the cache count. Grants no application capability."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``verify serves unchanged projects from the cache and re-analyzes exactly the changed ones``",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Transport.Codec.decode``1(System.String)",
+      "Reason": "Builds an isolated three-project fixture, verifies it repeatedly with the cache on, and changes only fixture sources, fixture policy and its own .fdull/cache entries to assert exactly which projects are analyzed fresh and rebuilt; runs the already-built CLI twice for the cache count. Grants no application capability."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``verify serves unchanged projects from the cache and re-analyzes exactly the changed ones``",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Transport.Codec.encode``1(``0)",
+      "Reason": "Builds an isolated three-project fixture, verifies it repeatedly with the cache on, and changes only fixture sources, fixture policy and its own .fdull/cache entries to assert exactly which projects are analyzed fresh and rebuilt; runs the already-built CLI twice for the cache count. Grants no application capability."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``verify serves unchanged projects from the cache and re-analyzes exactly the changed ones``",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Directory.GetFiles(System.String,System.String)",
+      "Reason": "Builds an isolated three-project fixture, verifies it repeatedly with the cache on, and changes only fixture sources, fixture policy and its own .fdull/cache entries to assert exactly which projects are analyzed fresh and rebuilt; runs the already-built CLI twice for the cache count. Grants no application capability."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``verify serves unchanged projects from the cache and re-analyzes exactly the changed ones``",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.File.ReadAllText(System.String)",
+      "Reason": "Builds an isolated three-project fixture, verifies it repeatedly with the cache on, and changes only fixture sources, fixture policy and its own .fdull/cache entries to assert exactly which projects are analyzed fresh and rebuilt; runs the already-built CLI twice for the cache count. Grants no application capability."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``verify serves unchanged projects from the cache and re-analyzes exactly the changed ones``",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.File.WriteAllText(System.String,System.String)",
+      "Reason": "Builds an isolated three-project fixture, verifies it repeatedly with the cache on, and changes only fixture sources, fixture policy and its own .fdull/cache entries to assert exactly which projects are analyzed fresh and rebuilt; runs the already-built CLI twice for the cache count. Grants no application capability."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``verify serves unchanged projects from the cache and re-analyzes exactly the changed ones``",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.Combine(System.String,System.String)",
+      "Reason": "Builds an isolated three-project fixture, verifies it repeatedly with the cache on, and changes only fixture sources, fixture policy and its own .fdull/cache entries to assert exactly which projects are analyzed fresh and rebuilt; runs the already-built CLI twice for the cache count. Grants no application capability."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``verify serves unchanged projects from the cache and re-analyzes exactly the changed ones``",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.Combine(System.String,System.String,System.String)",
+      "Reason": "Builds an isolated three-project fixture, verifies it repeatedly with the cache on, and changes only fixture sources, fixture policy and its own .fdull/cache entries to assert exactly which projects are analyzed fresh and rebuilt; runs the already-built CLI twice for the cache count. Grants no application capability."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``verify serves unchanged projects from the cache and re-analyzes exactly the changed ones``",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Contains(System.String,System.String)",
+      "Reason": "Builds an isolated three-project fixture, verifies it repeatedly with the cache on, and changes only fixture sources, fixture policy and its own .fdull/cache entries to assert exactly which projects are analyzed fresh and rebuilt; runs the already-built CLI twice for the cache count. Grants no application capability."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``verify serves unchanged projects from the cache and re-analyzes exactly the changed ones``",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Equal``1(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IAsyncEnumerable{``0})",
+      "Reason": "Builds an isolated three-project fixture, verifies it repeatedly with the cache on, and changes only fixture sources, fixture policy and its own .fdull/cache entries to assert exactly which projects are analyzed fresh and rebuilt; runs the already-built CLI twice for the cache count. Grants no application capability."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``verify serves unchanged projects from the cache and re-analyzes exactly the changed ones``",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Equal``1(``0,``0)",
+      "Reason": "Builds an isolated three-project fixture, verifies it repeatedly with the cache on, and changes only fixture sources, fixture policy and its own .fdull/cache entries to assert exactly which projects are analyzed fresh and rebuilt; runs the already-built CLI twice for the cache count. Grants no application capability."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``verify serves unchanged projects from the cache and re-analyzes exactly the changed ones``",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Single``1(System.Collections.Generic.IEnumerable{``0})",
+      "Reason": "Builds an isolated three-project fixture, verifies it repeatedly with the cache on, and changes only fixture sources, fixture policy and its own .fdull/cache entries to assert exactly which projects are analyzed fresh and rebuilt; runs the already-built CLI twice for the cache count. Grants no application capability."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``verify serves unchanged projects from the cache and re-analyzes exactly the changed ones``",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.True(System.Boolean,System.String)",
+      "Reason": "Builds an isolated three-project fixture, verifies it repeatedly with the cache on, and changes only fixture sources, fixture policy and its own .fdull/cache entries to assert exactly which projects are analyzed fresh and rebuilt; runs the already-built CLI twice for the cache count. Grants no application capability."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``verify serves unchanged projects from the cache and re-analyzes exactly the changed ones``",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | FDull.RepositoryReport",
+      "Reason": "Builds an isolated three-project fixture, verifies it repeatedly with the cache on, and changes only fixture sources, fixture policy and its own .fdull/cache entries to assert exactly which projects are analyzed fresh and rebuilt; runs the already-built CLI twice for the cache count. Grants no application capability."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``verify serves unchanged projects from the cache and re-analyzes exactly the changed ones``",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | FDull.RepositoryServiceResult",
+      "Reason": "Builds an isolated three-project fixture, verifies it repeatedly with the cache on, and changes only fixture sources, fixture policy and its own .fdull/cache entries to assert exactly which projects are analyzed fresh and rebuilt; runs the already-built CLI twice for the cache count. Grants no application capability."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``verify serves unchanged projects from the cache and re-analyzes exactly the changed ones``",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | FDull.SafetyProcessOutput",
+      "Reason": "Builds an isolated three-project fixture, verifies it repeatedly with the cache on, and changes only fixture sources, fixture policy and its own .fdull/cache entries to assert exactly which projects are analyzed fresh and rebuilt; runs the already-built CLI twice for the cache count. Grants no application capability."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``verify serves unchanged projects from the cache and re-analyzes exactly the changed ones``",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | FDull.VerifyTiming",
+      "Reason": "Builds an isolated three-project fixture, verifies it repeatedly with the cache on, and changes only fixture sources, fixture policy and its own .fdull/cache entries to assert exactly which projects are analyzed fresh and rebuilt; runs the already-built CLI twice for the cache count. Grants no application capability."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``verify serves unchanged projects from the cache and re-analyzes exactly the changed ones``",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspaceCacheEntry",
+      "Reason": "Builds an isolated three-project fixture, verifies it repeatedly with the cache on, and changes only fixture sources, fixture policy and its own .fdull/cache entries to assert exactly which projects are analyzed fresh and rebuilt; runs the already-built CLI twice for the cache count. Grants no application capability."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``verify serves unchanged projects from the cache and re-analyzes exactly the changed ones``",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspaceCapability",
+      "Reason": "Builds an isolated three-project fixture, verifies it repeatedly with the cache on, and changes only fixture sources, fixture policy and its own .fdull/cache entries to assert exactly which projects are analyzed fresh and rebuilt; runs the already-built CLI twice for the cache count. Grants no application capability."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``verify serves unchanged projects from the cache and re-analyzes exactly the changed ones``",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspacePolicyDocument",
+      "Reason": "Builds an isolated three-project fixture, verifies it repeatedly with the cache on, and changes only fixture sources, fixture policy and its own .fdull/cache entries to assert exactly which projects are analyzed fresh and rebuilt; runs the already-built CLI twice for the cache count. Grants no application capability."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``verify serves unchanged projects from the cache and re-analyzes exactly the changed ones``",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspaceProject",
+      "Reason": "Builds an isolated three-project fixture, verifies it repeatedly with the cache on, and changes only fixture sources, fixture policy and its own .fdull/cache entries to assert exactly which projects are analyzed fresh and rebuilt; runs the already-built CLI twice for the cache count. Grants no application capability."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``verify serves unchanged projects from the cache and re-analyzes exactly the changed ones``",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspaceProjectReport",
+      "Reason": "Builds an isolated three-project fixture, verifies it repeatedly with the cache on, and changes only fixture sources, fixture policy and its own .fdull/cache entries to assert exactly which projects are analyzed fresh and rebuilt; runs the already-built CLI twice for the cache count. Grants no application capability."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``verify serves unchanged projects from the cache and re-analyzes exactly the changed ones``",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspaceSource",
+      "Reason": "Builds an isolated three-project fixture, verifies it repeatedly with the cache on, and changes only fixture sources, fixture policy and its own .fdull/cache entries to assert exactly which projects are analyzed fresh and rebuilt; runs the already-built CLI twice for the cache count. Grants no application capability."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``verify serves unchanged projects from the cache and re-analyzes exactly the changed ones``",
+      "Kind": "type",
+      "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | System.Collections.Generic.IEnumerable`1",
+      "Reason": "Builds an isolated three-project fixture, verifies it repeatedly with the cache on, and changes only fixture sources, fixture policy and its own .fdull/cache entries to assert exactly which projects are analyzed fresh and rebuilt; runs the already-built CLI twice for the cache count. Grants no application capability."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``cache pruning drops entries unused for 30 days and the least recently used beyond 256 MiB``",
+      "Kind": "attribute",
+      "Identity": "xunit.core, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | Xunit.FactAttribute |  | unit",
+      "Reason": "Creates sparse files with chosen write times in the isolated fixture's own .fdull/cache, disposes each stream with use, and asserts exactly which entries WorkspaceCache.prune keeps."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``cache pruning drops entries unused for 30 days and the least recently used beyond 256 MiB``",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Transport.External.required``1(System.String,``0)",
+      "Reason": "Creates sparse files with chosen write times in the isolated fixture's own .fdull/cache, disposes each stream with use, and asserts exactly which entries WorkspaceCache.prune keeps."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``cache pruning drops entries unused for 30 days and the least recently used beyond 256 MiB``",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.WorkspaceCache.prune(System.String)",
+      "Reason": "Creates sparse files with chosen write times in the isolated fixture's own .fdull/cache, disposes each stream with use, and asserts exactly which entries WorkspaceCache.prune keeps."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``cache pruning drops entries unused for 30 days and the least recently used beyond 256 MiB``",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.ArrayModule.Map``2(Microsoft.FSharp.Core.FSharpFunc{``0,``1},``0[])",
+      "Reason": "Creates sparse files with chosen write times in the isolated fixture's own .fdull/cache, disposes each stream with use, and asserts exactly which entries WorkspaceCache.prune keeps."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``cache pruning drops entries unused for 30 days and the least recently used beyond 256 MiB``",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.ArrayModule.Sort``1(``0[])",
+      "Reason": "Creates sparse files with chosen write times in the isolated fixture's own .fdull/cache, disposes each stream with use, and asserts exactly which entries WorkspaceCache.prune keeps."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``cache pruning drops entries unused for 30 days and the least recently used beyond 256 MiB``",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.ListModule.OfArray``1(``0[])",
+      "Reason": "Creates sparse files with chosen write times in the isolated fixture's own .fdull/cache, disposes each stream with use, and asserts exactly which entries WorkspaceCache.prune keeps."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``cache pruning drops entries unused for 30 days and the least recently used beyond 256 MiB``",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.DateTime.AddDays(System.Double)",
+      "Reason": "Creates sparse files with chosen write times in the isolated fixture's own .fdull/cache, disposes each stream with use, and asserts exactly which entries WorkspaceCache.prune keeps."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``cache pruning drops entries unused for 30 days and the least recently used beyond 256 MiB``",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Directory.CreateDirectory(System.String)",
+      "Reason": "Creates sparse files with chosen write times in the isolated fixture's own .fdull/cache, disposes each stream with use, and asserts exactly which entries WorkspaceCache.prune keeps."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``cache pruning drops entries unused for 30 days and the least recently used beyond 256 MiB``",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Directory.GetFiles(System.String)",
+      "Reason": "Creates sparse files with chosen write times in the isolated fixture's own .fdull/cache, disposes each stream with use, and asserts exactly which entries WorkspaceCache.prune keeps."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``cache pruning drops entries unused for 30 days and the least recently used beyond 256 MiB``",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.File.Create(System.String)",
+      "Reason": "Creates sparse files with chosen write times in the isolated fixture's own .fdull/cache, disposes each stream with use, and asserts exactly which entries WorkspaceCache.prune keeps."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``cache pruning drops entries unused for 30 days and the least recently used beyond 256 MiB``",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.File.SetLastWriteTimeUtc(System.String,System.DateTime)",
+      "Reason": "Creates sparse files with chosen write times in the isolated fixture's own .fdull/cache, disposes each stream with use, and asserts exactly which entries WorkspaceCache.prune keeps."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``cache pruning drops entries unused for 30 days and the least recently used beyond 256 MiB``",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.FileStream.SetLength(System.Int64)",
+      "Reason": "Creates sparse files with chosen write times in the isolated fixture's own .fdull/cache, disposes each stream with use, and asserts exactly which entries WorkspaceCache.prune keeps."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``cache pruning drops entries unused for 30 days and the least recently used beyond 256 MiB``",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.Combine(System.String,System.String)",
+      "Reason": "Creates sparse files with chosen write times in the isolated fixture's own .fdull/cache, disposes each stream with use, and asserts exactly which entries WorkspaceCache.prune keeps."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``cache pruning drops entries unused for 30 days and the least recently used beyond 256 MiB``",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.Combine(System.String,System.String,System.String)",
+      "Reason": "Creates sparse files with chosen write times in the isolated fixture's own .fdull/cache, disposes each stream with use, and asserts exactly which entries WorkspaceCache.prune keeps."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``cache pruning drops entries unused for 30 days and the least recently used beyond 256 MiB``",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.GetFileName(System.String)",
+      "Reason": "Creates sparse files with chosen write times in the isolated fixture's own .fdull/cache, disposes each stream with use, and asserts exactly which entries WorkspaceCache.prune keeps."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``cache pruning drops entries unused for 30 days and the least recently used beyond 256 MiB``",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:System.DateTime.UtcNow",
+      "Reason": "Creates sparse files with chosen write times in the isolated fixture's own .fdull/cache, disposes each stream with use, and asserts exactly which entries WorkspaceCache.prune keeps."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``cache pruning drops entries unused for 30 days and the least recently used beyond 256 MiB``",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Equal``1(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IAsyncEnumerable{``0})",
+      "Reason": "Creates sparse files with chosen write times in the isolated fixture's own .fdull/cache, disposes each stream with use, and asserts exactly which entries WorkspaceCache.prune keeps."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``cache pruning drops entries unused for 30 days and the least recently used beyond 256 MiB``",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Equal``1(``0,``0)",
+      "Reason": "Creates sparse files with chosen write times in the isolated fixture's own .fdull/cache, disposes each stream with use, and asserts exactly which entries WorkspaceCache.prune keeps."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``cache pruning drops entries unused for 30 days and the least recently used beyond 256 MiB``",
+      "Kind": "rule",
+      "Identity": "ERR009 | ",
+      "Reason": "Creates sparse files with chosen write times in the isolated fixture's own .fdull/cache, disposes each stream with use, and asserts exactly which entries WorkspaceCache.prune keeps."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``cache pruning drops entries unused for 30 days and the least recently used beyond 256 MiB``",
+      "Kind": "type",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | System.IO.FileStream",
+      "Reason": "Creates sparse files with chosen write times in the isolated fixture's own .fdull/cache, disposes each stream with use, and asserts exactly which entries WorkspaceCache.prune keeps."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``lint reports the repository checks verify runs before building``",
+      "Kind": "attribute",
+      "Identity": "xunit.core, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | Xunit.FactAttribute |  | unit",
+      "Reason": "Runs Workspace.check on isolated fixture services and asserts the stale-pin and unowned-source errors lint reports, and that re-pinning clears them."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``lint reports the repository checks verify runs before building``",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Workspace.check(System.String)",
+      "Reason": "Runs Workspace.check on isolated fixture services and asserts the stale-pin and unowned-source errors lint reports, and that re-pinning clears them."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``lint reports the repository checks verify runs before building``",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Contains``1(``0,System.Collections.Generic.IEnumerable{``0})",
+      "Reason": "Runs Workspace.check on isolated fixture services and asserts the stale-pin and unowned-source errors lint reports, and that re-pinning clears them."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``lint reports the repository checks verify runs before building``",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Empty(System.Collections.IEnumerable)",
+      "Reason": "Runs Workspace.check on isolated fixture services and asserts the stale-pin and unowned-source errors lint reports, and that re-pinning clears them."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``lint reports the repository checks verify runs before building``",
+      "Kind": "type",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | System.Collections.IEnumerable",
+      "Reason": "Runs Workspace.check on isolated fixture services and asserts the stale-pin and unowned-source errors lint reports, and that re-pinning clears them."
+    },
+    {
+      "File": "src/FDull/Repository.fs",
+      "Owner": "FDull.Repository.execute",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.GetFullPath(System.String)",
+      "Reason": "Normalizes each selected service root once, exactly as Workspace.checkProjectWith did, so verify's worker requests and cache keys equal lint's; the normalized root is used only to read, pin, audit and re-read that service's own policy."
+    },
+    {
+      "File": "src/FDull/Workspace.fs",
+      "Owner": "FDull.Workspace.checkPinned",
+      "Kind": "member",
+      "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | P:System.Exception.Message",
+      "Reason": "Workspace authority validates exact reviewed sources, graph and compiler flags, binds build/reference/policy inputs, and rejects incomplete or changed worker responses. Exceptions remain failed checks."
+    },
+    {
+      "File": "src/FDull/Workspace.fs",
+      "Owner": "FDull.Workspace.checkPinned",
+      "Kind": "rule",
+      "Identity": "ERR001 | ",
+      "Reason": "Workspace authority validates exact reviewed sources, graph and compiler flags, binds build/reference/policy inputs, and rejects incomplete or changed worker responses. Exceptions remain failed checks."
+    },
+    {
+      "File": "src/FDull/Workspace.fs",
+      "Owner": "FDull.Workspace.checkPinned",
+      "Kind": "rule",
+      "Identity": "ERR004 | exception handler",
+      "Reason": "Workspace authority validates exact reviewed sources, graph and compiler flags, binds build/reference/policy inputs, and rejects incomplete or changed worker responses. Exceptions remain failed checks."
+    },
+    {
+      "File": "src/FDull/Workspace.fs",
+      "Owner": "FDull.Workspace.checkPinned",
+      "Kind": "type",
+      "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | System.Exception",
+      "Reason": "Workspace authority validates exact reviewed sources, graph and compiler flags, binds build/reference/policy inputs, and rejects incomplete or changed worker responses. Exceptions remain failed checks."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``verify rejects policy bytes that change after every request was pinned``",
+      "Kind": "attribute",
+      "Identity": "xunit.core, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | Xunit.FactAttribute |  | unit",
+      "Reason": "Builds an isolated one-service fixture whose clean rebuild, behind a marker under bin/, appends whitespace to its own fdull.json; asserts verify fails with BUILD004 because the policy bytes no longer match the pin every request carried."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``verify rejects policy bytes that change after every request was pinned``",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Repository.verify(System.String,FDull.RepositorySelection)",
+      "Reason": "Builds an isolated one-service fixture whose clean rebuild, behind a marker under bin/, appends whitespace to its own fdull.json; asserts verify fails with BUILD004 because the policy bytes no longer match the pin every request carried."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``verify rejects policy bytes that change after every request was pinned``",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Contains``1(``0,System.Collections.Generic.IEnumerable{``0})",
+      "Reason": "Builds an isolated one-service fixture whose clean rebuild, behind a marker under bin/, appends whitespace to its own fdull.json; asserts verify fails with BUILD004 because the policy bytes no longer match the pin every request carried."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``verify rejects policy bytes that change after every request was pinned``",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Equal``1(``0,``0)",
+      "Reason": "Builds an isolated one-service fixture whose clean rebuild, behind a marker under bin/, appends whitespace to its own fdull.json; asserts verify fails with BUILD004 because the policy bytes no longer match the pin every request carried."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``verify rejects policy bytes that change after every request was pinned``",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.True(System.Boolean,System.String)",
+      "Reason": "Builds an isolated one-service fixture whose clean rebuild, behind a marker under bin/, appends whitespace to its own fdull.json; asserts verify fails with BUILD004 because the policy bytes no longer match the pin every request carried."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``verify rejects policy bytes that change after every request was pinned``",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | FDull.RepositoryReport",
+      "Reason": "Builds an isolated one-service fixture whose clean rebuild, behind a marker under bin/, appends whitespace to its own fdull.json; asserts verify fails with BUILD004 because the policy bytes no longer match the pin every request carried."
     }
   ],
   "Domains": [],

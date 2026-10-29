@@ -966,7 +966,11 @@ module ProjectTests =
                     timed.Error
                 )
 
-            Assert.Matches("FDull timing: final-validation=\\d+ms total=\\d+ms projects=2", timed.Error)
+            Assert.Matches(
+                "FDull timing: restore=0ms build=0ms final-validation=\\d+ms total=\\d+ms projects=2",
+                timed.Error
+            )
+
             let plain = runCli root [ "verify"; "." ]
             Assert.Equal(0, plain.ExitCode)
             Assert.Equal(timed.Output, plain.Output)
@@ -1241,8 +1245,8 @@ module ProjectTests =
 
             // Lint blocks the whole workspace on a stale fingerprint; review reports it per source.
             expectReview [ "Shared.fsproj" ] (setDigest "Shared/Shared.fs" ("sha256:" + String('0', 64)))
-            // F# reference assemblies carry optimization data and a fresh MVID per compile, so even a
-            // private body change reaches B's key. Over-keying costs time, never correctness.
+            // F# reference assemblies carry optimization data, so a body change in a small public function
+            // reaches B's key. Over-keying costs time, never correctness.
             expect [ "Shared.fsproj"; "App.fsproj" ] (rebuild "module Shared\nlet increment value = value + 2\n")
             // A public signature changes the reference assembly B compiles against.
             expect

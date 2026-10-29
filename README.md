@@ -348,10 +348,15 @@ Generated and dependency directories use the ordinary inventory exclusions.
 Protected local/shared pins inside those excluded trees are rejected, so a
 reviewed input cannot disappear from the selection snapshot.
 
-All selected projects share one `--jobs` budget. Restores are sequential;
-overlapping output directories force sequential builds. Dependencies finish
+All selected projects share one `--jobs` budget. One locked restore and one
+Release build cover the whole selection, through a solution generated under
+`<root>/.fdull/verify/` and deleted afterwards; the build uses up to `--jobs`
+MSBuild nodes, and overlapping output directories force one. A failing project
+fails the run with MSBuild's errors for that project. Dependencies finish
 analysis and rebuilding before consumers are analyzed, followed by final input,
-ownership and invocation checks. Verification never uses the analysis cache.
+ownership and invocation checks. A project served from the result cache skips
+the worker and the rebuild; the final pass still re-exports and checks its
+compiler invocation.
 Authored project, props and targets imports must be literal, repository-local
 paths with reviewed pins, including imports under inactive conditions. Dynamic,
 wildcard and SDK-qualified authored imports are blocked. Evaluated imports
@@ -360,6 +365,9 @@ import hooks and arbitrary target-time file reads are outside this dependency
 model; ordinary build trust and sandbox
 requirements still apply. `lint` and advisory `review` retain their single-policy report
 schemas; repository coordination currently applies to text `verify` reports.
+`lint` of a version-two workspace also runs the repository discovery, ownership
+and graph checks, and reads each consuming policy, so a consumer's stale
+`PolicyDigest` pin on the linted workspace fails `lint` as it would fail `verify`.
 
 ## Policy and review
 
@@ -514,15 +522,19 @@ projects share an intermediate or output directory, their builds would write the
 same files: `verify` then runs one project at a time whatever `--jobs` says, and
 the text report says which projects share which directory. The report's
 `Sequential` field carries those lines; it is always empty in `lint` JSON. `verify`
-takes no `--format` or `--no-cache`.
+takes no `--format`. Repository `verify` accepts `--no-cache`; a standalone
+(version-one) `verify` never uses the cache and rejects it.
 
 `--timings` writes per-project times, and the run's total, to stderr. For `lint`
 and `review` they are MSBuild export, analysis worker and parent validation; for
 `verify` they are output-directory evaluation, restore, build, analysis, rebuild
-and re-export, plus the final validation pass. Stdout and the exit code are
-unchanged.
+and re-export per project, then a summary line with the restore and build of the
+whole selection and the final validation pass. Repository `verify` reports restore
+and build only in the summary, so they read 0 per project. Stdout and the exit
+code are unchanged.
 
-`lint` and `review` keep a per-project result cache in `<root>/.fdull/cache`. A
+`lint`, `review` and repository `verify` keep a per-project result cache in
+`<root>/.fdull/cache`. A
 project is served from it only when everything its analysis reads is unchanged:
 the exact compiler invocation, source and reference fingerprints, policy slice,
 FDull build and .NET runtime. A cached result still passes the same input
@@ -531,20 +543,30 @@ every project. A damaged, edited or mismatched entry is ignored and the project 
 re-analyzed. Text output then reads `N projects (M from cache)`, and JSON has a
 `Cached` count and a per-project `Cached` flag; nothing else in the output or exit
 code depends on the cache. `--no-cache` turns it off, and `cache clear <root>`
-deletes `<root>/.fdull/cache` (exit `3` if it is a symbolic link). Entries are never
-evicted, and a new FDull build changes every key.
+deletes `<root>/.fdull/cache` (exit `3` if it is a symbolic link). Each cached run
+evicts entries unused for 30 days, and the least recently used ones beyond 256 MiB
+per cache. A new FDull build changes every key.
 
-Rebuilding a project changes its F# reference assembly, so the project and every
-project that references it are re-analyzed. A policy edit re-analyzes only the
-projects whose slice it changes. Edits to `Inputs`, `Domains` or `Constructors`,
-including compiler settings in a pinned project file, re-analyze every project.
+With deterministic builds, a project's F# reference assembly changes only when its
+public signature or the optimization data of its public functions changes, such as
+the body of a small or `inline` public function. Then the project and every project
+that references it are re-analyzed; otherwise only the edited project is. A policy
+edit re-analyzes only the projects whose slice it changes. Edits to `Inputs`,
+`Domains` or `Constructors`, including compiler settings in a pinned project file,
+re-analyze every project. A slice includes the workspace's `PolicyDigest` pins,
+because analysis reads the dependency policies they pin. So any change to a
+dependency's policy, including a re-pinned source fingerprint, re-analyzes every
+project in its consuming workspaces.
 
-The cache is for iteration. `lint` and `review` trust `.fdull/` as you trust your
-own build output: an entry edited to stay consistent is believed. A cached `lint`
-is therefore not certification, and `verify` never reads or writes the cache. For
-CI, or anything checked out from someone else, run `verify`, or `lint --no-cache`. Don't run `lint` right before `verify`, which runs the
-same per-project analysis and fails on the same diagnostics. A policy pass is
-`review`, fix, `review`, `verify`.
+The cache is trusted state, as build output is: an entry edited to stay consistent
+is believed, and repository `verify` accepts a hit as evidence. Locally the cache
+is your own. In CI, let only trusted runs, such as `verify` on the main branch,
+write a cache that later jobs restore, and restore it read-only in pull-request
+jobs; a pull request then reuses results only for inputs identical to a commit
+already verified on main. For anything checked out from someone else without such
+a cache, run `verify --no-cache`. While iterating, run cached `lint` on each
+workspace you changed, fix, repeat, then `verify`: both compute the same keys, so
+`verify` reuses lint's results. A policy pass is `review`, fix, `review`, `verify`.
 
 | Exit | Meaning |
 | --- | --- |
@@ -553,10 +575,11 @@ same per-project analysis and fails on the same diagnostics. A policy pass is
 | `2` | Invalid command usage. |
 | `3` | Incomplete/failed analysis, invalid policy, changed inputs, or unavailable worker. |
 
-`lint` checks current Release compiler inputs and fingerprints. `verify` performs
-locked restores one project at a time, builds each project once its references are
-built, then analyzes and recompiles each project after its references without
-rebuilding them. A final pass re-checks every project once all builds have finished. Source, reference, policy
+`lint` checks current Release compiler inputs and fingerprints. Repository `verify`
+performs one locked restore and one build of the selection; a standalone `verify`
+restores one project at a time and builds each project once its references are
+built. Both then analyze and recompile each project after its references without
+rebuilding them, except that a cache hit is not recompiled. A final pass re-checks every project once all builds have finished. Source, reference, policy
 and evaluated compiler inputs are compared before accepting the result. JSON includes completeness and errors.
 SARIF includes diagnostics and an invocation success flag; also check the exit code.
 
@@ -648,7 +671,8 @@ engine accepts ordered, fingerprinted source/reference inputs. Hosts must enforc
 process limits themselves; the library package does not install a worker beside
 arbitrary executables. `FDull.Tool` supplies the supported bounded host for
 `Workspace.check`, `Project.verify` and source-only `Safety.check`. The library's
-`Workspace.check` and `Workspace.review` never use the result cache.
+`Workspace.check`, `Workspace.review` and `Repository.verify` never use the result
+cache.
 
 The worker has a 512 MiB managed heap ceiling, a 1 GiB working-set limit and a
 60-second wall-time limit per project. Output and traversal are also bounded.

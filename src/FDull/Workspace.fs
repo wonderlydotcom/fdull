@@ -13,7 +13,7 @@ type WorkspaceReport =
         Complete: bool
         ExitCode: int
         Projects: WorkspaceProjectReport list
-        /// Projects served from the result cache; always 0 for `verify` and `--no-cache`.
+        /// Projects served from the result cache; always 0 with `--no-cache`.
         Cached: int
         ExcludedProjects: WorkspaceProjectExclusion list
         /// Why `verify` ran one project at a time whatever its job count; always empty for `lint`.
@@ -36,7 +36,7 @@ type WorkspaceTiming =
       WorkerMilliseconds: int64
       ValidationMilliseconds: int64 }
 
-/// How `lint` and `review` run. Neither option changes a report except its `Cached` counts.
+/// How `lint`, `review` and `verify` run. Neither option changes a report except its `Cached` counts.
 type WorkspaceOptions = { Jobs: int; Cache: bool }
 
 module Workspace =
@@ -414,8 +414,12 @@ module Workspace =
                 if cache then
                     WorkspaceCache.read request.Root key
                     |> Option.bind (fun output ->
-                        accept advisory document request (SafetyPolicy.fileDigest engine) false output
-                        |> Result.toOption)
+                        // An entry that cannot be decoded or accepted is a miss, never a failure.
+                        try
+                            accept advisory document request (SafetyPolicy.fileDigest engine) false output
+                            |> Result.toOption
+                        with _ ->
+                            None)
                 else
                     None
 
@@ -497,23 +501,37 @@ module Workspace =
         with error ->
             Error("BUILD003: " + error.Message)
 
-    let checkProject platform project =
-        try
-            let root = Path.GetFullPath platform
-            let policy, pin = pinned false root
-            WorkspaceAudit.validate root policy
+    /// A workspace's policy and the pin of its `fdull.json` bytes, as every analysis request records them.
+    let internal readPinned root = pinned false root
 
+    /// Analyze one project of the workspace at the full path `root` against a policy read with `readPinned`
+    /// and already audited, so a caller analyzing many projects reads and audits the policy once.
+    let internal checkPinned cache root (policy: WorkspacePolicyDocument, pin) project =
+        try
             let relative =
                 Path.GetRelativePath(root, Path.GetFullPath(project, root)).Replace('\\', '/')
 
             if policy.Sources |> List.exists (fun source -> source.Project = relative) then
                 export root relative
                 |> Result.map (requestFrom root relative (policy, pin))
-                |> Result.bind (analyzeTimed false false policy >> fst >> Result.map _.Analysis)
+                |> Result.bind (analyzeTimed cache false policy >> fst >> Result.map _.Analysis)
             else
                 Error "ARCH002: The project is not assigned by workspace policy."
         with error ->
             Error("BUILD003: " + error.Message)
+
+    /// Analyze one project as `verify` does. With `cache`, an accepted stored result is returned with
+    /// `Cached` set, and a complete fresh result is stored.
+    let checkProjectWith cache platform project =
+        try
+            let root = Path.GetFullPath platform
+            let policy, pin = readPinned root
+            WorkspaceAudit.validate root policy
+            checkPinned cache root (policy, pin) project
+        with error ->
+            Error("BUILD003: " + error.Message)
+
+    let checkProject platform project = checkProjectWith false platform project
 
     /// Projects analyzed at once by default. Each worker heap is capped at 512 MiB.
     let defaultJobs = min Environment.ProcessorCount 4
@@ -593,6 +611,11 @@ module Workspace =
         try
             let policy, pin = pinned false root
             WorkspaceAudit.validate root policy
+
+            // A version-two service also gets the repository checks that `verify` runs before building.
+            if policy.Repository.IsSome then
+                errors.AddRange(RepositoryPlan.check (WorkspacePolicy.repositoryRoot root policy) root)
+
             exclusions.AddRange(WorkspacePolicy.excludedProjects policy)
             let projectFiles = WorkspaceAudit.order policy.Projects
 
@@ -628,7 +651,7 @@ module Workspace =
 
                 for unused in WorkspaceAudit.unusedDataContracts policy observed do
                     errors.Add(
-                        "BUILD005: Unused reusable data contract or assembly pin: "
+                        "BUILD005: Unused data contract or assembly pin: "
                         + unused.Project
                         + " | "
                         + unused.Identity
@@ -667,9 +690,15 @@ module Workspace =
     let checkTimed (options: WorkspaceOptions) platform =
         let root = Path.GetFullPath platform
 
-        checkMeasured root options.Jobs false (fun policy project ->
-            let result, timing = measured options.Cache false root policy project
-            result |> Result.map _.Analysis, Some timing)
+        let outcome =
+            checkMeasured root options.Jobs false (fun policy project ->
+                let result, timing = measured options.Cache false root policy project
+                result |> Result.map _.Analysis, Some timing)
+
+        if options.Cache then
+            WorkspaceCache.prune root
+
+        outcome
 
     let check platform =
         checkTimed { Jobs = defaultJobs; Cache = false } platform |> fst
@@ -736,6 +765,9 @@ module Workspace =
                   UnusedConstructors = []
                   UnusedDataContracts = []
                   Errors = List.ofSeq errors }
+
+        if options.Cache then
+            WorkspaceCache.prune root
 
         report, List.ofSeq timings
 

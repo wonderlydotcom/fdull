@@ -88,7 +88,8 @@ module RepositoryTests =
 
         File.WriteAllText(path, contents)
 
-    let private service root name =
+    /// A version-two service with one project; `setup` may add or replace files before restore.
+    let private serviceWith root name (setup: string -> unit) =
         let directory = Path.Combine(root, "services", name)
         Directory.CreateDirectory directory |> ignore
         write directory "global.json" "{\"sdk\":{\"version\":\"10.0.403\",\"rollForward\":\"disable\"}}"
@@ -107,6 +108,7 @@ module RepositoryTests =
              + ".fs\"/></ItemGroup></Project>")
 
         write directory (name + ".fs") ("module " + name + "\nlet value = 1\n")
+        setup directory
 
         command directory "dotnet" [ "restore"; name + ".fsproj"; "-m:1"; "-nr:false" ]
         |> ignore
@@ -128,6 +130,8 @@ module RepositoryTests =
         )
 
         directory
+
+    let private service root name = serviceWith root name ignore
 
     let private initializeGit root =
         write root ".gitignore" "**/bin/\n**/obj/\n.fdull/\nDirectory.Build.targets\n"
@@ -934,7 +938,7 @@ module RepositoryTests =
             Assert.Equal<string list>([], (plan root (Service "services/Billing")).BuildOnly)
             Assert.Equal<string list>([], (plan root All).BuildOnly)
 
-            let report, (timings, _) = Repository.verifyTimed 1 root (Since baseline)
+            let report, (timings, totals) = Repository.verifyTimed 1 root (Since baseline)
             Assert.True(report.Complete && report.ExitCode = 0, failures report)
             Assert.Equal<string list>([ "services/Billing" ], report.Services |> List.map _.Service)
 
@@ -944,7 +948,9 @@ module RepositoryTests =
 
             Assert.Equal<int64 list>([ 0L ], dependency |> List.map _.AnalyzeMilliseconds)
             Assert.Equal<int64 list>([ 0L ], dependency |> List.map _.RebuildMilliseconds)
-            Assert.True(dependency |> List.forall (fun timing -> timing.BuildMilliseconds > 0L))
+            // The whole selection builds in one invocation, which includes the dependency.
+            Assert.True(totals.Build > 0L)
+            Assert.True(File.Exists(Path.Combine(contracts, "bin/Release/net10.0/Contracts.dll")))
 
             let explicit = Repository.verify root (Service "services/Billing")
             Assert.True(explicit.Complete && explicit.ExitCode = 0, failures explicit)
@@ -1324,3 +1330,238 @@ module RepositoryTests =
         Assert.ThrowsAny<Exception>(fun () ->
             WorkspacePolicyDigest.ofBytes [| 0x7Buy; 0xC3uy; 0x28uy; 0x7Duy |] |> ignore)
         |> ignore
+
+    /// Repository-relative paths of the projects a run analyzed afresh instead of serving from cache.
+    let private analyzedFresh root (report: RepositoryReport) =
+        report.Services
+        |> List.collect (fun item ->
+            item.Report.Projects
+            |> List.filter (fun project -> not project.Cached)
+            |> List.map (fun project -> Path.GetRelativePath(root, project.Project).Replace('\\', '/')))
+        |> List.sort
+
+    /// A private helper too large to inline, so an edit to its body leaves the reference assembly unchanged.
+    let private coreSource (description: string) (extra: string) =
+        "module Core\n\nlet private describe (value: int) =\n    match value with\n    | 0 -> \"none\"\n    | 1 -> \""
+        + description
+        + "\"\n    | _ -> string value + \" items\"\n\nlet summary value = describe value\n"
+        + extra
+
+    [<Fact>]
+    let ``verify serves unchanged projects from the cache and re-analyzes exactly the changed ones`` () =
+        withRepository (fun root ->
+            let ledger =
+                serviceWith root "Ledger" (fun directory ->
+                    write
+                        directory
+                        "Core/Core.fsproj"
+                        "<Project Sdk=\"Microsoft.NET.Sdk\"><ItemGroup><Compile Include=\"Core.fs\"/></ItemGroup></Project>"
+
+                    write directory "Core/Core.fs" (coreSource "one item" "")
+
+                    write
+                        directory
+                        "Ledger.fsproj"
+                        "<Project Sdk=\"Microsoft.NET.Sdk\"><ItemGroup><Compile Include=\"Ledger.fs\"/><ProjectReference Include=\"Core/Core.fsproj\"/></ItemGroup></Project>"
+
+                    write
+                        directory
+                        "Ledger.fs"
+                        "module Ledger\nlet count () =\n    let mutable total = 0\n    total <- total + 1\n    total\n")
+
+            // Ledger is an adapter whose mutation is approved, so its slice holds capabilities of its own.
+            let approvals reason =
+                [ for identity in [ "MUT001 | "; "MUT001 | total"; "MUT002 | " ] ->
+                      { File = "Ledger.fs"
+                        Owner = "Ledger.count"
+                        Kind = "rule"
+                        Identity = identity
+                        Reason = reason }
+                      : WorkspaceCapability ]
+
+            let initial = readPolicy ledger
+
+            savePolicy
+                ledger
+                { initial with
+                    Projects =
+                        initial.Projects
+                        |> List.map (fun item ->
+                            if item.File = "Ledger.fsproj" then
+                                { item with Profile = "ADAPTER" }
+                            else
+                                item)
+                    Sources =
+                        initial.Sources
+                        |> List.map (fun item ->
+                            if item.Project = "Ledger.fsproj" then
+                                { item with Profile = "ADAPTER" }
+                            else
+                                item)
+                    Capabilities = approvals "Fixture counter state confined to one call." }
+
+            let orders = service root "Orders"
+            let core = "services/Ledger/Core/Core.fsproj"
+            let app = "services/Ledger/Ledger.fsproj"
+            let ordersProject = "services/Orders/Orders.fsproj"
+
+            let expect projects change =
+                change ()
+
+                let report, (timings, _) =
+                    Repository.verifyTimedWith { Jobs = 1; Cache = true } root All
+
+                Assert.True(report.Complete && report.ExitCode = 0, failures report)
+                Assert.Equal<string list>(projects, analyzedFresh root report)
+
+                Assert.Equal(3 - List.length projects, report.Services |> List.sumBy (fun item -> item.Report.Cached))
+
+                // A hit skips both the worker and the clean rebuild.
+                let rebuilt =
+                    timings
+                    |> List.filter (fun timing -> timing.RebuildMilliseconds > 0L)
+                    |> List.map _.Project
+
+                Assert.Equal<Set<string>>(Set.ofList projects, Set.ofList rebuilt)
+
+            expect [ core; app; ordersProject ] ignore
+            expect [] ignore
+
+            let coreFile = Path.Combine(ledger, "Core/Core.fs")
+
+            // A body edit that keeps Core's public API leaves its consumer's key unchanged.
+            expect [ core ] (fun () ->
+                File.WriteAllText(coreFile, coreSource "a single item" "")
+                reviewSources ledger)
+
+            // A public API change reaches the reference assembly its consumer compiles against.
+            expect [ core; app ] (fun () ->
+                File.WriteAllText(coreFile, coreSource "a single item" "let extra = 3\n")
+                reviewSources ledger)
+
+            // A change to one project's policy slice leaves the other projects in its workspace cached.
+            expect [ app ] (fun () ->
+                savePolicy
+                    ledger
+                    { readPolicy ledger with
+                        Capabilities = approvals "Fixture counter state, reviewed again." })
+
+            let entry () =
+                Assert.Single(Directory.GetFiles(Path.Combine(orders, ".fdull", "cache"), "*.json"))
+
+            // A hit passes the same BUILD004 comparison as a fresh result, so an inconsistent entry is a miss.
+            expect [ ordersProject ] (fun () ->
+                let path = entry ()
+                let stored = File.ReadAllText path |> Codec.decode<WorkspaceCacheEntry>
+                let report = Codec.decode<WorkspaceProjectReport> stored.Output
+
+                File.WriteAllText(
+                    path,
+                    Codec.encode
+                        { stored with
+                            Output =
+                                Codec.encode
+                                    { report with
+                                        Report =
+                                            { report.Report with
+                                                Policy = "sha256:" + String('0', 64) } } }
+                ))
+
+            // An entry or stored report that cannot be decoded is a miss, never a failure.
+            expect [ ordersProject ] (fun () ->
+                let path = entry ()
+                let stored = File.ReadAllText path |> Codec.decode<WorkspaceCacheEntry>
+                File.WriteAllText(path, Codec.encode { stored with Output = "{" }))
+
+            expect [ ordersProject ] (fun () -> File.WriteAllText(entry (), "not a cache entry"))
+
+            let verifiedBy expected =
+                let result = cli root [ "verify"; "."; "--all" ]
+                Assert.True(result.ExitCode = 0, result.Error + result.Output)
+                Assert.Contains(expected, result.Output)
+
+            // The CLI ships its own worker build, which keys its own entries.
+            verifiedBy "(3 projects, 0 from cache)."
+            verifiedBy "(3 projects, 3 from cache).")
+
+    [<Fact>]
+    let ``verify rejects policy bytes that change after every request was pinned`` () =
+        withRepository (fun root ->
+            // With the marker, the clean rebuild after analysis rewrites fdull.json as the same document in
+            // new bytes, so only the final pin comparison can tell.
+            let orders =
+                serviceWith root "Orders" (fun directory ->
+                    write
+                        directory
+                        "Orders.fsproj"
+                        ("<Project Sdk=\"Microsoft.NET.Sdk\"><ItemGroup><Compile Include=\"Orders.fs\"/></ItemGroup>"
+                         + "<Target Name=\"FixtureRewritePolicy\" AfterTargets=\"Rebuild\" Condition=\"Exists('$(MSBuildProjectDirectory)/bin/rewrite-policy')\">"
+                         // MSBuild trims a literal space; the escaped one appends " \n".
+                         + "<WriteLinesToFile File=\"$(MSBuildProjectDirectory)/fdull.json\" Lines=\"%20\" Overwrite=\"false\"/></Target></Project>"))
+
+            let clean = Repository.verify root All
+            Assert.True(clean.Complete && clean.ExitCode = 0, failures clean)
+
+            write orders "bin/rewrite-policy" ""
+            let report = Repository.verify root All
+            Assert.Equal(3, report.ExitCode)
+            Assert.Contains("BUILD004: Policy changed during repository verification.", report.Errors))
+
+    [<Fact>]
+    let ``cache pruning drops entries unused for 30 days and the least recently used beyond 256 MiB`` () =
+        withRepository (fun root ->
+            let cache = Path.Combine(root, ".fdull", "cache")
+            Directory.CreateDirectory cache |> ignore
+
+            let create path (length: int64) =
+                use stream = File.Create path
+                stream.SetLength length
+
+            let allocate name length (days: float) =
+                let path = Path.Combine(cache, name + ".json")
+                create path length
+                File.SetLastWriteTimeUtc(path, DateTime.UtcNow.AddDays(-days))
+
+            let remaining () =
+                Directory.GetFiles cache
+                |> Array.map (fun path -> Path.GetFileName path |> External.required "test.cache-name")
+                |> Array.sort
+                |> List.ofArray
+
+            allocate "fresh" 1024L 29.0
+            allocate "stale" 1024L 31.0
+            WorkspaceCache.prune root
+            Assert.Equal<string list>([ "fresh.json" ], remaining ())
+
+            let mebibytes = 1024L * 1024L
+            allocate "newest" (100L * mebibytes) 0.1
+            allocate "older" (100L * mebibytes) 1.0
+            allocate "oldest" (100L * mebibytes) 2.0
+            WorkspaceCache.prune root
+            // "fresh" is within 30 days but is now the least recently used entry beyond the size limit.
+            Assert.Equal<string list>([ "newest.json"; "older.json" ], remaining ()))
+
+    [<Fact>]
+    let ``lint reports the repository checks verify runs before building`` () =
+        withRepository (fun root ->
+            let contracts = service root "Contracts"
+            let billing = service root "Billing"
+            link true billing "Billing" contracts "Contracts"
+
+            let errors directory = (Workspace.check directory).Errors
+            Assert.Empty(errors contracts)
+
+            // A consumer's pin on the linted workspace goes stale when its policy changes.
+            write contracts "Contracts.fs" "module Contracts\nlet value = 2\n"
+            reviewSources contracts
+
+            Assert.Contains(
+                "services/Billing: BUILD005: Dependency policy differs: services/Contracts/fdull.json",
+                errors contracts
+            )
+
+            repin billing
+            Assert.Empty(errors contracts)
+
+            write root "tools/Stray.fs" "module Stray\n"
+            Assert.Contains("ARCH002: Unowned F# project or source: tools/Stray.fs", errors contracts))
