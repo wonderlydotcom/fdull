@@ -182,6 +182,8 @@ module Program =
             let status =
                 if List.contains service.Id plan.Affected then
                     "affected"
+                elif List.contains service.Id plan.BuildOnly then
+                    "dependency (built only; not re-verified)"
                 elif List.contains service.Id plan.Dependencies then
                     "dependency"
                 else
@@ -207,7 +209,13 @@ module Program =
         elif plan.Affected.IsEmpty && plan.Dependencies.IsEmpty then
             Console.WriteLine "FDull repository verify: no affected services; unchanged services were not verified."
         else
-            Console.WriteLine "FDull repository verify: PASS — selected services completed verification."
+            Console.WriteLine(
+                "FDull repository verify: PASS — selected services completed verification"
+                + (if plan.BuildOnly.IsEmpty then
+                       "."
+                   else
+                       "; build-only dependencies rely on the comparison commit's verification.")
+            )
 
         report.ExitCode
 

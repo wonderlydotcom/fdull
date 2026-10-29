@@ -18,15 +18,20 @@ type RepositoryService =
       Policy: WorkspacePolicyDocument }
 
 type RepositoryPlanResult =
-    { Root: string
-      Selection: RepositorySelection
-      Baseline: string option
-      Services: RepositoryService list
-      Affected: string list
-      Dependencies: string list
-      Skipped: string list
-      Reasons: Map<string, string list>
-      Snapshot: Map<string, string> }
+    {
+        Root: string
+        Selection: RepositorySelection
+        Baseline: string option
+        Services: RepositoryService list
+        Affected: string list
+        Dependencies: string list
+        /// Dependencies unchanged since the comparison commit. They are built for their
+        /// consumers but not re-analyzed, so they carry no verification claim.
+        BuildOnly: string list
+        Skipped: string list
+        Reasons: Map<string, string list>
+        Snapshot: Map<string, string>
+    }
 
 /// Repository selection is advisory to the executor. Its snapshot must be rechecked
 /// after all selected builds, and each selected policy still needs full validation.
@@ -689,9 +694,26 @@ module RepositoryPlan =
         let dependencies = Set.difference required affected
         let skipped = Set.difference ids required
 
+        // A dependency is outside the initial change set, so it is unchanged since the baseline.
+        // Its own verification is the baseline's; an explicit service has no such baseline.
+        let buildOnly =
+            match selection with
+            | Since _ -> dependencies
+            | All
+            | Service _ -> Set.empty
+
         let reasons =
             dependencies
-            |> Seq.fold (fun state id -> Map.add id [ "dependency required by selected service" ] state) reasons
+            |> Seq.fold
+                (fun state id ->
+                    let why =
+                        if Set.contains id buildOnly then
+                            "dependency unchanged since the comparison commit; built, not re-verified"
+                        else
+                            "dependency required by selected service"
+
+                    Map.add id [ why ] state)
+                reasons
 
         if snapshot root (inventory root) <> currentSnapshot then
             invalidOp "BUILD005: Repository selection inputs changed while planning."
@@ -702,6 +724,7 @@ module RepositoryPlan =
           Services = services
           Affected = affected |> Set.toList
           Dependencies = dependencies |> Set.toList
+          BuildOnly = buildOnly |> Set.toList
           Skipped = skipped |> Set.toList
           Reasons = reasons
           Snapshot = currentSnapshot }
@@ -727,6 +750,7 @@ module RepositoryPlan =
                 if
                     replanned.Affected <> plan.Affected
                     || replanned.Dependencies <> plan.Dependencies
+                    || replanned.BuildOnly <> plan.BuildOnly
                 then
                     invalidOp "BUILD005: Repository selection changed during verification."
             | All, None -> ()

@@ -57,19 +57,19 @@
       "File": "src/FDull/Repository.fs",
       "Project": "src/FDull/FDull.fsproj",
       "Profile": "GUARD_TOOLING",
-      "Digest": "sha256:b989a4cce97f68c49e9c4b443ce4e1584b2bf38f95e9ee3b4e3fe5c8a09c9b2c"
+      "Digest": "sha256:c43755cfcb743d8be915abaa7095630485bd5162dd3d280df613442c767b095a"
     },
     {
       "File": "src/FDull/RepositoryPlan.fs",
       "Project": "src/FDull/FDull.fsproj",
       "Profile": "GUARD_TOOLING",
-      "Digest": "sha256:f7381a458281013375df45d93fe2faae889d8ee853b566c5edf9390653d89755"
+      "Digest": "sha256:1a82c48a0a9da830b506e7e5e46ddb79b09ff3fb37eb32abf33ce92a3b7ca033"
     },
     {
       "File": "tests/FDull.Tests/RepositoryTests.fs",
       "Project": "tests/FDull.Tests/FDull.Tests.fsproj",
       "Profile": "TEST",
-      "Digest": "sha256:626a1e0a24ddfe4a8b4b9aac9b6bed23227469ffd88c6000ef789741d9c22a5b"
+      "Digest": "sha256:6d43442bc4d32de806836a2f7e2e510ec50dc3281aedff6518228b49bb38b090"
     },
     {
       "File": "src/FDull/External.fs",
@@ -201,7 +201,7 @@
       "File": "src/FDull.Tool/Program.fs",
       "Project": "src/FDull.Tool/FDull.Tool.fsproj",
       "Profile": "GUARD_TOOLING",
-      "Digest": "sha256:b9242ca275c586b8ff2e978e45768c0dc2912433b081b839946f07afc79d7a7b"
+      "Digest": "sha256:dddd7f5e79930b9f610499546ccd038b01a195000572f540b0f5778938c18a3f"
     },
     {
       "File": "src/FDull.Worker/Program.fs",
@@ -27898,6 +27898,111 @@
       "Kind": "member",
       "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Core.Operators.FailWith``1(System.String)",
       "Reason": "Returns the expected validation error of a fixture policy and fails the test if it is accepted."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``since selection builds unchanged dependencies without re-verifying them``",
+      "Kind": "attribute",
+      "Identity": "xunit.core, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | Xunit.FactAttribute |  | unit",
+      "Reason": "Verifies that --since builds an unchanged dependency without re-analysis and certifies only the changed service."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``since selection builds unchanged dependencies without re-verifying them``",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Repository.verify(System.String,FDull.RepositorySelection)",
+      "Reason": "Verifies that --since builds an unchanged dependency without re-analysis and certifies only the changed service."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``since selection builds unchanged dependencies without re-verifying them``",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Repository.verifyTimed(System.Int32,System.String,FDull.RepositorySelection)",
+      "Reason": "Verifies that --since builds an unchanged dependency without re-analysis and certifies only the changed service."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``since selection builds unchanged dependencies without re-verifying them``",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.SafetyPolicy.fileDigest(System.String)",
+      "Reason": "Verifies that --since builds an unchanged dependency without re-analysis and certifies only the changed service."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``since selection builds unchanged dependencies without re-verifying them``",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.Combine(System.String,System.String)",
+      "Reason": "Verifies that --since builds an unchanged dependency without re-analysis and certifies only the changed service."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``since selection builds unchanged dependencies without re-verifying them``",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Equal``1(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IAsyncEnumerable{``0})",
+      "Reason": "Verifies that --since builds an unchanged dependency without re-analysis and certifies only the changed service."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``since selection builds unchanged dependencies without re-verifying them``",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Equal``1(``0,``0)",
+      "Reason": "Verifies that --since builds an unchanged dependency without re-analysis and certifies only the changed service."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``since selection builds unchanged dependencies without re-verifying them``",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.True(System.Boolean)",
+      "Reason": "Verifies that --since builds an unchanged dependency without re-analysis and certifies only the changed service."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``since selection builds unchanged dependencies without re-verifying them``",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.True(System.Boolean,System.String)",
+      "Reason": "Verifies that --since builds an unchanged dependency without re-analysis and certifies only the changed service."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``since selection builds unchanged dependencies without re-verifying them``",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | FDull.RepositoryPlanResult",
+      "Reason": "Verifies that --since builds an unchanged dependency without re-analysis and certifies only the changed service."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``since selection builds unchanged dependencies without re-verifying them``",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | FDull.RepositoryReport",
+      "Reason": "Verifies that --since builds an unchanged dependency without re-analysis and certifies only the changed service."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``since selection builds unchanged dependencies without re-verifying them``",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | FDull.VerifyTiming",
+      "Reason": "Verifies that --since builds an unchanged dependency without re-analysis and certifies only the changed service."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``since selection builds unchanged dependencies without re-verifying them``",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspacePolicyDocument",
+      "Reason": "Verifies that --since builds an unchanged dependency without re-analysis and certifies only the changed service."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``since selection builds unchanged dependencies without re-verifying them``",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspaceProject",
+      "Reason": "Verifies that --since builds an unchanged dependency without re-analysis and certifies only the changed service."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``since selection builds unchanged dependencies without re-verifying them``",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspaceSource",
+      "Reason": "Verifies that --since builds an unchanged dependency without re-analysis and certifies only the changed service."
     }
   ],
   "Domains": [],

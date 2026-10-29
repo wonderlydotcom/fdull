@@ -144,7 +144,9 @@ evaluated compiler graph as today.
 5. Add transitive reverse consumers of changed services and shared-input owners.
 6. Add the dependency closure needed to establish the selected services' build
    and verification evidence. Distinguish affected services from dependencies
-   included to support execution.
+   included to support execution. Under `--since`, those dependencies are
+   unchanged since the baseline; build them without re-analysis and report them
+   as build-only rather than verified.
 7. Recheck selection inputs before accepting the aggregate result. Concurrent
    changes to skipped-service ownership, graphs, or relevant files invalidate
    the plan; they must not produce a false successful result.

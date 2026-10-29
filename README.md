@@ -330,10 +330,13 @@ ancestor `global.json`, NuGet configuration and Directory.Build/Packages control
 that exist inside the repository, plus repository-local imports used by the
 service. Changing a shared input selects its consumers but still requires every
 reviewed digest to match. Changed libraries select their transitive consumers;
-required dependencies are separately identified in the report. Changed ownership
-or dependency graphs conservatively select all current services. An explicit
-service invocation verifies that service and its dependencies, without selecting
-unrelated reverse consumers.
+required dependencies are separately identified in the report. Under `--since`,
+a dependency is by construction unchanged since the comparison commit: it is
+built for its consumers but not re-analyzed, and the report lists it as built
+only. Its verification evidence is the comparison commit's, which CI must
+establish. Changed ownership or dependency graphs conservatively select all
+current services. An explicit service invocation verifies that service and its
+dependencies, without selecting unrelated reverse consumers.
 
 Ownership is checked repository-wide even for affected runs. Nested policies,
 unowned F# sources/projects, unknown or excluded targets, dependency cycles and

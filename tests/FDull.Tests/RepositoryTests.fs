@@ -894,6 +894,67 @@ module RepositoryTests =
         |> String.concat "\n"
 
     [<Fact>]
+    let ``since selection builds unchanged dependencies without re-verifying them`` () =
+        withRepository (fun root ->
+            let contracts = service root "Contracts"
+            let contractsPolicy = readPolicy contracts
+
+            savePolicy
+                contracts
+                { contractsPolicy with
+                    Projects =
+                        contractsPolicy.Projects
+                        |> List.map (fun item -> { item with Profile = "CONTRACTS" })
+                    Sources =
+                        contractsPolicy.Sources
+                        |> List.map (fun item -> { item with Profile = "CONTRACTS" }) }
+
+            let billing = service root "Billing"
+            link true billing "Billing" contracts "Contracts"
+            let baseline = initializeGit root
+            write billing "Billing.fs" "module Billing\nlet value = 2\n"
+            let changed = readPolicy billing
+
+            savePolicy
+                billing
+                { changed with
+                    Sources =
+                        changed.Sources
+                        |> List.map (fun item ->
+                            if item.File = "Billing.fs" then
+                                { item with
+                                    Digest = SafetyPolicy.fileDigest (Path.Combine(billing, item.File)) }
+                            else
+                                item) }
+
+            let selection = plan root (Since baseline)
+            assertAffected [ "services/Billing" ] selection
+            Assert.Equal<string list>([ "services/Contracts" ], selection.Dependencies)
+            Assert.Equal<string list>([ "services/Contracts" ], selection.BuildOnly)
+            Assert.Equal<string list>([], (plan root (Service "services/Billing")).BuildOnly)
+            Assert.Equal<string list>([], (plan root All).BuildOnly)
+
+            let report, (timings, _) = Repository.verifyTimed 1 root (Since baseline)
+            Assert.True(report.Complete && report.ExitCode = 0, failures report)
+            Assert.Equal<string list>([ "services/Billing" ], report.Services |> List.map _.Service)
+
+            let dependency =
+                timings
+                |> List.filter (fun timing -> timing.Project = "services/Contracts/Contracts.fsproj")
+
+            Assert.Equal<int64 list>([ 0L ], dependency |> List.map _.AnalyzeMilliseconds)
+            Assert.Equal<int64 list>([ 0L ], dependency |> List.map _.RebuildMilliseconds)
+            Assert.True(dependency |> List.forall (fun timing -> timing.BuildMilliseconds > 0L))
+
+            let explicit = Repository.verify root (Service "services/Billing")
+            Assert.True(explicit.Complete && explicit.ExitCode = 0, failures explicit)
+
+            Assert.Equal<string list>(
+                [ "services/Billing"; "services/Contracts" ],
+                explicit.Services |> List.map _.Service |> List.sort
+            ))
+
+    [<Fact>]
     let ``constructor approvals bind to their owning policy on both sides of an edge`` () =
         withRepository (fun root ->
             let contracts = service root "Contracts"

@@ -7,7 +7,7 @@ type RepositoryServiceResult =
     { Service: string
       Report: WorkspaceReport }
 
-/// A repository result certifies only the requested selection. Skipped services have no result.
+/// A repository result certifies only the requested selection. Skipped and build-only services have no result.
 type RepositoryReport =
     { Complete: bool
       ExitCode: int
@@ -166,6 +166,15 @@ module Repository =
                     @ cross })
 
         let projects = WorkspaceAudit.order graph
+        // Build-only dependencies supply consumer inputs. Their evidence stays with the baseline.
+        let buildOnly = Set.ofList plan.BuildOnly
+
+        let verified =
+            services |> List.filter (fun service -> not (Set.contains service.Id buildOnly))
+
+        let analyzedProjects =
+            projects
+            |> List.filter (fun project -> not (Set.contains (fst (Map.find project owned)).Id buildOnly))
 
         let dependencies =
             graph
@@ -275,14 +284,14 @@ module Repository =
 
                         Ok result, (analyze, rebuild, reexport)
                     | _ -> result, (analyze, 0L, 0L))
-                projects
+                analyzedProjects
             |> completed
 
         let reports =
-            services
+            verified
             |> List.map (fun service ->
                 let results =
-                    projects
+                    analyzedProjects
                     |> List.choose (fun project ->
                         let owner, _ = Map.find project owned
 
@@ -298,7 +307,7 @@ module Repository =
 
         let _, finalValidation =
             measure (fun () ->
-                for project in projects do
+                for project in analyzedProjects do
                     match fst (Map.find project analyzed) with
                     | Ok result when result.Report.ExitCode = 0 ->
                         let service, local = Map.find project owned
@@ -316,7 +325,7 @@ module Repository =
                     | _ -> ()
 
                 // Exports execute MSBuild targets too. Check all accepted bytes after the last export.
-                for project in projects do
+                for project in analyzedProjects do
                     match fst (Map.find project analyzed) with
                     | Ok result when result.Report.ExitCode = 0 && not (Safety.verifyInputs result.Report) ->
                         invalidOp "BUILD004: Inputs changed during final repository exports."
@@ -335,7 +344,10 @@ module Repository =
         let timings =
             projects
             |> List.map (fun project ->
-                let analyze, rebuild, reexport = snd (Map.find project analyzed)
+                let analyze, rebuild, reexport =
+                    Map.tryFind project analyzed
+                    |> Option.map snd
+                    |> Option.defaultValue (0L, 0L, 0L)
 
                 { Project = Path.GetRelativePath(plan.Root, project).Replace('\\', '/')
                   EvaluateMilliseconds = snd (Map.find project evaluated)
