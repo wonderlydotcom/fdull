@@ -704,7 +704,17 @@ module ProjectTests =
                         runCli root [ command; "."; "--format"; "json"; "--jobs"; "1"; "--no-cache" ]
 
                     let four =
-                        runCli root [ command; "."; "--jobs"; "4"; "--no-cache"; "--format"; "json" ]
+                        runCli
+                            root
+                            [ command
+                              "."
+                              "--jobs"
+                              "4"
+                              "--memory"
+                              "1024"
+                              "--no-cache"
+                              "--format"
+                              "json" ]
 
                     Assert.True(one.ExitCode = expected, one.Error + one.Output)
                     Assert.Equal(one.ExitCode, four.ExitCode)
@@ -712,6 +722,18 @@ module ProjectTests =
                     Assert.Contains(marker, one.Output)
 
             compare 1 "MUT001"
+
+            // A library caller's out-of-range worker memory blocks analysis instead of launching a worker.
+            let starved, _ =
+                Workspace.checkTimed
+                    { Jobs = 1
+                      Cache = false
+                      MemoryMiB = 255 }
+                    root
+
+            Assert.False starved.Complete
+            Assert.Equal(3, starved.ExitCode)
+            Assert.Contains("worker memory limit is outside the supported range", String.concat "\n" starved.Errors)
             let other = Path.Combine(root, "Other/Other.fsproj")
 
             File.WriteAllText(
@@ -746,7 +768,12 @@ module ProjectTests =
                   [ "lint"; "."; "--jobs"; "65" ]
                   [ "review"; "."; "--jobs"; "two" ]
                   [ "review"; "."; "--jobs" ]
-                  [ "review"; "."; "--jobs"; "1"; "--jobs"; "2" ] ] do
+                  [ "review"; "."; "--jobs"; "1"; "--jobs"; "2" ]
+                  [ "lint"; "."; "--memory"; "255" ]
+                  [ "lint"; "."; "--memory"; "16385" ]
+                  [ "lint"; "."; "--memory"; "512M" ]
+                  [ "review"; "."; "--memory" ]
+                  [ "review"; "."; "--memory"; "512"; "--memory"; "1024" ] ] do
                 Assert.Equal(2, (runCli root invalid).ExitCode))
 
     /// Probes for graph fixtures. While `bin/probe` exists, a project touches `bin/probe/<name>.start`
@@ -947,7 +974,10 @@ module ProjectTests =
 
             restoreGraph root [ "A", [], shared; "B", [], shared ]
             let span = probe root
-            let timed = runCli root [ "verify"; "."; "--timings"; "--jobs"; "4" ]
+
+            let timed =
+                runCli root [ "verify"; "."; "--timings"; "--jobs"; "4"; "--memory"; "768" ]
+
             Assert.True(timed.ExitCode = 0, timed.Error + timed.Output)
             Assert.True(snd (span "A") < fst (span "B"), "B started before A finished")
 
@@ -980,6 +1010,9 @@ module ProjectTests =
                 [ [ "verify"; "."; "--jobs"; "0" ]
                   [ "verify"; "."; "--jobs"; "65" ]
                   [ "verify"; "."; "--jobs"; "1"; "--jobs"; "2" ]
+                  [ "verify"; "."; "--memory"; "255" ]
+                  [ "verify"; "."; "--memory"; "16385" ]
+                  [ "verify"; "."; "--memory"; "512"; "--memory"; "512" ]
                   [ "verify"; "."; "--timings"; "--timings" ]
                   [ "verify"; "."; "--no-cache" ]
                   [ "verify"; "."; "--format"; "text" ]

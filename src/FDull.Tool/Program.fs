@@ -12,7 +12,7 @@ module Program =
         Console.WriteLine "FDull — F# with fewer sharp edges."
 
         Console.WriteLine
-            "fdull defaults | init <root> [--scope <file>] | lint <root> [--format text|json|sarif] [--jobs <1-64>] [--no-cache] [--timings] | review <root> [--format text|json] [--jobs <1-64>] [--no-cache] [--timings] | cache clear <root> | data-digest <assembly> | policy-digest <fdull.json> | verify <root> [--all | --since <commit>] [--jobs <1-64>] [--cache | --no-cache] [--timings] | coverage"
+            "fdull defaults | init <root> [--scope <file>] | lint <root> [--format text|json|sarif] [--jobs <1-64>] [--memory <256-16384>] [--no-cache] [--timings] | review <root> [--format text|json] [--jobs <1-64>] [--memory <256-16384>] [--no-cache] [--timings] | cache clear <root> | data-digest <assembly> | policy-digest <fdull.json> | verify <root> [--all | --since <commit>] [--jobs <1-64>] [--memory <256-16384>] [--cache | --no-cache] [--timings] | coverage"
 
         2
 
@@ -20,6 +20,16 @@ module Program =
     let private jobCount (value: string) =
         match Int32.TryParse(value, NumberStyles.None, CultureInfo.InvariantCulture) with
         | true, count when count >= 1 && count <= 64 -> Some count
+        | _ -> None
+
+    /// Analysis worker heap ceiling: a decimal MiB count within the supported worker range.
+    let private memorySize (value: string) =
+        match Int32.TryParse(value, NumberStyles.None, CultureInfo.InvariantCulture) with
+        | true, mebibytes when
+            mebibytes >= SafetyLimits.minimumWorkerMemoryMiB
+            && mebibytes <= SafetyLimits.maximumWorkerMemoryMiB
+            ->
+            Some mebibytes
         | _ -> None
 
     /// Each option may appear once, in any order, after the root. Anything else is a usage error.
@@ -30,6 +40,8 @@ module Program =
             options formats (selected.Add("format", format)) rest
         | "--jobs" :: count :: rest when (jobCount count).IsSome && not (selected.ContainsKey "jobs") ->
             options formats (selected.Add("jobs", count)) rest
+        | "--memory" :: size :: rest when (memorySize size).IsSome && not (selected.ContainsKey "memory") ->
+            options formats (selected.Add("memory", size)) rest
         | "--timings" :: rest when not (selected.ContainsKey "timings") ->
             options formats (selected.Add("timings", "")) rest
         | "--no-cache" :: rest when not (selected.ContainsKey "no-cache") ->
@@ -41,6 +53,11 @@ module Program =
         |> Option.bind jobCount
         |> Option.defaultValue Workspace.defaultJobs
 
+    let private memory (selected: Map<string, string>) =
+        selected.TryFind "memory"
+        |> Option.bind memorySize
+        |> Option.defaultValue SafetyLimits.workerMemoryMiB
+
     let rec private verificationOptions selected (selection: RepositorySelection option) arguments =
         match arguments with
         | [] -> Some(selected, selection)
@@ -51,6 +68,8 @@ module Program =
             verificationOptions selected (Some(Since baseline)) rest
         | "--jobs" :: count :: rest when (jobCount count).IsSome && not (Map.containsKey "jobs" selected) ->
             verificationOptions (Map.add "jobs" count selected) selection rest
+        | "--memory" :: size :: rest when (memorySize size).IsSome && not (Map.containsKey "memory" selected) ->
+            verificationOptions (Map.add "memory" size selected) selection rest
         | "--timings" :: rest when not (Map.containsKey "timings" selected) ->
             verificationOptions (Map.add "timings" "" selected) selection rest
         | "--cache" :: rest when not (Map.containsKey "cache" selected || Map.containsKey "no-cache" selected) ->
@@ -62,12 +81,14 @@ module Program =
     /// `lint` and `review` use the result cache unless `--no-cache` is given.
     let private workspaceOptions (selected: Map<string, string>) : WorkspaceOptions =
         { Jobs = jobs selected
-          Cache = not (selected.ContainsKey "no-cache") }
+          Cache = not (selected.ContainsKey "no-cache")
+          MemoryMiB = memory selected }
 
     /// Repository verification reads and writes cached results only when explicitly requested.
     let private repositoryOptions (selected: Map<string, string>) : WorkspaceOptions =
         { Jobs = jobs selected
-          Cache = selected.ContainsKey "cache" }
+          Cache = selected.ContainsKey "cache"
+          MemoryMiB = memory selected }
 
     /// Timings go to stderr so stdout and exit codes stay identical with or without them.
     /// `describe` gives one line per project and a prefix for the summary line.
@@ -242,7 +263,7 @@ module Program =
             usage ()
         elif selection.IsNone && Repository.standalone root then
             timed (Map.containsKey "timings" selected) verifyTimings (fun () ->
-                Project.verifyTimed (jobs selected) root)
+                Project.verifyTimedWith (repositoryOptions selected) root)
             |> display "verify" "text"
         else
             let full, selection = Repository.resolveSelection root selection

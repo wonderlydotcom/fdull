@@ -510,14 +510,19 @@ that a consumer pins in `Repository.References[].PolicyDigest`. Like
 `lint`, `review` and `verify` run independent projects concurrently. `--jobs <n>`
 sets how many run at once, from 1 to 64. The default is the processor count, capped
 at 4. Reports list projects in dependency order, and the output doesn't depend on
-the job count. Each analysis worker's heap is capped at 512 MiB.
+the job count. `--memory <MiB>` sets each analysis worker's managed heap ceiling,
+from 256 to 16384; the default is 512. The worker's working-set limit is twice its
+heap. A worker that runs out of memory makes the check incomplete, never clean.
+Library callers set `WorkspaceOptions.MemoryMiB`; `Workspace.defaultOptions` holds
+the defaults.
 
 `verify` rebuilds each project after analyzing it, which changes the inputs of
 every project that references it. So a project starts only after every project it
 references has finished, and `--jobs 1` is the fully sequential schedule. If a
 project throws, the report stops at the first failure in dependency order, as it
-would with one job. Within a job, analysis (1 GiB working set) and the rebuild
-(2 GiB) run one after the other, so allow about 2 GiB of memory per job. When two
+would with one job. Within a job, analysis (1 GiB working set by default) and the
+rebuild (2 GiB) run one after the other, so allow about 2 GiB of memory per job, or
+twice `--memory` when that is larger. When two
 projects share an intermediate or output directory, their builds would write the
 same files: `verify` then runs one project at a time whatever `--jobs` says, and
 the text report says which projects share which directory. The report's
@@ -674,8 +679,10 @@ arbitrary executables. `FDull.Tool` supplies the supported bounded host for
 `Workspace.check`, `Workspace.review` and `Repository.verify` never use the result
 cache.
 
-The worker has a 512 MiB managed heap ceiling, a 1 GiB working-set limit and a
-60-second wall-time limit per project. Output and traversal are also bounded.
+The workspace worker has a 512 MiB managed heap ceiling (`--memory` or
+`WorkspaceOptions.MemoryMiB` changes it), a working-set limit of twice the heap and
+a 60-second wall-time limit per project. Source-only `Safety.check` keeps the
+512 MiB heap and 1 GiB working set. Output and traversal are also bounded.
 Exhausted limits cause an incomplete failed check. Tests run serially with a
 separate 2 GiB heap ceiling.
 

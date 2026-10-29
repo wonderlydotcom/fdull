@@ -57,7 +57,7 @@
       "File": "src/FDull/Repository.fs",
       "Project": "src/FDull/FDull.fsproj",
       "Profile": "GUARD_TOOLING",
-      "Digest": "sha256:6f23f1258505a76584ae8b92c4f12c1278d46e545a52ede773f74779357ddac6"
+      "Digest": "sha256:b88aa6c5071819182d9913f87defd37d9e81cd8a1ff5fb07ccce41749fc038b8"
     },
     {
       "File": "src/FDull/RepositoryPlan.fs",
@@ -69,7 +69,7 @@
       "File": "tests/FDull.Tests/RepositoryTests.fs",
       "Project": "tests/FDull.Tests/FDull.Tests.fsproj",
       "Profile": "TEST",
-      "Digest": "sha256:d91061967a31cd5dcc44ff4e29c2ffe3b1f916ab75404eb9cd9c7ee6ccef4ae7"
+      "Digest": "sha256:a6584fac550c480d0a055892bf461a77d06b3d4966532e990a0222dda83c2ebb"
     },
     {
       "File": "src/FDull/External.fs",
@@ -105,7 +105,7 @@
       "File": "src/FDull/SafetyLimits.fs",
       "Project": "src/FDull/FDull.fsproj",
       "Profile": "GUARD_TOOLING",
-      "Digest": "sha256:e5d85584d09e33420e2750ff6727a2842fff3ff36db3ce215d1f4932a07b1bb4"
+      "Digest": "sha256:fd0719fa0c38e6d98a48472c8c5fda1db1259effbb29571d38ee220bad3323c1"
     },
     {
       "File": "src/FDull/SafetyRanges.fs",
@@ -177,7 +177,7 @@
       "File": "src/FDull/Workspace.fs",
       "Project": "src/FDull/FDull.fsproj",
       "Profile": "GUARD_TOOLING",
-      "Digest": "sha256:ac77a702a9ce5e9368001ec1044b0f12b3c52a705a1992fe5e7eb76c50096d5a"
+      "Digest": "sha256:742c87032226f1f14c9a9f4c9bdc08f8e4c4701b337edbed0723ed97e32f4ec7"
     },
     {
       "File": "src/FDull/Safety.fs",
@@ -189,7 +189,7 @@
       "File": "src/FDull/Project.fs",
       "Project": "src/FDull/FDull.fsproj",
       "Profile": "GUARD_TOOLING",
-      "Digest": "sha256:68bbab5e0ee65528856fac42dc60043ac697f56e73f4e93af5568d2bf1242765"
+      "Digest": "sha256:866e4caa8d0bb8b7f769de576f33131c2f0183ef7d551eaa357e6067ae7657ad"
     },
     {
       "File": "src/FDull.Analyzers/Analyzer.fs",
@@ -201,7 +201,7 @@
       "File": "src/FDull.Tool/Program.fs",
       "Project": "src/FDull.Tool/FDull.Tool.fsproj",
       "Profile": "GUARD_TOOLING",
-      "Digest": "sha256:5fc64144916e42e950bfe6b29ad059db40e206c229c914c61919429269ddf308"
+      "Digest": "sha256:fa38a128bc96b82fcbd9a3c05d80e8d876f8ecaa3f312ef29b0ff14a2b590ed4"
     },
     {
       "File": "src/FDull.Worker/Program.fs",
@@ -231,7 +231,7 @@
       "File": "tests/FDull.Tests/SafetyWorkerTests.fs",
       "Project": "tests/FDull.Tests/FDull.Tests.fsproj",
       "Profile": "TEST",
-      "Digest": "sha256:1bcaf990acc8be7f49a879eb4b40ddb4353863ca7b9d28983d95b14905bb7fa4"
+      "Digest": "sha256:dee9d53bd4bfe681d5e101348d99a4178f4c409951fbe974e9bde05df46d27c9"
     },
     {
       "File": "tests/FDull.Tests/SafetyRangeTests.fs",
@@ -261,7 +261,7 @@
       "File": "tests/FDull.Tests/ProjectTests.fs",
       "Project": "tests/FDull.Tests/FDull.Tests.fsproj",
       "Profile": "TEST",
-      "Digest": "sha256:ec212c0b88ba35d0dca41422545e8c05252b79a3670068d0abb4a45af1121698"
+      "Digest": "sha256:e755407604bdd3b256b59b3c14bdb48c3824f85445f91c9dd118d66b1ca49543"
     },
     {
       "File": "tests/FDull.Tests/Program.fs",
@@ -3936,13 +3936,6 @@
       "Owner": "FDull.Tool.Program.verify",
       "Kind": "member",
       "Identity": "FDull, Version=0.3.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Repository.resolveSelection(System.String,Microsoft.FSharp.Core.FSharpOption{FDull.RepositorySelection})",
-      "Reason": "Routes standalone version-one verification through Project.verifyTimed with no cache and one parsed jobs budget; repository selections use the combined scheduler with the same jobs budget and cache reuse only after explicit --cache."
-    },
-    {
-      "File": "src/FDull.Tool/Program.fs",
-      "Owner": "FDull.Tool.Program.verify",
-      "Kind": "member",
-      "Identity": "FDull, Version=0.3.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Project.verifyTimed(System.Int32,System.String)",
       "Reason": "Routes standalone version-one verification through Project.verifyTimed with no cache and one parsed jobs budget; repository selections use the combined scheduler with the same jobs budget and cache reuse only after explicit --cache."
     },
     {
@@ -15245,119 +15238,119 @@
     },
     {
       "File": "tests/FDull.Tests/SafetyWorkerTests.fs",
-      "Owner": "FDull.Tests.SafetyWorkerTests.runFixture",
+      "Owner": "FDull.Tests.SafetyWorkerTests.runFixtureWith",
       "Kind": "member",
       "Identity": "FDull, Version=0.3.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.SafetyProcess.run(FDull.SafetyProcessLimits,System.Diagnostics.ProcessStartInfo,System.String)",
       "Reason": "Non-shipping supervisor/protocol fixture owns temporary files, bounded child processes and exact deliberate compiler/report mutations. Failures must remain failing, processes must stop, and heap/RSS/output/time ceilings are asserted."
     },
     {
       "File": "tests/FDull.Tests/SafetyWorkerTests.fs",
-      "Owner": "FDull.Tests.SafetyWorkerTests.runFixture",
+      "Owner": "FDull.Tests.SafetyWorkerTests.runFixtureWith",
       "Kind": "member",
       "Identity": "System.Diagnostics.Process, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.Diagnostics.ProcessStartInfo.#ctor(System.String)",
       "Reason": "Non-shipping supervisor/protocol fixture owns temporary files, bounded child processes and exact deliberate compiler/report mutations. Failures must remain failing, processes must stop, and heap/RSS/output/time ceilings are asserted."
     },
     {
       "File": "tests/FDull.Tests/SafetyWorkerTests.fs",
-      "Owner": "FDull.Tests.SafetyWorkerTests.runFixture",
+      "Owner": "FDull.Tests.SafetyWorkerTests.runFixtureWith",
       "Kind": "member",
       "Identity": "System.Diagnostics.Process, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:System.Diagnostics.ProcessStartInfo.ArgumentList",
       "Reason": "Non-shipping supervisor/protocol fixture owns temporary files, bounded child processes and exact deliberate compiler/report mutations. Failures must remain failing, processes must stop, and heap/RSS/output/time ceilings are asserted."
     },
     {
       "File": "tests/FDull.Tests/SafetyWorkerTests.fs",
-      "Owner": "FDull.Tests.SafetyWorkerTests.runFixture",
+      "Owner": "FDull.Tests.SafetyWorkerTests.runFixtureWith",
       "Kind": "member",
       "Identity": "System.Diagnostics.Process, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:System.Diagnostics.ProcessStartInfo.Environment",
       "Reason": "Non-shipping supervisor/protocol fixture owns temporary files, bounded child processes and exact deliberate compiler/report mutations. Failures must remain failing, processes must stop, and heap/RSS/output/time ceilings are asserted."
     },
     {
       "File": "tests/FDull.Tests/SafetyWorkerTests.fs",
-      "Owner": "FDull.Tests.SafetyWorkerTests.runFixture",
+      "Owner": "FDull.Tests.SafetyWorkerTests.runFixtureWith",
       "Kind": "member",
       "Identity": "System.Diagnostics.Process, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:System.Diagnostics.ProcessStartInfo.WorkingDirectory",
       "Reason": "Non-shipping supervisor/protocol fixture owns temporary files, bounded child processes and exact deliberate compiler/report mutations. Failures must remain failing, processes must stop, and heap/RSS/output/time ceilings are asserted."
     },
     {
       "File": "tests/FDull.Tests/SafetyWorkerTests.fs",
-      "Owner": "FDull.Tests.SafetyWorkerTests.runFixture",
+      "Owner": "FDull.Tests.SafetyWorkerTests.runFixtureWith",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.Collections.Generic.ICollection`1.Clear",
       "Reason": "Non-shipping supervisor/protocol fixture owns temporary files, bounded child processes and exact deliberate compiler/report mutations. Failures must remain failing, processes must stop, and heap/RSS/output/time ceilings are asserted."
     },
     {
       "File": "tests/FDull.Tests/SafetyWorkerTests.fs",
-      "Owner": "FDull.Tests.SafetyWorkerTests.runFixture",
+      "Owner": "FDull.Tests.SafetyWorkerTests.runFixtureWith",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.Collections.ObjectModel.Collection`1.Add(`0)",
       "Reason": "Non-shipping supervisor/protocol fixture owns temporary files, bounded child processes and exact deliberate compiler/report mutations. Failures must remain failing, processes must stop, and heap/RSS/output/time ceilings are asserted."
     },
     {
       "File": "tests/FDull.Tests/SafetyWorkerTests.fs",
-      "Owner": "FDull.Tests.SafetyWorkerTests.runFixture",
+      "Owner": "FDull.Tests.SafetyWorkerTests.runFixtureWith",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.Combine(System.String,System.String)",
       "Reason": "Non-shipping supervisor/protocol fixture owns temporary files, bounded child processes and exact deliberate compiler/report mutations. Failures must remain failing, processes must stop, and heap/RSS/output/time ceilings are asserted."
     },
     {
       "File": "tests/FDull.Tests/SafetyWorkerTests.fs",
-      "Owner": "FDull.Tests.SafetyWorkerTests.runFixture",
+      "Owner": "FDull.Tests.SafetyWorkerTests.runFixtureWith",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.GetFullPath(System.String)",
       "Reason": "Non-shipping supervisor/protocol fixture owns temporary files, bounded child processes and exact deliberate compiler/report mutations. Failures must remain failing, processes must stop, and heap/RSS/output/time ceilings are asserted."
     },
     {
       "File": "tests/FDull.Tests/SafetyWorkerTests.fs",
-      "Owner": "FDull.Tests.SafetyWorkerTests.runFixture",
+      "Owner": "FDull.Tests.SafetyWorkerTests.runFixtureWith",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:System.AppContext.BaseDirectory",
       "Reason": "Non-shipping supervisor/protocol fixture owns temporary files, bounded child processes and exact deliberate compiler/report mutations. Failures must remain failing, processes must stop, and heap/RSS/output/time ceilings are asserted."
     },
     {
       "File": "tests/FDull.Tests/SafetyWorkerTests.fs",
-      "Owner": "FDull.Tests.SafetyWorkerTests.runFixture",
+      "Owner": "FDull.Tests.SafetyWorkerTests.runFixtureWith",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:System.Collections.Generic.IDictionary`2.Item(`0)",
       "Reason": "Non-shipping supervisor/protocol fixture owns temporary files, bounded child processes and exact deliberate compiler/report mutations. Failures must remain failing, processes must stop, and heap/RSS/output/time ceilings are asserted."
     },
     {
       "File": "tests/FDull.Tests/SafetyWorkerTests.fs",
-      "Owner": "FDull.Tests.SafetyWorkerTests.runFixture",
+      "Owner": "FDull.Tests.SafetyWorkerTests.runFixtureWith",
       "Kind": "rule",
       "Identity": "MUT002 | ",
       "Reason": "Non-shipping supervisor/protocol fixture owns temporary files, bounded child processes and exact deliberate compiler/report mutations. Failures must remain failing, processes must stop, and heap/RSS/output/time ceilings are asserted."
     },
     {
       "File": "tests/FDull.Tests/SafetyWorkerTests.fs",
-      "Owner": "FDull.Tests.SafetyWorkerTests.runFixture",
+      "Owner": "FDull.Tests.SafetyWorkerTests.runFixtureWith",
       "Kind": "rule",
       "Identity": "MUT009 | ",
       "Reason": "Non-shipping supervisor/protocol fixture owns temporary files, bounded child processes and exact deliberate compiler/report mutations. Failures must remain failing, processes must stop, and heap/RSS/output/time ceilings are asserted."
     },
     {
       "File": "tests/FDull.Tests/SafetyWorkerTests.fs",
-      "Owner": "FDull.Tests.SafetyWorkerTests.runFixture",
+      "Owner": "FDull.Tests.SafetyWorkerTests.runFixtureWith",
       "Kind": "type",
       "Identity": "FDull, Version=0.3.0.0, Culture=neutral, PublicKeyToken=null | FDull.SafetyProcessLimits",
       "Reason": "Non-shipping supervisor/protocol fixture owns temporary files, bounded child processes and exact deliberate compiler/report mutations. Failures must remain failing, processes must stop, and heap/RSS/output/time ceilings are asserted."
     },
     {
       "File": "tests/FDull.Tests/SafetyWorkerTests.fs",
-      "Owner": "FDull.Tests.SafetyWorkerTests.runFixture",
+      "Owner": "FDull.Tests.SafetyWorkerTests.runFixtureWith",
       "Kind": "type",
       "Identity": "FDull, Version=0.3.0.0, Culture=neutral, PublicKeyToken=null | FDull.SafetyProcessOutput",
       "Reason": "Non-shipping supervisor/protocol fixture owns temporary files, bounded child processes and exact deliberate compiler/report mutations. Failures must remain failing, processes must stop, and heap/RSS/output/time ceilings are asserted."
     },
     {
       "File": "tests/FDull.Tests/SafetyWorkerTests.fs",
-      "Owner": "FDull.Tests.SafetyWorkerTests.runFixture",
+      "Owner": "FDull.Tests.SafetyWorkerTests.runFixtureWith",
       "Kind": "type",
       "Identity": "System.Diagnostics.Process, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | System.Diagnostics.ProcessStartInfo",
       "Reason": "Non-shipping supervisor/protocol fixture owns temporary files, bounded child processes and exact deliberate compiler/report mutations. Failures must remain failing, processes must stop, and heap/RSS/output/time ceilings are asserted."
     },
     {
       "File": "tests/FDull.Tests/SafetyWorkerTests.fs",
-      "Owner": "FDull.Tests.SafetyWorkerTests.runFixture",
+      "Owner": "FDull.Tests.SafetyWorkerTests.runFixtureWith",
       "Kind": "type",
       "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | System.Object",
       "Reason": "Non-shipping supervisor/protocol fixture owns temporary files, bounded child processes and exact deliberate compiler/report mutations. Failures must remain failing, processes must stop, and heap/RSS/output/time ceilings are asserted."
@@ -25808,63 +25801,63 @@
     },
     {
       "File": "src/FDull/Project.fs",
-      "Owner": "FDull.Project.verifyTimed",
+      "Owner": "FDull.Project.verifyTimedWith",
       "Kind": "member",
       "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.ListModule.Zip3``3(Microsoft.FSharp.Collections.FSharpList{``0},Microsoft.FSharp.Collections.FSharpList{``1},Microsoft.FSharp.Collections.FSharpList{``2})",
       "Reason": "Standalone lifecycle uses bounded child processes and exact input snapshots. Projects build, analyze and rebuild through Workspace.schedule only after every referenced project finishes; restores stay sequential, and shared output directories or external references force one job. Changed inputs, invocations or policy throw BUILD004 and Stopwatch values are diagnostic only. ProjectTests compares job counts, ordering and concurrent changed-input failures."
     },
     {
       "File": "src/FDull/Project.fs",
-      "Owner": "FDull.Project.verifyTimed",
+      "Owner": "FDull.Project.verifyTimedWith",
       "Kind": "member",
       "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.ListModule.Zip``2(Microsoft.FSharp.Collections.FSharpList{``0},Microsoft.FSharp.Collections.FSharpList{``1})",
       "Reason": "Standalone lifecycle uses bounded child processes and exact input snapshots. Projects build, analyze and rebuild through Workspace.schedule only after every referenced project finishes; restores stay sequential, and shared output directories or external references force one job. Changed inputs, invocations or policy throw BUILD004 and Stopwatch values are diagnostic only. ProjectTests compares job counts, ordering and concurrent changed-input failures."
     },
     {
       "File": "src/FDull/Project.fs",
-      "Owner": "FDull.Project.verifyTimed",
+      "Owner": "FDull.Project.verifyTimedWith",
       "Kind": "member",
       "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Core.Operators.InvalidOp``1(System.String)",
       "Reason": "Standalone lifecycle uses bounded child processes and exact input snapshots. Projects build, analyze and rebuild through Workspace.schedule only after every referenced project finishes; restores stay sequential, and shared output directories or external references force one job. Changed inputs, invocations or policy throw BUILD004 and Stopwatch values are diagnostic only. ProjectTests compares job counts, ordering and concurrent changed-input failures."
     },
     {
       "File": "src/FDull/Project.fs",
-      "Owner": "FDull.Project.verifyTimed",
+      "Owner": "FDull.Project.verifyTimedWith",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.Diagnostics.Stopwatch.StartNew",
       "Reason": "Standalone lifecycle uses bounded child processes and exact input snapshots. Projects build, analyze and rebuild through Workspace.schedule only after every referenced project finishes; restores stay sequential, and shared output directories or external references force one job. Changed inputs, invocations or policy throw BUILD004 and Stopwatch values are diagnostic only. ProjectTests compares job counts, ordering and concurrent changed-input failures."
     },
     {
       "File": "src/FDull/Project.fs",
-      "Owner": "FDull.Project.verifyTimed",
+      "Owner": "FDull.Project.verifyTimedWith",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.GetFullPath(System.String)",
       "Reason": "Standalone lifecycle uses bounded child processes and exact input snapshots. Projects build, analyze and rebuild through Workspace.schedule only after every referenced project finishes; restores stay sequential, and shared output directories or external references force one job. Changed inputs, invocations or policy throw BUILD004 and Stopwatch values are diagnostic only. ProjectTests compares job counts, ordering and concurrent changed-input failures."
     },
     {
       "File": "src/FDull/Project.fs",
-      "Owner": "FDull.Project.verifyTimed",
+      "Owner": "FDull.Project.verifyTimedWith",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:System.Diagnostics.Stopwatch.ElapsedMilliseconds",
       "Reason": "Standalone lifecycle uses bounded child processes and exact input snapshots. Projects build, analyze and rebuild through Workspace.schedule only after every referenced project finishes; restores stay sequential, and shared output directories or external references force one job. Changed inputs, invocations or policy throw BUILD004 and Stopwatch values are diagnostic only. ProjectTests compares job counts, ordering and concurrent changed-input failures."
     },
     {
       "File": "src/FDull/Project.fs",
-      "Owner": "FDull.Project.verifyTimed",
+      "Owner": "FDull.Project.verifyTimedWith",
       "Kind": "rule",
       "Identity": "MUT009 | ",
       "Reason": "Standalone lifecycle uses bounded child processes and exact input snapshots. Projects build, analyze and rebuild through Workspace.schedule only after every referenced project finishes; restores stay sequential, and shared output directories or external references force one job. Changed inputs, invocations or policy throw BUILD004 and Stopwatch values are diagnostic only. ProjectTests compares job counts, ordering and concurrent changed-input failures."
     },
     {
       "File": "src/FDull/Project.fs",
-      "Owner": "FDull.Project.verifyTimed",
+      "Owner": "FDull.Project.verifyTimedWith",
       "Kind": "type",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | System.Diagnostics.Stopwatch",
       "Reason": "Standalone lifecycle uses bounded child processes and exact input snapshots. Projects build, analyze and rebuild through Workspace.schedule only after every referenced project finishes; restores stay sequential, and shared output directories or external references force one job. Changed inputs, invocations or policy throw BUILD004 and Stopwatch values are diagnostic only. ProjectTests compares job counts, ordering and concurrent changed-input failures."
     },
     {
       "File": "src/FDull/Project.fs",
-      "Owner": "FDull.Project.verifyTimed",
+      "Owner": "FDull.Project.verifyTimedWith",
       "Kind": "type",
       "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | System.Object",
       "Reason": "Standalone lifecycle uses bounded child processes and exact input snapshots. Projects build, analyze and rebuild through Workspace.schedule only after every referenced project finishes; restores stay sequential, and shared output directories or external references force one job. Changed inputs, invocations or policy throw BUILD004 and Stopwatch values are diagnostic only. ProjectTests compares job counts, ordering and concurrent changed-input failures."
@@ -29081,6 +29074,174 @@
       "Kind": "member",
       "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Equal(System.String,System.String)",
       "Reason": "Compares the forged cache bytes before and after default verification to prove that fresh verification did not rewrite the cache entry."
+    },
+    {
+      "File": "src/FDull.Tool/Program.fs",
+      "Owner": "FDull.Tool.Program.memory",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.3.0.0, Culture=neutral, PublicKeyToken=null | P:FDull.SafetyLimits.workerMemoryMiB",
+      "Reason": "Resolves the already validated --memory size or SafetyLimits.workerMemoryMiB (512) for lint, review and verify; it only sizes the analysis worker heap and never changes a complete report."
+    },
+    {
+      "File": "src/FDull.Tool/Program.fs",
+      "Owner": "FDull.Tool.Program.memory",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.FSharpMap`2.TryFind(`0)",
+      "Reason": "Resolves the already validated --memory size or SafetyLimits.workerMemoryMiB (512) for lint, review and verify; it only sizes the analysis worker heap and never changes a complete report."
+    },
+    {
+      "File": "src/FDull.Tool/Program.fs",
+      "Owner": "FDull.Tool.Program.memorySize",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.3.0.0, Culture=neutral, PublicKeyToken=null | P:FDull.SafetyLimits.maximumWorkerMemoryMiB",
+      "Reason": "Parses --memory as invariant-culture decimal digits only (NumberStyles.None) and accepts SafetyLimits.minimumWorkerMemoryMiB to maximumWorkerMemoryMiB (256-16384 MiB); signs, units, out-of-range and repeated values are usage errors (exit 2), covered by the job-count and shared-directory CLI regressions."
+    },
+    {
+      "File": "src/FDull.Tool/Program.fs",
+      "Owner": "FDull.Tool.Program.memorySize",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.3.0.0, Culture=neutral, PublicKeyToken=null | P:FDull.SafetyLimits.minimumWorkerMemoryMiB",
+      "Reason": "Parses --memory as invariant-culture decimal digits only (NumberStyles.None) and accepts SafetyLimits.minimumWorkerMemoryMiB to maximumWorkerMemoryMiB (256-16384 MiB); signs, units, out-of-range and repeated values are usage errors (exit 2), covered by the job-count and shared-directory CLI regressions."
+    },
+    {
+      "File": "src/FDull.Tool/Program.fs",
+      "Owner": "FDull.Tool.Program.memorySize",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.Int32.TryParse(System.String,System.Globalization.NumberStyles,System.IFormatProvider,System.Int32@)",
+      "Reason": "Parses --memory as invariant-culture decimal digits only (NumberStyles.None) and accepts SafetyLimits.minimumWorkerMemoryMiB to maximumWorkerMemoryMiB (256-16384 MiB); signs, units, out-of-range and repeated values are usage errors (exit 2), covered by the job-count and shared-directory CLI regressions."
+    },
+    {
+      "File": "src/FDull.Tool/Program.fs",
+      "Owner": "FDull.Tool.Program.memorySize",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:System.Globalization.CultureInfo.InvariantCulture",
+      "Reason": "Parses --memory as invariant-culture decimal digits only (NumberStyles.None) and accepts SafetyLimits.minimumWorkerMemoryMiB to maximumWorkerMemoryMiB (256-16384 MiB); signs, units, out-of-range and repeated values are usage errors (exit 2), covered by the job-count and shared-directory CLI regressions."
+    },
+    {
+      "File": "src/FDull.Tool/Program.fs",
+      "Owner": "FDull.Tool.Program.memorySize",
+      "Kind": "type",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | System.IFormatProvider",
+      "Reason": "Parses --memory as invariant-culture decimal digits only (NumberStyles.None) and accepts SafetyLimits.minimumWorkerMemoryMiB to maximumWorkerMemoryMiB (256-16384 MiB); signs, units, out-of-range and repeated values are usage errors (exit 2), covered by the job-count and shared-directory CLI regressions."
+    },
+    {
+      "File": "src/FDull.Tool/Program.fs",
+      "Owner": "FDull.Tool.Program.verify",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.3.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Project.verifyTimedWith(FDull.WorkspaceOptions,System.String)",
+      "Reason": "Routes standalone version-one verification through Project.verifyTimedWith with no cache, one parsed jobs budget and the parsed --memory worker heap size; repository selections use the combined scheduler with the same jobs and memory options and cache reuse only after explicit --cache."
+    },
+    {
+      "File": "src/FDull/SafetyLimits.fs",
+      "Owner": "FDull.SafetyLimits.heapBytes",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Core.Operators.Checked.ToInt64``1(Microsoft.FSharp.Core.FSharpFunc{``0,System.Int64},``0)",
+      "Reason": "Widens a MiB count to int64 before multiplying by 2^20, so every int input fits (at most 2^51 bytes). Callers validate the worker range first; the heap-limit fixture checks exact byte values."
+    },
+    {
+      "File": "src/FDull/SafetyLimits.fs",
+      "Owner": "FDull.SafetyLimits.heapHardLimit",
+      "Kind": "member",
+      "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | M:System.Int64.ToString(System.String)",
+      "Reason": "Formats the worker heap ceiling as the hexadecimal DOTNET_GCHeapHardLimit value the .NET runtime reads; the fixture regression proves the runtime reports exactly the requested limit."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.``job count leaves reports and failure positions unchanged``",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.3.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Workspace.checkTimed(FDull.WorkspaceOptions,System.String)",
+      "Reason": "Non-shipping CLI regression: a library caller's out-of-range Workspace.checkTimed memory size must yield an incomplete exit-3 report naming the range, never a launched worker or clean result."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.``job count leaves reports and failure positions unchanged``",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Core.StringModule.Concat(System.String,System.Collections.Generic.IEnumerable{System.String})",
+      "Reason": "Non-shipping CLI regression: a library caller's out-of-range Workspace.checkTimed memory size must yield an incomplete exit-3 report naming the range, never a launched worker or clean result."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.``job count leaves reports and failure positions unchanged``",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.False(System.Boolean)",
+      "Reason": "Non-shipping CLI regression: a library caller's out-of-range Workspace.checkTimed memory size must yield an incomplete exit-3 report naming the range, never a launched worker or clean result."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.``job count leaves reports and failure positions unchanged``",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.3.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspaceReport",
+      "Reason": "Non-shipping CLI regression: a library caller's out-of-range Workspace.checkTimed memory size must yield an incomplete exit-3 report naming the range, never a launched worker or clean result."
+    },
+    {
+      "File": "tests/FDull.Tests/SafetyWorkerTests.fs",
+      "Owner": "FDull.Tests.SafetyWorkerTests.``a caller-sized worker heap limit overrides the runtime configuration``",
+      "Kind": "attribute",
+      "Identity": "xunit.core, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | Xunit.InlineDataAttribute |  | [\"int32:1024\",\"string:\\u00221073741824\\u0022\"]",
+      "Reason": "Non-shipping supervisor/protocol fixture owns temporary files, bounded child processes and exact deliberate compiler/report mutations. Failures must remain failing, processes must stop, and heap/RSS/output/time ceilings are asserted. A caller-sized DOTNET_GCHeapHardLimit must override the worker runtimeconfig ceiling exactly."
+    },
+    {
+      "File": "tests/FDull.Tests/SafetyWorkerTests.fs",
+      "Owner": "FDull.Tests.SafetyWorkerTests.``a caller-sized worker heap limit overrides the runtime configuration``",
+      "Kind": "attribute",
+      "Identity": "xunit.core, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | Xunit.InlineDataAttribute |  | [\"int32:256\",\"string:\\u0022268435456\\u0022\"]",
+      "Reason": "Non-shipping supervisor/protocol fixture owns temporary files, bounded child processes and exact deliberate compiler/report mutations. Failures must remain failing, processes must stop, and heap/RSS/output/time ceilings are asserted. A caller-sized DOTNET_GCHeapHardLimit must override the worker runtimeconfig ceiling exactly."
+    },
+    {
+      "File": "tests/FDull.Tests/SafetyWorkerTests.fs",
+      "Owner": "FDull.Tests.SafetyWorkerTests.``a caller-sized worker heap limit overrides the runtime configuration``",
+      "Kind": "attribute",
+      "Identity": "xunit.core, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | Xunit.TheoryAttribute |  | unit",
+      "Reason": "Non-shipping supervisor/protocol fixture owns temporary files, bounded child processes and exact deliberate compiler/report mutations. Failures must remain failing, processes must stop, and heap/RSS/output/time ceilings are asserted. A caller-sized DOTNET_GCHeapHardLimit must override the worker runtimeconfig ceiling exactly."
+    },
+    {
+      "File": "tests/FDull.Tests/SafetyWorkerTests.fs",
+      "Owner": "FDull.Tests.SafetyWorkerTests.``a caller-sized worker heap limit overrides the runtime configuration``",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.3.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.SafetyLimits.heapHardLimit(System.Int32)",
+      "Reason": "Non-shipping supervisor/protocol fixture owns temporary files, bounded child processes and exact deliberate compiler/report mutations. Failures must remain failing, processes must stop, and heap/RSS/output/time ceilings are asserted. A caller-sized DOTNET_GCHeapHardLimit must override the worker runtimeconfig ceiling exactly."
+    },
+    {
+      "File": "tests/FDull.Tests/SafetyWorkerTests.fs",
+      "Owner": "FDull.Tests.SafetyWorkerTests.``a caller-sized worker heap limit overrides the runtime configuration``",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Equal(System.String,System.String)",
+      "Reason": "Non-shipping supervisor/protocol fixture owns temporary files, bounded child processes and exact deliberate compiler/report mutations. Failures must remain failing, processes must stop, and heap/RSS/output/time ceilings are asserted. A caller-sized DOTNET_GCHeapHardLimit must override the worker runtimeconfig ceiling exactly."
+    },
+    {
+      "File": "tests/FDull.Tests/SafetyWorkerTests.fs",
+      "Owner": "FDull.Tests.SafetyWorkerTests.``a caller-sized worker heap limit overrides the runtime configuration``",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Equal``1(``0,``0)",
+      "Reason": "Non-shipping supervisor/protocol fixture owns temporary files, bounded child processes and exact deliberate compiler/report mutations. Failures must remain failing, processes must stop, and heap/RSS/output/time ceilings are asserted. A caller-sized DOTNET_GCHeapHardLimit must override the worker runtimeconfig ceiling exactly."
+    },
+    {
+      "File": "tests/FDull.Tests/SafetyWorkerTests.fs",
+      "Owner": "FDull.Tests.SafetyWorkerTests.``a caller-sized worker heap limit overrides the runtime configuration``",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Fail(System.String)",
+      "Reason": "Non-shipping supervisor/protocol fixture owns temporary files, bounded child processes and exact deliberate compiler/report mutations. Failures must remain failing, processes must stop, and heap/RSS/output/time ceilings are asserted. A caller-sized DOTNET_GCHeapHardLimit must override the worker runtimeconfig ceiling exactly."
+    },
+    {
+      "File": "tests/FDull.Tests/SafetyWorkerTests.fs",
+      "Owner": "FDull.Tests.SafetyWorkerTests.``a caller-sized worker heap limit overrides the runtime configuration``",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.3.0.0, Culture=neutral, PublicKeyToken=null | FDull.SafetyProcessOutput",
+      "Reason": "Non-shipping supervisor/protocol fixture owns temporary files, bounded child processes and exact deliberate compiler/report mutations. Failures must remain failing, processes must stop, and heap/RSS/output/time ceilings are asserted. A caller-sized DOTNET_GCHeapHardLimit must override the worker runtimeconfig ceiling exactly."
+    },
+    {
+      "File": "tests/FDull.Tests/SafetyWorkerTests.fs",
+      "Owner": "FDull.Tests.SafetyWorkerTests.runFixture",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.3.0.0, Culture=neutral, PublicKeyToken=null | FDull.SafetyProcessLimits",
+      "Reason": "Non-shipping supervisor/protocol fixture owns temporary files, bounded child processes and exact deliberate compiler/report mutations. Failures must remain failing, processes must stop, and heap/RSS/output/time ceilings are asserted. runFixture only forwards the default heap (None) to runFixtureWith with the same limits and result types."
+    },
+    {
+      "File": "tests/FDull.Tests/SafetyWorkerTests.fs",
+      "Owner": "FDull.Tests.SafetyWorkerTests.runFixture",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.3.0.0, Culture=neutral, PublicKeyToken=null | FDull.SafetyProcessOutput",
+      "Reason": "Non-shipping supervisor/protocol fixture owns temporary files, bounded child processes and exact deliberate compiler/report mutations. Failures must remain failing, processes must stop, and heap/RSS/output/time ceilings are asserted. runFixture only forwards the default heap (None) to runFixtureWith with the same limits and result types."
     }
   ],
   "Domains": [],

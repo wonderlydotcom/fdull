@@ -268,7 +268,7 @@ module Repository =
                     let root, policy, pin = Map.find service.Id policies
 
                     let result, analyze =
-                        measure (fun () -> Workspace.checkPinned options.Cache root (policy, pin) local.File)
+                        measure (fun () -> Workspace.checkPinned options root (policy, pin) local.File)
 
                     match result with
                     // An accepted cache entry answers for exactly these sources, compiler invocation and
@@ -399,8 +399,9 @@ module Repository =
            Build = built
            FinalValidation = finalValidation })
 
-    /// Verify the selection with `options.Jobs` concurrent projects. With `options.Cache`, a project whose
-    /// stored result is accepted is not re-analyzed or rebuilt, and complete fresh results are stored.
+    /// Verify the selection with `options.Jobs` concurrent projects, each analysis worker heap capped at
+    /// `options.MemoryMiB`. With `options.Cache`, a project whose stored result is accepted is not
+    /// re-analyzed or rebuilt, and complete fresh results are stored.
     let verifyTimedWith (options: WorkspaceOptions) directory selection =
         let plan = RepositoryPlan.plan directory selection |> require
 
@@ -432,7 +433,11 @@ module Repository =
                FinalValidation = 0L })
 
     let verifyTimed jobs directory selection =
-        verifyTimedWith { Jobs = jobs; Cache = false } directory selection
+        verifyTimedWith
+            { Workspace.defaultOptions with
+                Jobs = jobs }
+            directory
+            selection
 
     let verify directory selection =
         verifyTimed Workspace.defaultJobs directory selection |> fst

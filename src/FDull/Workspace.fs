@@ -36,8 +36,13 @@ type WorkspaceTiming =
       WorkerMilliseconds: int64
       ValidationMilliseconds: int64 }
 
-/// How `lint`, `review` and `verify` run. Neither option changes a report except its `Cached` counts.
-type WorkspaceOptions = { Jobs: int; Cache: bool }
+/// How `lint`, `review` and `verify` run. `MemoryMiB` is each analysis worker's managed heap ceiling,
+/// from `SafetyLimits.minimumWorkerMemoryMiB` to `SafetyLimits.maximumWorkerMemoryMiB`. No option
+/// changes a complete report except its `Cached` counts; too little memory makes a check incomplete.
+type WorkspaceOptions =
+    { Jobs: int
+      Cache: bool
+      MemoryMiB: int }
 
 module Workspace =
     let validatePolicy platform =
@@ -386,13 +391,18 @@ module Workspace =
 
             validation |> Result.map (fun () -> review)
 
-    /// Analyze one project. With `cache`, a stored response for the same key is accepted through the
+    /// Analyze one project. With `options.Cache`, a stored response for the same key is accepted through the
     /// same checks as a fresh one; anything else runs the worker, and a complete accepted response is stored.
-    let private analyzeTimed cache advisory document (request: WorkspaceRequest) =
+    let private analyzeTimed (options: WorkspaceOptions) advisory document (request: WorkspaceRequest) =
         let worker = Path.Combine(AppContext.BaseDirectory, "safety-worker")
         let engine = Path.Combine(worker, "FDull.dll")
 
         if
+            options.MemoryMiB < SafetyLimits.minimumWorkerMemoryMiB
+            || options.MemoryMiB > SafetyLimits.maximumWorkerMemoryMiB
+        then
+            Error "BUILD003: The worker memory limit is outside the supported range.", 0L
+        elif
             not (File.Exists engine)
             || SafetyPolicy.fileDigest engine
                <> SafetyPolicy.fileDigest typeof<SafetyReport>.Assembly.Location
@@ -411,7 +421,7 @@ module Workspace =
             let key = WorkspaceCache.key advisory before request
 
             let hit =
-                if cache then
+                if options.Cache then
                     WorkspaceCache.read request.Root key
                     |> Option.bind (fun output ->
                         // An entry that cannot be decoded or accepted is a miss, never a failure.
@@ -443,7 +453,7 @@ module Workspace =
                 start.ArgumentList.Add(if advisory then "--workspace-review" else "--workspace")
                 start.Environment.Clear()
                 start.Environment["DOTNET_ROOT"] <- runtimeRoot ()
-                start.Environment["DOTNET_GCHeapHardLimit"] <- "20000000"
+                start.Environment["DOTNET_GCHeapHardLimit"] <- SafetyLimits.heapHardLimit options.MemoryMiB
                 let text = Codec.encode request
                 let clock = Stopwatch.StartNew()
 
@@ -455,7 +465,7 @@ module Workspace =
                                 SafetyLimits.workspaceReviewCharacters
                             else
                                 SafetyLimits.workspaceReportCharacters
-                          WorkingSetBytes = SafetyLimits.workingSetBytes }
+                          WorkingSetBytes = 2L * SafetyLimits.heapBytes options.MemoryMiB }
                         start
                         text
 
@@ -468,14 +478,14 @@ module Workspace =
                         accept advisory document request (SafetyPolicy.fileDigest engine) (before <> closure ()) output
 
                     match accepted with
-                    | Ok review when cache && review.Analysis.Report.Complete ->
+                    | Ok review when options.Cache && review.Analysis.Report.Complete ->
                         WorkspaceCache.write request.Root key output
                     | _ -> ()
 
                     accepted, elapsed
 
     /// The parent's own work is everything outside the export and worker processes.
-    let private measured cache advisory root (document, pin) project =
+    let private measured options advisory root (document, pin) project =
         let clock = Stopwatch.StartNew()
         let invocation = export root project
         let exported = clock.ElapsedMilliseconds
@@ -485,7 +495,7 @@ module Workspace =
             | Error error -> Error error, 0L
             | Ok invocation ->
                 requestFrom root project (document, pin) invocation
-                |> analyzeTimed cache advisory document
+                |> analyzeTimed options advisory document
 
         result,
         { Project = project
@@ -506,7 +516,7 @@ module Workspace =
 
     /// Analyze one project of the workspace at the full path `root` against a policy read with `readPinned`
     /// and already audited, so a caller analyzing many projects reads and audits the policy once.
-    let internal checkPinned cache root (policy: WorkspacePolicyDocument, pin) project =
+    let internal checkPinned options root (policy: WorkspacePolicyDocument, pin) project =
         try
             let relative =
                 Path.GetRelativePath(root, Path.GetFullPath(project, root)).Replace('\\', '/')
@@ -514,27 +524,34 @@ module Workspace =
             if policy.Sources |> List.exists (fun source -> source.Project = relative) then
                 export root relative
                 |> Result.map (requestFrom root relative (policy, pin))
-                |> Result.bind (analyzeTimed cache false policy >> fst >> Result.map _.Analysis)
+                |> Result.bind (analyzeTimed options false policy >> fst >> Result.map _.Analysis)
             else
                 Error "ARCH002: The project is not assigned by workspace policy."
         with error ->
             Error("BUILD003: " + error.Message)
 
-    /// Analyze one project as `verify` does. With `cache`, an accepted stored result is returned with
-    /// `Cached` set, and a complete fresh result is stored.
-    let checkProjectWith cache platform project =
+    /// Analyze one project as `verify` does. With `options.Cache`, an accepted stored result is returned
+    /// with `Cached` set, and a complete fresh result is stored. `options.Jobs` is unused.
+    let checkProjectWith (options: WorkspaceOptions) platform project =
         try
             let root = Path.GetFullPath platform
             let policy, pin = readPinned root
             WorkspaceAudit.validate root policy
-            checkPinned cache root (policy, pin) project
+            checkPinned options root (policy, pin) project
         with error ->
             Error("BUILD003: " + error.Message)
 
-    let checkProject platform project = checkProjectWith false platform project
-
-    /// Projects analyzed at once by default. Each worker heap is capped at 512 MiB.
+    /// Projects analyzed at once by default.
     let defaultJobs = min Environment.ProcessorCount 4
+
+    /// `defaultJobs` concurrent projects, each worker heap capped at `SafetyLimits.workerMemoryMiB`, and no cache.
+    let defaultOptions =
+        { Jobs = defaultJobs
+          Cache = false
+          MemoryMiB = SafetyLimits.workerMemoryMiB }
+
+    let checkProject platform project =
+        checkProjectWith defaultOptions platform project
 
     let private attempt work item =
         try
@@ -692,7 +709,7 @@ module Workspace =
 
         let outcome =
             checkMeasured root options.Jobs false (fun policy project ->
-                let result, timing = measured options.Cache false root policy project
+                let result, timing = measured options false root policy project
                 result |> Result.map _.Analysis, Some timing)
 
         if options.Cache then
@@ -701,7 +718,7 @@ module Workspace =
         outcome
 
     let check platform =
-        checkTimed { Jobs = defaultJobs; Cache = false } platform |> fst
+        checkTimed defaultOptions platform |> fst
 
     /// Analyze a current-source snapshot for human review, without updating or certifying policy.
     let reviewTimed (options: WorkspaceOptions) platform =
@@ -725,7 +742,7 @@ module Workspace =
                 schedule
                     options.Jobs
                     Map.empty
-                    (measured options.Cache true root (document, pin))
+                    (measured options true root (document, pin))
                     (WorkspaceAudit.order document.Projects) do
                 match outcome with
                 | Ok(result, timing) ->
@@ -772,7 +789,7 @@ module Workspace =
         report, List.ofSeq timings
 
     let review platform =
-        reviewTimed { Jobs = defaultJobs; Cache = false } platform |> fst
+        reviewTimed defaultOptions platform |> fst
 
     let private serveUsing advisory (input: TextReader) (output: TextWriter) =
         try

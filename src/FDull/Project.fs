@@ -185,10 +185,12 @@ module Project =
             | Ok value -> value
             | Error(error: exn) -> invalidOp error.Message)
 
-    /// Verify with up to `jobs` projects building or analyzing at once, and report each project's timing
-    /// and the final validation time. A project is built, analyzed and rebuilt only after every project it
-    /// references has finished, so the job count never changes a passing report.
-    let verifyTimed jobs directory =
+    /// Verify with up to `options.Jobs` projects building or analyzing at once, each analysis worker heap
+    /// capped at `options.MemoryMiB`, and report each project's timing and the final validation time. A
+    /// project is built, analyzed and rebuilt only after every project it references has finished, so the
+    /// job count never changes a passing report. Standalone verification ignores `options.Cache`.
+    let verifyTimedWith (options: WorkspaceOptions) directory =
+        let jobs = options.Jobs
         let root = Path.GetFullPath directory
         let policy = WorkspacePolicy.read root
 
@@ -262,7 +264,7 @@ module Project =
             Workspace.checkUsing root concurrent (fun project ->
                 let clock = Stopwatch.StartNew()
 
-                match Workspace.checkProject root project with
+                match Workspace.checkProjectWith { options with Cache = false } root project with
                 | Error error -> Error error, (project, clock.ElapsedMilliseconds, 0L, 0L)
                 | Ok result when result.Report.ExitCode <> 0 -> Ok result, (project, clock.ElapsedMilliseconds, 0L, 0L)
                 | Ok result ->
@@ -339,6 +341,12 @@ module Project =
          { Restore = 0L
            Build = 0L
            FinalValidation = finalValidation })
+
+    let verifyTimed jobs directory =
+        verifyTimedWith
+            { Workspace.defaultOptions with
+                Jobs = jobs }
+            directory
 
     let verify directory =
         verifyTimed Workspace.defaultJobs directory |> fst

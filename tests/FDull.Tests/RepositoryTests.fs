@@ -1409,7 +1409,12 @@ module RepositoryTests =
                 change ()
 
                 let report, (timings, _) =
-                    Repository.verifyTimedWith { Jobs = 1; Cache = true } root All
+                    Repository.verifyTimedWith
+                        { Jobs = 1
+                          Cache = true
+                          MemoryMiB = 512 }
+                        root
+                        All
 
                 Assert.True(report.Complete && report.ExitCode = 0, failures report)
                 Assert.Equal<string list>(projects, analyzedFresh root report)
