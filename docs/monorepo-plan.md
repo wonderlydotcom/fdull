@@ -169,6 +169,8 @@ policy. A cross-policy edge is not an external-code exemption.
   F# projects.
 - Define how domain and constructor contracts apply across policy boundaries
   before enabling these references. Never union them globally by convenience.
+  Constructor approvals stay bound to their declaring policy; domain contracts
+  remain blocked across edges.
 - Keep worker requests bound to the owning policy and every dependency-policy
   input needed for the check. Workers independently validate those bindings.
 - Use one combined project scheduler and one global `--jobs` budget. Do not run
@@ -218,11 +220,31 @@ single-workspace report schemas. Keep advisory review distinct from verification
 
 The initial implementation coordinates text `verify`; `lint` and advisory
 `review` retain their single-policy schemas. Cross-policy edges do not share
-capabilities, data approvals, domain contracts or constructor approvals. Domain
-and constructor contracts on either side of a cross-policy edge are blocked
-until a separate visibility contract is introduced. Authored imports must be
+capabilities, data approvals, domain contracts or constructor approvals.
+Constructor approvals are allowed on either side of an edge because they bind
+only definitions in the declaring policy's sources and are checked for unused
+entries per owner. Domain contracts on either side of a cross-policy edge stay
+blocked until a separate visibility contract is introduced. Authored imports must be
 literal, repository-local and pinned; SDK property-driven custom import hooks
 and arbitrary target-time file reads remain outside the dependency model.
+
+A cross-policy edge may also name a C#/VB implementation project (`Kind:
+"implementation"`, no `Profile`) that its owner pins in `Inputs` inside a
+reviewed `implementation` External entry. It must match the evaluated MSBuild
+references, is excluded from F# graph ordering, keeps the owner's policy pin,
+selects the consumer under `--since` when the owner changes, and grants nothing.
+
+`PolicyDigest` is normalized: the SHA-256 of the dependency policy's bytes with
+its own `Repository.References[].PolicyDigest` strings replaced by `""`.
+Ambiguous JSON (duplicate or escaped property names, comments, trailing content,
+invalid UTF-8, non-string pins) is rejected. Trust-model consequence: a
+consumer's pin no longer changes when a dependency's own pins change, so
+service-level cycles can be pinned. Transitive policies are not covered by the
+top consumer's pin; each is verified through its direct consumers' pins.
+Every reachable policy is loaded once, every edge's pin is checked, project-level
+cycles remain ARCH001, and pins are re-checked against the loaded snapshot
+before results are accepted. `dotnet fdull policy-digest <fdull.json>` prints
+the value.
 
 Executable monorepo regressions are in `tests/FDull.Tests/RepositoryTests.fs`.
 They cover actual CLI and combined-scheduler execution, transitive and removed

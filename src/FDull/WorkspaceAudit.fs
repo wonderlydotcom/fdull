@@ -10,16 +10,7 @@ module WorkspaceAudit =
         child = parent || child.StartsWith(parent + "/", StringComparison.Ordinal)
 
     let internal externalProjects (policy: WorkspacePolicyDocument) =
-        let implementations =
-            WorkspacePolicy.externalEntries policy
-            |> List.filter (fun entry -> entry.Kind = "implementation")
-
-        policy.Inputs
-        |> List.map _.File
-        |> List.filter (fun file ->
-            List.contains (Path.GetExtension file) [ ".csproj"; ".vbproj" ]
-            && implementations |> List.exists (fun entry -> contains entry.Path file))
-        |> Set.ofList
+        WorkspacePolicy.implementationProjects policy
 
     let private validateEdgesCore (projects: WorkspaceProject list) external exact project references =
         let graph = projects |> List.map (fun item -> item.File, item) |> Map.ofList
@@ -86,17 +77,32 @@ module WorkspaceAudit =
     let private policyEdges exact root (policy: WorkspacePolicyDocument) project references =
         let cross = WorkspacePolicy.crossReferences root policy project
 
-        let externalGraph =
+        let crossTargets =
             match policy.Repository with
             | None -> []
             | Some repository ->
                 repository.References
                 |> List.map (fun edge ->
                     let path = Path.Combine(WorkspacePolicy.repositoryRoot root policy, edge.Target)
+                    edge, Path.GetRelativePath(root, path).Replace('\\', '/'))
 
-                    { File = Path.GetRelativePath(root, path).Replace('\\', '/')
-                      Profile = edge.Profile
-                      References = [] })
+        // F# targets join the graph with their pinned profile. An implementation target is
+        // external, exactly like a local reviewed C#/VB implementation project.
+        let externalGraph =
+            crossTargets
+            |> List.choose (fun (edge, file) ->
+                edge.Profile
+                |> Option.map (fun profile ->
+                    { File = file
+                      Profile = profile
+                      References = [] }))
+
+        let external =
+            crossTargets
+            |> List.filter (fst >> WorkspacePolicy.implementationEdge)
+            |> List.map snd
+            |> Set.ofList
+            |> Set.union (externalProjects policy)
 
         let graph =
             policy.Projects
@@ -107,7 +113,7 @@ module WorkspaceAudit =
                 else
                     item)
 
-        validateEdgesCore (graph @ externalGraph) (externalProjects policy) exact project references
+        validateEdgesCore (graph @ externalGraph) external exact project references
 
     let validatePolicyEdges root policy project references =
         policyEdges true root policy project references

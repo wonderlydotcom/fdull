@@ -12,7 +12,7 @@ module Program =
         Console.WriteLine "FDull — F# with fewer sharp edges."
 
         Console.WriteLine
-            "fdull defaults | init <root> [--scope <file>] | lint <root> [--format text|json|sarif] [--jobs <1-64>] [--no-cache] [--timings] | review <root> [--format text|json] [--jobs <1-64>] [--no-cache] [--timings] | cache clear <root> | data-digest <assembly> | verify <root> [--all | --since <commit>] [--jobs <1-64>] [--timings] | coverage"
+            "fdull defaults | init <root> [--scope <file>] | lint <root> [--format text|json|sarif] [--jobs <1-64>] [--no-cache] [--timings] | review <root> [--format text|json] [--jobs <1-64>] [--no-cache] [--timings] | cache clear <root> | data-digest <assembly> | policy-digest <fdull.json> | verify <root> [--all | --since <commit>] [--jobs <1-64>] [--timings] | coverage"
 
         2
 
@@ -235,6 +235,9 @@ module Program =
                 0
             | [ "data-digest"; assembly ] ->
                 DataContractPolicy.assemblyDigest assembly |> Console.WriteLine
+                0
+            | [ "policy-digest"; policy ] ->
+                WorkspacePolicyDigest.file policy |> Console.WriteLine
                 0
             | [ "init"; root ] ->
                 Project.initialize root |> Console.WriteLine

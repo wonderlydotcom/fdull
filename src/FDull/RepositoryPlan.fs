@@ -370,6 +370,12 @@ module RepositoryPlan =
                 | Some _ -> ()
                 | None -> invalidOp ("ARCH002: Unowned F# project or source: " + path)
 
+    let private policyPath (service: RepositoryService) =
+        if service.Id = "." then
+            "fdull.json"
+        else
+            service.Id + "/fdull.json"
+
     let private graph (services: RepositoryService list) =
         let projects =
             services
@@ -414,6 +420,7 @@ module RepositoryPlan =
                     service.Policy.Repository
                     |> Option.map (fun repository ->
                         repository.References
+                        |> List.filter (WorkspacePolicy.implementationEdge >> not)
                         |> List.map (fun edge ->
                             let source =
                                 if service.Id = "." then
@@ -434,7 +441,23 @@ module RepositoryPlan =
                 | _ -> None)
             |> Set.ofList
 
-        projects, edges, serviceEdges
+        // An implementation target is outside the F# project graph, but its owner
+        // remains a service dependency, so a change there selects the consumer.
+        let implementationEdges =
+            services
+            |> List.collect (fun service ->
+                service.Policy.Repository
+                |> Option.map (fun repository ->
+                    repository.References
+                    |> List.filter WorkspacePolicy.implementationEdge
+                    |> List.choose (fun edge ->
+                        services
+                        |> List.tryFind (fun candidate -> policyPath candidate = edge.Policy)
+                        |> Option.map (fun owner -> service.Id, owner.Id)))
+                |> Option.defaultValue [])
+            |> Set.ofList
+
+        projects, edges, Set.union serviceEdges implementationEdges
 
     let private validateGraph services =
         let projects, edges, serviceEdges = graph services
@@ -448,19 +471,23 @@ module RepositoryPlan =
             | Some repository ->
                 for edge in repository.References do
                     let owner =
-                        services
-                        |> List.tryFind (fun candidate ->
-                            let path =
-                                if candidate.Id = "." then
-                                    "fdull.json"
-                                else
-                                    candidate.Id + "/fdull.json"
+                        services |> List.tryFind (fun candidate -> policyPath candidate = edge.Policy)
 
-                            path = edge.Policy)
+                    let implementation candidate =
+                        let prefix = if candidate.Id = "." then "" else candidate.Id + "/"
+
+                        edge.Target.StartsWith(prefix, StringComparison.Ordinal)
+                        && Set.contains
+                            (edge.Target.Substring prefix.Length)
+                            (WorkspacePolicy.implementationProjects candidate.Policy)
 
                     match owner, Map.tryFind edge.Target projects with
+                    | Some candidate, None when WorkspacePolicy.implementationEdge edge && implementation candidate ->
+                        ()
                     | Some candidate, Some(actualOwner, actualProfile) when
-                        candidate.Id = actualOwner && edge.Profile = actualProfile
+                        not (WorkspacePolicy.implementationEdge edge)
+                        && candidate.Id = actualOwner
+                        && edge.Profile = Some actualProfile
                         ->
                         ()
                     | _ ->

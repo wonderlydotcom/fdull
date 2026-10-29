@@ -277,12 +277,52 @@ inputs and capabilities are still required and service-relative. Only the new
 `Repository.Root` field accepts a bounded ancestor path. `SharedInputs`, cross
 reference `Target` and `Policy` paths are repository-relative. Local references
 remain in `Projects[].References`; cross-service references go in
-`Repository.References`. Every target has an exact owner, profile and policy
-digest. Cross-service references obey the same profile-direction rules as local
-references and grant no capability. Capability and data approvals remain owned
-by the consuming service. The initial version blocks domain or constructor
-contracts on either side of a cross-service edge; no contracts are merged across
-owners.
+`Repository.References`. Every target has an exact owner and policy digest.
+An F# `.fsproj` target names its owner's exact `Profile` and omits `Kind`.
+Cross-service references obey the same profile-direction rules as local
+references and grant no capability. When a target has its own project
+references, the consumer's graph must cover the evaluated MSBuild closure, as
+it does for local references.
+
+A C# or VB implementation project can be referenced only when its owner pins
+the `.csproj`/`.vbproj` in `Inputs` and the project lies inside one of the
+owner's reviewed `implementation` External entries. The edge omits `Profile`
+and sets `Kind` to `implementation`:
+
+```json
+{
+  "Project": "Billing.fsproj",
+  "Target": "services/native/Interop/Interop.csproj",
+  "Policy": "services/native/fdull.json",
+  "PolicyDigest": "sha256:<normalized policy digest>",
+  "Kind": "implementation"
+}
+```
+
+The target is treated exactly like a local reviewed implementation project:
+it must match the evaluated MSBuild references, it is not ordered by the F#
+project graph, and it grants nothing. The consumer still pins the owner's
+policy digest, and `--since` selects the consumer when the owner changes.
+
+Capability, data, domain and constructor approvals remain owned by the policy
+that declares them; no contracts are merged across owners. Constructor approvals
+are allowed on either side of an edge: each policy's `Constructors` apply only
+to definitions in its own sources, and unused approvals are reported per owner.
+Domain contracts remain blocked on either side of a cross-service edge.
+
+`PolicyDigest` is the SHA-256 of the dependency's `fdull.json` bytes with each
+of its own `Repository.References[].PolicyDigest` string values replaced by
+`""`. Every other byte, including whitespace, ordering and a byte-order mark,
+is covered. Strict UTF-8, duplicate property names (anywhere), escaped property
+names, comments, trailing commas, trailing content and a non-string pin are
+rejected rather than hashed. Print the value with `dotnet fdull policy-digest
+<path-to-fdull.json>`. A consumer's pin therefore does not change when its
+dependency re-pins its own dependencies, which permits service-level cycles;
+project-level cycles across policies are still blocked. A transitive policy is
+not covered by the top consumer's pin: it is verified through the pin of each
+direct consumer, so every policy on the path must be reviewed. Every reachable
+policy is loaded once, each edge's pin is checked, and the pins are re-checked
+against the same snapshot before results are accepted.
 
 Start with explicit `init <service>` calls, then review a version-two migration.
 Initialization never discovers and writes policies for other services. Pin all
@@ -449,7 +489,12 @@ dotnet fdull review . --format json
 dotnet fdull verify . --jobs 4 --timings
 dotnet fdull cache clear .
 dotnet fdull coverage
+dotnet fdull policy-digest services/billing/fdull.json
 ```
+
+`policy-digest <path-to-fdull.json>` prints the normalized `sha256:<hex>` value
+that a consumer pins in `Repository.References[].PolicyDigest`. Like
+`data-digest`, it prints a fingerprint and never a permission entry.
 
 `lint`, `review` and `verify` run independent projects concurrently. `--jobs <n>`
 sets how many run at once, from 1 to 64. The default is the processor count, capped

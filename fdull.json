@@ -63,13 +63,13 @@
       "File": "src/FDull/RepositoryPlan.fs",
       "Project": "src/FDull/FDull.fsproj",
       "Profile": "GUARD_TOOLING",
-      "Digest": "sha256:9282ebf8e6a4998f0972228738415b28a8b5bcda3bf6c0642139e6fcff027e63"
+      "Digest": "sha256:f7381a458281013375df45d93fe2faae889d8ee853b566c5edf9390653d89755"
     },
     {
       "File": "tests/FDull.Tests/RepositoryTests.fs",
       "Project": "tests/FDull.Tests/FDull.Tests.fsproj",
       "Profile": "TEST",
-      "Digest": "sha256:0251a9804168bef55439af65efcf8b38e931270b78e764e35d47e2ddb72aba7e"
+      "Digest": "sha256:626a1e0a24ddfe4a8b4b9aac9b6bed23227469ffd88c6000ef789741d9c22a5b"
     },
     {
       "File": "src/FDull/External.fs",
@@ -153,13 +153,13 @@
       "File": "src/FDull/WorkspacePolicy.fs",
       "Project": "src/FDull/FDull.fsproj",
       "Profile": "GUARD_TOOLING",
-      "Digest": "sha256:5e833d53ebae6f3814bc1defcc370394cc2a67a6950d3b143f23ed16aaa3f7c5"
+      "Digest": "sha256:22aa6da6969192271d4621da7665bccbe3bdca9593dcb0e5d727c845bf0f7b95"
     },
     {
       "File": "src/FDull/WorkspaceAudit.fs",
       "Project": "src/FDull/FDull.fsproj",
       "Profile": "GUARD_TOOLING",
-      "Digest": "sha256:6c970232cdf5d15e0d98247d18bbe698d1089467d2644070417e8b218373d0d9"
+      "Digest": "sha256:c9ee4588c42fd7f24e8acfc57cd4484983f575d484b06af89e9eb6be31c4cb34"
     },
     {
       "File": "src/FDull/WorkspaceEngine.fs",
@@ -201,7 +201,7 @@
       "File": "src/FDull.Tool/Program.fs",
       "Project": "src/FDull.Tool/FDull.Tool.fsproj",
       "Profile": "GUARD_TOOLING",
-      "Digest": "sha256:41d9770d5f7cb243bc5d13ab578fe95837cac3d0cb6230ec86f3afd7f68e08e9"
+      "Digest": "sha256:b9242ca275c586b8ff2e978e45768c0dc2912433b081b839946f07afc79d7a7b"
     },
     {
       "File": "src/FDull.Worker/Program.fs",
@@ -412,28 +412,28 @@
     },
     {
       "File": "src/FDull/WorkspacePolicy.fs",
-      "Owner": "FDull.WorkspacePolicy.readStructure",
+      "Owner": "FDull.WorkspacePolicy.structure",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Directory.EnumerateFiles(System.String)",
       "Reason": "Enumerates at most 100001 files per bounded ancestor to find actual config filenames, requires exact casing in shared pins, and blocks oversized inventories. This avoids alias requirements on case-insensitive filesystems without hiding NuGet configuration."
     },
     {
       "File": "src/FDull/WorkspacePolicy.fs",
-      "Owner": "FDull.WorkspacePolicy.readStructure",
+      "Owner": "FDull.WorkspacePolicy.structure",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.GetFileName(System.String)",
       "Reason": "Enumerates at most 100001 files per bounded ancestor to find actual config filenames, requires exact casing in shared pins, and blocks oversized inventories. This avoids alias requirements on case-insensitive filesystems without hiding NuGet configuration."
     },
     {
       "File": "src/FDull/WorkspacePolicy.fs",
-      "Owner": "FDull.WorkspacePolicy.readStructure",
+      "Owner": "FDull.WorkspacePolicy.structure",
       "Kind": "member",
       "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.SeqModule.Truncate``1(System.Int32,System.Collections.Generic.IEnumerable{``0})",
       "Reason": "Enumerates at most 100001 files per bounded ancestor to find actual config filenames, requires exact casing in shared pins, and blocks oversized inventories. This avoids alias requirements on case-insensitive filesystems without hiding NuGet configuration."
     },
     {
       "File": "src/FDull/WorkspacePolicy.fs",
-      "Owner": "FDull.WorkspacePolicy.readStructure",
+      "Owner": "FDull.WorkspacePolicy.structure",
       "Kind": "member",
       "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.SeqModule.ToList``1(System.Collections.Generic.IEnumerable{``0})",
       "Reason": "Enumerates at most 100001 files per bounded ancestor to find actual config filenames, requires exact casing in shared pins, and blocks oversized inventories. This avoids alias requirements on case-insensitive filesystems without hiding NuGet configuration."
@@ -1126,10 +1126,10 @@
     },
     {
       "File": "tests/FDull.Tests/RepositoryTests.fs",
-      "Owner": "FDull.Tests.RepositoryTests.link",
+      "Owner": "FDull.Tests.RepositoryTests.crossLink",
       "Kind": "member",
       "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.SafetyPolicy.fileDigest(System.String)",
-      "Reason": "Adds one exact fixture ProjectReference and matching owner/profile/policy pin; restores the known fixture graph when requested. The target helper always creates exactly one project before Head reads its profile. No effect or type capability crosses owners."
+      "Reason": "Writes one exact fixture ProjectReference for the supplied edge, restores the known fixture graph when requested, re-pins only the consumer project and lock file, and records only that edge. No effect or type capability crosses owners."
     },
     {
       "File": "tests/FDull.Tests/RepositoryTests.fs",
@@ -1140,17 +1140,17 @@
     },
     {
       "File": "tests/FDull.Tests/RepositoryTests.fs",
-      "Owner": "FDull.Tests.RepositoryTests.link",
+      "Owner": "FDull.Tests.RepositoryTests.crossLink",
       "Kind": "type",
       "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspacePin",
-      "Reason": "Adds one exact fixture ProjectReference and matching owner/profile/policy pin; restores the known fixture graph when requested. The target helper always creates exactly one project before Head reads its profile. No effect or type capability crosses owners."
+      "Reason": "Writes one exact fixture ProjectReference for the supplied edge, restores the known fixture graph when requested, re-pins only the consumer project and lock file, and records only that edge. No effect or type capability crosses owners."
     },
     {
       "File": "tests/FDull.Tests/RepositoryTests.fs",
-      "Owner": "FDull.Tests.RepositoryTests.link",
+      "Owner": "FDull.Tests.RepositoryTests.crossLink",
       "Kind": "type",
       "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspacePolicyDocument",
-      "Reason": "Adds one exact fixture ProjectReference and matching owner/profile/policy pin; restores the known fixture graph when requested. The target helper always creates exactly one project before Head reads its profile. No effect or type capability crosses owners."
+      "Reason": "Writes one exact fixture ProjectReference for the supplied edge, restores the known fixture graph when requested, re-pins only the consumer project and lock file, and records only that edge. No effect or type capability crosses owners."
     },
     {
       "File": "tests/FDull.Tests/RepositoryTests.fs",
@@ -1605,13 +1605,6 @@
       "Owner": "FDull.Tests.RepositoryTests.``cross policy references require exact target identity and an acyclic graph``",
       "Kind": "member",
       "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.RepositoryPlan.plan(System.String,FDull.RepositorySelection)",
-      "Reason": "Changes exact fixture target identities, owner policy, profile direction and cycle edges; each malformed graph must be rejected before verification."
-    },
-    {
-      "File": "tests/FDull.Tests/RepositoryTests.fs",
-      "Owner": "FDull.Tests.RepositoryTests.``cross policy references require exact target identity and an acyclic graph``",
-      "Kind": "member",
-      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.SafetyPolicy.fileDigest(System.String)",
       "Reason": "Changes exact fixture target identities, owner policy, profile direction and cycle edges; each malformed graph must be rejected before verification."
     },
     {
@@ -2211,14 +2204,14 @@
     },
     {
       "File": "src/FDull/WorkspacePolicy.fs",
-      "Owner": "FDull.WorkspacePolicy.readStructure",
+      "Owner": "FDull.WorkspacePolicy.structure",
       "Kind": "member",
       "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.ListModule.Iterate``1(Microsoft.FSharp.Core.FSharpFunc{``0,Microsoft.FSharp.Core.Unit},Microsoft.FSharp.Collections.FSharpList{``0})",
       "Reason": "Read current policy metadata, check ancestor shared-control pins, and statically audit authored imports without digest or build export."
     },
     {
       "File": "src/FDull/WorkspacePolicy.fs",
-      "Owner": "FDull.WorkspacePolicy.readStructure",
+      "Owner": "FDull.WorkspacePolicy.structure",
       "Kind": "member",
       "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Core.Operators.InvalidOp``1(System.String)",
       "Reason": "Read current policy metadata, check ancestor shared-control pins, and statically audit authored imports without digest or build export."
@@ -2239,35 +2232,35 @@
     },
     {
       "File": "src/FDull/WorkspacePolicy.fs",
-      "Owner": "FDull.WorkspacePolicy.readStructure",
+      "Owner": "FDull.WorkspacePolicy.structure",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.GetDirectoryName(System.String)",
       "Reason": "Read current policy metadata, check ancestor shared-control pins, and statically audit authored imports without digest or build export."
     },
     {
       "File": "src/FDull/WorkspacePolicy.fs",
-      "Owner": "FDull.WorkspacePolicy.readStructure",
+      "Owner": "FDull.WorkspacePolicy.structure",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.GetFullPath(System.String)",
       "Reason": "Read current policy metadata, check ancestor shared-control pins, and statically audit authored imports without digest or build export."
     },
     {
       "File": "src/FDull/WorkspacePolicy.fs",
-      "Owner": "FDull.WorkspacePolicy.readStructure",
+      "Owner": "FDull.WorkspacePolicy.structure",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.GetRelativePath(System.String,System.String)",
       "Reason": "Read current policy metadata, check ancestor shared-control pins, and statically audit authored imports without digest or build export."
     },
     {
       "File": "src/FDull/WorkspacePolicy.fs",
-      "Owner": "FDull.WorkspacePolicy.readStructure",
+      "Owner": "FDull.WorkspacePolicy.structure",
       "Kind": "member",
       "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | M:System.String.Replace(System.Char,System.Char)",
       "Reason": "Read current policy metadata, check ancestor shared-control pins, and statically audit authored imports without digest or build export."
     },
     {
       "File": "src/FDull/WorkspacePolicy.fs",
-      "Owner": "FDull.WorkspacePolicy.readWithSourceDrift",
+      "Owner": "FDull.WorkspacePolicy.dependencyRoot",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.GetDirectoryName(System.String)",
       "Reason": "Recursively reload exact dependency policies and their source/build/shared pins with cycle/depth budget; only advisory owner source may drift."
@@ -2281,24 +2274,24 @@
     },
     {
       "File": "src/FDull/WorkspacePolicy.fs",
-      "Owner": "FDull.WorkspacePolicy.readWithSourceDrift",
+      "Owner": "FDull.WorkspacePolicy.readGraph",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.GetRelativePath(System.String,System.String)",
-      "Reason": "Recursively reload exact dependency policies and their source/build/shared pins with cycle/depth budget; only advisory owner source may drift."
+      "Reason": "Loads every reachable dependency policy once under a 512-step, depth-128, 30-second budget and a 128-policy limit, so service-level cycles terminate. Every edge is checked against the normalized pin of the bytes that were loaded, its exact target owner and Repository.Root; project-level cycles stay ARCH001, and each pinned policy is re-hashed before the document is returned. Only the root's advisory source may drift."
     },
     {
       "File": "src/FDull/WorkspacePolicy.fs",
-      "Owner": "FDull.WorkspacePolicy.readWithSourceDrift",
+      "Owner": "FDull.WorkspacePolicy.readGraph",
       "Kind": "member",
       "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | M:System.String.Replace(System.Char,System.Char)",
-      "Reason": "Recursively reload exact dependency policies and their source/build/shared pins with cycle/depth budget; only advisory owner source may drift."
+      "Reason": "Loads every reachable dependency policy once under a 512-step, depth-128, 30-second budget and a 128-policy limit, so service-level cycles terminate. Every edge is checked against the normalized pin of the bytes that were loaded, its exact target owner and Repository.Root; project-level cycles stay ARCH001, and each pinned policy is re-hashed before the document is returned. Only the root's advisory source may drift."
     },
     {
       "File": "src/FDull/WorkspacePolicy.fs",
-      "Owner": "FDull.WorkspacePolicy.readWithSourceDrift",
+      "Owner": "FDull.WorkspacePolicy.readGraph",
       "Kind": "type",
       "Identity": "source:src/FDull/SafetyLimits.fs | FDull.SafetyBudget",
-      "Reason": "Recursively reload exact dependency policies and their source/build/shared pins with cycle/depth budget; only advisory owner source may drift."
+      "Reason": "Loads every reachable dependency policy once under a 512-step, depth-128, 30-second budget and a 128-policy limit, so service-level cycles terminate. Every edge is checked against the normalized pin of the bytes that were loaded, its exact target owner and Repository.Root; project-level cycles stay ARCH001, and each pinned policy is re-hashed before the document is returned. Only the root's advisory source may drift."
     },
     {
       "File": "src/FDull/WorkspacePolicy.fs",
@@ -2414,10 +2407,10 @@
     },
     {
       "File": "src/FDull/WorkspacePolicy.fs",
-      "Owner": "FDull.WorkspacePolicy.validateRepositoryStructure",
+      "Owner": "FDull.WorkspacePolicy.validEdgeShape",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.GetExtension(System.String)",
-      "Reason": "Validate v2 shared pin and cross-policy edge paths, target profile metadata, and symlink confinement before execution."
+      "Reason": "Accepts only an F# .fsproj edge with an exact profile and no Kind, or a C#/VB project edge with Kind implementation and no Profile; any other shape is rejected before execution."
     },
     {
       "File": "src/FDull/WorkspacePolicy.fs",
@@ -17183,8 +17176,8 @@
       "Reason": "The inventory regression creates and removes 21,000 inert files to prove large checked workspaces remain bounded above the former 20,000-step ceiling."
     },
     {
-      "File": "src/FDull/WorkspaceAudit.fs",
-      "Owner": "FDull.WorkspaceAudit.externalProjects",
+      "File": "src/FDull/WorkspacePolicy.fs",
+      "Owner": "FDull.WorkspacePolicy.implementationProjects",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.GetExtension(System.String)",
       "Reason": "Mixed-language graph validation recognizes only fingerprinted CSharp or Visual Basic project files contained by a reviewed external implementation scope."
@@ -26771,6 +26764,1140 @@
       "Kind": "type",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | System.Collections.IEnumerable",
       "Reason": "Reviewed non-shipping regression for the pure shared-directory comparison: separate and prefix-only directories are not shared; equal and nested ones produce the exact messages."
+    },
+    {
+      "File": "src/FDull.Tool/Program.fs",
+      "Owner": "FDull.Tool.Program.main",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.WorkspacePolicyDigest.file(System.String)",
+      "Reason": "The policy-digest command reads one named policy file, bounded at 64 MiB, and prints its normalized sha256 digest. It prints a fingerprint, never a permission entry."
+    },
+    {
+      "File": "src/FDull/WorkspacePolicy.fs",
+      "Owner": "FDull.WorkspacePolicy.decodeDocument",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.ListModule.Iterate``1(Microsoft.FSharp.Core.FSharpFunc{``0,Microsoft.FSharp.Core.Unit},Microsoft.FSharp.Collections.FSharpList{``0})",
+      "Reason": "Version-two compatibility parsing inserts an absent Profile or Kind as null only inside object elements of Repository.References, then uses the strict DTO codec. No other field is defaulted, and non-object shapes are left to the strict codec to reject."
+    },
+    {
+      "File": "src/FDull/WorkspacePolicy.fs",
+      "Owner": "FDull.WorkspacePolicy.decodeDocument",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.SeqModule.Choose``2(Microsoft.FSharp.Core.FSharpFunc{``0,Microsoft.FSharp.Core.FSharpOption{``1}},System.Collections.Generic.IEnumerable{``0})",
+      "Reason": "Version-two compatibility parsing inserts an absent Profile or Kind as null only inside object elements of Repository.References, then uses the strict DTO codec. No other field is defaulted, and non-object shapes are left to the strict codec to reject."
+    },
+    {
+      "File": "src/FDull/WorkspacePolicy.fs",
+      "Owner": "FDull.WorkspacePolicy.decodeDocument",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.SeqModule.Filter``1(Microsoft.FSharp.Core.FSharpFunc{``0,System.Boolean},System.Collections.Generic.IEnumerable{``0})",
+      "Reason": "Version-two compatibility parsing inserts an absent Profile or Kind as null only inside object elements of Repository.References, then uses the strict DTO codec. No other field is defaulted, and non-object shapes are left to the strict codec to reject."
+    },
+    {
+      "File": "src/FDull/WorkspacePolicy.fs",
+      "Owner": "FDull.WorkspacePolicy.decodeDocument",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.SeqModule.Iterate``1(Microsoft.FSharp.Core.FSharpFunc{``0,Microsoft.FSharp.Core.Unit},System.Collections.Generic.IEnumerable{``0})",
+      "Reason": "Version-two compatibility parsing inserts an absent Profile or Kind as null only inside object elements of Repository.References, then uses the strict DTO codec. No other field is defaulted, and non-object shapes are left to the strict codec to reject."
+    },
+    {
+      "File": "src/FDull/WorkspacePolicy.fs",
+      "Owner": "FDull.WorkspacePolicy.decodeDocument",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Core.OptionModule.Iterate``1(Microsoft.FSharp.Core.FSharpFunc{``0,Microsoft.FSharp.Core.Unit},Microsoft.FSharp.Core.FSharpOption{``0})",
+      "Reason": "Version-two compatibility parsing inserts an absent Profile or Kind as null only inside object elements of Repository.References, then uses the strict DTO codec. No other field is defaulted, and non-object shapes are left to the strict codec to reject."
+    },
+    {
+      "File": "src/FDull/WorkspacePolicy.fs",
+      "Owner": "FDull.WorkspacePolicy.decodeDocument",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Core.OptionModule.OfObj``1(``0)",
+      "Reason": "Version-two compatibility parsing inserts an absent Profile or Kind as null only inside object elements of Repository.References, then uses the strict DTO codec. No other field is defaulted, and non-object shapes are left to the strict codec to reject."
+    },
+    {
+      "File": "src/FDull/WorkspacePolicy.fs",
+      "Owner": "FDull.WorkspacePolicy.decodeDocument",
+      "Kind": "member",
+      "Identity": "System.Text.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | M:System.Text.Json.Nodes.JsonNode.AsArray",
+      "Reason": "Version-two compatibility parsing inserts an absent Profile or Kind as null only inside object elements of Repository.References, then uses the strict DTO codec. No other field is defaulted, and non-object shapes are left to the strict codec to reject."
+    },
+    {
+      "File": "src/FDull/WorkspacePolicy.fs",
+      "Owner": "FDull.WorkspacePolicy.decodeDocument",
+      "Kind": "member",
+      "Identity": "System.Text.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | M:System.Text.Json.Nodes.JsonNode.GetValueKind",
+      "Reason": "Version-two compatibility parsing inserts an absent Profile or Kind as null only inside object elements of Repository.References, then uses the strict DTO codec. No other field is defaulted, and non-object shapes are left to the strict codec to reject."
+    },
+    {
+      "File": "src/FDull/WorkspacePolicy.fs",
+      "Owner": "FDull.WorkspacePolicy.decodeDocument",
+      "Kind": "member",
+      "Identity": "System.Text.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | P:System.Text.Json.Nodes.JsonNode.Item(System.String)",
+      "Reason": "Version-two compatibility parsing inserts an absent Profile or Kind as null only inside object elements of Repository.References, then uses the strict DTO codec. No other field is defaulted, and non-object shapes are left to the strict codec to reject."
+    },
+    {
+      "File": "src/FDull/WorkspacePolicy.fs",
+      "Owner": "FDull.WorkspacePolicy.decodeDocument",
+      "Kind": "rule",
+      "Identity": "NULL005 | coercion",
+      "Reason": "Version-two compatibility parsing inserts an absent Profile or Kind as null only inside object elements of Repository.References, then uses the strict DTO codec. No other field is defaulted, and non-object shapes are left to the strict codec to reject."
+    },
+    {
+      "File": "src/FDull/WorkspacePolicy.fs",
+      "Owner": "FDull.WorkspacePolicy.decodeDocument",
+      "Kind": "type",
+      "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | System.Collections.Generic.IEnumerable`1",
+      "Reason": "Version-two compatibility parsing inserts an absent Profile or Kind as null only inside object elements of Repository.References, then uses the strict DTO codec. No other field is defaulted, and non-object shapes are left to the strict codec to reject."
+    },
+    {
+      "File": "src/FDull/WorkspacePolicy.fs",
+      "Owner": "FDull.WorkspacePolicy.dependencyRoot",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.Combine(System.String,System.String)",
+      "Reason": "Resolves a dependency policy directory from a repository-relative Policy path that structural validation has already confined; it reads path syntax only."
+    },
+    {
+      "File": "src/FDull/WorkspacePolicy.fs",
+      "Owner": "FDull.WorkspacePolicy.dependencyRoot",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.GetFullPath(System.String)",
+      "Reason": "Resolves a dependency policy directory from a repository-relative Policy path that structural validation has already confined; it reads path syntax only."
+    },
+    {
+      "File": "src/FDull/WorkspacePolicy.fs",
+      "Owner": "FDull.WorkspacePolicy.implementationEdge",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.GetExtension(System.String)",
+      "Reason": "Classifies a cross-policy edge as a C#/VB implementation target by its exact project extension. Such an edge is excluded from F# graph ordering and grants nothing."
+    },
+    {
+      "File": "src/FDull/WorkspacePolicy.fs",
+      "Owner": "FDull.WorkspacePolicy.readGraph",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.ListModule.Fold``2(Microsoft.FSharp.Core.FSharpFunc{``1,Microsoft.FSharp.Core.FSharpFunc{``0,``1}},``1,Microsoft.FSharp.Collections.FSharpList{``0})",
+      "Reason": "Loads every reachable dependency policy once under a 512-step, depth-128, 30-second budget and a 128-policy limit, so service-level cycles terminate. Every edge is checked against the normalized pin of the bytes that were loaded, its exact target owner and Repository.Root; project-level cycles stay ARCH001, and each pinned policy is re-hashed before the document is returned. Only the root's advisory source may drift."
+    },
+    {
+      "File": "src/FDull/WorkspacePolicy.fs",
+      "Owner": "FDull.WorkspacePolicy.readGraph",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.ListModule.Iterate``1(Microsoft.FSharp.Core.FSharpFunc{``0,Microsoft.FSharp.Core.Unit},Microsoft.FSharp.Collections.FSharpList{``0})",
+      "Reason": "Loads every reachable dependency policy once under a 512-step, depth-128, 30-second budget and a 128-policy limit, so service-level cycles terminate. Every edge is checked against the normalized pin of the bytes that were loaded, its exact target owner and Repository.Root; project-level cycles stay ARCH001, and each pinned policy is re-hashed before the document is returned. Only the root's advisory source may drift."
+    },
+    {
+      "File": "src/FDull/WorkspacePolicy.fs",
+      "Owner": "FDull.WorkspacePolicy.readGraph",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Core.Operators.InvalidOp``1(System.String)",
+      "Reason": "Loads every reachable dependency policy once under a 512-step, depth-128, 30-second budget and a 128-policy limit, so service-level cycles terminate. Every edge is checked against the normalized pin of the bytes that were loaded, its exact target owner and Repository.Root; project-level cycles stay ARCH001, and each pinned policy is re-hashed before the document is returned. Only the root's advisory source may drift."
+    },
+    {
+      "File": "src/FDull/WorkspacePolicy.fs",
+      "Owner": "FDull.WorkspacePolicy.readGraph",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.File.ReadAllText(System.String)",
+      "Reason": "Loads every reachable dependency policy once under a 512-step, depth-128, 30-second budget and a 128-policy limit, so service-level cycles terminate. Every edge is checked against the normalized pin of the bytes that were loaded, its exact target owner and Repository.Root; project-level cycles stay ARCH001, and each pinned policy is re-hashed before the document is returned. Only the root's advisory source may drift."
+    },
+    {
+      "File": "src/FDull/WorkspacePolicy.fs",
+      "Owner": "FDull.WorkspacePolicy.readGraph",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.Combine(System.String,System.String)",
+      "Reason": "Loads every reachable dependency policy once under a 512-step, depth-128, 30-second budget and a 128-policy limit, so service-level cycles terminate. Every edge is checked against the normalized pin of the bytes that were loaded, its exact target owner and Repository.Root; project-level cycles stay ARCH001, and each pinned policy is re-hashed before the document is returned. Only the root's advisory source may drift."
+    },
+    {
+      "File": "src/FDull/WorkspacePolicy.fs",
+      "Owner": "FDull.WorkspacePolicy.readGraph",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.GetFullPath(System.String)",
+      "Reason": "Loads every reachable dependency policy once under a 512-step, depth-128, 30-second budget and a 128-policy limit, so service-level cycles terminate. Every edge is checked against the normalized pin of the bytes that were loaded, its exact target owner and Repository.Root; project-level cycles stay ARCH001, and each pinned policy is re-hashed before the document is returned. Only the root's advisory source may drift."
+    },
+    {
+      "File": "src/FDull/WorkspacePolicy.fs",
+      "Owner": "FDull.WorkspacePolicyDigest.ambiguous",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Core.Operators.InvalidOp``1(System.String)",
+      "Reason": "Rejects invalid or ambiguous policy JSON instead of hashing it."
+    },
+    {
+      "File": "src/FDull/WorkspacePolicy.fs",
+      "Owner": "FDull.WorkspacePolicyDigest.canonical",
+      "Kind": "type",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | []",
+      "Reason": "Exposes the canonical bytes for exact regression comparison. The array is a fresh local result and grants nothing."
+    },
+    {
+      "File": "src/FDull/WorkspacePolicy.fs",
+      "Owner": "FDull.WorkspacePolicyDigest.members",
+      "Kind": "member",
+      "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | M:System.String.Substring(System.Int32,System.Int32)",
+      "Reason": "Extracts one object property name so duplicate and escaped names are rejected; it reads text only."
+    },
+    {
+      "File": "src/FDull/WorkspacePolicy.fs",
+      "Owner": "FDull.WorkspacePolicyDigest.normalize",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.ListModule.Fold``2(Microsoft.FSharp.Core.FSharpFunc{``1,Microsoft.FSharp.Core.FSharpFunc{``0,``1}},``1,Microsoft.FSharp.Collections.FSharpList{``0})",
+      "Reason": "Strictly decodes at most 64 MiB of UTF-8, validates with System.Text.Json (no duplicate properties, depth 64), rescans to reject escaped names, non-string pins and trailing content, and replaces only Repository.References[].PolicyDigest string tokens with an empty string before re-encoding. Arrays are fresh local buffers."
+    },
+    {
+      "File": "src/FDull/WorkspacePolicy.fs",
+      "Owner": "FDull.WorkspacePolicyDigest.normalize",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Core.Operators.InvalidOp``1(System.String)",
+      "Reason": "Strictly decodes at most 64 MiB of UTF-8, validates with System.Text.Json (no duplicate properties, depth 64), rescans to reject escaped names, non-string pins and trailing content, and replaces only Repository.References[].PolicyDigest string tokens with an empty string before re-encoding. Arrays are fresh local buffers."
+    },
+    {
+      "File": "src/FDull/WorkspacePolicy.fs",
+      "Owner": "FDull.WorkspacePolicyDigest.normalize",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.Text.Encoding.GetBytes(System.String)",
+      "Reason": "Strictly decodes at most 64 MiB of UTF-8, validates with System.Text.Json (no duplicate properties, depth 64), rescans to reject escaped names, non-string pins and trailing content, and replaces only Repository.References[].PolicyDigest string tokens with an empty string before re-encoding. Arrays are fresh local buffers."
+    },
+    {
+      "File": "src/FDull/WorkspacePolicy.fs",
+      "Owner": "FDull.WorkspacePolicyDigest.normalize",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.Text.Encoding.GetString(System.Byte[])",
+      "Reason": "Strictly decodes at most 64 MiB of UTF-8, validates with System.Text.Json (no duplicate properties, depth 64), rescans to reject escaped names, non-string pins and trailing content, and replaces only Repository.References[].PolicyDigest string tokens with an empty string before re-encoding. Arrays are fresh local buffers."
+    },
+    {
+      "File": "src/FDull/WorkspacePolicy.fs",
+      "Owner": "FDull.WorkspacePolicyDigest.normalize",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:System.Array.LongLength",
+      "Reason": "Strictly decodes at most 64 MiB of UTF-8, validates with System.Text.Json (no duplicate properties, depth 64), rescans to reject escaped names, non-string pins and trailing content, and replaces only Repository.References[].PolicyDigest string tokens with an empty string before re-encoding. Arrays are fresh local buffers."
+    },
+    {
+      "File": "src/FDull/WorkspacePolicy.fs",
+      "Owner": "FDull.WorkspacePolicyDigest.normalize",
+      "Kind": "member",
+      "Identity": "System.Text.Encoding.Extensions, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.Text.UTF8Encoding.#ctor(System.Boolean,System.Boolean)",
+      "Reason": "Strictly decodes at most 64 MiB of UTF-8, validates with System.Text.Json (no duplicate properties, depth 64), rescans to reject escaped names, non-string pins and trailing content, and replaces only Repository.References[].PolicyDigest string tokens with an empty string before re-encoding. Arrays are fresh local buffers."
+    },
+    {
+      "File": "src/FDull/WorkspacePolicy.fs",
+      "Owner": "FDull.WorkspacePolicyDigest.normalize",
+      "Kind": "member",
+      "Identity": "System.Text.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | M:System.Text.Json.JsonDocumentOptions.#ctor",
+      "Reason": "Strictly decodes at most 64 MiB of UTF-8, validates with System.Text.Json (no duplicate properties, depth 64), rescans to reject escaped names, non-string pins and trailing content, and replaces only Repository.References[].PolicyDigest string tokens with an empty string before re-encoding. Arrays are fresh local buffers."
+    },
+    {
+      "File": "src/FDull/WorkspacePolicy.fs",
+      "Owner": "FDull.WorkspacePolicyDigest.normalize",
+      "Kind": "member",
+      "Identity": "System.Text.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | M:System.Text.Json.Nodes.JsonNode.Parse(System.String,System.Nullable{System.Text.Json.Nodes.JsonNodeOptions},System.Text.Json.JsonDocumentOptions)",
+      "Reason": "Strictly decodes at most 64 MiB of UTF-8, validates with System.Text.Json (no duplicate properties, depth 64), rescans to reject escaped names, non-string pins and trailing content, and replaces only Repository.References[].PolicyDigest string tokens with an empty string before re-encoding. Arrays are fresh local buffers."
+    },
+    {
+      "File": "src/FDull/WorkspacePolicy.fs",
+      "Owner": "FDull.WorkspacePolicyDigest.normalize",
+      "Kind": "member",
+      "Identity": "System.Text.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | M:System.Text.Json.Nodes.JsonNodeOptions.#ctor",
+      "Reason": "Strictly decodes at most 64 MiB of UTF-8, validates with System.Text.Json (no duplicate properties, depth 64), rescans to reject escaped names, non-string pins and trailing content, and replaces only Repository.References[].PolicyDigest string tokens with an empty string before re-encoding. Arrays are fresh local buffers."
+    },
+    {
+      "File": "src/FDull/WorkspacePolicy.fs",
+      "Owner": "FDull.WorkspacePolicyDigest.normalize",
+      "Kind": "member",
+      "Identity": "System.Text.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | P:System.Text.Json.JsonDocumentOptions.AllowDuplicateProperties",
+      "Reason": "Strictly decodes at most 64 MiB of UTF-8, validates with System.Text.Json (no duplicate properties, depth 64), rescans to reject escaped names, non-string pins and trailing content, and replaces only Repository.References[].PolicyDigest string tokens with an empty string before re-encoding. Arrays are fresh local buffers."
+    },
+    {
+      "File": "src/FDull/WorkspacePolicy.fs",
+      "Owner": "FDull.WorkspacePolicyDigest.normalize",
+      "Kind": "member",
+      "Identity": "System.Text.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | P:System.Text.Json.JsonDocumentOptions.MaxDepth",
+      "Reason": "Strictly decodes at most 64 MiB of UTF-8, validates with System.Text.Json (no duplicate properties, depth 64), rescans to reject escaped names, non-string pins and trailing content, and replaces only Repository.References[].PolicyDigest string tokens with an empty string before re-encoding. Arrays are fresh local buffers."
+    },
+    {
+      "File": "src/FDull/WorkspacePolicy.fs",
+      "Owner": "FDull.WorkspacePolicyDigest.normalize",
+      "Kind": "member",
+      "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | M:System.String.StartsWith(System.Char)",
+      "Reason": "Strictly decodes at most 64 MiB of UTF-8, validates with System.Text.Json (no duplicate properties, depth 64), rescans to reject escaped names, non-string pins and trailing content, and replaces only Repository.References[].PolicyDigest string tokens with an empty string before re-encoding. Arrays are fresh local buffers."
+    },
+    {
+      "File": "src/FDull/WorkspacePolicy.fs",
+      "Owner": "FDull.WorkspacePolicyDigest.normalize",
+      "Kind": "member",
+      "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | M:System.String.Substring(System.Int32,System.Int32)",
+      "Reason": "Strictly decodes at most 64 MiB of UTF-8, validates with System.Text.Json (no duplicate properties, depth 64), rescans to reject escaped names, non-string pins and trailing content, and replaces only Repository.References[].PolicyDigest string tokens with an empty string before re-encoding. Arrays are fresh local buffers."
+    },
+    {
+      "File": "src/FDull/WorkspacePolicy.fs",
+      "Owner": "FDull.WorkspacePolicyDigest.normalize",
+      "Kind": "type",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | []",
+      "Reason": "Strictly decodes at most 64 MiB of UTF-8, validates with System.Text.Json (no duplicate properties, depth 64), rescans to reject escaped names, non-string pins and trailing content, and replaces only Repository.References[].PolicyDigest string tokens with an empty string before re-encoding. Arrays are fresh local buffers."
+    },
+    {
+      "File": "src/FDull/WorkspacePolicy.fs",
+      "Owner": "FDull.WorkspacePolicyDigest.normalize",
+      "Kind": "type",
+      "Identity": "System.Text.Encoding.Extensions, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | System.Text.UTF8Encoding",
+      "Reason": "Strictly decodes at most 64 MiB of UTF-8, validates with System.Text.Json (no duplicate properties, depth 64), rescans to reject escaped names, non-string pins and trailing content, and replaces only Repository.References[].PolicyDigest string tokens with an empty string before re-encoding. Arrays are fresh local buffers."
+    },
+    {
+      "File": "src/FDull/WorkspacePolicy.fs",
+      "Owner": "FDull.WorkspacePolicyDigest.ofBytes",
+      "Kind": "type",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | []",
+      "Reason": "Hashes caller-supplied policy bytes through the canonical form; the array is read, never retained."
+    },
+    {
+      "File": "src/FDull/WorkspacePolicy.fs",
+      "Owner": "FDull.WorkspacePolicyDigest.snapshot",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Core.Operators.InvalidOp``1(System.String)",
+      "Reason": "Reads one policy file once, bounded at 64 MiB, so the decoded text and its normalized digest come from the same bytes."
+    },
+    {
+      "File": "src/FDull/WorkspacePolicy.fs",
+      "Owner": "FDull.WorkspacePolicyDigest.snapshot",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.File.ReadAllBytes(System.String)",
+      "Reason": "Reads one policy file once, bounded at 64 MiB, so the decoded text and its normalized digest come from the same bytes."
+    },
+    {
+      "File": "src/FDull/WorkspacePolicy.fs",
+      "Owner": "FDull.WorkspacePolicyDigest.snapshot",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.FileInfo.#ctor(System.String)",
+      "Reason": "Reads one policy file once, bounded at 64 MiB, so the decoded text and its normalized digest come from the same bytes."
+    },
+    {
+      "File": "src/FDull/WorkspacePolicy.fs",
+      "Owner": "FDull.WorkspacePolicyDigest.snapshot",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:System.IO.FileInfo.Length",
+      "Reason": "Reads one policy file once, bounded at 64 MiB, so the decoded text and its normalized digest come from the same bytes."
+    },
+    {
+      "File": "src/FDull/WorkspacePolicy.fs",
+      "Owner": "FDull.WorkspacePolicyDigest.snapshot",
+      "Kind": "type",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | []",
+      "Reason": "Reads one policy file once, bounded at 64 MiB, so the decoded text and its normalized digest come from the same bytes."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``constructor approvals bind to their owning policy on both sides of an edge``",
+      "Kind": "attribute",
+      "Identity": "xunit.core, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | Xunit.FactAttribute |  | unit",
+      "Reason": "Runs real cross-policy verification with constructor approvals on the consumer, the dependency, both or neither. Each policy's approvals bind only its own definitions; borrowed or duplicated approvals fail in their owner, and domain contracts across an edge stay blocked."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``constructor approvals bind to their owning policy on both sides of an edge``",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Repository.verify(System.String,FDull.RepositorySelection)",
+      "Reason": "Runs real cross-policy verification with constructor approvals on the consumer, the dependency, both or neither. Each policy's approvals bind only its own definitions; borrowed or duplicated approvals fail in their owner, and domain contracts across an edge stay blocked."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``constructor approvals bind to their owning policy on both sides of an edge``",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.RepositoryPlan.plan(System.String,FDull.RepositorySelection)",
+      "Reason": "Runs real cross-policy verification with constructor approvals on the consumer, the dependency, both or neither. Each policy's approvals bind only its own definitions; borrowed or duplicated approvals fail in their owner, and domain contracts across an edge stay blocked."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``constructor approvals bind to their owning policy on both sides of an edge``",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Core.Operators.FailWith``1(System.String)",
+      "Reason": "Runs real cross-policy verification with constructor approvals on the consumer, the dependency, both or neither. Each policy's approvals bind only its own definitions; borrowed or duplicated approvals fail in their owner, and domain contracts across an edge stay blocked."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``constructor approvals bind to their owning policy on both sides of an edge``",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Contains(System.String,System.String)",
+      "Reason": "Runs real cross-policy verification with constructor approvals on the consumer, the dependency, both or neither. Each policy's approvals bind only its own definitions; borrowed or duplicated approvals fail in their owner, and domain contracts across an edge stay blocked."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``constructor approvals bind to their owning policy on both sides of an edge``",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Contains``1(System.Collections.Generic.IEnumerable{``0},System.Predicate{``0})",
+      "Reason": "Runs real cross-policy verification with constructor approvals on the consumer, the dependency, both or neither. Each policy's approvals bind only its own definitions; borrowed or duplicated approvals fail in their owner, and domain contracts across an edge stay blocked."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``constructor approvals bind to their owning policy on both sides of an edge``",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Contains``1(``0,System.Collections.Generic.IEnumerable{``0})",
+      "Reason": "Runs real cross-policy verification with constructor approvals on the consumer, the dependency, both or neither. Each policy's approvals bind only its own definitions; borrowed or duplicated approvals fail in their owner, and domain contracts across an edge stay blocked."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``constructor approvals bind to their owning policy on both sides of an edge``",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Empty(System.Collections.IEnumerable)",
+      "Reason": "Runs real cross-policy verification with constructor approvals on the consumer, the dependency, both or neither. Each policy's approvals bind only its own definitions; borrowed or duplicated approvals fail in their owner, and domain contracts across an edge stay blocked."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``constructor approvals bind to their owning policy on both sides of an edge``",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Equal``1(``0,``0)",
+      "Reason": "Runs real cross-policy verification with constructor approvals on the consumer, the dependency, both or neither. Each policy's approvals bind only its own definitions; borrowed or duplicated approvals fail in their owner, and domain contracts across an edge stay blocked."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``constructor approvals bind to their owning policy on both sides of an edge``",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.NotEqual``1(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IAsyncEnumerable{``0})",
+      "Reason": "Runs real cross-policy verification with constructor approvals on the consumer, the dependency, both or neither. Each policy's approvals bind only its own definitions; borrowed or duplicated approvals fail in their owner, and domain contracts across an edge stay blocked."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``constructor approvals bind to their owning policy on both sides of an edge``",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.NotEqual``1(``0,``0)",
+      "Reason": "Runs real cross-policy verification with constructor approvals on the consumer, the dependency, both or neither. Each policy's approvals bind only its own definitions; borrowed or duplicated approvals fail in their owner, and domain contracts across an edge stay blocked."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``constructor approvals bind to their owning policy on both sides of an edge``",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.True(System.Boolean,System.String)",
+      "Reason": "Runs real cross-policy verification with constructor approvals on the consumer, the dependency, both or neither. Each policy's approvals bind only its own definitions; borrowed or duplicated approvals fail in their owner, and domain contracts across an edge stay blocked."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``constructor approvals bind to their owning policy on both sides of an edge``",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | FDull.RepositoryReport",
+      "Reason": "Runs real cross-policy verification with constructor approvals on the consumer, the dependency, both or neither. Each policy's approvals bind only its own definitions; borrowed or duplicated approvals fail in their owner, and domain contracts across an edge stay blocked."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``constructor approvals bind to their owning policy on both sides of an edge``",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | FDull.SafetyDiagnostic",
+      "Reason": "Runs real cross-policy verification with constructor approvals on the consumer, the dependency, both or neither. Each policy's approvals bind only its own definitions; borrowed or duplicated approvals fail in their owner, and domain contracts across an edge stay blocked."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``constructor approvals bind to their owning policy on both sides of an edge``",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspacePolicyDocument",
+      "Reason": "Runs real cross-policy verification with constructor approvals on the consumer, the dependency, both or neither. Each policy's approvals bind only its own definitions; borrowed or duplicated approvals fail in their owner, and domain contracts across an edge stay blocked."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``constructor approvals bind to their owning policy on both sides of an edge``",
+      "Kind": "type",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | System.Collections.IEnumerable",
+      "Reason": "Runs real cross-policy verification with constructor approvals on the consumer, the dependency, both or neither. Each policy's approvals bind only its own definitions; borrowed or duplicated approvals fail in their owner, and domain contracts across an edge stay blocked."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``cross policy library change selects its consumer and dependency closure``",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.WorkspacePolicyDigest.file(System.String)",
+      "Reason": "Runs real cross-policy verification with different jobs budgets and final evidence checks. A foreign API call without a consumer contract must fail; invalid domain/constructor visibility must block. Local loops apply only explicit fixture mutations and assertions."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``cross policy reference cannot target an excluded F sharp project``",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.WorkspacePolicyDigest.file(System.String)",
+      "Reason": "Creates an explicit fixture exclusion and repins the target policy; the included consumer still must not resolve its edge to the excluded project."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``cross policy references require exact target identity and an acyclic graph``",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.WorkspacePolicyDigest.file(System.String)",
+      "Reason": "Changes exact fixture target identities, owner policy, profile direction and cycle edges; each malformed graph must be rejected before verification."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``cross policy references require exact target identity and an acyclic graph``",
+      "Kind": "rule",
+      "Identity": "MUT009 | ",
+      "Reason": "Changes exact fixture target identities, owner policy, profile direction and cycle edges; each malformed graph must be rejected before verification."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``cross policy references require exact target identity and an acyclic graph``",
+      "Kind": "type",
+      "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | System.Object",
+      "Reason": "Changes exact fixture target identities, owner policy, profile direction and cycle edges; each malformed graph must be rejected before verification."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``implementation references require a pinned target inside its owner's implementation scope``",
+      "Kind": "attribute",
+      "Identity": "xunit.core, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | Xunit.FactAttribute |  | unit",
+      "Reason": "Creates a reviewed C# implementation project inside its owner's implementation scope and verifies a pinned consumer edge, including --since selection. Unpinned, out-of-scope and malformed edges must be rejected. Local loops apply only explicit fixture mutations and assertions."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``implementation references require a pinned target inside its owner's implementation scope``",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Repository.verify(System.String,FDull.RepositorySelection)",
+      "Reason": "Creates a reviewed C# implementation project inside its owner's implementation scope and verifies a pinned consumer edge, including --since selection. Unpinned, out-of-scope and malformed edges must be rejected. Local loops apply only explicit fixture mutations and assertions."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``implementation references require a pinned target inside its owner's implementation scope``",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.RepositoryPlan.plan(System.String,FDull.RepositorySelection)",
+      "Reason": "Creates a reviewed C# implementation project inside its owner's implementation scope and verifies a pinned consumer edge, including --since selection. Unpinned, out-of-scope and malformed edges must be rejected. Local loops apply only explicit fixture mutations and assertions."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``implementation references require a pinned target inside its owner's implementation scope``",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.SafetyPolicy.fileDigest(System.String)",
+      "Reason": "Creates a reviewed C# implementation project inside its owner's implementation scope and verifies a pinned consumer edge, including --since selection. Unpinned, out-of-scope and malformed edges must be rejected. Local loops apply only explicit fixture mutations and assertions."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``implementation references require a pinned target inside its owner's implementation scope``",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Workspace.validatePolicy(System.String)",
+      "Reason": "Creates a reviewed C# implementation project inside its owner's implementation scope and verifies a pinned consumer edge, including --since selection. Unpinned, out-of-scope and malformed edges must be rejected. Local loops apply only explicit fixture mutations and assertions."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``implementation references require a pinned target inside its owner's implementation scope``",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.Combine(System.String,System.String)",
+      "Reason": "Creates a reviewed C# implementation project inside its owner's implementation scope and verifies a pinned consumer edge, including --since selection. Unpinned, out-of-scope and malformed edges must be rejected. Local loops apply only explicit fixture mutations and assertions."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``implementation references require a pinned target inside its owner's implementation scope``",
+      "Kind": "member",
+      "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | M:System.String.Replace(System.String,System.String)",
+      "Reason": "Creates a reviewed C# implementation project inside its owner's implementation scope and verifies a pinned consumer edge, including --since selection. Unpinned, out-of-scope and malformed edges must be rejected. Local loops apply only explicit fixture mutations and assertions."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``implementation references require a pinned target inside its owner's implementation scope``",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Contains(System.String,System.String)",
+      "Reason": "Creates a reviewed C# implementation project inside its owner's implementation scope and verifies a pinned consumer edge, including --since selection. Unpinned, out-of-scope and malformed edges must be rejected. Local loops apply only explicit fixture mutations and assertions."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``implementation references require a pinned target inside its owner's implementation scope``",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Equal``1(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IAsyncEnumerable{``0})",
+      "Reason": "Creates a reviewed C# implementation project inside its owner's implementation scope and verifies a pinned consumer edge, including --since selection. Unpinned, out-of-scope and malformed edges must be rejected. Local loops apply only explicit fixture mutations and assertions."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``implementation references require a pinned target inside its owner's implementation scope``",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Equal``1(``0,``0)",
+      "Reason": "Creates a reviewed C# implementation project inside its owner's implementation scope and verifies a pinned consumer edge, including --since selection. Unpinned, out-of-scope and malformed edges must be rejected. Local loops apply only explicit fixture mutations and assertions."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``implementation references require a pinned target inside its owner's implementation scope``",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.True(System.Boolean)",
+      "Reason": "Creates a reviewed C# implementation project inside its owner's implementation scope and verifies a pinned consumer edge, including --since selection. Unpinned, out-of-scope and malformed edges must be rejected. Local loops apply only explicit fixture mutations and assertions."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``implementation references require a pinned target inside its owner's implementation scope``",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.True(System.Boolean,System.String)",
+      "Reason": "Creates a reviewed C# implementation project inside its owner's implementation scope and verifies a pinned consumer edge, including --since selection. Unpinned, out-of-scope and malformed edges must be rejected. Local loops apply only explicit fixture mutations and assertions."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``implementation references require a pinned target inside its owner's implementation scope``",
+      "Kind": "rule",
+      "Identity": "MUT009 | ",
+      "Reason": "Creates a reviewed C# implementation project inside its owner's implementation scope and verifies a pinned consumer edge, including --since selection. Unpinned, out-of-scope and malformed edges must be rejected. Local loops apply only explicit fixture mutations and assertions."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``implementation references require a pinned target inside its owner's implementation scope``",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | FDull.RepositoryPlanResult",
+      "Reason": "Creates a reviewed C# implementation project inside its owner's implementation scope and verifies a pinned consumer edge, including --since selection. Unpinned, out-of-scope and malformed edges must be rejected. Local loops apply only explicit fixture mutations and assertions."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``implementation references require a pinned target inside its owner's implementation scope``",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | FDull.RepositoryReport",
+      "Reason": "Creates a reviewed C# implementation project inside its owner's implementation scope and verifies a pinned consumer edge, including --since selection. Unpinned, out-of-scope and malformed edges must be rejected. Local loops apply only explicit fixture mutations and assertions."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``implementation references require a pinned target inside its owner's implementation scope``",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspaceExternal",
+      "Reason": "Creates a reviewed C# implementation project inside its owner's implementation scope and verifies a pinned consumer edge, including --since selection. Unpinned, out-of-scope and malformed edges must be rejected. Local loops apply only explicit fixture mutations and assertions."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``implementation references require a pinned target inside its owner's implementation scope``",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspacePin",
+      "Reason": "Creates a reviewed C# implementation project inside its owner's implementation scope and verifies a pinned consumer edge, including --since selection. Unpinned, out-of-scope and malformed edges must be rejected. Local loops apply only explicit fixture mutations and assertions."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``implementation references require a pinned target inside its owner's implementation scope``",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspacePolicyDocument",
+      "Reason": "Creates a reviewed C# implementation project inside its owner's implementation scope and verifies a pinned consumer edge, including --since selection. Unpinned, out-of-scope and malformed edges must be rejected. Local loops apply only explicit fixture mutations and assertions."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``implementation references require a pinned target inside its owner's implementation scope``",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspaceRepositoryReference",
+      "Reason": "Creates a reviewed C# implementation project inside its owner's implementation scope and verifies a pinned consumer edge, including --since selection. Unpinned, out-of-scope and malformed edges must be rejected. Local loops apply only explicit fixture mutations and assertions."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``implementation references require a pinned target inside its owner's implementation scope``",
+      "Kind": "type",
+      "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | System.Object",
+      "Reason": "Creates a reviewed C# implementation project inside its owner's implementation scope and verifies a pinned consumer edge, including --since selection. Unpinned, out-of-scope and malformed edges must be rejected. Local loops apply only explicit fixture mutations and assertions."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``mutual service dependencies verify with normalized policy pins and block project cycles``",
+      "Kind": "attribute",
+      "Identity": "xunit.core, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | Xunit.FactAttribute |  | unit",
+      "Reason": "Verifies two services that depend on each other through distinct projects with normalized pins, checks the policy-digest command, requires any other dependency-policy byte change to block, and requires a project-level cycle across the policies to fail."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``mutual service dependencies verify with normalized policy pins and block project cycles``",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Project.initialize(System.String)",
+      "Reason": "Verifies two services that depend on each other through distinct projects with normalized pins, checks the policy-digest command, requires any other dependency-policy byte change to block, and requires a project-level cycle across the policies to fail."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``mutual service dependencies verify with normalized policy pins and block project cycles``",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Repository.verify(System.String,FDull.RepositorySelection)",
+      "Reason": "Verifies two services that depend on each other through distinct projects with normalized pins, checks the policy-digest command, requires any other dependency-policy byte change to block, and requires a project-level cycle across the policies to fail."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``mutual service dependencies verify with normalized policy pins and block project cycles``",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.RepositoryPlan.plan(System.String,FDull.RepositorySelection)",
+      "Reason": "Verifies two services that depend on each other through distinct projects with normalized pins, checks the policy-digest command, requires any other dependency-policy byte change to block, and requires a project-level cycle across the policies to fail."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``mutual service dependencies verify with normalized policy pins and block project cycles``",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.SafetyPolicy.fileDigest(System.String)",
+      "Reason": "Verifies two services that depend on each other through distinct projects with normalized pins, checks the policy-digest command, requires any other dependency-policy byte change to block, and requires a project-level cycle across the policies to fail."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``mutual service dependencies verify with normalized policy pins and block project cycles``",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Workspace.validatePolicy(System.String)",
+      "Reason": "Verifies two services that depend on each other through distinct projects with normalized pins, checks the policy-digest command, requires any other dependency-policy byte change to block, and requires a project-level cycle across the policies to fail."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``mutual service dependencies verify with normalized policy pins and block project cycles``",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.WorkspacePolicyDigest.file(System.String)",
+      "Reason": "Verifies two services that depend on each other through distinct projects with normalized pins, checks the policy-digest command, requires any other dependency-policy byte change to block, and requires a project-level cycle across the policies to fail."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``mutual service dependencies verify with normalized policy pins and block project cycles``",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Core.Operators.FailWith``1(System.String)",
+      "Reason": "Verifies two services that depend on each other through distinct projects with normalized pins, checks the policy-digest command, requires any other dependency-policy byte change to block, and requires a project-level cycle across the policies to fail."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``mutual service dependencies verify with normalized policy pins and block project cycles``",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.File.Delete(System.String)",
+      "Reason": "Verifies two services that depend on each other through distinct projects with normalized pins, checks the policy-digest command, requires any other dependency-policy byte change to block, and requires a project-level cycle across the policies to fail."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``mutual service dependencies verify with normalized policy pins and block project cycles``",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.File.ReadAllText(System.String)",
+      "Reason": "Verifies two services that depend on each other through distinct projects with normalized pins, checks the policy-digest command, requires any other dependency-policy byte change to block, and requires a project-level cycle across the policies to fail."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``mutual service dependencies verify with normalized policy pins and block project cycles``",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.File.WriteAllText(System.String,System.String)",
+      "Reason": "Verifies two services that depend on each other through distinct projects with normalized pins, checks the policy-digest command, requires any other dependency-policy byte change to block, and requires a project-level cycle across the policies to fail."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``mutual service dependencies verify with normalized policy pins and block project cycles``",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.Combine(System.String,System.String)",
+      "Reason": "Verifies two services that depend on each other through distinct projects with normalized pins, checks the policy-digest command, requires any other dependency-policy byte change to block, and requires a project-level cycle across the policies to fail."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``mutual service dependencies verify with normalized policy pins and block project cycles``",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Contains(System.String,System.String)",
+      "Reason": "Verifies two services that depend on each other through distinct projects with normalized pins, checks the policy-digest command, requires any other dependency-policy byte change to block, and requires a project-level cycle across the policies to fail."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``mutual service dependencies verify with normalized policy pins and block project cycles``",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Equal(System.String,System.String)",
+      "Reason": "Verifies two services that depend on each other through distinct projects with normalized pins, checks the policy-digest command, requires any other dependency-policy byte change to block, and requires a project-level cycle across the policies to fail."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``mutual service dependencies verify with normalized policy pins and block project cycles``",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Equal``1(``0,``0)",
+      "Reason": "Verifies two services that depend on each other through distinct projects with normalized pins, checks the policy-digest command, requires any other dependency-policy byte change to block, and requires a project-level cycle across the policies to fail."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``mutual service dependencies verify with normalized policy pins and block project cycles``",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.NotEqual``1(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IAsyncEnumerable{``0})",
+      "Reason": "Verifies two services that depend on each other through distinct projects with normalized pins, checks the policy-digest command, requires any other dependency-policy byte change to block, and requires a project-level cycle across the policies to fail."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``mutual service dependencies verify with normalized policy pins and block project cycles``",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.NotEqual``1(``0,``0)",
+      "Reason": "Verifies two services that depend on each other through distinct projects with normalized pins, checks the policy-digest command, requires any other dependency-policy byte change to block, and requires a project-level cycle across the policies to fail."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``mutual service dependencies verify with normalized policy pins and block project cycles``",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.StartsWith(System.String,System.String)",
+      "Reason": "Verifies two services that depend on each other through distinct projects with normalized pins, checks the policy-digest command, requires any other dependency-policy byte change to block, and requires a project-level cycle across the policies to fail."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``mutual service dependencies verify with normalized policy pins and block project cycles``",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.True(System.Boolean,System.String)",
+      "Reason": "Verifies two services that depend on each other through distinct projects with normalized pins, checks the policy-digest command, requires any other dependency-policy byte change to block, and requires a project-level cycle across the policies to fail."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``mutual service dependencies verify with normalized policy pins and block project cycles``",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | FDull.RepositoryReport",
+      "Reason": "Verifies two services that depend on each other through distinct projects with normalized pins, checks the policy-digest command, requires any other dependency-policy byte change to block, and requires a project-level cycle across the policies to fail."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``mutual service dependencies verify with normalized policy pins and block project cycles``",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | FDull.SafetyProcessOutput",
+      "Reason": "Verifies two services that depend on each other through distinct projects with normalized pins, checks the policy-digest command, requires any other dependency-policy byte change to block, and requires a project-level cycle across the policies to fail."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``mutual service dependencies verify with normalized policy pins and block project cycles``",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspacePin",
+      "Reason": "Verifies two services that depend on each other through distinct projects with normalized pins, checks the policy-digest command, requires any other dependency-policy byte change to block, and requires a project-level cycle across the policies to fail."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``mutual service dependencies verify with normalized policy pins and block project cycles``",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspacePolicyDocument",
+      "Reason": "Verifies two services that depend on each other through distinct projects with normalized pins, checks the policy-digest command, requires any other dependency-policy byte change to block, and requires a project-level cycle across the policies to fail."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``mutual service dependencies verify with normalized policy pins and block project cycles``",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspaceProject",
+      "Reason": "Verifies two services that depend on each other through distinct projects with normalized pins, checks the policy-digest command, requires any other dependency-policy byte change to block, and requires a project-level cycle across the policies to fail."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``mutual service dependencies verify with normalized policy pins and block project cycles``",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspaceRepository",
+      "Reason": "Verifies two services that depend on each other through distinct projects with normalized pins, checks the policy-digest command, requires any other dependency-policy byte change to block, and requires a project-level cycle across the policies to fail."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``mutual service dependencies verify with normalized policy pins and block project cycles``",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspaceRepositoryReference",
+      "Reason": "Verifies two services that depend on each other through distinct projects with normalized pins, checks the policy-digest command, requires any other dependency-policy byte change to block, and requires a project-level cycle across the policies to fail."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``policy digest clears only dependency pins and rejects ambiguous JSON``",
+      "Kind": "attribute",
+      "Identity": "xunit.core, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | Xunit.FactAttribute |  | unit",
+      "Reason": "Checks the canonical digest on in-memory policy text: only dependency pins are cleared, every other change alters the digest, and ambiguous or invalid JSON is rejected. Local loops and byte arrays hold only literal fixture inputs."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``policy digest clears only dependency pins and rejects ambiguous JSON``",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.SafetyPolicy.digest(System.Byte[])",
+      "Reason": "Checks the canonical digest on in-memory policy text: only dependency pins are cleared, every other change alters the digest, and ambiguous or invalid JSON is rejected. Local loops and byte arrays hold only literal fixture inputs."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``policy digest clears only dependency pins and rejects ambiguous JSON``",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.WorkspacePolicyDigest.canonical(System.Byte[])",
+      "Reason": "Checks the canonical digest on in-memory policy text: only dependency pins are cleared, every other change alters the digest, and ambiguous or invalid JSON is rejected. Local loops and byte arrays hold only literal fixture inputs."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``policy digest clears only dependency pins and rejects ambiguous JSON``",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.WorkspacePolicyDigest.ofBytes(System.Byte[])",
+      "Reason": "Checks the canonical digest on in-memory policy text: only dependency pins are cleared, every other change alters the digest, and ambiguous or invalid JSON is rejected. Local loops and byte arrays hold only literal fixture inputs."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``policy digest clears only dependency pins and rejects ambiguous JSON``",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.Text.Encoding.GetBytes(System.String)",
+      "Reason": "Checks the canonical digest on in-memory policy text: only dependency pins are cleared, every other change alters the digest, and ambiguous or invalid JSON is rejected. Local loops and byte arrays hold only literal fixture inputs."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``policy digest clears only dependency pins and rejects ambiguous JSON``",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:System.Text.Encoding.UTF8",
+      "Reason": "Checks the canonical digest on in-memory policy text: only dependency pins are cleared, every other change alters the digest, and ambiguous or invalid JSON is rejected. Local loops and byte arrays hold only literal fixture inputs."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``policy digest clears only dependency pins and rejects ambiguous JSON``",
+      "Kind": "member",
+      "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | M:System.String.Replace(System.String,System.String)",
+      "Reason": "Checks the canonical digest on in-memory policy text: only dependency pins are cleared, every other change alters the digest, and ambiguous or invalid JSON is rejected. Local loops and byte arrays hold only literal fixture inputs."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``policy digest clears only dependency pins and rejects ambiguous JSON``",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Equal(System.String,System.String)",
+      "Reason": "Checks the canonical digest on in-memory policy text: only dependency pins are cleared, every other change alters the digest, and ambiguous or invalid JSON is rejected. Local loops and byte arrays hold only literal fixture inputs."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``policy digest clears only dependency pins and rejects ambiguous JSON``",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Equal``1(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IAsyncEnumerable{``0})",
+      "Reason": "Checks the canonical digest on in-memory policy text: only dependency pins are cleared, every other change alters the digest, and ambiguous or invalid JSON is rejected. Local loops and byte arrays hold only literal fixture inputs."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``policy digest clears only dependency pins and rejects ambiguous JSON``",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Equal``1(``0,``0)",
+      "Reason": "Checks the canonical digest on in-memory policy text: only dependency pins are cleared, every other change alters the digest, and ambiguous or invalid JSON is rejected. Local loops and byte arrays hold only literal fixture inputs."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``policy digest clears only dependency pins and rejects ambiguous JSON``",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.NotEqual``1(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IAsyncEnumerable{``0})",
+      "Reason": "Checks the canonical digest on in-memory policy text: only dependency pins are cleared, every other change alters the digest, and ambiguous or invalid JSON is rejected. Local loops and byte arrays hold only literal fixture inputs."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``policy digest clears only dependency pins and rejects ambiguous JSON``",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.NotEqual``1(``0,``0)",
+      "Reason": "Checks the canonical digest on in-memory policy text: only dependency pins are cleared, every other change alters the digest, and ambiguous or invalid JSON is rejected. Local loops and byte arrays hold only literal fixture inputs."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``policy digest clears only dependency pins and rejects ambiguous JSON``",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.ThrowsAny``1(System.Action)",
+      "Reason": "Checks the canonical digest on in-memory policy text: only dependency pins are cleared, every other change alters the digest, and ambiguous or invalid JSON is rejected. Local loops and byte arrays hold only literal fixture inputs."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``policy digest clears only dependency pins and rejects ambiguous JSON``",
+      "Kind": "rule",
+      "Identity": "MUT008 | ",
+      "Reason": "Checks the canonical digest on in-memory policy text: only dependency pins are cleared, every other change alters the digest, and ambiguous or invalid JSON is rejected. Local loops and byte arrays hold only literal fixture inputs."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``policy digest clears only dependency pins and rejects ambiguous JSON``",
+      "Kind": "rule",
+      "Identity": "MUT009 | ",
+      "Reason": "Checks the canonical digest on in-memory policy text: only dependency pins are cleared, every other change alters the digest, and ambiguous or invalid JSON is rejected. Local loops and byte arrays hold only literal fixture inputs."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``policy digest clears only dependency pins and rejects ambiguous JSON``",
+      "Kind": "type",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | []",
+      "Reason": "Checks the canonical digest on in-memory policy text: only dependency pins are cleared, every other change alters the digest, and ambiguous or invalid JSON is rejected. Local loops and byte arrays hold only literal fixture inputs."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``policy digest clears only dependency pins and rejects ambiguous JSON``",
+      "Kind": "type",
+      "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | System.Object",
+      "Reason": "Checks the canonical digest on in-memory policy text: only dependency pins are cleared, every other change alters the digest, and ambiguous or invalid JSON is rejected. Local loops and byte arrays hold only literal fixture inputs."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.approveConstructors",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspacePolicyDocument",
+      "Reason": "Writes an explicit list of reviewed constructor identities into one fixture policy."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.constructorIdentity",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Workspace.review(System.String)",
+      "Reason": "Reads the single constructor contract that advisory review reports for one fixture service."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.constructorIdentity",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Single``1(System.Collections.Generic.IEnumerable{``0})",
+      "Reason": "Reads the single constructor contract that advisory review reports for one fixture service."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.constructorIdentity",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspaceReviewItem",
+      "Reason": "Reads the single constructor contract that advisory review reports for one fixture service."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.constructorIdentity",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspaceReviewReport",
+      "Reason": "Reads the single constructor contract that advisory review reports for one fixture service."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.crossLink",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.Combine(System.String,System.String)",
+      "Reason": "Writes one exact fixture ProjectReference for the supplied edge, restores the known fixture graph when requested, re-pins only the consumer project and lock file, and records only that edge. No effect or type capability crosses owners."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.crossLink",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspaceRepositoryReference",
+      "Reason": "Writes one exact fixture ProjectReference for the supplied edge, restores the known fixture graph when requested, re-pins only the consumer project and lock file, and records only that edge. No effect or type capability crosses owners."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.failures",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Core.StringModule.Concat(System.String,System.Collections.Generic.IEnumerable{System.String})",
+      "Reason": "Formats report, service and diagnostic messages so a failed assertion shows its cause."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.failures",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | FDull.RepositoryReport",
+      "Reason": "Formats report, service and diagnostic messages so a failed assertion shows its cause."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.failures",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | FDull.RepositoryServiceResult",
+      "Reason": "Formats report, service and diagnostic messages so a failed assertion shows its cause."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.failures",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | FDull.SafetyDiagnostic",
+      "Reason": "Formats report, service and diagnostic messages so a failed assertion shows its cause."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.failures",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspaceProjectReport",
+      "Reason": "Formats report, service and diagnostic messages so a failed assertion shows its cause."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.implementationEdge",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.WorkspacePolicyDigest.file(System.String)",
+      "Reason": "Builds the fixture's exact implementation edge and pins the owner's normalized policy digest."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.implementationEdge",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.Combine(System.String,System.String)",
+      "Reason": "Builds the fixture's exact implementation edge and pins the owner's normalized policy digest."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.implementationEdge",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspaceRepositoryReference",
+      "Reason": "Builds the fixture's exact implementation edge and pins the owner's normalized policy digest."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.link",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.WorkspacePolicyDigest.file(System.String)",
+      "Reason": "Builds one exact F# fixture edge with the target's profile and normalized policy digest."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.repin",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.WorkspacePolicyDigest.file(System.String)",
+      "Reason": "Re-pins each fixture edge to the dependency's current normalized policy digest."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.repin",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.Combine(System.String,System.String)",
+      "Reason": "Re-pins each fixture edge to the dependency's current normalized policy digest."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.repin",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.GetFullPath(System.String)",
+      "Reason": "Re-pins each fixture edge to the dependency's current normalized policy digest."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.repin",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspaceRepositoryReference",
+      "Reason": "Re-pins each fixture edge to the dependency's current normalized policy digest."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.reviewSources",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.SafetyPolicy.fileDigest(System.String)",
+      "Reason": "Re-pins the source digests of one fixture service after an explicit fixture edit."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.reviewSources",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.Combine(System.String,System.String)",
+      "Reason": "Re-pins the source digests of one fixture service after an explicit fixture edit."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.reviewSources",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspacePolicyDocument",
+      "Reason": "Re-pins the source digests of one fixture service after an explicit fixture edit."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.reviewSources",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspaceSource",
+      "Reason": "Re-pins the source digests of one fixture service after an explicit fixture edit."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.serviceReport",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.ListModule.Find``1(Microsoft.FSharp.Core.FSharpFunc{``0,System.Boolean},Microsoft.FSharp.Collections.FSharpList{``0})",
+      "Reason": "Selects a named service from a fixture report; every caller names a selected service, and a missing one fails the test."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.serviceReport",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | FDull.RepositoryReport",
+      "Reason": "Selects a named service from a fixture report; every caller names a selected service, and a missing one fails the test."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.serviceReport",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | FDull.RepositoryServiceResult",
+      "Reason": "Selects a named service from a fixture report; every caller names a selected service, and a missing one fails the test."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.serviceReport",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspaceReport",
+      "Reason": "Selects a named service from a fixture report; every caller names a selected service, and a missing one fails the test."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.updateEdges",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspacePolicyDocument",
+      "Reason": "Applies one explicit change to every cross-policy edge of a fixture policy."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.updateEdges",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspaceRepository",
+      "Reason": "Applies one explicit change to every cross-policy edge of a fixture policy."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.updateEdges",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspaceRepositoryReference",
+      "Reason": "Applies one explicit change to every cross-policy edge of a fixture policy."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.validationError",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.2.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Workspace.validatePolicy(System.String)",
+      "Reason": "Returns the expected validation error of a fixture policy and fails the test if it is accepted."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.validationError",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Core.Operators.FailWith``1(System.String)",
+      "Reason": "Returns the expected validation error of a fixture policy and fails the test if it is accepted."
     }
   ],
   "Domains": [],
