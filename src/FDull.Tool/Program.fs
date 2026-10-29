@@ -12,7 +12,7 @@ module Program =
         Console.WriteLine "FDull — F# with fewer sharp edges."
 
         Console.WriteLine
-            "fdull defaults | init <root> [--scope <file>] | lint <root> [--format text|json|sarif] [--jobs <1-64>] [--no-cache] [--timings] | review <root> [--format text|json] [--jobs <1-64>] [--no-cache] [--timings] | cache clear <root> | data-digest <assembly> | policy-digest <fdull.json> | verify <root> [--all | --since <commit>] [--jobs <1-64>] [--no-cache] [--timings] | coverage"
+            "fdull defaults | init <root> [--scope <file>] | lint <root> [--format text|json|sarif] [--jobs <1-64>] [--no-cache] [--timings] | review <root> [--format text|json] [--jobs <1-64>] [--no-cache] [--timings] | cache clear <root> | data-digest <assembly> | policy-digest <fdull.json> | verify <root> [--all | --since <commit>] [--jobs <1-64>] [--cache | --no-cache] [--timings] | coverage"
 
         2
 
@@ -53,14 +53,21 @@ module Program =
             verificationOptions (Map.add "jobs" count selected) selection rest
         | "--timings" :: rest when not (Map.containsKey "timings" selected) ->
             verificationOptions (Map.add "timings" "" selected) selection rest
-        | "--no-cache" :: rest when not (Map.containsKey "no-cache" selected) ->
+        | "--cache" :: rest when not (Map.containsKey "cache" selected || Map.containsKey "no-cache" selected) ->
+            verificationOptions (Map.add "cache" "" selected) selection rest
+        | "--no-cache" :: rest when not (Map.containsKey "cache" selected || Map.containsKey "no-cache" selected) ->
             verificationOptions (Map.add "no-cache" "" selected) selection rest
         | _ -> None
 
-    /// `lint`, `review` and repository `verify` use the result cache unless `--no-cache` is given.
+    /// `lint` and `review` use the result cache unless `--no-cache` is given.
     let private workspaceOptions (selected: Map<string, string>) : WorkspaceOptions =
         { Jobs = jobs selected
           Cache = not (selected.ContainsKey "no-cache") }
+
+    /// Repository verification reads and writes cached results only when explicitly requested.
+    let private repositoryOptions (selected: Map<string, string>) : WorkspaceOptions =
+        { Jobs = jobs selected
+          Cache = selected.ContainsKey "cache" }
 
     /// Timings go to stderr so stdout and exit codes stay identical with or without them.
     /// `describe` gives one line per project and a prefix for the summary line.
@@ -226,11 +233,11 @@ module Program =
         report.ExitCode
 
     let private verify root selected (selection: RepositorySelection option) =
-        // A standalone (version-one) verify never uses the result cache, so it rejects `--no-cache`.
+        // A standalone (version-one) verify never uses the result cache.
         if
             selection.IsNone
             && Repository.standalone root
-            && Map.containsKey "no-cache" selected
+            && (Map.containsKey "cache" selected || Map.containsKey "no-cache" selected)
         then
             usage ()
         elif selection.IsNone && Repository.standalone root then
@@ -241,7 +248,7 @@ module Program =
             let full, selection = Repository.resolveSelection root selection
 
             timed (Map.containsKey "timings" selected) verifyTimings (fun () ->
-                Repository.verifyTimedWith (workspaceOptions selected) full (Option.defaultValue All selection))
+                Repository.verifyTimedWith (repositoryOptions selected) full (Option.defaultValue All selection))
             |> displayRepository
 
     [<EntryPoint>]

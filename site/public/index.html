@@ -1487,9 +1487,9 @@ dotnet fdull verify .</code></pre></div>
             <p><strong>The cache is trusted local state, like your build output.</strong> A consistently edited entry can be accepted. For CI or a checkout from someone else, use <code>verify</code>, which never reads or writes the cache, or <code>lint --no-cache</code> for fresh analysis. A cached result is not certification.</p>
             <div class="terminal"><div class="terminal-head"><span>CACHE CONTROLS</span><button class="copy" type="button" data-copy="cache-command" aria-label="Copy cache control commands" hidden data-enhanced>Copy</button></div><pre><code id="cache-command"># Analyze without reading or writing cached results.
 dotnet fdull lint . --no-cache
-# Remove stored results; entries are not evicted automatically.
+# Remove all stored results immediately.
 dotnet fdull cache clear .</code></pre></div>
-            <p><code>review</code> also accepts <code>--no-cache</code>. Clearing the cache leaves your policy and source files alone.</p>
+            <p><code>review</code> also accepts <code>--no-cache</code>. Repository <code>verify --cache</code> explicitly opts into the trusted local cache; plain <code>verify</code> is the authoritative gate. Clearing the cache leaves your policy and source files alone.</p>
           </article>
           <article class="install-step" id="analysis-options">
             <div class="step-heading"><h3>Choose how checks run.</h3></div>

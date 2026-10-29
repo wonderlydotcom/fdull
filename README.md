@@ -354,9 +354,9 @@ Release build cover the whole selection, through a solution generated under
 MSBuild nodes, and overlapping output directories force one. A failing project
 fails the run with MSBuild's errors for that project. Dependencies finish
 analysis and rebuilding before consumers are analyzed, followed by final input,
-ownership and invocation checks. A project served from the result cache skips
-the worker and the rebuild; the final pass still re-exports and checks its
-compiler invocation.
+ownership and invocation checks. When repository verification is explicitly run
+with `--cache`, a project served from the result cache skips the worker and the
+rebuild; the final pass still re-exports and checks its compiler invocation.
 Authored project, props and targets imports must be literal, repository-local
 paths with reviewed pins, including imports under inactive conditions. Dynamic,
 wildcard and SDK-qualified authored imports are blocked. Evaluated imports
@@ -522,8 +522,9 @@ projects share an intermediate or output directory, their builds would write the
 same files: `verify` then runs one project at a time whatever `--jobs` says, and
 the text report says which projects share which directory. The report's
 `Sequential` field carries those lines; it is always empty in `lint` JSON. `verify`
-takes no `--format`. Repository `verify` accepts `--no-cache`; a standalone
-(version-one) `verify` never uses the cache and rejects it.
+takes no `--format`. Repository `verify` does not use the cache by default;
+`--cache` opts into reuse, while `--no-cache` explicitly keeps it off. A standalone
+(version-one) `verify` never uses the cache and rejects either flag.
 
 `--timings` writes per-project times, and the run's total, to stderr. For `lint`
 and `review` they are MSBuild export, analysis worker and parent validation; for
@@ -533,16 +534,17 @@ whole selection and the final validation pass. Repository `verify` reports resto
 and build only in the summary, so they read 0 per project. Stdout and the exit
 code are unchanged.
 
-`lint`, `review` and repository `verify` keep a per-project result cache in
-`<root>/.fdull/cache`. A
+`lint` and `review` keep a per-project result cache in `<root>/.fdull/cache` by
+default. Repository `verify --cache` also uses this cache. A
 project is served from it only when everything its analysis reads is unchanged:
 the exact compiler invocation, source and reference fingerprints, policy slice,
 FDull build and .NET runtime. A cached result still passes the same input
 comparison and validation as a fresh one, and unused-permission checks still see
-every project. A damaged, edited or mismatched entry is ignored and the project is
+every project. A malformed or mismatched entry is ignored and the project is
 re-analyzed. Text output then reads `N projects (M from cache)`, and JSON has a
 `Cached` count and a per-project `Cached` flag; nothing else in the output or exit
-code depends on the cache. `--no-cache` turns it off, and `cache clear <root>`
+code depends on the cache. `--no-cache` turns it off for lint and review, and
+`cache clear <root>`
 deletes `<root>/.fdull/cache` (exit `3` if it is a symbolic link). Each cached run
 evicts entries unused for 30 days, and the least recently used ones beyond 256 MiB
 per cache. A new FDull build changes every key.
@@ -559,14 +561,12 @@ dependency's policy, including a re-pinned source fingerprint, re-analyzes every
 project in its consuming workspaces.
 
 The cache is trusted state, as build output is: an entry edited to stay consistent
-is believed, and repository `verify` accepts a hit as evidence. Locally the cache
-is your own. In CI, let only trusted runs, such as `verify` on the main branch,
-write a cache that later jobs restore, and restore it read-only in pull-request
-jobs; a pull request then reuses results only for inputs identical to a commit
-already verified on main. For anything checked out from someone else without such
-a cache, run `verify --no-cache`. While iterating, run cached `lint` on each
-workspace you changed, fix, repeat, then `verify`: both compute the same keys, so
-`verify` reuses lint's results. A policy pass is `review`, fix, `review`, `verify`.
+is believed, and repository `verify --cache` accepts a hit as evidence. Plain
+`verify` never reads or writes the result cache, so it is the authoritative gate
+for an untrusted checkout or cache. In CI, use plain `verify`. During local
+iteration, cached `lint` and `review` can reuse unchanged results. Use
+`verify --cache` only when the local cache is trusted; it uses the same keys as
+lint. A final policy pass is `review`, fix, `review`, `verify`.
 
 | Exit | Meaning |
 | --- | --- |

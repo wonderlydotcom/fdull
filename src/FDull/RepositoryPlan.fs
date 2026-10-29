@@ -137,7 +137,7 @@ module RepositoryPlan =
         |> List.map (fun path -> path, fileDigest (Path.Combine(root, path)))
         |> Map.ofList
 
-    let private readBounded (stream: Stream) =
+    let private readBounded maximumBytes (stream: Stream) =
         Task.Run(fun () ->
             use result = new MemoryStream()
             let buffer = Array.zeroCreate<byte> 8192
@@ -149,14 +149,14 @@ module RepositoryPlan =
                 if count = 0 then
                     doneReading <- true
                 else
-                    if result.Length + int64 count > 16L * 1024L * 1024L then
+                    if result.Length + int64 count > maximumBytes then
                         invalidOp "BUILD003: Git output exceeded the supported size."
 
                     result.Write(buffer, 0, count)
 
             result.ToArray())
 
-    let private git root arguments =
+    let private git maximumOutputBytes root arguments =
         let start = ProcessStartInfo("git", WorkingDirectory = root)
 
         for option in
@@ -180,8 +180,8 @@ module RepositoryPlan =
         if not (child.Start()) then
             invalidOp "BUILD003: Git did not start."
 
-        let output = readBounded child.StandardOutput.BaseStream
-        let errors = readBounded child.StandardError.BaseStream
+        let output = readBounded maximumOutputBytes child.StandardOutput.BaseStream
+        let errors = readBounded (16L * 1024L * 1024L) child.StandardError.BaseStream
         let clock = Stopwatch.StartNew()
 
         try
@@ -216,8 +216,11 @@ module RepositoryPlan =
             if not child.HasExited then
                 child.Kill(true)
 
+    let private gitSmallOutput root arguments =
+        git (16L * 1024L * 1024L) root arguments
+
     let private gitText root arguments =
-        git root arguments |> utf8.GetString |> (fun value -> value.Trim())
+        gitSmallOutput root arguments |> utf8.GetString |> (fun value -> value.Trim())
 
     let private nulFields (bytes: byte array) =
         if bytes.Length = 0 then
@@ -257,7 +260,7 @@ module RepositoryPlan =
 
     let private changedPaths root baseline =
         let names =
-            git
+            gitSmallOutput
                 root
                 [ "diff"
                   "--no-ext-diff"
@@ -284,19 +287,21 @@ module RepositoryPlan =
             | _ -> invalidOp "BUILD003: Malformed Git change record."
 
         let untracked =
-            git root [ "ls-files"; "--others"; "--exclude-standard"; "-z" ] |> nulFields
+            gitSmallOutput root [ "ls-files"; "--others"; "--exclude-standard"; "-z" ]
+            |> nulFields
 
         (decode names 0 [] @ (untracked |> List.map normalizedGitPath)) |> Set.ofList
 
     let private historicFiles root baseline =
-        git root [ "ls-tree"; "-r"; "-z"; "--name-only"; baseline ]
+        gitSmallOutput root [ "ls-tree"; "-r"; "-z"; "--name-only"; baseline ]
         |> nulFields
         |> List.map normalizedGitPath
         |> List.filter (omittedGitPath >> not)
 
     let private baselineBlob root baseline path =
         // Commit ID is resolved before this call; path is a validated tree entry.
-        git root [ "show"; baseline + ":" + path ] |> utf8.GetString
+        git (64L * 1024L * 1024L) root [ "show"; baseline + ":" + path ]
+        |> utf8.GetString
 
     let private serviceId root path = relative root path
 

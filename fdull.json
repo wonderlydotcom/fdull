@@ -63,13 +63,13 @@
       "File": "src/FDull/RepositoryPlan.fs",
       "Project": "src/FDull/FDull.fsproj",
       "Profile": "GUARD_TOOLING",
-      "Digest": "sha256:473e48ba09deeb867a7f6a126503d5c46d7d5cacded137e75512df101c30fa1c"
+      "Digest": "sha256:651886ec9f1d2b9361d3800a4294084bfe04c70fd79e800000062654384d5730"
     },
     {
       "File": "tests/FDull.Tests/RepositoryTests.fs",
       "Project": "tests/FDull.Tests/FDull.Tests.fsproj",
       "Profile": "TEST",
-      "Digest": "sha256:3a41b2b1058a28ffcdbc5231f2975945167b216585e1b592ea7e19a298b6da70"
+      "Digest": "sha256:d91061967a31cd5dcc44ff4e29c2ffe3b1f916ab75404eb9cd9c7ee6ccef4ae7"
     },
     {
       "File": "src/FDull/External.fs",
@@ -201,7 +201,7 @@
       "File": "src/FDull.Tool/Program.fs",
       "Project": "src/FDull.Tool/FDull.Tool.fsproj",
       "Profile": "GUARD_TOOLING",
-      "Digest": "sha256:a7c5eb65a3f4157fdf2260cca1a305593e4c247c88893ed2f74888e9f52d0e0a"
+      "Digest": "sha256:5fc64144916e42e950bfe6b29ad059db40e206c229c914c61919429269ddf308"
     },
     {
       "File": "src/FDull.Worker/Program.fs",
@@ -2515,7 +2515,7 @@
       "Owner": "FDull.RepositoryPlan.git",
       "Kind": "member",
       "Identity": "System.Diagnostics.Process, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.Diagnostics.Process.Kill(System.Boolean)",
-      "Reason": "Terminates the Git process tree when the fifteen-second or sixteen-MiB output bound is hit."
+      "Reason": "Terminates the Git process tree when the fifteen-second, 1 GiB working-set or caller-selected output bound (16 MiB for metadata, 64 MiB for a baseline blob) is hit."
     },
     {
       "File": "src/FDull/RepositoryPlan.fs",
@@ -2690,182 +2690,182 @@
       "Owner": "FDull.RepositoryPlan.readBounded",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.Threading.Tasks.Task.Run``1(System.Func{``0})",
-      "Reason": "Drains one redirected Git stream on a background task into a memory buffer capped at 16 MiB; overflow fails planning."
+      "Reason": "Drains one redirected Git stream on a background task into a memory buffer capped by the caller at 16 MiB for metadata or 64 MiB for a baseline blob; overflow fails planning."
     },
     {
       "File": "src/FDull/RepositoryPlan.fs",
       "Owner": "FDull.RepositoryPlan.readBounded",
       "Kind": "member",
       "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.ArrayModule.ZeroCreate``1(System.Int32)",
-      "Reason": "Drains one redirected Git stream on a background task into a memory buffer capped at 16 MiB; overflow fails planning."
+      "Reason": "Drains one redirected Git stream on a background task into a memory buffer capped by the caller at 16 MiB for metadata or 64 MiB for a baseline blob; overflow fails planning."
     },
     {
       "File": "src/FDull/RepositoryPlan.fs",
       "Owner": "FDull.RepositoryPlan.readBounded",
       "Kind": "member",
       "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Core.Operators.InvalidOp``1(System.String)",
-      "Reason": "Drains one redirected Git stream on a background task into a memory buffer capped at 16 MiB; overflow fails planning."
+      "Reason": "Drains one redirected Git stream on a background task into a memory buffer capped by the caller at 16 MiB for metadata or 64 MiB for a baseline blob; overflow fails planning."
     },
     {
       "File": "src/FDull/RepositoryPlan.fs",
       "Owner": "FDull.RepositoryPlan.readBounded",
       "Kind": "type",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | System.IO.MemoryStream",
-      "Reason": "Drains one redirected Git stream on a background task into a memory buffer capped at 16 MiB; overflow fails planning."
+      "Reason": "Drains one redirected Git stream on a background task into a memory buffer capped by the caller at 16 MiB for metadata or 64 MiB for a baseline blob; overflow fails planning."
     },
     {
       "File": "src/FDull/RepositoryPlan.fs",
       "Owner": "FDull.RepositoryPlan.readBounded",
       "Kind": "type",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | System.IO.Stream",
-      "Reason": "Drains one redirected Git stream on a background task into a memory buffer capped at 16 MiB; overflow fails planning."
+      "Reason": "Drains one redirected Git stream on a background task into a memory buffer capped by the caller at 16 MiB for metadata or 64 MiB for a baseline blob; overflow fails planning."
     },
     {
       "File": "src/FDull/RepositoryPlan.fs",
       "Owner": "FDull.RepositoryPlan.readBounded",
       "Kind": "rule",
       "Identity": "ERR009 | ",
-      "Reason": "Drains one redirected Git stream on a background task into a memory buffer capped at 16 MiB; overflow fails planning."
+      "Reason": "Drains one redirected Git stream on a background task into a memory buffer capped by the caller at 16 MiB for metadata or 64 MiB for a baseline blob; overflow fails planning."
     },
     {
       "File": "src/FDull/RepositoryPlan.fs",
       "Owner": "FDull.RepositoryPlan.readBounded",
       "Kind": "rule",
       "Identity": "MUT001 | ",
-      "Reason": "Drains one redirected Git stream on a background task into a memory buffer capped at 16 MiB; overflow fails planning."
+      "Reason": "Drains one redirected Git stream on a background task into a memory buffer capped by the caller at 16 MiB for metadata or 64 MiB for a baseline blob; overflow fails planning."
     },
     {
       "File": "src/FDull/RepositoryPlan.fs",
       "Owner": "FDull.RepositoryPlan.readBounded",
       "Kind": "rule",
       "Identity": "MUT002 | ",
-      "Reason": "Drains one redirected Git stream on a background task into a memory buffer capped at 16 MiB; overflow fails planning."
+      "Reason": "Drains one redirected Git stream on a background task into a memory buffer capped by the caller at 16 MiB for metadata or 64 MiB for a baseline blob; overflow fails planning."
     },
     {
       "File": "src/FDull/RepositoryPlan.fs",
       "Owner": "FDull.RepositoryPlan.git",
       "Kind": "member",
       "Identity": "System.Diagnostics.Process, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:System.Diagnostics.ProcessStartInfo.Environment",
-      "Reason": "Runs only fixed read-only Git commands without a shell, with split arguments, redirected bounded streams, a fifteen-second deadline and process-tree kill on failure."
+      "Reason": "Runs only fixed read-only Git commands without a shell, with split arguments, redirected bounded streams, a fifteen-second deadline, a caller-selected output bound and process-tree kill on failure."
     },
     {
       "File": "src/FDull/RepositoryPlan.fs",
       "Owner": "FDull.RepositoryPlan.git",
       "Kind": "member",
       "Identity": "System.Diagnostics.Process, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:System.Diagnostics.ProcessStartInfo.UseShellExecute",
-      "Reason": "Runs only fixed read-only Git commands without a shell, with split arguments, redirected bounded streams, a fifteen-second deadline and process-tree kill on failure."
+      "Reason": "Runs only fixed read-only Git commands without a shell, with split arguments, redirected bounded streams, a fifteen-second deadline, a caller-selected output bound and process-tree kill on failure."
     },
     {
       "File": "src/FDull/RepositoryPlan.fs",
       "Owner": "FDull.RepositoryPlan.git",
       "Kind": "member",
       "Identity": "System.Diagnostics.Process, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:System.Diagnostics.ProcessStartInfo.RedirectStandardOutput",
-      "Reason": "Runs only fixed read-only Git commands without a shell, with split arguments, redirected bounded streams, a fifteen-second deadline and process-tree kill on failure."
+      "Reason": "Runs only fixed read-only Git commands without a shell, with split arguments, redirected bounded streams, a fifteen-second deadline, a caller-selected output bound and process-tree kill on failure."
     },
     {
       "File": "src/FDull/RepositoryPlan.fs",
       "Owner": "FDull.RepositoryPlan.git",
       "Kind": "member",
       "Identity": "System.Diagnostics.Process, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:System.Diagnostics.ProcessStartInfo.RedirectStandardError",
-      "Reason": "Runs only fixed read-only Git commands without a shell, with split arguments, redirected bounded streams, a fifteen-second deadline and process-tree kill on failure."
+      "Reason": "Runs only fixed read-only Git commands without a shell, with split arguments, redirected bounded streams, a fifteen-second deadline, a caller-selected output bound and process-tree kill on failure."
     },
     {
       "File": "src/FDull/RepositoryPlan.fs",
       "Owner": "FDull.RepositoryPlan.git",
       "Kind": "member",
       "Identity": "System.Diagnostics.Process, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:System.Diagnostics.Process.StartInfo",
-      "Reason": "Runs only fixed read-only Git commands without a shell, with split arguments, redirected bounded streams, a fifteen-second deadline and process-tree kill on failure."
+      "Reason": "Runs only fixed read-only Git commands without a shell, with split arguments, redirected bounded streams, a fifteen-second deadline, a caller-selected output bound and process-tree kill on failure."
     },
     {
       "File": "src/FDull/RepositoryPlan.fs",
       "Owner": "FDull.RepositoryPlan.git",
       "Kind": "member",
       "Identity": "System.Diagnostics.Process, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:System.Diagnostics.Process.StandardOutput",
-      "Reason": "Runs only fixed read-only Git commands without a shell, with split arguments, redirected bounded streams, a fifteen-second deadline and process-tree kill on failure."
+      "Reason": "Runs only fixed read-only Git commands without a shell, with split arguments, redirected bounded streams, a fifteen-second deadline, a caller-selected output bound and process-tree kill on failure."
     },
     {
       "File": "src/FDull/RepositoryPlan.fs",
       "Owner": "FDull.RepositoryPlan.git",
       "Kind": "member",
       "Identity": "System.Diagnostics.Process, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:System.Diagnostics.Process.StandardError",
-      "Reason": "Runs only fixed read-only Git commands without a shell, with split arguments, redirected bounded streams, a fifteen-second deadline and process-tree kill on failure."
+      "Reason": "Runs only fixed read-only Git commands without a shell, with split arguments, redirected bounded streams, a fifteen-second deadline, a caller-selected output bound and process-tree kill on failure."
     },
     {
       "File": "src/FDull/RepositoryPlan.fs",
       "Owner": "FDull.RepositoryPlan.git",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.Diagnostics.Stopwatch.StartNew",
-      "Reason": "Runs only fixed read-only Git commands without a shell, with split arguments, redirected bounded streams, a fifteen-second deadline and process-tree kill on failure."
+      "Reason": "Runs only fixed read-only Git commands without a shell, with split arguments, redirected bounded streams, a fifteen-second deadline, a caller-selected output bound and process-tree kill on failure."
     },
     {
       "File": "src/FDull/RepositoryPlan.fs",
       "Owner": "FDull.RepositoryPlan.git",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:System.Diagnostics.Stopwatch.ElapsedMilliseconds",
-      "Reason": "Runs only fixed read-only Git commands without a shell, with split arguments, redirected bounded streams, a fifteen-second deadline and process-tree kill on failure."
+      "Reason": "Runs only fixed read-only Git commands without a shell, with split arguments, redirected bounded streams, a fifteen-second deadline, a caller-selected output bound and process-tree kill on failure."
     },
     {
       "File": "src/FDull/RepositoryPlan.fs",
       "Owner": "FDull.RepositoryPlan.git",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:System.Threading.Tasks.Task.IsFaulted",
-      "Reason": "Runs only fixed read-only Git commands without a shell, with split arguments, redirected bounded streams, a fifteen-second deadline and process-tree kill on failure."
+      "Reason": "Runs only fixed read-only Git commands without a shell, with split arguments, redirected bounded streams, a fifteen-second deadline, a caller-selected output bound and process-tree kill on failure."
     },
     {
       "File": "src/FDull/RepositoryPlan.fs",
       "Owner": "FDull.RepositoryPlan.git",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.Runtime.CompilerServices.TaskAwaiter`1.GetResult",
-      "Reason": "Runs only fixed read-only Git commands without a shell, with split arguments, redirected bounded streams, a fifteen-second deadline and process-tree kill on failure."
+      "Reason": "Runs only fixed read-only Git commands without a shell, with split arguments, redirected bounded streams, a fifteen-second deadline, a caller-selected output bound and process-tree kill on failure."
     },
     {
       "File": "src/FDull/RepositoryPlan.fs",
       "Owner": "FDull.RepositoryPlan.git",
       "Kind": "member",
       "Identity": "System.Diagnostics.Process, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:System.Diagnostics.Process.ExitCode",
-      "Reason": "Runs only fixed read-only Git commands without a shell, with split arguments, redirected bounded streams, a fifteen-second deadline and process-tree kill on failure."
+      "Reason": "Runs only fixed read-only Git commands without a shell, with split arguments, redirected bounded streams, a fifteen-second deadline, a caller-selected output bound and process-tree kill on failure."
     },
     {
       "File": "src/FDull/RepositoryPlan.fs",
       "Owner": "FDull.RepositoryPlan.git",
       "Kind": "member",
       "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Core.Operators.InvalidOp``1(System.String)",
-      "Reason": "Runs only fixed read-only Git commands without a shell, with split arguments, redirected bounded streams, a fifteen-second deadline and process-tree kill on failure."
+      "Reason": "Runs only fixed read-only Git commands without a shell, with split arguments, redirected bounded streams, a fifteen-second deadline, a caller-selected output bound and process-tree kill on failure."
     },
     {
       "File": "src/FDull/RepositoryPlan.fs",
       "Owner": "FDull.RepositoryPlan.git",
       "Kind": "type",
       "Identity": "System.Diagnostics.Process, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | System.Diagnostics.Process",
-      "Reason": "Runs only fixed read-only Git commands without a shell, with split arguments, redirected bounded streams, a fifteen-second deadline and process-tree kill on failure."
+      "Reason": "Runs only fixed read-only Git commands without a shell, with split arguments, redirected bounded streams, a fifteen-second deadline, a caller-selected output bound and process-tree kill on failure."
     },
     {
       "File": "src/FDull/RepositoryPlan.fs",
       "Owner": "FDull.RepositoryPlan.git",
       "Kind": "type",
       "Identity": "System.Diagnostics.Process, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | System.Diagnostics.ProcessStartInfo",
-      "Reason": "Runs only fixed read-only Git commands without a shell, with split arguments, redirected bounded streams, a fifteen-second deadline and process-tree kill on failure."
+      "Reason": "Runs only fixed read-only Git commands without a shell, with split arguments, redirected bounded streams, a fifteen-second deadline, a caller-selected output bound and process-tree kill on failure."
     },
     {
       "File": "src/FDull/RepositoryPlan.fs",
       "Owner": "FDull.RepositoryPlan.git",
       "Kind": "type",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | System.Diagnostics.Stopwatch",
-      "Reason": "Runs only fixed read-only Git commands without a shell, with split arguments, redirected bounded streams, a fifteen-second deadline and process-tree kill on failure."
+      "Reason": "Runs only fixed read-only Git commands without a shell, with split arguments, redirected bounded streams, a fifteen-second deadline, a caller-selected output bound and process-tree kill on failure."
     },
     {
       "File": "src/FDull/RepositoryPlan.fs",
       "Owner": "FDull.RepositoryPlan.git",
       "Kind": "rule",
       "Identity": "ERR009 | ",
-      "Reason": "Runs only fixed read-only Git commands without a shell, with split arguments, redirected bounded streams, a fifteen-second deadline and process-tree kill on failure."
+      "Reason": "Runs only fixed read-only Git commands without a shell, with split arguments, redirected bounded streams, a fifteen-second deadline, a caller-selected output bound and process-tree kill on failure."
     },
     {
       "File": "src/FDull/RepositoryPlan.fs",
       "Owner": "FDull.RepositoryPlan.git",
       "Kind": "rule",
       "Identity": "MUT002 | ",
-      "Reason": "Runs only fixed read-only Git commands without a shell, with split arguments, redirected bounded streams, a fifteen-second deadline and process-tree kill on failure."
+      "Reason": "Runs only fixed read-only Git commands without a shell, with split arguments, redirected bounded streams, a fifteen-second deadline, a caller-selected output bound and process-tree kill on failure."
     },
     {
       "File": "src/FDull/RepositoryPlan.fs",
@@ -3453,77 +3453,77 @@
       "Owner": "FDull.RepositoryPlan.readBounded",
       "Kind": "member",
       "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Core.Operators.Checked.ToInt64``1(Microsoft.FSharp.Core.FSharpFunc{``0,System.Int64},``0)",
-      "Reason": "Drains one redirected Git stream on a background task into a memory buffer capped at 16 MiB; overflow fails planning."
+      "Reason": "Drains one redirected Git stream on a background task into a memory buffer capped by the caller at 16 MiB for metadata or 64 MiB for a baseline blob; overflow fails planning."
     },
     {
       "File": "src/FDull/RepositoryPlan.fs",
       "Owner": "FDull.RepositoryPlan.readBounded",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.MemoryStream.#ctor",
-      "Reason": "Drains one redirected Git stream on a background task into a memory buffer capped at 16 MiB; overflow fails planning."
+      "Reason": "Drains one redirected Git stream on a background task into a memory buffer capped by the caller at 16 MiB for metadata or 64 MiB for a baseline blob; overflow fails planning."
     },
     {
       "File": "src/FDull/RepositoryPlan.fs",
       "Owner": "FDull.RepositoryPlan.readBounded",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.MemoryStream.ToArray",
-      "Reason": "Drains one redirected Git stream on a background task into a memory buffer capped at 16 MiB; overflow fails planning."
+      "Reason": "Drains one redirected Git stream on a background task into a memory buffer capped by the caller at 16 MiB for metadata or 64 MiB for a baseline blob; overflow fails planning."
     },
     {
       "File": "src/FDull/RepositoryPlan.fs",
       "Owner": "FDull.RepositoryPlan.readBounded",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.MemoryStream.Write(System.Byte[],System.Int32,System.Int32)",
-      "Reason": "Drains one redirected Git stream on a background task into a memory buffer capped at 16 MiB; overflow fails planning."
+      "Reason": "Drains one redirected Git stream on a background task into a memory buffer capped by the caller at 16 MiB for metadata or 64 MiB for a baseline blob; overflow fails planning."
     },
     {
       "File": "src/FDull/RepositoryPlan.fs",
       "Owner": "FDull.RepositoryPlan.readBounded",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Stream.Read(System.Byte[],System.Int32,System.Int32)",
-      "Reason": "Drains one redirected Git stream on a background task into a memory buffer capped at 16 MiB; overflow fails planning."
+      "Reason": "Drains one redirected Git stream on a background task into a memory buffer capped by the caller at 16 MiB for metadata or 64 MiB for a baseline blob; overflow fails planning."
     },
     {
       "File": "src/FDull/RepositoryPlan.fs",
       "Owner": "FDull.RepositoryPlan.readBounded",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:System.Array.Length",
-      "Reason": "Drains one redirected Git stream on a background task into a memory buffer capped at 16 MiB; overflow fails planning."
+      "Reason": "Drains one redirected Git stream on a background task into a memory buffer capped by the caller at 16 MiB for metadata or 64 MiB for a baseline blob; overflow fails planning."
     },
     {
       "File": "src/FDull/RepositoryPlan.fs",
       "Owner": "FDull.RepositoryPlan.readBounded",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:System.IO.MemoryStream.Length",
-      "Reason": "Drains one redirected Git stream on a background task into a memory buffer capped at 16 MiB; overflow fails planning."
+      "Reason": "Drains one redirected Git stream on a background task into a memory buffer capped by the caller at 16 MiB for metadata or 64 MiB for a baseline blob; overflow fails planning."
     },
     {
       "File": "src/FDull/RepositoryPlan.fs",
       "Owner": "FDull.RepositoryPlan.readBounded",
       "Kind": "rule",
       "Identity": "MUT001 | doneReading",
-      "Reason": "Drains one redirected Git stream on a background task into a memory buffer capped at 16 MiB; overflow fails planning."
+      "Reason": "Drains one redirected Git stream on a background task into a memory buffer capped by the caller at 16 MiB for metadata or 64 MiB for a baseline blob; overflow fails planning."
     },
     {
       "File": "src/FDull/RepositoryPlan.fs",
       "Owner": "FDull.RepositoryPlan.readBounded",
       "Kind": "rule",
       "Identity": "MUT009 | ",
-      "Reason": "Drains one redirected Git stream on a background task into a memory buffer capped at 16 MiB; overflow fails planning."
+      "Reason": "Drains one redirected Git stream on a background task into a memory buffer capped by the caller at 16 MiB for metadata or 64 MiB for a baseline blob; overflow fails planning."
     },
     {
       "File": "src/FDull/RepositoryPlan.fs",
       "Owner": "FDull.RepositoryPlan.readBounded",
       "Kind": "type",
       "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | []",
-      "Reason": "Drains one redirected Git stream on a background task into a memory buffer capped at 16 MiB; overflow fails planning."
+      "Reason": "Drains one redirected Git stream on a background task into a memory buffer capped by the caller at 16 MiB for metadata or 64 MiB for a baseline blob; overflow fails planning."
     },
     {
       "File": "src/FDull/RepositoryPlan.fs",
       "Owner": "FDull.RepositoryPlan.readBounded",
       "Kind": "type",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | System.Threading.Tasks.Task`1",
-      "Reason": "Drains one redirected Git stream on a background task into a memory buffer capped at 16 MiB; overflow fails planning."
+      "Reason": "Drains one redirected Git stream on a background task into a memory buffer capped by the caller at 16 MiB for metadata or 64 MiB for a baseline blob; overflow fails planning."
     },
     {
       "File": "src/FDull/RepositoryPlan.fs",
@@ -3929,28 +3929,28 @@
       "Owner": "FDull.Tool.Program.verify",
       "Kind": "member",
       "Identity": "FDull, Version=0.3.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Repository.standalone(System.String)",
-      "Reason": "Routes unchanged version-one policy verification through its existing lifecycle; version-two and repository selections use the combined scheduler, with no cache and one parsed jobs budget."
+      "Reason": "Routes standalone version-one verification through Project.verifyTimed with no cache and one parsed jobs budget; repository selections use the combined scheduler with the same jobs budget and cache reuse only after explicit --cache."
     },
     {
       "File": "src/FDull.Tool/Program.fs",
       "Owner": "FDull.Tool.Program.verify",
       "Kind": "member",
       "Identity": "FDull, Version=0.3.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Repository.resolveSelection(System.String,Microsoft.FSharp.Core.FSharpOption{FDull.RepositorySelection})",
-      "Reason": "Routes unchanged version-one policy verification through its existing lifecycle; version-two and repository selections use the combined scheduler, with no cache and one parsed jobs budget."
+      "Reason": "Routes standalone version-one verification through Project.verifyTimed with no cache and one parsed jobs budget; repository selections use the combined scheduler with the same jobs budget and cache reuse only after explicit --cache."
     },
     {
       "File": "src/FDull.Tool/Program.fs",
       "Owner": "FDull.Tool.Program.verify",
       "Kind": "member",
       "Identity": "FDull, Version=0.3.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Project.verifyTimed(System.Int32,System.String)",
-      "Reason": "Routes unchanged version-one policy verification through its existing lifecycle; version-two and repository selections use the combined scheduler, with no cache and one parsed jobs budget."
+      "Reason": "Routes standalone version-one verification through Project.verifyTimed with no cache and one parsed jobs budget; repository selections use the combined scheduler with the same jobs budget and cache reuse only after explicit --cache."
     },
     {
       "File": "src/FDull.Tool/Program.fs",
       "Owner": "FDull.Tool.Program.verify",
       "Kind": "type",
       "Identity": "FDull, Version=0.3.0.0, Culture=neutral, PublicKeyToken=null | FDull.RepositorySelection",
-      "Reason": "Routes unchanged version-one policy verification through its existing lifecycle; version-two and repository selections use the combined scheduler, with no cache and one parsed jobs budget."
+      "Reason": "Routes standalone version-one verification through Project.verifyTimed with no cache and one parsed jobs budget; repository selections use the combined scheduler with the same jobs budget and cache reuse only after explicit --cache."
     },
     {
       "File": "src/FDull.Tool/Program.fs",
@@ -24453,14 +24453,14 @@
       "Owner": "FDull.Tool.Program.workspaceOptions",
       "Kind": "member",
       "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.FSharpMap`2.ContainsKey(`0)",
-      "Reason": "Builds lint and review options from the resolved job count and --no-cache; verify takes its job count separately and never uses the cache."
+      "Reason": "Builds lint and review options from the resolved job count; both use the local result cache by default and --no-cache disables it. Repository verification uses separate options."
     },
     {
       "File": "src/FDull.Tool/Program.fs",
       "Owner": "FDull.Tool.Program.workspaceOptions",
       "Kind": "type",
       "Identity": "FDull, Version=0.3.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspaceOptions",
-      "Reason": "Builds lint and review options from the resolved job count and --no-cache; verify takes its job count separately and never uses the cache."
+      "Reason": "Builds lint and review options from the resolved job count; both use the local result cache by default and --no-cache disables it. Repository verification uses separate options."
     },
     {
       "File": "src/FDull/Workspace.fs",
@@ -24593,42 +24593,42 @@
       "Owner": "FDull.WorkspaceCache.read",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.File.Exists(System.String)",
-      "Reason": "Returns a stored worker response only when the file is at most 64 MiB, decodes and carries exactly the requested key; every other case, including any exception, is a miss (None) and the worker runs. Entries are trusted local state; the caller still applies full acceptance to a hit, and verify never reads the cache."
+      "Reason": "Returns a stored worker response only when the file is at most 64 MiB, decodes and carries exactly the requested key; every other case, including any exception, is a miss (None) and the worker runs. Entries are trusted local state; callers accept cache hits only when enabled; repository verify enables reuse only with explicit --cache."
     },
     {
       "File": "src/FDull/WorkspaceCache.fs",
       "Owner": "FDull.WorkspaceCache.read",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.File.ReadAllText(System.String)",
-      "Reason": "Returns a stored worker response only when the file is at most 64 MiB, decodes and carries exactly the requested key; every other case, including any exception, is a miss (None) and the worker runs. Entries are trusted local state; the caller still applies full acceptance to a hit, and verify never reads the cache."
+      "Reason": "Returns a stored worker response only when the file is at most 64 MiB, decodes and carries exactly the requested key; every other case, including any exception, is a miss (None) and the worker runs. Entries are trusted local state; callers accept cache hits only when enabled; repository verify enables reuse only with explicit --cache."
     },
     {
       "File": "src/FDull/WorkspaceCache.fs",
       "Owner": "FDull.WorkspaceCache.read",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.FileInfo.#ctor(System.String)",
-      "Reason": "Returns a stored worker response only when the file is at most 64 MiB, decodes and carries exactly the requested key; every other case, including any exception, is a miss (None) and the worker runs. Entries are trusted local state; the caller still applies full acceptance to a hit, and verify never reads the cache."
+      "Reason": "Returns a stored worker response only when the file is at most 64 MiB, decodes and carries exactly the requested key; every other case, including any exception, is a miss (None) and the worker runs. Entries are trusted local state; callers accept cache hits only when enabled; repository verify enables reuse only with explicit --cache."
     },
     {
       "File": "src/FDull/WorkspaceCache.fs",
       "Owner": "FDull.WorkspaceCache.read",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:System.IO.FileInfo.Length",
-      "Reason": "Returns a stored worker response only when the file is at most 64 MiB, decodes and carries exactly the requested key; every other case, including any exception, is a miss (None) and the worker runs. Entries are trusted local state; the caller still applies full acceptance to a hit, and verify never reads the cache."
+      "Reason": "Returns a stored worker response only when the file is at most 64 MiB, decodes and carries exactly the requested key; every other case, including any exception, is a miss (None) and the worker runs. Entries are trusted local state; callers accept cache hits only when enabled; repository verify enables reuse only with explicit --cache."
     },
     {
       "File": "src/FDull/WorkspaceCache.fs",
       "Owner": "FDull.WorkspaceCache.read",
       "Kind": "rule",
       "Identity": "ERR001 | ",
-      "Reason": "Returns a stored worker response only when the file is at most 64 MiB, decodes and carries exactly the requested key; every other case, including any exception, is a miss (None) and the worker runs. Entries are trusted local state; the caller still applies full acceptance to a hit, and verify never reads the cache."
+      "Reason": "Returns a stored worker response only when the file is at most 64 MiB, decodes and carries exactly the requested key; every other case, including any exception, is a miss (None) and the worker runs. Entries are trusted local state; callers accept cache hits only when enabled; repository verify enables reuse only with explicit --cache."
     },
     {
       "File": "src/FDull/WorkspaceCache.fs",
       "Owner": "FDull.WorkspaceCache.read",
       "Kind": "rule",
       "Identity": "ERR004 | exception handler",
-      "Reason": "Returns a stored worker response only when the file is at most 64 MiB, decodes and carries exactly the requested key; every other case, including any exception, is a miss (None) and the worker runs. Entries are trusted local state; the caller still applies full acceptance to a hit, and verify never reads the cache."
+      "Reason": "Returns a stored worker response only when the file is at most 64 MiB, decodes and carries exactly the requested key; every other case, including any exception, is a miss (None) and the worker runs. Entries are trusted local state; callers accept cache hits only when enabled; repository verify enables reuse only with explicit --cache."
     },
     {
       "File": "src/FDull/WorkspaceCache.fs",
@@ -28002,7 +28002,7 @@
       "Owner": "FDull.Tool.Program.verify",
       "Kind": "member",
       "Identity": "FDull, Version=0.3.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Repository.verifyTimedWith(FDull.WorkspaceOptions,System.String,FDull.RepositorySelection)",
-      "Reason": "Routes repository verification through Repository.verifyTimedWith with the CLI's job count and cache option; --no-cache disables the cache, and standalone version-one verification still rejects it."
+      "Reason": "Routes repository verification through Repository.verifyTimedWith with the CLI's job count; result-cache reuse requires explicit --cache and is disabled by default. Standalone version-one verification rejects both cache flags."
     },
     {
       "File": "src/FDull.Tool/Program.fs",
@@ -28801,6 +28801,286 @@
       "Kind": "type",
       "Identity": "FDull, Version=0.3.0.0, Culture=neutral, PublicKeyToken=null | FDull.RepositoryReport",
       "Reason": "Builds an isolated one-service fixture whose clean rebuild, behind a marker under bin/, appends whitespace to its own fdull.json; asserts verify fails with BUILD004 because the policy bytes no longer match the pin every request carried."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``repository verify ignores a forged clean result unless cache reuse is explicit``",
+      "Kind": "attribute",
+      "Identity": "xunit.core, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | Xunit.FactAttribute |  | unit",
+      "Reason": "Within an isolated repository fixture, writes a forged clean result only to the fixture cache, then checks that explicit cache reuse accepts it while default verification detects the authored mutation and leaves the forged entry untouched; checks conflicting cache flags fail usage."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``repository verify ignores a forged clean result unless cache reuse is explicit``",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.3.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Transport.Codec.decode``1(System.String)",
+      "Reason": "Within an isolated repository fixture, writes a forged clean result only to the fixture cache, then checks that explicit cache reuse accepts it while default verification detects the authored mutation and leaves the forged entry untouched; checks conflicting cache flags fail usage."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``repository verify ignores a forged clean result unless cache reuse is explicit``",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.3.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Transport.Codec.encode``1(``0)",
+      "Reason": "Within an isolated repository fixture, writes a forged clean result only to the fixture cache, then checks that explicit cache reuse accepts it while default verification detects the authored mutation and leaves the forged entry untouched; checks conflicting cache flags fail usage."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``repository verify ignores a forged clean result unless cache reuse is explicit``",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Directory.GetFiles(System.String,System.String)",
+      "Reason": "Within an isolated repository fixture, writes a forged clean result only to the fixture cache, then checks that explicit cache reuse accepts it while default verification detects the authored mutation and leaves the forged entry untouched; checks conflicting cache flags fail usage."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``repository verify ignores a forged clean result unless cache reuse is explicit``",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.File.ReadAllText(System.String)",
+      "Reason": "Within an isolated repository fixture, writes a forged clean result only to the fixture cache, then checks that explicit cache reuse accepts it while default verification detects the authored mutation and leaves the forged entry untouched; checks conflicting cache flags fail usage."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``repository verify ignores a forged clean result unless cache reuse is explicit``",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.File.WriteAllText(System.String,System.String)",
+      "Reason": "Within an isolated repository fixture, writes a forged clean result only to the fixture cache, then checks that explicit cache reuse accepts it while default verification detects the authored mutation and leaves the forged entry untouched; checks conflicting cache flags fail usage."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``repository verify ignores a forged clean result unless cache reuse is explicit``",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Contains(System.String,System.String)",
+      "Reason": "Within an isolated repository fixture, writes a forged clean result only to the fixture cache, then checks that explicit cache reuse accepts it while default verification detects the authored mutation and leaves the forged entry untouched; checks conflicting cache flags fail usage."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``repository verify ignores a forged clean result unless cache reuse is explicit``",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Equal``1(``0,``0)",
+      "Reason": "Within an isolated repository fixture, writes a forged clean result only to the fixture cache, then checks that explicit cache reuse accepts it while default verification detects the authored mutation and leaves the forged entry untouched; checks conflicting cache flags fail usage."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``repository verify ignores a forged clean result unless cache reuse is explicit``",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Single``1(System.Collections.Generic.IEnumerable{``0})",
+      "Reason": "Within an isolated repository fixture, writes a forged clean result only to the fixture cache, then checks that explicit cache reuse accepts it while default verification detects the authored mutation and leaves the forged entry untouched; checks conflicting cache flags fail usage."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``repository verify ignores a forged clean result unless cache reuse is explicit``",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.3.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspaceCacheEntry",
+      "Reason": "Within an isolated repository fixture, writes a forged clean result only to the fixture cache, then checks that explicit cache reuse accepts it while default verification detects the authored mutation and leaves the forged entry untouched; checks conflicting cache flags fail usage."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``repository verify ignores a forged clean result unless cache reuse is explicit``",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.3.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspaceProjectReport",
+      "Reason": "Within an isolated repository fixture, writes a forged clean result only to the fixture cache, then checks that explicit cache reuse accepts it while default verification detects the authored mutation and leaves the forged entry untouched; checks conflicting cache flags fail usage."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``repository verify ignores a forged clean result unless cache reuse is explicit``",
+      "Kind": "type",
+      "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | System.Collections.Generic.IEnumerable`1",
+      "Reason": "Within an isolated repository fixture, writes a forged clean result only to the fixture cache, then checks that explicit cache reuse accepts it while default verification detects the authored mutation and leaves the forged entry untouched; checks conflicting cache flags fail usage."
+    },
+    {
+      "File": "src/FDull.Tool/Program.fs",
+      "Owner": "FDull.Tool.Program.repositoryOptions",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.FSharpMap`2.ContainsKey(`0)",
+      "Reason": "Builds repository verification options with cache reuse enabled only by an explicit --cache flag; otherwise every selected project is analyzed fresh."
+    },
+    {
+      "File": "src/FDull.Tool/Program.fs",
+      "Owner": "FDull.Tool.Program.repositoryOptions",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.3.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspaceOptions",
+      "Reason": "Builds repository verification options with cache reuse enabled only by an explicit --cache flag; otherwise every selected project is analyzed fresh."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``since accepts a historical policy above the generic Git output limit``",
+      "Kind": "attribute",
+      "Identity": "xunit.core, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | Xunit.FactAttribute |  | unit",
+      "Reason": "Creates a fixture with a 17 MiB historical policy and checks affected selection, then commits a 65 MiB historical policy and checks that selection fails at the reviewed 64 MiB blob bound."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``since accepts a historical policy above the generic Git output limit``",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.File.AppendAllText(System.String,System.String)",
+      "Reason": "Creates a fixture with a 17 MiB historical policy and checks affected selection, then commits a 65 MiB historical policy and checks that selection fails at the reviewed 64 MiB blob bound."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``since accepts a historical policy above the generic Git output limit``",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.Combine(System.String,System.String)",
+      "Reason": "Creates a fixture with a 17 MiB historical policy and checks affected selection, then commits a 65 MiB historical policy and checks that selection fails at the reviewed 64 MiB blob bound."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``since accepts a historical policy above the generic Git output limit``",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Core.StringModule.Replicate(System.Int32,System.String)",
+      "Reason": "Creates a fixture with a 17 MiB historical policy and checks affected selection, then commits a 65 MiB historical policy and checks that selection fails at the reviewed 64 MiB blob bound."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``since accepts a historical policy above the generic Git output limit``",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.3.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.RepositoryPlan.plan(System.String,FDull.RepositorySelection)",
+      "Reason": "Creates a fixture with a 17 MiB historical policy and checks affected selection, then commits a 65 MiB historical policy and checks that selection fails at the reviewed 64 MiB blob bound."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``since accepts a historical policy above the generic Git output limit``",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Contains(System.String,System.String)",
+      "Reason": "Creates a fixture with a 17 MiB historical policy and checks affected selection, then commits a 65 MiB historical policy and checks that selection fails at the reviewed 64 MiB blob bound."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``since accepts a historical policy above the generic Git output limit``",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Core.Operators.FailWith``1(System.String)",
+      "Reason": "Creates a fixture with a 17 MiB historical policy and checks affected selection, then commits a 65 MiB historical policy and checks that selection fails at the reviewed 64 MiB blob bound."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``since accepts a large historical root policy when migrating to a service``",
+      "Kind": "attribute",
+      "Identity": "xunit.core, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | Xunit.FactAttribute |  | unit",
+      "Reason": "Creates a temporary repository fixture with a 17 MiB historical root policy, migrates its files into a service, and checks affected selection reads the historical blob within the reviewed 64 MiB bound."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``since accepts a large historical root policy when migrating to a service``",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Directory.GetFiles(System.String)",
+      "Reason": "Creates a temporary repository fixture with a 17 MiB historical root policy, migrates its files into a service, and checks affected selection reads the historical blob within the reviewed 64 MiB bound."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``since accepts a large historical root policy when migrating to a service``",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.File.Copy(System.String,System.String)",
+      "Reason": "Creates a temporary repository fixture with a 17 MiB historical root policy, migrates its files into a service, and checks affected selection reads the historical blob within the reviewed 64 MiB bound."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``since accepts a large historical root policy when migrating to a service``",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.Combine(System.String,System.String)",
+      "Reason": "Creates a temporary repository fixture with a 17 MiB historical root policy, migrates its files into a service, and checks affected selection reads the historical blob within the reviewed 64 MiB bound."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``since accepts a large historical root policy when migrating to a service``",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.GetFileName(System.String)",
+      "Reason": "Creates a temporary repository fixture with a 17 MiB historical root policy, migrates its files into a service, and checks affected selection reads the historical blob within the reviewed 64 MiB bound."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``since accepts a large historical root policy when migrating to a service``",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Directory.Delete(System.String,System.Boolean)",
+      "Reason": "Creates a temporary repository fixture with a 17 MiB historical root policy, migrates its files into a service, and checks affected selection reads the historical blob within the reviewed 64 MiB bound."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``since accepts a large historical root policy when migrating to a service``",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.File.AppendAllText(System.String,System.String)",
+      "Reason": "Creates a temporary repository fixture with a 17 MiB historical root policy, migrates its files into a service, and checks affected selection reads the historical blob within the reviewed 64 MiB bound."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``since accepts a large historical root policy when migrating to a service``",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Core.StringModule.Replicate(System.Int32,System.String)",
+      "Reason": "Creates a temporary repository fixture with a 17 MiB historical root policy, migrates its files into a service, and checks affected selection reads the historical blob within the reviewed 64 MiB bound."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``since accepts a large historical root policy when migrating to a service``",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.File.Delete(System.String)",
+      "Reason": "Creates a temporary repository fixture with a 17 MiB historical root policy, migrates its files into a service, and checks affected selection reads the historical blob within the reviewed 64 MiB bound."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``since accepts a large historical root policy when migrating to a service``",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.3.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspacePolicyDocument",
+      "Reason": "Creates a temporary repository fixture with a 17 MiB historical root policy, migrates its files into a service, and checks affected selection reads the historical blob within the reviewed 64 MiB bound."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``since accepts a large historical root policy when migrating to a service``",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.3.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Transport.External.required``1(System.String,``0)",
+      "Reason": "Checks the nullable file name returned by Path.GetFileName before copying exact fixture files during a historical root-to-service migration test."
+    },
+    {
+      "File": "src/FDull/RepositoryPlan.fs",
+      "Owner": "FDull.RepositoryPlan.gitSmallOutput",
+      "Kind": "type",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | []",
+      "Reason": "Passes a fixed 16 MiB stdout limit and a literal Git argument list to the bounded Git executor; preserves its byte-array result only for validated metadata commands."
+    },
+    {
+      "File": "src/FDull/RepositoryPlan.fs",
+      "Owner": "FDull.RepositoryPlan.gitSmallOutput",
+      "Kind": "type",
+      "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | System.Collections.Generic.IEnumerable`1",
+      "Reason": "Passes a fixed 16 MiB stdout limit and a literal Git argument list to the bounded Git executor; preserves its byte-array result only for validated metadata commands."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``since accepts a historical policy above the generic Git output limit``",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.3.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspacePolicyDocument",
+      "Reason": "Reads and saves only the temporary Billing fixture policy while checking 17 MiB historical acceptance and 65 MiB historical rejection."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``since accepts a large historical root policy when migrating to a service``",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.ArrayModule.Iterate``1(Microsoft.FSharp.Core.FSharpFunc{``0,Microsoft.FSharp.Core.Unit},``0[])",
+      "Reason": "Iterates only the temporary root file array to copy and remove files for a historical root-to-service migration."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``since accepts a large historical root policy when migrating to a service``",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.ArrayModule.Filter``1(Microsoft.FSharp.Core.FSharpFunc{``0,System.Boolean},``0[])",
+      "Reason": "Filters only files of the temporary repository root to preserve its .gitignore while migrating the historical root policy."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``repository verify ignores a forged clean result unless cache reuse is explicit``",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.Combine(System.String,System.String,System.String)",
+      "Reason": "Addresses only the Billing fixture cache directory to alter one local cache entry for the forged-result regression."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``repository verify ignores a forged clean result unless cache reuse is explicit``",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.3.0.0, Culture=neutral, PublicKeyToken=null | FDull.SafetyProcessOutput",
+      "Reason": "Reads exit codes and output from the already-built CLI in the isolated forged-cache regression fixture."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``repository verify ignores a forged clean result unless cache reuse is explicit``",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Equal(System.String,System.String)",
+      "Reason": "Compares the forged cache bytes before and after default verification to prove that fresh verification did not rewrite the cache entry."
     }
   ],
   "Domains": [],

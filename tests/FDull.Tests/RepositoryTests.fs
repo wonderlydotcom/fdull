@@ -1476,13 +1476,114 @@ module RepositoryTests =
             expect [ ordersProject ] (fun () -> File.WriteAllText(entry (), "not a cache entry"))
 
             let verifiedBy expected =
-                let result = cli root [ "verify"; "."; "--all" ]
+                let result = cli root [ "verify"; "."; "--all"; "--cache" ]
                 Assert.True(result.ExitCode = 0, result.Error + result.Output)
                 Assert.Contains(expected, result.Output)
 
             // The CLI ships its own worker build, which keys its own entries.
             verifiedBy "(3 projects, 0 from cache)."
             verifiedBy "(3 projects, 3 from cache).")
+
+    [<Fact>]
+    let ``since accepts a historical policy above the generic Git output limit`` () =
+        withRepository (fun root ->
+            let billing = service root "Billing"
+            let policy = readPolicy billing
+            File.AppendAllText(Path.Combine(billing, "fdull.json"), String.replicate (17 * 1024 * 1024) " ")
+            let baseline = initializeGit root
+            assertAffected [] (plan root (Since baseline))
+            savePolicy billing policy
+            assertAffected [ "services/Billing" ] (plan root (Since baseline))
+
+            File.AppendAllText(Path.Combine(billing, "fdull.json"), String.replicate (65 * 1024 * 1024) " ")
+            git root [ "add"; "-A" ] |> ignore
+            git root [ "commit"; "-qm"; "oversized historical policy" ] |> ignore
+            savePolicy billing policy
+
+            match RepositoryPlan.plan root (Since "HEAD") with
+            | Error error -> Assert.Contains("BUILD003", error)
+            | Ok _ -> failwith "A historical policy above 64 MiB must fail selection.")
+
+    [<Fact>]
+    let ``since accepts a large historical root policy when migrating to a service`` () =
+        withRepository (fun root ->
+            let seed = service root "Billing"
+            let historical = readPolicy seed
+
+            Directory.GetFiles seed
+            |> Array.iter (fun file ->
+                let name =
+                    Path.GetFileName file |> External.required "repository-tests.migration-file"
+
+                File.Copy(file, Path.Combine(root, name)))
+
+            Directory.Delete(seed, true)
+
+            savePolicy
+                root
+                { historical with
+                    Version = 1
+                    Repository = None }
+
+            File.AppendAllText(Path.Combine(root, "fdull.json"), String.replicate (17 * 1024 * 1024) " ")
+            let baseline = initializeGit root
+
+            Directory.GetFiles root
+            |> Array.filter (fun file -> Path.GetFileName file <> ".gitignore")
+            |> Array.iter File.Delete
+
+            service root "Billing" |> ignore
+            assertAffected [ "services/Billing" ] (plan root (Since baseline)))
+
+    [<Fact>]
+    let ``repository verify ignores a forged clean result unless cache reuse is explicit`` () =
+        withRepository (fun root ->
+            let billing =
+                serviceWith root "Billing" (fun directory ->
+                    write
+                        directory
+                        "Billing.fs"
+                        "module Billing\nlet count () =\n    let mutable total = 0\n    total <- total + 1\n    total\n")
+
+            let lint = cli billing [ "lint"; "." ]
+            Assert.Equal(1, lint.ExitCode)
+            Assert.Contains("MUT001", lint.Output)
+
+            let entry =
+                Assert.Single(Directory.GetFiles(Path.Combine(billing, ".fdull", "cache"), "*.json"))
+
+            let stored = File.ReadAllText entry |> Codec.decode<WorkspaceCacheEntry>
+            let output = Codec.decode<WorkspaceProjectReport> stored.Output
+
+            let clean =
+                { output with
+                    Report =
+                        { output.Report with
+                            ExitCode = 0
+                            Diagnostics = [] } }
+
+            File.WriteAllText(
+                entry,
+                Codec.encode
+                    { stored with
+                        ExitCode = 0
+                        Output = Codec.encode clean }
+            )
+
+            let forged = File.ReadAllText entry
+
+            let cached = cli root [ "verify"; "."; "--all"; "--cache" ]
+            Assert.Equal(0, cached.ExitCode)
+            Assert.Contains("(1 projects, 1 from cache).", cached.Output)
+
+            let authoritative = cli root [ "verify"; "."; "--all" ]
+            Assert.Equal(1, authoritative.ExitCode)
+            Assert.Contains("MUT001", authoritative.Output)
+            Assert.Contains("1 projects;", authoritative.Output)
+            Assert.Equal(forged, File.ReadAllText entry)
+
+            Assert.Equal(2, (cli root [ "verify"; "."; "--all"; "--cache"; "--no-cache" ]).ExitCode)
+            Assert.Equal(2, (cli root [ "verify"; "."; "--all"; "--cache"; "--cache" ]).ExitCode))
 
     [<Fact>]
     let ``verify rejects policy bytes that change after every request was pinned`` () =
