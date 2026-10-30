@@ -397,6 +397,62 @@
   "DataContracts": null,
   "Capabilities": [
     {
+      "File": "src/FDull/RepositoryPlan.fs",
+      "Owner": "FDull.RepositoryPlan.git",
+      "Kind": "rule",
+      "Identity": "ERR001 | ",
+      "Reason": "The bounded Git process adapter catches a memory-sampling exception only after the child has exited; it still validates output and exit status."
+    },
+    {
+      "File": "src/FDull/RepositoryPlan.fs",
+      "Owner": "FDull.RepositoryPlan.git",
+      "Kind": "rule",
+      "Identity": "CAST005 | ",
+      "Reason": "The bounded Git process adapter handles only InvalidOperationException from a child exiting during memory sampling."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``short lived Git processes preserve selection and failure results``",
+      "Kind": "attribute",
+      "Identity": "xunit.core, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | Xunit.FactAttribute |  | unit",
+      "Reason": "Marks the bounded Git process regression as an xUnit test."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``short lived Git processes preserve selection and failure results``",
+      "Kind": "rule",
+      "Identity": "MUT009 | ",
+      "Reason": "A fixed 16-iteration loop exercises short-lived fixture Git processes; mutation is confined to the test."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``short lived Git processes preserve selection and failure results``",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Core.Operators.op_Range``1(Microsoft.FSharp.Core.FSharpFunc{Microsoft.FSharp.Core.Unit,``0},Microsoft.FSharp.Core.FSharpFunc{``0,Microsoft.FSharp.Core.FSharpFunc{``0,``0}},``0,``0)",
+      "Reason": "Constructs the fixed iteration range for the Git process regression."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``short lived Git processes preserve selection and failure results``",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.3.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.RepositoryPlan.plan(System.String,FDull.RepositorySelection)",
+      "Reason": "Checks that selection reports an invalid Git revision as a failure."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``short lived Git processes preserve selection and failure results``",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Contains(System.String,System.String)",
+      "Reason": "Asserts the Git failure remains visible to the caller."
+    },
+    {
+      "File": "tests/FDull.Tests/RepositoryTests.fs",
+      "Owner": "FDull.Tests.RepositoryTests.``short lived Git processes preserve selection and failure results``",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Fail(System.String)",
+      "Reason": "Fails the regression if an invalid Git revision is accepted."
+    },
+    {
       "File": "tests/FDull.Tests/RepositoryTests.fs",
       "Owner": "FDull.Tests.RepositoryTests.``reviewed shared build input selects every owner and changed digest blocks verification``",
       "Kind": "rule",
