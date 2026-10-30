@@ -35,8 +35,9 @@ other branches can produce preview versions.
 
 The root `wrangler.jsonc` declares `site/public` as the asset directory and
 `fdull.com` as the custom domain. Cloudflare handles the domain's DNS record and
-certificate during deployment. The zone ID in the configuration is a public
-resource identifier, not a credential.
+certificate during deployment. Worker logs, invocation logs, log persistence, and
+traces are disabled. The zone ID in the configuration is a public resource
+identifier, not a credential.
 
 Before the first deployment, remove obsolete parking or hosting A, AAAA or
 CNAME records for the exact custom hostname (`fdull.com`). Existing records can

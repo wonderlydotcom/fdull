@@ -1,6 +1,16 @@
 {
   "name": "fdull",
   "compatibility_date": "2026-09-09",
+  "observability": {
+    "logs": {
+      "enabled": false,
+      "invocation_logs": false,
+      "persist": false
+    },
+    "traces": {
+      "enabled": false
+    }
+  },
   "assets": {
     "directory": "./site/public"
   },
