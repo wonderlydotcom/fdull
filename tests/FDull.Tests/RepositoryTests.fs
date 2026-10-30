@@ -324,6 +324,20 @@ module RepositoryTests =
             assertAffected [ "services/Orders" ] (plan root (Since baseline)))
 
     [<Fact>]
+    let ``short lived Git processes preserve selection and failure results`` () =
+        withRepository (fun root ->
+            service root "Billing" |> ignore
+            let baseline = initializeGit root
+
+            // Exercise repeated real Git exits, including unsuccessful commands.
+            for _ in 1..16 do
+                assertAffected [] (plan root (Since baseline))
+
+                match RepositoryPlan.plan root (Since "missing-revision") with
+                | Error error -> Assert.Contains("BUILD003: Git failed:", error)
+                | Ok _ -> Assert.Fail "A missing Git revision must fail selection.")
+
+    [<Fact>]
     let ``selection refuses missing baselines unowned F sharp files and nested policies`` () =
         withRepository (fun root ->
             Assert.True(RepositoryPlan.plan root All |> Result.isError)

@@ -189,12 +189,18 @@ module RepositoryPlan =
                   && clock.ElapsedMilliseconds < 15000L
                   && not output.IsFaulted
                   && not errors.IsFaulted do
-                child.Refresh()
+                let workingSet =
+                    try
+                        child.Refresh()
 
-                if not child.HasExited && child.WorkingSet64 > 1073741824L then
-                    invalidOp "BUILD003: Git exceeded its working-set budget."
+                        if child.HasExited then None else Some child.WorkingSet64
+                    with :? InvalidOperationException when child.HasExited ->
+                        // Exit can race the OS memory query; still validate streams and exit code.
+                        None
 
-                child.WaitForExit 25 |> ignore
+                match workingSet with
+                | Some bytes when bytes > 1073741824L -> invalidOp "BUILD003: Git exceeded its working-set budget."
+                | _ -> child.WaitForExit 25 |> ignore
 
             if not child.HasExited then
                 child.Kill(true)
