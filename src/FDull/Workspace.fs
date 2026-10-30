@@ -13,7 +13,7 @@ type WorkspaceReport =
         Complete: bool
         ExitCode: int
         Projects: WorkspaceProjectReport list
-        /// Projects served from the result cache; always 0 for `verify` and `--no-cache`.
+        /// Projects served from the result cache; always 0 with `--no-cache`.
         Cached: int
         ExcludedProjects: WorkspaceProjectExclusion list
         /// Why `verify` ran one project at a time whatever its job count; always empty for `lint`.
@@ -26,7 +26,8 @@ type WorkspaceInvocation =
       References: string list
       Arguments: string list
       Generated: string list
-      ProjectReferences: string list }
+      ProjectReferences: string list
+      ImportedBuildInputs: string list }
 
 /// Wall-clock cost of one project's analysis. Diagnostic output only; never part of a report.
 type WorkspaceTiming =
@@ -35,8 +36,13 @@ type WorkspaceTiming =
       WorkerMilliseconds: int64
       ValidationMilliseconds: int64 }
 
-/// How `lint` and `review` run. Neither option changes a report except its `Cached` counts.
-type WorkspaceOptions = { Jobs: int; Cache: bool }
+/// How `lint`, `review` and `verify` run. `MemoryMiB` is each analysis worker's managed heap ceiling,
+/// from `SafetyLimits.minimumWorkerMemoryMiB` to `SafetyLimits.maximumWorkerMemoryMiB`. No option
+/// changes a complete report except its `Cached` counts; too little memory makes a check incomplete.
+type WorkspaceOptions =
+    { Jobs: int
+      Cache: bool
+      MemoryMiB: int }
 
 module Workspace =
     let validatePolicy platform =
@@ -97,6 +103,7 @@ module Workspace =
               "-p:BuildProjectReferences=false"
               "-p:FDullExport=true"
               "-getItem:FscCommandLineArgs,ProjectReference"
+              "-getProperty:MSBuildAllProjects"
               "-m:1"
               "-nr:false"
               "-nologo" ]
@@ -113,6 +120,16 @@ module Workspace =
                     item.GetProperty("Identity").GetString()
                     |> FDull.Transport.External.required "workspace.argument")
                 |> Seq.toList
+
+            let importedBuildInputs =
+                document.RootElement.GetProperty("Properties").GetProperty("MSBuildAllProjects").GetString()
+                |> Option.ofObj
+                |> Option.defaultValue ""
+                |> fun value -> value.Split(';', StringSplitOptions.RemoveEmptyEntries)
+                |> Array.map (fun file -> Path.GetFullPath(file, directory))
+                |> Array.distinct
+                |> Array.sort
+                |> Array.toList
 
             let full file = Path.GetFullPath(file, directory)
 
@@ -187,7 +204,8 @@ module Workspace =
                           References = references
                           Arguments = flags
                           Generated = generated
-                          ProjectReferences = projectReferences }
+                          ProjectReferences = projectReferences
+                          ImportedBuildInputs = importedBuildInputs }
 
     /// The intermediate and build output directories MSBuild evaluates for a Release project. Only
     /// evaluates the project; no target runs and nothing is written.
@@ -273,7 +291,51 @@ module Workspace =
 
         document, before
 
+    let validateImports root project (document: WorkspacePolicyDocument) (invocation: WorkspaceInvocation) =
+        WorkspacePolicy.validatePinnedImports root document
+
+        let buildInputs =
+            WorkspacePolicy.buildInputPaths root document
+            |> List.map (fun (path, digest) -> { Path = path; Digest = digest })
+
+        match document.Repository with
+        | None -> []
+        | Some _ ->
+            let repoRoot = WorkspacePolicy.repositoryRoot root document
+            let projectFile = Path.Combine(root, project)
+
+            let projectDirectory =
+                Path.GetDirectoryName projectFile
+                |> External.required "workspace.project-parent"
+
+            let projectName =
+                Path.GetFileName projectFile |> External.required "workspace.project-name"
+
+            let inside parent path =
+                let relative = Path.GetRelativePath(parent, path).Replace('\\', '/')
+                relative <> ".." && not (relative.StartsWith("../", StringComparison.Ordinal))
+
+            let generated path =
+                List.contains
+                    path
+                    [ Path.Combine(projectDirectory, "obj", projectName + ".nuget.g.props")
+                      Path.Combine(projectDirectory, "obj", projectName + ".nuget.g.targets") ]
+
+            invocation.ImportedBuildInputs
+            |> List.filter (inside repoRoot)
+            |> List.filter (generated >> not)
+            |> List.map (fun path ->
+                match buildInputs |> List.tryFind (fun item -> item.Path = path) with
+                | Some item -> item
+                | None -> invalidOp ("BUILD005: Evaluated repository import is unpinned: " + path))
+
     let private requestFrom root project (document: WorkspacePolicyDocument, pin) (invocation: WorkspaceInvocation) =
+        let buildInputs =
+            WorkspacePolicy.buildInputPaths root document
+            |> List.map (fun (path, digest) -> { Path = path; Digest = digest })
+
+        let importedBuildInputs = validateImports root project document invocation
+
         { Root = root
           Project = Path.Combine(root, project)
           ProjectReferences = invocation.ProjectReferences
@@ -281,11 +343,8 @@ module Workspace =
           Sources = invocation.Sources |> List.map input
           References = invocation.References |> List.map input
           Generated = invocation.Generated
-          BuildInputs =
-            document.Inputs
-            |> List.map (fun pin ->
-                { Path = Path.Combine(root, pin.File)
-                  Digest = pin.Digest })
+          BuildInputs = buildInputs
+          ImportedBuildInputs = importedBuildInputs
           Policy = pin
           PolicySlice = WorkspaceSlice.digest project document }
 
@@ -316,7 +375,10 @@ module Workspace =
             || report.Policy <> request.PolicySlice
             || report.Tool <> engine
             || closureChanged
-            || request.Policy :: request.Sources @ request.References @ request.BuildInputs
+            || request.Policy :: request.Sources
+               @ request.References
+               @ request.BuildInputs
+               @ request.ImportedBuildInputs
                |> List.exists (fun expected -> input expected.Path <> expected)
         then
             Error "BUILD004: The workspace worker report differs from its requested inputs."
@@ -329,13 +391,18 @@ module Workspace =
 
             validation |> Result.map (fun () -> review)
 
-    /// Analyze one project. With `cache`, a stored response for the same key is accepted through the
+    /// Analyze one project. With `options.Cache`, a stored response for the same key is accepted through the
     /// same checks as a fresh one; anything else runs the worker, and a complete accepted response is stored.
-    let private analyzeTimed cache advisory document (request: WorkspaceRequest) =
+    let private analyzeTimed (options: WorkspaceOptions) advisory document (request: WorkspaceRequest) =
         let worker = Path.Combine(AppContext.BaseDirectory, "safety-worker")
         let engine = Path.Combine(worker, "FDull.dll")
 
         if
+            options.MemoryMiB < SafetyLimits.minimumWorkerMemoryMiB
+            || options.MemoryMiB > SafetyLimits.maximumWorkerMemoryMiB
+        then
+            Error "BUILD003: The worker memory limit is outside the supported range.", 0L
+        elif
             not (File.Exists engine)
             || SafetyPolicy.fileDigest engine
                <> SafetyPolicy.fileDigest typeof<SafetyReport>.Assembly.Location
@@ -354,11 +421,15 @@ module Workspace =
             let key = WorkspaceCache.key advisory before request
 
             let hit =
-                if cache then
+                if options.Cache then
                     WorkspaceCache.read request.Root key
                     |> Option.bind (fun output ->
-                        accept advisory document request (SafetyPolicy.fileDigest engine) false output
-                        |> Result.toOption)
+                        // An entry that cannot be decoded or accepted is a miss, never a failure.
+                        try
+                            accept advisory document request (SafetyPolicy.fileDigest engine) false output
+                            |> Result.toOption
+                        with _ ->
+                            None)
                 else
                     None
 
@@ -382,7 +453,7 @@ module Workspace =
                 start.ArgumentList.Add(if advisory then "--workspace-review" else "--workspace")
                 start.Environment.Clear()
                 start.Environment["DOTNET_ROOT"] <- runtimeRoot ()
-                start.Environment["DOTNET_GCHeapHardLimit"] <- "20000000"
+                start.Environment["DOTNET_GCHeapHardLimit"] <- SafetyLimits.heapHardLimit options.MemoryMiB
                 let text = Codec.encode request
                 let clock = Stopwatch.StartNew()
 
@@ -394,7 +465,7 @@ module Workspace =
                                 SafetyLimits.workspaceReviewCharacters
                             else
                                 SafetyLimits.workspaceReportCharacters
-                          WorkingSetBytes = SafetyLimits.workingSetBytes }
+                          WorkingSetBytes = 2L * SafetyLimits.heapBytes options.MemoryMiB }
                         start
                         text
 
@@ -407,14 +478,14 @@ module Workspace =
                         accept advisory document request (SafetyPolicy.fileDigest engine) (before <> closure ()) output
 
                     match accepted with
-                    | Ok review when cache && review.Analysis.Report.Complete ->
+                    | Ok review when options.Cache && review.Analysis.Report.Complete ->
                         WorkspaceCache.write request.Root key output
                     | _ -> ()
 
                     accepted, elapsed
 
     /// The parent's own work is everything outside the export and worker processes.
-    let private measured cache advisory root (document, pin) project =
+    let private measured options advisory root (document, pin) project =
         let clock = Stopwatch.StartNew()
         let invocation = export root project
         let exported = clock.ElapsedMilliseconds
@@ -424,7 +495,7 @@ module Workspace =
             | Error error -> Error error, 0L
             | Ok invocation ->
                 requestFrom root project (document, pin) invocation
-                |> analyzeTimed cache advisory document
+                |> analyzeTimed options advisory document
 
         result,
         { Project = project
@@ -440,26 +511,47 @@ module Workspace =
         with error ->
             Error("BUILD003: " + error.Message)
 
-    let checkProject platform project =
-        try
-            let root = Path.GetFullPath platform
-            let policy, pin = pinned false root
-            WorkspaceAudit.validate root policy
+    /// A workspace's policy and the pin of its `fdull.json` bytes, as every analysis request records them.
+    let internal readPinned root = pinned false root
 
+    /// Analyze one project of the workspace at the full path `root` against a policy read with `readPinned`
+    /// and already audited, so a caller analyzing many projects reads and audits the policy once.
+    let internal checkPinned options root (policy: WorkspacePolicyDocument, pin) project =
+        try
             let relative =
                 Path.GetRelativePath(root, Path.GetFullPath(project, root)).Replace('\\', '/')
 
             if policy.Sources |> List.exists (fun source -> source.Project = relative) then
                 export root relative
                 |> Result.map (requestFrom root relative (policy, pin))
-                |> Result.bind (analyzeTimed false false policy >> fst >> Result.map _.Analysis)
+                |> Result.bind (analyzeTimed options false policy >> fst >> Result.map _.Analysis)
             else
                 Error "ARCH002: The project is not assigned by workspace policy."
         with error ->
             Error("BUILD003: " + error.Message)
 
-    /// Projects analyzed at once by default. Each worker heap is capped at 512 MiB.
+    /// Analyze one project as `verify` does. With `options.Cache`, an accepted stored result is returned
+    /// with `Cached` set, and a complete fresh result is stored. `options.Jobs` is unused.
+    let checkProjectWith (options: WorkspaceOptions) platform project =
+        try
+            let root = Path.GetFullPath platform
+            let policy, pin = readPinned root
+            WorkspaceAudit.validate root policy
+            checkPinned options root (policy, pin) project
+        with error ->
+            Error("BUILD003: " + error.Message)
+
+    /// Projects analyzed at once by default.
     let defaultJobs = min Environment.ProcessorCount 4
+
+    /// `defaultJobs` concurrent projects, each worker heap capped at `SafetyLimits.workerMemoryMiB`, and no cache.
+    let defaultOptions =
+        { Jobs = defaultJobs
+          Cache = false
+          MemoryMiB = SafetyLimits.workerMemoryMiB }
+
+    let checkProject platform project =
+        checkProjectWith defaultOptions platform project
 
     let private attempt work item =
         try
@@ -536,6 +628,11 @@ module Workspace =
         try
             let policy, pin = pinned false root
             WorkspaceAudit.validate root policy
+
+            // A version-two service also gets the repository checks that `verify` runs before building.
+            if policy.Repository.IsSome then
+                errors.AddRange(RepositoryPlan.check (WorkspacePolicy.repositoryRoot root policy) root)
+
             exclusions.AddRange(WorkspacePolicy.excludedProjects policy)
             let projectFiles = WorkspaceAudit.order policy.Projects
 
@@ -571,7 +668,7 @@ module Workspace =
 
                 for unused in WorkspaceAudit.unusedDataContracts policy observed do
                     errors.Add(
-                        "BUILD005: Unused reusable data contract or assembly pin: "
+                        "BUILD005: Unused data contract or assembly pin: "
                         + unused.Project
                         + " | "
                         + unused.Identity
@@ -610,12 +707,18 @@ module Workspace =
     let checkTimed (options: WorkspaceOptions) platform =
         let root = Path.GetFullPath platform
 
-        checkMeasured root options.Jobs false (fun policy project ->
-            let result, timing = measured options.Cache false root policy project
-            result |> Result.map _.Analysis, Some timing)
+        let outcome =
+            checkMeasured root options.Jobs false (fun policy project ->
+                let result, timing = measured options false root policy project
+                result |> Result.map _.Analysis, Some timing)
+
+        if options.Cache then
+            WorkspaceCache.prune root
+
+        outcome
 
     let check platform =
-        checkTimed { Jobs = defaultJobs; Cache = false } platform |> fst
+        checkTimed defaultOptions platform |> fst
 
     /// Analyze a current-source snapshot for human review, without updating or certifying policy.
     let reviewTimed (options: WorkspaceOptions) platform =
@@ -639,7 +742,7 @@ module Workspace =
                 schedule
                     options.Jobs
                     Map.empty
-                    (measured options.Cache true root (document, pin))
+                    (measured options true root (document, pin))
                     (WorkspaceAudit.order document.Projects) do
                 match outcome with
                 | Ok(result, timing) ->
@@ -680,10 +783,13 @@ module Workspace =
                   UnusedDataContracts = []
                   Errors = List.ofSeq errors }
 
+        if options.Cache then
+            WorkspaceCache.prune root
+
         report, List.ofSeq timings
 
     let review platform =
-        reviewTimed { Jobs = defaultJobs; Cache = false } platform |> fst
+        reviewTimed defaultOptions platform |> fst
 
     let private serveUsing advisory (input: TextReader) (output: TextWriter) =
         try

@@ -7,7 +7,7 @@ effects, controlled domain construction, explicit union cases and observed
 results. It uses FSharp.Compiler.Service to inspect resolved symbols and types,
 as well as source syntax. Aliases and nested payloads do not escape the checks.
 
-This is a strict, experimental **0.2.0-preview.4** release for teams that want a
+This is a strict, experimental **0.3.0-preview.1** release for teams that want a
 small approved vocabulary and reviewable exceptions. It is not a new language
 or a proof that a program is safe.
 
@@ -85,7 +85,7 @@ Install locally in a repository:
 
 ```sh
 dotnet new tool-manifest
-dotnet tool install FDull.Tool --version 0.2.0-preview.4
+dotnet tool install FDull.Tool --version 0.3.0-preview.1
 ```
 
 Pin `global.json`:
@@ -227,6 +227,148 @@ let firstPositive values = values |> List.tryFind (fun value -> value > 0)
 Authored mutation reports `MUT001`/`MUT002`. A partial operation such as `List.head`
 reports `ERR006`. Unapproved external calls report `EFFECT001`.
 
+## Service-owned monorepos
+
+`verify` can discover service policies beneath a repository root without a root
+`fdull.json`:
+
+```sh
+dotnet fdull verify . --all
+dotnet fdull verify . --since <comparison-commit>
+dotnet fdull verify services/billing
+```
+
+Bare repository verification selects every service. `--since` requires Git and
+resolves the supplied commit once; it compares that revision with the current
+working snapshot, including committed, staged, unstaged and untracked changes.
+The initial affected mode supports Git repositories using SHA-1 object IDs.
+CI should supply its intended comparison commit, such as a computed merge base.
+An unavailable baseline blocks verification. `--all` and `--since` are mutually
+exclusive. An empty selection reports **no affected services**, and skipped
+services are never reported as verified. A baseline commit is not evidence that
+unchanged services passed FDull; enforcing that is the responsibility of CI.
+
+Existing version-one policies retain their single-workspace meaning. Services
+below a coordination root use version two, with this additional field:
+
+```json
+{
+  "Version": 2,
+  "Repository": {
+    "Root": "../..",
+    "SharedInputs": [
+      { "File": "Directory.Build.props", "Digest": "sha256:<reviewed hash>" }
+    ],
+    "References": [
+      {
+        "Project": "Billing.fsproj",
+        "Target": "libraries/contracts/Contracts.fsproj",
+        "Policy": "libraries/contracts/fdull.json",
+        "PolicyDigest": "sha256:<reviewed policy hash>",
+        "Profile": "CONTRACTS"
+      }
+    ]
+  }
+}
+```
+
+This is an extension to the ordinary policy document: its projects, sources,
+inputs and capabilities are still required and service-relative. Only the new
+`Repository.Root` field accepts a bounded ancestor path. `SharedInputs`, cross
+reference `Target` and `Policy` paths are repository-relative. Local references
+remain in `Projects[].References`; cross-service references go in
+`Repository.References`. Every target has an exact owner and policy digest.
+An F# `.fsproj` target names its owner's exact `Profile` and omits `Kind`.
+Cross-service references obey the same profile-direction rules as local
+references and grant no capability. When a target has its own project
+references, the consumer's graph must cover the evaluated MSBuild closure, as
+it does for local references.
+
+A C# or VB implementation project can be referenced only when its owner pins
+the `.csproj`/`.vbproj` in `Inputs` and the project lies inside one of the
+owner's reviewed `implementation` External entries. The edge omits `Profile`
+and sets `Kind` to `implementation`:
+
+```json
+{
+  "Project": "Billing.fsproj",
+  "Target": "services/native/Interop/Interop.csproj",
+  "Policy": "services/native/fdull.json",
+  "PolicyDigest": "sha256:<normalized policy digest>",
+  "Kind": "implementation"
+}
+```
+
+The target is treated exactly like a local reviewed implementation project:
+it must match the evaluated MSBuild references, it is not ordered by the F#
+project graph, and it grants nothing. The consumer still pins the owner's
+policy digest, and `--since` selects the consumer when the owner changes.
+
+Capability, data, domain and constructor approvals remain owned by the policy
+that declares them; no contracts are merged across owners. Constructor approvals
+are allowed on either side of an edge: each policy's `Constructors` apply only
+to definitions in its own sources, and unused approvals are reported per owner.
+Domain contracts remain blocked on either side of a cross-service edge.
+
+`PolicyDigest` is the SHA-256 of the dependency's `fdull.json` bytes with each
+of its own `Repository.References[].PolicyDigest` string values replaced by
+`""`. Every other byte, including whitespace, ordering and a byte-order mark,
+is covered. Strict UTF-8, duplicate property names (anywhere), escaped property
+names, comments, trailing commas, trailing content and a non-string pin are
+rejected rather than hashed. Print the value with `dotnet fdull policy-digest
+<path-to-fdull.json>`. A consumer's pin therefore does not change when its
+dependency re-pins its own dependencies, which permits service-level cycles;
+project-level cycles across policies are still blocked. A transitive policy is
+not covered by the top consumer's pin: it is verified through the pin of each
+direct consumer, so every policy on the path must be reviewed. Every reachable
+policy is loaded once, each edge's pin is checked, and the pins are re-checked
+against the same snapshot before results are accepted.
+
+Start with explicit `init <service>` calls, then review a version-two migration.
+Initialization never discovers and writes policies for other services. Pin all
+ancestor `global.json`, NuGet configuration and Directory.Build/Packages controls
+that exist inside the repository, plus repository-local imports used by the
+service. Changing a shared input selects its consumers but still requires every
+reviewed digest to match. Changed libraries select their transitive consumers;
+required dependencies are separately identified in the report. Under `--since`,
+a dependency is by construction unchanged since the comparison commit: it is
+built for its consumers but not re-analyzed, and the report lists it as built
+only. Its verification evidence is the comparison commit's, which CI must
+establish. Changed ownership or dependency graphs conservatively select all
+current services. An explicit service invocation verifies that service and its
+dependencies, without selecting unrelated reverse consumers.
+
+Ownership is checked repository-wide even for affected runs. Nested policies,
+unowned F# sources/projects, unknown or excluded targets, dependency cycles and
+symlink aliases are blocked in coordination mode. Repository content outside
+service scopes is outside the verification claim. Discovery is bounded to 256
+policies, 2,048 included projects, 100,000 traversal steps, depth 32 and 512 MiB of
+selection inputs (64 MiB per file); each service retains its 128-project limit.
+Generated and dependency directories use the ordinary inventory exclusions.
+Protected local/shared pins inside those excluded trees are rejected, so a
+reviewed input cannot disappear from the selection snapshot.
+
+All selected projects share one `--jobs` budget. One locked restore and one
+Release build cover the whole selection, through a solution generated under
+`<root>/.fdull/verify/` and deleted afterwards; the build uses up to `--jobs`
+MSBuild nodes, and overlapping output directories force one. A failing project
+fails the run with MSBuild's errors for that project. Dependencies finish
+analysis and rebuilding before consumers are analyzed, followed by final input,
+ownership and invocation checks. When repository verification is explicitly run
+with `--cache`, a project served from the result cache skips the worker and the
+rebuild; the final pass still re-exports and checks its compiler invocation.
+Authored project, props and targets imports must be literal, repository-local
+paths with reviewed pins, including imports under inactive conditions. Dynamic,
+wildcard and SDK-qualified authored imports are blocked. Evaluated imports
+reported by MSBuild are checked as an additional signal. Custom SDK property-driven
+import hooks and arbitrary target-time file reads are outside this dependency
+model; ordinary build trust and sandbox
+requirements still apply. `lint` and advisory `review` retain their single-policy report
+schemas; repository coordination currently applies to text `verify` reports.
+`lint` of a version-two workspace also runs the repository discovery, ownership
+and graph checks, and reads each consuming policy, so a consumer's stale
+`PolicyDigest` pin on the linted workspace fails `lint` as it would fail `verify`.
+
 ## Policy and review
 
 `fdull.json` assigns `PURE`, `PURE_HELPER`, `CONTRACTS`, `BOUNDARY`, `ADAPTER`,
@@ -358,54 +500,78 @@ dotnet fdull review . --format json
 dotnet fdull verify . --jobs 4 --timings
 dotnet fdull cache clear .
 dotnet fdull coverage
+dotnet fdull policy-digest services/billing/fdull.json
 ```
+
+`policy-digest <path-to-fdull.json>` prints the normalized `sha256:<hex>` value
+that a consumer pins in `Repository.References[].PolicyDigest`. Like
+`data-digest`, it prints a fingerprint and never a permission entry.
 
 `lint`, `review` and `verify` run independent projects concurrently. `--jobs <n>`
 sets how many run at once, from 1 to 64. The default is the processor count, capped
 at 4. Reports list projects in dependency order, and the output doesn't depend on
-the job count. Each analysis worker's heap is capped at 512 MiB.
+the job count. `--memory <MiB>` sets each analysis worker's managed heap ceiling,
+from 256 to 16384; the default is 512. The worker's working-set limit is twice its
+heap. A worker that runs out of memory makes the check incomplete, never clean.
+Library callers set `WorkspaceOptions.MemoryMiB`; `Workspace.defaultOptions` holds
+the defaults.
 
 `verify` rebuilds each project after analyzing it, which changes the inputs of
 every project that references it. So a project starts only after every project it
 references has finished, and `--jobs 1` is the fully sequential schedule. If a
 project throws, the report stops at the first failure in dependency order, as it
-would with one job. Within a job, analysis (1 GiB working set) and the rebuild
-(2 GiB) run one after the other, so allow about 2 GiB of memory per job. When two
+would with one job. Within a job, analysis (1 GiB working set by default) and the
+rebuild (2 GiB) run one after the other, so allow about 2 GiB of memory per job, or
+twice `--memory` when that is larger. When two
 projects share an intermediate or output directory, their builds would write the
 same files: `verify` then runs one project at a time whatever `--jobs` says, and
 the text report says which projects share which directory. The report's
 `Sequential` field carries those lines; it is always empty in `lint` JSON. `verify`
-takes no `--format` or `--no-cache`.
+takes no `--format`. Repository `verify` does not use the cache by default;
+`--cache` opts into reuse, while `--no-cache` explicitly keeps it off. A standalone
+(version-one) `verify` never uses the cache and rejects either flag.
 
 `--timings` writes per-project times, and the run's total, to stderr. For `lint`
 and `review` they are MSBuild export, analysis worker and parent validation; for
 `verify` they are output-directory evaluation, restore, build, analysis, rebuild
-and re-export, plus the final validation pass. Stdout and the exit code are
-unchanged.
+and re-export per project, then a summary line with the restore and build of the
+whole selection and the final validation pass. Repository `verify` reports restore
+and build only in the summary, so they read 0 per project. Stdout and the exit
+code are unchanged.
 
-`lint` and `review` keep a per-project result cache in `<root>/.fdull/cache`. A
+`lint` and `review` keep a per-project result cache in `<root>/.fdull/cache` by
+default. Repository `verify --cache` also uses this cache. A
 project is served from it only when everything its analysis reads is unchanged:
 the exact compiler invocation, source and reference fingerprints, policy slice,
 FDull build and .NET runtime. A cached result still passes the same input
 comparison and validation as a fresh one, and unused-permission checks still see
-every project. A damaged, edited or mismatched entry is ignored and the project is
+every project. A malformed or mismatched entry is ignored and the project is
 re-analyzed. Text output then reads `N projects (M from cache)`, and JSON has a
 `Cached` count and a per-project `Cached` flag; nothing else in the output or exit
-code depends on the cache. `--no-cache` turns it off, and `cache clear <root>`
-deletes `<root>/.fdull/cache` (exit `3` if it is a symbolic link). Entries are never
-evicted, and a new FDull build changes every key.
+code depends on the cache. `--no-cache` turns it off for lint and review, and
+`cache clear <root>`
+deletes `<root>/.fdull/cache` (exit `3` if it is a symbolic link). Each cached run
+evicts entries unused for 30 days, and the least recently used ones beyond 256 MiB
+per cache. A new FDull build changes every key.
 
-Rebuilding a project changes its F# reference assembly, so the project and every
-project that references it are re-analyzed. A policy edit re-analyzes only the
-projects whose slice it changes. Edits to `Inputs`, `Domains` or `Constructors`,
-including compiler settings in a pinned project file, re-analyze every project.
+With deterministic builds, a project's F# reference assembly changes only when its
+public signature or the optimization data of its public functions changes, such as
+the body of a small or `inline` public function. Then the project and every project
+that references it are re-analyzed; otherwise only the edited project is. A policy
+edit re-analyzes only the projects whose slice it changes. Edits to `Inputs`,
+`Domains` or `Constructors`, including compiler settings in a pinned project file,
+re-analyze every project. A slice includes the workspace's `PolicyDigest` pins,
+because analysis reads the dependency policies they pin. So any change to a
+dependency's policy, including a re-pinned source fingerprint, re-analyzes every
+project in its consuming workspaces.
 
-The cache is for iteration. `lint` and `review` trust `.fdull/` as you trust your
-own build output: an entry edited to stay consistent is believed. A cached `lint`
-is therefore not certification, and `verify` never reads or writes the cache. For
-CI, or anything checked out from someone else, run `verify`, or `lint --no-cache`. Don't run `lint` right before `verify`, which runs the
-same per-project analysis and fails on the same diagnostics. A policy pass is
-`review`, fix, `review`, `verify`.
+The cache is trusted state, as build output is: an entry edited to stay consistent
+is believed, and repository `verify --cache` accepts a hit as evidence. Plain
+`verify` never reads or writes the result cache, so it is the authoritative gate
+for an untrusted checkout or cache. In CI, use plain `verify`. During local
+iteration, cached `lint` and `review` can reuse unchanged results. Use
+`verify --cache` only when the local cache is trusted; it uses the same keys as
+lint. A final policy pass is `review`, fix, `review`, `verify`.
 
 | Exit | Meaning |
 | --- | --- |
@@ -414,10 +580,11 @@ same per-project analysis and fails on the same diagnostics. A policy pass is
 | `2` | Invalid command usage. |
 | `3` | Incomplete/failed analysis, invalid policy, changed inputs, or unavailable worker. |
 
-`lint` checks current Release compiler inputs and fingerprints. `verify` performs
-locked restores one project at a time, builds each project once its references are
-built, then analyzes and recompiles each project after its references without
-rebuilding them. A final pass re-checks every project once all builds have finished. Source, reference, policy
+`lint` checks current Release compiler inputs and fingerprints. Repository `verify`
+performs one locked restore and one build of the selection; a standalone `verify`
+restores one project at a time and builds each project once its references are
+built. Both then analyze and recompile each project after its references without
+rebuilding them, except that a cache hit is not recompiled. A final pass re-checks every project once all builds have finished. Source, reference, policy
 and evaluated compiler inputs are compared before accepting the result. JSON includes completeness and errors.
 SARIF includes diagnostics and an invocation success flag; also check the exit code.
 
@@ -493,7 +660,7 @@ For live editor feedback in FsAutocomplete/Ionide, reference the analyzer as a
 development dependency in each checked project:
 
 ```xml
-<PackageReference Include="FDull.Analyzers" Version="0.2.0-preview.4"
+<PackageReference Include="FDull.Analyzers" Version="0.3.0-preview.1"
                   PrivateAssets="All" IncludeAssets="analyzers" />
 ```
 
@@ -503,16 +670,19 @@ fingerprints, builds or policy capabilities. `fdull verify` remains the complete
 repository gate. Analyzer suppression comments are themselves FDull violations
 and do not affect the authoritative CLI.
 
-Reference `FDull` version `0.2.0-preview.4` to consume `SafetyDiagnostic`,
+Reference `FDull` version `0.3.0-preview.1` to consume `SafetyDiagnostic`,
 `SafetyReport`, workspace policy types and `SafetyEngine.check`. The in-process
 engine accepts ordered, fingerprinted source/reference inputs. Hosts must enforce
 process limits themselves; the library package does not install a worker beside
 arbitrary executables. `FDull.Tool` supplies the supported bounded host for
 `Workspace.check`, `Project.verify` and source-only `Safety.check`. The library's
-`Workspace.check` and `Workspace.review` never use the result cache.
+`Workspace.check`, `Workspace.review` and `Repository.verify` never use the result
+cache.
 
-The worker has a 512 MiB managed heap ceiling, a 1 GiB working-set limit and a
-60-second wall-time limit per project. Output and traversal are also bounded.
+The workspace worker has a 512 MiB managed heap ceiling (`--memory` or
+`WorkspaceOptions.MemoryMiB` changes it), a working-set limit of twice the heap and
+a 60-second wall-time limit per project. Source-only `Safety.check` keeps the
+512 MiB heap and 1 GiB working set. Output and traversal are also bounded.
 Exhausted limits cause an incomplete failed check. Tests run serially with a
 separate 2 GiB heap ceiling.
 

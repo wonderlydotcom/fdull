@@ -16,6 +16,8 @@ type WorkspaceRequest =
         References: SafetyInput list
         Generated: string list
         BuildInputs: SafetyInput list
+        /// Evaluated repository-local MSBuild imports, all bound to reviewed build pins.
+        ImportedBuildInputs: SafetyInput list
         Policy: SafetyInput
         /// Digest of the policy slice the project's analysis can observe; reports carry it as `Policy`.
         PolicySlice: string
@@ -241,7 +243,10 @@ module WorkspaceEngine =
                 invalidOp "BUILD002: The compiler/Core identities differ from FDull's tested toolchain."
 
             let allInputs =
-                request.Policy :: request.Sources @ request.References @ request.BuildInputs
+                request.Policy :: request.Sources
+                @ request.References
+                @ request.BuildInputs
+                @ request.ImportedBuildInputs
 
             let unchanged () =
                 allInputs
@@ -272,21 +277,21 @@ module WorkspaceEngine =
                     WorkspaceSlice.create project document
 
             let buildInputs =
-                policy.Inputs
-                |> List.map (fun pin ->
-                    { Path = Path.Combine(request.Root, pin.File)
-                      Digest = pin.Digest })
+                WorkspacePolicy.buildInputPaths request.Root policy
+                |> List.map (fun (path, digest) -> { Path = path; Digest = digest })
 
             if request.BuildInputs <> buildInputs then
                 invalidOp "BUILD004: Worker build inputs differ from the protected inventory."
 
-            match
-                WorkspaceAudit.validateEdgesWithExternal
-                    policy.Projects
-                    (WorkspaceAudit.externalProjects policy)
-                    project
-                    request.ProjectReferences
-            with
+            let protectedImports = buildInputs |> Set.ofList
+
+            if
+                request.ImportedBuildInputs
+                |> List.exists (fun item -> not (Set.contains item protectedImports))
+            then
+                invalidOp "BUILD004: Evaluated repository import lacks a reviewed build pin."
+
+            match WorkspaceAudit.validatePolicyEdges request.Root policy project request.ProjectReferences with
             | Error error -> invalidOp error
             | Ok() -> ()
 
@@ -484,7 +489,13 @@ module WorkspaceEngine =
 
             uses <- observed ()
 
-            if not (unchanged ()) then
+            let stablePolicy =
+                if advisory then
+                    WorkspacePolicy.readForReview request.Root
+                else
+                    WorkspacePolicy.read request.Root
+
+            if stablePolicy <> document || not (unchanged ()) then
                 complete <- false
                 globalError "BUILD004" "Workspace inputs changed during analysis."
         with error ->

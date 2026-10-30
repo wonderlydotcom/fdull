@@ -16,6 +16,13 @@ type VerifyTiming =
       RebuildMilliseconds: int64
       ReexportMilliseconds: int64 }
 
+/// Wall-clock cost of `verify`'s steps that cover the whole selection: one restore and one build, both 0
+/// when each project was restored and built on its own, and the final validation pass. Diagnostic output only.
+type VerifyTotals =
+    { Restore: int64
+      Build: int64
+      FinalValidation: int64 }
+
 /// Standalone project lifecycle. Policy creation records inputs, never exemptions.
 module Project =
     let defaults () =
@@ -26,7 +33,7 @@ module Project =
         use reader = new StreamReader(stream)
         reader.ReadToEnd()
 
-    let private run root (arguments: string list) =
+    let internal run root (arguments: string list) =
         let start = ProcessStartInfo("dotnet", WorkingDirectory = root)
 
         for argument in arguments do
@@ -125,6 +132,7 @@ module Project =
 
         let policy =
             { Version = 1
+              Repository = None
               Sources = sources
               Projects =
                 invocations
@@ -177,12 +185,19 @@ module Project =
             | Ok value -> value
             | Error(error: exn) -> invalidOp error.Message)
 
-    /// Verify with up to `jobs` projects building or analyzing at once, and report each project's timing
-    /// and the final validation time. A project is built, analyzed and rebuilt only after every project it
-    /// references has finished, so the job count never changes a passing report.
-    let verifyTimed jobs directory =
+    /// Verify with up to `options.Jobs` projects building or analyzing at once, each analysis worker heap
+    /// capped at `options.MemoryMiB`, and report each project's timing and the final validation time. A
+    /// project is built, analyzed and rebuilt only after every project it references has finished, so the
+    /// job count never changes a passing report. Standalone verification ignores `options.Cache`.
+    let verifyTimedWith (options: WorkspaceOptions) directory =
+        let jobs = options.Jobs
         let root = Path.GetFullPath directory
         let policy = WorkspacePolicy.read root
+
+        if policy.Repository.IsSome then
+            invalidOp
+                "BUILD005: Version-two policies require Repository.verify so cross-policy dependencies share one verification schedule."
+
         WorkspaceAudit.validate root policy
         let projects = WorkspaceAudit.order policy.Projects
 
@@ -249,7 +264,7 @@ module Project =
             Workspace.checkUsing root concurrent (fun project ->
                 let clock = Stopwatch.StartNew()
 
-                match Workspace.checkProject root project with
+                match Workspace.checkProjectWith { options with Cache = false } root project with
                 | Error error -> Error error, (project, clock.ElapsedMilliseconds, 0L, 0L)
                 | Ok result when result.Report.ExitCode <> 0 -> Ok result, (project, clock.ElapsedMilliseconds, 0L, 0L)
                 | Ok result ->
@@ -274,6 +289,7 @@ module Project =
                         invalidOp ("BUILD004: Source/reference inputs changed while compiling " + project)
 
                     let invocation = Workspace.export root project |> require
+                    Workspace.validateImports root project policy invocation |> ignore
 
                     if not (matchesInvocation result invocation) then
                         invalidOp ("BUILD004: The evaluated compiler invocation changed while compiling " + project)
@@ -288,6 +304,7 @@ module Project =
                     invalidOp "BUILD004: Source/reference inputs changed during compilation."
 
                 let invocation = Workspace.export root project.Project |> require
+                Workspace.validateImports root project.Project policy invocation |> ignore
 
                 if not (matchesInvocation project invocation) then
                     invalidOp "BUILD004: The evaluated compiler invocation changed during compilation."
@@ -319,7 +336,17 @@ module Project =
                    ReexportMilliseconds = reexport }
                 : VerifyTiming))
 
-        { report with Sequential = sequential }, (timings, finalValidation)
+        { report with Sequential = sequential },
+        (timings,
+         { Restore = 0L
+           Build = 0L
+           FinalValidation = finalValidation })
+
+    let verifyTimed jobs directory =
+        verifyTimedWith
+            { Workspace.defaultOptions with
+                Jobs = jobs }
+            directory
 
     let verify directory =
         verifyTimed Workspace.defaultJobs directory |> fst

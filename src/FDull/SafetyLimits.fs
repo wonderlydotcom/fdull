@@ -24,6 +24,18 @@ module SafetyLimits =
     let typeDepth = 64
     let diagnosticCount = 512
 
+    /// Managed heap ceiling of each workspace analysis worker, in MiB, unless the caller chooses
+    /// another size within the supported range. The worker's working set may reach twice its heap.
+    let workerMemoryMiB = 512
+    let minimumWorkerMemoryMiB = 256
+    let maximumWorkerMemoryMiB = 16384
+
+    /// Bytes in `mebibytes`. Every `int` count fits: at most 2^51 bytes.
+    let heapBytes (mebibytes: int) = int64 mebibytes * 1048576L
+
+    /// The hexadecimal `DOTNET_GCHeapHardLimit` value for a heap of `mebibytes`.
+    let heapHardLimit (mebibytes: int) = (heapBytes mebibytes).ToString("X")
+
 type internal SafetyBudget(?maximumSteps: int, ?maximumDepth: int, ?milliseconds: int) =
     let clock = Stopwatch.StartNew()
     let mutable steps = 0

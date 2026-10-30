@@ -275,7 +275,8 @@ module SafetyWorkerTests =
           OutputCharacters = 4096
           WorkingSetBytes = SafetyLimits.workingSetBytes }
 
-    let private runFixture mode processLimits action =
+    /// With `heap`, the fixture gets that `DOTNET_GCHeapHardLimit`, as a caller-sized worker does.
+    let private runFixtureWith (heap: string option) mode processLimits action =
         temporary (fun directory ->
             let marker = Path.Combine(directory, "pid")
 
@@ -300,8 +301,16 @@ module SafetyWorkerTests =
             start.Environment.Clear()
             start.Environment["DOTNET_ROOT"] <- runtimeRoot
             start.Environment["DOTNET_CLI_TELEMETRY_OPTOUT"] <- "1"
+
+            match heap with
+            | Some limit -> start.Environment["DOTNET_GCHeapHardLimit"] <- limit
+            | None -> ()
+
             let result = SafetyProcess.run processLimits start ""
             action result marker)
+
+    let private runFixture mode processLimits action =
+        runFixtureWith None mode processLimits action
 
     let private assertStopped marker =
         Assert.True(File.Exists marker, "The controlled process failure fixture did not start.")
@@ -346,6 +355,19 @@ module SafetyWorkerTests =
             | Ok value ->
                 Assert.Equal(0, value.ExitCode)
                 Assert.Equal(string SafetyLimits.managedHeapBytes, value.Output)
+            | Error message -> Assert.Fail message
+
+            assertStopped marker)
+
+    [<Theory>]
+    [<InlineData(256, "268435456")>]
+    [<InlineData(1024, "1073741824")>]
+    let ``a caller-sized worker heap limit overrides the runtime configuration`` (mebibytes: int) (bytes: string) =
+        runFixtureWith (Some(SafetyLimits.heapHardLimit mebibytes)) "heap-limit" limits (fun result marker ->
+            match result with
+            | Ok value ->
+                Assert.Equal(0, value.ExitCode)
+                Assert.Equal(bytes, value.Output)
             | Error message -> Assert.Fail message
 
             assertStopped marker)
