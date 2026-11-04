@@ -113,6 +113,7 @@ module WorkspaceReview =
 
         let changes =
             policy.Sources
+            |> List.distinctBy _.File
             |> List.choose (fun source ->
                 snapshot
                 |> List.tryFind (fun input -> input.Path = System.IO.Path.Combine(root, source.File))

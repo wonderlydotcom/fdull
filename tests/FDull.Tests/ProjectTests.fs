@@ -480,6 +480,112 @@ module ProjectTests =
             | Ok() -> failwith "Checked project acquired an excluded FSharp project dependency.")
 
     [<Fact>]
+    let ``shared source is checked in each owning project`` () =
+        withDirectory (fun root ->
+            restoreConsumer root None "module App\nlet value = 1\n"
+
+            File.WriteAllText(
+                Path.Combine(root, "Shared.fs"),
+                "module Shared\nlet first (values: int list) = List.head values\n"
+            )
+
+            Directory.CreateDirectory(Path.Combine(root, "Other")) |> ignore
+            File.WriteAllText(Path.Combine(root, "Other/Other.fs"), "module Other\nlet value = 2\n")
+
+            [ "App.fsproj", "App.fs"; "Other/Other.fsproj", "Other.fs" ]
+            |> List.iter (fun (project, source) ->
+                let shared =
+                    if project = "App.fsproj" then
+                        "Shared.fs"
+                    else
+                        "../Shared.fs"
+
+                File.WriteAllText(
+                    Path.Combine(root, project),
+                    "<Project Sdk=\"Microsoft.NET.Sdk\"><ItemGroup><Compile Include=\""
+                    + shared
+                    + "\"/><Compile Include=\""
+                    + source
+                    + "\"/></ItemGroup></Project>"
+                )
+
+                run root [ "restore"; project; "-m:1"; "-nr:false" ]
+
+                run
+                    root
+                    [ "build"
+                      project
+                      "-c"
+                      "Release"
+                      "--no-restore"
+                      "-m:1"
+                      "--disable-build-servers" ])
+
+            Project.initialize root |> ignore
+            let policy = read root
+            let shared = policy.Sources |> List.filter (fun source -> source.File = "Shared.fs")
+
+            Assert.Equal(
+                "App.fsproj|Other/Other.fsproj",
+                shared |> List.map _.Project |> List.sort |> String.concat "|"
+            )
+
+            Assert.Equal(Ok(), Workspace.validatePolicy root)
+
+            let report = Workspace.check root
+            Assert.Equal(1, report.ExitCode)
+
+            report.Projects
+            |> List.iter (fun project ->
+                Assert.Contains(
+                    project.Report.Diagnostics,
+                    fun diagnostic ->
+                        diagnostic.File.EndsWith("Shared.fs", StringComparison.Ordinal)
+                        && diagnostic.Rule = "ERR006"
+                ))
+
+            let policyPath = Path.Combine(root, "fdull.json")
+
+            let missingOwner =
+                policy.Sources
+                |> List.filter (fun source -> source.File <> "Shared.fs" || source.Project <> "Other/Other.fsproj")
+
+            File.WriteAllText(policyPath, Codec.encode { policy with Sources = missingOwner })
+            Assert.Equal(3, (Workspace.check root).ExitCode)
+
+            let reject sources =
+                File.WriteAllText(policyPath, Codec.encode { policy with Sources = sources })
+                Assert.True(Workspace.validatePolicy root |> Result.isError)
+
+            let firstOwner = shared |> List.find (fun source -> source.Project = "App.fsproj")
+            reject (firstOwner :: policy.Sources)
+
+            reject (
+                policy.Sources
+                |> List.map (fun source ->
+                    if source.File = "Shared.fs" && source.Project = "Other/Other.fsproj" then
+                        { source with Profile = "TEST" }
+                    else
+                        source)
+            )
+
+            reject (
+                policy.Sources
+                |> List.map (fun source ->
+                    if source.File = "Shared.fs" && source.Project = "Other/Other.fsproj" then
+                        { source with
+                            Digest = "sha256:" + String.replicate 64 "0" }
+                    else
+                        source)
+            )
+
+            File.WriteAllText(policyPath, Codec.encode policy)
+            File.AppendAllText(Path.Combine(root, "Shared.fs"), "\n// source changed\n")
+            let changed = Workspace.review root
+            Assert.Equal("Shared.fs", (Assert.Single changed.SourceChanges).File)
+            Assert.True(Workspace.validatePolicy root |> Result.isError))
+
+    [<Fact>]
     let ``initialization rejects a workspace with every FSharp project excluded`` () =
         withDirectory (fun root ->
             restoreConsumer root None "module App\nlet increment value = value + 1\n"
