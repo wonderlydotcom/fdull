@@ -459,7 +459,7 @@ module Workspace =
 
                 let run =
                     SafetyProcess.run
-                        { Milliseconds = 60000
+                        { Milliseconds = 210000
                           OutputCharacters =
                             if advisory then
                                 SafetyLimits.workspaceReviewCharacters

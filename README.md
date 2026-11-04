@@ -76,7 +76,9 @@ entry point, xUnit v3 Core 3.1.0 with Microsoft Testing Platform MSBuild 1.8.4
 and optional JunitXml.TestLogger 7.0.2 registration, and Aspire AppHost 13.4.6
 project metadata emitted by FSharp.Aspire.Hosting.AppHost 13.0.0. Multi-targeting,
 other source generators and arbitrary configurations are not supported in this preview.
-Reviewed non-F# implementation, automation and tooling may coexist in a mixed
+An F# source can be included by multiple checked projects. Each owner is analyzed
+independently, and all assignments for the shared file must use the same profile
+and source fingerprint. Reviewed non-F# implementation, automation and tooling may coexist in a mixed
 repository through the external workspace scope described below.
 
 ## Start with a small project
@@ -681,7 +683,7 @@ cache.
 
 The workspace worker has a 512 MiB managed heap ceiling (`--memory` or
 `WorkspaceOptions.MemoryMiB` changes it), a working-set limit of twice the heap and
-a 60-second wall-time limit per project. Source-only `Safety.check` keeps the
+a 210-second wall-time limit and a 512-source limit per project. Source-only `Safety.check` keeps the
 512 MiB heap and 1 GiB working set. Output and traversal are also bounded.
 Exhausted limits cause an incomplete failed check. Tests run serially with a
 separate 2 GiB heap ceiling.

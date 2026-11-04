@@ -175,7 +175,7 @@ module WorkspaceEngine =
 
     let private analyze advisory whole (request: WorkspaceRequest) =
         let budget =
-            SafetyBudget(maximumSteps = 2000000, maximumDepth = 512, milliseconds = 45000)
+            SafetyBudget(maximumSteps = 2000000, maximumDepth = 512, milliseconds = 180000)
 
         let diagnostics = ResizeArray<SafetyDiagnostic>()
         let mutable complete = false
@@ -341,7 +341,7 @@ module WorkspaceEngine =
 
             if
                 request.Sources.IsEmpty
-                || request.Sources.Length > SafetyLimits.sourceCount
+                || request.Sources.Length > SafetyLimits.workspaceSourceCount
                 || request.References.IsEmpty
                 || request.References.Length > SafetyLimits.referenceCount
                 || request.Sources

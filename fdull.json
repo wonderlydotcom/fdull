@@ -105,7 +105,7 @@
       "File": "src/FDull/SafetyLimits.fs",
       "Project": "src/FDull/FDull.fsproj",
       "Profile": "GUARD_TOOLING",
-      "Digest": "sha256:fd0719fa0c38e6d98a48472c8c5fda1db1259effbb29571d38ee220bad3323c1"
+      "Digest": "sha256:ec30c76bdf095d64a7c34995e4e4446dcc1a39002e004ca4eda0ee18b94f1e1e"
     },
     {
       "File": "src/FDull/SafetyRanges.fs",
@@ -153,7 +153,7 @@
       "File": "src/FDull/WorkspacePolicy.fs",
       "Project": "src/FDull/FDull.fsproj",
       "Profile": "GUARD_TOOLING",
-      "Digest": "sha256:22aa6da6969192271d4621da7665bccbe3bdca9593dcb0e5d727c845bf0f7b95"
+      "Digest": "sha256:75ac8622d221377fb8cc21498071e18534cc1f6020af4b40d8f9bfa8616b0885"
     },
     {
       "File": "src/FDull/WorkspaceAudit.fs",
@@ -165,7 +165,7 @@
       "File": "src/FDull/WorkspaceEngine.fs",
       "Project": "src/FDull/FDull.fsproj",
       "Profile": "GUARD_TOOLING",
-      "Digest": "sha256:c3238d52e0f91a8d67decf373ab99bb577f38776b4d6f37f51de995b2619e2cf"
+      "Digest": "sha256:d480aa7e4302dd72673f4c1e060bbe0286a840317d73ab4b48b6500b28582d74"
     },
     {
       "File": "src/FDull/WorkspaceCache.fs",
@@ -177,7 +177,7 @@
       "File": "src/FDull/Workspace.fs",
       "Project": "src/FDull/FDull.fsproj",
       "Profile": "GUARD_TOOLING",
-      "Digest": "sha256:742c87032226f1f14c9a9f4c9bdc08f8e4c4701b337edbed0723ed97e32f4ec7"
+      "Digest": "sha256:e801c2c909f0179915e2cdf71a8ddcc940d9c070adc03dccd091b8166a735317"
     },
     {
       "File": "src/FDull/Safety.fs",
@@ -261,7 +261,7 @@
       "File": "tests/FDull.Tests/ProjectTests.fs",
       "Project": "tests/FDull.Tests/FDull.Tests.fsproj",
       "Profile": "TEST",
-      "Digest": "sha256:e755407604bdd3b256b59b3c14bdb48c3824f85445f91c9dd118d66b1ca49543"
+      "Digest": "sha256:becba668f4a355e9e284c0a9260528ae10507617dceea2a130e528de482aedad"
     },
     {
       "File": "tests/FDull.Tests/Program.fs",
@@ -273,7 +273,7 @@
       "File": "src/FDull/WorkspaceReview.fs",
       "Project": "src/FDull/FDull.fsproj",
       "Profile": "GUARD_TOOLING",
-      "Digest": "sha256:804b6290d07422cf4f0c7592afd022e74444b0c7a877e020307bf8e09872f571"
+      "Digest": "sha256:f8642ac287b10c02bf7e9f70baf6d84096d74f980c5b461d7dbfc13129720ce1"
     },
     {
       "File": "src/FDull/DataContractPolicy.fs",
@@ -29242,6 +29242,181 @@
       "Kind": "type",
       "Identity": "FDull, Version=0.3.0.0, Culture=neutral, PublicKeyToken=null | FDull.SafetyProcessOutput",
       "Reason": "Non-shipping supervisor/protocol fixture owns temporary files, bounded child processes and exact deliberate compiler/report mutations. Failures must remain failing, processes must stop, and heap/RSS/output/time ceilings are asserted. runFixture only forwards the default heap (None) to runFixtureWith with the same limits and result types."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.``shared source is checked in each owning project``",
+      "Kind": "attribute",
+      "Identity": "xunit.core, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | Xunit.FactAttribute |  | unit",
+      "Reason": "Regression test builds two projects in a cleaned-up temporary fixture, checks each shared-source diagnostic and rejects inconsistent assignments and source drift. File operations and assertions are confined to the test; the searched owner is established by the preceding assertion."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.``shared source is checked in each owning project``",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Directory.CreateDirectory(System.String)",
+      "Reason": "Regression test builds two projects in a cleaned-up temporary fixture, checks each shared-source diagnostic and rejects inconsistent assignments and source drift. File operations and assertions are confined to the test; the searched owner is established by the preceding assertion."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.``shared source is checked in each owning project``",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.File.AppendAllText(System.String,System.String)",
+      "Reason": "Regression test builds two projects in a cleaned-up temporary fixture, checks each shared-source diagnostic and rejects inconsistent assignments and source drift. File operations and assertions are confined to the test; the searched owner is established by the preceding assertion."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.``shared source is checked in each owning project``",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.File.WriteAllText(System.String,System.String)",
+      "Reason": "Regression test builds two projects in a cleaned-up temporary fixture, checks each shared-source diagnostic and rejects inconsistent assignments and source drift. File operations and assertions are confined to the test; the searched owner is established by the preceding assertion."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.``shared source is checked in each owning project``",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.Combine(System.String,System.String)",
+      "Reason": "Regression test builds two projects in a cleaned-up temporary fixture, checks each shared-source diagnostic and rejects inconsistent assignments and source drift. File operations and assertions are confined to the test; the searched owner is established by the preceding assertion."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.``shared source is checked in each owning project``",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.3.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Project.initialize(System.String)",
+      "Reason": "Regression test builds two projects in a cleaned-up temporary fixture, checks each shared-source diagnostic and rejects inconsistent assignments and source drift. File operations and assertions are confined to the test; the searched owner is established by the preceding assertion."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.``shared source is checked in each owning project``",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.3.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Transport.Codec.encode``1(``0)",
+      "Reason": "Regression test builds two projects in a cleaned-up temporary fixture, checks each shared-source diagnostic and rejects inconsistent assignments and source drift. File operations and assertions are confined to the test; the searched owner is established by the preceding assertion."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.``shared source is checked in each owning project``",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.3.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Workspace.check(System.String)",
+      "Reason": "Regression test builds two projects in a cleaned-up temporary fixture, checks each shared-source diagnostic and rejects inconsistent assignments and source drift. File operations and assertions are confined to the test; the searched owner is established by the preceding assertion."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.``shared source is checked in each owning project``",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.3.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Workspace.review(System.String)",
+      "Reason": "Regression test builds two projects in a cleaned-up temporary fixture, checks each shared-source diagnostic and rejects inconsistent assignments and source drift. File operations and assertions are confined to the test; the searched owner is established by the preceding assertion."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.``shared source is checked in each owning project``",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.3.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Workspace.validatePolicy(System.String)",
+      "Reason": "Regression test builds two projects in a cleaned-up temporary fixture, checks each shared-source diagnostic and rejects inconsistent assignments and source drift. File operations and assertions are confined to the test; the searched owner is established by the preceding assertion."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.``shared source is checked in each owning project``",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.ListModule.Find``1(Microsoft.FSharp.Core.FSharpFunc{``0,System.Boolean},Microsoft.FSharp.Collections.FSharpList{``0})",
+      "Reason": "Regression test builds two projects in a cleaned-up temporary fixture, checks each shared-source diagnostic and rejects inconsistent assignments and source drift. File operations and assertions are confined to the test; the searched owner is established by the preceding assertion."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.``shared source is checked in each owning project``",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.ListModule.Iterate``1(Microsoft.FSharp.Core.FSharpFunc{``0,Microsoft.FSharp.Core.Unit},Microsoft.FSharp.Collections.FSharpList{``0})",
+      "Reason": "Regression test builds two projects in a cleaned-up temporary fixture, checks each shared-source diagnostic and rejects inconsistent assignments and source drift. File operations and assertions are confined to the test; the searched owner is established by the preceding assertion."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.``shared source is checked in each owning project``",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Core.StringModule.Replicate(System.Int32,System.String)",
+      "Reason": "Regression test builds two projects in a cleaned-up temporary fixture, checks each shared-source diagnostic and rejects inconsistent assignments and source drift. File operations and assertions are confined to the test; the searched owner is established by the preceding assertion."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.``shared source is checked in each owning project``",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Core.StringModule.Concat(System.String,System.Collections.Generic.IEnumerable{System.String})",
+      "Reason": "Regression test builds two projects in a cleaned-up temporary fixture, checks each shared-source diagnostic and rejects inconsistent assignments and source drift. File operations and assertions are confined to the test; the searched owner is established by the preceding assertion."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.``shared source is checked in each owning project``",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Contains``1(System.Collections.Generic.IEnumerable{``0},System.Predicate{``0})",
+      "Reason": "Regression test builds two projects in a cleaned-up temporary fixture, checks each shared-source diagnostic and rejects inconsistent assignments and source drift. File operations and assertions are confined to the test; the searched owner is established by the preceding assertion."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.``shared source is checked in each owning project``",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Equal(System.String,System.String)",
+      "Reason": "Regression test builds two projects in a cleaned-up temporary fixture, checks each shared-source diagnostic and rejects inconsistent assignments and source drift. File operations and assertions are confined to the test; the searched owner is established by the preceding assertion."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.``shared source is checked in each owning project``",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Equal``1(``0,``0)",
+      "Reason": "Regression test builds two projects in a cleaned-up temporary fixture, checks each shared-source diagnostic and rejects inconsistent assignments and source drift. File operations and assertions are confined to the test; the searched owner is established by the preceding assertion."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.``shared source is checked in each owning project``",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Single``1(System.Collections.Generic.IEnumerable{``0})",
+      "Reason": "Regression test builds two projects in a cleaned-up temporary fixture, checks each shared-source diagnostic and rejects inconsistent assignments and source drift. File operations and assertions are confined to the test; the searched owner is established by the preceding assertion."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.``shared source is checked in each owning project``",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.True(System.Boolean)",
+      "Reason": "Regression test builds two projects in a cleaned-up temporary fixture, checks each shared-source diagnostic and rejects inconsistent assignments and source drift. File operations and assertions are confined to the test; the searched owner is established by the preceding assertion."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.``shared source is checked in each owning project``",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.3.0.0, Culture=neutral, PublicKeyToken=null | FDull.SafetyDiagnostic",
+      "Reason": "Regression test builds two projects in a cleaned-up temporary fixture, checks each shared-source diagnostic and rejects inconsistent assignments and source drift. File operations and assertions are confined to the test; the searched owner is established by the preceding assertion."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.``shared source is checked in each owning project``",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.3.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspacePolicyDocument",
+      "Reason": "Regression test builds two projects in a cleaned-up temporary fixture, checks each shared-source diagnostic and rejects inconsistent assignments and source drift. File operations and assertions are confined to the test; the searched owner is established by the preceding assertion."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.``shared source is checked in each owning project``",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.3.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspaceProjectReport",
+      "Reason": "Regression test builds two projects in a cleaned-up temporary fixture, checks each shared-source diagnostic and rejects inconsistent assignments and source drift. File operations and assertions are confined to the test; the searched owner is established by the preceding assertion."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.``shared source is checked in each owning project``",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.3.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspaceReport",
+      "Reason": "Regression test builds two projects in a cleaned-up temporary fixture, checks each shared-source diagnostic and rejects inconsistent assignments and source drift. File operations and assertions are confined to the test; the searched owner is established by the preceding assertion."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.``shared source is checked in each owning project``",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.3.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspaceReviewReport",
+      "Reason": "Regression test builds two projects in a cleaned-up temporary fixture, checks each shared-source diagnostic and rejects inconsistent assignments and source drift. File operations and assertions are confined to the test; the searched owner is established by the preceding assertion."
+    },
+    {
+      "File": "tests/FDull.Tests/ProjectTests.fs",
+      "Owner": "FDull.Tests.ProjectTests.``shared source is checked in each owning project``",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.3.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspaceSource",
+      "Reason": "Regression test builds two projects in a cleaned-up temporary fixture, checks each shared-source diagnostic and rejects inconsistent assignments and source drift. File operations and assertions are confined to the test; the searched owner is established by the preceding assertion."
     }
   ],
   "Domains": [],
