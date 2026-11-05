@@ -7,7 +7,7 @@ effects, controlled domain construction, explicit union cases and observed
 results. It uses FSharp.Compiler.Service to inspect resolved symbols and types,
 as well as source syntax. Aliases and nested payloads do not escape the checks.
 
-This is a strict, experimental **0.3.0-preview.1** release for teams that want a
+This is a strict, experimental **0.3.0-preview.2** release for teams that want a
 small approved vocabulary and reviewable exceptions. It is not a new language
 or a proof that a program is safe.
 
@@ -85,7 +85,7 @@ Install locally in a repository:
 
 ```sh
 dotnet new tool-manifest
-dotnet tool install FDull.Tool --version 0.3.0-preview.1
+dotnet tool install FDull.Tool --version 0.3.0-preview.2
 ```
 
 Pin `global.json`:
@@ -660,7 +660,7 @@ For live editor feedback in FsAutocomplete/Ionide, reference the analyzer as a
 development dependency in each checked project:
 
 ```xml
-<PackageReference Include="FDull.Analyzers" Version="0.3.0-preview.1"
+<PackageReference Include="FDull.Analyzers" Version="0.3.0-preview.2"
                   PrivateAssets="All" IncludeAssets="analyzers" />
 ```
 
@@ -670,7 +670,7 @@ fingerprints, builds or policy capabilities. `fdull verify` remains the complete
 repository gate. Analyzer suppression comments are themselves FDull violations
 and do not affect the authoritative CLI.
 
-Reference `FDull` version `0.3.0-preview.1` to consume `SafetyDiagnostic`,
+Reference `FDull` version `0.3.0-preview.2` to consume `SafetyDiagnostic`,
 `SafetyReport`, workspace policy types and `SafetyEngine.check`. The in-process
 engine accepts ordered, fingerprinted source/reference inputs. Hosts must enforce
 process limits themselves; the library package does not install a worker beside
@@ -719,6 +719,9 @@ Jobs install the exact
 SDK from `global.json` (including its 10.0.14 runtime), restore locked dependencies,
 keep strict compiler settings and preserve nonzero command exits. NuGet downloads
 are cached by the lock files; results and logs are retained for seven days.
+The serial build/test job has a 60-minute limit and reports each completed test.
+A test with no completion after ten minutes aborts the run as a failure; the
+retained artifacts include the active test sequence without a memory dump.
 
 The compiled `tools/FDull.Ci` helper is part of the reviewed repository graph.
 Its package smoke check uses fresh temporary projects and an isolated package

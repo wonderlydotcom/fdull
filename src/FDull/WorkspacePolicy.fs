@@ -1771,49 +1771,46 @@ module internal WorkspacePolicy =
             + " -> "
             + memberInfo.FullType.Format(FSharpDisplayContext.Empty)
 
-        let attributeSymbols = lazy (checkedProject.GetAllUsesOfAllSymbols())
+        // Attribute arguments resolve through one range index of the project's symbol
+        // uses; scanning every use per argument made attribute-heavy sources quadratic.
+        let attributeSymbols =
+            lazy
+                (checkedProject.GetAllUsesOfAllSymbols()
+                 |> SafetyRanges.create budget.Visit (fun (useSite: FSharpSymbolUse) -> region useSite.Range))
 
         let enumArgument (r: range) =
-            attributeSymbols.Value
-            |> Array.choose (fun useSite ->
+            attributeSymbols.Value.Inside(region r)
+            |> List.choose (fun useSite ->
                 budget.Visit 0
-                let location = useSite.Range
 
-                if
-                    location.FileName = r.FileName
-                    && (r.StartLine, r.StartColumn) <= (location.StartLine, location.StartColumn)
-                    && (location.EndLine, location.EndColumn) <= (r.EndLine, r.EndColumn)
-                then
-                    match useSite.Symbol with
-                    | :? FSharpField as field when field.IsLiteral ->
-                        match field.DeclaringEntity, field.LiteralValue with
-                        | Some declaring, Some(:? int32 as value) when declaring.IsEnum ->
-                            Some(
-                                "enum:"
-                                + Codec.encode
-                                    [ declaring.Assembly.QualifiedName
-                                      SafetyPolicy.entityName declaring
-                                      field.Name
-                                      string value ]
-                            )
-                        | _ -> None
+                match useSite.Symbol with
+                | :? FSharpField as field when field.IsLiteral ->
+                    match field.DeclaringEntity, field.LiteralValue with
+                    | Some declaring, Some(:? int32 as value) when declaring.IsEnum ->
+                        Some(
+                            "enum:"
+                            + Codec.encode
+                                [ declaring.Assembly.QualifiedName
+                                  SafetyPolicy.entityName declaring
+                                  field.Name
+                                  string value ]
+                        )
                     | _ -> None
-                else
-                    None)
-            |> Array.distinct
+                | _ -> None)
+            |> List.distinct
             |> function
-                | [| identity |] -> Some identity
+                | [ identity ] -> Some identity
                 | _ -> None
 
         let exactSymbol (r: range) select =
-            attributeSymbols.Value
-            |> Array.choose (fun useSite ->
+            attributeSymbols.Value.Inside(region r)
+            |> List.choose (fun useSite ->
                 budget.Visit 0
 
                 if useSite.Range = r then select useSite.Symbol else None)
-            |> Array.distinct
+            |> List.distinct
             |> function
-                | [| identity |] -> Some identity
+                | [ identity ] -> Some identity
                 | _ -> None
 
         let intrinsic signature (identifier: Ident) =

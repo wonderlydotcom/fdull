@@ -111,7 +111,7 @@
       "File": "src/FDull/SafetyRanges.fs",
       "Project": "src/FDull/FDull.fsproj",
       "Profile": "GUARD_TOOLING",
-      "Digest": "sha256:5d153befb7f173cea2f6885a374c87bf44137841932aa46218a4e1a90235c31b"
+      "Digest": "sha256:c5bf3c5b38d175dbbb86ff8c6ad2064b8bd26f783cd12eaa763da663bca8b521"
     },
     {
       "File": "src/FDull/SafetySyntax.fs",
@@ -135,7 +135,7 @@
       "File": "src/FDull/SafetyAnalysis.fs",
       "Project": "src/FDull/FDull.fsproj",
       "Profile": "GUARD_TOOLING",
-      "Digest": "sha256:7f12b076c382d9d113a5a173b3d3de8cd5477242929cd8fddc74ba6d82d84494"
+      "Digest": "sha256:ce20b44e41669c63969388b57050dafda5456580817bda774081099815dec8f7"
     },
     {
       "File": "src/FDull/SafetyEngine.fs",
@@ -153,7 +153,7 @@
       "File": "src/FDull/WorkspacePolicy.fs",
       "Project": "src/FDull/FDull.fsproj",
       "Profile": "GUARD_TOOLING",
-      "Digest": "sha256:22aa6da6969192271d4621da7665bccbe3bdca9593dcb0e5d727c845bf0f7b95"
+      "Digest": "sha256:48e06fbed279e8f20c632f0b3c6d0006477ace18659f11e5fa873f441f08ead0"
     },
     {
       "File": "src/FDull/WorkspaceAudit.fs",
@@ -165,7 +165,7 @@
       "File": "src/FDull/WorkspaceEngine.fs",
       "Project": "src/FDull/FDull.fsproj",
       "Profile": "GUARD_TOOLING",
-      "Digest": "sha256:c3238d52e0f91a8d67decf373ab99bb577f38776b4d6f37f51de995b2619e2cf"
+      "Digest": "sha256:b53e15fa150fa584b7450b82c23e1bdf79ab39a507328b2f8ac1efaa2e76801d"
     },
     {
       "File": "src/FDull/WorkspaceCache.fs",
@@ -201,7 +201,7 @@
       "File": "src/FDull.Tool/Program.fs",
       "Project": "src/FDull.Tool/FDull.Tool.fsproj",
       "Profile": "GUARD_TOOLING",
-      "Digest": "sha256:fa38a128bc96b82fcbd9a3c05d80e8d876f8ecaa3f312ef29b0ff14a2b590ed4"
+      "Digest": "sha256:0248e39f948d611ad9a1e388a2ef6cb15d1cfc4926da89a9c9eb834e8d6c2cca"
     },
     {
       "File": "src/FDull.Worker/Program.fs",
@@ -225,7 +225,7 @@
       "File": "tests/FDull.Tests/SafetyTests.fs",
       "Project": "tests/FDull.Tests/FDull.Tests.fsproj",
       "Profile": "TEST",
-      "Digest": "sha256:9516855692ecac164d62cfe15ffae6f9f4db1ca0ce2ee08ee54787a7fb3dddc0"
+      "Digest": "sha256:97e7954d302b08dad2cad666f300f5800bfe6acc0a3d30d31a1a0c885aba7f91"
     },
     {
       "File": "tests/FDull.Tests/SafetyWorkerTests.fs",
@@ -237,7 +237,7 @@
       "File": "tests/FDull.Tests/SafetyRangeTests.fs",
       "Project": "tests/FDull.Tests/FDull.Tests.fsproj",
       "Profile": "TEST",
-      "Digest": "sha256:5b9b7b5ddb29465d2d217106f6d0c1f30c7a22ceacdc8bf2640bfdc842fbd90c"
+      "Digest": "sha256:83640fd17f4ad2a8053d81476946b8129e5fe3405717933eaf75ff516e1b5512"
     },
     {
       "File": "tests/FDull.Tests/SafetyCoverageTests.fs",
@@ -301,7 +301,7 @@
     },
     {
       "File": "Directory.Build.props",
-      "Digest": "sha256:a2f9215735dae1b5e380ce4bab973ef3fde7a053b2b171d036dff1c83eafc857"
+      "Digest": "sha256:ee205a560794d48036be3f4bcb73032d95275db1fcd21158f0924506d1ba72e9"
     },
     {
       "File": "Directory.Build.targets",
@@ -377,7 +377,7 @@
     },
     {
       "File": ".github/workflows/ci.yml",
-      "Digest": "sha256:798b3c56c3f199ac5f5d9050302b23038113801a45ea044c58d41a8aaa30d569"
+      "Digest": "sha256:6b594152dad5b70e9ee6b044c86c6387d2a98ffa1bd9715fca90834d6f5d6f98"
     },
     {
       "File": ".github/CODEOWNERS",
@@ -8090,6 +8090,41 @@
       "Reason": "Private bounded interval index uses owned finite arrays and local result buffers; only immutable range-query callbacks escape. 500 generated layouts compare it with an independent brute-force oracle."
     },
     {
+      "File": "src/FDull/SafetyRanges.fs",
+      "Owner": "FDull.SafetyRanges.create",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.HashIdentity.Structural``1",
+      "Reason": "Each range query owns a private memo from the exact query region to its immutable answer list. Every query still costs one budget step and a miss runs the same bounded tree walk, so repeated owner/type lookups at one site stop re-walking the index. Generated layouts compare repeated and reordered queries with a full scan."
+    },
+    {
+      "File": "src/FDull/SafetyRanges.fs",
+      "Owner": "FDull.SafetyRanges.create",
+      "Kind": "member",
+      "Identity": "System.Collections, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.Collections.Generic.Dictionary`2.#ctor(System.Collections.Generic.IEqualityComparer{`0})",
+      "Reason": "Each range query owns a private memo from the exact query region to its immutable answer list. Every query still costs one budget step and a miss runs the same bounded tree walk, so repeated owner/type lookups at one site stop re-walking the index. Generated layouts compare repeated and reordered queries with a full scan."
+    },
+    {
+      "File": "src/FDull/SafetyRanges.fs",
+      "Owner": "FDull.SafetyRanges.create",
+      "Kind": "member",
+      "Identity": "System.Collections, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.Collections.Generic.Dictionary`2.Add(`0,`1)",
+      "Reason": "Each range query owns a private memo from the exact query region to its immutable answer list. Every query still costs one budget step and a miss runs the same bounded tree walk, so repeated owner/type lookups at one site stop re-walking the index. Generated layouts compare repeated and reordered queries with a full scan."
+    },
+    {
+      "File": "src/FDull/SafetyRanges.fs",
+      "Owner": "FDull.SafetyRanges.create",
+      "Kind": "member",
+      "Identity": "System.Collections, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.Collections.Generic.Dictionary`2.TryGetValue(`0,`1@)",
+      "Reason": "Each range query owns a private memo from the exact query region to its immutable answer list. Every query still costs one budget step and a miss runs the same bounded tree walk, so repeated owner/type lookups at one site stop re-walking the index. Generated layouts compare repeated and reordered queries with a full scan."
+    },
+    {
+      "File": "src/FDull/SafetyRanges.fs",
+      "Owner": "FDull.SafetyRanges.create",
+      "Kind": "type",
+      "Identity": "System.Collections, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | System.Collections.Generic.Dictionary`2",
+      "Reason": "Each range query owns a private memo from the exact query region to its immutable answer list. Every query still costs one budget step and a miss runs the same bounded tree walk, so repeated owner/type lookups at one site stop re-walking the index. Generated layouts compare repeated and reordered queries with a full scan."
+    },
+    {
       "File": "src/FDull/SafetyRules.fs",
       "Owner": "FDull.SafetyRules.knownDiagnostic",
       "Kind": "member",
@@ -12330,6 +12365,90 @@
       "Kind": "type",
       "Identity": "FDull, Version=0.3.0.0, Culture=neutral, PublicKeyToken=null | FDull.SafetyRegion",
       "Reason": "Non-shipping assertion/property harness exercises the same validated Core/runtime/compiler APIs. Owned test files/resources and finite fixture iteration are allowed at this exact declaration; domain and rule suppressions remain prohibited."
+    },
+    {
+      "File": "tests/FDull.Tests/SafetyRangeTests.fs",
+      "Owner": "FDull.Tests.SafetyRangeTests.``repeated range queries return the first answer for one step each``",
+      "Kind": "attribute",
+      "Identity": "xunit.core, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | Xunit.FactAttribute |  | unit",
+      "Reason": "Non-shipping regression counts index visits through a local ref cell over a finite owned fixture: 10000 repeated queries against 4096 enclosing ranges must cost one step each and return the first answer."
+    },
+    {
+      "File": "tests/FDull.Tests/SafetyRangeTests.fs",
+      "Owner": "FDull.Tests.SafetyRangeTests.``repeated range queries return the first answer for one step each``",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.3.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.SafetyRanges.create``1(Microsoft.FSharp.Core.FSharpFunc{System.Int32,Microsoft.FSharp.Core.Unit},Microsoft.FSharp.Core.FSharpFunc{``0,FDull.SafetyRegion},System.Collections.Generic.IEnumerable{``0})",
+      "Reason": "Non-shipping regression counts index visits through a local ref cell over a finite owned fixture: 10000 repeated queries against 4096 enclosing ranges must cost one step each and return the first answer."
+    },
+    {
+      "File": "tests/FDull.Tests/SafetyRangeTests.fs",
+      "Owner": "FDull.Tests.SafetyRangeTests.``repeated range queries return the first answer for one step each``",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.ListModule.Last``1(Microsoft.FSharp.Collections.FSharpList{``0})",
+      "Reason": "Non-shipping regression counts index visits through a local ref cell over a finite owned fixture: 10000 repeated queries against 4096 enclosing ranges must cost one step each and return the first answer."
+    },
+    {
+      "File": "tests/FDull.Tests/SafetyRangeTests.fs",
+      "Owner": "FDull.Tests.SafetyRangeTests.``repeated range queries return the first answer for one step each``",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Core.Operators.Ref``1(``0)",
+      "Reason": "Non-shipping regression counts index visits through a local ref cell over a finite owned fixture: 10000 repeated queries against 4096 enclosing ranges must cost one step each and return the first answer."
+    },
+    {
+      "File": "tests/FDull.Tests/SafetyRangeTests.fs",
+      "Owner": "FDull.Tests.SafetyRangeTests.``repeated range queries return the first answer for one step each``",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Core.Operators.op_Range``1(Microsoft.FSharp.Core.FSharpFunc{Microsoft.FSharp.Core.Unit,``0},Microsoft.FSharp.Core.FSharpFunc{``0,Microsoft.FSharp.Core.FSharpFunc{``0,``0}},``0,``0)",
+      "Reason": "Non-shipping regression counts index visits through a local ref cell over a finite owned fixture: 10000 repeated queries against 4096 enclosing ranges must cost one step each and return the first answer."
+    },
+    {
+      "File": "tests/FDull.Tests/SafetyRangeTests.fs",
+      "Owner": "FDull.Tests.SafetyRangeTests.``repeated range queries return the first answer for one step each``",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:Microsoft.FSharp.Core.FSharpRef`1.Value",
+      "Reason": "Non-shipping regression counts index visits through a local ref cell over a finite owned fixture: 10000 repeated queries against 4096 enclosing ranges must cost one step each and return the first answer."
+    },
+    {
+      "File": "tests/FDull.Tests/SafetyRangeTests.fs",
+      "Owner": "FDull.Tests.SafetyRangeTests.``repeated range queries return the first answer for one step each``",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Equal``1(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IAsyncEnumerable{``0})",
+      "Reason": "Non-shipping regression counts index visits through a local ref cell over a finite owned fixture: 10000 repeated queries against 4096 enclosing ranges must cost one step each and return the first answer."
+    },
+    {
+      "File": "tests/FDull.Tests/SafetyRangeTests.fs",
+      "Owner": "FDull.Tests.SafetyRangeTests.``repeated range queries return the first answer for one step each``",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Equal``1(``0,``0)",
+      "Reason": "Non-shipping regression counts index visits through a local ref cell over a finite owned fixture: 10000 repeated queries against 4096 enclosing ranges must cost one step each and return the first answer."
+    },
+    {
+      "File": "tests/FDull.Tests/SafetyRangeTests.fs",
+      "Owner": "FDull.Tests.SafetyRangeTests.``repeated range queries return the first answer for one step each``",
+      "Kind": "rule",
+      "Identity": "MUT002 | ",
+      "Reason": "Non-shipping regression counts index visits through a local ref cell over a finite owned fixture: 10000 repeated queries against 4096 enclosing ranges must cost one step each and return the first answer."
+    },
+    {
+      "File": "tests/FDull.Tests/SafetyRangeTests.fs",
+      "Owner": "FDull.Tests.SafetyRangeTests.``repeated range queries return the first answer for one step each``",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.3.0.0, Culture=neutral, PublicKeyToken=null | FDull.SafetyRangeLookup`1",
+      "Reason": "Non-shipping regression counts index visits through a local ref cell over a finite owned fixture: 10000 repeated queries against 4096 enclosing ranges must cost one step each and return the first answer."
+    },
+    {
+      "File": "tests/FDull.Tests/SafetyRangeTests.fs",
+      "Owner": "FDull.Tests.SafetyRangeTests.``repeated range queries return the first answer for one step each``",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.3.0.0, Culture=neutral, PublicKeyToken=null | FDull.SafetyRegion",
+      "Reason": "Non-shipping regression counts index visits through a local ref cell over a finite owned fixture: 10000 repeated queries against 4096 enclosing ranges must cost one step each and return the first answer."
+    },
+    {
+      "File": "tests/FDull.Tests/SafetyRangeTests.fs",
+      "Owner": "FDull.Tests.SafetyRangeTests.``repeated range queries return the first answer for one step each``",
+      "Kind": "type",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | Microsoft.FSharp.Core.FSharpRef`1",
+      "Reason": "Non-shipping regression counts index visits through a local ref cell over a finite owned fixture: 10000 repeated queries against 4096 enclosing ranges must cost one step each and return the first answer."
     },
     {
       "File": "tests/FDull.Tests/SafetyTests.fs",
@@ -22314,6 +22433,41 @@
       "Reason": "The bounded workspace worker compares every diagnostic from its private compile pass with the exact FS3180 compatibility allowance and compiler-wide FS3186 warning exclusion; all other warnings and every error remain reportable."
     },
     {
+      "File": "src/FDull/WorkspaceEngine.fs",
+      "Owner": "FDull.WorkspaceEngine.analyze",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.HashIdentity.Structural``1",
+      "Reason": "Worker-local structural sets record emitted diagnostics and findings so the workspace diagnostic budget counts distinct report entries, the same entries the report keeps and the protocol bounds. A site reached along several analysis paths no longer exhausts the budget with duplicates; the sets never leave the analysis."
+    },
+    {
+      "File": "src/FDull/WorkspaceEngine.fs",
+      "Owner": "FDull.WorkspaceEngine.analyze",
+      "Kind": "member",
+      "Identity": "System.Collections, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.Collections.Generic.HashSet`1.#ctor(System.Collections.Generic.IEqualityComparer{`0})",
+      "Reason": "Worker-local structural sets record emitted diagnostics and findings so the workspace diagnostic budget counts distinct report entries, the same entries the report keeps and the protocol bounds. A site reached along several analysis paths no longer exhausts the budget with duplicates; the sets never leave the analysis."
+    },
+    {
+      "File": "src/FDull/WorkspaceEngine.fs",
+      "Owner": "FDull.WorkspaceEngine.analyze",
+      "Kind": "member",
+      "Identity": "System.Collections, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.Collections.Generic.HashSet`1.Add(`0)",
+      "Reason": "Worker-local structural sets record emitted diagnostics and findings so the workspace diagnostic budget counts distinct report entries, the same entries the report keeps and the protocol bounds. A site reached along several analysis paths no longer exhausts the budget with duplicates; the sets never leave the analysis."
+    },
+    {
+      "File": "src/FDull/WorkspaceEngine.fs",
+      "Owner": "FDull.WorkspaceEngine.analyze",
+      "Kind": "member",
+      "Identity": "System.Collections, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.Collections.Generic.HashSet`1.Contains(`0)",
+      "Reason": "Worker-local structural sets record emitted diagnostics and findings so the workspace diagnostic budget counts distinct report entries, the same entries the report keeps and the protocol bounds. A site reached along several analysis paths no longer exhausts the budget with duplicates; the sets never leave the analysis."
+    },
+    {
+      "File": "src/FDull/WorkspaceEngine.fs",
+      "Owner": "FDull.WorkspaceEngine.analyze",
+      "Kind": "type",
+      "Identity": "System.Collections, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | System.Collections.Generic.HashSet`1",
+      "Reason": "Worker-local structural sets record emitted diagnostics and findings so the workspace diagnostic budget counts distinct report entries, the same entries the report keeps and the protocol bounds. A site reached along several analysis paths no longer exhausts the budget with duplicates; the sets never leave the analysis."
+    },
+    {
       "File": "tests/FDull.Tests/SafetyCoverageTests.fs",
       "Owner": "FDull.Tests.SafetyCoverageTests.``late compiler flags cannot weaken exported policy``",
       "Kind": "attribute",
@@ -22723,20 +22877,6 @@
       "File": "src/FDull/WorkspacePolicy.fs",
       "Owner": "FDull.WorkspacePolicy.context",
       "Kind": "member",
-      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.ArrayModule.Choose``2(Microsoft.FSharp.Core.FSharpFunc{``0,Microsoft.FSharp.Core.FSharpOption{``1}},``0[])",
-      "Reason": "Restricts resolved attribute argument candidates to exactly one distinct identity; zero or multiple candidates stay unsupported."
-    },
-    {
-      "File": "src/FDull/WorkspacePolicy.fs",
-      "Owner": "FDull.WorkspacePolicy.context",
-      "Kind": "member",
-      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.ArrayModule.Distinct``1(``0[])",
-      "Reason": "Restricts resolved attribute argument candidates to exactly one distinct identity; zero or multiple candidates stay unsupported."
-    },
-    {
-      "File": "src/FDull/WorkspacePolicy.fs",
-      "Owner": "FDull.WorkspacePolicy.context",
-      "Kind": "member",
       "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Core.ExtraTopLevelOperators.PrintFormatToString``1(Microsoft.FSharp.Core.PrintfFormat{``0,Microsoft.FSharp.Core.Unit,System.String,System.String})",
       "Reason": "Formats a bounded mapping blocker that reports generated capture field and authored source location; this cannot admit a permission."
     },
@@ -22780,13 +22920,6 @@
       "Owner": "FDull.WorkspacePolicy.context",
       "Kind": "type",
       "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | Microsoft.FSharp.Core.PrintfFormat`4",
-      "Reason": "Internal diagnostic formatting and exact symbol candidate arrays remain inside the guard tooling context."
-    },
-    {
-      "File": "src/FDull/WorkspacePolicy.fs",
-      "Owner": "FDull.WorkspacePolicy.context",
-      "Kind": "type",
-      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | []",
       "Reason": "Internal diagnostic formatting and exact symbol candidate arrays remain inside the guard tooling context."
     },
     {
@@ -24174,6 +24307,111 @@
       "Kind": "member",
       "Identity": "FDull, Version=0.3.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.WorkspaceSlice.digest(System.String,FDull.WorkspacePolicyDocument)",
       "Reason": "The in-process workspace fixture requests the slice digest of its own one-project policy, as the parent does."
+    },
+    {
+      "File": "tests/FDull.Tests/SafetyTests.fs",
+      "Owner": "FDull.Tests.SafetyTests.``nested domain types at many sites stay within the workspace work budget``",
+      "Kind": "attribute",
+      "Identity": "xunit.core, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | Xunit.FactAttribute |  | unit",
+      "Reason": "Isolated non-shipping regression writes a generated nested-record fixture to an owned temporary directory, analyzes it with the workspace engine and deletes it; per-node index re-walks exceeded the work budget for this fixture, so it must complete without BUILD003."
+    },
+    {
+      "File": "tests/FDull.Tests/SafetyTests.fs",
+      "Owner": "FDull.Tests.SafetyTests.``nested domain types at many sites stay within the workspace work budget``",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Core.Operators.op_Range``1(Microsoft.FSharp.Core.FSharpFunc{Microsoft.FSharp.Core.Unit,``0},Microsoft.FSharp.Core.FSharpFunc{``0,Microsoft.FSharp.Core.FSharpFunc{``0,``0}},``0,``0)",
+      "Reason": "Isolated non-shipping regression writes a generated nested-record fixture to an owned temporary directory, analyzes it with the workspace engine and deletes it; per-node index re-walks exceeded the work budget for this fixture, so it must complete without BUILD003."
+    },
+    {
+      "File": "tests/FDull.Tests/SafetyTests.fs",
+      "Owner": "FDull.Tests.SafetyTests.``nested domain types at many sites stay within the workspace work budget``",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Core.StringModule.Concat(System.String,System.Collections.Generic.IEnumerable{System.String})",
+      "Reason": "Isolated non-shipping regression writes a generated nested-record fixture to an owned temporary directory, analyzes it with the workspace engine and deletes it; per-node index re-walks exceeded the work budget for this fixture, so it must complete without BUILD003."
+    },
+    {
+      "File": "tests/FDull.Tests/SafetyTests.fs",
+      "Owner": "FDull.Tests.SafetyTests.``nested domain types at many sites stay within the workspace work budget``",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.Guid.NewGuid",
+      "Reason": "Isolated non-shipping regression writes a generated nested-record fixture to an owned temporary directory, analyzes it with the workspace engine and deletes it; per-node index re-walks exceeded the work budget for this fixture, so it must complete without BUILD003."
+    },
+    {
+      "File": "tests/FDull.Tests/SafetyTests.fs",
+      "Owner": "FDull.Tests.SafetyTests.``nested domain types at many sites stay within the workspace work budget``",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.Guid.ToString(System.String)",
+      "Reason": "Isolated non-shipping regression writes a generated nested-record fixture to an owned temporary directory, analyzes it with the workspace engine and deletes it; per-node index re-walks exceeded the work budget for this fixture, so it must complete without BUILD003."
+    },
+    {
+      "File": "tests/FDull.Tests/SafetyTests.fs",
+      "Owner": "FDull.Tests.SafetyTests.``nested domain types at many sites stay within the workspace work budget``",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Directory.CreateDirectory(System.String)",
+      "Reason": "Isolated non-shipping regression writes a generated nested-record fixture to an owned temporary directory, analyzes it with the workspace engine and deletes it; per-node index re-walks exceeded the work budget for this fixture, so it must complete without BUILD003."
+    },
+    {
+      "File": "tests/FDull.Tests/SafetyTests.fs",
+      "Owner": "FDull.Tests.SafetyTests.``nested domain types at many sites stay within the workspace work budget``",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Directory.Delete(System.String,System.Boolean)",
+      "Reason": "Isolated non-shipping regression writes a generated nested-record fixture to an owned temporary directory, analyzes it with the workspace engine and deletes it; per-node index re-walks exceeded the work budget for this fixture, so it must complete without BUILD003."
+    },
+    {
+      "File": "tests/FDull.Tests/SafetyTests.fs",
+      "Owner": "FDull.Tests.SafetyTests.``nested domain types at many sites stay within the workspace work budget``",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.File.WriteAllText(System.String,System.String)",
+      "Reason": "Isolated non-shipping regression writes a generated nested-record fixture to an owned temporary directory, analyzes it with the workspace engine and deletes it; per-node index re-walks exceeded the work budget for this fixture, so it must complete without BUILD003."
+    },
+    {
+      "File": "tests/FDull.Tests/SafetyTests.fs",
+      "Owner": "FDull.Tests.SafetyTests.``nested domain types at many sites stay within the workspace work budget``",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.Combine(System.String,System.String)",
+      "Reason": "Isolated non-shipping regression writes a generated nested-record fixture to an owned temporary directory, analyzes it with the workspace engine and deletes it; per-node index re-walks exceeded the work budget for this fixture, so it must complete without BUILD003."
+    },
+    {
+      "File": "tests/FDull.Tests/SafetyTests.fs",
+      "Owner": "FDull.Tests.SafetyTests.``nested domain types at many sites stay within the workspace work budget``",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.GetTempPath",
+      "Reason": "Isolated non-shipping regression writes a generated nested-record fixture to an owned temporary directory, analyzes it with the workspace engine and deletes it; per-node index re-walks exceeded the work budget for this fixture, so it must complete without BUILD003."
+    },
+    {
+      "File": "tests/FDull.Tests/SafetyTests.fs",
+      "Owner": "FDull.Tests.SafetyTests.``nested domain types at many sites stay within the workspace work budget``",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.DoesNotContain``1(System.Collections.Generic.IEnumerable{``0},System.Predicate{``0})",
+      "Reason": "Isolated non-shipping regression writes a generated nested-record fixture to an owned temporary directory, analyzes it with the workspace engine and deletes it; per-node index re-walks exceeded the work budget for this fixture, so it must complete without BUILD003."
+    },
+    {
+      "File": "tests/FDull.Tests/SafetyTests.fs",
+      "Owner": "FDull.Tests.SafetyTests.``nested domain types at many sites stay within the workspace work budget``",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.True(System.Boolean,System.String)",
+      "Reason": "Isolated non-shipping regression writes a generated nested-record fixture to an owned temporary directory, analyzes it with the workspace engine and deletes it; per-node index re-walks exceeded the work budget for this fixture, so it must complete without BUILD003."
+    },
+    {
+      "File": "tests/FDull.Tests/SafetyTests.fs",
+      "Owner": "FDull.Tests.SafetyTests.``nested domain types at many sites stay within the workspace work budget``",
+      "Kind": "rule",
+      "Identity": "ERR009 | ",
+      "Reason": "Isolated non-shipping regression writes a generated nested-record fixture to an owned temporary directory, analyzes it with the workspace engine and deletes it; per-node index re-walks exceeded the work budget for this fixture, so it must complete without BUILD003."
+    },
+    {
+      "File": "tests/FDull.Tests/SafetyTests.fs",
+      "Owner": "FDull.Tests.SafetyTests.``nested domain types at many sites stay within the workspace work budget``",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.3.0.0, Culture=neutral, PublicKeyToken=null | FDull.SafetyDiagnostic",
+      "Reason": "Isolated non-shipping regression writes a generated nested-record fixture to an owned temporary directory, analyzes it with the workspace engine and deletes it; per-node index re-walks exceeded the work budget for this fixture, so it must complete without BUILD003."
+    },
+    {
+      "File": "tests/FDull.Tests/SafetyTests.fs",
+      "Owner": "FDull.Tests.SafetyTests.``nested domain types at many sites stay within the workspace work budget``",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.3.0.0, Culture=neutral, PublicKeyToken=null | FDull.SafetyReport",
+      "Reason": "Isolated non-shipping regression writes a generated nested-record fixture to an owned temporary directory, analyzes it with the workspace engine and deletes it; per-node index re-walks exceeded the work budget for this fixture, so it must complete without BUILD003."
     },
     {
       "File": "tests/FDull.Tests/ProjectTests.fs",

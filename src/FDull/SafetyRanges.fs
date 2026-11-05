@@ -12,6 +12,8 @@ type SafetyRangeLookup<'a> =
 
 /// Tooling interval index. Queries retain original input order and duplicate
 /// entries, so indexing cannot change first-match resolution or omit tied ranges.
+/// Results are memoized per region: analyses ask about the same site once per
+/// nested type or finding, and a repeated query costs one step, not a tree walk.
 module SafetyRanges =
     type private Entry<'a> =
         { Region: SafetyRegion
@@ -75,7 +77,7 @@ module SafetyRanges =
                 file, build 0 0 ordered.Length)
             |> Map.ofArray
 
-        let query enclosing region =
+        let search enclosing region =
             let found = ResizeArray<Entry<'a>>()
 
             let rec walk depth tree =
@@ -108,6 +110,20 @@ module SafetyRanges =
 
             Map.tryFind region.File trees |> Option.iter (walk 0)
             found |> Seq.sortBy _.Ordinal |> Seq.map _.Value |> Seq.toList
+
+        let query enclosing =
+            let answers =
+                System.Collections.Generic.Dictionary<SafetyRegion, 'a list>(HashIdentity.Structural)
+
+            fun region ->
+                visit 0
+
+                match answers.TryGetValue region with
+                | true, answer -> answer
+                | false, _ ->
+                    let answer = search enclosing region
+                    answers.Add(region, answer)
+                    answer
 
         { Inside = query false
           Enclosing = query true }

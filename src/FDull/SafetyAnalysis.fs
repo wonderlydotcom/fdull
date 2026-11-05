@@ -330,6 +330,17 @@ module internal SafetyAnalysis =
         let useIndex =
             SafetyRanges.create budget.Visit (fun (useSite: FSharpSymbolUse) -> region useSite.Range) uses
 
+        let attributeIndex =
+            syntax
+            |> Seq.collect (fun (KeyValue(_, source)) -> source.Attributes)
+            |> SafetyRanges.create budget.Visit (fun (attribute: SynAttribute) -> region attribute.Range)
+
+        let loweringIndex =
+            syntax
+            |> Map.map (fun _ source ->
+                SafetyRanges.create budget.Visit region source.Comprehensions,
+                SafetyRanges.create budget.Visit region source.ExplicitCoercions)
+
         let localSymbol (s: FSharpSymbol) =
             s.DeclarationLocation |> Option.exists (fun r -> Set.contains r.FileName files)
 
@@ -701,12 +712,7 @@ module internal SafetyAnalysis =
                         let attributeConstructor =
                             m.IsConstructor
                             && (m.DeclaringEntity |> Option.exists (fun e -> e.IsAttributeType))
-                            && (syntax
-                                |> Map.exists (fun _ source ->
-                                    source.Attributes
-                                    |> List.exists (fun a ->
-                                        budget.Visit 0
-                                        containsRange a.Range useSite.Range)))
+                            && not (attributeIndex.Enclosing(region useSite.Range)).IsEmpty
 
                         if not attributeConstructor then
                             checkMember m useSite.Range
@@ -1079,18 +1085,10 @@ module internal SafetyAnalysis =
                     && SafetyPolicy.entityName targetType.TypeDefinition = "System.Collections.Generic.IEnumerable`1"
 
                 let comprehensionLowering =
-                    syntax
-                    |> Map.exists (fun _ source ->
-                        source.Comprehensions
-                        |> List.exists (fun r ->
-                            budget.Visit 0
-                            containsRange r expr.Range)
-                        && not (
-                            source.ExplicitCoercions
-                            |> List.exists (fun r ->
-                                budget.Visit 0
-                                containsRange r expr.Range)
-                        ))
+                    loweringIndex
+                    |> Map.exists (fun _ (comprehensions, coercions) ->
+                        not (comprehensions.Enclosing(region expr.Range)).IsEmpty
+                        && (coercions.Enclosing(region expr.Range)).IsEmpty)
 
                 if not listEnumeration && not comprehensionLowering then
                     shape false "coercion" Set.empty target expr.Range
