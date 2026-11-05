@@ -719,6 +719,9 @@ Jobs install the exact
 SDK from `global.json` (including its 10.0.14 runtime), restore locked dependencies,
 keep strict compiler settings and preserve nonzero command exits. NuGet downloads
 are cached by the lock files; results and logs are retained for seven days.
+The serial build/test job has a 60-minute limit and reports each completed test.
+A test with no completion after ten minutes aborts the run as a failure; the
+retained artifacts include the active test sequence without a memory dump.
 
 The compiled `tools/FDull.Ci` helper is part of the reviewed repository graph.
 Its package smoke check uses fresh temporary projects and an isolated package

@@ -377,7 +377,7 @@
     },
     {
       "File": ".github/workflows/ci.yml",
-      "Digest": "sha256:798b3c56c3f199ac5f5d9050302b23038113801a45ea044c58d41a8aaa30d569"
+      "Digest": "sha256:6b594152dad5b70e9ee6b044c86c6387d2a98ffa1bd9715fca90834d6f5d6f98"
     },
     {
       "File": ".github/CODEOWNERS",
