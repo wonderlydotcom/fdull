@@ -183,6 +183,12 @@ module WorkspaceEngine =
         let mutable observations = fun () -> []
         let findings = ResizeArray<WorkspaceReviewFinding>()
 
+        let diagnosticSet =
+            Collections.Generic.HashSet<SafetyDiagnostic>(HashIdentity.Structural)
+
+        let findingSet =
+            Collections.Generic.HashSet<WorkspaceReviewFinding>(HashIdentity.Structural)
+
         let describeGlobal =
             fun diagnostic (_: range) (_: SafetyReviewContract option) ->
                 { Diagnostic = diagnostic
@@ -200,9 +206,6 @@ module WorkspaceEngine =
                 invalidOp "Unknown diagnostic classification."
 
             if not (context.Permit rule r symbol contract) then
-                if diagnostics.Count >= limit then
-                    invalidOp "Workspace diagnostic budget exceeded."
-
                 let diagnostic =
                     { Rule = rule
                       Severity = "error"
@@ -218,10 +221,24 @@ module WorkspaceEngine =
                       Alternative = alternative
                       Policy = request.PolicySlice }
 
-                diagnostics.Add diagnostic
+                // An analysis can reach one site along several paths and report it
+                // each time. Reports keep distinct entries, so the budget counts those.
+                if not (diagnosticSet.Contains diagnostic) then
+                    if diagnostics.Count >= limit then
+                        invalidOp "Workspace diagnostic budget exceeded."
+
+                    diagnosticSet.Add diagnostic |> ignore
+                    diagnostics.Add diagnostic
 
                 if advisory then
-                    findings.Add(describe diagnostic r contract)
+                    let finding = describe diagnostic r contract
+
+                    if not (findingSet.Contains finding) then
+                        if findings.Count >= limit then
+                            invalidOp "Workspace diagnostic budget exceeded."
+
+                        findingSet.Add finding |> ignore
+                        findings.Add finding
 
         let globalError rule message =
             emitWith

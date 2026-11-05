@@ -611,6 +611,48 @@ module SafetyTests =
         Assert.Contains(report.Diagnostics, fun d -> d.Rule = "BUILD003")
 
     [<Fact>]
+    let ``nested domain types at many sites stay within the workspace work budget`` () =
+        // Every site expands the whole nested record tree and checks each node's type
+        // permission there. Re-walking the declaration index for each node exceeded
+        // the work budget from about 30 sites; with one step per repeated lookup the
+        // budget holds beyond 100, so 60 sites separate the two.
+        let levels =
+            [ 1..9 ]
+            |> List.map (fun i -> $"type Level%d{i} = {{ Left: Level%d{i - 1}; Right: Level%d{i - 1} }}")
+
+        let sites =
+            [ 1..60 ] |> List.map (fun i -> $"let site%d{i} (value: Level9) = value")
+
+        let source =
+            "module ScalingFixture\ntype Level0 = { Value: int }\n"
+            + String.concat "\n" (levels @ sites)
+            + "\n"
+
+        let root =
+            Path.Combine(Path.GetTempPath(), "fdull-scaling-" + Guid.NewGuid().ToString("N"))
+
+        Directory.CreateDirectory root |> ignore
+
+        try
+            let file = Path.Combine(root, "Scaling.fs")
+            File.WriteAllText(file, source)
+
+            let report, _ =
+                analyzeWorkspaceWithTarget
+                    ""
+                    "library"
+                    false
+                    references
+                    root
+                    (Path.Combine(root, "Scaling.dll"))
+                    [ file ]
+
+            Assert.True(report.Complete, describe report)
+            Assert.DoesNotContain(report.Diagnostics, fun diagnostic -> diagnostic.Rule = "BUILD003")
+        finally
+            Directory.Delete(root, true)
+
+    [<Fact>]
     let ``unsupported expression depth fails before typed traversal`` () =
         let report =
             check ("let value = " + String.replicate 300 "(" + "1" + String.replicate 300 ")")
