@@ -850,14 +850,30 @@ module internal WorkspacePolicy =
                 invalidOp "BUILD005: Invalid workspace project assignment.")
 
         let sources = document.Sources |> List.map _.File
+
+        let assignments =
+            document.Sources |> List.map (fun source -> source.File, source.Project)
+
         let inputs = document.Inputs |> List.map _.File
 
         if
-            sources.Length <> (Set.ofList sources).Count
+            assignments.Length <> (Set.ofList assignments).Count
             || inputs.IsEmpty
             || inputs.Length <> (Set.ofList inputs).Count
         then
             invalidOp "BUILD005: Duplicate source or missing/duplicate build input."
+
+        if
+            document.Sources
+            |> List.groupBy _.File
+            |> List.exists (fun (_, assignments) ->
+                assignments
+                |> List.map (fun source -> source.Profile, source.Digest)
+                |> Set.ofList
+                |> Set.count
+                <> 1)
+        then
+            invalidOp "BUILD005: Shared source assignments must have the same profile and digest."
 
         document.Sources
         |> List.iter (fun source ->
@@ -1127,7 +1143,13 @@ module internal WorkspacePolicy =
         then
             invalidOp "BUILD005: Duplicate reusable data contract."
 
-        if keys.Length <> (Set.ofList keys).Count then
+        if
+            document.Sources.Length
+            <> (document.Sources
+                |> List.map (fun source -> source.File, source.Project)
+                |> Set.ofList)
+                .Count
+        then
             invalidOp "BUILD005: Duplicate workspace source assignment."
 
         for identities in [ document.Domains; document.Constructors ] do
@@ -1660,7 +1682,7 @@ module internal WorkspacePolicy =
 
             Set.contains r.FileName generated
             && ((WorkspaceGenerated.isAspireProjectMetadata r.FileName
-                 && identity = "Aspire.Hosting, Version=13.4.6.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | M:Aspire.Hosting.IProjectMetadata.get_ProjectPath")
+                 && identity = "Aspire.Hosting, Version=13.6.5.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | M:Aspire.Hosting.IProjectMetadata.get_ProjectPath")
                 || (WorkspaceGenerated.isTestingPlatformExtensions r.FileName
                     && List.contains
                         identity

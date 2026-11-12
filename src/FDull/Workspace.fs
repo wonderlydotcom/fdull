@@ -29,6 +29,15 @@ type WorkspaceInvocation =
       ProjectReferences: string list
       ImportedBuildInputs: string list }
 
+/// A project's evaluated compiler invocation. Sources are in compile order and every path is absolute.
+type EvaluatedInvocation =
+    { Directory: string
+      Sources: string list
+      References: string list
+      Flags: string list
+      ProjectReferences: string list
+      ImportedBuildInputs: string list }
+
 /// Wall-clock cost of one project's analysis. Diagnostic output only; never part of a report.
 type WorkspaceTiming =
     { Project: string
@@ -85,7 +94,11 @@ module Workspace =
             start
             ""
 
-    let export root project =
+    /// The project's evaluated Release compiler invocation: ordered sources, references and the
+    /// remaining compiler flags, before FDull's generated-source profile checks. Runs MSBuild's
+    /// Compile target with compiler execution skipped; nothing is compiled. `extraItems` are
+    /// further MSBuild items that `readExtra` reads from the same query.
+    let private evaluateWith root project (extraItems: string list) readExtra =
         let path = Path.Combine(root, project)
 
         let directory =
@@ -102,7 +115,8 @@ module Workspace =
               "-p:NonExistentFile=obj/fdull-export-never-created"
               "-p:BuildProjectReferences=false"
               "-p:FDullExport=true"
-              "-getItem:FscCommandLineArgs,ProjectReference"
+              "-getItem:"
+              + String.Join(",", "FscCommandLineArgs" :: "ProjectReference" :: extraItems)
               "-getProperty:MSBuildAllProjects"
               "-m:1"
               "-nr:false"
@@ -156,7 +170,69 @@ module Workspace =
                     else
                         None)
 
-            match WorkspaceGenerated.supported root directory project projectReferences sources references with
+            let sourceSet = Set.ofList sources
+
+            let flags =
+                arguments
+                |> List.filter (fun argument -> not (Set.contains (full argument) sourceSet))
+                |> List.map (fun argument ->
+                    if argument.StartsWith("-r:", StringComparison.Ordinal) then
+                        "-r:" + full (argument.Substring 3)
+                    elif argument.StartsWith("-o:", StringComparison.Ordinal) then
+                        "-o:" + full (argument.Substring 3)
+                    else
+                        argument)
+
+            let extra = readExtra full (document.RootElement.GetProperty "Items")
+
+            Ok(
+                { Directory = directory
+                  Sources = sources
+                  References = references
+                  Flags = flags
+                  ProjectReferences = projectReferences
+                  ImportedBuildInputs = importedBuildInputs },
+                extra
+            )
+
+    let evaluate root project =
+        evaluateWith root project [] (fun _ _ -> ()) |> Result.map fst
+
+    /// Evaluates the project and also returns the assemblies the compiler reads for the projects it
+    /// references directly: each reference assembly, else the output assembly. Projects the SDK adds
+    /// transitively carry the package id it resolved them under and are left out.
+    let evaluateWithDirectReferences root project =
+        evaluateWith root project [ "ReferencePath" ] (fun full items ->
+            let text (item: JsonElement) (name: string) =
+                match item.TryGetProperty name with
+                | true, value -> value.GetString() |> Option.ofObj |> Option.defaultValue ""
+                | _ -> ""
+
+            items.GetProperty("ReferencePath").EnumerateArray()
+            |> Seq.filter (fun item ->
+                text item "ReferenceSourceTarget" = "ProjectReference"
+                && text item "NuGetPackageId" = "")
+            // The compiler reads the reference assembly when the project produces one.
+            |> Seq.map (fun item ->
+                match text item "ReferenceAssembly" with
+                | "" ->
+                    item.GetProperty("FullPath").GetString()
+                    |> External.required "workspace.project-reference-assembly"
+                | reference -> reference
+                |> full)
+            |> Seq.toList)
+
+    let export root project =
+        match evaluate root project with
+        | Error error -> Error error
+        | Ok evaluated ->
+            let directory = evaluated.Directory
+            let sources = evaluated.Sources
+            let references = evaluated.References
+
+            match
+                WorkspaceGenerated.supported root directory project evaluated.ProjectReferences sources references
+            with
             | Error error -> Error error
             | Ok generatedSet ->
                 let generated = sources |> List.filter (fun file -> Set.contains file generatedSet)
@@ -171,19 +247,6 @@ module Workspace =
                          || relativeToRoot = ".."
                          || relativeToRoot.StartsWith("../", StringComparison.Ordinal))
                         && not (Set.contains file generatedSet))
-
-                let sourceSet = Set.ofList sources
-
-                let flags =
-                    arguments
-                    |> List.filter (fun argument -> not (Set.contains (full argument) sourceSet))
-                    |> List.map (fun argument ->
-                        if argument.StartsWith("-r:", StringComparison.Ordinal) then
-                            "-r:" + full (argument.Substring 3)
-                        elif argument.StartsWith("-o:", StringComparison.Ordinal) then
-                            "-o:" + full (argument.Substring 3)
-                        else
-                            argument)
 
                 match unsupportedGenerated with
                 | file :: _ ->
@@ -202,10 +265,10 @@ module Workspace =
                     Ok
                         { Sources = sources
                           References = references
-                          Arguments = flags
+                          Arguments = evaluated.Flags
                           Generated = generated
-                          ProjectReferences = projectReferences
-                          ImportedBuildInputs = importedBuildInputs }
+                          ProjectReferences = evaluated.ProjectReferences
+                          ImportedBuildInputs = evaluated.ImportedBuildInputs }
 
     /// The intermediate and build output directories MSBuild evaluates for a Release project. Only
     /// evaluates the project; no target runs and nothing is written.
@@ -459,7 +522,7 @@ module Workspace =
 
                 let run =
                     SafetyProcess.run
-                        { Milliseconds = 60000
+                        { Milliseconds = 210000
                           OutputCharacters =
                             if advisory then
                                 SafetyLimits.workspaceReviewCharacters

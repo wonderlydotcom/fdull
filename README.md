@@ -73,10 +73,12 @@ authored `.fs`/`.fsi` files. Release builds must use the standard
 `obj/Release/net10.0` generated metadata layout. Exact profiles cover SDK-owned
 MVC application-part assembly metadata, Microsoft.NET.Test.Sdk 17.14.1's F# test
 entry point, xUnit v3 Core 3.1.0 with Microsoft Testing Platform MSBuild 1.8.4
-and optional JunitXml.TestLogger 7.0.2 registration, and Aspire AppHost 13.4.6
+and optional JunitXml.TestLogger 7.0.2 registration, and Aspire AppHost 13.6.5
 project metadata emitted by FSharp.Aspire.Hosting.AppHost 13.0.0. Multi-targeting,
 other source generators and arbitrary configurations are not supported in this preview.
-Reviewed non-F# implementation, automation and tooling may coexist in a mixed
+An F# source can be included by multiple checked projects. Each owner is analyzed
+independently, and all assignments for the shared file must use the same profile
+and source fingerprint. Reviewed non-F# implementation, automation and tooling may coexist in a mixed
 repository through the external workspace scope described below.
 
 ## Start with a small project
@@ -490,9 +492,77 @@ local buffers, process supervision and test assertions. The library, CLI, worker
 tests and build controls are themselves checked. Copying their tooling permissions
 into application code changes the trust model.
 
+## Check selected files in an existing project
+
+`fdull check` applies a few FDull rules to chosen files of an ordinary F# project.
+It needs no `fdull.json`, compiler preset, reviewed fingerprints or project
+reorganization, so a team can adopt one rule in one folder and widen it later:
+
+```sh
+dotnet build src/Shop/Shop.fsproj -c Release
+dotnet fdull check src/Shop/Shop.fsproj --rules MODEL004,ERR007,ERR006 src/Shop/Pricing src/Shop/Checkout.fs
+dotnet fdull check src/Shop/Shop.fsproj --rules ERR007 src/Shop/Pricing --format json
+```
+
+Each path after the options is a compiled `.fs`/`.fsi` file of the project or a
+directory; a directory selects every compiled source under it, including files
+added later. Paths are relative to the current directory. Sources under the
+project's `bin` and `obj` cannot be selected. There is no ignore list or baseline:
+narrow the selection or fix the finding.
+
+| Rule | Reports in selected files |
+| --- | --- |
+| `MODEL004` | A wildcard or variable pattern that stands in for cases of a union declared in the project or in a project it references directly, and the compiler's incomplete-match warning (FS0025), so a new union case that a match misses fails even without warnings-as-errors. |
+| `ERR007` | A `Result`, or a `Task` of one, discarded through `ignore` (including aliases declared in a selected file), a `_` or `do` binding, or a sequence. |
+| `ERR006` | Throwing access: collection `head`, `tail`, `last`, `item`, `find`, `pick`, `exactlyOne`, `min`, `max`, `average` and their `By` forms, `Option.get`/`.Value`, and `Parse` methods of `System` types. |
+
+The project is evaluated with MSBuild in Release (`-t:Compile` with compiler
+execution skipped) using its own SDK, flags, defines and warning settings, and
+every source is type-checked with FDull's pinned compiler service. Build the
+project's references in Release first. Only the selected files are inspected.
+With `MODEL004` selected, the project's `NoWarn`, warning level and
+warnings-as-errors settings cannot hide FS0025 in selected files, and a
+`#nowarn` naming it in a selected file makes the check incomplete.
+
+Exit codes: `0` no findings, `1` findings, `2` an invalid request (no rules, an
+unknown or unsupported rule, no selected path, or a path that matches no compiled
+source), `3` incomplete. Analysis is incomplete, and never passes, when MSBuild
+cannot evaluate the project, an input is missing, any project source has a
+compiler error (selected or not), the analyzer cannot classify part of a selected
+source or exceeds its budget, or an input changes during the check. Text output
+names the selected files and rules; JSON carries `Status` (`pass`, `fail`,
+`invalid` or `incomplete`), `ExitCode`, `Project`, `Files`, `Rules`, `Claim`,
+`Reason` and `Findings`. For an incomplete run, `Findings` holds the blockers,
+such as compiler errors.
+
+A passing check establishes only that the selected rules found nothing in the
+selected files. It is not FDull verification and does not certify the project:
+
+- Calls from selected files into unselected code are trusted. A helper in another
+  file that calls `List.head` is not reported where it is used, and nothing is said
+  about the purity of unselected code.
+- `ERR006` reports every call, including one guarded by an earlier emptiness check;
+  it has no flow analysis. `ERR007` recognizes the listed discard shapes, not every
+  way a value can go unused.
+- A union from a transitively referenced project, a package or FSharp.Core is not a
+  closed domain union for `MODEL004`. A directly referenced project is recognized by
+  the assembly path MSBuild resolves for it, whatever its assembly name; projects the
+  SDK adds transitively are told apart by the package id it records for them.
+- Projects built with another .NET 10 SDK are type-checked with FDull's pinned
+  compiler service. A flag, language version or FSharp.Core it cannot load is a
+  compiler error, so the check is incomplete rather than silently partial.
+- Compiler warnings other than FS0025, and errors that appear only during code
+  generation, are left to the normal build.
+- Multi-targeted projects are not supported; MSBuild evaluation fails and the
+  check is incomplete.
+
+`lint`, `review` and `verify` keep their full guarantees; `check` does not change
+what they inspect.
+
 ## Commands and exits
 
 ```sh
+dotnet fdull check src/Shop/Shop.fsproj --rules MODEL004,ERR007 src/Shop/Pricing --format json
 dotnet fdull lint . --format json
 dotnet fdull lint . --format sarif
 dotnet fdull review .
@@ -681,7 +751,7 @@ cache.
 
 The workspace worker has a 512 MiB managed heap ceiling (`--memory` or
 `WorkspaceOptions.MemoryMiB` changes it), a working-set limit of twice the heap and
-a 60-second wall-time limit per project. Source-only `Safety.check` keeps the
+a 210-second wall-time limit and a 512-source limit per project. Source-only `Safety.check` keeps the
 512 MiB heap and 1 GiB working set. Output and traversal are also bounded.
 Exhausted limits cause an incomplete failed check. Tests run serially with a
 separate 2 GiB heap ceiling.
