@@ -2479,13 +2479,13 @@ module ProjectTests =
                 "<Project><Target Name=\"ClearPackageFSharpSuppressions\" BeforeTargets=\"CoreCompile\"><PropertyGroup><NoWarn></NoWarn></PropertyGroup></Target></Project>"
             )
 
-            // Pin the patched transitive dependency while retaining NuGet audit for this fixture.
+            // Patched Aspire 13.6.5 restores with NuGet audit still enabled for this fixture.
             let host = Path.Combine(root, "Host")
             Directory.CreateDirectory host |> ignore
 
             File.WriteAllText(
                 Path.Combine(host, "Host.fsproj"),
-                "<Project Sdk=\"Aspire.AppHost.Sdk/13.4.6\"><PropertyGroup><OutputType>Library</OutputType><SkipValidateAspireHostProjectResources>true</SkipValidateAspireHostProjectResources></PropertyGroup><ItemGroup><Compile Include=\"Host.fs\"/></ItemGroup><ItemGroup><PackageReference Include=\"Aspire.Hosting.AppHost\" Version=\"13.4.6\"/><PackageReference Include=\"FSharp.Aspire.Hosting.AppHost\" Version=\"13.0.0\"/><PackageReference Include=\"MessagePack\" Version=\"2.5.303\"/></ItemGroup><ItemGroup><ProjectReference Include=\"../App.fsproj\"/></ItemGroup><Target Name=\"TamperAspireMetadata\" AfterTargets=\"WriteAspireProjectMetadataSources\" BeforeTargets=\"CoreCompile\" Condition=\"Exists('tamper-generated-source')\"><WriteLinesToFile File=\"$(IntermediateOutputPath)Aspire/references/App.ProjectMetadata.g.fs\" Lines=\"// tampered\" Overwrite=\"false\"/></Target></Project>"
+                "<Project Sdk=\"Aspire.AppHost.Sdk/13.6.5\"><PropertyGroup><OutputType>Library</OutputType><SkipValidateAspireHostProjectResources>true</SkipValidateAspireHostProjectResources></PropertyGroup><ItemGroup><Compile Include=\"Host.fs\"/></ItemGroup><ItemGroup><PackageReference Include=\"Aspire.Hosting.AppHost\" Version=\"13.6.5\"/><PackageReference Include=\"FSharp.Aspire.Hosting.AppHost\" Version=\"13.0.0\"/></ItemGroup><ItemGroup><ProjectReference Include=\"../App.fsproj\"/></ItemGroup><Target Name=\"TamperAspireMetadata\" AfterTargets=\"WriteAspireProjectMetadataSources\" BeforeTargets=\"CoreCompile\" Condition=\"Exists('tamper-generated-source')\"><WriteLinesToFile File=\"$(IntermediateOutputPath)Aspire/references/App.ProjectMetadata.g.fs\" Lines=\"// tampered\" Overwrite=\"false\"/></Target></Project>"
             )
 
             File.WriteAllText(Path.Combine(host, "Host.fs"), "module AppHost\nlet value = 1\n")

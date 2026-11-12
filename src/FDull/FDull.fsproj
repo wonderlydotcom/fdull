@@ -30,6 +30,7 @@
     <Compile Include="WorkspaceReview.fs" />
     <Compile Include="RepositoryPlan.fs" />
     <Compile Include="Workspace.fs" />
+    <Compile Include="RuleCheck.fs" />
     <Compile Include="Safety.fs" />
     <Compile Include="Project.fs" />
     <Compile Include="Repository.fs" />

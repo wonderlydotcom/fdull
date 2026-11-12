@@ -236,7 +236,7 @@ module SafetyRules =
               [ build; guard; audit ]
               false
               [ "ProjectTests.every approved graph edge is exact and shipping cannot acquire a test dependency" ]
-              "Additional configurations and generated-source producers beyond the reviewed SDK, Web SDK, Test SDK 17.14.1, xUnit v3.1 and Aspire 13.4.6 profiles require a separate exact inventory."
+              "Additional configurations and generated-source producers beyond the reviewed SDK, Web SDK, Test SDK 17.14.1, xUnit v3.1 and Aspire 13.6.5 profiles require a separate exact inventory."
           rule
               "BUILD001"
               "Suppression and path spoofing"

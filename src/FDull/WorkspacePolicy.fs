@@ -1682,7 +1682,7 @@ module internal WorkspacePolicy =
 
             Set.contains r.FileName generated
             && ((WorkspaceGenerated.isAspireProjectMetadata r.FileName
-                 && identity = "Aspire.Hosting, Version=13.4.6.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | M:Aspire.Hosting.IProjectMetadata.get_ProjectPath")
+                 && identity = "Aspire.Hosting, Version=13.6.5.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | M:Aspire.Hosting.IProjectMetadata.get_ProjectPath")
                 || (WorkspaceGenerated.isTestingPlatformExtensions r.FileName
                     && List.contains
                         identity

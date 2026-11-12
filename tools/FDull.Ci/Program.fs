@@ -168,6 +168,39 @@ module Program =
                 (failed.Contains("FDull verify: FAIL") && not (failed.Contains("BLOCKED")))
                 "Mutation verification was incomplete."
 
+            // The installed tool checks selected rules in an ordinary project without FDull settings.
+            let scoped = Path.Combine(temporary, "scoped")
+
+            prepare
+                scoped
+                "<Project/>"
+                config
+                "module App\nlet first (items: int list) = List.head items\n"
+                "<Project Sdk=\"Microsoft.NET.Sdk\"><PropertyGroup><TargetFramework>net10.0</TargetFramework></PropertyGroup><ItemGroup><Compile Include=\"App.fs\"/></ItemGroup></Project>"
+
+            run 0 scoped packages [ "build"; "App.fsproj"; "-c"; "Release"; "-m:1"; "-nr:false" ]
+            |> ignore
+
+            let checkedScope =
+                run
+                    1
+                    scoped
+                    packages
+                    [ "fdull"
+                      "check"
+                      "App.fsproj"
+                      "--rules"
+                      "ERR006"
+                      "App.fs"
+                      "--format"
+                      "json" ]
+
+            require
+                (checkedScope.Contains("\"Status\":\"fail\"")
+                 && checkedScope.Contains("\"Rule\":\"ERR006\"")
+                 && not (File.Exists(Path.Combine(scoped, "fdull.json"))))
+                "Scoped check did not report ERR006 in an ordinary project."
+
             let consumer = Path.Combine(temporary, "library")
 
             prepare
@@ -211,7 +244,7 @@ module Program =
                 require (File.Exists path) ("Missing packaged analyzer assembly: " + assembly)
 
             Console.WriteLine
-                "Package smoke passed: local tool, worker, positive/negative/drift checks, library and analyzer payload."
+                "Package smoke passed: local tool, worker, positive/negative/drift checks, scoped check, library and analyzer payload."
         finally
             Directory.Delete(temporary, true)
 

@@ -7,12 +7,23 @@ open System.IO
 open FDull
 open FDull.Transport
 
+/// Machine-readable `fdull check` result for CI.
+type CheckOutput =
+    { Status: string
+      ExitCode: int
+      Project: string
+      Files: string list
+      Rules: string list
+      Claim: string
+      Reason: string option
+      Findings: CheckFinding list }
+
 module Program =
     let private usage () =
         Console.WriteLine "FDull — F# with fewer sharp edges."
 
         Console.WriteLine
-            "fdull defaults | init <root> [--scope <file>] | lint <root> [--format text|json|sarif] [--jobs <1-64>] [--memory <256-16384>] [--no-cache] [--timings] | review <root> [--format text|json] [--jobs <1-64>] [--memory <256-16384>] [--no-cache] [--timings] | cache clear <root> | data-digest <assembly> | policy-digest <fdull.json> | verify <root> [--all | --since <commit>] [--jobs <1-64>] [--memory <256-16384>] [--cache | --no-cache] [--timings] | coverage"
+            "fdull defaults | init <root> [--scope <file>] | check <project.fsproj> --rules <ids> <file-or-directory>... [--format text|json] | lint <root> [--format text|json|sarif] [--jobs <1-64>] [--memory <256-16384>] [--no-cache] [--timings] | review <root> [--format text|json] [--jobs <1-64>] [--memory <256-16384>] [--no-cache] [--timings] | cache clear <root> | data-digest <assembly> | policy-digest <fdull.json> | verify <root> [--all | --since <commit>] [--jobs <1-64>] [--memory <256-16384>] [--cache | --no-cache] [--timings] | coverage"
 
         2
 
@@ -253,6 +264,64 @@ module Program =
 
         report.ExitCode
 
+    /// `--rules` and `--format` may appear once each; every other argument is a source selector.
+    let rec private checkOptions (selected: Map<string, string>) selectors arguments =
+        match arguments with
+        | [] -> Some(selected, List.rev selectors)
+        | "--rules" :: rules :: rest when not (selected.ContainsKey "rules") ->
+            checkOptions (selected.Add("rules", rules)) selectors rest
+        | "--format" :: format :: rest when
+            List.contains format [ "text"; "json" ] && not (selected.ContainsKey "format")
+            ->
+            checkOptions (selected.Add("format", format)) selectors rest
+        | selector :: rest when not (selector.StartsWith("--", StringComparison.Ordinal)) ->
+            checkOptions selected (selector :: selectors) rest
+        | _ -> None
+
+    let private displayCheck format (report: CheckReport) =
+        let exitCode = RuleCheck.exitCode report.Outcome
+
+        let status, reason, findings =
+            match report.Outcome with
+            | Clean -> "pass", None, []
+            | Violations findings -> "fail", None, findings
+            | Invalid reason -> "invalid", Some reason, []
+            | Incomplete(reason, blockers) -> "incomplete", Some reason, blockers
+
+        match format with
+        | "json" ->
+            { Status = status
+              ExitCode = exitCode
+              Project = report.Project
+              Files = report.Files
+              Rules = report.Rules |> List.map RuleCheck.ruleId
+              Claim = RuleCheck.claim report
+              Reason = reason
+              Findings = findings }
+            |> Codec.encode
+            |> Console.WriteLine
+        | _ ->
+            let headline =
+                match report.Outcome with
+                | Clean -> "FDull check: PASS — no findings for the selected rules."
+                | Violations findings -> $"FDull check: FAIL — %d{findings.Length} findings for the selected rules."
+                | Invalid _ -> "FDull check: INVALID — the request cannot be checked; no clean result."
+                | Incomplete _ -> "FDull check: BLOCKED — analysis incomplete; no clean result."
+
+            Console.WriteLine headline
+            reason |> Option.iter (fun text -> Console.WriteLine("Reason: " + text))
+            Console.WriteLine("Scope: " + RuleCheck.claim report)
+
+            for file in report.Files do
+                Console.WriteLine("Selected: " + file)
+
+            for item in findings do
+                Console.WriteLine(
+                    $"%s{item.File}(%d{item.StartLine},%d{item.StartColumn}): %s{item.Rule} %s{item.Symbol}: %s{item.Message}"
+                )
+
+        exitCode
+
     let private verify root selected (selection: RepositorySelection option) =
         // A standalone (version-one) verify never uses the result cache.
         if
@@ -300,6 +369,12 @@ module Program =
                     timed (selected.ContainsKey "timings") workspaceTimings (fun () ->
                         Workspace.checkTimed (workspaceOptions selected) root)
                     |> display "lint" (selected.TryFind "format" |> Option.defaultValue "text")
+                | None -> usage ()
+            | "check" :: project :: rest when not (project.StartsWith("--", StringComparison.Ordinal)) ->
+                match checkOptions Map.empty [] rest with
+                | Some(selected, selectors) ->
+                    RuleCheck.run project (selected.TryFind "rules" |> Option.defaultValue "") selectors
+                    |> displayCheck (selected.TryFind "format" |> Option.defaultValue "text")
                 | None -> usage ()
             | "verify" :: root :: rest when not (root.StartsWith("--", StringComparison.Ordinal)) ->
                 // Verify reports only text.

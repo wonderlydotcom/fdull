@@ -93,7 +93,7 @@
       "File": "src/FDull/SafetyRules.fs",
       "Project": "src/FDull/FDull.fsproj",
       "Profile": "GUARD_TOOLING",
-      "Digest": "sha256:248f140349be3bd91c3a78c71283579454b7b614757b2c7989dbd91d033943b9"
+      "Digest": "sha256:3609e62037e89dab9f224c86d3af9d2c3f7d6962fa9e58ff9e21df7d75e53c56"
     },
     {
       "File": "src/FDull/SafetyPolicy.fs",
@@ -135,7 +135,7 @@
       "File": "src/FDull/SafetyAnalysis.fs",
       "Project": "src/FDull/FDull.fsproj",
       "Profile": "GUARD_TOOLING",
-      "Digest": "sha256:ce20b44e41669c63969388b57050dafda5456580817bda774081099815dec8f7"
+      "Digest": "sha256:2b9af50d252b54019d822c4bd92099ff7d104c90355b9aa4884b293c2aaa2173"
     },
     {
       "File": "src/FDull/SafetyEngine.fs",
@@ -147,13 +147,13 @@
       "File": "src/FDull/WorkspaceGenerated.fs",
       "Project": "src/FDull/FDull.fsproj",
       "Profile": "GUARD_TOOLING",
-      "Digest": "sha256:d54bad7eaed515e8117f84ce61ff67e9c41b204a62c70dad4b0264652dad3276"
+      "Digest": "sha256:44d65ed319a98410f370c5209dffc68257975d894b4314f32b52c1a427d8c924"
     },
     {
       "File": "src/FDull/WorkspacePolicy.fs",
       "Project": "src/FDull/FDull.fsproj",
       "Profile": "GUARD_TOOLING",
-      "Digest": "sha256:2ec79a51af220527d2b7d64f288c9a2642ecbe5ab883f3d542f5421decfb7337"
+      "Digest": "sha256:6894e01571289f901ea4a5f2ba0c7a4a10f0d05036c08f57012bfcb2db8a705f"
     },
     {
       "File": "src/FDull/WorkspaceAudit.fs",
@@ -177,7 +177,13 @@
       "File": "src/FDull/Workspace.fs",
       "Project": "src/FDull/FDull.fsproj",
       "Profile": "GUARD_TOOLING",
-      "Digest": "sha256:e801c2c909f0179915e2cdf71a8ddcc940d9c070adc03dccd091b8166a735317"
+      "Digest": "sha256:014975a8214576f2203f0b7b1469b81358c7303a43a766229986d8e4427b797e"
+    },
+    {
+      "File": "src/FDull/RuleCheck.fs",
+      "Project": "src/FDull/FDull.fsproj",
+      "Profile": "GUARD_TOOLING",
+      "Digest": "sha256:70b609a4dd84a607712b1eea96ff692ebc843ed016a97a0f059e3fce2f5e7703"
     },
     {
       "File": "src/FDull/Safety.fs",
@@ -201,7 +207,7 @@
       "File": "src/FDull.Tool/Program.fs",
       "Project": "src/FDull.Tool/FDull.Tool.fsproj",
       "Profile": "GUARD_TOOLING",
-      "Digest": "sha256:0248e39f948d611ad9a1e388a2ef6cb15d1cfc4926da89a9c9eb834e8d6c2cca"
+      "Digest": "sha256:838d0d2a6e51333cf247358447d433fe9786251e9db129dbf049f858265a2d04"
     },
     {
       "File": "src/FDull.Worker/Program.fs",
@@ -261,7 +267,13 @@
       "File": "tests/FDull.Tests/ProjectTests.fs",
       "Project": "tests/FDull.Tests/FDull.Tests.fsproj",
       "Profile": "TEST",
-      "Digest": "sha256:becba668f4a355e9e284c0a9260528ae10507617dceea2a130e528de482aedad"
+      "Digest": "sha256:ee206c23f2656b9ca1cf752f82b9febbaba353aae74607f7d18efe619a5a948b"
+    },
+    {
+      "File": "tests/FDull.Tests/CheckTests.fs",
+      "Project": "tests/FDull.Tests/FDull.Tests.fsproj",
+      "Profile": "TEST",
+      "Digest": "sha256:dd8fc3ad525cef4dd17d443c2d326ece71a8a08bd87f37daea6e3dc9beb2072b"
     },
     {
       "File": "tests/FDull.Tests/Program.fs",
@@ -291,7 +303,7 @@
       "File": "tools/FDull.Ci/Program.fs",
       "Project": "tools/FDull.Ci/FDull.Ci.fsproj",
       "Profile": "GUARD_TOOLING",
-      "Digest": "sha256:26fc39a030f155969c136972074aefd47775cc94dbb2e0f6628c4e043c0f15dc"
+      "Digest": "sha256:a7a373bcf71e8addade71baaa10203afdb33759a698845cedde3cc281c440079"
     }
   ],
   "Inputs": [
@@ -325,7 +337,7 @@
     },
     {
       "File": "src/FDull/FDull.fsproj",
-      "Digest": "sha256:db8c8f566585ef2e95433b1d595231ab74f37d9a645ffe0c5063d7d4c02bb77c"
+      "Digest": "sha256:e993ac6ce086dd16e96d07699418a6c207057a5565a6db82c7b142ae20ce7e21"
     },
     {
       "File": "src/FDull/Policy/approved-apis.json",
@@ -369,7 +381,7 @@
     },
     {
       "File": "tests/FDull.Tests/FDull.Tests.fsproj",
-      "Digest": "sha256:5b3ecf6a4331dec3782169c603307c7d63866768bc03e876be757a8056b8598e"
+      "Digest": "sha256:6e1e7a9f5fbbad6699b606d4898663f1a1ffc93cecf9892063db317bbb0c645d"
     },
     {
       "File": "tests/FDull.Tests/packages.lock.json",
@@ -1973,42 +1985,42 @@
     },
     {
       "File": "src/FDull/Workspace.fs",
-      "Owner": "FDull.Workspace.export",
+      "Owner": "FDull.Workspace.evaluate",
       "Kind": "member",
       "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.ArrayModule.Distinct``1(``0[])",
       "Reason": "Bounded MSBuild JSON import-list normalization; immutable array transforms and null-aware optional property parsing only."
     },
     {
       "File": "src/FDull/Workspace.fs",
-      "Owner": "FDull.Workspace.export",
+      "Owner": "FDull.Workspace.evaluate",
       "Kind": "member",
       "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.ArrayModule.Map``2(Microsoft.FSharp.Core.FSharpFunc{``0,``1},``0[])",
       "Reason": "Bounded MSBuild JSON import-list normalization; immutable array transforms and null-aware optional property parsing only."
     },
     {
       "File": "src/FDull/Workspace.fs",
-      "Owner": "FDull.Workspace.export",
+      "Owner": "FDull.Workspace.evaluate",
       "Kind": "member",
       "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.ArrayModule.Sort``1(``0[])",
       "Reason": "Bounded MSBuild JSON import-list normalization; immutable array transforms and null-aware optional property parsing only."
     },
     {
       "File": "src/FDull/Workspace.fs",
-      "Owner": "FDull.Workspace.export",
+      "Owner": "FDull.Workspace.evaluate",
       "Kind": "member",
       "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.ArrayModule.ToList``1(``0[])",
       "Reason": "Bounded MSBuild JSON import-list normalization; immutable array transforms and null-aware optional property parsing only."
     },
     {
       "File": "src/FDull/Workspace.fs",
-      "Owner": "FDull.Workspace.export",
+      "Owner": "FDull.Workspace.evaluate",
       "Kind": "member",
       "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Core.OptionModule.OfObj``1(``0)",
       "Reason": "Bounded MSBuild JSON import-list normalization; immutable array transforms and null-aware optional property parsing only."
     },
     {
       "File": "src/FDull/Workspace.fs",
-      "Owner": "FDull.Workspace.export",
+      "Owner": "FDull.Workspace.evaluate",
       "Kind": "member",
       "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | M:System.String.Split(System.Char,System.StringSplitOptions)",
       "Reason": "Bounded MSBuild JSON import-list normalization; immutable array transforms and null-aware optional property parsing only."
@@ -9197,42 +9209,42 @@
     },
     {
       "File": "src/FDull/Workspace.fs",
-      "Owner": "FDull.Workspace.export",
+      "Owner": "FDull.Workspace.evaluate",
       "Kind": "member",
       "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.SeqModule.Map``2(Microsoft.FSharp.Core.FSharpFunc{``0,``1},System.Collections.Generic.IEnumerable{``0})",
       "Reason": "Workspace authority validates exact reviewed sources, graph and compiler flags, binds build/reference/policy inputs, and rejects incomplete or changed worker responses. Exceptions remain failed checks."
     },
     {
       "File": "src/FDull/Workspace.fs",
-      "Owner": "FDull.Workspace.export",
+      "Owner": "FDull.Workspace.evaluate",
       "Kind": "member",
       "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.SeqModule.ToList``1(System.Collections.Generic.IEnumerable{``0})",
       "Reason": "Workspace authority validates exact reviewed sources, graph and compiler flags, binds build/reference/policy inputs, and rejects incomplete or changed worker responses. Exceptions remain failed checks."
     },
     {
       "File": "src/FDull/Workspace.fs",
-      "Owner": "FDull.Workspace.export",
+      "Owner": "FDull.Workspace.evaluate",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.Combine(System.String,System.String)",
       "Reason": "Workspace authority validates exact reviewed sources, graph and compiler flags, binds build/reference/policy inputs, and rejects incomplete or changed worker responses. Exceptions remain failed checks."
     },
     {
       "File": "src/FDull/Workspace.fs",
-      "Owner": "FDull.Workspace.export",
+      "Owner": "FDull.Workspace.evaluate",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.GetDirectoryName(System.String)",
       "Reason": "Workspace authority validates exact reviewed sources, graph and compiler flags, binds build/reference/policy inputs, and rejects incomplete or changed worker responses. Exceptions remain failed checks."
     },
     {
       "File": "src/FDull/Workspace.fs",
-      "Owner": "FDull.Workspace.export",
+      "Owner": "FDull.Workspace.evaluate",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.GetExtension(System.String)",
       "Reason": "Workspace authority validates exact reviewed sources, graph and compiler flags, binds build/reference/policy inputs, and rejects incomplete or changed worker responses. Exceptions remain failed checks."
     },
     {
       "File": "src/FDull/Workspace.fs",
-      "Owner": "FDull.Workspace.export",
+      "Owner": "FDull.Workspace.evaluate",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.GetFullPath(System.String,System.String)",
       "Reason": "Workspace authority validates exact reviewed sources, graph and compiler flags, binds build/reference/policy inputs, and rejects incomplete or changed worker responses. Exceptions remain failed checks."
@@ -9246,35 +9258,35 @@
     },
     {
       "File": "src/FDull/Workspace.fs",
-      "Owner": "FDull.Workspace.export",
+      "Owner": "FDull.Workspace.evaluate",
       "Kind": "member",
       "Identity": "System.Text.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | M:System.Text.Json.JsonDocument.Parse(System.String,System.Text.Json.JsonDocumentOptions)",
       "Reason": "Workspace authority validates exact reviewed sources, graph and compiler flags, binds build/reference/policy inputs, and rejects incomplete or changed worker responses. Exceptions remain failed checks."
     },
     {
       "File": "src/FDull/Workspace.fs",
-      "Owner": "FDull.Workspace.export",
+      "Owner": "FDull.Workspace.evaluate",
       "Kind": "member",
       "Identity": "System.Text.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | M:System.Text.Json.JsonElement.EnumerateArray",
       "Reason": "Workspace authority validates exact reviewed sources, graph and compiler flags, binds build/reference/policy inputs, and rejects incomplete or changed worker responses. Exceptions remain failed checks."
     },
     {
       "File": "src/FDull/Workspace.fs",
-      "Owner": "FDull.Workspace.export",
+      "Owner": "FDull.Workspace.evaluate",
       "Kind": "member",
       "Identity": "System.Text.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | M:System.Text.Json.JsonElement.GetProperty(System.String)",
       "Reason": "Workspace authority validates exact reviewed sources, graph and compiler flags, binds build/reference/policy inputs, and rejects incomplete or changed worker responses. Exceptions remain failed checks."
     },
     {
       "File": "src/FDull/Workspace.fs",
-      "Owner": "FDull.Workspace.export",
+      "Owner": "FDull.Workspace.evaluate",
       "Kind": "member",
       "Identity": "System.Text.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | M:System.Text.Json.JsonElement.GetString",
       "Reason": "Workspace authority validates exact reviewed sources, graph and compiler flags, binds build/reference/policy inputs, and rejects incomplete or changed worker responses. Exceptions remain failed checks."
     },
     {
       "File": "src/FDull/Workspace.fs",
-      "Owner": "FDull.Workspace.export",
+      "Owner": "FDull.Workspace.evaluate",
       "Kind": "member",
       "Identity": "System.Text.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | P:System.Text.Json.JsonDocument.RootElement",
       "Reason": "Workspace authority validates exact reviewed sources, graph and compiler flags, binds build/reference/policy inputs, and rejects incomplete or changed worker responses. Exceptions remain failed checks."
@@ -9288,28 +9300,28 @@
     },
     {
       "File": "src/FDull/Workspace.fs",
-      "Owner": "FDull.Workspace.export",
+      "Owner": "FDull.Workspace.evaluate",
       "Kind": "rule",
       "Identity": "ERR009 | ",
       "Reason": "Workspace authority validates exact reviewed sources, graph and compiler flags, binds build/reference/policy inputs, and rejects incomplete or changed worker responses. Exceptions remain failed checks."
     },
     {
       "File": "src/FDull/Workspace.fs",
-      "Owner": "FDull.Workspace.export",
+      "Owner": "FDull.Workspace.evaluate",
       "Kind": "type",
       "Identity": "System.Text.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | System.Text.Json.JsonDocument",
       "Reason": "Workspace authority validates exact reviewed sources, graph and compiler flags, binds build/reference/policy inputs, and rejects incomplete or changed worker responses. Exceptions remain failed checks."
     },
     {
       "File": "src/FDull/Workspace.fs",
-      "Owner": "FDull.Workspace.export",
+      "Owner": "FDull.Workspace.evaluate",
       "Kind": "type",
       "Identity": "System.Text.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | System.Text.Json.JsonElement",
       "Reason": "Workspace authority validates exact reviewed sources, graph and compiler flags, binds build/reference/policy inputs, and rejects incomplete or changed worker responses. Exceptions remain failed checks."
     },
     {
       "File": "src/FDull/Workspace.fs",
-      "Owner": "FDull.Workspace.export",
+      "Owner": "FDull.Workspace.evaluate",
       "Kind": "type",
       "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | System.Collections.Generic.IEnumerable`1",
       "Reason": "Workspace authority validates exact reviewed sources, graph and compiler flags, binds build/reference/policy inputs, and rejects incomplete or changed worker responses. Exceptions remain failed checks."
@@ -17082,175 +17094,175 @@
       "Owner": "FDull.WorkspaceGenerated.generatedClassName",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.GetFileNameWithoutExtension(System.String)",
-      "Reason": "Aspire generated-source attestation reproduces the exact Aspire 13.4.6/FSharp Aspire 13.0.0 class-name and UTF-16 source templates, resolving existing parent links only to bind generated project paths to the protected graph."
+      "Reason": "Aspire generated-source attestation reproduces the exact Aspire 13.6.5/FSharp Aspire 13.0.0 class-name and UTF-16 source templates, resolving existing parent links only to bind generated project paths to the protected graph."
     },
     {
       "File": "src/FDull/WorkspaceGenerated.fs",
       "Owner": "FDull.WorkspaceGenerated.generatedClassName",
       "Kind": "member",
       "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Core.OptionModule.OfObj``1(``0)",
-      "Reason": "Aspire generated-source attestation reproduces the exact Aspire 13.4.6/FSharp Aspire 13.0.0 class-name and UTF-16 source templates, resolving existing parent links only to bind generated project paths to the protected graph."
+      "Reason": "Aspire generated-source attestation reproduces the exact Aspire 13.6.5/FSharp Aspire 13.0.0 class-name and UTF-16 source templates, resolving existing parent links only to bind generated project paths to the protected graph."
     },
     {
       "File": "src/FDull/WorkspaceGenerated.fs",
       "Owner": "FDull.WorkspaceGenerated.generatedClassName",
       "Kind": "member",
       "Identity": "System.Text.RegularExpressions, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.Text.RegularExpressions.Regex.Replace(System.String,System.String,System.String)",
-      "Reason": "Aspire generated-source attestation reproduces the exact Aspire 13.4.6/FSharp Aspire 13.0.0 class-name and UTF-16 source templates, resolving existing parent links only to bind generated project paths to the protected graph."
+      "Reason": "Aspire generated-source attestation reproduces the exact Aspire 13.6.5/FSharp Aspire 13.0.0 class-name and UTF-16 source templates, resolving existing parent links only to bind generated project paths to the protected graph."
     },
     {
       "File": "src/FDull/WorkspaceGenerated.fs",
       "Owner": "FDull.WorkspaceGenerated.canonicalPath",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.GetFullPath(System.String)",
-      "Reason": "Aspire generated-source attestation reproduces the exact Aspire 13.4.6/FSharp Aspire 13.0.0 class-name and UTF-16 source templates, resolving existing parent links only to bind generated project paths to the protected graph."
+      "Reason": "Aspire generated-source attestation reproduces the exact Aspire 13.6.5/FSharp Aspire 13.0.0 class-name and UTF-16 source templates, resolving existing parent links only to bind generated project paths to the protected graph."
     },
     {
       "File": "src/FDull/WorkspaceGenerated.fs",
       "Owner": "FDull.WorkspaceGenerated.canonicalPath",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.GetPathRoot(System.String)",
-      "Reason": "Aspire generated-source attestation reproduces the exact Aspire 13.4.6/FSharp Aspire 13.0.0 class-name and UTF-16 source templates, resolving existing parent links only to bind generated project paths to the protected graph."
+      "Reason": "Aspire generated-source attestation reproduces the exact Aspire 13.6.5/FSharp Aspire 13.0.0 class-name and UTF-16 source templates, resolving existing parent links only to bind generated project paths to the protected graph."
     },
     {
       "File": "src/FDull/WorkspaceGenerated.fs",
       "Owner": "FDull.WorkspaceGenerated.canonicalPath",
       "Kind": "member",
       "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Core.OptionModule.OfObj``1(``0)",
-      "Reason": "Aspire generated-source attestation reproduces the exact Aspire 13.4.6/FSharp Aspire 13.0.0 class-name and UTF-16 source templates, resolving existing parent links only to bind generated project paths to the protected graph."
+      "Reason": "Aspire generated-source attestation reproduces the exact Aspire 13.6.5/FSharp Aspire 13.0.0 class-name and UTF-16 source templates, resolving existing parent links only to bind generated project paths to the protected graph."
     },
     {
       "File": "src/FDull/WorkspaceGenerated.fs",
       "Owner": "FDull.WorkspaceGenerated.canonicalPath",
       "Kind": "member",
       "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | M:System.String.Replace(System.Char,System.Char)",
-      "Reason": "Aspire generated-source attestation reproduces the exact Aspire 13.4.6/FSharp Aspire 13.0.0 class-name and UTF-16 source templates, resolving existing parent links only to bind generated project paths to the protected graph."
+      "Reason": "Aspire generated-source attestation reproduces the exact Aspire 13.6.5/FSharp Aspire 13.0.0 class-name and UTF-16 source templates, resolving existing parent links only to bind generated project paths to the protected graph."
     },
     {
       "File": "src/FDull/WorkspaceGenerated.fs",
       "Owner": "FDull.WorkspaceGenerated.canonicalPath",
       "Kind": "member",
       "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | M:System.String.Split(System.Char,System.StringSplitOptions)",
-      "Reason": "Aspire generated-source attestation reproduces the exact Aspire 13.4.6/FSharp Aspire 13.0.0 class-name and UTF-16 source templates, resolving existing parent links only to bind generated project paths to the protected graph."
+      "Reason": "Aspire generated-source attestation reproduces the exact Aspire 13.6.5/FSharp Aspire 13.0.0 class-name and UTF-16 source templates, resolving existing parent links only to bind generated project paths to the protected graph."
     },
     {
       "File": "src/FDull/WorkspaceGenerated.fs",
       "Owner": "FDull.WorkspaceGenerated.canonicalPath",
       "Kind": "member",
       "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.ArrayModule.ToList``1(``0[])",
-      "Reason": "Aspire generated-source attestation reproduces the exact Aspire 13.4.6/FSharp Aspire 13.0.0 class-name and UTF-16 source templates, resolving existing parent links only to bind generated project paths to the protected graph."
+      "Reason": "Aspire generated-source attestation reproduces the exact Aspire 13.6.5/FSharp Aspire 13.0.0 class-name and UTF-16 source templates, resolving existing parent links only to bind generated project paths to the protected graph."
     },
     {
       "File": "src/FDull/WorkspaceGenerated.fs",
       "Owner": "FDull.WorkspaceGenerated.canonicalPath",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.Combine(System.String,System.String)",
-      "Reason": "Aspire generated-source attestation reproduces the exact Aspire 13.4.6/FSharp Aspire 13.0.0 class-name and UTF-16 source templates, resolving existing parent links only to bind generated project paths to the protected graph."
+      "Reason": "Aspire generated-source attestation reproduces the exact Aspire 13.6.5/FSharp Aspire 13.0.0 class-name and UTF-16 source templates, resolving existing parent links only to bind generated project paths to the protected graph."
     },
     {
       "File": "src/FDull/WorkspaceGenerated.fs",
       "Owner": "FDull.WorkspaceGenerated.canonicalPath",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Directory.Exists(System.String)",
-      "Reason": "Aspire generated-source attestation reproduces the exact Aspire 13.4.6/FSharp Aspire 13.0.0 class-name and UTF-16 source templates, resolving existing parent links only to bind generated project paths to the protected graph."
+      "Reason": "Aspire generated-source attestation reproduces the exact Aspire 13.6.5/FSharp Aspire 13.0.0 class-name and UTF-16 source templates, resolving existing parent links only to bind generated project paths to the protected graph."
     },
     {
       "File": "src/FDull/WorkspaceGenerated.fs",
       "Owner": "FDull.WorkspaceGenerated.canonicalPath",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.File.Exists(System.String)",
-      "Reason": "Aspire generated-source attestation reproduces the exact Aspire 13.4.6/FSharp Aspire 13.0.0 class-name and UTF-16 source templates, resolving existing parent links only to bind generated project paths to the protected graph."
+      "Reason": "Aspire generated-source attestation reproduces the exact Aspire 13.6.5/FSharp Aspire 13.0.0 class-name and UTF-16 source templates, resolving existing parent links only to bind generated project paths to the protected graph."
     },
     {
       "File": "src/FDull/WorkspaceGenerated.fs",
       "Owner": "FDull.WorkspaceGenerated.canonicalPath",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.File.GetAttributes(System.String)",
-      "Reason": "Aspire generated-source attestation reproduces the exact Aspire 13.4.6/FSharp Aspire 13.0.0 class-name and UTF-16 source templates, resolving existing parent links only to bind generated project paths to the protected graph."
+      "Reason": "Aspire generated-source attestation reproduces the exact Aspire 13.6.5/FSharp Aspire 13.0.0 class-name and UTF-16 source templates, resolving existing parent links only to bind generated project paths to the protected graph."
     },
     {
       "File": "src/FDull/WorkspaceGenerated.fs",
       "Owner": "FDull.WorkspaceGenerated.canonicalPath",
       "Kind": "member",
       "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Core.Operators.op_BitwiseAnd``1(Microsoft.FSharp.Core.FSharpFunc{``0,Microsoft.FSharp.Core.FSharpFunc{``0,``0}},``0,``0)",
-      "Reason": "Aspire generated-source attestation reproduces the exact Aspire 13.4.6/FSharp Aspire 13.0.0 class-name and UTF-16 source templates, resolving existing parent links only to bind generated project paths to the protected graph."
+      "Reason": "Aspire generated-source attestation reproduces the exact Aspire 13.6.5/FSharp Aspire 13.0.0 class-name and UTF-16 source templates, resolving existing parent links only to bind generated project paths to the protected graph."
     },
     {
       "File": "src/FDull/WorkspaceGenerated.fs",
       "Owner": "FDull.WorkspaceGenerated.canonicalPath",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.DirectoryInfo.#ctor(System.String)",
-      "Reason": "Aspire generated-source attestation reproduces the exact Aspire 13.4.6/FSharp Aspire 13.0.0 class-name and UTF-16 source templates, resolving existing parent links only to bind generated project paths to the protected graph."
+      "Reason": "Aspire generated-source attestation reproduces the exact Aspire 13.6.5/FSharp Aspire 13.0.0 class-name and UTF-16 source templates, resolving existing parent links only to bind generated project paths to the protected graph."
     },
     {
       "File": "src/FDull/WorkspaceGenerated.fs",
       "Owner": "FDull.WorkspaceGenerated.canonicalPath",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.FileSystemInfo.ResolveLinkTarget(System.Boolean)",
-      "Reason": "Aspire generated-source attestation reproduces the exact Aspire 13.4.6/FSharp Aspire 13.0.0 class-name and UTF-16 source templates, resolving existing parent links only to bind generated project paths to the protected graph."
+      "Reason": "Aspire generated-source attestation reproduces the exact Aspire 13.6.5/FSharp Aspire 13.0.0 class-name and UTF-16 source templates, resolving existing parent links only to bind generated project paths to the protected graph."
     },
     {
       "File": "src/FDull/WorkspaceGenerated.fs",
       "Owner": "FDull.WorkspaceGenerated.canonicalPath",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:System.IO.FileSystemInfo.FullName",
-      "Reason": "Aspire generated-source attestation reproduces the exact Aspire 13.4.6/FSharp Aspire 13.0.0 class-name and UTF-16 source templates, resolving existing parent links only to bind generated project paths to the protected graph."
+      "Reason": "Aspire generated-source attestation reproduces the exact Aspire 13.6.5/FSharp Aspire 13.0.0 class-name and UTF-16 source templates, resolving existing parent links only to bind generated project paths to the protected graph."
     },
     {
       "File": "src/FDull/WorkspaceGenerated.fs",
       "Owner": "FDull.WorkspaceGenerated.canonicalPath",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.FileInfo.#ctor(System.String)",
-      "Reason": "Aspire generated-source attestation reproduces the exact Aspire 13.4.6/FSharp Aspire 13.0.0 class-name and UTF-16 source templates, resolving existing parent links only to bind generated project paths to the protected graph."
+      "Reason": "Aspire generated-source attestation reproduces the exact Aspire 13.6.5/FSharp Aspire 13.0.0 class-name and UTF-16 source templates, resolving existing parent links only to bind generated project paths to the protected graph."
     },
     {
       "File": "src/FDull/WorkspaceGenerated.fs",
       "Owner": "FDull.WorkspaceGenerated.aspireProjectMetadata",
       "Kind": "member",
       "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Core.StringModule.Concat(System.String,System.Collections.Generic.IEnumerable{System.String})",
-      "Reason": "Aspire generated-source attestation reproduces the exact Aspire 13.4.6/FSharp Aspire 13.0.0 class-name and UTF-16 source templates, resolving existing parent links only to bind generated project paths to the protected graph."
+      "Reason": "Aspire generated-source attestation reproduces the exact Aspire 13.6.5/FSharp Aspire 13.0.0 class-name and UTF-16 source templates, resolving existing parent links only to bind generated project paths to the protected graph."
     },
     {
       "File": "src/FDull/WorkspaceGenerated.fs",
       "Owner": "FDull.WorkspaceGenerated.aspireHostMetadata",
       "Kind": "member",
       "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Core.StringModule.Concat(System.String,System.Collections.Generic.IEnumerable{System.String})",
-      "Reason": "Aspire generated-source attestation reproduces the exact Aspire 13.4.6/FSharp Aspire 13.0.0 class-name and UTF-16 source templates, resolving existing parent links only to bind generated project paths to the protected graph."
+      "Reason": "Aspire generated-source attestation reproduces the exact Aspire 13.6.5/FSharp Aspire 13.0.0 class-name and UTF-16 source templates, resolving existing parent links only to bind generated project paths to the protected graph."
     },
     {
       "File": "src/FDull/WorkspaceGenerated.fs",
       "Owner": "FDull.WorkspaceGenerated.aspire",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.Combine(System.String,System.String)",
-      "Reason": "Aspire generated-source attestation reproduces the exact Aspire 13.4.6/FSharp Aspire 13.0.0 class-name and UTF-16 source templates, resolving existing parent links only to bind generated project paths to the protected graph."
+      "Reason": "Aspire generated-source attestation reproduces the exact Aspire 13.6.5/FSharp Aspire 13.0.0 class-name and UTF-16 source templates, resolving existing parent links only to bind generated project paths to the protected graph."
     },
     {
       "File": "src/FDull/WorkspaceGenerated.fs",
       "Owner": "FDull.WorkspaceGenerated.aspire",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.GetFullPath(System.String,System.String)",
-      "Reason": "Aspire generated-source attestation reproduces the exact Aspire 13.4.6/FSharp Aspire 13.0.0 class-name and UTF-16 source templates, resolving existing parent links only to bind generated project paths to the protected graph."
+      "Reason": "Aspire generated-source attestation reproduces the exact Aspire 13.6.5/FSharp Aspire 13.0.0 class-name and UTF-16 source templates, resolving existing parent links only to bind generated project paths to the protected graph."
     },
     {
       "File": "src/FDull/WorkspaceGenerated.fs",
       "Owner": "FDull.WorkspaceGenerated.aspire",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.TrimEndingDirectorySeparator(System.String)",
-      "Reason": "Aspire generated-source attestation reproduces the exact Aspire 13.4.6/FSharp Aspire 13.0.0 class-name and UTF-16 source templates, resolving existing parent links only to bind generated project paths to the protected graph."
+      "Reason": "Aspire generated-source attestation reproduces the exact Aspire 13.6.5/FSharp Aspire 13.0.0 class-name and UTF-16 source templates, resolving existing parent links only to bind generated project paths to the protected graph."
     },
     {
       "File": "src/FDull/WorkspaceGenerated.fs",
       "Owner": "FDull.WorkspaceGenerated.aspire",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.File.ReadAllBytes(System.String)",
-      "Reason": "Aspire generated-source attestation reproduces the exact Aspire 13.4.6/FSharp Aspire 13.0.0 class-name and UTF-16 source templates, resolving existing parent links only to bind generated project paths to the protected graph."
+      "Reason": "Aspire generated-source attestation reproduces the exact Aspire 13.6.5/FSharp Aspire 13.0.0 class-name and UTF-16 source templates, resolving existing parent links only to bind generated project paths to the protected graph."
     },
     {
       "File": "src/FDull/WorkspaceGenerated.fs",
       "Owner": "FDull.WorkspaceGenerated.aspire",
       "Kind": "member",
       "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.ArrayModule.ToList``1(``0[])",
-      "Reason": "Aspire generated-source attestation reproduces the exact Aspire 13.4.6/FSharp Aspire 13.0.0 class-name and UTF-16 source templates, resolving existing parent links only to bind generated project paths to the protected graph."
+      "Reason": "Aspire generated-source attestation reproduces the exact Aspire 13.6.5/FSharp Aspire 13.0.0 class-name and UTF-16 source templates, resolving existing parent links only to bind generated project paths to the protected graph."
     },
     {
       "File": "tests/FDull.Tests/ProjectTests.fs",
@@ -29655,6 +29667,1308 @@
       "Kind": "type",
       "Identity": "FDull, Version=0.3.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspaceSource",
       "Reason": "Regression test builds two projects in a cleaned-up temporary fixture, checks each shared-source diagnostic and rejects inconsistent assignments and source drift. File operations and assertions are confined to the test; the searched owner is established by the preceding assertion."
+    },
+    {
+      "File": "src/FDull.Tool/Program.fs",
+      "Owner": "FDull.Tool.CheckOutput",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.3.0.0, Culture=neutral, PublicKeyToken=null | FDull.CheckFinding",
+      "Reason": "CLI output record for fdull check; carries immutable check findings into JSON and text output."
+    },
+    {
+      "File": "src/FDull.Tool/Program.fs",
+      "Owner": "FDull.Tool.Program.checkOptions",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.FSharpMap`2.Add(`0,`1)",
+      "Reason": "Parses check arguments into a map so --rules and --format each appear once; repeats and unknown options print usage."
+    },
+    {
+      "File": "src/FDull.Tool/Program.fs",
+      "Owner": "FDull.Tool.Program.checkOptions",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.FSharpMap`2.ContainsKey(`0)",
+      "Reason": "Parses check arguments into a map so --rules and --format each appear once; repeats and unknown options print usage."
+    },
+    {
+      "File": "src/FDull.Tool/Program.fs",
+      "Owner": "FDull.Tool.Program.displayCheck",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.3.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.RuleCheck.claim(FDull.CheckReport)",
+      "Reason": "Writes one check report as JSON or text to standard output and returns its exit code."
+    },
+    {
+      "File": "src/FDull.Tool/Program.fs",
+      "Owner": "FDull.Tool.Program.displayCheck",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.3.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.RuleCheck.exitCode(FDull.CheckOutcome)",
+      "Reason": "Writes one check report as JSON or text to standard output and returns its exit code."
+    },
+    {
+      "File": "src/FDull.Tool/Program.fs",
+      "Owner": "FDull.Tool.Program.displayCheck",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.3.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.RuleCheck.ruleId(FDull.CheckRule)",
+      "Reason": "Writes one check report as JSON or text to standard output and returns its exit code."
+    },
+    {
+      "File": "src/FDull.Tool/Program.fs",
+      "Owner": "FDull.Tool.Program.displayCheck",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.3.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Transport.Codec.encode``1(``0)",
+      "Reason": "Writes one check report as JSON or text to standard output and returns its exit code."
+    },
+    {
+      "File": "src/FDull.Tool/Program.fs",
+      "Owner": "FDull.Tool.Program.displayCheck",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Core.OptionModule.Iterate``1(Microsoft.FSharp.Core.FSharpFunc{``0,Microsoft.FSharp.Core.Unit},Microsoft.FSharp.Core.FSharpOption{``0})",
+      "Reason": "Writes one check report as JSON or text to standard output and returns its exit code."
+    },
+    {
+      "File": "src/FDull.Tool/Program.fs",
+      "Owner": "FDull.Tool.Program.displayCheck",
+      "Kind": "member",
+      "Identity": "System.Console, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.Console.WriteLine(System.String)",
+      "Reason": "Writes one check report as JSON or text to standard output and returns its exit code."
+    },
+    {
+      "File": "src/FDull.Tool/Program.fs",
+      "Owner": "FDull.Tool.Program.displayCheck",
+      "Kind": "rule",
+      "Identity": "MUT009 | ",
+      "Reason": "Writes one check report as JSON or text to standard output and returns its exit code."
+    },
+    {
+      "File": "src/FDull.Tool/Program.fs",
+      "Owner": "FDull.Tool.Program.displayCheck",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.3.0.0, Culture=neutral, PublicKeyToken=null | FDull.CheckFinding",
+      "Reason": "Writes one check report as JSON or text to standard output and returns its exit code."
+    },
+    {
+      "File": "src/FDull.Tool/Program.fs",
+      "Owner": "FDull.Tool.Program.displayCheck",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.3.0.0, Culture=neutral, PublicKeyToken=null | FDull.CheckReport",
+      "Reason": "Writes one check report as JSON or text to standard output and returns its exit code."
+    },
+    {
+      "File": "src/FDull.Tool/Program.fs",
+      "Owner": "FDull.Tool.Program.displayCheck",
+      "Kind": "type",
+      "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | System.Object",
+      "Reason": "Writes one check report as JSON or text to standard output and returns its exit code."
+    },
+    {
+      "File": "src/FDull.Tool/Program.fs",
+      "Owner": "FDull.Tool.Program.main",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.3.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.RuleCheck.run(System.String,System.String,Microsoft.FSharp.Collections.FSharpList{System.String})",
+      "Reason": "Routes the check command to RuleCheck.run; strict commands keep their existing routes."
+    },
+    {
+      "File": "src/FDull/RuleCheck.fs",
+      "Owner": "FDull.RuleCheck.analyze",
+      "Kind": "member",
+      "Identity": "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:FSharp.Compiler.CodeAnalysis.FSharpChecker.GetParsingOptionsFromProjectOptions(FSharp.Compiler.CodeAnalysis.FSharpProjectOptions)",
+      "Reason": "Scoped check boundary: type-checks the MSBuild-evaluated project once with its real flags through FCS, reads only selected sources for syntax, records blockers and findings in local buffers, digests inputs before and after, and copies the application safety context with a project-union domain predicate. Every failure becomes Incomplete; the caller owns exceptions."
+    },
+    {
+      "File": "src/FDull/RuleCheck.fs",
+      "Owner": "FDull.RuleCheck.analyze",
+      "Kind": "member",
+      "Identity": "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:FSharp.Compiler.CodeAnalysis.FSharpChecker.GetProjectOptionsFromCommandLineArgs(System.String,System.String[],Microsoft.FSharp.Core.FSharpOption{System.DateTime},Microsoft.FSharp.Core.FSharpOption{System.Boolean},Microsoft.FSharp.Core.FSharpOption{System.Boolean})",
+      "Reason": "Scoped check boundary: type-checks the MSBuild-evaluated project once with its real flags through FCS, reads only selected sources for syntax, records blockers and findings in local buffers, digests inputs before and after, and copies the application safety context with a project-union domain predicate. Every failure becomes Incomplete; the caller owns exceptions."
+    },
+    {
+      "File": "src/FDull/RuleCheck.fs",
+      "Owner": "FDull.RuleCheck.analyze",
+      "Kind": "member",
+      "Identity": "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:FSharp.Compiler.CodeAnalysis.FSharpChecker.ParseAndCheckProject(FSharp.Compiler.CodeAnalysis.FSharpProjectOptions,Microsoft.FSharp.Core.FSharpOption{System.String})",
+      "Reason": "Scoped check boundary: type-checks the MSBuild-evaluated project once with its real flags through FCS, reads only selected sources for syntax, records blockers and findings in local buffers, digests inputs before and after, and copies the application safety context with a project-union domain predicate. Every failure becomes Incomplete; the caller owns exceptions."
+    },
+    {
+      "File": "src/FDull/RuleCheck.fs",
+      "Owner": "FDull.RuleCheck.analyze",
+      "Kind": "member",
+      "Identity": "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:FSharp.Compiler.CodeAnalysis.FSharpChecker.ParseFile(System.String,FSharp.Compiler.Text.ISourceText,FSharp.Compiler.CodeAnalysis.FSharpParsingOptions,Microsoft.FSharp.Core.FSharpOption{System.Boolean},Microsoft.FSharp.Core.FSharpOption{System.String})",
+      "Reason": "Scoped check boundary: type-checks the MSBuild-evaluated project once with its real flags through FCS, reads only selected sources for syntax, records blockers and findings in local buffers, digests inputs before and after, and copies the application safety context with a project-union domain predicate. Every failure becomes Incomplete; the caller owns exceptions."
+    },
+    {
+      "File": "src/FDull/RuleCheck.fs",
+      "Owner": "FDull.RuleCheck.analyze",
+      "Kind": "member",
+      "Identity": "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:FSharp.Compiler.Text.SourceText.ofString(System.String)",
+      "Reason": "Scoped check boundary: type-checks the MSBuild-evaluated project once with its real flags through FCS, reads only selected sources for syntax, records blockers and findings in local buffers, digests inputs before and after, and copies the application safety context with a project-union domain predicate. Every failure becomes Incomplete; the caller owns exceptions."
+    },
+    {
+      "File": "src/FDull/RuleCheck.fs",
+      "Owner": "FDull.RuleCheck.analyze",
+      "Kind": "member",
+      "Identity": "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:FSharp.Compiler.CodeAnalysis.FSharpCheckProjectResults.AssemblyContents",
+      "Reason": "Scoped check boundary: type-checks the MSBuild-evaluated project once with its real flags through FCS, reads only selected sources for syntax, records blockers and findings in local buffers, digests inputs before and after, and copies the application safety context with a project-union domain predicate. Every failure becomes Incomplete; the caller owns exceptions."
+    },
+    {
+      "File": "src/FDull/RuleCheck.fs",
+      "Owner": "FDull.RuleCheck.analyze",
+      "Kind": "member",
+      "Identity": "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:FSharp.Compiler.CodeAnalysis.FSharpCheckProjectResults.Diagnostics",
+      "Reason": "Scoped check boundary: type-checks the MSBuild-evaluated project once with its real flags through FCS, reads only selected sources for syntax, records blockers and findings in local buffers, digests inputs before and after, and copies the application safety context with a project-union domain predicate. Every failure becomes Incomplete; the caller owns exceptions."
+    },
+    {
+      "File": "src/FDull/RuleCheck.fs",
+      "Owner": "FDull.RuleCheck.analyze",
+      "Kind": "member",
+      "Identity": "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:FSharp.Compiler.CodeAnalysis.FSharpCheckProjectResults.HasCriticalErrors",
+      "Reason": "Scoped check boundary: type-checks the MSBuild-evaluated project once with its real flags through FCS, reads only selected sources for syntax, records blockers and findings in local buffers, digests inputs before and after, and copies the application safety context with a project-union domain predicate. Every failure becomes Incomplete; the caller owns exceptions."
+    },
+    {
+      "File": "src/FDull/RuleCheck.fs",
+      "Owner": "FDull.RuleCheck.analyze",
+      "Kind": "member",
+      "Identity": "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:FSharp.Compiler.CodeAnalysis.FSharpParseFileResults.ParseTree",
+      "Reason": "Scoped check boundary: type-checks the MSBuild-evaluated project once with its real flags through FCS, reads only selected sources for syntax, records blockers and findings in local buffers, digests inputs before and after, and copies the application safety context with a project-union domain predicate. Every failure becomes Incomplete; the caller owns exceptions."
+    },
+    {
+      "File": "src/FDull/RuleCheck.fs",
+      "Owner": "FDull.RuleCheck.analyze",
+      "Kind": "member",
+      "Identity": "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:FSharp.Compiler.Diagnostics.FSharpDiagnostic.ErrorNumber",
+      "Reason": "Scoped check boundary: type-checks the MSBuild-evaluated project once with its real flags through FCS, reads only selected sources for syntax, records blockers and findings in local buffers, digests inputs before and after, and copies the application safety context with a project-union domain predicate. Every failure becomes Incomplete; the caller owns exceptions."
+    },
+    {
+      "File": "src/FDull/RuleCheck.fs",
+      "Owner": "FDull.RuleCheck.analyze",
+      "Kind": "member",
+      "Identity": "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:FSharp.Compiler.Diagnostics.FSharpDiagnostic.Message",
+      "Reason": "Scoped check boundary: type-checks the MSBuild-evaluated project once with its real flags through FCS, reads only selected sources for syntax, records blockers and findings in local buffers, digests inputs before and after, and copies the application safety context with a project-union domain predicate. Every failure becomes Incomplete; the caller owns exceptions."
+    },
+    {
+      "File": "src/FDull/RuleCheck.fs",
+      "Owner": "FDull.RuleCheck.analyze",
+      "Kind": "member",
+      "Identity": "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:FSharp.Compiler.Diagnostics.FSharpDiagnostic.Range",
+      "Reason": "Scoped check boundary: type-checks the MSBuild-evaluated project once with its real flags through FCS, reads only selected sources for syntax, records blockers and findings in local buffers, digests inputs before and after, and copies the application safety context with a project-union domain predicate. Every failure becomes Incomplete; the caller owns exceptions."
+    },
+    {
+      "File": "src/FDull/RuleCheck.fs",
+      "Owner": "FDull.RuleCheck.analyze",
+      "Kind": "member",
+      "Identity": "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:FSharp.Compiler.Diagnostics.FSharpDiagnostic.Severity",
+      "Reason": "Scoped check boundary: type-checks the MSBuild-evaluated project once with its real flags through FCS, reads only selected sources for syntax, records blockers and findings in local buffers, digests inputs before and after, and copies the application safety context with a project-union domain predicate. Every failure becomes Incomplete; the caller owns exceptions."
+    },
+    {
+      "File": "src/FDull/RuleCheck.fs",
+      "Owner": "FDull.RuleCheck.analyze",
+      "Kind": "member",
+      "Identity": "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:FSharp.Compiler.Symbols.FSharpAssembly.FileName",
+      "Reason": "Scoped check boundary: type-checks the MSBuild-evaluated project once with its real flags through FCS, reads only selected sources for syntax, records blockers and findings in local buffers, digests inputs before and after, and copies the application safety context with a project-union domain predicate. Every failure becomes Incomplete; the caller owns exceptions."
+    },
+    {
+      "File": "src/FDull/RuleCheck.fs",
+      "Owner": "FDull.RuleCheck.analyze",
+      "Kind": "member",
+      "Identity": "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:FSharp.Compiler.Symbols.FSharpAssemblyContents.ImplementationFiles",
+      "Reason": "Scoped check boundary: type-checks the MSBuild-evaluated project once with its real flags through FCS, reads only selected sources for syntax, records blockers and findings in local buffers, digests inputs before and after, and copies the application safety context with a project-union domain predicate. Every failure becomes Incomplete; the caller owns exceptions."
+    },
+    {
+      "File": "src/FDull/RuleCheck.fs",
+      "Owner": "FDull.RuleCheck.analyze",
+      "Kind": "member",
+      "Identity": "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:FSharp.Compiler.Symbols.FSharpEntity.DeclarationLocation",
+      "Reason": "Scoped check boundary: type-checks the MSBuild-evaluated project once with its real flags through FCS, reads only selected sources for syntax, records blockers and findings in local buffers, digests inputs before and after, and copies the application safety context with a project-union domain predicate. Every failure becomes Incomplete; the caller owns exceptions."
+    },
+    {
+      "File": "src/FDull/RuleCheck.fs",
+      "Owner": "FDull.RuleCheck.analyze",
+      "Kind": "member",
+      "Identity": "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:FSharp.Compiler.Symbols.FSharpEntity.IsFSharpUnion",
+      "Reason": "Scoped check boundary: type-checks the MSBuild-evaluated project once with its real flags through FCS, reads only selected sources for syntax, records blockers and findings in local buffers, digests inputs before and after, and copies the application safety context with a project-union domain predicate. Every failure becomes Incomplete; the caller owns exceptions."
+    },
+    {
+      "File": "src/FDull/RuleCheck.fs",
+      "Owner": "FDull.RuleCheck.analyze",
+      "Kind": "member",
+      "Identity": "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:FSharp.Compiler.Symbols.FSharpImplementationFileContents.FileName",
+      "Reason": "Scoped check boundary: type-checks the MSBuild-evaluated project once with its real flags through FCS, reads only selected sources for syntax, records blockers and findings in local buffers, digests inputs before and after, and copies the application safety context with a project-union domain predicate. Every failure becomes Incomplete; the caller owns exceptions."
+    },
+    {
+      "File": "src/FDull/RuleCheck.fs",
+      "Owner": "FDull.RuleCheck.analyze",
+      "Kind": "member",
+      "Identity": "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:FSharp.Compiler.Symbols.FSharpSymbol.Assembly",
+      "Reason": "Scoped check boundary: type-checks the MSBuild-evaluated project once with its real flags through FCS, reads only selected sources for syntax, records blockers and findings in local buffers, digests inputs before and after, and copies the application safety context with a project-union domain predicate. Every failure becomes Incomplete; the caller owns exceptions."
+    },
+    {
+      "File": "src/FDull/RuleCheck.fs",
+      "Owner": "FDull.RuleCheck.analyze",
+      "Kind": "member",
+      "Identity": "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:FSharp.Compiler.Text.Range.FileName",
+      "Reason": "Scoped check boundary: type-checks the MSBuild-evaluated project once with its real flags through FCS, reads only selected sources for syntax, records blockers and findings in local buffers, digests inputs before and after, and copies the application safety context with a project-union domain predicate. Every failure becomes Incomplete; the caller owns exceptions."
+    },
+    {
+      "File": "src/FDull/RuleCheck.fs",
+      "Owner": "FDull.RuleCheck.analyze",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.ArrayModule.Filter``1(Microsoft.FSharp.Core.FSharpFunc{``0,System.Boolean},``0[])",
+      "Reason": "Scoped check boundary: type-checks the MSBuild-evaluated project once with its real flags through FCS, reads only selected sources for syntax, records blockers and findings in local buffers, digests inputs before and after, and copies the application safety context with a project-union domain predicate. Every failure becomes Incomplete; the caller owns exceptions."
+    },
+    {
+      "File": "src/FDull/RuleCheck.fs",
+      "Owner": "FDull.RuleCheck.analyze",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.ArrayModule.ToList``1(``0[])",
+      "Reason": "Scoped check boundary: type-checks the MSBuild-evaluated project once with its real flags through FCS, reads only selected sources for syntax, records blockers and findings in local buffers, digests inputs before and after, and copies the application safety context with a project-union domain predicate. Every failure becomes Incomplete; the caller owns exceptions."
+    },
+    {
+      "File": "src/FDull/RuleCheck.fs",
+      "Owner": "FDull.RuleCheck.analyze",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.ListModule.OfSeq``1(System.Collections.Generic.IEnumerable{``0})",
+      "Reason": "Scoped check boundary: type-checks the MSBuild-evaluated project once with its real flags through FCS, reads only selected sources for syntax, records blockers and findings in local buffers, digests inputs before and after, and copies the application safety context with a project-union domain predicate. Every failure becomes Incomplete; the caller owns exceptions."
+    },
+    {
+      "File": "src/FDull/RuleCheck.fs",
+      "Owner": "FDull.RuleCheck.analyze",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.ListModule.ToArray``1(Microsoft.FSharp.Collections.FSharpList{``0})",
+      "Reason": "Scoped check boundary: type-checks the MSBuild-evaluated project once with its real flags through FCS, reads only selected sources for syntax, records blockers and findings in local buffers, digests inputs before and after, and copies the application safety context with a project-union domain predicate. Every failure becomes Incomplete; the caller owns exceptions."
+    },
+    {
+      "File": "src/FDull/RuleCheck.fs",
+      "Owner": "FDull.RuleCheck.analyze",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.SeqModule.Distinct``1(System.Collections.Generic.IEnumerable{``0})",
+      "Reason": "Scoped check boundary: type-checks the MSBuild-evaluated project once with its real flags through FCS, reads only selected sources for syntax, records blockers and findings in local buffers, digests inputs before and after, and copies the application safety context with a project-union domain predicate. Every failure becomes Incomplete; the caller owns exceptions."
+    },
+    {
+      "File": "src/FDull/RuleCheck.fs",
+      "Owner": "FDull.RuleCheck.analyze",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.SeqModule.SortBy``2(Microsoft.FSharp.Core.FSharpFunc{``0,``1},System.Collections.Generic.IEnumerable{``0})",
+      "Reason": "Scoped check boundary: type-checks the MSBuild-evaluated project once with its real flags through FCS, reads only selected sources for syntax, records blockers and findings in local buffers, digests inputs before and after, and copies the application safety context with a project-union domain predicate. Every failure becomes Incomplete; the caller owns exceptions."
+    },
+    {
+      "File": "src/FDull/RuleCheck.fs",
+      "Owner": "FDull.RuleCheck.analyze",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.SeqModule.ToList``1(System.Collections.Generic.IEnumerable{``0})",
+      "Reason": "Scoped check boundary: type-checks the MSBuild-evaluated project once with its real flags through FCS, reads only selected sources for syntax, records blockers and findings in local buffers, digests inputs before and after, and copies the application safety context with a project-union domain predicate. Every failure becomes Incomplete; the caller owns exceptions."
+    },
+    {
+      "File": "src/FDull/RuleCheck.fs",
+      "Owner": "FDull.RuleCheck.analyze",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Control.FSharpAsync.RunSynchronously``1(Microsoft.FSharp.Control.FSharpAsync{``0},Microsoft.FSharp.Core.FSharpOption{System.Int32},Microsoft.FSharp.Core.FSharpOption{System.Threading.CancellationToken})",
+      "Reason": "Scoped check boundary: type-checks the MSBuild-evaluated project once with its real flags through FCS, reads only selected sources for syntax, records blockers and findings in local buffers, digests inputs before and after, and copies the application safety context with a project-union domain predicate. Every failure becomes Incomplete; the caller owns exceptions."
+    },
+    {
+      "File": "src/FDull/RuleCheck.fs",
+      "Owner": "FDull.RuleCheck.analyze",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.File.Exists(System.String)",
+      "Reason": "Scoped check boundary: type-checks the MSBuild-evaluated project once with its real flags through FCS, reads only selected sources for syntax, records blockers and findings in local buffers, digests inputs before and after, and copies the application safety context with a project-union domain predicate. Every failure becomes Incomplete; the caller owns exceptions."
+    },
+    {
+      "File": "src/FDull/RuleCheck.fs",
+      "Owner": "FDull.RuleCheck.analyze",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.File.ReadAllText(System.String)",
+      "Reason": "Scoped check boundary: type-checks the MSBuild-evaluated project once with its real flags through FCS, reads only selected sources for syntax, records blockers and findings in local buffers, digests inputs before and after, and copies the application safety context with a project-union domain predicate. Every failure becomes Incomplete; the caller owns exceptions."
+    },
+    {
+      "File": "src/FDull/RuleCheck.fs",
+      "Owner": "FDull.RuleCheck.analyze",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.GetExtension(System.String)",
+      "Reason": "Scoped check boundary: type-checks the MSBuild-evaluated project once with its real flags through FCS, reads only selected sources for syntax, records blockers and findings in local buffers, digests inputs before and after, and copies the application safety context with a project-union domain predicate. Every failure becomes Incomplete; the caller owns exceptions."
+    },
+    {
+      "File": "src/FDull/RuleCheck.fs",
+      "Owner": "FDull.RuleCheck.analyze",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.GetFullPath(System.String)",
+      "Reason": "Scoped check boundary: type-checks the MSBuild-evaluated project once with its real flags through FCS, reads only selected sources for syntax, records blockers and findings in local buffers, digests inputs before and after, and copies the application safety context with a project-union domain predicate. Every failure becomes Incomplete; the caller owns exceptions."
+    },
+    {
+      "File": "src/FDull/RuleCheck.fs",
+      "Owner": "FDull.RuleCheck.analyze",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.String.Join(System.String,System.Collections.Generic.IEnumerable{System.String})",
+      "Reason": "Scoped check boundary: type-checks the MSBuild-evaluated project once with its real flags through FCS, reads only selected sources for syntax, records blockers and findings in local buffers, digests inputs before and after, and copies the application safety context with a project-union domain predicate. Every failure becomes Incomplete; the caller owns exceptions."
+    },
+    {
+      "File": "src/FDull/RuleCheck.fs",
+      "Owner": "FDull.RuleCheck.analyze",
+      "Kind": "member",
+      "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | M:System.Collections.Generic.List`1.#ctor",
+      "Reason": "Scoped check boundary: type-checks the MSBuild-evaluated project once with its real flags through FCS, reads only selected sources for syntax, records blockers and findings in local buffers, digests inputs before and after, and copies the application safety context with a project-union domain predicate. Every failure becomes Incomplete; the caller owns exceptions."
+    },
+    {
+      "File": "src/FDull/RuleCheck.fs",
+      "Owner": "FDull.RuleCheck.analyze",
+      "Kind": "member",
+      "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | M:System.Collections.Generic.List`1.Add(`0)",
+      "Reason": "Scoped check boundary: type-checks the MSBuild-evaluated project once with its real flags through FCS, reads only selected sources for syntax, records blockers and findings in local buffers, digests inputs before and after, and copies the application safety context with a project-union domain predicate. Every failure becomes Incomplete; the caller owns exceptions."
+    },
+    {
+      "File": "src/FDull/RuleCheck.fs",
+      "Owner": "FDull.RuleCheck.analyze",
+      "Kind": "member",
+      "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | M:System.Int32.ToString(System.String)",
+      "Reason": "Scoped check boundary: type-checks the MSBuild-evaluated project once with its real flags through FCS, reads only selected sources for syntax, records blockers and findings in local buffers, digests inputs before and after, and copies the application safety context with a project-union domain predicate. Every failure becomes Incomplete; the caller owns exceptions."
+    },
+    {
+      "File": "src/FDull/RuleCheck.fs",
+      "Owner": "FDull.RuleCheck.analyze",
+      "Kind": "member",
+      "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | P:System.Collections.Generic.List`1.Count",
+      "Reason": "Scoped check boundary: type-checks the MSBuild-evaluated project once with its real flags through FCS, reads only selected sources for syntax, records blockers and findings in local buffers, digests inputs before and after, and copies the application safety context with a project-union domain predicate. Every failure becomes Incomplete; the caller owns exceptions."
+    },
+    {
+      "File": "src/FDull/RuleCheck.fs",
+      "Owner": "FDull.RuleCheck.analyze",
+      "Kind": "member",
+      "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | P:System.Lazy`1.Value",
+      "Reason": "Scoped check boundary: type-checks the MSBuild-evaluated project once with its real flags through FCS, reads only selected sources for syntax, records blockers and findings in local buffers, digests inputs before and after, and copies the application safety context with a project-union domain predicate. Every failure becomes Incomplete; the caller owns exceptions."
+    },
+    {
+      "File": "src/FDull/RuleCheck.fs",
+      "Owner": "FDull.RuleCheck.analyze",
+      "Kind": "rule",
+      "Identity": "EFFECT003 | context.Attribute",
+      "Reason": "Scoped check boundary: type-checks the MSBuild-evaluated project once with its real flags through FCS, reads only selected sources for syntax, records blockers and findings in local buffers, digests inputs before and after, and copies the application safety context with a project-union domain predicate. Every failure becomes Incomplete; the caller owns exceptions."
+    },
+    {
+      "File": "src/FDull/RuleCheck.fs",
+      "Owner": "FDull.RuleCheck.analyze",
+      "Kind": "rule",
+      "Identity": "EFFECT003 | context.Capture",
+      "Reason": "Scoped check boundary: type-checks the MSBuild-evaluated project once with its real flags through FCS, reads only selected sources for syntax, records blockers and findings in local buffers, digests inputs before and after, and copies the application safety context with a project-union domain predicate. Every failure becomes Incomplete; the caller owns exceptions."
+    },
+    {
+      "File": "src/FDull/RuleCheck.fs",
+      "Owner": "FDull.RuleCheck.analyze",
+      "Kind": "rule",
+      "Identity": "EFFECT003 | context.Constructor",
+      "Reason": "Scoped check boundary: type-checks the MSBuild-evaluated project once with its real flags through FCS, reads only selected sources for syntax, records blockers and findings in local buffers, digests inputs before and after, and copies the application safety context with a project-union domain predicate. Every failure becomes Incomplete; the caller owns exceptions."
+    },
+    {
+      "File": "src/FDull/RuleCheck.fs",
+      "Owner": "FDull.RuleCheck.analyze",
+      "Kind": "rule",
+      "Identity": "EFFECT003 | context.Data",
+      "Reason": "Scoped check boundary: type-checks the MSBuild-evaluated project once with its real flags through FCS, reads only selected sources for syntax, records blockers and findings in local buffers, digests inputs before and after, and copies the application safety context with a project-union domain predicate. Every failure becomes Incomplete; the caller owns exceptions."
+    },
+    {
+      "File": "src/FDull/RuleCheck.fs",
+      "Owner": "FDull.RuleCheck.analyze",
+      "Kind": "rule",
+      "Identity": "EFFECT003 | context.Domain",
+      "Reason": "Scoped check boundary: type-checks the MSBuild-evaluated project once with its real flags through FCS, reads only selected sources for syntax, records blockers and findings in local buffers, digests inputs before and after, and copies the application safety context with a project-union domain predicate. Every failure becomes Incomplete; the caller owns exceptions."
+    },
+    {
+      "File": "src/FDull/RuleCheck.fs",
+      "Owner": "FDull.RuleCheck.analyze",
+      "Kind": "rule",
+      "Identity": "EFFECT003 | context.Member",
+      "Reason": "Scoped check boundary: type-checks the MSBuild-evaluated project once with its real flags through FCS, reads only selected sources for syntax, records blockers and findings in local buffers, digests inputs before and after, and copies the application safety context with a project-union domain predicate. Every failure becomes Incomplete; the caller owns exceptions."
+    },
+    {
+      "File": "src/FDull/RuleCheck.fs",
+      "Owner": "FDull.RuleCheck.analyze",
+      "Kind": "rule",
+      "Identity": "EFFECT003 | context.Permit",
+      "Reason": "Scoped check boundary: type-checks the MSBuild-evaluated project once with its real flags through FCS, reads only selected sources for syntax, records blockers and findings in local buffers, digests inputs before and after, and copies the application safety context with a project-union domain predicate. Every failure becomes Incomplete; the caller owns exceptions."
+    },
+    {
+      "File": "src/FDull/RuleCheck.fs",
+      "Owner": "FDull.RuleCheck.analyze",
+      "Kind": "rule",
+      "Identity": "EFFECT003 | context.Profile",
+      "Reason": "Scoped check boundary: type-checks the MSBuild-evaluated project once with its real flags through FCS, reads only selected sources for syntax, records blockers and findings in local buffers, digests inputs before and after, and copies the application safety context with a project-union domain predicate. Every failure becomes Incomplete; the caller owns exceptions."
+    },
+    {
+      "File": "src/FDull/RuleCheck.fs",
+      "Owner": "FDull.RuleCheck.analyze",
+      "Kind": "rule",
+      "Identity": "EFFECT003 | context.Type",
+      "Reason": "Scoped check boundary: type-checks the MSBuild-evaluated project once with its real flags through FCS, reads only selected sources for syntax, records blockers and findings in local buffers, digests inputs before and after, and copies the application safety context with a project-union domain predicate. Every failure becomes Incomplete; the caller owns exceptions."
+    },
+    {
+      "File": "src/FDull/RuleCheck.fs",
+      "Owner": "FDull.RuleCheck.analyze",
+      "Kind": "rule",
+      "Identity": "MUT009 | ",
+      "Reason": "Scoped check boundary: type-checks the MSBuild-evaluated project once with its real flags through FCS, reads only selected sources for syntax, records blockers and findings in local buffers, digests inputs before and after, and copies the application safety context with a project-union domain predicate. Every failure becomes Incomplete; the caller owns exceptions."
+    },
+    {
+      "File": "src/FDull/RuleCheck.fs",
+      "Owner": "FDull.RuleCheck.analyze",
+      "Kind": "type",
+      "Identity": "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | FSharp.Compiler.CodeAnalysis.FSharpCheckProjectResults",
+      "Reason": "Scoped check boundary: type-checks the MSBuild-evaluated project once with its real flags through FCS, reads only selected sources for syntax, records blockers and findings in local buffers, digests inputs before and after, and copies the application safety context with a project-union domain predicate. Every failure becomes Incomplete; the caller owns exceptions."
+    },
+    {
+      "File": "src/FDull/RuleCheck.fs",
+      "Owner": "FDull.RuleCheck.analyze",
+      "Kind": "type",
+      "Identity": "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | FSharp.Compiler.CodeAnalysis.FSharpParseFileResults",
+      "Reason": "Scoped check boundary: type-checks the MSBuild-evaluated project once with its real flags through FCS, reads only selected sources for syntax, records blockers and findings in local buffers, digests inputs before and after, and copies the application safety context with a project-union domain predicate. Every failure becomes Incomplete; the caller owns exceptions."
+    },
+    {
+      "File": "src/FDull/RuleCheck.fs",
+      "Owner": "FDull.RuleCheck.analyze",
+      "Kind": "type",
+      "Identity": "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | FSharp.Compiler.CodeAnalysis.FSharpParsingOptions",
+      "Reason": "Scoped check boundary: type-checks the MSBuild-evaluated project once with its real flags through FCS, reads only selected sources for syntax, records blockers and findings in local buffers, digests inputs before and after, and copies the application safety context with a project-union domain predicate. Every failure becomes Incomplete; the caller owns exceptions."
+    },
+    {
+      "File": "src/FDull/RuleCheck.fs",
+      "Owner": "FDull.RuleCheck.analyze",
+      "Kind": "type",
+      "Identity": "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | FSharp.Compiler.CodeAnalysis.FSharpProjectOptions",
+      "Reason": "Scoped check boundary: type-checks the MSBuild-evaluated project once with its real flags through FCS, reads only selected sources for syntax, records blockers and findings in local buffers, digests inputs before and after, and copies the application safety context with a project-union domain predicate. Every failure becomes Incomplete; the caller owns exceptions."
+    },
+    {
+      "File": "src/FDull/RuleCheck.fs",
+      "Owner": "FDull.RuleCheck.analyze",
+      "Kind": "type",
+      "Identity": "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | FSharp.Compiler.Diagnostics.FSharpDiagnostic",
+      "Reason": "Scoped check boundary: type-checks the MSBuild-evaluated project once with its real flags through FCS, reads only selected sources for syntax, records blockers and findings in local buffers, digests inputs before and after, and copies the application safety context with a project-union domain predicate. Every failure becomes Incomplete; the caller owns exceptions."
+    },
+    {
+      "File": "src/FDull/RuleCheck.fs",
+      "Owner": "FDull.RuleCheck.analyze",
+      "Kind": "type",
+      "Identity": "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | FSharp.Compiler.Symbols.FSharpEntity",
+      "Reason": "Scoped check boundary: type-checks the MSBuild-evaluated project once with its real flags through FCS, reads only selected sources for syntax, records blockers and findings in local buffers, digests inputs before and after, and copies the application safety context with a project-union domain predicate. Every failure becomes Incomplete; the caller owns exceptions."
+    },
+    {
+      "File": "src/FDull/RuleCheck.fs",
+      "Owner": "FDull.RuleCheck.analyze",
+      "Kind": "type",
+      "Identity": "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | FSharp.Compiler.Syntax.SynAttribute",
+      "Reason": "Scoped check boundary: type-checks the MSBuild-evaluated project once with its real flags through FCS, reads only selected sources for syntax, records blockers and findings in local buffers, digests inputs before and after, and copies the application safety context with a project-union domain predicate. Every failure becomes Incomplete; the caller owns exceptions."
+    },
+    {
+      "File": "src/FDull/RuleCheck.fs",
+      "Owner": "FDull.RuleCheck.analyze",
+      "Kind": "type",
+      "Identity": "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | FSharp.Compiler.Syntax.SynExpr",
+      "Reason": "Scoped check boundary: type-checks the MSBuild-evaluated project once with its real flags through FCS, reads only selected sources for syntax, records blockers and findings in local buffers, digests inputs before and after, and copies the application safety context with a project-union domain predicate. Every failure becomes Incomplete; the caller owns exceptions."
+    },
+    {
+      "File": "src/FDull/RuleCheck.fs",
+      "Owner": "FDull.RuleCheck.analyze",
+      "Kind": "type",
+      "Identity": "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | FSharp.Compiler.Syntax.SynMatchClause",
+      "Reason": "Scoped check boundary: type-checks the MSBuild-evaluated project once with its real flags through FCS, reads only selected sources for syntax, records blockers and findings in local buffers, digests inputs before and after, and copies the application safety context with a project-union domain predicate. Every failure becomes Incomplete; the caller owns exceptions."
+    },
+    {
+      "File": "src/FDull/RuleCheck.fs",
+      "Owner": "FDull.RuleCheck.analyze",
+      "Kind": "type",
+      "Identity": "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | FSharp.Compiler.Text.Range",
+      "Reason": "Scoped check boundary: type-checks the MSBuild-evaluated project once with its real flags through FCS, reads only selected sources for syntax, records blockers and findings in local buffers, digests inputs before and after, and copies the application safety context with a project-union domain predicate. Every failure becomes Incomplete; the caller owns exceptions."
+    },
+    {
+      "File": "src/FDull/RuleCheck.fs",
+      "Owner": "FDull.RuleCheck.analyze",
+      "Kind": "type",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | Microsoft.FSharp.Control.FSharpAsync`1",
+      "Reason": "Scoped check boundary: type-checks the MSBuild-evaluated project once with its real flags through FCS, reads only selected sources for syntax, records blockers and findings in local buffers, digests inputs before and after, and copies the application safety context with a project-union domain predicate. Every failure becomes Incomplete; the caller owns exceptions."
+    },
+    {
+      "File": "src/FDull/RuleCheck.fs",
+      "Owner": "FDull.RuleCheck.analyze",
+      "Kind": "type",
+      "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | System.Collections.Generic.IEnumerable`1",
+      "Reason": "Scoped check boundary: type-checks the MSBuild-evaluated project once with its real flags through FCS, reads only selected sources for syntax, records blockers and findings in local buffers, digests inputs before and after, and copies the application safety context with a project-union domain predicate. Every failure becomes Incomplete; the caller owns exceptions."
+    },
+    {
+      "File": "src/FDull/RuleCheck.fs",
+      "Owner": "FDull.RuleCheck.analyze",
+      "Kind": "type",
+      "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | System.Collections.Generic.List`1",
+      "Reason": "Scoped check boundary: type-checks the MSBuild-evaluated project once with its real flags through FCS, reads only selected sources for syntax, records blockers and findings in local buffers, digests inputs before and after, and copies the application safety context with a project-union domain predicate. Every failure becomes Incomplete; the caller owns exceptions."
+    },
+    {
+      "File": "src/FDull/RuleCheck.fs",
+      "Owner": "FDull.RuleCheck.analyze",
+      "Kind": "type",
+      "Identity": "source:src/FDull/SafetyLimits.fs | FDull.SafetyBudget",
+      "Reason": "Scoped check boundary: type-checks the MSBuild-evaluated project once with its real flags through FCS, reads only selected sources for syntax, records blockers and findings in local buffers, digests inputs before and after, and copies the application safety context with a project-union domain predicate. Every failure becomes Incomplete; the caller owns exceptions."
+    },
+    {
+      "File": "src/FDull/RuleCheck.fs",
+      "Owner": "FDull.RuleCheck.authored",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.Combine(System.String,System.String)",
+      "Reason": "Builds the project-relative path of a compiled source to exclude bin and obj outputs from selection."
+    },
+    {
+      "File": "src/FDull/RuleCheck.fs",
+      "Owner": "FDull.RuleCheck.checker",
+      "Kind": "member",
+      "Identity": "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:FSharp.Compiler.CodeAnalysis.FSharpChecker.Create(Microsoft.FSharp.Core.FSharpOption{System.Int32},Microsoft.FSharp.Core.FSharpOption{System.Boolean},Microsoft.FSharp.Core.FSharpOption{System.Boolean},Microsoft.FSharp.Core.FSharpOption{FSharp.Compiler.CodeAnalysis.LegacyReferenceResolver},Microsoft.FSharp.Core.FSharpOption{Microsoft.FSharp.Core.FSharpFunc{System.Tuple{System.String,System.DateTime},Microsoft.FSharp.Core.FSharpOption{System.Tuple{System.Object,System.IntPtr,System.Int32}}}},Microsoft.FSharp.Core.FSharpOption{System.Boolean},Microsoft.FSharp.Core.FSharpOption{System.Boolean},Microsoft.FSharp.Core.FSharpOption{System.Boolean},Microsoft.FSharp.Core.FSharpOption{System.Boolean},Microsoft.FSharp.Core.FSharpOption{System.Boolean},Microsoft.FSharp.Core.FSharpOption{System.Boolean},Microsoft.FSharp.Core.FSharpOption{FSharp.Compiler.CodeAnalysis.DocumentSource},Microsoft.FSharp.Core.FSharpOption{System.Boolean},Microsoft.FSharp.Core.FSharpOption{FSharp.Compiler.CodeAnalysis.TransparentCompiler.CacheSizes})",
+      "Reason": "One lazily created FCS checker that keeps assembly contents, shared by scoped checks in this process."
+    },
+    {
+      "File": "src/FDull/RuleCheck.fs",
+      "Owner": "FDull.RuleCheck.checker",
+      "Kind": "rule",
+      "Identity": "EFFECT003 | ",
+      "Reason": "One lazily created FCS checker that keeps assembly contents, shared by scoped checks in this process."
+    },
+    {
+      "File": "src/FDull/RuleCheck.fs",
+      "Owner": "FDull.RuleCheck.checker",
+      "Kind": "type",
+      "Identity": "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | FSharp.Compiler.CodeAnalysis.FSharpChecker",
+      "Reason": "One lazily created FCS checker that keeps assembly contents, shared by scoped checks in this process."
+    },
+    {
+      "File": "src/FDull/RuleCheck.fs",
+      "Owner": "FDull.RuleCheck.checker",
+      "Kind": "type",
+      "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | System.Lazy`1",
+      "Reason": "One lazily created FCS checker that keeps assembly contents, shared by scoped checks in this process."
+    },
+    {
+      "File": "src/FDull/RuleCheck.fs",
+      "Owner": "FDull.RuleCheck.claim",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.String.Join(System.String,System.Collections.Generic.IEnumerable{System.String})",
+      "Reason": "Formats the fixed scope statement that every check report carries."
+    },
+    {
+      "File": "src/FDull/RuleCheck.fs",
+      "Owner": "FDull.RuleCheck.finding",
+      "Kind": "member",
+      "Identity": "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:FSharp.Compiler.Text.Range.EndColumn",
+      "Reason": "Copies an FCS range into an immutable finding with a project-relative file and one-based columns."
+    },
+    {
+      "File": "src/FDull/RuleCheck.fs",
+      "Owner": "FDull.RuleCheck.finding",
+      "Kind": "member",
+      "Identity": "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:FSharp.Compiler.Text.Range.EndLine",
+      "Reason": "Copies an FCS range into an immutable finding with a project-relative file and one-based columns."
+    },
+    {
+      "File": "src/FDull/RuleCheck.fs",
+      "Owner": "FDull.RuleCheck.finding",
+      "Kind": "member",
+      "Identity": "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:FSharp.Compiler.Text.Range.FileName",
+      "Reason": "Copies an FCS range into an immutable finding with a project-relative file and one-based columns."
+    },
+    {
+      "File": "src/FDull/RuleCheck.fs",
+      "Owner": "FDull.RuleCheck.finding",
+      "Kind": "member",
+      "Identity": "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:FSharp.Compiler.Text.Range.StartColumn",
+      "Reason": "Copies an FCS range into an immutable finding with a project-relative file and one-based columns."
+    },
+    {
+      "File": "src/FDull/RuleCheck.fs",
+      "Owner": "FDull.RuleCheck.finding",
+      "Kind": "member",
+      "Identity": "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:FSharp.Compiler.Text.Range.StartLine",
+      "Reason": "Copies an FCS range into an immutable finding with a project-relative file and one-based columns."
+    },
+    {
+      "File": "src/FDull/RuleCheck.fs",
+      "Owner": "FDull.RuleCheck.finding",
+      "Kind": "type",
+      "Identity": "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | FSharp.Compiler.Text.Range",
+      "Reason": "Copies an FCS range into an immutable finding with a project-relative file and one-based columns."
+    },
+    {
+      "File": "src/FDull/RuleCheck.fs",
+      "Owner": "FDull.RuleCheck.parseRules",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.ArrayModule.ToList``1(``0[])",
+      "Reason": "Parses the comma-separated --rules list into supported rule cases; unknown or empty ids are Invalid."
+    },
+    {
+      "File": "src/FDull/RuleCheck.fs",
+      "Owner": "FDull.RuleCheck.parseRules",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Core.Operators.op_BitwiseOr``1(Microsoft.FSharp.Core.FSharpFunc{``0,Microsoft.FSharp.Core.FSharpFunc{``0,``0}},``0,``0)",
+      "Reason": "Parses the comma-separated --rules list into supported rule cases; unknown or empty ids are Invalid."
+    },
+    {
+      "File": "src/FDull/RuleCheck.fs",
+      "Owner": "FDull.RuleCheck.parseRules",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.String.Join(System.String,System.Collections.Generic.IEnumerable{System.String})",
+      "Reason": "Parses the comma-separated --rules list into supported rule cases; unknown or empty ids are Invalid."
+    },
+    {
+      "File": "src/FDull/RuleCheck.fs",
+      "Owner": "FDull.RuleCheck.parseRules",
+      "Kind": "member",
+      "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | M:System.String.Split(System.Char,System.StringSplitOptions)",
+      "Reason": "Parses the comma-separated --rules list into supported rule cases; unknown or empty ids are Invalid."
+    },
+    {
+      "File": "src/FDull/RuleCheck.fs",
+      "Owner": "FDull.RuleCheck.relative",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.GetRelativePath(System.String,System.String)",
+      "Reason": "Formats a source path relative to the project directory with forward slashes for reports."
+    },
+    {
+      "File": "src/FDull/RuleCheck.fs",
+      "Owner": "FDull.RuleCheck.relative",
+      "Kind": "member",
+      "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | M:System.String.Replace(System.Char,System.Char)",
+      "Reason": "Formats a source path relative to the project directory with forward slashes for reports."
+    },
+    {
+      "File": "src/FDull/RuleCheck.fs",
+      "Owner": "FDull.RuleCheck.run",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.File.Exists(System.String)",
+      "Reason": "The one failure boundary of fdull check: validates the project file, evaluates it with MSBuild, selects sources and analyzes them. Any exception from evaluation, fingerprinting, FCS or analysis becomes an Incomplete report with its message, never a pass."
+    },
+    {
+      "File": "src/FDull/RuleCheck.fs",
+      "Owner": "FDull.RuleCheck.run",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.GetDirectoryName(System.String)",
+      "Reason": "The one failure boundary of fdull check: validates the project file, evaluates it with MSBuild, selects sources and analyzes them. Any exception from evaluation, fingerprinting, FCS or analysis becomes an Incomplete report with its message, never a pass."
+    },
+    {
+      "File": "src/FDull/RuleCheck.fs",
+      "Owner": "FDull.RuleCheck.run",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.GetExtension(System.String)",
+      "Reason": "The one failure boundary of fdull check: validates the project file, evaluates it with MSBuild, selects sources and analyzes them. Any exception from evaluation, fingerprinting, FCS or analysis becomes an Incomplete report with its message, never a pass."
+    },
+    {
+      "File": "src/FDull/RuleCheck.fs",
+      "Owner": "FDull.RuleCheck.run",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.GetFileName(System.String)",
+      "Reason": "The one failure boundary of fdull check: validates the project file, evaluates it with MSBuild, selects sources and analyzes them. Any exception from evaluation, fingerprinting, FCS or analysis becomes an Incomplete report with its message, never a pass."
+    },
+    {
+      "File": "src/FDull/RuleCheck.fs",
+      "Owner": "FDull.RuleCheck.run",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.GetFullPath(System.String)",
+      "Reason": "The one failure boundary of fdull check: validates the project file, evaluates it with MSBuild, selects sources and analyzes them. Any exception from evaluation, fingerprinting, FCS or analysis becomes an Incomplete report with its message, never a pass."
+    },
+    {
+      "File": "src/FDull/RuleCheck.fs",
+      "Owner": "FDull.RuleCheck.run",
+      "Kind": "member",
+      "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | M:System.String.Substring(System.Int32,System.Int32)",
+      "Reason": "The one failure boundary of fdull check: validates the project file, evaluates it with MSBuild, selects sources and analyzes them. Any exception from evaluation, fingerprinting, FCS or analysis becomes an Incomplete report with its message, never a pass."
+    },
+    {
+      "File": "src/FDull/RuleCheck.fs",
+      "Owner": "FDull.RuleCheck.run",
+      "Kind": "member",
+      "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | P:System.Exception.Message",
+      "Reason": "The one failure boundary of fdull check: validates the project file, evaluates it with MSBuild, selects sources and analyzes them. Any exception from evaluation, fingerprinting, FCS or analysis becomes an Incomplete report with its message, never a pass."
+    },
+    {
+      "File": "src/FDull/RuleCheck.fs",
+      "Owner": "FDull.RuleCheck.run",
+      "Kind": "rule",
+      "Identity": "ERR001 | ",
+      "Reason": "The one failure boundary of fdull check: validates the project file, evaluates it with MSBuild, selects sources and analyzes them. Any exception from evaluation, fingerprinting, FCS or analysis becomes an Incomplete report with its message, never a pass."
+    },
+    {
+      "File": "src/FDull/RuleCheck.fs",
+      "Owner": "FDull.RuleCheck.run",
+      "Kind": "rule",
+      "Identity": "ERR004 | exception handler",
+      "Reason": "The one failure boundary of fdull check: validates the project file, evaluates it with MSBuild, selects sources and analyzes them. Any exception from evaluation, fingerprinting, FCS or analysis becomes an Incomplete report with its message, never a pass."
+    },
+    {
+      "File": "src/FDull/RuleCheck.fs",
+      "Owner": "FDull.RuleCheck.run",
+      "Kind": "type",
+      "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | System.Exception",
+      "Reason": "The one failure boundary of fdull check: validates the project file, evaluates it with MSBuild, selects sources and analyzes them. Any exception from evaluation, fingerprinting, FCS or analysis becomes an Incomplete report with its message, never a pass."
+    },
+    {
+      "File": "src/FDull/RuleCheck.fs",
+      "Owner": "FDull.RuleCheck.select",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Directory.Exists(System.String)",
+      "Reason": "Resolves file and directory selectors against MSBuild's compiled sources; a selector matching nothing is Invalid."
+    },
+    {
+      "File": "src/FDull/RuleCheck.fs",
+      "Owner": "FDull.RuleCheck.select",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.GetFullPath(System.String)",
+      "Reason": "Resolves file and directory selectors against MSBuild's compiled sources; a selector matching nothing is Invalid."
+    },
+    {
+      "File": "src/FDull/RuleCheck.fs",
+      "Owner": "FDull.RuleCheck.select",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.String.Join(System.String,System.Collections.Generic.IEnumerable{System.String})",
+      "Reason": "Resolves file and directory selectors against MSBuild's compiled sources; a selector matching nothing is Invalid."
+    },
+    {
+      "File": "src/FDull/RuleCheck.fs",
+      "Owner": "FDull.RuleCheck.within",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.GetRelativePath(System.String,System.String)",
+      "Reason": "Decides whether a compiled source lies inside a selected directory by relative-path comparison."
+    },
+    {
+      "File": "src/FDull/RuleCheck.fs",
+      "Owner": "FDull.RuleCheck.within",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.IsPathRooted(System.String)",
+      "Reason": "Decides whether a compiled source lies inside a selected directory by relative-path comparison."
+    },
+    {
+      "File": "src/FDull/SafetyAnalysis.fs",
+      "Owner": "FDull.SafetyAnalysis.inspect",
+      "Kind": "member",
+      "Identity": "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:FSharp.Compiler.Symbols.FSharpImplementationFileContents.FileName",
+      "Reason": "Limits symbol-use indexing and typed declaration walks to the inspected files. Strict callers pass every project source, so their inspected set is unchanged; scoped checks stay within budget on large projects."
+    },
+    {
+      "File": "src/FDull/SafetyAnalysis.fs",
+      "Owner": "FDull.SafetyAnalysis.inspect",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.ArrayModule.Filter``1(Microsoft.FSharp.Core.FSharpFunc{``0,System.Boolean},``0[])",
+      "Reason": "Limits symbol-use indexing and typed declaration walks to the inspected files. Strict callers pass every project source, so their inspected set is unchanged; scoped checks stay within budget on large projects."
+    },
+    {
+      "File": "src/FDull/Workspace.fs",
+      "Owner": "FDull.Workspace.evaluate",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.SeqModule.Filter``1(Microsoft.FSharp.Core.FSharpFunc{``0,System.Boolean},System.Collections.Generic.IEnumerable{``0})",
+      "Reason": "Bounded MSBuild JSON parsing shared by strict export and fdull check: reads compiler arguments, project references and each referenced project's resolved reference assembly path from ReferencePath metadata."
+    },
+    {
+      "File": "src/FDull/Workspace.fs",
+      "Owner": "FDull.Workspace.evaluate",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.GetRelativePath(System.String,System.String)",
+      "Reason": "Bounded MSBuild JSON parsing shared by strict export and fdull check: reads compiler arguments, project references and each referenced project's resolved reference assembly path from ReferencePath metadata."
+    },
+    {
+      "File": "src/FDull/Workspace.fs",
+      "Owner": "FDull.Workspace.evaluate",
+      "Kind": "member",
+      "Identity": "System.Text.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | M:System.Text.Json.JsonElement.TryGetProperty(System.String,System.Text.Json.JsonElement@)",
+      "Reason": "Bounded MSBuild JSON parsing shared by strict export and fdull check: reads compiler arguments, project references and each referenced project's resolved reference assembly path from ReferencePath metadata."
+    },
+    {
+      "File": "src/FDull/Workspace.fs",
+      "Owner": "FDull.Workspace.evaluate",
+      "Kind": "member",
+      "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | M:System.String.Replace(System.Char,System.Char)",
+      "Reason": "Bounded MSBuild JSON parsing shared by strict export and fdull check: reads compiler arguments, project references and each referenced project's resolved reference assembly path from ReferencePath metadata."
+    },
+    {
+      "File": "tests/FDull.Tests/CheckTests.fs",
+      "Owner": "FDull.Tests.CheckTests.``check fails a new union case missed by a selected explicit match``",
+      "Kind": "attribute",
+      "Identity": "xunit.core, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | Xunit.FactAttribute |  | unit",
+      "Reason": "Adds a union case and asserts the selected explicit match fails under MODEL004 only."
+    },
+    {
+      "File": "tests/FDull.Tests/CheckTests.fs",
+      "Owner": "FDull.Tests.CheckTests.``check fails a new union case missed by a selected explicit match``",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Equal``1(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IAsyncEnumerable{``0})",
+      "Reason": "Adds a union case and asserts the selected explicit match fails under MODEL004 only."
+    },
+    {
+      "File": "tests/FDull.Tests/CheckTests.fs",
+      "Owner": "FDull.Tests.CheckTests.``check fails a new union case missed by a selected explicit match``",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Equal``1(``0,``0)",
+      "Reason": "Adds a union case and asserts the selected explicit match fails under MODEL004 only."
+    },
+    {
+      "File": "tests/FDull.Tests/CheckTests.fs",
+      "Owner": "FDull.Tests.CheckTests.``check never passes invalid requests or incomplete analysis``",
+      "Kind": "attribute",
+      "Identity": "xunit.core, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | Xunit.FactAttribute |  | unit",
+      "Reason": "Asserts invalid requests exit 2, an unselected compile error and deleted reference outputs exit 3, and none of them pass."
+    },
+    {
+      "File": "tests/FDull.Tests/CheckTests.fs",
+      "Owner": "FDull.Tests.CheckTests.``check never passes invalid requests or incomplete analysis``",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Directory.Delete(System.String,System.Boolean)",
+      "Reason": "Asserts invalid requests exit 2, an unselected compile error and deleted reference outputs exit 3, and none of them pass."
+    },
+    {
+      "File": "tests/FDull.Tests/CheckTests.fs",
+      "Owner": "FDull.Tests.CheckTests.``check never passes invalid requests or incomplete analysis``",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.Combine(System.String,System.String)",
+      "Reason": "Asserts invalid requests exit 2, an unselected compile error and deleted reference outputs exit 3, and none of them pass."
+    },
+    {
+      "File": "tests/FDull.Tests/CheckTests.fs",
+      "Owner": "FDull.Tests.CheckTests.``check never passes invalid requests or incomplete analysis``",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Contains``1(``0,System.Collections.Generic.IEnumerable{``0})",
+      "Reason": "Asserts invalid requests exit 2, an unselected compile error and deleted reference outputs exit 3, and none of them pass."
+    },
+    {
+      "File": "tests/FDull.Tests/CheckTests.fs",
+      "Owner": "FDull.Tests.CheckTests.``check never passes invalid requests or incomplete analysis``",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Empty(System.Collections.IEnumerable)",
+      "Reason": "Asserts invalid requests exit 2, an unselected compile error and deleted reference outputs exit 3, and none of them pass."
+    },
+    {
+      "File": "tests/FDull.Tests/CheckTests.fs",
+      "Owner": "FDull.Tests.CheckTests.``check never passes invalid requests or incomplete analysis``",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Equal(System.String,System.String)",
+      "Reason": "Asserts invalid requests exit 2, an unselected compile error and deleted reference outputs exit 3, and none of them pass."
+    },
+    {
+      "File": "tests/FDull.Tests/CheckTests.fs",
+      "Owner": "FDull.Tests.CheckTests.``check never passes invalid requests or incomplete analysis``",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Equal``1(``0,``0)",
+      "Reason": "Asserts invalid requests exit 2, an unselected compile error and deleted reference outputs exit 3, and none of them pass."
+    },
+    {
+      "File": "tests/FDull.Tests/CheckTests.fs",
+      "Owner": "FDull.Tests.CheckTests.``check never passes invalid requests or incomplete analysis``",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.False(System.Boolean)",
+      "Reason": "Asserts invalid requests exit 2, an unselected compile error and deleted reference outputs exit 3, and none of them pass."
+    },
+    {
+      "File": "tests/FDull.Tests/CheckTests.fs",
+      "Owner": "FDull.Tests.CheckTests.``check never passes invalid requests or incomplete analysis``",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.3.0.0, Culture=neutral, PublicKeyToken=null | FDull.SafetyProcessOutput",
+      "Reason": "Asserts invalid requests exit 2, an unselected compile error and deleted reference outputs exit 3, and none of them pass."
+    },
+    {
+      "File": "tests/FDull.Tests/CheckTests.fs",
+      "Owner": "FDull.Tests.CheckTests.``check never passes invalid requests or incomplete analysis``",
+      "Kind": "type",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | System.Collections.IEnumerable",
+      "Reason": "Asserts invalid requests exit 2, an unselected compile error and deleted reference outputs exit 3, and none of them pass."
+    },
+    {
+      "File": "tests/FDull.Tests/CheckTests.fs",
+      "Owner": "FDull.Tests.CheckTests.``check reports selected rules in selected files and nothing from unselected sources``",
+      "Kind": "attribute",
+      "Identity": "xunit.core, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | Xunit.FactAttribute |  | unit",
+      "Reason": "Asserts exact findings for selected rules and files, the clean file, a rule subset, a referenced project's union under a different assembly name, and a later-added source joining its directory."
+    },
+    {
+      "File": "tests/FDull.Tests/CheckTests.fs",
+      "Owner": "FDull.Tests.CheckTests.``check reports selected rules in selected files and nothing from unselected sources``",
+      "Kind": "member",
+      "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | M:System.String.Replace(System.String,System.String)",
+      "Reason": "Asserts exact findings for selected rules and files, the clean file, a rule subset, a referenced project's union under a different assembly name, and a later-added source joining its directory."
+    },
+    {
+      "File": "tests/FDull.Tests/CheckTests.fs",
+      "Owner": "FDull.Tests.CheckTests.``check reports selected rules in selected files and nothing from unselected sources``",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Contains(System.String,System.String)",
+      "Reason": "Asserts exact findings for selected rules and files, the clean file, a rule subset, a referenced project's union under a different assembly name, and a later-added source joining its directory."
+    },
+    {
+      "File": "tests/FDull.Tests/CheckTests.fs",
+      "Owner": "FDull.Tests.CheckTests.``check reports selected rules in selected files and nothing from unselected sources``",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Contains``1(``0,System.Collections.Generic.IEnumerable{``0})",
+      "Reason": "Asserts exact findings for selected rules and files, the clean file, a rule subset, a referenced project's union under a different assembly name, and a later-added source joining its directory."
+    },
+    {
+      "File": "tests/FDull.Tests/CheckTests.fs",
+      "Owner": "FDull.Tests.CheckTests.``check reports selected rules in selected files and nothing from unselected sources``",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Empty(System.Collections.IEnumerable)",
+      "Reason": "Asserts exact findings for selected rules and files, the clean file, a rule subset, a referenced project's union under a different assembly name, and a later-added source joining its directory."
+    },
+    {
+      "File": "tests/FDull.Tests/CheckTests.fs",
+      "Owner": "FDull.Tests.CheckTests.``check reports selected rules in selected files and nothing from unselected sources``",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Equal(System.String,System.String)",
+      "Reason": "Asserts exact findings for selected rules and files, the clean file, a rule subset, a referenced project's union under a different assembly name, and a later-added source joining its directory."
+    },
+    {
+      "File": "tests/FDull.Tests/CheckTests.fs",
+      "Owner": "FDull.Tests.CheckTests.``check reports selected rules in selected files and nothing from unselected sources``",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Equal``1(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IAsyncEnumerable{``0})",
+      "Reason": "Asserts exact findings for selected rules and files, the clean file, a rule subset, a referenced project's union under a different assembly name, and a later-added source joining its directory."
+    },
+    {
+      "File": "tests/FDull.Tests/CheckTests.fs",
+      "Owner": "FDull.Tests.CheckTests.``check reports selected rules in selected files and nothing from unselected sources``",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Equal``1(``0,``0)",
+      "Reason": "Asserts exact findings for selected rules and files, the clean file, a rule subset, a referenced project's union under a different assembly name, and a later-added source joining its directory."
+    },
+    {
+      "File": "tests/FDull.Tests/CheckTests.fs",
+      "Owner": "FDull.Tests.CheckTests.``check reports selected rules in selected files and nothing from unselected sources``",
+      "Kind": "type",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | System.Collections.IEnumerable",
+      "Reason": "Asserts exact findings for selected rules and files, the clean file, a rule subset, a referenced project's union under a different assembly name, and a later-added source joining its directory."
+    },
+    {
+      "File": "tests/FDull.Tests/CheckTests.fs",
+      "Owner": "FDull.Tests.CheckTests.check",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.SeqModule.Map``2(Microsoft.FSharp.Core.FSharpFunc{``0,``1},System.Collections.Generic.IEnumerable{``0})",
+      "Reason": "Runs the CLI check with JSON output and reads the fields consumers depend on; asserts the process exit matches the reported exit."
+    },
+    {
+      "File": "tests/FDull.Tests/CheckTests.fs",
+      "Owner": "FDull.Tests.CheckTests.check",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.SeqModule.ToList``1(System.Collections.Generic.IEnumerable{``0})",
+      "Reason": "Runs the CLI check with JSON output and reads the fields consumers depend on; asserts the process exit matches the reported exit."
+    },
+    {
+      "File": "tests/FDull.Tests/CheckTests.fs",
+      "Owner": "FDull.Tests.CheckTests.check",
+      "Kind": "member",
+      "Identity": "System.Text.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | M:System.Text.Json.JsonDocument.Parse(System.String,System.Text.Json.JsonDocumentOptions)",
+      "Reason": "Runs the CLI check with JSON output and reads the fields consumers depend on; asserts the process exit matches the reported exit."
+    },
+    {
+      "File": "tests/FDull.Tests/CheckTests.fs",
+      "Owner": "FDull.Tests.CheckTests.check",
+      "Kind": "member",
+      "Identity": "System.Text.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | M:System.Text.Json.JsonElement.EnumerateArray",
+      "Reason": "Runs the CLI check with JSON output and reads the fields consumers depend on; asserts the process exit matches the reported exit."
+    },
+    {
+      "File": "tests/FDull.Tests/CheckTests.fs",
+      "Owner": "FDull.Tests.CheckTests.check",
+      "Kind": "member",
+      "Identity": "System.Text.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | M:System.Text.Json.JsonElement.GetInt32",
+      "Reason": "Runs the CLI check with JSON output and reads the fields consumers depend on; asserts the process exit matches the reported exit."
+    },
+    {
+      "File": "tests/FDull.Tests/CheckTests.fs",
+      "Owner": "FDull.Tests.CheckTests.check",
+      "Kind": "member",
+      "Identity": "System.Text.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | M:System.Text.Json.JsonElement.GetProperty(System.String)",
+      "Reason": "Runs the CLI check with JSON output and reads the fields consumers depend on; asserts the process exit matches the reported exit."
+    },
+    {
+      "File": "tests/FDull.Tests/CheckTests.fs",
+      "Owner": "FDull.Tests.CheckTests.check",
+      "Kind": "member",
+      "Identity": "System.Text.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | M:System.Text.Json.JsonElement.GetString",
+      "Reason": "Runs the CLI check with JSON output and reads the fields consumers depend on; asserts the process exit matches the reported exit."
+    },
+    {
+      "File": "tests/FDull.Tests/CheckTests.fs",
+      "Owner": "FDull.Tests.CheckTests.check",
+      "Kind": "member",
+      "Identity": "System.Text.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | P:System.Text.Json.JsonDocument.RootElement",
+      "Reason": "Runs the CLI check with JSON output and reads the fields consumers depend on; asserts the process exit matches the reported exit."
+    },
+    {
+      "File": "tests/FDull.Tests/CheckTests.fs",
+      "Owner": "FDull.Tests.CheckTests.check",
+      "Kind": "member",
+      "Identity": "System.Text.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | P:System.Text.Json.JsonElement.ValueKind",
+      "Reason": "Runs the CLI check with JSON output and reads the fields consumers depend on; asserts the process exit matches the reported exit."
+    },
+    {
+      "File": "tests/FDull.Tests/CheckTests.fs",
+      "Owner": "FDull.Tests.CheckTests.check",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.True(System.Boolean,System.String)",
+      "Reason": "Runs the CLI check with JSON output and reads the fields consumers depend on; asserts the process exit matches the reported exit."
+    },
+    {
+      "File": "tests/FDull.Tests/CheckTests.fs",
+      "Owner": "FDull.Tests.CheckTests.check",
+      "Kind": "rule",
+      "Identity": "ERR009 | ",
+      "Reason": "Runs the CLI check with JSON output and reads the fields consumers depend on; asserts the process exit matches the reported exit."
+    },
+    {
+      "File": "tests/FDull.Tests/CheckTests.fs",
+      "Owner": "FDull.Tests.CheckTests.check",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.3.0.0, Culture=neutral, PublicKeyToken=null | FDull.SafetyProcessOutput",
+      "Reason": "Runs the CLI check with JSON output and reads the fields consumers depend on; asserts the process exit matches the reported exit."
+    },
+    {
+      "File": "tests/FDull.Tests/CheckTests.fs",
+      "Owner": "FDull.Tests.CheckTests.check",
+      "Kind": "type",
+      "Identity": "System.Text.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | System.Text.Json.JsonDocument",
+      "Reason": "Runs the CLI check with JSON output and reads the fields consumers depend on; asserts the process exit matches the reported exit."
+    },
+    {
+      "File": "tests/FDull.Tests/CheckTests.fs",
+      "Owner": "FDull.Tests.CheckTests.check",
+      "Kind": "type",
+      "Identity": "System.Text.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | System.Text.Json.JsonElement",
+      "Reason": "Runs the CLI check with JSON output and reads the fields consumers depend on; asserts the process exit matches the reported exit."
+    },
+    {
+      "File": "tests/FDull.Tests/CheckTests.fs",
+      "Owner": "FDull.Tests.CheckTests.check",
+      "Kind": "type",
+      "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | System.Collections.Generic.IEnumerable`1",
+      "Reason": "Runs the CLI check with JSON output and reads the fields consumers depend on; asserts the process exit matches the reported exit."
+    },
+    {
+      "File": "tests/FDull.Tests/CheckTests.fs",
+      "Owner": "FDull.Tests.CheckTests.cli",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.Combine(System.String,System.String)",
+      "Reason": "Locates the Release CLI built beside the test assembly."
+    },
+    {
+      "File": "tests/FDull.Tests/CheckTests.fs",
+      "Owner": "FDull.Tests.CheckTests.cli",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.GetFullPath(System.String)",
+      "Reason": "Locates the Release CLI built beside the test assembly."
+    },
+    {
+      "File": "tests/FDull.Tests/CheckTests.fs",
+      "Owner": "FDull.Tests.CheckTests.cli",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:System.AppContext.BaseDirectory",
+      "Reason": "Locates the Release CLI built beside the test assembly."
+    },
+    {
+      "File": "tests/FDull.Tests/CheckTests.fs",
+      "Owner": "FDull.Tests.CheckTests.dotnet",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.True(System.Boolean,System.String)",
+      "Reason": "Asserts a fixture dotnet command succeeded, showing its output on failure."
+    },
+    {
+      "File": "tests/FDull.Tests/CheckTests.fs",
+      "Owner": "FDull.Tests.CheckTests.dotnet",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.3.0.0, Culture=neutral, PublicKeyToken=null | FDull.SafetyProcessOutput",
+      "Reason": "Asserts a fixture dotnet command succeeded, showing its output on failure."
+    },
+    {
+      "File": "tests/FDull.Tests/CheckTests.fs",
+      "Owner": "FDull.Tests.CheckTests.required",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.3.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Transport.External.required``1(System.String,``0)",
+      "Reason": "Rejects a null JSON string through the shared required helper."
+    },
+    {
+      "File": "tests/FDull.Tests/CheckTests.fs",
+      "Owner": "FDull.Tests.CheckTests.required",
+      "Kind": "rule",
+      "Identity": "NULL005 | required",
+      "Reason": "Rejects a null JSON string through the shared required helper."
+    },
+    {
+      "File": "tests/FDull.Tests/CheckTests.fs",
+      "Owner": "FDull.Tests.CheckTests.required",
+      "Kind": "rule",
+      "Identity": "NULL005 | value",
+      "Reason": "Rejects a null JSON string through the shared required helper."
+    },
+    {
+      "File": "tests/FDull.Tests/CheckTests.fs",
+      "Owner": "FDull.Tests.CheckTests.start",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.3.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.SafetyProcess.run(FDull.SafetyProcessLimits,System.Diagnostics.ProcessStartInfo,System.String)",
+      "Reason": "Runs dotnet with explicit arguments in the fixture directory through the bounded SafetyProcess runner, without MSBuild node reuse."
+    },
+    {
+      "File": "tests/FDull.Tests/CheckTests.fs",
+      "Owner": "FDull.Tests.CheckTests.start",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Core.Operators.FailWith``1(System.String)",
+      "Reason": "Runs dotnet with explicit arguments in the fixture directory through the bounded SafetyProcess runner, without MSBuild node reuse."
+    },
+    {
+      "File": "tests/FDull.Tests/CheckTests.fs",
+      "Owner": "FDull.Tests.CheckTests.start",
+      "Kind": "member",
+      "Identity": "System.Diagnostics.Process, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.Diagnostics.ProcessStartInfo.#ctor(System.String)",
+      "Reason": "Runs dotnet with explicit arguments in the fixture directory through the bounded SafetyProcess runner, without MSBuild node reuse."
+    },
+    {
+      "File": "tests/FDull.Tests/CheckTests.fs",
+      "Owner": "FDull.Tests.CheckTests.start",
+      "Kind": "member",
+      "Identity": "System.Diagnostics.Process, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:System.Diagnostics.ProcessStartInfo.ArgumentList",
+      "Reason": "Runs dotnet with explicit arguments in the fixture directory through the bounded SafetyProcess runner, without MSBuild node reuse."
+    },
+    {
+      "File": "tests/FDull.Tests/CheckTests.fs",
+      "Owner": "FDull.Tests.CheckTests.start",
+      "Kind": "member",
+      "Identity": "System.Diagnostics.Process, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:System.Diagnostics.ProcessStartInfo.Environment",
+      "Reason": "Runs dotnet with explicit arguments in the fixture directory through the bounded SafetyProcess runner, without MSBuild node reuse."
+    },
+    {
+      "File": "tests/FDull.Tests/CheckTests.fs",
+      "Owner": "FDull.Tests.CheckTests.start",
+      "Kind": "member",
+      "Identity": "System.Diagnostics.Process, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:System.Diagnostics.ProcessStartInfo.WorkingDirectory",
+      "Reason": "Runs dotnet with explicit arguments in the fixture directory through the bounded SafetyProcess runner, without MSBuild node reuse."
+    },
+    {
+      "File": "tests/FDull.Tests/CheckTests.fs",
+      "Owner": "FDull.Tests.CheckTests.start",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.Collections.ObjectModel.Collection`1.Add(`0)",
+      "Reason": "Runs dotnet with explicit arguments in the fixture directory through the bounded SafetyProcess runner, without MSBuild node reuse."
+    },
+    {
+      "File": "tests/FDull.Tests/CheckTests.fs",
+      "Owner": "FDull.Tests.CheckTests.start",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:System.Collections.Generic.IDictionary`2.Item(`0)",
+      "Reason": "Runs dotnet with explicit arguments in the fixture directory through the bounded SafetyProcess runner, without MSBuild node reuse."
+    },
+    {
+      "File": "tests/FDull.Tests/CheckTests.fs",
+      "Owner": "FDull.Tests.CheckTests.start",
+      "Kind": "rule",
+      "Identity": "MUT002 | ",
+      "Reason": "Runs dotnet with explicit arguments in the fixture directory through the bounded SafetyProcess runner, without MSBuild node reuse."
+    },
+    {
+      "File": "tests/FDull.Tests/CheckTests.fs",
+      "Owner": "FDull.Tests.CheckTests.start",
+      "Kind": "rule",
+      "Identity": "MUT009 | ",
+      "Reason": "Runs dotnet with explicit arguments in the fixture directory through the bounded SafetyProcess runner, without MSBuild node reuse."
+    },
+    {
+      "File": "tests/FDull.Tests/CheckTests.fs",
+      "Owner": "FDull.Tests.CheckTests.start",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.3.0.0, Culture=neutral, PublicKeyToken=null | FDull.SafetyProcessOutput",
+      "Reason": "Runs dotnet with explicit arguments in the fixture directory through the bounded SafetyProcess runner, without MSBuild node reuse."
+    },
+    {
+      "File": "tests/FDull.Tests/CheckTests.fs",
+      "Owner": "FDull.Tests.CheckTests.start",
+      "Kind": "type",
+      "Identity": "System.Diagnostics.Process, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | System.Diagnostics.ProcessStartInfo",
+      "Reason": "Runs dotnet with explicit arguments in the fixture directory through the bounded SafetyProcess runner, without MSBuild node reuse."
+    },
+    {
+      "File": "tests/FDull.Tests/CheckTests.fs",
+      "Owner": "FDull.Tests.CheckTests.start",
+      "Kind": "type",
+      "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | System.Object",
+      "Reason": "Runs dotnet with explicit arguments in the fixture directory through the bounded SafetyProcess runner, without MSBuild node reuse."
+    },
+    {
+      "File": "tests/FDull.Tests/CheckTests.fs",
+      "Owner": "FDull.Tests.CheckTests.workspace",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.Guid.NewGuid",
+      "Reason": "Creates, builds and deletes a temporary two-project workspace without fdull.json for each check test."
+    },
+    {
+      "File": "tests/FDull.Tests/CheckTests.fs",
+      "Owner": "FDull.Tests.CheckTests.workspace",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.Guid.ToString(System.String)",
+      "Reason": "Creates, builds and deletes a temporary two-project workspace without fdull.json for each check test."
+    },
+    {
+      "File": "tests/FDull.Tests/CheckTests.fs",
+      "Owner": "FDull.Tests.CheckTests.workspace",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Directory.CreateDirectory(System.String)",
+      "Reason": "Creates, builds and deletes a temporary two-project workspace without fdull.json for each check test."
+    },
+    {
+      "File": "tests/FDull.Tests/CheckTests.fs",
+      "Owner": "FDull.Tests.CheckTests.workspace",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Directory.Delete(System.String,System.Boolean)",
+      "Reason": "Creates, builds and deletes a temporary two-project workspace without fdull.json for each check test."
+    },
+    {
+      "File": "tests/FDull.Tests/CheckTests.fs",
+      "Owner": "FDull.Tests.CheckTests.workspace",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.File.Exists(System.String)",
+      "Reason": "Creates, builds and deletes a temporary two-project workspace without fdull.json for each check test."
+    },
+    {
+      "File": "tests/FDull.Tests/CheckTests.fs",
+      "Owner": "FDull.Tests.CheckTests.workspace",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.Combine(System.String,System.String)",
+      "Reason": "Creates, builds and deletes a temporary two-project workspace without fdull.json for each check test."
+    },
+    {
+      "File": "tests/FDull.Tests/CheckTests.fs",
+      "Owner": "FDull.Tests.CheckTests.workspace",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.GetTempPath",
+      "Reason": "Creates, builds and deletes a temporary two-project workspace without fdull.json for each check test."
+    },
+    {
+      "File": "tests/FDull.Tests/CheckTests.fs",
+      "Owner": "FDull.Tests.CheckTests.workspace",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.False(System.Boolean)",
+      "Reason": "Creates, builds and deletes a temporary two-project workspace without fdull.json for each check test."
+    },
+    {
+      "File": "tests/FDull.Tests/CheckTests.fs",
+      "Owner": "FDull.Tests.CheckTests.workspace",
+      "Kind": "rule",
+      "Identity": "ERR009 | ",
+      "Reason": "Creates, builds and deletes a temporary two-project workspace without fdull.json for each check test."
+    },
+    {
+      "File": "tests/FDull.Tests/CheckTests.fs",
+      "Owner": "FDull.Tests.CheckTests.write",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Directory.CreateDirectory(System.String)",
+      "Reason": "Writes one fixture file under the temporary workspace."
+    },
+    {
+      "File": "tests/FDull.Tests/CheckTests.fs",
+      "Owner": "FDull.Tests.CheckTests.write",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.File.WriteAllText(System.String,System.String)",
+      "Reason": "Writes one fixture file under the temporary workspace."
+    },
+    {
+      "File": "tests/FDull.Tests/CheckTests.fs",
+      "Owner": "FDull.Tests.CheckTests.write",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.Combine(System.String,System.String)",
+      "Reason": "Writes one fixture file under the temporary workspace."
+    },
+    {
+      "File": "tests/FDull.Tests/CheckTests.fs",
+      "Owner": "FDull.Tests.CheckTests.write",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.GetDirectoryName(System.String)",
+      "Reason": "Writes one fixture file under the temporary workspace."
     }
   ],
   "Domains": [],
