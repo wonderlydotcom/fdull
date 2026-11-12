@@ -31,16 +31,12 @@ type WorkspaceInvocation =
 
 /// A project's evaluated compiler invocation. Sources are in compile order and every path is absolute.
 type EvaluatedInvocation =
-    {
-        Directory: string
-        Sources: string list
-        References: string list
-        Flags: string list
-        ProjectReferences: string list
-        /// Assemblies the compiler reads for direct project references: each reference assembly, else the output assembly.
-        ProjectReferenceAssemblies: string list
-        ImportedBuildInputs: string list
-    }
+    { Directory: string
+      Sources: string list
+      References: string list
+      Flags: string list
+      ProjectReferences: string list
+      ImportedBuildInputs: string list }
 
 /// Wall-clock cost of one project's analysis. Diagnostic output only; never part of a report.
 type WorkspaceTiming =
@@ -100,8 +96,9 @@ module Workspace =
 
     /// The project's evaluated Release compiler invocation: ordered sources, references and the
     /// remaining compiler flags, before FDull's generated-source profile checks. Runs MSBuild's
-    /// Compile target with compiler execution skipped; nothing is compiled.
-    let evaluate root project =
+    /// Compile target with compiler execution skipped; nothing is compiled. `extraItems` are
+    /// further MSBuild items that `readExtra` reads from the same query.
+    let private evaluateWith root project (extraItems: string list) readExtra =
         let path = Path.Combine(root, project)
 
         let directory =
@@ -118,7 +115,8 @@ module Workspace =
               "-p:NonExistentFile=obj/fdull-export-never-created"
               "-p:BuildProjectReferences=false"
               "-p:FDullExport=true"
-              "-getItem:FscCommandLineArgs,ProjectReference,ReferencePath"
+              "-getItem:"
+              + String.Join(",", "FscCommandLineArgs" :: "ProjectReference" :: extraItems)
               "-getProperty:MSBuildAllProjects"
               "-m:1"
               "-nr:false"
@@ -157,22 +155,6 @@ module Workspace =
                     |> fun path -> Path.GetRelativePath(root, path).Replace('\\', '/'))
                 |> Seq.toList
 
-            let projectReferenceAssemblies =
-                document.RootElement.GetProperty("Items").GetProperty("ReferencePath").EnumerateArray()
-                |> Seq.filter (fun item ->
-                    match item.TryGetProperty "ReferenceSourceTarget" with
-                    | true, target -> target.GetString() = "ProjectReference"
-                    | _ -> false)
-                // The compiler reads the reference assembly when the project produces one.
-                |> Seq.map (fun item ->
-                    match item.TryGetProperty "ReferenceAssembly" with
-                    | true, reference when not (String.IsNullOrEmpty(reference.GetString())) -> reference
-                    | _ -> item.GetProperty "FullPath"
-                    |> fun path -> path.GetString()
-                    |> External.required "workspace.project-reference-assembly"
-                    |> full)
-                |> Seq.toList
-
             let sources =
                 arguments
                 |> List.filter (fun arg ->
@@ -201,14 +183,44 @@ module Workspace =
                     else
                         argument)
 
-            Ok
+            let extra = readExtra full (document.RootElement.GetProperty "Items")
+
+            Ok(
                 { Directory = directory
                   Sources = sources
                   References = references
                   Flags = flags
                   ProjectReferences = projectReferences
-                  ProjectReferenceAssemblies = projectReferenceAssemblies
-                  ImportedBuildInputs = importedBuildInputs }
+                  ImportedBuildInputs = importedBuildInputs },
+                extra
+            )
+
+    let evaluate root project =
+        evaluateWith root project [] (fun _ _ -> ()) |> Result.map fst
+
+    /// Evaluates the project and also returns the assemblies the compiler reads for the projects it
+    /// references directly: each reference assembly, else the output assembly. Projects the SDK adds
+    /// transitively carry the package id it resolved them under and are left out.
+    let evaluateWithDirectReferences root project =
+        evaluateWith root project [ "ReferencePath" ] (fun full items ->
+            let text (item: JsonElement) (name: string) =
+                match item.TryGetProperty name with
+                | true, value -> value.GetString() |> Option.ofObj |> Option.defaultValue ""
+                | _ -> ""
+
+            items.GetProperty("ReferencePath").EnumerateArray()
+            |> Seq.filter (fun item ->
+                text item "ReferenceSourceTarget" = "ProjectReference"
+                && text item "NuGetPackageId" = "")
+            // The compiler reads the reference assembly when the project produces one.
+            |> Seq.map (fun item ->
+                match text item "ReferenceAssembly" with
+                | "" ->
+                    item.GetProperty("FullPath").GetString()
+                    |> External.required "workspace.project-reference-assembly"
+                | reference -> reference
+                |> full)
+            |> Seq.toList)
 
     let export root project =
         match evaluate root project with

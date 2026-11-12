@@ -16,8 +16,9 @@ type CheckRule =
     /// ERR006: a throwing collection/Option access or a throwing System parser.
     | PartialAccess
 
+/// A selected rule violated in a selected source.
 type CheckFinding =
-    { Rule: string
+    { Rule: CheckRule
       File: string
       StartLine: int
       StartColumn: int
@@ -26,11 +27,21 @@ type CheckFinding =
       Symbol: string
       Message: string }
 
+/// Why a check could not complete: a compiler error, unsupported syntax or a suppressed warning.
+type CheckBlocker =
+    { Code: string
+      File: string
+      StartLine: int
+      StartColumn: int
+      EndLine: int
+      EndColumn: int
+      Message: string }
+
 type CheckOutcome =
     /// The request names no source, an unknown or unsupported rule, or a path the project does not compile.
     | Invalid of reason: string
     /// The selected rules could not be applied completely; findings so far are not a result.
-    | Incomplete of reason: string * blockers: CheckFinding list
+    | Incomplete of reason: string * blockers: CheckBlocker list
     | Clean
     | Violations of CheckFinding list
 
@@ -131,15 +142,96 @@ module RuleCheck =
           Symbol = symbol
           Message = message }
 
+    let private blocker directory code (r: range) message =
+        { Code = code
+          File = relative directory r.FileName
+          StartLine = max 1 r.StartLine
+          StartColumn = r.StartColumn + 1
+          EndLine = max 1 r.EndLine
+          EndColumn = r.EndColumn + 1
+          Message = message }
+
+    /// What an id the analyzer emits means for this check.
+    type private Emitted =
+        /// BUILD003: the analyzer could not classify the code, so the check is incomplete.
+        | Unclassified
+        | Selected of CheckRule
+        | Unselected
+
+    let private classify rules (id: string) =
+        if id = "BUILD003" then
+            Unclassified
+        else
+            match parseRule id with
+            | Some rule when List.contains rule rules -> Selected rule
+            | _ -> Unselected
+
+    /// FS0025, the compiler's incomplete-match warning, is how MODEL004 sees a missed case.
+    let private incompleteMatch = 25
+
+    let private suppressesIncompleteMatch (codes: string) =
+        codes.Replace(';', ',').Replace(' ', ',').Replace('"', ',').Split(',', StringSplitOptions.RemoveEmptyEntries)
+        |> Array.toList
+        |> List.exists (fun code ->
+            let digits =
+                if code.StartsWith("FS", StringComparison.OrdinalIgnoreCase) then
+                    code.Substring 2
+                else
+                    code
+
+            match Int32.TryParse digits with
+            | true, number -> number = incompleteMatch
+            | _ -> false)
+
+    /// The project's own flags, except that FS0025 stays enabled at a level that reports it.
+    let private caseCoverageFlags (flags: string list) =
+        flags
+        |> List.choose (fun flag ->
+            if flag.StartsWith("--nowarn:", StringComparison.Ordinal) then
+                let kept =
+                    flag.Substring(9).Split(',', StringSplitOptions.RemoveEmptyEntries)
+                    |> Array.toList
+                    |> List.filter (suppressesIncompleteMatch >> not)
+
+                if kept.IsEmpty then
+                    None
+                else
+                    Some("--nowarn:" + String.Join(",", kept))
+            elif flag.StartsWith("--warn:", StringComparison.Ordinal) then
+                match Int32.TryParse(flag.Substring 7) with
+                | true, level when level < 3 -> Some "--warn:3"
+                | _ -> Some flag
+            else
+                Some flag)
+
+    /// Lines of a selected source whose #nowarn directive turns FS0025 off.
+    let private suppressedIncompleteMatches (source: string) =
+        source.Split('\n')
+        |> Array.toList
+        |> List.indexed
+        |> List.filter (fun (_, line) ->
+            let text = line.TrimStart()
+
+            text.StartsWith("#nowarn", StringComparison.Ordinal)
+            && suppressesIncompleteMatch (text.Substring 7))
+        |> List.map (fun (index, line) -> index + 1, line.Trim())
+
     let private checker = lazy (FSharpChecker.Create(keepAssemblyContents = true))
 
     /// Type-check the evaluated project and apply `rules` to `selected`. Every expected failure is an
     /// Incomplete outcome; `run` reports an exception from the compiler or analyzer the same way.
-    let private analyze projectFile (evaluated: EvaluatedInvocation) (selected: string list) (rules: CheckRule list) =
+    /// `referencedAssemblies` are the compiler inputs of the projects the project references directly.
+    let private analyze
+        project
+        (evaluated: EvaluatedInvocation)
+        (referencedAssemblies: string list)
+        (selected: string list)
+        (rules: CheckRule list)
+        =
         let directory = evaluated.Directory
-        let project = Path.GetFullPath projectFile
         let inputs = project :: evaluated.Sources @ evaluated.References
         let missing = inputs |> List.filter (File.Exists >> not)
+        let coverage = List.contains CaseCoverage rules
 
         let incomplete reason = Incomplete(reason, [])
 
@@ -163,8 +255,14 @@ module RuleCheck =
                     milliseconds = 600000
                 )
 
+            let flags =
+                if coverage then
+                    caseCoverageFlags evaluated.Flags
+                else
+                    evaluated.Flags
+
             let options =
-                checker.Value.GetProjectOptionsFromCommandLineArgs(project, List.toArray evaluated.Flags)
+                checker.Value.GetProjectOptionsFromCommandLineArgs(project, List.toArray flags)
 
             let options =
                 { options with
@@ -176,7 +274,7 @@ module RuleCheck =
             if options.IsIncompleteTypeCheckEnvironment || not optionErrors.IsEmpty then
                 incomplete "FCS could not load the project's compiler options."
             else
-                let blockers = ResizeArray<CheckFinding>()
+                let blockers = ResizeArray<CheckBlocker>()
 
                 let syntax =
                     selected
@@ -188,27 +286,57 @@ module RuleCheck =
                             |> fun work -> Async.RunSynchronously(work, budget.RemainingMilliseconds)
 
                         let inspected =
-                            SafetySyntax.inspect budget file source parsed.ParseTree (fun rule r symbol message _ ->
-                                if rule = "BUILD003" then
-                                    blockers.Add(finding directory rule r symbol message))
+                            SafetySyntax.inspect budget file source parsed.ParseTree (fun id r _ message _ ->
+                                match classify rules id with
+                                | Unclassified -> blockers.Add(blocker directory id r message)
+                                | Selected _
+                                | Unselected -> ())
 
                         file, inspected)
                     |> Map.ofList
+
+                let suppressions =
+                    if coverage then
+                        selected
+                        |> List.collect (fun file ->
+                            suppressedIncompleteMatches (File.ReadAllText file)
+                            |> List.map (fun (line, directive) ->
+                                { Code = "FS0025"
+                                  File = relative directory file
+                                  StartLine = line
+                                  StartColumn = 1
+                                  EndLine = line
+                                  EndColumn = 1
+                                  Message = "MODEL004 needs the incomplete-match warning; remove " + directive + "." }))
+                    else
+                        []
 
                 let result =
                     checker.Value.ParseAndCheckProject options
                     |> fun work -> Async.RunSynchronously(work, budget.RemainingMilliseconds)
 
-                let errors =
+                let selectedFiles = Set.ofList selected
+
+                // A missed case in a selected file is a MODEL004 finding, whether the project reports
+                // FS0025 as a warning or, with warnings as errors, as an error.
+                let missedCases, otherDiagnostics =
                     result.Diagnostics
-                    |> Array.filter (fun diagnostic -> diagnostic.Severity = FSharpDiagnosticSeverity.Error)
                     |> Array.toList
+                    |> List.partition (fun diagnostic ->
+                        let r = diagnostic.Range
+
+                        coverage
+                        && diagnostic.ErrorNumber = incompleteMatch
+                        && Set.contains r.FileName selectedFiles)
+
+                let errors =
+                    otherDiagnostics
+                    |> List.filter (fun diagnostic -> diagnostic.Severity = FSharpDiagnosticSeverity.Error)
                     |> List.map (fun diagnostic ->
-                        finding
+                        blocker
                             directory
                             ("FS" + diagnostic.ErrorNumber.ToString("0000"))
                             diagnostic.Range
-                            ""
                             diagnostic.Message)
 
                 let implementations =
@@ -219,6 +347,8 @@ module RuleCheck =
 
                 if result.HasCriticalErrors || not errors.IsEmpty then
                     Incomplete("Compiler errors prevented complete analysis.", List.truncate 50 errors)
+                elif not suppressions.IsEmpty then
+                    Incomplete("A selected source turns off the incomplete-match warning.", suppressions)
                 elif blockers.Count > 0 then
                     Incomplete("Unsupported syntax in a selected source.", List.ofSeq blockers)
                 elif
@@ -228,10 +358,7 @@ module RuleCheck =
                     incomplete "The compiler did not return every selected implementation file."
                 else
                     let projectSources = Set.ofList evaluated.Sources
-
-                    let referencedAssemblies = Set.ofList evaluated.ProjectReferenceAssemblies
-                    let ids = rules |> List.map ruleId |> Set.ofList
-                    let selectedFiles = Set.ofList selected
+                    let referenced = Set.ofList referencedAssemblies
                     let findings = ResizeArray<CheckFinding>()
 
                     // Unions declared anywhere in the project, or in a project it references
@@ -242,7 +369,7 @@ module RuleCheck =
                         entity.IsFSharpUnion
                         && (Set.contains declaration.FileName projectSources
                             || entity.Assembly.FileName
-                               |> Option.exists (fun file -> Set.contains (Path.GetFullPath file) referencedAssemblies))
+                               |> Option.exists (fun file -> Set.contains (Path.GetFullPath file) referenced))
 
                     let context =
                         { SafetyContext.application with
@@ -256,29 +383,30 @@ module RuleCheck =
                         selectedFiles
                         result
                         syntax
-                        (fun rule r symbol message _ _ ->
-                            if rule = "BUILD003" then
-                                blockers.Add(finding directory rule r symbol message)
-                            elif Set.contains rule ids && Set.contains r.FileName selectedFiles then
-                                findings.Add(finding directory rule r symbol message))
+                        (fun id r symbol message _ _ ->
+                            match classify rules id with
+                            | Unclassified -> blockers.Add(blocker directory id r message)
+                            | Selected rule when Set.contains r.FileName selectedFiles ->
+                                findings.Add(finding directory rule r symbol message)
+                            | Selected _
+                            | Unselected -> ())
 
-                    // The compiler's incomplete-match warning is the case-coverage failure that a
-                    // project without warnings-as-errors would otherwise only display.
-                    if List.contains CaseCoverage rules then
-                        for diagnostic in result.Diagnostics do
-                            let r = diagnostic.Range
-
-                            if diagnostic.ErrorNumber = 25 && Set.contains r.FileName selectedFiles then
-                                findings.Add(
-                                    finding directory "MODEL004" r "FS0025" ("Incomplete match: " + diagnostic.Message)
-                                )
+                    let missed =
+                        missedCases
+                        |> List.map (fun diagnostic ->
+                            finding
+                                directory
+                                CaseCoverage
+                                diagnostic.Range
+                                "FS0025"
+                                ("Incomplete match: " + diagnostic.Message))
 
                     let after = inputs |> List.map SafetyPolicy.fileDigest
 
                     let ordered =
-                        findings
+                        Seq.append findings missed
                         |> Seq.distinct
-                        |> Seq.sortBy (fun item -> item.File, item.StartLine, item.StartColumn, item.Rule)
+                        |> Seq.sortBy (fun item -> item.File, item.StartLine, item.StartColumn, ruleId item.Rule)
                         |> Seq.toList
 
                     if after <> before then
@@ -316,7 +444,7 @@ module RuleCheck =
                     Path.GetFileName project
                     |> FDull.Transport.External.required "check.project-file"
 
-                match Workspace.evaluate directory file with
+                match Workspace.evaluateWithDirectReferences directory file with
                 | Error error ->
                     let detail =
                         if error.Length > 4000 then
@@ -325,11 +453,11 @@ module RuleCheck =
                             error
 
                     report [] rules (Incomplete("MSBuild could not evaluate the project: " + detail, []))
-                | Ok evaluated ->
+                | Ok(evaluated, referencedAssemblies) ->
                     match select directory evaluated.Sources selectors with
                     | Error reason -> report [] rules (Invalid reason)
                     | Ok selected ->
-                        analyze project evaluated selected rules
+                        analyze project evaluated referencedAssemblies selected rules
                         |> report (selected |> List.map (relative directory)) rules
             with error ->
                 report [] rules (Incomplete("Check failed: " + error.Message, []))

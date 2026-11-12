@@ -177,13 +177,13 @@
       "File": "src/FDull/Workspace.fs",
       "Project": "src/FDull/FDull.fsproj",
       "Profile": "GUARD_TOOLING",
-      "Digest": "sha256:014975a8214576f2203f0b7b1469b81358c7303a43a766229986d8e4427b797e"
+      "Digest": "sha256:354872b3730721ed178d0221cc5234268309aad0b97220ccddd6c9c0d0ffbc55"
     },
     {
       "File": "src/FDull/RuleCheck.fs",
       "Project": "src/FDull/FDull.fsproj",
       "Profile": "GUARD_TOOLING",
-      "Digest": "sha256:70b609a4dd84a607712b1eea96ff692ebc843ed016a97a0f059e3fce2f5e7703"
+      "Digest": "sha256:0fbfc3ad9f392ca0940b104a13f9465df2f722d68e67cc5f82e433ad827403cf"
     },
     {
       "File": "src/FDull/Safety.fs",
@@ -207,7 +207,7 @@
       "File": "src/FDull.Tool/Program.fs",
       "Project": "src/FDull.Tool/FDull.Tool.fsproj",
       "Profile": "GUARD_TOOLING",
-      "Digest": "sha256:838d0d2a6e51333cf247358447d433fe9786251e9db129dbf049f858265a2d04"
+      "Digest": "sha256:a039ac74c736597c54475ee4be1201e72f52fecc9926abea288d5aee879530a0"
     },
     {
       "File": "src/FDull.Worker/Program.fs",
@@ -273,7 +273,7 @@
       "File": "tests/FDull.Tests/CheckTests.fs",
       "Project": "tests/FDull.Tests/FDull.Tests.fsproj",
       "Profile": "TEST",
-      "Digest": "sha256:dd8fc3ad525cef4dd17d443c2d326ece71a8a08bd87f37daea6e3dc9beb2072b"
+      "Digest": "sha256:efd2e0e83f84efe3711299193122d3245155b422d1363da0cf96b4dddb45ec23"
     },
     {
       "File": "tests/FDull.Tests/Program.fs",
@@ -1985,42 +1985,42 @@
     },
     {
       "File": "src/FDull/Workspace.fs",
-      "Owner": "FDull.Workspace.evaluate",
+      "Owner": "FDull.Workspace.evaluateWith",
       "Kind": "member",
       "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.ArrayModule.Distinct``1(``0[])",
       "Reason": "Bounded MSBuild JSON import-list normalization; immutable array transforms and null-aware optional property parsing only."
     },
     {
       "File": "src/FDull/Workspace.fs",
-      "Owner": "FDull.Workspace.evaluate",
+      "Owner": "FDull.Workspace.evaluateWith",
       "Kind": "member",
       "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.ArrayModule.Map``2(Microsoft.FSharp.Core.FSharpFunc{``0,``1},``0[])",
       "Reason": "Bounded MSBuild JSON import-list normalization; immutable array transforms and null-aware optional property parsing only."
     },
     {
       "File": "src/FDull/Workspace.fs",
-      "Owner": "FDull.Workspace.evaluate",
+      "Owner": "FDull.Workspace.evaluateWith",
       "Kind": "member",
       "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.ArrayModule.Sort``1(``0[])",
       "Reason": "Bounded MSBuild JSON import-list normalization; immutable array transforms and null-aware optional property parsing only."
     },
     {
       "File": "src/FDull/Workspace.fs",
-      "Owner": "FDull.Workspace.evaluate",
+      "Owner": "FDull.Workspace.evaluateWith",
       "Kind": "member",
       "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.ArrayModule.ToList``1(``0[])",
       "Reason": "Bounded MSBuild JSON import-list normalization; immutable array transforms and null-aware optional property parsing only."
     },
     {
       "File": "src/FDull/Workspace.fs",
-      "Owner": "FDull.Workspace.evaluate",
+      "Owner": "FDull.Workspace.evaluateWith",
       "Kind": "member",
       "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Core.OptionModule.OfObj``1(``0)",
       "Reason": "Bounded MSBuild JSON import-list normalization; immutable array transforms and null-aware optional property parsing only."
     },
     {
       "File": "src/FDull/Workspace.fs",
-      "Owner": "FDull.Workspace.evaluate",
+      "Owner": "FDull.Workspace.evaluateWith",
       "Kind": "member",
       "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | M:System.String.Split(System.Char,System.StringSplitOptions)",
       "Reason": "Bounded MSBuild JSON import-list normalization; immutable array transforms and null-aware optional property parsing only."
@@ -9209,42 +9209,42 @@
     },
     {
       "File": "src/FDull/Workspace.fs",
-      "Owner": "FDull.Workspace.evaluate",
+      "Owner": "FDull.Workspace.evaluateWith",
       "Kind": "member",
       "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.SeqModule.Map``2(Microsoft.FSharp.Core.FSharpFunc{``0,``1},System.Collections.Generic.IEnumerable{``0})",
       "Reason": "Workspace authority validates exact reviewed sources, graph and compiler flags, binds build/reference/policy inputs, and rejects incomplete or changed worker responses. Exceptions remain failed checks."
     },
     {
       "File": "src/FDull/Workspace.fs",
-      "Owner": "FDull.Workspace.evaluate",
+      "Owner": "FDull.Workspace.evaluateWith",
       "Kind": "member",
       "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.SeqModule.ToList``1(System.Collections.Generic.IEnumerable{``0})",
       "Reason": "Workspace authority validates exact reviewed sources, graph and compiler flags, binds build/reference/policy inputs, and rejects incomplete or changed worker responses. Exceptions remain failed checks."
     },
     {
       "File": "src/FDull/Workspace.fs",
-      "Owner": "FDull.Workspace.evaluate",
+      "Owner": "FDull.Workspace.evaluateWith",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.Combine(System.String,System.String)",
       "Reason": "Workspace authority validates exact reviewed sources, graph and compiler flags, binds build/reference/policy inputs, and rejects incomplete or changed worker responses. Exceptions remain failed checks."
     },
     {
       "File": "src/FDull/Workspace.fs",
-      "Owner": "FDull.Workspace.evaluate",
+      "Owner": "FDull.Workspace.evaluateWith",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.GetDirectoryName(System.String)",
       "Reason": "Workspace authority validates exact reviewed sources, graph and compiler flags, binds build/reference/policy inputs, and rejects incomplete or changed worker responses. Exceptions remain failed checks."
     },
     {
       "File": "src/FDull/Workspace.fs",
-      "Owner": "FDull.Workspace.evaluate",
+      "Owner": "FDull.Workspace.evaluateWith",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.GetExtension(System.String)",
       "Reason": "Workspace authority validates exact reviewed sources, graph and compiler flags, binds build/reference/policy inputs, and rejects incomplete or changed worker responses. Exceptions remain failed checks."
     },
     {
       "File": "src/FDull/Workspace.fs",
-      "Owner": "FDull.Workspace.evaluate",
+      "Owner": "FDull.Workspace.evaluateWith",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.GetFullPath(System.String,System.String)",
       "Reason": "Workspace authority validates exact reviewed sources, graph and compiler flags, binds build/reference/policy inputs, and rejects incomplete or changed worker responses. Exceptions remain failed checks."
@@ -9258,35 +9258,35 @@
     },
     {
       "File": "src/FDull/Workspace.fs",
-      "Owner": "FDull.Workspace.evaluate",
+      "Owner": "FDull.Workspace.evaluateWith",
       "Kind": "member",
       "Identity": "System.Text.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | M:System.Text.Json.JsonDocument.Parse(System.String,System.Text.Json.JsonDocumentOptions)",
       "Reason": "Workspace authority validates exact reviewed sources, graph and compiler flags, binds build/reference/policy inputs, and rejects incomplete or changed worker responses. Exceptions remain failed checks."
     },
     {
       "File": "src/FDull/Workspace.fs",
-      "Owner": "FDull.Workspace.evaluate",
+      "Owner": "FDull.Workspace.evaluateWith",
       "Kind": "member",
       "Identity": "System.Text.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | M:System.Text.Json.JsonElement.EnumerateArray",
       "Reason": "Workspace authority validates exact reviewed sources, graph and compiler flags, binds build/reference/policy inputs, and rejects incomplete or changed worker responses. Exceptions remain failed checks."
     },
     {
       "File": "src/FDull/Workspace.fs",
-      "Owner": "FDull.Workspace.evaluate",
+      "Owner": "FDull.Workspace.evaluateWith",
       "Kind": "member",
       "Identity": "System.Text.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | M:System.Text.Json.JsonElement.GetProperty(System.String)",
       "Reason": "Workspace authority validates exact reviewed sources, graph and compiler flags, binds build/reference/policy inputs, and rejects incomplete or changed worker responses. Exceptions remain failed checks."
     },
     {
       "File": "src/FDull/Workspace.fs",
-      "Owner": "FDull.Workspace.evaluate",
+      "Owner": "FDull.Workspace.evaluateWith",
       "Kind": "member",
       "Identity": "System.Text.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | M:System.Text.Json.JsonElement.GetString",
       "Reason": "Workspace authority validates exact reviewed sources, graph and compiler flags, binds build/reference/policy inputs, and rejects incomplete or changed worker responses. Exceptions remain failed checks."
     },
     {
       "File": "src/FDull/Workspace.fs",
-      "Owner": "FDull.Workspace.evaluate",
+      "Owner": "FDull.Workspace.evaluateWith",
       "Kind": "member",
       "Identity": "System.Text.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | P:System.Text.Json.JsonDocument.RootElement",
       "Reason": "Workspace authority validates exact reviewed sources, graph and compiler flags, binds build/reference/policy inputs, and rejects incomplete or changed worker responses. Exceptions remain failed checks."
@@ -9300,28 +9300,28 @@
     },
     {
       "File": "src/FDull/Workspace.fs",
-      "Owner": "FDull.Workspace.evaluate",
+      "Owner": "FDull.Workspace.evaluateWith",
       "Kind": "rule",
       "Identity": "ERR009 | ",
       "Reason": "Workspace authority validates exact reviewed sources, graph and compiler flags, binds build/reference/policy inputs, and rejects incomplete or changed worker responses. Exceptions remain failed checks."
     },
     {
       "File": "src/FDull/Workspace.fs",
-      "Owner": "FDull.Workspace.evaluate",
+      "Owner": "FDull.Workspace.evaluateWith",
       "Kind": "type",
       "Identity": "System.Text.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | System.Text.Json.JsonDocument",
       "Reason": "Workspace authority validates exact reviewed sources, graph and compiler flags, binds build/reference/policy inputs, and rejects incomplete or changed worker responses. Exceptions remain failed checks."
     },
     {
       "File": "src/FDull/Workspace.fs",
-      "Owner": "FDull.Workspace.evaluate",
+      "Owner": "FDull.Workspace.evaluateWith",
       "Kind": "type",
       "Identity": "System.Text.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | System.Text.Json.JsonElement",
       "Reason": "Workspace authority validates exact reviewed sources, graph and compiler flags, binds build/reference/policy inputs, and rejects incomplete or changed worker responses. Exceptions remain failed checks."
     },
     {
       "File": "src/FDull/Workspace.fs",
-      "Owner": "FDull.Workspace.evaluate",
+      "Owner": "FDull.Workspace.evaluateWith",
       "Kind": "type",
       "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | System.Collections.Generic.IEnumerable`1",
       "Reason": "Workspace authority validates exact reviewed sources, graph and compiler flags, binds build/reference/policy inputs, and rejects incomplete or changed worker responses. Exceptions remain failed checks."
@@ -29670,27 +29670,6 @@
     },
     {
       "File": "src/FDull.Tool/Program.fs",
-      "Owner": "FDull.Tool.CheckOutput",
-      "Kind": "type",
-      "Identity": "FDull, Version=0.3.0.0, Culture=neutral, PublicKeyToken=null | FDull.CheckFinding",
-      "Reason": "CLI output record for fdull check; carries immutable check findings into JSON and text output."
-    },
-    {
-      "File": "src/FDull.Tool/Program.fs",
-      "Owner": "FDull.Tool.Program.checkOptions",
-      "Kind": "member",
-      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.FSharpMap`2.Add(`0,`1)",
-      "Reason": "Parses check arguments into a map so --rules and --format each appear once; repeats and unknown options print usage."
-    },
-    {
-      "File": "src/FDull.Tool/Program.fs",
-      "Owner": "FDull.Tool.Program.checkOptions",
-      "Kind": "member",
-      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.FSharpMap`2.ContainsKey(`0)",
-      "Reason": "Parses check arguments into a map so --rules and --format each appear once; repeats and unknown options print usage."
-    },
-    {
-      "File": "src/FDull.Tool/Program.fs",
       "Owner": "FDull.Tool.Program.displayCheck",
       "Kind": "member",
       "Identity": "FDull, Version=0.3.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.RuleCheck.claim(FDull.CheckReport)",
@@ -29910,13 +29889,6 @@
       "File": "src/FDull/RuleCheck.fs",
       "Owner": "FDull.RuleCheck.analyze",
       "Kind": "member",
-      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.ArrayModule.Filter``1(Microsoft.FSharp.Core.FSharpFunc{``0,System.Boolean},``0[])",
-      "Reason": "Scoped check boundary: type-checks the MSBuild-evaluated project once with its real flags through FCS, reads only selected sources for syntax, records blockers and findings in local buffers, digests inputs before and after, and copies the application safety context with a project-union domain predicate. Every failure becomes Incomplete; the caller owns exceptions."
-    },
-    {
-      "File": "src/FDull/RuleCheck.fs",
-      "Owner": "FDull.RuleCheck.analyze",
-      "Kind": "member",
       "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.ArrayModule.ToList``1(``0[])",
       "Reason": "Scoped check boundary: type-checks the MSBuild-evaluated project once with its real flags through FCS, reads only selected sources for syntax, records blockers and findings in local buffers, digests inputs before and after, and copies the application safety context with a project-union domain predicate. Every failure becomes Incomplete; the caller owns exceptions."
     },
@@ -30093,13 +30065,6 @@
       "Owner": "FDull.RuleCheck.analyze",
       "Kind": "rule",
       "Identity": "EFFECT003 | context.Type",
-      "Reason": "Scoped check boundary: type-checks the MSBuild-evaluated project once with its real flags through FCS, reads only selected sources for syntax, records blockers and findings in local buffers, digests inputs before and after, and copies the application safety context with a project-union domain predicate. Every failure becomes Incomplete; the caller owns exceptions."
-    },
-    {
-      "File": "src/FDull/RuleCheck.fs",
-      "Owner": "FDull.RuleCheck.analyze",
-      "Kind": "rule",
-      "Identity": "MUT009 | ",
       "Reason": "Scoped check boundary: type-checks the MSBuild-evaluated project once with its real flags through FCS, reads only selected sources for syntax, records blockers and findings in local buffers, digests inputs before and after, and copies the application safety context with a project-union domain predicate. Every failure becomes Incomplete; the caller owns exceptions."
     },
     {
@@ -30447,28 +30412,14 @@
     },
     {
       "File": "src/FDull/Workspace.fs",
-      "Owner": "FDull.Workspace.evaluate",
-      "Kind": "member",
-      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.SeqModule.Filter``1(Microsoft.FSharp.Core.FSharpFunc{``0,System.Boolean},System.Collections.Generic.IEnumerable{``0})",
-      "Reason": "Bounded MSBuild JSON parsing shared by strict export and fdull check: reads compiler arguments, project references and each referenced project's resolved reference assembly path from ReferencePath metadata."
-    },
-    {
-      "File": "src/FDull/Workspace.fs",
-      "Owner": "FDull.Workspace.evaluate",
+      "Owner": "FDull.Workspace.evaluateWith",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.GetRelativePath(System.String,System.String)",
       "Reason": "Bounded MSBuild JSON parsing shared by strict export and fdull check: reads compiler arguments, project references and each referenced project's resolved reference assembly path from ReferencePath metadata."
     },
     {
       "File": "src/FDull/Workspace.fs",
-      "Owner": "FDull.Workspace.evaluate",
-      "Kind": "member",
-      "Identity": "System.Text.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | M:System.Text.Json.JsonElement.TryGetProperty(System.String,System.Text.Json.JsonElement@)",
-      "Reason": "Bounded MSBuild JSON parsing shared by strict export and fdull check: reads compiler arguments, project references and each referenced project's resolved reference assembly path from ReferencePath metadata."
-    },
-    {
-      "File": "src/FDull/Workspace.fs",
-      "Owner": "FDull.Workspace.evaluate",
+      "Owner": "FDull.Workspace.evaluateWith",
       "Kind": "member",
       "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | M:System.String.Replace(System.Char,System.Char)",
       "Reason": "Bounded MSBuild JSON parsing shared by strict export and fdull check: reads compiler arguments, project references and each referenced project's resolved reference assembly path from ReferencePath metadata."
@@ -30478,21 +30429,21 @@
       "Owner": "FDull.Tests.CheckTests.``check fails a new union case missed by a selected explicit match``",
       "Kind": "attribute",
       "Identity": "xunit.core, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | Xunit.FactAttribute |  | unit",
-      "Reason": "Adds a union case and asserts the selected explicit match fails under MODEL004 only."
+      "Reason": "Adds a union case and asserts MODEL004 reports the missed case even when the project suppresses FS0025, lowers the warning level or treats warnings as errors, and that a #nowarn in the selected file blocks the check."
     },
     {
       "File": "tests/FDull.Tests/CheckTests.fs",
       "Owner": "FDull.Tests.CheckTests.``check fails a new union case missed by a selected explicit match``",
       "Kind": "member",
       "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Equal``1(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IAsyncEnumerable{``0})",
-      "Reason": "Adds a union case and asserts the selected explicit match fails under MODEL004 only."
+      "Reason": "Adds a union case and asserts MODEL004 reports the missed case even when the project suppresses FS0025, lowers the warning level or treats warnings as errors, and that a #nowarn in the selected file blocks the check."
     },
     {
       "File": "tests/FDull.Tests/CheckTests.fs",
       "Owner": "FDull.Tests.CheckTests.``check fails a new union case missed by a selected explicit match``",
       "Kind": "member",
       "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Equal``1(``0,``0)",
-      "Reason": "Adds a union case and asserts the selected explicit match fails under MODEL004 only."
+      "Reason": "Adds a union case and asserts MODEL004 reports the missed case even when the project suppresses FS0025, lowers the warning level or treats warnings as errors, and that a #nowarn in the selected file blocks the check."
     },
     {
       "File": "tests/FDull.Tests/CheckTests.fs",
@@ -30969,6 +30920,251 @@
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.GetDirectoryName(System.String)",
       "Reason": "Writes one fixture file under the temporary workspace."
+    },
+    {
+      "File": "src/FDull.Tool/Program.fs",
+      "Owner": "FDull.Tool.Program.displayCheck",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.3.0.0, Culture=neutral, PublicKeyToken=null | FDull.CheckBlocker",
+      "Reason": "Writes one check report as JSON or text to standard output and returns its exit code."
+    },
+    {
+      "File": "src/FDull/RuleCheck.fs",
+      "Owner": "FDull.RuleCheck.analyze",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.SeqModule.Append``1(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``0})",
+      "Reason": "Scoped check boundary: type-checks the MSBuild-evaluated project once with its real flags through FCS, reads only selected sources for syntax, records blockers and findings in local buffers, digests inputs before and after, and copies the application safety context with a project-union domain predicate. Every failure becomes Incomplete; the caller owns exceptions."
+    },
+    {
+      "File": "src/FDull/RuleCheck.fs",
+      "Owner": "FDull.RuleCheck.blocker",
+      "Kind": "member",
+      "Identity": "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:FSharp.Compiler.Text.Range.EndColumn",
+      "Reason": "Copies an FCS range into an immutable blocker with a project-relative file and one-based columns."
+    },
+    {
+      "File": "src/FDull/RuleCheck.fs",
+      "Owner": "FDull.RuleCheck.blocker",
+      "Kind": "member",
+      "Identity": "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:FSharp.Compiler.Text.Range.EndLine",
+      "Reason": "Copies an FCS range into an immutable blocker with a project-relative file and one-based columns."
+    },
+    {
+      "File": "src/FDull/RuleCheck.fs",
+      "Owner": "FDull.RuleCheck.blocker",
+      "Kind": "member",
+      "Identity": "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:FSharp.Compiler.Text.Range.FileName",
+      "Reason": "Copies an FCS range into an immutable blocker with a project-relative file and one-based columns."
+    },
+    {
+      "File": "src/FDull/RuleCheck.fs",
+      "Owner": "FDull.RuleCheck.blocker",
+      "Kind": "member",
+      "Identity": "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:FSharp.Compiler.Text.Range.StartColumn",
+      "Reason": "Copies an FCS range into an immutable blocker with a project-relative file and one-based columns."
+    },
+    {
+      "File": "src/FDull/RuleCheck.fs",
+      "Owner": "FDull.RuleCheck.blocker",
+      "Kind": "member",
+      "Identity": "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:FSharp.Compiler.Text.Range.StartLine",
+      "Reason": "Copies an FCS range into an immutable blocker with a project-relative file and one-based columns."
+    },
+    {
+      "File": "src/FDull/RuleCheck.fs",
+      "Owner": "FDull.RuleCheck.blocker",
+      "Kind": "type",
+      "Identity": "FSharp.Compiler.Service, Version=43.12.201.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | FSharp.Compiler.Text.Range",
+      "Reason": "Copies an FCS range into an immutable blocker with a project-relative file and one-based columns."
+    },
+    {
+      "File": "src/FDull/RuleCheck.fs",
+      "Owner": "FDull.RuleCheck.caseCoverageFlags",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.ArrayModule.ToList``1(``0[])",
+      "Reason": "Keeps the project's compiler flags except that FS0025 is not suppressed and the warning level reports it, so MODEL004 cannot pass a missed case the project hides."
+    },
+    {
+      "File": "src/FDull/RuleCheck.fs",
+      "Owner": "FDull.RuleCheck.caseCoverageFlags",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.Int32.TryParse(System.String,System.Int32@)",
+      "Reason": "Keeps the project's compiler flags except that FS0025 is not suppressed and the warning level reports it, so MODEL004 cannot pass a missed case the project hides."
+    },
+    {
+      "File": "src/FDull/RuleCheck.fs",
+      "Owner": "FDull.RuleCheck.caseCoverageFlags",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.String.Join(System.String,System.Collections.Generic.IEnumerable{System.String})",
+      "Reason": "Keeps the project's compiler flags except that FS0025 is not suppressed and the warning level reports it, so MODEL004 cannot pass a missed case the project hides."
+    },
+    {
+      "File": "src/FDull/RuleCheck.fs",
+      "Owner": "FDull.RuleCheck.caseCoverageFlags",
+      "Kind": "member",
+      "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | M:System.String.Split(System.Char,System.StringSplitOptions)",
+      "Reason": "Keeps the project's compiler flags except that FS0025 is not suppressed and the warning level reports it, so MODEL004 cannot pass a missed case the project hides."
+    },
+    {
+      "File": "src/FDull/RuleCheck.fs",
+      "Owner": "FDull.RuleCheck.suppressedIncompleteMatches",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.ArrayModule.ToList``1(``0[])",
+      "Reason": "Finds #nowarn directives naming FS0025 in a selected source so the check is incomplete instead of passing."
+    },
+    {
+      "File": "src/FDull/RuleCheck.fs",
+      "Owner": "FDull.RuleCheck.suppressedIncompleteMatches",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.ListModule.Indexed``1(Microsoft.FSharp.Collections.FSharpList{``0})",
+      "Reason": "Finds #nowarn directives naming FS0025 in a selected source so the check is incomplete instead of passing."
+    },
+    {
+      "File": "src/FDull/RuleCheck.fs",
+      "Owner": "FDull.RuleCheck.suppressedIncompleteMatches",
+      "Kind": "member",
+      "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | M:System.String.Split(System.Char,System.StringSplitOptions)",
+      "Reason": "Finds #nowarn directives naming FS0025 in a selected source so the check is incomplete instead of passing."
+    },
+    {
+      "File": "src/FDull/RuleCheck.fs",
+      "Owner": "FDull.RuleCheck.suppressesIncompleteMatch",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.ArrayModule.ToList``1(``0[])",
+      "Reason": "Decides whether a list of warning codes names FS0025, with or without the FS prefix."
+    },
+    {
+      "File": "src/FDull/RuleCheck.fs",
+      "Owner": "FDull.RuleCheck.suppressesIncompleteMatch",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.Int32.TryParse(System.String,System.Int32@)",
+      "Reason": "Decides whether a list of warning codes names FS0025, with or without the FS prefix."
+    },
+    {
+      "File": "src/FDull/RuleCheck.fs",
+      "Owner": "FDull.RuleCheck.suppressesIncompleteMatch",
+      "Kind": "member",
+      "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | M:System.String.Replace(System.Char,System.Char)",
+      "Reason": "Decides whether a list of warning codes names FS0025, with or without the FS prefix."
+    },
+    {
+      "File": "src/FDull/RuleCheck.fs",
+      "Owner": "FDull.RuleCheck.suppressesIncompleteMatch",
+      "Kind": "member",
+      "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | M:System.String.Split(System.Char,System.StringSplitOptions)",
+      "Reason": "Decides whether a list of warning codes names FS0025, with or without the FS prefix."
+    },
+    {
+      "File": "src/FDull/Workspace.fs",
+      "Owner": "FDull.Workspace.evaluateWith",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.String.Join(System.String,System.Collections.Generic.IEnumerable{System.String})",
+      "Reason": "Shared MSBuild compiler-invocation query; strict export requests the same items as before and fdull check adds ReferencePath through the same bounded run."
+    },
+    {
+      "File": "src/FDull/Workspace.fs",
+      "Owner": "FDull.Workspace.evaluateWithDirectReferences",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.SeqModule.Filter``1(Microsoft.FSharp.Core.FSharpFunc{``0,System.Boolean},System.Collections.Generic.IEnumerable{``0})",
+      "Reason": "Reads ReferencePath metadata for projects referenced directly, excluding SDK-added transitive projects by their package id; a direct reference without a path fails the check."
+    },
+    {
+      "File": "src/FDull/Workspace.fs",
+      "Owner": "FDull.Workspace.evaluateWithDirectReferences",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.SeqModule.Map``2(Microsoft.FSharp.Core.FSharpFunc{``0,``1},System.Collections.Generic.IEnumerable{``0})",
+      "Reason": "Reads ReferencePath metadata for projects referenced directly, excluding SDK-added transitive projects by their package id; a direct reference without a path fails the check."
+    },
+    {
+      "File": "src/FDull/Workspace.fs",
+      "Owner": "FDull.Workspace.evaluateWithDirectReferences",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.SeqModule.ToList``1(System.Collections.Generic.IEnumerable{``0})",
+      "Reason": "Reads ReferencePath metadata for projects referenced directly, excluding SDK-added transitive projects by their package id; a direct reference without a path fails the check."
+    },
+    {
+      "File": "src/FDull/Workspace.fs",
+      "Owner": "FDull.Workspace.evaluateWithDirectReferences",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Core.OptionModule.OfObj``1(``0)",
+      "Reason": "Reads ReferencePath metadata for projects referenced directly, excluding SDK-added transitive projects by their package id; a direct reference without a path fails the check."
+    },
+    {
+      "File": "src/FDull/Workspace.fs",
+      "Owner": "FDull.Workspace.evaluateWithDirectReferences",
+      "Kind": "member",
+      "Identity": "System.Text.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | M:System.Text.Json.JsonElement.EnumerateArray",
+      "Reason": "Reads ReferencePath metadata for projects referenced directly, excluding SDK-added transitive projects by their package id; a direct reference without a path fails the check."
+    },
+    {
+      "File": "src/FDull/Workspace.fs",
+      "Owner": "FDull.Workspace.evaluateWithDirectReferences",
+      "Kind": "member",
+      "Identity": "System.Text.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | M:System.Text.Json.JsonElement.GetProperty(System.String)",
+      "Reason": "Reads ReferencePath metadata for projects referenced directly, excluding SDK-added transitive projects by their package id; a direct reference without a path fails the check."
+    },
+    {
+      "File": "src/FDull/Workspace.fs",
+      "Owner": "FDull.Workspace.evaluateWithDirectReferences",
+      "Kind": "member",
+      "Identity": "System.Text.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | M:System.Text.Json.JsonElement.GetString",
+      "Reason": "Reads ReferencePath metadata for projects referenced directly, excluding SDK-added transitive projects by their package id; a direct reference without a path fails the check."
+    },
+    {
+      "File": "src/FDull/Workspace.fs",
+      "Owner": "FDull.Workspace.evaluateWithDirectReferences",
+      "Kind": "member",
+      "Identity": "System.Text.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | M:System.Text.Json.JsonElement.TryGetProperty(System.String,System.Text.Json.JsonElement@)",
+      "Reason": "Reads ReferencePath metadata for projects referenced directly, excluding SDK-added transitive projects by their package id; a direct reference without a path fails the check."
+    },
+    {
+      "File": "src/FDull/Workspace.fs",
+      "Owner": "FDull.Workspace.evaluateWithDirectReferences",
+      "Kind": "type",
+      "Identity": "System.Text.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | System.Text.Json.JsonElement",
+      "Reason": "Reads ReferencePath metadata for projects referenced directly, excluding SDK-added transitive projects by their package id; a direct reference without a path fails the check."
+    },
+    {
+      "File": "src/FDull/Workspace.fs",
+      "Owner": "FDull.Workspace.evaluateWithDirectReferences",
+      "Kind": "type",
+      "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | System.Collections.Generic.IEnumerable`1",
+      "Reason": "Reads ReferencePath metadata for projects referenced directly, excluding SDK-added transitive projects by their package id; a direct reference without a path fails the check."
+    },
+    {
+      "File": "tests/FDull.Tests/CheckTests.fs",
+      "Owner": "FDull.Tests.CheckTests.``check fails a new union case missed by a selected explicit match``",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.ListModule.Iterate``1(Microsoft.FSharp.Core.FSharpFunc{``0,Microsoft.FSharp.Core.Unit},Microsoft.FSharp.Collections.FSharpList{``0})",
+      "Reason": "Adds a union case and asserts MODEL004 reports the missed case even when the project suppresses FS0025, lowers the warning level or treats warnings as errors, and that a #nowarn in the selected file blocks the check."
+    },
+    {
+      "File": "tests/FDull.Tests/CheckTests.fs",
+      "Owner": "FDull.Tests.CheckTests.``check fails a new union case missed by a selected explicit match``",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.File.ReadAllText(System.String)",
+      "Reason": "Adds a union case and asserts MODEL004 reports the missed case even when the project suppresses FS0025, lowers the warning level or treats warnings as errors, and that a #nowarn in the selected file blocks the check."
+    },
+    {
+      "File": "tests/FDull.Tests/CheckTests.fs",
+      "Owner": "FDull.Tests.CheckTests.``check fails a new union case missed by a selected explicit match``",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.File.WriteAllText(System.String,System.String)",
+      "Reason": "Adds a union case and asserts MODEL004 reports the missed case even when the project suppresses FS0025, lowers the warning level or treats warnings as errors, and that a #nowarn in the selected file blocks the check."
+    },
+    {
+      "File": "tests/FDull.Tests/CheckTests.fs",
+      "Owner": "FDull.Tests.CheckTests.``check fails a new union case missed by a selected explicit match``",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.Combine(System.String,System.String)",
+      "Reason": "Adds a union case and asserts MODEL004 reports the missed case even when the project suppresses FS0025, lowers the warning level or treats warnings as errors, and that a #nowarn in the selected file blocks the check."
+    },
+    {
+      "File": "tests/FDull.Tests/CheckTests.fs",
+      "Owner": "FDull.Tests.CheckTests.``check fails a new union case missed by a selected explicit match``",
+      "Kind": "member",
+      "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | M:System.String.Replace(System.String,System.String)",
+      "Reason": "Adds a union case and asserts MODEL004 reports the missed case even when the project suppresses FS0025, lowers the warning level or treats warnings as errors, and that a #nowarn in the selected file blocks the check."
     }
   ],
   "Domains": [],

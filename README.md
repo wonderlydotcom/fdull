@@ -520,6 +520,9 @@ The project is evaluated with MSBuild in Release (`-t:Compile` with compiler
 execution skipped) using its own SDK, flags, defines and warning settings, and
 every source is type-checked with FDull's pinned compiler service. Build the
 project's references in Release first. Only the selected files are inspected.
+With `MODEL004` selected, the project's `NoWarn`, warning level and
+warnings-as-errors settings cannot hide FS0025 in selected files, and a
+`#nowarn` naming it in a selected file makes the check incomplete.
 
 Exit codes: `0` no findings, `1` findings, `2` an invalid request (no rules, an
 unknown or unsupported rule, no selected path, or a path that matches no compiled
@@ -543,7 +546,8 @@ selected files. It is not FDull verification and does not certify the project:
   way a value can go unused.
 - A union from a transitively referenced project, a package or FSharp.Core is not a
   closed domain union for `MODEL004`. A directly referenced project is recognized by
-  the output assembly MSBuild resolves for it, whatever its assembly name.
+  the assembly path MSBuild resolves for it, whatever its assembly name; projects the
+  SDK adds transitively are told apart by the package id it records for them.
 - Projects built with another .NET 10 SDK are type-checked with FDull's pinned
   compiler service. A flag, language version or FSharp.Core it cannot load is a
   compiler error, so the check is incomplete rather than silently partial.
@@ -552,7 +556,8 @@ selected files. It is not FDull verification and does not certify the project:
 - Multi-targeted projects are not supported; MSBuild evaluation fails and the
   check is incomplete.
 
-`lint`, `review` and `verify` are unchanged and keep their full guarantees.
+`lint`, `review` and `verify` keep their full guarantees; `check` does not change
+what they inspect.
 
 ## Commands and exits
 

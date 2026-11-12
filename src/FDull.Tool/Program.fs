@@ -7,6 +7,17 @@ open System.IO
 open FDull
 open FDull.Transport
 
+/// One reported location: a finding's rule id, or the code of what blocked the check.
+type CheckOutputItem =
+    { Rule: string
+      File: string
+      StartLine: int
+      StartColumn: int
+      EndLine: int
+      EndColumn: int
+      Symbol: string
+      Message: string }
+
 /// Machine-readable `fdull check` result for CI.
 type CheckOutput =
     { Status: string
@@ -16,7 +27,11 @@ type CheckOutput =
       Rules: string list
       Claim: string
       Reason: string option
-      Findings: CheckFinding list }
+      Findings: CheckOutputItem list }
+
+type CheckFormat =
+    | CheckText
+    | CheckJson
 
 module Program =
     let private usage () =
@@ -265,17 +280,14 @@ module Program =
         report.ExitCode
 
     /// `--rules` and `--format` may appear once each; every other argument is a source selector.
-    let rec private checkOptions (selected: Map<string, string>) selectors arguments =
+    let rec private checkOptions (rules: string option) (format: CheckFormat option) selectors arguments =
         match arguments with
-        | [] -> Some(selected, List.rev selectors)
-        | "--rules" :: rules :: rest when not (selected.ContainsKey "rules") ->
-            checkOptions (selected.Add("rules", rules)) selectors rest
-        | "--format" :: format :: rest when
-            List.contains format [ "text"; "json" ] && not (selected.ContainsKey "format")
-            ->
-            checkOptions (selected.Add("format", format)) selectors rest
+        | [] -> Some(rules, Option.defaultValue CheckText format, List.rev selectors)
+        | "--rules" :: value :: rest when rules.IsNone -> checkOptions (Some value) format selectors rest
+        | "--format" :: "text" :: rest when format.IsNone -> checkOptions rules (Some CheckText) selectors rest
+        | "--format" :: "json" :: rest when format.IsNone -> checkOptions rules (Some CheckJson) selectors rest
         | selector :: rest when not (selector.StartsWith("--", StringComparison.Ordinal)) ->
-            checkOptions selected (selector :: selectors) rest
+            checkOptions rules format (selector :: selectors) rest
         | _ -> None
 
     let private displayCheck format (report: CheckReport) =
@@ -284,12 +296,36 @@ module Program =
         let status, reason, findings =
             match report.Outcome with
             | Clean -> "pass", None, []
-            | Violations findings -> "fail", None, findings
+            | Violations findings ->
+                "fail",
+                None,
+                findings
+                |> List.map (fun item ->
+                    { Rule = RuleCheck.ruleId item.Rule
+                      File = item.File
+                      StartLine = item.StartLine
+                      StartColumn = item.StartColumn
+                      EndLine = item.EndLine
+                      EndColumn = item.EndColumn
+                      Symbol = item.Symbol
+                      Message = item.Message })
             | Invalid reason -> "invalid", Some reason, []
-            | Incomplete(reason, blockers) -> "incomplete", Some reason, blockers
+            | Incomplete(reason, blockers) ->
+                "incomplete",
+                Some reason,
+                blockers
+                |> List.map (fun item ->
+                    { Rule = item.Code
+                      File = item.File
+                      StartLine = item.StartLine
+                      StartColumn = item.StartColumn
+                      EndLine = item.EndLine
+                      EndColumn = item.EndColumn
+                      Symbol = ""
+                      Message = item.Message })
 
         match format with
-        | "json" ->
+        | CheckJson ->
             { Status = status
               ExitCode = exitCode
               Project = report.Project
@@ -300,7 +336,7 @@ module Program =
               Findings = findings }
             |> Codec.encode
             |> Console.WriteLine
-        | _ ->
+        | CheckText ->
             let headline =
                 match report.Outcome with
                 | Clean -> "FDull check: PASS — no findings for the selected rules."
@@ -316,8 +352,14 @@ module Program =
                 Console.WriteLine("Selected: " + file)
 
             for item in findings do
+                let subject =
+                    if item.Symbol = "" then
+                        item.Rule
+                    else
+                        item.Rule + " " + item.Symbol
+
                 Console.WriteLine(
-                    $"%s{item.File}(%d{item.StartLine},%d{item.StartColumn}): %s{item.Rule} %s{item.Symbol}: %s{item.Message}"
+                    $"%s{item.File}(%d{item.StartLine},%d{item.StartColumn}): %s{subject}: %s{item.Message}"
                 )
 
         exitCode
@@ -371,10 +413,10 @@ module Program =
                     |> display "lint" (selected.TryFind "format" |> Option.defaultValue "text")
                 | None -> usage ()
             | "check" :: project :: rest when not (project.StartsWith("--", StringComparison.Ordinal)) ->
-                match checkOptions Map.empty [] rest with
-                | Some(selected, selectors) ->
-                    RuleCheck.run project (selected.TryFind "rules" |> Option.defaultValue "") selectors
-                    |> displayCheck (selected.TryFind "format" |> Option.defaultValue "text")
+                match checkOptions None None [] rest with
+                | Some(rules, format, selectors) ->
+                    RuleCheck.run project (Option.defaultValue "" rules) selectors
+                    |> displayCheck format
                 | None -> usage ()
             | "verify" :: root :: rest when not (root.StartsWith("--", StringComparison.Ordinal)) ->
                 // Verify reports only text.

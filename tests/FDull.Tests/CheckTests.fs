@@ -100,9 +100,10 @@ module CheckTests =
     let private domainProject =
         "<Project Sdk=\"Microsoft.NET.Sdk\"><PropertyGroup><TargetFramework>net10.0</TargetFramework><AssemblyName>Shop.Core</AssemblyName></PropertyGroup>"
         + "<ItemGroup><Compile Include=\"Types.fs\"/><Compile Include=\"Legacy.fs\"/>"
-        + "<Compile Include=\"Rules/Pricing.fs\"/><Compile Include=\"Rules/Discount.fs\"/></ItemGroup></Project>"
+        + "<Compile Include=\"Rules/Pricing.fs\"/><Compile Include=\"Rules/Discount.fs\"/></ItemGroup>"
+        + "<ItemGroup><ProjectReference Include=\"../Kernel/Kernel.fsproj\"/></ItemGroup></Project>"
 
-    /// A two-project workspace without FDull settings. Legacy.fs holds violations nobody selects;
+    /// A three-project workspace without FDull settings: App references Domain, which references Kernel. Legacy.fs holds violations nobody selects;
     /// Rules/Discount.fs holds one violation per supported rule, two reached through aliases.
     let private workspace action =
         let root =
@@ -118,6 +119,12 @@ module CheckTests =
                 "NuGet.config"
                 "<configuration><packageSources><clear/><add key=\"nuget.org\" value=\"https://api.nuget.org/v3/index.json\"/></packageSources></configuration>"
 
+            write
+                root
+                "Kernel/Kernel.fsproj"
+                "<Project Sdk=\"Microsoft.NET.Sdk\"><PropertyGroup><TargetFramework>net10.0</TargetFramework></PropertyGroup><ItemGroup><Compile Include=\"Level.fs\"/></ItemGroup></Project>"
+
+            write root "Kernel/Level.fs" "module Shop.Kernel\n\ntype Level =\n    | Low\n    | High\n"
             write root "Domain/Domain.fsproj" domainProject
             write root "Domain/Types.fs" types
 
@@ -149,7 +156,8 @@ module CheckTests =
             write
                 root
                 "App/Handler.fs"
-                "module Shop.Handler\n\nlet describe status =\n    match status with\n    | Shop.Types.Closed -> \"closed\"\n    | other -> string other\n"
+                ("module Shop.Handler\n\nlet describe status =\n    match status with\n    | Shop.Types.Closed -> \"closed\"\n    | other -> string other\n\n"
+                 + "let rank level =\n    match level with\n    | Shop.Kernel.Low -> 0\n    | _ -> 1\n")
 
             dotnet root [ "build"; "App/App.fsproj"; "-c"; "Release"; "-m:1"; "-nr:false" ]
             Assert.False(File.Exists(Path.Combine(root, "fdull.json")))
@@ -195,6 +203,7 @@ module CheckTests =
 
             // A union from a directly referenced project is a closed domain decision too, found by
             // the assembly MSBuild resolved even though its name differs from the project file.
+            // Kernel is referenced only through Domain, so its union is not.
             let app = check root ([ "App/App.fsproj" ] @ allRules @ [ "App" ])
             Assert.Equal(1, app.ExitCode)
 
@@ -238,7 +247,37 @@ module CheckTests =
             let other =
                 check root [ "Domain/Domain.fsproj"; "--rules"; "ERR006"; "Domain/Rules/Pricing.fs" ]
 
-            Assert.Equal(0, other.ExitCode))
+            Assert.Equal(0, other.ExitCode)
+
+            // The project's own warning settings cannot hide the missed case.
+            [ "<NoWarn>$(NoWarn);25</NoWarn>"
+              "<WarningLevel>0</WarningLevel>"
+              "<TreatWarningsAsErrors>true</TreatWarningsAsErrors>" ]
+            |> List.iter (fun settings ->
+                write
+                    root
+                    "Domain/Domain.fsproj"
+                    (domainProject.Replace("</AssemblyName>", "</AssemblyName>" + settings))
+
+                let configured =
+                    check root ([ "Domain/Domain.fsproj" ] @ allRules @ [ "Domain/Rules/Pricing.fs" ])
+
+                Assert.Equal<(string * string * string) list>(
+                    [ "MODEL004", "Rules/Pricing.fs", "FS0025" ],
+                    configured.Findings
+                ))
+
+            write root "Domain/Domain.fsproj" domainProject
+
+            // A suppression inside the selected file blocks the check instead of passing it.
+            let pricing = Path.Combine(root, "Domain/Rules/Pricing.fs")
+            File.WriteAllText(pricing, "#nowarn \"25\"\n" + File.ReadAllText pricing)
+
+            let suppressed =
+                check root ([ "Domain/Domain.fsproj" ] @ allRules @ [ "Domain/Rules/Pricing.fs" ])
+
+            Assert.Equal(3, suppressed.ExitCode)
+            Assert.Equal<(string * string * string) list>([ "FS0025", "Rules/Pricing.fs", "" ], suppressed.Findings))
 
     [<Fact>]
     let ``check never passes invalid requests or incomplete analysis`` () =
