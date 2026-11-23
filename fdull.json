@@ -159,7 +159,7 @@
       "File": "src/FDull/WorkspaceAudit.fs",
       "Project": "src/FDull/FDull.fsproj",
       "Profile": "GUARD_TOOLING",
-      "Digest": "sha256:e9b1e6b8637ce53d463baa55ac51ad86c753424042acdf1d37df6f1e31c3829f"
+      "Digest": "sha256:f58df3d008018704607e09490ad4050732842091f4edb9716f7c9634a9f32bf4"
     },
     {
       "File": "src/FDull/WorkspaceEngine.fs",
@@ -315,7 +315,7 @@
       "File": "tests/FDull.Tests/ManifestTests.fs",
       "Project": "tests/FDull.Tests/FDull.Tests.fsproj",
       "Profile": "TEST",
-      "Digest": "sha256:bb17b4aa627141cf80b6c9f9d99bb92844c9b2669e90dec046df7d63703231db"
+      "Digest": "sha256:2b4b315865f85a1724887a61e05e5575a776687891dd0b8da938fb18dc02d6f2"
     }
   ],
   "Inputs": [
@@ -31372,35 +31372,35 @@
       "Owner": "FDull.WorkspaceAudit.validateManifest",
       "Kind": "member",
       "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Core.Operators.InvalidOp``1(System.String)",
-      "Reason": "Audits a Bazel workspace from the build's file inventory and the references derived from its compiler invocations: the exact project set, the exact F# source set inside the workspace, classified non-F# files, pinned build inputs including every BUILD.bazel or BUILD file, exact edges and profile agreement. Each violation raises its ARCH or BUILD rule, and nothing is read from disk. The ManifestTests audit fact covers each rejection."
+      "Reason": "Audits a Bazel workspace from the build's file inventory and the references derived from its compiler invocations: the exact project set, the exact F# source set inside the workspace, classified non-F# files, pinned build inputs including every BUILD.bazel or BUILD file, exact edges and profile agreement. Each violation raises its ARCH or BUILD rule, a source-set mismatch names up to ten files of each kind in its message, and nothing is read from disk. The ManifestTests audit fact covers each rejection and the named files."
     },
     {
       "File": "src/FDull/WorkspaceAudit.fs",
       "Owner": "FDull.WorkspaceAudit.validateManifest",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.GetExtension(System.String)",
-      "Reason": "Audits a Bazel workspace from the build's file inventory and the references derived from its compiler invocations: the exact project set, the exact F# source set inside the workspace, classified non-F# files, pinned build inputs including every BUILD.bazel or BUILD file, exact edges and profile agreement. Each violation raises its ARCH or BUILD rule, and nothing is read from disk. The ManifestTests audit fact covers each rejection."
+      "Reason": "Audits a Bazel workspace from the build's file inventory and the references derived from its compiler invocations: the exact project set, the exact F# source set inside the workspace, classified non-F# files, pinned build inputs including every BUILD.bazel or BUILD file, exact edges and profile agreement. Each violation raises its ARCH or BUILD rule, a source-set mismatch names up to ten files of each kind in its message, and nothing is read from disk. The ManifestTests audit fact covers each rejection and the named files."
     },
     {
       "File": "src/FDull/WorkspaceAudit.fs",
       "Owner": "FDull.WorkspaceAudit.validateManifest",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.GetFileName(System.String)",
-      "Reason": "Audits a Bazel workspace from the build's file inventory and the references derived from its compiler invocations: the exact project set, the exact F# source set inside the workspace, classified non-F# files, pinned build inputs including every BUILD.bazel or BUILD file, exact edges and profile agreement. Each violation raises its ARCH or BUILD rule, and nothing is read from disk. The ManifestTests audit fact covers each rejection."
+      "Reason": "Audits a Bazel workspace from the build's file inventory and the references derived from its compiler invocations: the exact project set, the exact F# source set inside the workspace, classified non-F# files, pinned build inputs including every BUILD.bazel or BUILD file, exact edges and profile agreement. Each violation raises its ARCH or BUILD rule, a source-set mismatch names up to ten files of each kind in its message, and nothing is read from disk. The ManifestTests audit fact covers each rejection and the named files."
     },
     {
       "File": "src/FDull/WorkspaceAudit.fs",
       "Owner": "FDull.WorkspaceAudit.validateManifest",
       "Kind": "rule",
       "Identity": "MUT009 | ",
-      "Reason": "Audits a Bazel workspace from the build's file inventory and the references derived from its compiler invocations: the exact project set, the exact F# source set inside the workspace, classified non-F# files, pinned build inputs including every BUILD.bazel or BUILD file, exact edges and profile agreement. Each violation raises its ARCH or BUILD rule, and nothing is read from disk. The ManifestTests audit fact covers each rejection."
+      "Reason": "Audits a Bazel workspace from the build's file inventory and the references derived from its compiler invocations: the exact project set, the exact F# source set inside the workspace, classified non-F# files, pinned build inputs including every BUILD.bazel or BUILD file, exact edges and profile agreement. Each violation raises its ARCH or BUILD rule, a source-set mismatch names up to ten files of each kind in its message, and nothing is read from disk. The ManifestTests audit fact covers each rejection and the named files."
     },
     {
       "File": "src/FDull/WorkspaceAudit.fs",
       "Owner": "FDull.WorkspaceAudit.validateManifest",
       "Kind": "type",
       "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | System.Object",
-      "Reason": "Audits a Bazel workspace from the build's file inventory and the references derived from its compiler invocations: the exact project set, the exact F# source set inside the workspace, classified non-F# files, pinned build inputs including every BUILD.bazel or BUILD file, exact edges and profile agreement. Each violation raises its ARCH or BUILD rule, and nothing is read from disk. The ManifestTests audit fact covers each rejection."
+      "Reason": "Audits a Bazel workspace from the build's file inventory and the references derived from its compiler invocations: the exact project set, the exact F# source set inside the workspace, classified non-F# files, pinned build inputs including every BUILD.bazel or BUILD file, exact edges and profile agreement. Each violation raises its ARCH or BUILD rule, a source-set mismatch names up to ten files of each kind in its message, and nothing is read from disk. The ManifestTests audit fact covers each rejection and the named files."
     },
     {
       "File": "src/FDull/WorkspaceGenerated.fs",
@@ -31810,10 +31810,10 @@
     },
     {
       "File": "tests/FDull.Tests/ManifestTests.fs",
-      "Owner": "FDull.Tests.ManifestTests.rejects",
+      "Owner": "FDull.Tests.ManifestTests.rejection",
       "Kind": "member",
       "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | P:System.Exception.Message",
-      "Reason": "Non-shipping assertion helper: the action must raise InvalidOperationException with a message that starts with the named rule ID."
+      "Reason": "Non-shipping assertion helper: the action must raise InvalidOperationException; its message is returned for the caller to assert."
     },
     {
       "File": "tests/FDull.Tests/ManifestTests.fs",
@@ -31824,17 +31824,10 @@
     },
     {
       "File": "tests/FDull.Tests/ManifestTests.fs",
-      "Owner": "FDull.Tests.ManifestTests.rejects",
+      "Owner": "FDull.Tests.ManifestTests.rejection",
       "Kind": "member",
       "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Throws``1(System.Action)",
-      "Reason": "Non-shipping assertion helper: the action must raise InvalidOperationException with a message that starts with the named rule ID."
-    },
-    {
-      "File": "tests/FDull.Tests/ManifestTests.fs",
-      "Owner": "FDull.Tests.ManifestTests.rejects",
-      "Kind": "type",
-      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | System.InvalidOperationException",
-      "Reason": "Non-shipping assertion helper: the action must raise InvalidOperationException with a message that starts with the named rule ID."
+      "Reason": "Non-shipping assertion helper: the action must raise InvalidOperationException; its message is returned for the caller to assert."
     },
     {
       "File": "tests/FDull.Tests/ManifestTests.fs",
@@ -32324,49 +32317,49 @@
       "Owner": "FDull.Tests.ManifestTests.``the manifest audit holds a Bazel inventory to the rules of a walked one``",
       "Kind": "attribute",
       "Identity": "xunit.core, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | Xunit.FactAttribute |  | unit",
-      "Reason": "Non-shipping audit regression on in-memory policies, inventories and edges: orphan and missing sources, unpinned and missing build files, unclassified and unused external entries, project-set and edge mismatches, a test back-edge, a profile mismatch and the version gate each raise their rule. Nothing is read from disk."
+      "Reason": "Non-shipping audit regression on in-memory policies, inventories and edges: orphan and missing sources with the exact message that names them and its bound of ten, unpinned and missing build files, unclassified and unused external entries, project-set and edge mismatches, a test back-edge, a profile mismatch and the version gate each raise their rule. Nothing is read from disk."
     },
     {
       "File": "tests/FDull.Tests/ManifestTests.fs",
       "Owner": "FDull.Tests.ManifestTests.``the manifest audit holds a Bazel inventory to the rules of a walked one``",
       "Kind": "member",
       "Identity": "FDull, Version=0.3.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.WorkspaceAudit.validate(System.String,FDull.WorkspacePolicyDocument)",
-      "Reason": "Non-shipping audit regression on in-memory policies, inventories and edges: orphan and missing sources, unpinned and missing build files, unclassified and unused external entries, project-set and edge mismatches, a test back-edge, a profile mismatch and the version gate each raise their rule. Nothing is read from disk."
+      "Reason": "Non-shipping audit regression on in-memory policies, inventories and edges: orphan and missing sources with the exact message that names them and its bound of ten, unpinned and missing build files, unclassified and unused external entries, project-set and edge mismatches, a test back-edge, a profile mismatch and the version gate each raise their rule. Nothing is read from disk."
     },
     {
       "File": "tests/FDull.Tests/ManifestTests.fs",
       "Owner": "FDull.Tests.ManifestTests.``the manifest audit holds a Bazel inventory to the rules of a walked one``",
       "Kind": "member",
       "Identity": "FDull, Version=0.3.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.WorkspaceAudit.validateManifest(FDull.WorkspacePolicyDocument,Microsoft.FSharp.Collections.FSharpList{System.String},Microsoft.FSharp.Collections.FSharpList{System.Tuple{System.String,Microsoft.FSharp.Collections.FSharpList{System.String}}})",
-      "Reason": "Non-shipping audit regression on in-memory policies, inventories and edges: orphan and missing sources, unpinned and missing build files, unclassified and unused external entries, project-set and edge mismatches, a test back-edge, a profile mismatch and the version gate each raise their rule. Nothing is read from disk."
+      "Reason": "Non-shipping audit regression on in-memory policies, inventories and edges: orphan and missing sources with the exact message that names them and its bound of ten, unpinned and missing build files, unclassified and unused external entries, project-set and edge mismatches, a test back-edge, a profile mismatch and the version gate each raise their rule. Nothing is read from disk."
     },
     {
       "File": "tests/FDull.Tests/ManifestTests.fs",
       "Owner": "FDull.Tests.ManifestTests.``the manifest audit holds a Bazel inventory to the rules of a walked one``",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.GetFullPath(System.String)",
-      "Reason": "Non-shipping audit regression on in-memory policies, inventories and edges: orphan and missing sources, unpinned and missing build files, unclassified and unused external entries, project-set and edge mismatches, a test back-edge, a profile mismatch and the version gate each raise their rule. Nothing is read from disk."
+      "Reason": "Non-shipping audit regression on in-memory policies, inventories and edges: orphan and missing sources with the exact message that names them and its bound of ten, unpinned and missing build files, unclassified and unused external entries, project-set and edge mismatches, a test back-edge, a profile mismatch and the version gate each raise their rule. Nothing is read from disk."
     },
     {
       "File": "tests/FDull.Tests/ManifestTests.fs",
       "Owner": "FDull.Tests.ManifestTests.``the manifest audit holds a Bazel inventory to the rules of a walked one``",
       "Kind": "type",
       "Identity": "FDull, Version=0.3.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspacePolicyDocument",
-      "Reason": "Non-shipping audit regression on in-memory policies, inventories and edges: orphan and missing sources, unpinned and missing build files, unclassified and unused external entries, project-set and edge mismatches, a test back-edge, a profile mismatch and the version gate each raise their rule. Nothing is read from disk."
+      "Reason": "Non-shipping audit regression on in-memory policies, inventories and edges: orphan and missing sources with the exact message that names them and its bound of ten, unpinned and missing build files, unclassified and unused external entries, project-set and edge mismatches, a test back-edge, a profile mismatch and the version gate each raise their rule. Nothing is read from disk."
     },
     {
       "File": "tests/FDull.Tests/ManifestTests.fs",
       "Owner": "FDull.Tests.ManifestTests.``the manifest audit holds a Bazel inventory to the rules of a walked one``",
       "Kind": "type",
       "Identity": "FDull, Version=0.3.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspaceProject",
-      "Reason": "Non-shipping audit regression on in-memory policies, inventories and edges: orphan and missing sources, unpinned and missing build files, unclassified and unused external entries, project-set and edge mismatches, a test back-edge, a profile mismatch and the version gate each raise their rule. Nothing is read from disk."
+      "Reason": "Non-shipping audit regression on in-memory policies, inventories and edges: orphan and missing sources with the exact message that names them and its bound of ten, unpinned and missing build files, unclassified and unused external entries, project-set and edge mismatches, a test back-edge, a profile mismatch and the version gate each raise their rule. Nothing is read from disk."
     },
     {
       "File": "tests/FDull.Tests/ManifestTests.fs",
       "Owner": "FDull.Tests.ManifestTests.``the manifest audit holds a Bazel inventory to the rules of a walked one``",
       "Kind": "type",
       "Identity": "FDull, Version=0.3.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspaceSource",
-      "Reason": "Non-shipping audit regression on in-memory policies, inventories and edges: orphan and missing sources, unpinned and missing build files, unclassified and unused external entries, project-set and edge mismatches, a test back-edge, a profile mismatch and the version gate each raise their rule. Nothing is read from disk."
+      "Reason": "Non-shipping audit regression on in-memory policies, inventories and edges: orphan and missing sources with the exact message that names them and its bound of ten, unpinned and missing build files, unclassified and unused external entries, project-set and edge mismatches, a test back-edge, a profile mismatch and the version gate each raise their rule. Nothing is read from disk."
     },
     {
       "File": "tests/FDull.Tests/ManifestTests.fs",
@@ -33382,6 +33375,27 @@
       "Kind": "member",
       "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | M:System.String.Split(System.Char,System.StringSplitOptions)",
       "Reason": "Reviewed Bazel consumption smoke: runs the packed FDull.Cli.dll from the installed package with dotnet --fx-version on the named newer runtime, against a temporary Bazel-style workspace built from rules_dotnet-style arguments, a manifest and a version-three policy. It checks once with a restored project's real net10.0 references and once with the reference assemblies in the named runtime's targeting pack, found beside the runtime of the running installation, when that directory exists. Each check requires a complete pass of a source that needs a catalog entry and a framework type, a report file equal to stdout and a complete MUT001 failure after a seeded mutation; any other outcome fails the job."
+    },
+    {
+      "File": "src/FDull/WorkspaceAudit.fs",
+      "Owner": "FDull.WorkspaceAudit.validateManifest",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Core.StringModule.Concat(System.String,System.Collections.Generic.IEnumerable{System.String})",
+      "Reason": "Audits a Bazel workspace from the build's file inventory and the references derived from its compiler invocations: the exact project set, the exact F# source set inside the workspace, classified non-F# files, pinned build inputs including every BUILD.bazel or BUILD file, exact edges and profile agreement. Each violation raises its ARCH or BUILD rule, a source-set mismatch names up to ten files of each kind in its message, and nothing is read from disk. The ManifestTests audit fact covers each rejection and the named files."
+    },
+    {
+      "File": "tests/FDull.Tests/ManifestTests.fs",
+      "Owner": "FDull.Tests.ManifestTests.``the manifest audit holds a Bazel inventory to the rules of a walked one``",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Core.StringModule.Concat(System.String,System.Collections.Generic.IEnumerable{System.String})",
+      "Reason": "Non-shipping audit regression on in-memory policies, inventories and edges: orphan and missing sources with the exact message that names them and its bound of ten, unpinned and missing build files, unclassified and unused external entries, project-set and edge mismatches, a test back-edge, a profile mismatch and the version gate each raise their rule. Nothing is read from disk."
+    },
+    {
+      "File": "tests/FDull.Tests/ManifestTests.fs",
+      "Owner": "FDull.Tests.ManifestTests.``the manifest audit holds a Bazel inventory to the rules of a walked one``",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Equal(System.String,System.String)",
+      "Reason": "Non-shipping audit regression on in-memory policies, inventories and edges: orphan and missing sources with the exact message that names them and its bound of ten, unpinned and missing build files, unclassified and unused external entries, project-set and edge mismatches, a test back-edge, a profile mismatch and the version gate each raise their rule. Nothing is read from disk."
     }
   ],
   "Domains": [],

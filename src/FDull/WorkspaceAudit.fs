@@ -582,8 +582,27 @@ module WorkspaceAudit =
             |> List.filter (fun file -> List.contains (Path.GetExtension file) [ ".fs"; ".fsi" ])
             |> Set.ofList
 
+        // A build log shows this message alone, so it names the files: the first ten of each kind.
         if declared <> actualSources then
-            invalidOp "ARCH002: Unclassified or missing F# source."
+            let named (label: string) (names: Set<string>) =
+                if names.IsEmpty then
+                    ""
+                else
+                    " "
+                    + label
+                    + ": "
+                    + (names |> Set.toList |> List.truncate 10 |> String.concat ", ")
+                    + (if names.Count > 10 then
+                           " (and " + string (names.Count - 10) + " more)"
+                       else
+                           "")
+                    + "."
+
+            invalidOp (
+                "ARCH002: Unclassified or missing F# source."
+                + named "Inventory files the policy does not assign" (Set.difference actualSources declared)
+                + named "Policy sources the inventory lacks" (Set.difference declared actualSources)
+            )
 
         let pins = policy.Inputs |> List.map _.File |> Set.ofList
 

@@ -140,9 +140,12 @@ module ManifestTests =
 
     let private edges = [ ":Lib", []; ":tests", [ ":Lib" ] ]
 
+    /// The message of the invalid operation the action must raise.
+    let private rejection (action: unit -> unit) =
+        (Assert.Throws<InvalidOperationException> action).Message
+
     let private rejects (rule: string) (action: unit -> unit) =
-        let error = Assert.Throws<InvalidOperationException> action
-        Assert.StartsWith(rule + ":", error.Message)
+        Assert.StartsWith(rule + ":", rejection action)
 
     let private blocks (result: Result<'a, string>) =
         match result with
@@ -341,9 +344,33 @@ module ManifestTests =
         // The shared source is outside the inventory, and the audit does not look for it there.
         audit policy inventory edges ()
 
-        // Orphan and missing F# sources.
+        // Orphan and missing F# sources, named so that a build log is enough to act on.
         rejects "ARCH002" (audit policy ("src/Orphan.fs" :: inventory) edges)
         rejects "ARCH002" (audit policy (inventory |> List.filter ((<>) "src/Lib.fs")) edges)
+
+        Assert.Equal(
+            "ARCH002: Unclassified or missing F# source. Inventory files the policy does not assign: src/Orphan.fs, src/Other.fsi. Policy sources the inventory lacks: src/Lib.fs.",
+            rejection (
+                audit
+                    policy
+                    ("src/Other.fsi"
+                     :: "src/Orphan.fs"
+                     :: (inventory |> List.filter ((<>) "src/Lib.fs")))
+                    edges
+            )
+        )
+
+        // The list is bounded at ten names of each kind.
+        let orphans =
+            [ 10; 11; 12; 13; 14; 15; 16; 17; 18; 19; 20; 21 ]
+            |> List.map (fun index -> "src/Orphan" + string index + ".fs")
+
+        Assert.Equal(
+            "ARCH002: Unclassified or missing F# source. Inventory files the policy does not assign: "
+            + (orphans |> List.truncate 10 |> String.concat ", ")
+            + " (and 2 more).",
+            rejection (audit policy (orphans @ inventory) edges)
+        )
 
         // Every build file needs a pin, and the inventory must hold one.
         rejects "BUILD005" (audit policy ("tests/BUILD" :: inventory) edges)
