@@ -32,6 +32,13 @@ require **Microsoft.NETCore.App 10.0.14**. The worker disables runtime roll-forw
 Install the matching SDK/runtime first. New toolchains require compatibility
 tests; the preview rejects untested compiler flags.
 
+A Bazel workspace is checked on the runtime its build supplies. With `--manifest`,
+`lint` and `review` start the worker on the exact runtime that runs the CLI, and
+the launch line under **Bazel workspaces** lets the CLI roll forward to it. A
+toolchain that carries one runtime newer than 10.0.14 is then enough. This mode
+is tested with rules_dotnet at commit `cfa2b4dfa6686b5fc63b57cd3a6323b97e3fb0ee`,
+.NET SDK 11.0.100 with runtime 11.0.0, `net10.0` targets and FSharp.Core 10.0.100.
+
 Projects affected by the pinned compiler's task-builder FS3180 warning may set
 `WarningsNotAsErrors` to **3180**. FDull accepts only that exact downgrade and
 performs a private compiler pass for every workspace project. It permits the
@@ -76,6 +83,7 @@ entry point, xUnit v3 Core 3.1.0 with Microsoft Testing Platform MSBuild 1.8.4
 and optional JunitXml.TestLogger 7.0.2 registration, and Aspire AppHost 13.6.5
 project metadata emitted by FSharp.Aspire.Hosting.AppHost 13.0.0. Multi-targeting,
 other source generators and arbitrary configurations are not supported in this preview.
+A Bazel workspace has one profile of its own in place of these.
 An F# source can be included by multiple checked projects. Each owner is analyzed
 independently, and all assignments for the shared file must use the same profile
 and source fingerprint. Reviewed non-F# implementation, automation and tooling may coexist in a mixed
@@ -371,6 +379,161 @@ schemas; repository coordination currently applies to text `verify` reports.
 and graph checks, and reads each consuming policy, so a consumer's stale
 `PolicyDigest` pin on the linted workspace fails `lint` as it would fail `verify`.
 
+## Bazel workspaces
+
+A Bazel workspace is one Bazel package whose F# targets rules_dotnet compiles. It
+has no project files, so `lint` and `review` read a manifest that the build
+writes, and the check runs as one build action inside the sandbox:
+
+```sh
+dotnet --roll-forward Major FDull.Cli.dll lint <root> --manifest <file> --report <file>
+```
+
+`FDull.Cli.dll` is `tools/net10.0/any/FDull.Cli.dll` in the `FDull.Tool` package,
+with its `safety-worker` directory beside it. `<root>` is the package directory,
+and the working directory is Bazel's execution root. Relative paths in the
+manifest and in the argument files resolve against the working directory, as
+they did for the compiler. `--report` gives the action its declared output.
+
+The package holds an `fdull.json` with `"Version": 3`:
+
+```json
+{
+  "Version": 3,
+  "Projects": [
+    { "File": ":Billing", "Profile": "PURE", "References": [] },
+    { "File": ":tests", "Profile": "TEST", "References": [":Billing"] }
+  ],
+  "Sources": [
+    {
+      "File": "src/Billing/Invoice.fs",
+      "Project": ":Billing",
+      "Profile": "PURE",
+      "Digest": "sha256:<reviewed hash>"
+    },
+    {
+      "File": "tests/Billing.Tests/InvoiceTests.fs",
+      "Project": ":tests",
+      "Profile": "TEST",
+      "Digest": "sha256:<reviewed hash>"
+    }
+  ],
+  "Inputs": [{ "File": "BUILD.bazel", "Digest": "sha256:<reviewed hash>" }],
+  "Capabilities": [],
+  "Domains": [],
+  "Constructors": []
+}
+```
+
+`Projects[].File`, `Projects[].References`, `Sources[].Project` and
+`DataContracts[].Project` name targets of that package, spelled `:name`. A name
+starts with an ASCII letter or digit and continues with letters, digits, `.`,
+`_`, `+` or `-`. Version three rejects any other spelling, a `Repository` and a
+non-empty `ExcludedProjects`. `Sources`, `Inputs`, `External`, `DataContracts`,
+`Capabilities`, `Domains` and `Constructors` keep their meaning, and `Inputs`
+stays non-empty. Versions one and two still require `.fsproj` paths.
+
+A version-three `Sources[].File` may also name a source that several workspaces
+share from outside the package, such as a test entry point: one to sixteen `../`
+segments and then a local path, for example `"../../tools/testing/Main.fs"`. It
+must be the file's shortest path from the package and must resolve outside it.
+FDull treats the file as authored source of the project that lists it: the
+`Digest` pins it, the project's profile applies, and each use needs an exact
+`Capabilities` entry under the same `File` spelling. Versions one and two reject
+any `..` segment.
+
+The manifest names each target's compiler arguments and the build's inventory of
+the package:
+
+```json
+{
+  "Version": 1,
+  "Projects": [
+    {
+      "Name": ":Billing",
+      "Arguments": "bazel-out/<configuration>/bin/libs/billing/Billing.fdull.params"
+    }
+  ],
+  "Files": [
+    "libs/billing/BUILD.bazel",
+    "libs/billing/src/Billing/Invoice.fs"
+  ]
+}
+```
+
+`Arguments` is a file that holds one target's compiler arguments, one per line,
+exactly as rules_dotnet passed them to the compiler. `Files` lists every file of
+the package, as `glob(["**"])` gives it, and replaces FDull's directory walk.
+Each entry must lie inside `<root>`. FDull uses only the names in `Files`, so
+those files need not be inputs of the action. The action does need the
+manifest, the argument files, `fdull.json`, every file the policy pins in
+`Sources` and `Inputs`, every source the compiler received and every reference
+assembly. A malformed manifest, an unknown version or an unreadable argument
+file blocks the run with BUILD003.
+
+The audit applies the rules of an MSBuild workspace to that inventory, and tests
+nothing for existence on disk:
+
+- The policy's projects are exactly the manifest's: at most 128, acyclic, each
+  with a known profile and at least one classified source of the same profile.
+- The inventory's `.fs` and `.fsi` files are exactly the policy's `Sources`
+  inside the package. A shared source is outside the inventory, and its project
+  must still compile it.
+- Other implementation and automation files need an `External` classification,
+  and each `External` entry must own at least one inventory file.
+- Build inputs in the inventory need a pin in `Inputs`. That covers the MSBuild
+  list and every file named `BUILD.bazel` or `BUILD`, and the inventory must hold
+  at least one of those. `.bzl` files need no pin. No lock file or project file
+  pin is required.
+- Project edges come from the invocations. Target A references target B when
+  A's `-r:` arguments name B's `--out:` or `--refout:` file. The derived edges
+  must equal `Projects[].References` and obey the profile-direction rules. The
+  manifest carries no reference list.
+
+FDull rewrites rules_dotnet's spellings (`--out:`, `-d:`, `/warn:`,
+`/warnaserror`, `/nowarn:`) and then applies the compiler policy. The required
+settings are unchanged. For version three only it also accepts `--utf8output`,
+`--nowin32manifest`, `--nologo`, `--debug-`, `--pdb:` and `--refout:`. A target
+passes with these rules_dotnet settings and `--compilation_mode=opt`:
+
+```starlark
+langversion = "10.0",
+warning_level = 5,
+treat_warnings_as_errors = True,
+nullable = "enable",
+compiler_options = [
+    "--warnon:21,22,52,1178,1182,3180,3218,3391,3395,3559,3570,3579,3582,3878",
+    "--checked+",
+],
+```
+
+Bazel's default compilation mode passes `--debug+`, `--optimize-`,
+`--define:DEBUG` and `--tailcalls-`, and FDull rejects each of them.
+
+A target may compile two kinds of source from outside `<root>`: a shared source
+that the policy lists for it, and rules_dotnet's version file. The version file
+is the one generated-source profile: a path that contains `/bazel-out/` and ends
+with `/assemblyinfo.fs`, holding exactly the three assembly version attributes
+that rules_dotnet writes from the target's `version` attribute. The version
+strings are free within a strict pattern, a target holds at most one such file,
+and a target without a version has none. One changed byte in it blocks the
+target, as does a source from outside `<root>` that the policy does not list
+for that target. The MSBuild generated-source profiles do not apply to version
+three, and this one does not apply to versions one and two.
+
+Bazel caches the action, so a manifest run never reads or writes the result
+cache and `<root>/.fdull` is never created. Text output names each diagnostic's
+file relative to the working directory, because a sandbox path means nothing
+once the action ends. JSON and SARIF keep absolute paths.
+
+Not supported for a Bazel workspace: `verify`, `init`, the result cache,
+repository discovery, cross-policy references and project exclusions. Each
+MSBuild command fails a version-three policy with BUILD003, and a manifest
+fails a version-one or version-two policy with BUILD003. Repository discovery
+reads every `fdull.json` below the repository root, so repository `verify` and
+`lint` of a version-two service fail while that tree holds a version-three
+policy.
+
 ## Policy and review
 
 `fdull.json` assigns `PURE`, `PURE_HELPER`, `CONTRACTS`, `BOUNDARY`, `ADAPTER`,
@@ -571,6 +734,7 @@ dotnet fdull verify . --jobs 4 --timings
 dotnet fdull cache clear .
 dotnet fdull coverage
 dotnet fdull policy-digest services/billing/fdull.json
+dotnet fdull lint libs/billing --manifest <manifest.json> --report <report.txt>
 ```
 
 `policy-digest <path-to-fdull.json>` prints the normalized `sha256:<hex>` value
@@ -601,6 +765,12 @@ takes no `--format`. Repository `verify` does not use the cache by default;
 `--cache` opts into reuse, while `--no-cache` explicitly keeps it off. A standalone
 (version-one) `verify` never uses the cache and rejects either flag.
 
+`--manifest <file>` makes `lint` and `review` check a Bazel workspace from the
+manifest its build wrote; see **Bazel workspaces**. `--report <file>` also writes
+what `lint` or `review` prints to stdout to `<file>`, in any format and whatever
+the exit code. The command holds its stdout until it finishes and then writes it
+to both. Stderr and the exit code are unchanged. Each option may appear once.
+
 `--timings` writes per-project times, and the run's total, to stderr. For `lint`
 and `review` they are MSBuild export, analysis worker and parent validation; for
 `verify` they are output-directory evaluation, restore, build, analysis, rebuild
@@ -618,8 +788,8 @@ comparison and validation as a fresh one, and unused-permission checks still see
 every project. A malformed or mismatched entry is ignored and the project is
 re-analyzed. Text output then reads `N projects (M from cache)`, and JSON has a
 `Cached` count and a per-project `Cached` flag; nothing else in the output or exit
-code depends on the cache. `--no-cache` turns it off for lint and review, and
-`cache clear <root>`
+code depends on the cache. `--no-cache` turns it off for lint and review, and a
+`--manifest` run never uses it. `cache clear <root>`
 deletes `<root>/.fdull/cache` (exit `3` if it is a symbolic link). Each cached run
 evicts entries unused for 30 days, and the least recently used ones beyond 256 MiB
 per cache. A new FDull build changes every key.
@@ -747,7 +917,8 @@ process limits themselves; the library package does not install a worker beside
 arbitrary executables. `FDull.Tool` supplies the supported bounded host for
 `Workspace.check`, `Project.verify` and source-only `Safety.check`. The library's
 `Workspace.check`, `Workspace.review` and `Repository.verify` never use the result
-cache.
+cache. `Workspace.checkManifest` and `Workspace.reviewManifest` check a Bazel
+workspace from a manifest file, and `WorkspaceManifest.read` decodes one.
 
 The workspace worker has a 512 MiB managed heap ceiling (`--memory` or
 `WorkspaceOptions.MemoryMiB` changes it), a working-set limit of twice the heap and

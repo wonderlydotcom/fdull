@@ -208,8 +208,10 @@ module SafetyRules =
               false
               [ "ProjectTests.every approved graph edge is exact and shipping cannot acquire a test dependency"
                 "ProjectTests.checked ownership of a shared excluded source still reports violations"
-                "ProjectTests.initialization discovers reviewed mixed-language scope and exports Web SDK inputs without compiling" ]
-              "The preview supports an exact, acyclic Release/net10.0 F# project graph; cross-language references require pinned CSharp or Visual Basic projects inside reviewed external implementation scopes."
+                "ProjectTests.initialization discovers reviewed mixed-language scope and exports Web SDK inputs without compiling"
+                "ManifestTests.the manifest audit holds a Bazel inventory to the rules of a walked one"
+                "ManifestTests.a Bazel workspace passes, fails on a seeded violation and reports its derived edge" ]
+              "The preview supports an exact, acyclic Release/net10.0 F# project graph; cross-language references require pinned CSharp or Visual Basic projects inside reviewed external implementation scopes. A Bazel workspace derives its graph from compiler references and has no cross-policy references."
           rule
               "ARCH002"
               "Unapproved dependency assets"
@@ -219,7 +221,8 @@ module SafetyRules =
                 "ProjectTests.excluded conditional project is neither exported nor built and remains visible in reports"
                 "ProjectTests.excluded project declarations and policy entries remain exact"
                 "ProjectTests.initialization rejects a workspace with every FSharp project excluded"
-                "ProjectTests.checked ownership of a shared excluded source still reports violations" ]
+                "ProjectTests.checked ownership of a shared excluded source still reports violations"
+                "ManifestTests.the manifest audit holds a Bazel inventory to the rules of a walked one" ]
               "Complete transitive package/runtime/source/native asset inventory and tampering cases."
           rule
               "ARCH003"
@@ -228,15 +231,17 @@ module SafetyRules =
               false
               [ "WorkspaceTests.policy and inventory drift cannot certify a workspace"
                 "ProjectTests.reusable data contracts allow helper extraction without declaration grants"
-                "WorkspaceTests.mixed-language scope and internal links preserve inventory boundaries" ]
+                "WorkspaceTests.mixed-language scope and internal links preserve inventory boundaries"
+                "ManifestTests.the manifest audit holds a Bazel inventory to the rules of a walked one" ]
               profileMatrix
           rule
               "ARCH004"
               "Shipping dependencies on tests/tooling"
               [ build; guard; audit ]
               false
-              [ "ProjectTests.every approved graph edge is exact and shipping cannot acquire a test dependency" ]
-              "Additional configurations and generated-source producers beyond the reviewed SDK, Web SDK, Test SDK 17.14.1, xUnit v3.1 and Aspire 13.6.5 profiles require a separate exact inventory."
+              [ "ProjectTests.every approved graph edge is exact and shipping cannot acquire a test dependency"
+                "ManifestTests.the manifest audit holds a Bazel inventory to the rules of a walked one" ]
+              "Additional configurations and generated-source producers beyond the reviewed SDK, Web SDK, Test SDK 17.14.1, xUnit v3.1, Aspire 13.6.5 and rules_dotnet version-file profiles require a separate exact inventory."
           rule
               "BUILD001"
               "Suppression and path spoofing"
@@ -251,7 +256,8 @@ module SafetyRules =
               false
               [ "SafetyWorkerTests.compiler policy target accepts the pinned platform defaults"
                 "SafetyWorkerTests.compiler policy target rejects drift and downgrades"
-                "SafetyCoverageTests.only canonical task compatibility downgrade is accepted" ]
+                "SafetyCoverageTests.only canonical task compatibility downgrade is accepted"
+                "ManifestTests.rules_dotnet arguments become an invocation only a version three policy accepts" ]
               "Complete tool/policy drift fixtures and protected release provenance."
           rule
               "BUILD003"
@@ -260,7 +266,8 @@ module SafetyRules =
                 worker
                 "src/FDull/SafetyLimits.fs"
                 "src/FDull/WorkspaceEngine.fs"
-                "src/FDull/WorkspaceGenerated.fs" ]
+                "src/FDull/WorkspaceGenerated.fs"
+                "src/FDull/WorkspaceManifest.fs" ]
               false
               [ "SafetyTests.unsupported type nesting cannot report complete analysis"
                 "SafetyTests.unsupported expression depth fails before typed traversal"
@@ -277,7 +284,12 @@ module SafetyRules =
                 "WorkspaceTests.mixed-language scope and internal links preserve inventory boundaries"
                 "ProjectTests.advisory review reports blockers and never infers unused contracts from partial analysis"
                 "ProjectTests.reusable data contracts allow helper extraction without declaration grants"
-                "ProjectTests.supported Web test SDK xUnit v3 and Aspire generated-source profiles are exact" ]
+                "ProjectTests.supported Web test SDK xUnit v3 and Aspire generated-source profiles are exact"
+                "ManifestTests.manifest export derives references and takes outside sources only by content or policy"
+                "ManifestTests.a manifest is strict about its version, targets and inventory"
+                "ManifestTests.a manifest never certifies a version one policy"
+                "ManifestTests.a Bazel workspace passes, fails on a seeded violation and reports its derived edge"
+                "ManifestTests.the CLI checks a manifest from the execution root and writes its report" ]
               "Complete supported-profile/unknown-classification compatibility coverage; resource limits do not prove termination."
           rule
               "BUILD004"
@@ -298,7 +310,10 @@ module SafetyRules =
                 "ProjectTests.advisory review groups actual findings and preserves stale source rejection"
                 "ProjectTests.advisory review reports blockers and never infers unused contracts from partial analysis"
                 "ProjectTests.excluded project declarations and policy entries remain exact"
-                "WorkspaceTests.mixed-language scope and internal links preserve inventory boundaries" ]
+                "WorkspaceTests.mixed-language scope and internal links preserve inventory boundaries"
+                "ManifestTests.version three policies name Bazel targets and earlier versions keep project files"
+                "ManifestTests.a version three source may live outside the workspace under one bounded shortest path"
+                "ManifestTests.the manifest audit holds a Bazel inventory to the rules of a walked one" ]
               "Temporary exceptions are unsupported. Organizational review identities and expiry require an external policy authority."
           rule
               "BUILD006"
@@ -353,5 +368,5 @@ module SafetyRules =
           Specification = "1.0"
           FullStandardComplete = all |> List.forall (fun item -> item.Remaining = "")
           Scope =
-            "Standalone F# Release/net10.0 workspaces, including FDull's own library, CLI, worker and tests. Coverage is intentionally incomplete; see each rule's remaining work."
+            "Standalone F# Release/net10.0 workspaces built by MSBuild, or by Bazel with rules_dotnet, including FDull's own library, CLI, worker and tests. Coverage is intentionally incomplete; see each rule's remaining work."
           Rules = all }

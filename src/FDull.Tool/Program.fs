@@ -38,7 +38,7 @@ module Program =
         Console.WriteLine "FDull — F# with fewer sharp edges."
 
         Console.WriteLine
-            "fdull defaults | init <root> [--scope <file>] | check <project.fsproj> --rules <ids> <file-or-directory>... [--format text|json] | lint <root> [--format text|json|sarif] [--jobs <1-64>] [--memory <256-16384>] [--no-cache] [--timings] | review <root> [--format text|json] [--jobs <1-64>] [--memory <256-16384>] [--no-cache] [--timings] | cache clear <root> | data-digest <assembly> | policy-digest <fdull.json> | verify <root> [--all | --since <commit>] [--jobs <1-64>] [--memory <256-16384>] [--cache | --no-cache] [--timings] | coverage"
+            "fdull defaults | init <root> [--scope <file>] | check <project.fsproj> --rules <ids> <file-or-directory>... [--format text|json] | lint <root> [--format text|json|sarif] [--jobs <1-64>] [--memory <256-16384>] [--no-cache] [--timings] [--manifest <file>] [--report <file>] | review <root> [--format text|json] [--jobs <1-64>] [--memory <256-16384>] [--no-cache] [--timings] [--manifest <file>] [--report <file>] | cache clear <root> | data-digest <assembly> | policy-digest <fdull.json> | verify <root> [--all | --since <commit>] [--jobs <1-64>] [--memory <256-16384>] [--cache | --no-cache] [--timings] | coverage"
 
         2
 
@@ -72,6 +72,16 @@ module Program =
             options formats (selected.Add("timings", "")) rest
         | "--no-cache" :: rest when not (selected.ContainsKey "no-cache") ->
             options formats (selected.Add("no-cache", "")) rest
+        | "--manifest" :: file :: rest when
+            not (file.StartsWith("--", StringComparison.Ordinal))
+            && not (selected.ContainsKey "manifest")
+            ->
+            options formats (selected.Add("manifest", file)) rest
+        | "--report" :: file :: rest when
+            not (file.StartsWith("--", StringComparison.Ordinal))
+            && not (selected.ContainsKey "report")
+            ->
+            options formats (selected.Add("report", file)) rest
         | _ -> None
 
     let private jobs (selected: Map<string, string>) =
@@ -109,6 +119,60 @@ module Program =
         { Jobs = jobs selected
           Cache = not (selected.ContainsKey "no-cache")
           MemoryMiB = memory selected }
+
+    /// `--manifest <file>` checks a Bazel workspace from the manifest its build wrote. The library then
+    /// never uses the result cache, so `--no-cache` changes nothing.
+    let private lint root (selected: Map<string, string>) =
+        match selected.TryFind "manifest" with
+        | Some manifest -> Workspace.checkManifestTimed (workspaceOptions selected) root manifest
+        | None -> Workspace.checkTimed (workspaceOptions selected) root
+
+    let private review root (selected: Map<string, string>) =
+        match selected.TryFind "manifest" with
+        | Some manifest -> Workspace.reviewManifestTimed (workspaceOptions selected) root manifest
+        | None -> Workspace.reviewTimed (workspaceOptions selected) root
+
+    /// Under a manifest the working directory is the build's execution root, and an absolute path names
+    /// a sandbox that is gone when the log is read. Text output then names each diagnostic's file
+    /// relative to the working directory. JSON and SARIF keep absolute paths.
+    let private located (selected: Map<string, string>) format (report: WorkspaceReport) =
+        if format = "text" && selected.ContainsKey "manifest" then
+            { report with
+                Projects =
+                    report.Projects
+                    |> List.map (fun project ->
+                        { project with
+                            Report =
+                                { project.Report with
+                                    Diagnostics =
+                                        project.Report.Diagnostics
+                                        |> List.map (fun diagnostic ->
+                                            { diagnostic with
+                                                File =
+                                                    Path.GetRelativePath(
+                                                        Environment.CurrentDirectory,
+                                                        diagnostic.File
+                                                    ) }) } }) }
+        else
+            report
+
+    /// `--report <file>` also writes what the command prints to stdout to a file: a Bazel action needs a
+    /// declared output and cannot redirect stdout. Stdout is held while the command runs, then written
+    /// to the console and the file, whatever the exit code and even when the command throws.
+    let private reported (file: string option) (command: unit -> int) =
+        match file with
+        | None -> command ()
+        | Some path ->
+            let console = Console.Out
+            use capture = new StringWriter()
+            Console.SetOut capture
+
+            try
+                command ()
+            finally
+                Console.SetOut console
+                console.Write(capture.ToString())
+                File.WriteAllText(path, capture.ToString())
 
     /// Repository verification reads and writes cached results only when explicitly requested.
     let private repositoryOptions (selected: Map<string, string>) : WorkspaceOptions =
@@ -408,9 +472,12 @@ module Program =
             | "lint" :: root :: rest when not (root.StartsWith("--", StringComparison.Ordinal)) ->
                 match options [ "text"; "json"; "sarif" ] Map.empty rest with
                 | Some selected ->
-                    timed (selected.ContainsKey "timings") workspaceTimings (fun () ->
-                        Workspace.checkTimed (workspaceOptions selected) root)
-                    |> display "lint" (selected.TryFind "format" |> Option.defaultValue "text")
+                    let format = selected.TryFind "format" |> Option.defaultValue "text"
+
+                    reported (selected.TryFind "report") (fun () ->
+                        timed (selected.ContainsKey "timings") workspaceTimings (fun () -> lint root selected)
+                        |> located selected format
+                        |> display "lint" format)
                 | None -> usage ()
             | "check" :: project :: rest when not (project.StartsWith("--", StringComparison.Ordinal)) ->
                 match checkOptions None None [] rest with
@@ -426,9 +493,9 @@ module Program =
             | "review" :: root :: rest when not (root.StartsWith("--", StringComparison.Ordinal)) ->
                 match options [ "text"; "json" ] Map.empty rest with
                 | Some selected ->
-                    timed (selected.ContainsKey "timings") workspaceTimings (fun () ->
-                        Workspace.reviewTimed (workspaceOptions selected) root)
-                    |> displayReview (selected.TryFind "format" |> Option.defaultValue "text")
+                    reported (selected.TryFind "report") (fun () ->
+                        timed (selected.ContainsKey "timings") workspaceTimings (fun () -> review root selected)
+                        |> displayReview (selected.TryFind "format" |> Option.defaultValue "text"))
                 | None -> usage ()
             | [ "cache"; "clear"; root ] ->
                 match WorkspaceCache.clear root with
