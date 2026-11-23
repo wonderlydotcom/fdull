@@ -303,7 +303,7 @@
       "File": "tools/FDull.Ci/Program.fs",
       "Project": "tools/FDull.Ci/FDull.Ci.fsproj",
       "Profile": "GUARD_TOOLING",
-      "Digest": "sha256:a7a373bcf71e8addade71baaa10203afdb33759a698845cedde3cc281c440079"
+      "Digest": "sha256:2c1fc7379d894a1f0d9bdb8344d2bc8bac06f891e307ec5635b35b0ae5b9f566"
     },
     {
       "File": "src/FDull/WorkspaceManifest.fs",
@@ -401,7 +401,7 @@
     },
     {
       "File": ".github/workflows/ci.yml",
-      "Digest": "sha256:6b594152dad5b70e9ee6b044c86c6387d2a98ffa1bd9715fca90834d6f5d6f98"
+      "Digest": "sha256:9d236cea03ce306eaf6d0d7eb30ebfee255133e85aa2367c189b77ba3136a9ad"
     },
     {
       "File": ".github/CODEOWNERS",
@@ -21277,13 +21277,6 @@
       "File": "tools/FDull.Ci/Program.fs",
       "Owner": "FDull.Ci.Program.smoke",
       "Kind": "member",
-      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.GetTempPath",
-      "Reason": "Reviewed package integration smoke: fresh local tool installation and isolated cache, passing pure consumer, complete mutation rejection, blocked source drift, running library consumer and exact analyzer payload checks; cleanup never converts errors to success."
-    },
-    {
-      "File": "tools/FDull.Ci/Program.fs",
-      "Owner": "FDull.Ci.Program.smoke",
-      "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.Combine(System.String,System.String)",
       "Reason": "Reviewed package integration smoke: fresh local tool installation and isolated cache, passing pure consumer, complete mutation rejection, blocked source drift, running library consumer and exact analyzer payload checks; cleanup never converts errors to success."
     },
@@ -21298,42 +21291,7 @@
       "File": "tools/FDull.Ci/Program.fs",
       "Owner": "FDull.Ci.Program.smoke",
       "Kind": "member",
-      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.Guid.NewGuid",
-      "Reason": "Reviewed package integration smoke: fresh local tool installation and isolated cache, passing pure consumer, complete mutation rejection, blocked source drift, running library consumer and exact analyzer payload checks; cleanup never converts errors to success."
-    },
-    {
-      "File": "tools/FDull.Ci/Program.fs",
-      "Owner": "FDull.Ci.Program.smoke",
-      "Kind": "member",
-      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.Guid.ToString(System.String)",
-      "Reason": "Reviewed package integration smoke: fresh local tool installation and isolated cache, passing pure consumer, complete mutation rejection, blocked source drift, running library consumer and exact analyzer payload checks; cleanup never converts errors to success."
-    },
-    {
-      "File": "tools/FDull.Ci/Program.fs",
-      "Owner": "FDull.Ci.Program.smoke",
-      "Kind": "member",
-      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Directory.CreateDirectory(System.String)",
-      "Reason": "Reviewed package integration smoke: fresh local tool installation and isolated cache, passing pure consumer, complete mutation rejection, blocked source drift, running library consumer and exact analyzer payload checks; cleanup never converts errors to success."
-    },
-    {
-      "File": "tools/FDull.Ci/Program.fs",
-      "Owner": "FDull.Ci.Program.smoke",
-      "Kind": "member",
-      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Directory.Delete(System.String,System.Boolean)",
-      "Reason": "Reviewed package integration smoke: fresh local tool installation and isolated cache, passing pure consumer, complete mutation rejection, blocked source drift, running library consumer and exact analyzer payload checks; cleanup never converts errors to success."
-    },
-    {
-      "File": "tools/FDull.Ci/Program.fs",
-      "Owner": "FDull.Ci.Program.smoke",
-      "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.File.Exists(System.String)",
-      "Reason": "Reviewed package integration smoke: fresh local tool installation and isolated cache, passing pure consumer, complete mutation rejection, blocked source drift, running library consumer and exact analyzer payload checks; cleanup never converts errors to success."
-    },
-    {
-      "File": "tools/FDull.Ci/Program.fs",
-      "Owner": "FDull.Ci.Program.smoke",
-      "Kind": "member",
-      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.File.ReadAllText(System.String)",
       "Reason": "Reviewed package integration smoke: fresh local tool installation and isolated cache, passing pure consumer, complete mutation rejection, blocked source drift, running library consumer and exact analyzer payload checks; cleanup never converts errors to success."
     },
     {
@@ -21368,13 +21326,6 @@
       "File": "tools/FDull.Ci/Program.fs",
       "Owner": "FDull.Ci.Program.smoke",
       "Kind": "rule",
-      "Identity": "ERR009 | ",
-      "Reason": "Reviewed package integration smoke: fresh local tool installation and isolated cache, passing pure consumer, complete mutation rejection, blocked source drift, running library consumer and exact analyzer payload checks; cleanup never converts errors to success."
-    },
-    {
-      "File": "tools/FDull.Ci/Program.fs",
-      "Owner": "FDull.Ci.Program.smoke",
-      "Kind": "rule",
       "Identity": "MUT009 | ",
       "Reason": "Reviewed package integration smoke: fresh local tool installation and isolated cache, passing pure consumer, complete mutation rejection, blocked source drift, running library consumer and exact analyzer payload checks; cleanup never converts errors to success."
     },
@@ -21383,70 +21334,70 @@
       "Owner": "FDull.Ci.Program.main",
       "Kind": "member",
       "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.ArrayModule.ToList``1(``0[])",
-      "Reason": "Reviewed CI entry point: only the coverage and smoke commands are dispatched; unexpected arguments and exceptions return nonzero exits."
+      "Reason": "Reviewed CI entry point: only the coverage, smoke and bazel commands are dispatched; unexpected arguments and exceptions return nonzero exits."
     },
     {
       "File": "tools/FDull.Ci/Program.fs",
       "Owner": "FDull.Ci.Program.main",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.GetFullPath(System.String)",
-      "Reason": "Reviewed CI entry point: only the coverage and smoke commands are dispatched; unexpected arguments and exceptions return nonzero exits."
+      "Reason": "Reviewed CI entry point: only the coverage, smoke and bazel commands are dispatched; unexpected arguments and exceptions return nonzero exits."
     },
     {
       "File": "tools/FDull.Ci/Program.fs",
       "Owner": "FDull.Ci.Program.main",
       "Kind": "member",
       "Identity": "System.Console, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:System.Console.Error",
-      "Reason": "Reviewed CI entry point: only the coverage and smoke commands are dispatched; unexpected arguments and exceptions return nonzero exits."
+      "Reason": "Reviewed CI entry point: only the coverage, smoke and bazel commands are dispatched; unexpected arguments and exceptions return nonzero exits."
     },
     {
       "File": "tools/FDull.Ci/Program.fs",
       "Owner": "FDull.Ci.Program.main",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.TextWriter.WriteLine(System.String)",
-      "Reason": "Reviewed CI entry point: only the coverage and smoke commands are dispatched; unexpected arguments and exceptions return nonzero exits."
+      "Reason": "Reviewed CI entry point: only the coverage, smoke and bazel commands are dispatched; unexpected arguments and exceptions return nonzero exits."
     },
     {
       "File": "tools/FDull.Ci/Program.fs",
       "Owner": "FDull.Ci.Program.main",
       "Kind": "member",
       "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | P:System.Exception.Message",
-      "Reason": "Reviewed CI entry point: only the coverage and smoke commands are dispatched; unexpected arguments and exceptions return nonzero exits."
+      "Reason": "Reviewed CI entry point: only the coverage, smoke and bazel commands are dispatched; unexpected arguments and exceptions return nonzero exits."
     },
     {
       "File": "tools/FDull.Ci/Program.fs",
       "Owner": "FDull.Ci.Program.main",
       "Kind": "attribute",
       "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | Microsoft.FSharp.Core.EntryPointAttribute |  | unit",
-      "Reason": "Reviewed CI entry point: only the coverage and smoke commands are dispatched; unexpected arguments and exceptions return nonzero exits."
+      "Reason": "Reviewed CI entry point: only the coverage, smoke and bazel commands are dispatched; unexpected arguments and exceptions return nonzero exits."
     },
     {
       "File": "tools/FDull.Ci/Program.fs",
       "Owner": "FDull.Ci.Program.main",
       "Kind": "type",
       "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | []",
-      "Reason": "Reviewed CI entry point: only the coverage and smoke commands are dispatched; unexpected arguments and exceptions return nonzero exits."
+      "Reason": "Reviewed CI entry point: only the coverage, smoke and bazel commands are dispatched; unexpected arguments and exceptions return nonzero exits."
     },
     {
       "File": "tools/FDull.Ci/Program.fs",
       "Owner": "FDull.Ci.Program.main",
       "Kind": "type",
       "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | System.Exception",
-      "Reason": "Reviewed CI entry point: only the coverage and smoke commands are dispatched; unexpected arguments and exceptions return nonzero exits."
+      "Reason": "Reviewed CI entry point: only the coverage, smoke and bazel commands are dispatched; unexpected arguments and exceptions return nonzero exits."
     },
     {
       "File": "tools/FDull.Ci/Program.fs",
       "Owner": "FDull.Ci.Program.main",
       "Kind": "rule",
       "Identity": "ERR001 | ",
-      "Reason": "Reviewed CI entry point: only the coverage and smoke commands are dispatched; unexpected arguments and exceptions return nonzero exits."
+      "Reason": "Reviewed CI entry point: only the coverage, smoke and bazel commands are dispatched; unexpected arguments and exceptions return nonzero exits."
     },
     {
       "File": "tools/FDull.Ci/Program.fs",
       "Owner": "FDull.Ci.Program.main",
       "Kind": "rule",
       "Identity": "ERR004 | exception handler",
-      "Reason": "Reviewed CI entry point: only the coverage and smoke commands are dispatched; unexpected arguments and exceptions return nonzero exits."
+      "Reason": "Reviewed CI entry point: only the coverage, smoke and bazel commands are dispatched; unexpected arguments and exceptions return nonzero exits."
     },
     {
       "File": "tools/FDull.Ci/Program.fs",
@@ -31660,6 +31611,188 @@
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.GetExtension(System.String)",
       "Reason": "Structural check of one project assignment: version three requires :name targets, and every other version requires .fsproj paths exactly as before. Only the extension of the file name is inspected."
+    },
+    {
+      "File": "tools/FDull.Ci/Program.fs",
+      "Owner": "FDull.Ci.Program.withTool",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.Guid.NewGuid",
+      "Reason": "Reviewed tool installation shared by the package and Bazel smoke checks: a fresh temporary directory with an isolated package cache, the three packed FDull packages required in the local feed, the pinned global.json, a local tool manifest and an exact installed-version check. The directory is always deleted, and cleanup never converts an error to success."
+    },
+    {
+      "File": "tools/FDull.Ci/Program.fs",
+      "Owner": "FDull.Ci.Program.withTool",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.Guid.ToString(System.String)",
+      "Reason": "Reviewed tool installation shared by the package and Bazel smoke checks: a fresh temporary directory with an isolated package cache, the three packed FDull packages required in the local feed, the pinned global.json, a local tool manifest and an exact installed-version check. The directory is always deleted, and cleanup never converts an error to success."
+    },
+    {
+      "File": "tools/FDull.Ci/Program.fs",
+      "Owner": "FDull.Ci.Program.withTool",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Directory.CreateDirectory(System.String)",
+      "Reason": "Reviewed tool installation shared by the package and Bazel smoke checks: a fresh temporary directory with an isolated package cache, the three packed FDull packages required in the local feed, the pinned global.json, a local tool manifest and an exact installed-version check. The directory is always deleted, and cleanup never converts an error to success."
+    },
+    {
+      "File": "tools/FDull.Ci/Program.fs",
+      "Owner": "FDull.Ci.Program.withTool",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Directory.Delete(System.String,System.Boolean)",
+      "Reason": "Reviewed tool installation shared by the package and Bazel smoke checks: a fresh temporary directory with an isolated package cache, the three packed FDull packages required in the local feed, the pinned global.json, a local tool manifest and an exact installed-version check. The directory is always deleted, and cleanup never converts an error to success."
+    },
+    {
+      "File": "tools/FDull.Ci/Program.fs",
+      "Owner": "FDull.Ci.Program.withTool",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.File.Exists(System.String)",
+      "Reason": "Reviewed tool installation shared by the package and Bazel smoke checks: a fresh temporary directory with an isolated package cache, the three packed FDull packages required in the local feed, the pinned global.json, a local tool manifest and an exact installed-version check. The directory is always deleted, and cleanup never converts an error to success."
+    },
+    {
+      "File": "tools/FDull.Ci/Program.fs",
+      "Owner": "FDull.Ci.Program.withTool",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.File.ReadAllText(System.String)",
+      "Reason": "Reviewed tool installation shared by the package and Bazel smoke checks: a fresh temporary directory with an isolated package cache, the three packed FDull packages required in the local feed, the pinned global.json, a local tool manifest and an exact installed-version check. The directory is always deleted, and cleanup never converts an error to success."
+    },
+    {
+      "File": "tools/FDull.Ci/Program.fs",
+      "Owner": "FDull.Ci.Program.withTool",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.Combine(System.String,System.String)",
+      "Reason": "Reviewed tool installation shared by the package and Bazel smoke checks: a fresh temporary directory with an isolated package cache, the three packed FDull packages required in the local feed, the pinned global.json, a local tool manifest and an exact installed-version check. The directory is always deleted, and cleanup never converts an error to success."
+    },
+    {
+      "File": "tools/FDull.Ci/Program.fs",
+      "Owner": "FDull.Ci.Program.withTool",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.GetTempPath",
+      "Reason": "Reviewed tool installation shared by the package and Bazel smoke checks: a fresh temporary directory with an isolated package cache, the three packed FDull packages required in the local feed, the pinned global.json, a local tool manifest and an exact installed-version check. The directory is always deleted, and cleanup never converts an error to success."
+    },
+    {
+      "File": "tools/FDull.Ci/Program.fs",
+      "Owner": "FDull.Ci.Program.withTool",
+      "Kind": "rule",
+      "Identity": "ERR009 | ",
+      "Reason": "Reviewed tool installation shared by the package and Bazel smoke checks: a fresh temporary directory with an isolated package cache, the three packed FDull packages required in the local feed, the pinned global.json, a local tool manifest and an exact installed-version check. The directory is always deleted, and cleanup never converts an error to success."
+    },
+    {
+      "File": "tools/FDull.Ci/Program.fs",
+      "Owner": "FDull.Ci.Program.withTool",
+      "Kind": "rule",
+      "Identity": "MUT009 | ",
+      "Reason": "Reviewed tool installation shared by the package and Bazel smoke checks: a fresh temporary directory with an isolated package cache, the three packed FDull packages required in the local feed, the pinned global.json, a local tool manifest and an exact installed-version check. The directory is always deleted, and cleanup never converts an error to success."
+    },
+    {
+      "File": "tools/FDull.Ci/Program.fs",
+      "Owner": "FDull.Ci.Program.withTool",
+      "Kind": "type",
+      "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | System.Object",
+      "Reason": "Reviewed compiler-generated boxing while enumerating fixed package/assembly name lists; no application payload is erased or cast."
+    },
+    {
+      "File": "tools/FDull.Ci/Program.fs",
+      "Owner": "FDull.Ci.Program.bazel",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.3.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.SafetyPolicy.fileDigest(System.String)",
+      "Reason": "Reviewed Bazel consumption smoke: runs the packed FDull.Cli.dll from the installed package with dotnet --fx-version on the named newer runtime, against a temporary Bazel-style workspace built from a restored project's real references, rules_dotnet-style arguments, a manifest and a version-three policy. It requires a complete pass, a report file equal to stdout and a complete MUT001 failure after a seeded mutation; any other outcome fails the job."
+    },
+    {
+      "File": "tools/FDull.Ci/Program.fs",
+      "Owner": "FDull.Ci.Program.bazel",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.3.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Transport.Codec.decode``1(System.String)",
+      "Reason": "Reviewed Bazel consumption smoke: runs the packed FDull.Cli.dll from the installed package with dotnet --fx-version on the named newer runtime, against a temporary Bazel-style workspace built from a restored project's real references, rules_dotnet-style arguments, a manifest and a version-three policy. It requires a complete pass, a report file equal to stdout and a complete MUT001 failure after a seeded mutation; any other outcome fails the job."
+    },
+    {
+      "File": "tools/FDull.Ci/Program.fs",
+      "Owner": "FDull.Ci.Program.bazel",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.3.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Transport.Codec.encode``1(``0)",
+      "Reason": "Reviewed Bazel consumption smoke: runs the packed FDull.Cli.dll from the installed package with dotnet --fx-version on the named newer runtime, against a temporary Bazel-style workspace built from a restored project's real references, rules_dotnet-style arguments, a manifest and a version-three policy. It requires a complete pass, a report file equal to stdout and a complete MUT001 failure after a seeded mutation; any other outcome fails the job."
+    },
+    {
+      "File": "tools/FDull.Ci/Program.fs",
+      "Owner": "FDull.Ci.Program.bazel",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.3.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Workspace.export(System.String,System.String)",
+      "Reason": "Reviewed Bazel consumption smoke: runs the packed FDull.Cli.dll from the installed package with dotnet --fx-version on the named newer runtime, against a temporary Bazel-style workspace built from a restored project's real references, rules_dotnet-style arguments, a manifest and a version-three policy. It requires a complete pass, a report file equal to stdout and a complete MUT001 failure after a seeded mutation; any other outcome fails the job."
+    },
+    {
+      "File": "tools/FDull.Ci/Program.fs",
+      "Owner": "FDull.Ci.Program.bazel",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Core.Operators.InvalidOp``1(System.String)",
+      "Reason": "Reviewed Bazel consumption smoke: runs the packed FDull.Cli.dll from the installed package with dotnet --fx-version on the named newer runtime, against a temporary Bazel-style workspace built from a restored project's real references, rules_dotnet-style arguments, a manifest and a version-three policy. It requires a complete pass, a report file equal to stdout and a complete MUT001 failure after a seeded mutation; any other outcome fails the job."
+    },
+    {
+      "File": "tools/FDull.Ci/Program.fs",
+      "Owner": "FDull.Ci.Program.bazel",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Core.StringModule.Concat(System.String,System.Collections.Generic.IEnumerable{System.String})",
+      "Reason": "Reviewed Bazel consumption smoke: runs the packed FDull.Cli.dll from the installed package with dotnet --fx-version on the named newer runtime, against a temporary Bazel-style workspace built from a restored project's real references, rules_dotnet-style arguments, a manifest and a version-three policy. It requires a complete pass, a report file equal to stdout and a complete MUT001 failure after a seeded mutation; any other outcome fails the job."
+    },
+    {
+      "File": "tools/FDull.Ci/Program.fs",
+      "Owner": "FDull.Ci.Program.bazel",
+      "Kind": "member",
+      "Identity": "System.Console, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.Console.WriteLine(System.String)",
+      "Reason": "Reviewed Bazel consumption smoke: runs the packed FDull.Cli.dll from the installed package with dotnet --fx-version on the named newer runtime, against a temporary Bazel-style workspace built from a restored project's real references, rules_dotnet-style arguments, a manifest and a version-three policy. It requires a complete pass, a report file equal to stdout and a complete MUT001 failure after a seeded mutation; any other outcome fails the job."
+    },
+    {
+      "File": "tools/FDull.Ci/Program.fs",
+      "Owner": "FDull.Ci.Program.bazel",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Directory.CreateDirectory(System.String)",
+      "Reason": "Reviewed Bazel consumption smoke: runs the packed FDull.Cli.dll from the installed package with dotnet --fx-version on the named newer runtime, against a temporary Bazel-style workspace built from a restored project's real references, rules_dotnet-style arguments, a manifest and a version-three policy. It requires a complete pass, a report file equal to stdout and a complete MUT001 failure after a seeded mutation; any other outcome fails the job."
+    },
+    {
+      "File": "tools/FDull.Ci/Program.fs",
+      "Owner": "FDull.Ci.Program.bazel",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.File.Exists(System.String)",
+      "Reason": "Reviewed Bazel consumption smoke: runs the packed FDull.Cli.dll from the installed package with dotnet --fx-version on the named newer runtime, against a temporary Bazel-style workspace built from a restored project's real references, rules_dotnet-style arguments, a manifest and a version-three policy. It requires a complete pass, a report file equal to stdout and a complete MUT001 failure after a seeded mutation; any other outcome fails the job."
+    },
+    {
+      "File": "tools/FDull.Ci/Program.fs",
+      "Owner": "FDull.Ci.Program.bazel",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.File.ReadAllText(System.String)",
+      "Reason": "Reviewed Bazel consumption smoke: runs the packed FDull.Cli.dll from the installed package with dotnet --fx-version on the named newer runtime, against a temporary Bazel-style workspace built from a restored project's real references, rules_dotnet-style arguments, a manifest and a version-three policy. It requires a complete pass, a report file equal to stdout and a complete MUT001 failure after a seeded mutation; any other outcome fails the job."
+    },
+    {
+      "File": "tools/FDull.Ci/Program.fs",
+      "Owner": "FDull.Ci.Program.bazel",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.Combine(System.String,System.String)",
+      "Reason": "Reviewed Bazel consumption smoke: runs the packed FDull.Cli.dll from the installed package with dotnet --fx-version on the named newer runtime, against a temporary Bazel-style workspace built from a restored project's real references, rules_dotnet-style arguments, a manifest and a version-three policy. It requires a complete pass, a report file equal to stdout and a complete MUT001 failure after a seeded mutation; any other outcome fails the job."
+    },
+    {
+      "File": "tools/FDull.Ci/Program.fs",
+      "Owner": "FDull.Ci.Program.bazel",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.3.0.0, Culture=neutral, PublicKeyToken=null | FDull.SafetyDiagnostic",
+      "Reason": "Reviewed Bazel consumption smoke: runs the packed FDull.Cli.dll from the installed package with dotnet --fx-version on the named newer runtime, against a temporary Bazel-style workspace built from a restored project's real references, rules_dotnet-style arguments, a manifest and a version-three policy. It requires a complete pass, a report file equal to stdout and a complete MUT001 failure after a seeded mutation; any other outcome fails the job."
+    },
+    {
+      "File": "tools/FDull.Ci/Program.fs",
+      "Owner": "FDull.Ci.Program.bazel",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.3.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspaceInvocation",
+      "Reason": "Reviewed Bazel consumption smoke: runs the packed FDull.Cli.dll from the installed package with dotnet --fx-version on the named newer runtime, against a temporary Bazel-style workspace built from a restored project's real references, rules_dotnet-style arguments, a manifest and a version-three policy. It requires a complete pass, a report file equal to stdout and a complete MUT001 failure after a seeded mutation; any other outcome fails the job."
+    },
+    {
+      "File": "tools/FDull.Ci/Program.fs",
+      "Owner": "FDull.Ci.Program.bazel",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.3.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspaceProjectReport",
+      "Reason": "Reviewed Bazel consumption smoke: runs the packed FDull.Cli.dll from the installed package with dotnet --fx-version on the named newer runtime, against a temporary Bazel-style workspace built from a restored project's real references, rules_dotnet-style arguments, a manifest and a version-three policy. It requires a complete pass, a report file equal to stdout and a complete MUT001 failure after a seeded mutation; any other outcome fails the job."
+    },
+    {
+      "File": "tools/FDull.Ci/Program.fs",
+      "Owner": "FDull.Ci.Program.bazel",
+      "Kind": "type",
+      "Identity": "FDull, Version=0.3.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspaceReport",
+      "Reason": "Reviewed Bazel consumption smoke: runs the packed FDull.Cli.dll from the installed package with dotnet --fx-version on the named newer runtime, against a temporary Bazel-style workspace built from a restored project's real references, rules_dotnet-style arguments, a manifest and a version-three policy. It requires a complete pass, a report file equal to stdout and a complete MUT001 failure after a seeded mutation; any other outcome fails the job."
     },
     {
       "File": "tests/FDull.Tests/ManifestTests.fs",
