@@ -93,13 +93,13 @@
       "File": "src/FDull/SafetyRules.fs",
       "Project": "src/FDull/FDull.fsproj",
       "Profile": "GUARD_TOOLING",
-      "Digest": "sha256:ee6d7d0d1084fa001df3e9f39c36837e73c3e5f84be1519b5ff62baea39f1c06"
+      "Digest": "sha256:76a81e6fd776f4c5d79b8d9557dab0a42f9a1d4aaa6505dfd9e9c305c175f34b"
     },
     {
       "File": "src/FDull/SafetyPolicy.fs",
       "Project": "src/FDull/FDull.fsproj",
       "Profile": "GUARD_TOOLING",
-      "Digest": "sha256:e19ea10a57e13975b058f3eeb7d26dec87e9ea9a769e0012ab60beef2f2dea2e"
+      "Digest": "sha256:c4060aadb1ccecc2f676c5936265a1c48b649d7a697b28707b2af4ab89f22829"
     },
     {
       "File": "src/FDull/SafetyLimits.fs",
@@ -153,7 +153,7 @@
       "File": "src/FDull/WorkspacePolicy.fs",
       "Project": "src/FDull/FDull.fsproj",
       "Profile": "GUARD_TOOLING",
-      "Digest": "sha256:0d800c4faf514e4d1c54359892d2f5b231cbe6b23005768edd96cdcb88fe28fe"
+      "Digest": "sha256:a3b224a9000b4eb3a64269f13028b5995eeb42098cc8b078cb1420ca11e6a3f8"
     },
     {
       "File": "src/FDull/WorkspaceAudit.fs",
@@ -315,7 +315,7 @@
       "File": "tests/FDull.Tests/ManifestTests.fs",
       "Project": "tests/FDull.Tests/FDull.Tests.fsproj",
       "Profile": "TEST",
-      "Digest": "sha256:12c629cfe820c49704486b28b87ed93c817a98f0d36b8351db22486dcaeaf64d"
+      "Digest": "sha256:bb17b4aa627141cf80b6c9f9d99bb92844c9b2669e90dec046df7d63703231db"
     }
   ],
   "Inputs": [
@@ -7583,7 +7583,7 @@
     },
     {
       "File": "src/FDull/SafetyPolicy.fs",
-      "Owner": "FDull.SafetyPolicy.approvedApi",
+      "Owner": "FDull.SafetyPolicy.approvedIdentity",
       "Kind": "member",
       "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | P:System.Lazy`1.Value",
       "Reason": "Protected catalog adapter reads pinned embedded symbol contracts, hashes inputs and formats data-only JSON/SARIF. Corrupt configuration stops verification."
@@ -33165,6 +33165,167 @@
       "Kind": "type",
       "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | System.Object",
       "Reason": "Non-shipping CLI regression on the isolated Bazel-style workspace with the execution root as working directory: --manifest with relative paths, --report equal to stdout for pass, review, fail, JSON and blocked runs, text paths relative to the working directory for a workspace source and for the shared source, absolute JSON paths, no .fdull directory, and usage exit 2 for a repeated option. Read-only inspection of bounded subprocess output."
+    },
+    {
+      "File": "tests/FDull.Tests/ManifestTests.fs",
+      "Owner": "FDull.Tests.ManifestTests.``a version three target defines the symbols of net10.0 or of net11.0 and never both``",
+      "Kind": "attribute",
+      "Identity": "xunit.core, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | Xunit.FactAttribute |  | unit",
+      "Reason": "Non-shipping compiler-policy regression on literal argument lists: the symbols rules_dotnet defines for net10.0 and for net11.0 each validate for policy version three, the net11.0 symbols fail versions one and two, either net11.0 symbol beside NET10_0 fails as a mix, and the symbols of an unreviewed framework fail. No file is opened."
+    },
+    {
+      "File": "tests/FDull.Tests/ManifestTests.fs",
+      "Owner": "FDull.Tests.ManifestTests.``a version three target defines the symbols of net10.0 or of net11.0 and never both``",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.3.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.WorkspaceCompilerPolicy.validate(Microsoft.FSharp.Collections.FSharpList{System.String})",
+      "Reason": "Non-shipping compiler-policy regression on literal argument lists: the symbols rules_dotnet defines for net10.0 and for net11.0 each validate for policy version three, the net11.0 symbols fail versions one and two, either net11.0 symbol beside NET10_0 fails as a mix, and the symbols of an unreviewed framework fail. No file is opened."
+    },
+    {
+      "File": "tests/FDull.Tests/ManifestTests.fs",
+      "Owner": "FDull.Tests.ManifestTests.``a version three target defines the symbols of net10.0 or of net11.0 and never both``",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.3.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.WorkspaceCompilerPolicy.validateFor(System.Int32,Microsoft.FSharp.Collections.FSharpList{System.String})",
+      "Reason": "Non-shipping compiler-policy regression on literal argument lists: the symbols rules_dotnet defines for net10.0 and for net11.0 each validate for policy version three, the net11.0 symbols fail versions one and two, either net11.0 symbol beside NET10_0 fails as a mix, and the symbols of an unreviewed framework fail. No file is opened."
+    },
+    {
+      "File": "tests/FDull.Tests/ManifestTests.fs",
+      "Owner": "FDull.Tests.ManifestTests.``a version three target defines the symbols of net10.0 or of net11.0 and never both``",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.3.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.WorkspaceManifest.rewrite(System.String,Microsoft.FSharp.Collections.FSharpList{System.String})",
+      "Reason": "Non-shipping compiler-policy regression on literal argument lists: the symbols rules_dotnet defines for net10.0 and for net11.0 each validate for policy version three, the net11.0 symbols fail versions one and two, either net11.0 symbol beside NET10_0 fails as a mix, and the symbols of an unreviewed framework fail. No file is opened."
+    },
+    {
+      "File": "tests/FDull.Tests/ManifestTests.fs",
+      "Owner": "FDull.Tests.ManifestTests.``a version three target defines the symbols of net10.0 or of net11.0 and never both``",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.3.0.0, Culture=neutral, PublicKeyToken=null | P:FDull.WorkspaceCompilerPolicy.required",
+      "Reason": "Non-shipping compiler-policy regression on literal argument lists: the symbols rules_dotnet defines for net10.0 and for net11.0 each validate for policy version three, the net11.0 symbols fail versions one and two, either net11.0 symbol beside NET10_0 fails as a mix, and the symbols of an unreviewed framework fail. No file is opened."
+    },
+    {
+      "File": "tests/FDull.Tests/ManifestTests.fs",
+      "Owner": "FDull.Tests.ManifestTests.``a version three target defines the symbols of net10.0 or of net11.0 and never both``",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Core.Operators.FailWith``1(System.String)",
+      "Reason": "Non-shipping compiler-policy regression on literal argument lists: the symbols rules_dotnet defines for net10.0 and for net11.0 each validate for policy version three, the net11.0 symbols fail versions one and two, either net11.0 symbol beside NET10_0 fails as a mix, and the symbols of an unreviewed framework fail. No file is opened."
+    },
+    {
+      "File": "tests/FDull.Tests/ManifestTests.fs",
+      "Owner": "FDull.Tests.ManifestTests.``a version three target defines the symbols of net10.0 or of net11.0 and never both``",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.GetFullPath(System.String)",
+      "Reason": "Non-shipping compiler-policy regression on literal argument lists: the symbols rules_dotnet defines for net10.0 and for net11.0 each validate for policy version three, the net11.0 symbols fail versions one and two, either net11.0 symbol beside NET10_0 fails as a mix, and the symbols of an unreviewed framework fail. No file is opened."
+    },
+    {
+      "File": "tests/FDull.Tests/ManifestTests.fs",
+      "Owner": "FDull.Tests.ManifestTests.``a version three target defines the symbols of net10.0 or of net11.0 and never both``",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Contains(System.String,System.String)",
+      "Reason": "Non-shipping compiler-policy regression on literal argument lists: the symbols rules_dotnet defines for net10.0 and for net11.0 each validate for policy version three, the net11.0 symbols fail versions one and two, either net11.0 symbol beside NET10_0 fails as a mix, and the symbols of an unreviewed framework fail. No file is opened."
+    },
+    {
+      "File": "tests/FDull.Tests/ManifestTests.fs",
+      "Owner": "FDull.Tests.ManifestTests.``a version three target defines the symbols of net10.0 or of net11.0 and never both``",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Equal``1(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IAsyncEnumerable{``0})",
+      "Reason": "Non-shipping compiler-policy regression on literal argument lists: the symbols rules_dotnet defines for net10.0 and for net11.0 each validate for policy version three, the net11.0 symbols fail versions one and two, either net11.0 symbol beside NET10_0 fails as a mix, and the symbols of an unreviewed framework fail. No file is opened."
+    },
+    {
+      "File": "tests/FDull.Tests/ManifestTests.fs",
+      "Owner": "FDull.Tests.ManifestTests.``a version three target defines the symbols of net10.0 or of net11.0 and never both``",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Equal``1(``0,``0)",
+      "Reason": "Non-shipping compiler-policy regression on literal argument lists: the symbols rules_dotnet defines for net10.0 and for net11.0 each validate for policy version three, the net11.0 symbols fail versions one and two, either net11.0 symbol beside NET10_0 fails as a mix, and the symbols of an unreviewed framework fail. No file is opened."
+    },
+    {
+      "File": "tests/FDull.Tests/ManifestTests.fs",
+      "Owner": "FDull.Tests.ManifestTests.``a version three target defines the symbols of net10.0 or of net11.0 and never both``",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.True(System.Boolean)",
+      "Reason": "Non-shipping compiler-policy regression on literal argument lists: the symbols rules_dotnet defines for net10.0 and for net11.0 each validate for policy version three, the net11.0 symbols fail versions one and two, either net11.0 symbol beside NET10_0 fails as a mix, and the symbols of an unreviewed framework fail. No file is opened."
+    },
+    {
+      "File": "tests/FDull.Tests/ManifestTests.fs",
+      "Owner": "FDull.Tests.ManifestTests.``a version three target defines the symbols of net10.0 or of net11.0 and never both``",
+      "Kind": "rule",
+      "Identity": "MUT009 | ",
+      "Reason": "Non-shipping compiler-policy regression on literal argument lists: the symbols rules_dotnet defines for net10.0 and for net11.0 each validate for policy version three, the net11.0 symbols fail versions one and two, either net11.0 symbol beside NET10_0 fails as a mix, and the symbols of an unreviewed framework fail. No file is opened."
+    },
+    {
+      "File": "tests/FDull.Tests/ManifestTests.fs",
+      "Owner": "FDull.Tests.ManifestTests.``a version three target defines the symbols of net10.0 or of net11.0 and never both``",
+      "Kind": "type",
+      "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | System.Object",
+      "Reason": "Non-shipping compiler-policy regression on literal argument lists: the symbols rules_dotnet defines for net10.0 and for net11.0 each validate for policy version three, the net11.0 symbols fail versions one and two, either net11.0 symbol beside NET10_0 fails as a mix, and the symbols of an unreviewed framework fail. No file is opened."
+    },
+    {
+      "File": "tests/FDull.Tests/ManifestTests.fs",
+      "Owner": "FDull.Tests.ManifestTests.``the framework assemblies of net11.0 read the catalog and count as the framework``",
+      "Kind": "attribute",
+      "Identity": "xunit.core, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | Xunit.FactAttribute |  | unit",
+      "Reason": "Non-shipping identity regression on literal assembly names: System.Runtime 10.0.0.0 and 11.0.0.0 read the same catalog entry and both count as framework assemblies with System.Collections, other versions and other assemblies do not, an uncatalogued signature stays unapproved, and both supported FSharp.Core lines read one entry. No file is opened."
+    },
+    {
+      "File": "tests/FDull.Tests/ManifestTests.fs",
+      "Owner": "FDull.Tests.ManifestTests.``the framework assemblies of net11.0 read the catalog and count as the framework``",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.3.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.SafetyPolicy.approvedIdentity(System.String,System.String)",
+      "Reason": "Non-shipping identity regression on literal assembly names: System.Runtime 10.0.0.0 and 11.0.0.0 read the same catalog entry and both count as framework assemblies with System.Collections, other versions and other assemblies do not, an uncatalogued signature stays unapproved, and both supported FSharp.Core lines read one entry. No file is opened."
+    },
+    {
+      "File": "tests/FDull.Tests/ManifestTests.fs",
+      "Owner": "FDull.Tests.ManifestTests.``the framework assemblies of net11.0 read the catalog and count as the framework``",
+      "Kind": "member",
+      "Identity": "FDull, Version=0.3.0.0, Culture=neutral, PublicKeyToken=null | P:FDull.SafetyPolicy.frameworkIdentities",
+      "Reason": "Non-shipping identity regression on literal assembly names: System.Runtime 10.0.0.0 and 11.0.0.0 read the same catalog entry and both count as framework assemblies with System.Collections, other versions and other assemblies do not, an uncatalogued signature stays unapproved, and both supported FSharp.Core lines read one entry. No file is opened."
+    },
+    {
+      "File": "tests/FDull.Tests/ManifestTests.fs",
+      "Owner": "FDull.Tests.ManifestTests.``the framework assemblies of net11.0 read the catalog and count as the framework``",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.Contains``1(``0,System.Collections.Generic.IEnumerable{``0})",
+      "Reason": "Non-shipping identity regression on literal assembly names: System.Runtime 10.0.0.0 and 11.0.0.0 read the same catalog entry and both count as framework assemblies with System.Collections, other versions and other assemblies do not, an uncatalogued signature stays unapproved, and both supported FSharp.Core lines read one entry. No file is opened."
+    },
+    {
+      "File": "tests/FDull.Tests/ManifestTests.fs",
+      "Owner": "FDull.Tests.ManifestTests.``the framework assemblies of net11.0 read the catalog and count as the framework``",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.DoesNotContain``1(``0,System.Collections.Generic.IEnumerable{``0})",
+      "Reason": "Non-shipping identity regression on literal assembly names: System.Runtime 10.0.0.0 and 11.0.0.0 read the same catalog entry and both count as framework assemblies with System.Collections, other versions and other assemblies do not, an uncatalogued signature stays unapproved, and both supported FSharp.Core lines read one entry. No file is opened."
+    },
+    {
+      "File": "tests/FDull.Tests/ManifestTests.fs",
+      "Owner": "FDull.Tests.ManifestTests.``the framework assemblies of net11.0 read the catalog and count as the framework``",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.False(System.Boolean)",
+      "Reason": "Non-shipping identity regression on literal assembly names: System.Runtime 10.0.0.0 and 11.0.0.0 read the same catalog entry and both count as framework assemblies with System.Collections, other versions and other assemblies do not, an uncatalogued signature stays unapproved, and both supported FSharp.Core lines read one entry. No file is opened."
+    },
+    {
+      "File": "tests/FDull.Tests/ManifestTests.fs",
+      "Owner": "FDull.Tests.ManifestTests.``the framework assemblies of net11.0 read the catalog and count as the framework``",
+      "Kind": "member",
+      "Identity": "xunit.assert, Version=2.9.3.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Assert.True(System.Boolean)",
+      "Reason": "Non-shipping identity regression on literal assembly names: System.Runtime 10.0.0.0 and 11.0.0.0 read the same catalog entry and both count as framework assemblies with System.Collections, other versions and other assemblies do not, an uncatalogued signature stays unapproved, and both supported FSharp.Core lines read one entry. No file is opened."
+    },
+    {
+      "File": "tests/FDull.Tests/ManifestTests.fs",
+      "Owner": "FDull.Tests.ManifestTests.``the framework assemblies of net11.0 read the catalog and count as the framework``",
+      "Kind": "rule",
+      "Identity": "MUT009 | ",
+      "Reason": "Non-shipping identity regression on literal assembly names: System.Runtime 10.0.0.0 and 11.0.0.0 read the same catalog entry and both count as framework assemblies with System.Collections, other versions and other assemblies do not, an uncatalogued signature stays unapproved, and both supported FSharp.Core lines read one entry. No file is opened."
+    },
+    {
+      "File": "tests/FDull.Tests/ManifestTests.fs",
+      "Owner": "FDull.Tests.ManifestTests.``the framework assemblies of net11.0 read the catalog and count as the framework``",
+      "Kind": "type",
+      "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | System.Collections.Generic.IEnumerable`1",
+      "Reason": "Non-shipping identity regression on literal assembly names: System.Runtime 10.0.0.0 and 11.0.0.0 read the same catalog entry and both count as framework assemblies with System.Collections, other versions and other assemblies do not, an uncatalogued signature stays unapproved, and both supported FSharp.Core lines read one entry. No file is opened."
+    },
+    {
+      "File": "tests/FDull.Tests/ManifestTests.fs",
+      "Owner": "FDull.Tests.ManifestTests.``the framework assemblies of net11.0 read the catalog and count as the framework``",
+      "Kind": "type",
+      "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | System.Object",
+      "Reason": "Non-shipping identity regression on literal assembly names: System.Runtime 10.0.0.0 and 11.0.0.0 read the same catalog entry and both count as framework assemblies with System.Collections, other versions and other assemblies do not, an uncatalogued signature stays unapproved, and both supported FSharp.Core lines read one entry. No file is opened."
     }
   ],
   "Domains": [],

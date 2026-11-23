@@ -35,9 +35,12 @@ tests; the preview rejects untested compiler flags.
 A Bazel workspace is checked on the runtime its build supplies. With `--manifest`,
 `lint` and `review` start the worker on the exact runtime that runs the CLI, and
 the launch line under **Bazel workspaces** lets the CLI roll forward to it. A
-toolchain that carries one runtime newer than 10.0.14 is then enough. This mode
-is tested with rules_dotnet at commit `cfa2b4dfa6686b5fc63b57cd3a6323b97e3fb0ee`,
-.NET SDK 11.0.100 with runtime 11.0.0, `net10.0` targets and FSharp.Core 10.0.100.
+toolchain that carries one runtime newer than 10.0.14 is then enough. A target
+of a Bazel workspace builds for `net10.0` or `net11.0`. This mode is tested with
+rules_dotnet at commit `cfa2b4dfa6686b5fc63b57cd3a6323b97e3fb0ee`, .NET SDK
+11.0.100 with runtime 11.0.0, the `net10.0` and `net11.0` reference assemblies
+(Microsoft.NETCore.App.Ref 10.0.14 and 11.0.0), language version 10.0 and
+FSharp.Core 10.0.100. An MSBuild workspace still builds for `net10.0` alone.
 
 Projects affected by the pinned compiler's task-builder FS3180 warning may set
 `WarningsNotAsErrors` to **3180**. FDull accepts only that exact downgrade and
@@ -493,8 +496,11 @@ nothing for existence on disk:
 FDull rewrites rules_dotnet's spellings (`--out:`, `-d:`, `/warn:`,
 `/warnaserror`, `/nowarn:`) and then applies the compiler policy. The required
 settings are unchanged. For version three only it also accepts `--utf8output`,
-`--nowin32manifest`, `--nologo`, `--debug-`, `--pdb:` and `--refout:`. A target
-passes with these rules_dotnet settings and `--compilation_mode=opt`:
+`--nowin32manifest`, `--nologo`, `--debug-`, `--pdb:` and `--refout:`, and the
+two symbols rules_dotnet adds for a `net11.0` target, `NET11_0` and
+`NET11_0_OR_GREATER`. A target defines the symbols of one framework: `NET10_0`
+beside either `net11.0` symbol is rejected. A target passes with these
+rules_dotnet settings and `--compilation_mode=opt`:
 
 ```starlark
 langversion = "10.0",
@@ -509,6 +515,12 @@ compiler_options = [
 
 Bazel's default compilation mode passes `--debug+`, `--optimize-`,
 `--define:DEBUG` and `--tailcalls-`, and FDull rejects each of them.
+
+A `net11.0` target compiles against reference assemblies of version 11.0.0.0.
+FDull treats `System.Runtime` and `System.Collections` 11.0.0.0 as the framework,
+as it treats their 10.0.0.0 versions, and the approved-API catalog reads the same
+for both. Policy entries stay exact: a `Capabilities` or `DataContracts` identity
+for a `net11.0` target names `Version=11.0.0.0`.
 
 A target may compile two kinds of source from outside `<root>`: a shared source
 that the policy lists for it, and rules_dotnet's version file. The version file

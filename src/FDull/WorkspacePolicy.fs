@@ -175,14 +175,31 @@ module WorkspaceCompilerPolicy =
         else
             Ok()
 
+    /// The symbols rules_dotnet defines for a net11.0 target beside the ones a net10.0 target shares
+    /// with it. A net11.0 target defines these and not `NET10_0`.
+    let private net11Symbols = [ "--define:NET11_0"; "--define:NET11_0_OR_GREATER" ]
+
     /// The settings a policy of `version` accepts. Version three describes a Bazel workspace:
     /// rules_dotnet always passes these console, manifest and output settings, and none of them changes
-    /// what the compiler checks. Every other version keeps exactly the MSBuild settings of `validate`.
+    /// what the compiler checks. Its targets build for net10.0 or net11.0, and one target defines the
+    /// symbols of exactly one of them. Every other version keeps exactly the MSBuild settings of
+    /// `validate`.
     let validateFor (version: int) (arguments: string list) =
-        if version = 3 then
+        if version <> 3 then
+            validate arguments
+        elif
+            List.contains "--define:NET10_0" arguments
+            && net11Symbols |> List.exists (fun symbol -> List.contains symbol arguments)
+        then
+            Error "BUILD002: The exported compiler invocation defines the symbols of more than one target framework."
+        else
             arguments
             |> List.filter (fun argument ->
-                not (List.contains argument [ "--utf8output"; "--nowin32manifest"; "--nologo"; "--debug-" ])
+                not (
+                    List.contains
+                        argument
+                        ([ "--utf8output"; "--nowin32manifest"; "--nologo"; "--debug-" ] @ net11Symbols)
+                )
                 && not (
                     [ "--pdb:"; "--refout:" ]
                     |> List.exists (fun prefix ->
@@ -190,8 +207,6 @@ module WorkspaceCompilerPolicy =
                         && argument.Length > prefix.Length)
                 ))
             |> validate
-        else
-            validate arguments
 
     // FCS emits this optimize warning after ParseAndCheckProject, during task lowering.
     // An external inline helper can produce the same unknown range and text, so this

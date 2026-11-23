@@ -236,6 +236,104 @@ module ManifestTests =
             )
 
     [<Fact>]
+    let ``a version three target defines the symbols of net10.0 or of net11.0 and never both`` () =
+        // The symbols rules_dotnet defines for each framework, after the rewrite to compiler spellings.
+        let shared =
+            WorkspaceCompilerPolicy.required
+            @ [ "--warnaserror+"
+                "--define:NET"
+                "--define:NETCOREAPP"
+                "--define:NETCOREAPP1_0_OR_GREATER"
+                "--define:NETCOREAPP1_1_OR_GREATER"
+                "--define:NETCOREAPP2_0_OR_GREATER"
+                "--define:NETCOREAPP2_1_OR_GREATER"
+                "--define:NETCOREAPP2_2_OR_GREATER"
+                "--define:NETCOREAPP3_0_OR_GREATER"
+                "--define:NETCOREAPP3_1_OR_GREATER"
+                "--define:NET5_0_OR_GREATER"
+                "--define:NET6_0_OR_GREATER"
+                "--define:NET7_0_OR_GREATER"
+                "--define:NET8_0_OR_GREATER"
+                "--define:NET9_0_OR_GREATER"
+                "--define:NET10_0_OR_GREATER"
+                "--define:NULLABLE" ]
+
+        let net10 = shared @ [ "--define:NET10_0" ]
+        let net11 = shared @ [ "--define:NET11_0"; "--define:NET11_0_OR_GREATER" ]
+
+        Assert.Equal<string list>(
+            [ "--define:NET11_0"; "--define:NET11_0_OR_GREATER" ],
+            WorkspaceManifest.rewrite (Path.GetFullPath "execroot") [ "-d:NET11_0"; "-d:NET11_0_OR_GREATER" ]
+        )
+
+        Assert.Equal(Ok(), WorkspaceCompilerPolicy.validateFor 3 net10)
+        Assert.Equal(Ok(), WorkspaceCompilerPolicy.validateFor 3 net11)
+
+        // An MSBuild workspace builds for net10.0 alone.
+        Assert.True(WorkspaceCompilerPolicy.validate net11 |> Result.isError)
+
+        for version in [ 1; 2 ] do
+            Assert.Equal(Ok(), WorkspaceCompilerPolicy.validateFor version net10)
+            Assert.True(WorkspaceCompilerPolicy.validateFor version net11 |> Result.isError)
+
+            for symbol in [ "--define:NET11_0"; "--define:NET11_0_OR_GREATER" ] do
+                Assert.True(
+                    WorkspaceCompilerPolicy.validateFor version (shared @ [ symbol ])
+                    |> Result.isError
+                )
+
+        // One target, one framework: either net11.0 symbol beside NET10_0 is a mix.
+        for mixed in
+            [ net11 @ [ "--define:NET10_0" ]
+              net10 @ [ "--define:NET11_0" ]
+              net10 @ [ "--define:NET11_0_OR_GREATER" ] ] do
+            match WorkspaceCompilerPolicy.validateFor 3 mixed with
+            | Error message -> Assert.Contains("more than one target framework", message)
+            | Ok() -> failwith "A target with the symbols of two frameworks was accepted."
+
+        // A framework no reviewed toolchain produces stays unknown.
+        for symbol in [ "--define:NET12_0"; "--define:NET12_0_OR_GREATER"; "--define:NETSTANDARD2_1" ] do
+            Assert.True(WorkspaceCompilerPolicy.validateFor 3 (net11 @ [ symbol ]) |> Result.isError)
+
+    [<Fact>]
+    let ``the framework assemblies of net11.0 read the catalog and count as the framework`` () =
+        let assembly (name: string) (version: string) =
+            name
+            + ", Version="
+            + version
+            + ", Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"
+
+        let approved = "M:System.String.IsNullOrWhiteSpace(System.String)"
+
+        for version in [ "10.0.0.0"; "11.0.0.0" ] do
+            Assert.True(SafetyPolicy.approvedIdentity (assembly "System.Runtime" version) approved)
+            Assert.Contains(assembly "System.Runtime" version, SafetyPolicy.frameworkIdentities)
+            Assert.Contains(assembly "System.Collections" version, SafetyPolicy.frameworkIdentities)
+
+            // The catalog still approves exact signatures only.
+            Assert.False(
+                SafetyPolicy.approvedIdentity
+                    (assembly "System.Runtime" version)
+                    "M:System.IO.File.ReadAllText(System.String)"
+            )
+
+        // No other version of the framework is reviewed, and no other assembly borrows the entries.
+        for version in [ "9.0.0.0"; "10.0.0.1"; "12.0.0.0" ] do
+            Assert.False(SafetyPolicy.approvedIdentity (assembly "System.Runtime" version) approved)
+            Assert.DoesNotContain(assembly "System.Runtime" version, SafetyPolicy.frameworkIdentities)
+            Assert.DoesNotContain(assembly "System.Collections" version, SafetyPolicy.frameworkIdentities)
+
+        Assert.False(SafetyPolicy.approvedIdentity (assembly "System.Collections" "11.0.0.0") approved)
+
+        // The same rule already holds for the two supported FSharp.Core lines.
+        for version in [ "10.0.0.0"; "10.1.0.0" ] do
+            Assert.True(
+                SafetyPolicy.approvedIdentity
+                    (assembly "FSharp.Core" version)
+                    "M:Microsoft.FSharp.Collections.ListModule.IsEmpty``1(Microsoft.FSharp.Collections.FSharpList{``0})"
+            )
+
+    [<Fact>]
     let ``the manifest audit holds a Bazel inventory to the rules of a walked one`` () =
         let audit changed files references =
             fun () -> WorkspaceAudit.validateManifest changed files references

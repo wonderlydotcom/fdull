@@ -257,7 +257,8 @@ module SafetyRules =
               [ "SafetyWorkerTests.compiler policy target accepts the pinned platform defaults"
                 "SafetyWorkerTests.compiler policy target rejects drift and downgrades"
                 "SafetyCoverageTests.only canonical task compatibility downgrade is accepted"
-                "ManifestTests.rules_dotnet arguments become an invocation only a version three policy accepts" ]
+                "ManifestTests.rules_dotnet arguments become an invocation only a version three policy accepts"
+                "ManifestTests.a version three target defines the symbols of net10.0 or of net11.0 and never both" ]
               "Complete tool/policy drift fixtures and protected release provenance."
           rule
               "BUILD003"
@@ -368,5 +369,5 @@ module SafetyRules =
           Specification = "1.0"
           FullStandardComplete = all |> List.forall (fun item -> item.Remaining = "")
           Scope =
-            "Standalone F# Release/net10.0 workspaces built by MSBuild, or by Bazel with rules_dotnet, including FDull's own library, CLI, worker and tests. Coverage is intentionally incomplete; see each rule's remaining work."
+            "Standalone F# Release/net10.0 workspaces built by MSBuild, or net10.0 and net11.0 targets built by Bazel with rules_dotnet, including FDull's own library, CLI, worker and tests. Coverage is intentionally incomplete; see each rule's remaining work."
           Rules = all }
