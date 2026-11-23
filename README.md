@@ -968,7 +968,9 @@ dotnet tools/FDull.Ci/bin/Release/net10.0/FDull.Ci.dll coverage .
 ```
 
 The `bazel` check needs the named runtime installed beside the pinned SDK;
-.NET SDK 11.0.100 carries runtime 11.0.0.
+.NET SDK 11.0.100 carries runtime 11.0.0. It checks against `net10.0`
+references, and against the named runtime's own reference assemblies when the
+same installation holds that targeting pack, as an SDK installation does.
 
 GitHub Actions runs four Linux jobs on pull requests: **Format**,
 **Build and test (Linux)**, **Self-verification**, and **Package and consumer smoke**.
@@ -989,8 +991,8 @@ and blocked source drift, runs an independent library consumer and checks the
 analyzer payload. Its `bazel` check runs the packed `FDull.Cli.dll` as a Bazel
 action does: from the installed package, with `dotnet --fx-version` on a runtime
 newer than the pinned one, against a Bazel-style workspace that must pass and
-then fail on a seeded violation. The package job installs .NET SDK 11.0.100 for
-it.
+then fail on a seeded violation, once with `net10.0` references and once with
+`net11.0` references. The package job installs .NET SDK 11.0.100 for it.
 Self-verification also compares `site/public/coverage.json` with the built CLI's
 coverage inventory. The workflow never publishes packages or deploys the site.
 

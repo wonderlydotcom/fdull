@@ -105,7 +105,8 @@ jobs:
       - uses: actions/setup-dotnet@a98b56852c35b8e3190ac28c8c2271da59106c68 # v6.0.0
         with:
           global-json-file: global.json
-          # A Bazel build runs the packed tool on its own toolchain's runtime; this SDK carries runtime 11.0.0.
+          # A Bazel build runs the packed tool on its own toolchain's runtime; this SDK carries runtime 11.0.0
+          # and the net11.0 reference assemblies.
           dotnet-version: '11.0.100'
           cache: true
           cache-dependency-path: '**/packages.lock.json'

@@ -303,7 +303,7 @@
       "File": "tools/FDull.Ci/Program.fs",
       "Project": "tools/FDull.Ci/FDull.Ci.fsproj",
       "Profile": "GUARD_TOOLING",
-      "Digest": "sha256:2c1fc7379d894a1f0d9bdb8344d2bc8bac06f891e307ec5635b35b0ae5b9f566"
+      "Digest": "sha256:841e8cefee118d1e8d1d04625076e2c02ebbc5d9c423997110b42940d528aaac"
     },
     {
       "File": "src/FDull/WorkspaceManifest.fs",
@@ -401,7 +401,7 @@
     },
     {
       "File": ".github/workflows/ci.yml",
-      "Digest": "sha256:9d236cea03ce306eaf6d0d7eb30ebfee255133e85aa2367c189b77ba3136a9ad"
+      "Digest": "sha256:3195a23f2d612a7d7480932d29670f401f26171325ee05b37d1698d86c118032"
     },
     {
       "File": ".github/CODEOWNERS",
@@ -31694,105 +31694,105 @@
       "Owner": "FDull.Ci.Program.bazel",
       "Kind": "member",
       "Identity": "FDull, Version=0.3.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.SafetyPolicy.fileDigest(System.String)",
-      "Reason": "Reviewed Bazel consumption smoke: runs the packed FDull.Cli.dll from the installed package with dotnet --fx-version on the named newer runtime, against a temporary Bazel-style workspace built from a restored project's real references, rules_dotnet-style arguments, a manifest and a version-three policy. It requires a complete pass, a report file equal to stdout and a complete MUT001 failure after a seeded mutation; any other outcome fails the job."
+      "Reason": "Reviewed Bazel consumption smoke: runs the packed FDull.Cli.dll from the installed package with dotnet --fx-version on the named newer runtime, against a temporary Bazel-style workspace built from rules_dotnet-style arguments, a manifest and a version-three policy. It checks once with a restored project's real net10.0 references and once with the reference assemblies in the named runtime's targeting pack, found beside the runtime of the running installation, when that directory exists. Each check requires a complete pass of a source that needs a catalog entry and a framework type, a report file equal to stdout and a complete MUT001 failure after a seeded mutation; any other outcome fails the job."
     },
     {
       "File": "tools/FDull.Ci/Program.fs",
       "Owner": "FDull.Ci.Program.bazel",
       "Kind": "member",
       "Identity": "FDull, Version=0.3.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Transport.Codec.decode``1(System.String)",
-      "Reason": "Reviewed Bazel consumption smoke: runs the packed FDull.Cli.dll from the installed package with dotnet --fx-version on the named newer runtime, against a temporary Bazel-style workspace built from a restored project's real references, rules_dotnet-style arguments, a manifest and a version-three policy. It requires a complete pass, a report file equal to stdout and a complete MUT001 failure after a seeded mutation; any other outcome fails the job."
+      "Reason": "Reviewed Bazel consumption smoke: runs the packed FDull.Cli.dll from the installed package with dotnet --fx-version on the named newer runtime, against a temporary Bazel-style workspace built from rules_dotnet-style arguments, a manifest and a version-three policy. It checks once with a restored project's real net10.0 references and once with the reference assemblies in the named runtime's targeting pack, found beside the runtime of the running installation, when that directory exists. Each check requires a complete pass of a source that needs a catalog entry and a framework type, a report file equal to stdout and a complete MUT001 failure after a seeded mutation; any other outcome fails the job."
     },
     {
       "File": "tools/FDull.Ci/Program.fs",
       "Owner": "FDull.Ci.Program.bazel",
       "Kind": "member",
       "Identity": "FDull, Version=0.3.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Transport.Codec.encode``1(``0)",
-      "Reason": "Reviewed Bazel consumption smoke: runs the packed FDull.Cli.dll from the installed package with dotnet --fx-version on the named newer runtime, against a temporary Bazel-style workspace built from a restored project's real references, rules_dotnet-style arguments, a manifest and a version-three policy. It requires a complete pass, a report file equal to stdout and a complete MUT001 failure after a seeded mutation; any other outcome fails the job."
+      "Reason": "Reviewed Bazel consumption smoke: runs the packed FDull.Cli.dll from the installed package with dotnet --fx-version on the named newer runtime, against a temporary Bazel-style workspace built from rules_dotnet-style arguments, a manifest and a version-three policy. It checks once with a restored project's real net10.0 references and once with the reference assemblies in the named runtime's targeting pack, found beside the runtime of the running installation, when that directory exists. Each check requires a complete pass of a source that needs a catalog entry and a framework type, a report file equal to stdout and a complete MUT001 failure after a seeded mutation; any other outcome fails the job."
     },
     {
       "File": "tools/FDull.Ci/Program.fs",
       "Owner": "FDull.Ci.Program.bazel",
       "Kind": "member",
       "Identity": "FDull, Version=0.3.0.0, Culture=neutral, PublicKeyToken=null | M:FDull.Workspace.export(System.String,System.String)",
-      "Reason": "Reviewed Bazel consumption smoke: runs the packed FDull.Cli.dll from the installed package with dotnet --fx-version on the named newer runtime, against a temporary Bazel-style workspace built from a restored project's real references, rules_dotnet-style arguments, a manifest and a version-three policy. It requires a complete pass, a report file equal to stdout and a complete MUT001 failure after a seeded mutation; any other outcome fails the job."
+      "Reason": "Reviewed Bazel consumption smoke: runs the packed FDull.Cli.dll from the installed package with dotnet --fx-version on the named newer runtime, against a temporary Bazel-style workspace built from rules_dotnet-style arguments, a manifest and a version-three policy. It checks once with a restored project's real net10.0 references and once with the reference assemblies in the named runtime's targeting pack, found beside the runtime of the running installation, when that directory exists. Each check requires a complete pass of a source that needs a catalog entry and a framework type, a report file equal to stdout and a complete MUT001 failure after a seeded mutation; any other outcome fails the job."
     },
     {
       "File": "tools/FDull.Ci/Program.fs",
       "Owner": "FDull.Ci.Program.bazel",
       "Kind": "member",
       "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Core.Operators.InvalidOp``1(System.String)",
-      "Reason": "Reviewed Bazel consumption smoke: runs the packed FDull.Cli.dll from the installed package with dotnet --fx-version on the named newer runtime, against a temporary Bazel-style workspace built from a restored project's real references, rules_dotnet-style arguments, a manifest and a version-three policy. It requires a complete pass, a report file equal to stdout and a complete MUT001 failure after a seeded mutation; any other outcome fails the job."
+      "Reason": "Reviewed Bazel consumption smoke: runs the packed FDull.Cli.dll from the installed package with dotnet --fx-version on the named newer runtime, against a temporary Bazel-style workspace built from rules_dotnet-style arguments, a manifest and a version-three policy. It checks once with a restored project's real net10.0 references and once with the reference assemblies in the named runtime's targeting pack, found beside the runtime of the running installation, when that directory exists. Each check requires a complete pass of a source that needs a catalog entry and a framework type, a report file equal to stdout and a complete MUT001 failure after a seeded mutation; any other outcome fails the job."
     },
     {
       "File": "tools/FDull.Ci/Program.fs",
       "Owner": "FDull.Ci.Program.bazel",
       "Kind": "member",
       "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Core.StringModule.Concat(System.String,System.Collections.Generic.IEnumerable{System.String})",
-      "Reason": "Reviewed Bazel consumption smoke: runs the packed FDull.Cli.dll from the installed package with dotnet --fx-version on the named newer runtime, against a temporary Bazel-style workspace built from a restored project's real references, rules_dotnet-style arguments, a manifest and a version-three policy. It requires a complete pass, a report file equal to stdout and a complete MUT001 failure after a seeded mutation; any other outcome fails the job."
+      "Reason": "Reviewed Bazel consumption smoke: runs the packed FDull.Cli.dll from the installed package with dotnet --fx-version on the named newer runtime, against a temporary Bazel-style workspace built from rules_dotnet-style arguments, a manifest and a version-three policy. It checks once with a restored project's real net10.0 references and once with the reference assemblies in the named runtime's targeting pack, found beside the runtime of the running installation, when that directory exists. Each check requires a complete pass of a source that needs a catalog entry and a framework type, a report file equal to stdout and a complete MUT001 failure after a seeded mutation; any other outcome fails the job."
     },
     {
       "File": "tools/FDull.Ci/Program.fs",
       "Owner": "FDull.Ci.Program.bazel",
       "Kind": "member",
       "Identity": "System.Console, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.Console.WriteLine(System.String)",
-      "Reason": "Reviewed Bazel consumption smoke: runs the packed FDull.Cli.dll from the installed package with dotnet --fx-version on the named newer runtime, against a temporary Bazel-style workspace built from a restored project's real references, rules_dotnet-style arguments, a manifest and a version-three policy. It requires a complete pass, a report file equal to stdout and a complete MUT001 failure after a seeded mutation; any other outcome fails the job."
+      "Reason": "Reviewed Bazel consumption smoke: runs the packed FDull.Cli.dll from the installed package with dotnet --fx-version on the named newer runtime, against a temporary Bazel-style workspace built from rules_dotnet-style arguments, a manifest and a version-three policy. It checks once with a restored project's real net10.0 references and once with the reference assemblies in the named runtime's targeting pack, found beside the runtime of the running installation, when that directory exists. Each check requires a complete pass of a source that needs a catalog entry and a framework type, a report file equal to stdout and a complete MUT001 failure after a seeded mutation; any other outcome fails the job."
     },
     {
       "File": "tools/FDull.Ci/Program.fs",
       "Owner": "FDull.Ci.Program.bazel",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Directory.CreateDirectory(System.String)",
-      "Reason": "Reviewed Bazel consumption smoke: runs the packed FDull.Cli.dll from the installed package with dotnet --fx-version on the named newer runtime, against a temporary Bazel-style workspace built from a restored project's real references, rules_dotnet-style arguments, a manifest and a version-three policy. It requires a complete pass, a report file equal to stdout and a complete MUT001 failure after a seeded mutation; any other outcome fails the job."
+      "Reason": "Reviewed Bazel consumption smoke: runs the packed FDull.Cli.dll from the installed package with dotnet --fx-version on the named newer runtime, against a temporary Bazel-style workspace built from rules_dotnet-style arguments, a manifest and a version-three policy. It checks once with a restored project's real net10.0 references and once with the reference assemblies in the named runtime's targeting pack, found beside the runtime of the running installation, when that directory exists. Each check requires a complete pass of a source that needs a catalog entry and a framework type, a report file equal to stdout and a complete MUT001 failure after a seeded mutation; any other outcome fails the job."
     },
     {
       "File": "tools/FDull.Ci/Program.fs",
       "Owner": "FDull.Ci.Program.bazel",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.File.Exists(System.String)",
-      "Reason": "Reviewed Bazel consumption smoke: runs the packed FDull.Cli.dll from the installed package with dotnet --fx-version on the named newer runtime, against a temporary Bazel-style workspace built from a restored project's real references, rules_dotnet-style arguments, a manifest and a version-three policy. It requires a complete pass, a report file equal to stdout and a complete MUT001 failure after a seeded mutation; any other outcome fails the job."
+      "Reason": "Reviewed Bazel consumption smoke: runs the packed FDull.Cli.dll from the installed package with dotnet --fx-version on the named newer runtime, against a temporary Bazel-style workspace built from rules_dotnet-style arguments, a manifest and a version-three policy. It checks once with a restored project's real net10.0 references and once with the reference assemblies in the named runtime's targeting pack, found beside the runtime of the running installation, when that directory exists. Each check requires a complete pass of a source that needs a catalog entry and a framework type, a report file equal to stdout and a complete MUT001 failure after a seeded mutation; any other outcome fails the job."
     },
     {
       "File": "tools/FDull.Ci/Program.fs",
       "Owner": "FDull.Ci.Program.bazel",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.File.ReadAllText(System.String)",
-      "Reason": "Reviewed Bazel consumption smoke: runs the packed FDull.Cli.dll from the installed package with dotnet --fx-version on the named newer runtime, against a temporary Bazel-style workspace built from a restored project's real references, rules_dotnet-style arguments, a manifest and a version-three policy. It requires a complete pass, a report file equal to stdout and a complete MUT001 failure after a seeded mutation; any other outcome fails the job."
+      "Reason": "Reviewed Bazel consumption smoke: runs the packed FDull.Cli.dll from the installed package with dotnet --fx-version on the named newer runtime, against a temporary Bazel-style workspace built from rules_dotnet-style arguments, a manifest and a version-three policy. It checks once with a restored project's real net10.0 references and once with the reference assemblies in the named runtime's targeting pack, found beside the runtime of the running installation, when that directory exists. Each check requires a complete pass of a source that needs a catalog entry and a framework type, a report file equal to stdout and a complete MUT001 failure after a seeded mutation; any other outcome fails the job."
     },
     {
       "File": "tools/FDull.Ci/Program.fs",
       "Owner": "FDull.Ci.Program.bazel",
       "Kind": "member",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.Combine(System.String,System.String)",
-      "Reason": "Reviewed Bazel consumption smoke: runs the packed FDull.Cli.dll from the installed package with dotnet --fx-version on the named newer runtime, against a temporary Bazel-style workspace built from a restored project's real references, rules_dotnet-style arguments, a manifest and a version-three policy. It requires a complete pass, a report file equal to stdout and a complete MUT001 failure after a seeded mutation; any other outcome fails the job."
+      "Reason": "Reviewed Bazel consumption smoke: runs the packed FDull.Cli.dll from the installed package with dotnet --fx-version on the named newer runtime, against a temporary Bazel-style workspace built from rules_dotnet-style arguments, a manifest and a version-three policy. It checks once with a restored project's real net10.0 references and once with the reference assemblies in the named runtime's targeting pack, found beside the runtime of the running installation, when that directory exists. Each check requires a complete pass of a source that needs a catalog entry and a framework type, a report file equal to stdout and a complete MUT001 failure after a seeded mutation; any other outcome fails the job."
     },
     {
       "File": "tools/FDull.Ci/Program.fs",
       "Owner": "FDull.Ci.Program.bazel",
       "Kind": "type",
       "Identity": "FDull, Version=0.3.0.0, Culture=neutral, PublicKeyToken=null | FDull.SafetyDiagnostic",
-      "Reason": "Reviewed Bazel consumption smoke: runs the packed FDull.Cli.dll from the installed package with dotnet --fx-version on the named newer runtime, against a temporary Bazel-style workspace built from a restored project's real references, rules_dotnet-style arguments, a manifest and a version-three policy. It requires a complete pass, a report file equal to stdout and a complete MUT001 failure after a seeded mutation; any other outcome fails the job."
+      "Reason": "Reviewed Bazel consumption smoke: runs the packed FDull.Cli.dll from the installed package with dotnet --fx-version on the named newer runtime, against a temporary Bazel-style workspace built from rules_dotnet-style arguments, a manifest and a version-three policy. It checks once with a restored project's real net10.0 references and once with the reference assemblies in the named runtime's targeting pack, found beside the runtime of the running installation, when that directory exists. Each check requires a complete pass of a source that needs a catalog entry and a framework type, a report file equal to stdout and a complete MUT001 failure after a seeded mutation; any other outcome fails the job."
     },
     {
       "File": "tools/FDull.Ci/Program.fs",
       "Owner": "FDull.Ci.Program.bazel",
       "Kind": "type",
       "Identity": "FDull, Version=0.3.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspaceInvocation",
-      "Reason": "Reviewed Bazel consumption smoke: runs the packed FDull.Cli.dll from the installed package with dotnet --fx-version on the named newer runtime, against a temporary Bazel-style workspace built from a restored project's real references, rules_dotnet-style arguments, a manifest and a version-three policy. It requires a complete pass, a report file equal to stdout and a complete MUT001 failure after a seeded mutation; any other outcome fails the job."
+      "Reason": "Reviewed Bazel consumption smoke: runs the packed FDull.Cli.dll from the installed package with dotnet --fx-version on the named newer runtime, against a temporary Bazel-style workspace built from rules_dotnet-style arguments, a manifest and a version-three policy. It checks once with a restored project's real net10.0 references and once with the reference assemblies in the named runtime's targeting pack, found beside the runtime of the running installation, when that directory exists. Each check requires a complete pass of a source that needs a catalog entry and a framework type, a report file equal to stdout and a complete MUT001 failure after a seeded mutation; any other outcome fails the job."
     },
     {
       "File": "tools/FDull.Ci/Program.fs",
       "Owner": "FDull.Ci.Program.bazel",
       "Kind": "type",
       "Identity": "FDull, Version=0.3.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspaceProjectReport",
-      "Reason": "Reviewed Bazel consumption smoke: runs the packed FDull.Cli.dll from the installed package with dotnet --fx-version on the named newer runtime, against a temporary Bazel-style workspace built from a restored project's real references, rules_dotnet-style arguments, a manifest and a version-three policy. It requires a complete pass, a report file equal to stdout and a complete MUT001 failure after a seeded mutation; any other outcome fails the job."
+      "Reason": "Reviewed Bazel consumption smoke: runs the packed FDull.Cli.dll from the installed package with dotnet --fx-version on the named newer runtime, against a temporary Bazel-style workspace built from rules_dotnet-style arguments, a manifest and a version-three policy. It checks once with a restored project's real net10.0 references and once with the reference assemblies in the named runtime's targeting pack, found beside the runtime of the running installation, when that directory exists. Each check requires a complete pass of a source that needs a catalog entry and a framework type, a report file equal to stdout and a complete MUT001 failure after a seeded mutation; any other outcome fails the job."
     },
     {
       "File": "tools/FDull.Ci/Program.fs",
       "Owner": "FDull.Ci.Program.bazel",
       "Kind": "type",
       "Identity": "FDull, Version=0.3.0.0, Culture=neutral, PublicKeyToken=null | FDull.WorkspaceReport",
-      "Reason": "Reviewed Bazel consumption smoke: runs the packed FDull.Cli.dll from the installed package with dotnet --fx-version on the named newer runtime, against a temporary Bazel-style workspace built from a restored project's real references, rules_dotnet-style arguments, a manifest and a version-three policy. It requires a complete pass, a report file equal to stdout and a complete MUT001 failure after a seeded mutation; any other outcome fails the job."
+      "Reason": "Reviewed Bazel consumption smoke: runs the packed FDull.Cli.dll from the installed package with dotnet --fx-version on the named newer runtime, against a temporary Bazel-style workspace built from rules_dotnet-style arguments, a manifest and a version-three policy. It checks once with a restored project's real net10.0 references and once with the reference assemblies in the named runtime's targeting pack, found beside the runtime of the running installation, when that directory exists. Each check requires a complete pass of a source that needs a catalog entry and a framework type, a report file equal to stdout and a complete MUT001 failure after a seeded mutation; any other outcome fails the job."
     },
     {
       "File": "tests/FDull.Tests/ManifestTests.fs",
@@ -33326,6 +33326,62 @@
       "Kind": "type",
       "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | System.Object",
       "Reason": "Non-shipping identity regression on literal assembly names: System.Runtime 10.0.0.0 and 11.0.0.0 read the same catalog entry and both count as framework assemblies with System.Collections, other versions and other assemblies do not, an uncatalogued signature stays unapproved, and both supported FSharp.Core lines read one entry. No file is opened."
+    },
+    {
+      "File": "tools/FDull.Ci/Program.fs",
+      "Owner": "FDull.Ci.Program.bazel",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.ArrayModule.Sort``1(``0[])",
+      "Reason": "Reviewed Bazel consumption smoke: runs the packed FDull.Cli.dll from the installed package with dotnet --fx-version on the named newer runtime, against a temporary Bazel-style workspace built from rules_dotnet-style arguments, a manifest and a version-three policy. It checks once with a restored project's real net10.0 references and once with the reference assemblies in the named runtime's targeting pack, found beside the runtime of the running installation, when that directory exists. Each check requires a complete pass of a source that needs a catalog entry and a framework type, a report file equal to stdout and a complete MUT001 failure after a seeded mutation; any other outcome fails the job."
+    },
+    {
+      "File": "tools/FDull.Ci/Program.fs",
+      "Owner": "FDull.Ci.Program.bazel",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.ArrayModule.ToList``1(``0[])",
+      "Reason": "Reviewed Bazel consumption smoke: runs the packed FDull.Cli.dll from the installed package with dotnet --fx-version on the named newer runtime, against a temporary Bazel-style workspace built from rules_dotnet-style arguments, a manifest and a version-three policy. It checks once with a restored project's real net10.0 references and once with the reference assemblies in the named runtime's targeting pack, found beside the runtime of the running installation, when that directory exists. Each check requires a complete pass of a source that needs a catalog entry and a framework type, a report file equal to stdout and a complete MUT001 failure after a seeded mutation; any other outcome fails the job."
+    },
+    {
+      "File": "tools/FDull.Ci/Program.fs",
+      "Owner": "FDull.Ci.Program.bazel",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Directory.Exists(System.String)",
+      "Reason": "Reviewed Bazel consumption smoke: runs the packed FDull.Cli.dll from the installed package with dotnet --fx-version on the named newer runtime, against a temporary Bazel-style workspace built from rules_dotnet-style arguments, a manifest and a version-three policy. It checks once with a restored project's real net10.0 references and once with the reference assemblies in the named runtime's targeting pack, found beside the runtime of the running installation, when that directory exists. Each check requires a complete pass of a source that needs a catalog entry and a framework type, a report file equal to stdout and a complete MUT001 failure after a seeded mutation; any other outcome fails the job."
+    },
+    {
+      "File": "tools/FDull.Ci/Program.fs",
+      "Owner": "FDull.Ci.Program.bazel",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Directory.GetFiles(System.String,System.String)",
+      "Reason": "Reviewed Bazel consumption smoke: runs the packed FDull.Cli.dll from the installed package with dotnet --fx-version on the named newer runtime, against a temporary Bazel-style workspace built from rules_dotnet-style arguments, a manifest and a version-three policy. It checks once with a restored project's real net10.0 references and once with the reference assemblies in the named runtime's targeting pack, found beside the runtime of the running installation, when that directory exists. Each check requires a complete pass of a source that needs a catalog entry and a framework type, a report file equal to stdout and a complete MUT001 failure after a seeded mutation; any other outcome fails the job."
+    },
+    {
+      "File": "tools/FDull.Ci/Program.fs",
+      "Owner": "FDull.Ci.Program.bazel",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.GetFileName(System.String)",
+      "Reason": "Reviewed Bazel consumption smoke: runs the packed FDull.Cli.dll from the installed package with dotnet --fx-version on the named newer runtime, against a temporary Bazel-style workspace built from rules_dotnet-style arguments, a manifest and a version-three policy. It checks once with a restored project's real net10.0 references and once with the reference assemblies in the named runtime's targeting pack, found beside the runtime of the running installation, when that directory exists. Each check requires a complete pass of a source that needs a catalog entry and a framework type, a report file equal to stdout and a complete MUT001 failure after a seeded mutation; any other outcome fails the job."
+    },
+    {
+      "File": "tools/FDull.Ci/Program.fs",
+      "Owner": "FDull.Ci.Program.bazel",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.IO.Path.GetFullPath(System.String)",
+      "Reason": "Reviewed Bazel consumption smoke: runs the packed FDull.Cli.dll from the installed package with dotnet --fx-version on the named newer runtime, against a temporary Bazel-style workspace built from rules_dotnet-style arguments, a manifest and a version-three policy. It checks once with a restored project's real net10.0 references and once with the reference assemblies in the named runtime's targeting pack, found beside the runtime of the running installation, when that directory exists. Each check requires a complete pass of a source that needs a catalog entry and a framework type, a report file equal to stdout and a complete MUT001 failure after a seeded mutation; any other outcome fails the job."
+    },
+    {
+      "File": "tools/FDull.Ci/Program.fs",
+      "Owner": "FDull.Ci.Program.bazel",
+      "Kind": "member",
+      "Identity": "System.Runtime.InteropServices, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.Runtime.InteropServices.RuntimeEnvironment.GetRuntimeDirectory",
+      "Reason": "Reviewed Bazel consumption smoke: runs the packed FDull.Cli.dll from the installed package with dotnet --fx-version on the named newer runtime, against a temporary Bazel-style workspace built from rules_dotnet-style arguments, a manifest and a version-three policy. It checks once with a restored project's real net10.0 references and once with the reference assemblies in the named runtime's targeting pack, found beside the runtime of the running installation, when that directory exists. Each check requires a complete pass of a source that needs a catalog entry and a framework type, a report file equal to stdout and a complete MUT001 failure after a seeded mutation; any other outcome fails the job."
+    },
+    {
+      "File": "tools/FDull.Ci/Program.fs",
+      "Owner": "FDull.Ci.Program.bazel",
+      "Kind": "member",
+      "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | M:System.String.Split(System.Char,System.StringSplitOptions)",
+      "Reason": "Reviewed Bazel consumption smoke: runs the packed FDull.Cli.dll from the installed package with dotnet --fx-version on the named newer runtime, against a temporary Bazel-style workspace built from rules_dotnet-style arguments, a manifest and a version-three policy. It checks once with a restored project's real net10.0 references and once with the reference assemblies in the named runtime's targeting pack, found beside the runtime of the running installation, when that directory exists. Each check requires a complete pass of a source that needs a catalog entry and a framework type, a report file equal to stdout and a complete MUT001 failure after a seeded mutation; any other outcome fails the job."
     }
   ],
   "Domains": [],
