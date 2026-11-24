@@ -40,35 +40,16 @@ module internal SafetySyntax =
     // Explicit SynExpr cases below define the supported authored language.
 
     // F# reflection resolves a type's shape from its attributes on every call, and a syntax tree holds
-    // a few hundred types across hundreds of thousands of values. Each shape is resolved once: one
-    // reader for each union, shared by the runtime types of its cases, and one for each other type.
-    // An editor host can inspect files on several threads, so the readers live in concurrent maps.
-    let private unionReaders =
-        System.Collections.Concurrent.ConcurrentDictionary<Type, obj -> (obj | null) array>()
-
+    // a few hundred types across hundreds of thousands of values. Each runtime type's reader is
+    // prepared once. An editor host can inspect files on several threads, so the maps are concurrent.
     let private childReaders =
         System.Collections.Concurrent.ConcurrentDictionary<Type, obj -> (obj | null) array>()
 
     let private caseNames =
         System.Collections.Concurrent.ConcurrentDictionary<Type, obj -> string>()
 
-    /// Reads the fields of a value of the union that `t` belongs to. A case with fields has a runtime
-    /// type of its own. Reading one case's fields is prepared when a value of that case first appears.
-    let private unionReader (t: Type) : obj -> (obj | null) array =
-        let cases = FSharpType.GetUnionCases t
-
-        let prepare (union: Type) : obj -> (obj | null) array =
-            let tag = FSharpValue.PreComputeUnionTagReader union
-
-            let fields =
-                cases |> Array.map (fun case -> lazy (FSharpValue.PreComputeUnionReader case))
-
-            let read (node: obj) : (obj | null) array = fields[tag node].Value node
-            read
-
-        unionReaders.GetOrAdd(cases[0].DeclaringType, Func<Type, obj -> (obj | null) array> prepare)
-
-    let private childReader (t: Type) : obj -> (obj | null) array =
+    let private children (node: obj | null) =
+        // The tests keep the order in which this function once tested each value.
         let prepare (t: Type) : obj -> (obj | null) array =
             if typeof<IEnumerable>.IsAssignableFrom t && t <> typeof<string> then
                 let read (node: obj) : (obj | null) array =
@@ -76,7 +57,16 @@ module internal SafetySyntax =
 
                 read
             elif FSharpType.IsUnion t then
-                unionReader t
+                // A case with fields has a runtime type of its own. Reading a case's fields is
+                // prepared when a value of that case first appears.
+                let cases = FSharpType.GetUnionCases t
+                let tag = FSharpValue.PreComputeUnionTagReader cases[0].DeclaringType
+
+                let fields =
+                    cases |> Array.map (fun case -> lazy (FSharpValue.PreComputeUnionReader case))
+
+                let read (node: obj) : (obj | null) array = fields[tag node].Value node
+                read
             elif FSharpType.IsRecord t then
                 FSharpValue.PreComputeRecordReader t
             elif FSharpType.IsTuple t then
@@ -85,12 +75,14 @@ module internal SafetySyntax =
                 let read (_: obj) : (obj | null) array = [||]
                 read
 
-        childReaders.GetOrAdd(t, Func<Type, obj -> (obj | null) array> prepare)
-
-    let private children (node: obj | null) =
         match node with
         | Null -> [||]
-        | NonNull node -> childReader (node.GetType()) node
+        | NonNull node ->
+            let t = node.GetType()
+
+            match childReaders.TryGetValue t with
+            | true, read -> read node
+            | _ -> childReaders.GetOrAdd (t, Func<Type, obj -> (obj | null) array> prepare) node
 
     let private unionName (node: obj) =
         let prepare (t: Type) : obj -> string =
@@ -100,7 +92,11 @@ module internal SafetySyntax =
             let name (value: obj) : string = names[tag value]
             name
 
-        caseNames.GetOrAdd (node.GetType(), Func<Type, obj -> string> prepare) node
+        let t = node.GetType()
+
+        match caseNames.TryGetValue t with
+        | true, name -> name node
+        | _ -> caseNames.GetOrAdd (t, Func<Type, obj -> string> prepare) node
 
     // Exhaustive versioned compatibility inventory; a new FCS node fails closed.
     let private supportedExpressions =
