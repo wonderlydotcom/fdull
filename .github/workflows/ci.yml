@@ -105,6 +105,9 @@ jobs:
       - uses: actions/setup-dotnet@a98b56852c35b8e3190ac28c8c2271da59106c68 # v6.0.0
         with:
           global-json-file: global.json
+          # A Bazel build runs the packed tool on its own toolchain's runtime; this SDK carries runtime 11.0.0
+          # and the net11.0 reference assemblies.
+          dotnet-version: '11.0.100'
           cache: true
           cache-dependency-path: '**/packages.lock.json'
       - run: mkdir -p artifacts
@@ -120,6 +123,8 @@ jobs:
         run: dotnet pack src/FDull.Tool/FDull.Tool.fsproj -c Release --no-build --no-restore -m:1 --disable-build-servers -o artifacts 2>&1 | tee artifacts/pack-tool.log
       - name: Install local tool and check independent consumers
         run: dotnet tools/FDull.Ci/bin/Release/net10.0/FDull.Ci.dll smoke . artifacts 2>&1 | tee artifacts/package-smoke.log
+      - name: Run the packed tool on runtime 11 against a Bazel workspace
+        run: dotnet tools/FDull.Ci/bin/Release/net10.0/FDull.Ci.dll bazel . artifacts 11.0.0 2>&1 | tee artifacts/bazel-smoke.log
       - name: Retain packages and smoke logs
         if: always()
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2

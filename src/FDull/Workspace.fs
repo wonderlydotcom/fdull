@@ -270,6 +270,105 @@ module Workspace =
                           ProjectReferences = evaluated.ProjectReferences
                           ImportedBuildInputs = evaluated.ImportedBuildInputs }
 
+    /// The build that supplies a run's inventory and compiler invocations: MSBuild projects, or the
+    /// inventory and argument files a Bazel manifest names.
+    type private Build =
+        | Projects
+        | Manifest of files: string list * arguments: WorkspaceManifestArguments list
+
+    /// One manifest project's invocation, in the shape `export` gives an MSBuild project. A source from
+    /// outside the workspace is rules_dotnet's version file or one the policy declares for the project.
+    /// The worker's exact source set is the authority; this names an undeclared file sooner.
+    let private manifestInvocation
+        (root: string)
+        (policy: WorkspacePolicyDocument)
+        (all: WorkspaceManifestArguments list)
+        (project: WorkspaceManifestArguments)
+        =
+        let references = WorkspaceManifest.values "-r:" project.Flags
+
+        let declared =
+            policy.Sources
+            |> List.filter (fun source -> source.Project = project.Project)
+            |> List.map (fun source -> Path.GetFullPath(source.File, root))
+            |> Set.ofList
+
+        match WorkspaceGenerated.rulesDotnet root project.Sources with
+        | Error error -> Error error
+        | Ok generatedSet ->
+            let undeclared =
+                project.Sources
+                |> List.filter (fun file ->
+                    WorkspaceGenerated.outside root file
+                    && not (Set.contains file generatedSet)
+                    && not (Set.contains file declared))
+
+            match undeclared with
+            | file :: _ ->
+                Error(
+                    "BUILD003: The build passed an F# source from outside the workspace that the policy does not declare for the project: "
+                    + Path.GetRelativePath(root, file)
+                )
+            | [] when
+                project.Sources.IsEmpty
+                || references.IsEmpty
+                || (Set.ofList project.Sources).Count <> project.Sources.Length
+                || (WorkspaceManifest.values "-o:" project.Flags).Length <> 1
+                ->
+                Error "BUILD003: The build did not pass a complete ordered invocation."
+            | [] ->
+                Ok
+                    { Sources = project.Sources
+                      References = references
+                      Arguments = project.Flags
+                      Generated = project.Sources |> List.filter (fun file -> Set.contains file generatedSet)
+                      ProjectReferences = WorkspaceManifest.projectReferences all project
+                      ImportedBuildInputs = [] }
+
+    /// Read the manifest and every argument file it names once, so the audit and each project's
+    /// invocation use one snapshot. Any unreadable or malformed part blocks the run as BUILD003.
+    let private manifestBuild (root: string) (file: string) =
+        try
+            let manifest = WorkspaceManifest.read file
+            Manifest(WorkspaceManifest.inventory root manifest, WorkspaceManifest.load manifest)
+        with error ->
+            invalidOp (
+                if error.Message.StartsWith("BUILD003:", StringComparison.Ordinal) then
+                    error.Message
+                else
+                    "BUILD003: " + error.Message
+            )
+
+    let private audit build root policy =
+        match build with
+        | Projects -> WorkspaceAudit.validate root policy
+        | Manifest(files, arguments) ->
+            arguments
+            |> List.map (fun project -> project.Project, WorkspaceManifest.projectReferences arguments project)
+            |> WorkspaceAudit.validateManifest policy files
+
+    let private invocation build root policy project =
+        match build with
+        | Projects -> export root project
+        | Manifest(_, arguments) ->
+            match arguments |> List.tryFind (fun item -> item.Project = project) with
+            | Some item -> manifestInvocation root policy arguments item
+            | None -> Error "BUILD003: The build manifest does not name the project."
+
+    /// The runtime a Bazel check runs its worker on: the one this process runs on. A Bazel toolchain
+    /// carries one runtime, and the worker's own configuration pins another. The runtime directory is
+    /// named for the exact version, including any prerelease label. An MSBuild check keeps the pin.
+    let private workerRuntime build =
+        match build with
+        | Projects -> None
+        | Manifest _ -> Some(DirectoryInfo(RuntimeEnvironment.GetRuntimeDirectory()).Name)
+
+    /// The compiler invocation of one project of a Bazel workspace with the version-three `policy`,
+    /// read from the argument files the manifest names. `ProjectReferences` holds the manifest projects
+    /// whose output the project's compiler references. An unreadable argument file raises.
+    let exportManifest platform (policy: WorkspacePolicyDocument) (manifest: WorkspaceManifestDocument) project =
+        invocation (Manifest([], WorkspaceManifest.load manifest)) (Path.GetFullPath platform) policy project
+
     /// The intermediate and build output directories MSBuild evaluates for a Release project. Only
     /// evaluates the project; no target runs and nothing is written.
     let outputDirectories root project =
@@ -456,7 +555,13 @@ module Workspace =
 
     /// Analyze one project. With `options.Cache`, a stored response for the same key is accepted through the
     /// same checks as a fresh one; anything else runs the worker, and a complete accepted response is stored.
-    let private analyzeTimed (options: WorkspaceOptions) advisory document (request: WorkspaceRequest) =
+    let private analyzeTimed
+        (options: WorkspaceOptions)
+        (runtime: string option)
+        advisory
+        document
+        (request: WorkspaceRequest)
+        =
         let worker = Path.Combine(AppContext.BaseDirectory, "safety-worker")
         let engine = Path.Combine(worker, "FDull.dll")
 
@@ -512,6 +617,13 @@ module Workspace =
                              |> FDull.Transport.External.required "workspace.project-parent")
                     )
 
+                // The worker's configuration pins one runtime. A Bazel check names the runtime instead.
+                match runtime with
+                | Some version ->
+                    start.ArgumentList.Add "--fx-version"
+                    start.ArgumentList.Add version
+                | None -> ()
+
                 start.ArgumentList.Add(Path.Combine(worker, "fdull-worker.dll"))
                 start.ArgumentList.Add(if advisory then "--workspace-review" else "--workspace")
                 start.Environment.Clear()
@@ -548,9 +660,9 @@ module Workspace =
                     accepted, elapsed
 
     /// The parent's own work is everything outside the export and worker processes.
-    let private measured options advisory root (document, pin) project =
+    let private measured build options advisory root (document, pin) project =
         let clock = Stopwatch.StartNew()
-        let invocation = export root project
+        let invocation = invocation build root document project
         let exported = clock.ElapsedMilliseconds
 
         let result, worker =
@@ -558,7 +670,7 @@ module Workspace =
             | Error error -> Error error, 0L
             | Ok invocation ->
                 requestFrom root project (document, pin) invocation
-                |> analyzeTimed options advisory document
+                |> analyzeTimed options (workerRuntime build) advisory document
 
         result,
         { Project = project
@@ -587,7 +699,7 @@ module Workspace =
             if policy.Sources |> List.exists (fun source -> source.Project = relative) then
                 export root relative
                 |> Result.map (requestFrom root relative (policy, pin))
-                |> Result.bind (analyzeTimed options false policy >> fst >> Result.map _.Analysis)
+                |> Result.bind (analyzeTimed options None false policy >> fst >> Result.map _.Analysis)
             else
                 Error "ARCH002: The project is not assigned by workspace policy."
         with error ->
@@ -681,7 +793,8 @@ module Workspace =
         collect items
 
     /// With `ordered`, a project's analysis waits for every project it references, as `verify` requires.
-    let private checkMeasured platform jobs ordered checkProject =
+    /// With `manifest`, the inventory and invocations come from that Bazel manifest in place of MSBuild.
+    let private checkMeasured platform jobs ordered (manifest: string option) checkProject =
         let root = Path.GetFullPath platform
         let errors = ResizeArray<string>()
         let projects = ResizeArray<WorkspaceProjectReport>()
@@ -689,8 +802,13 @@ module Workspace =
         let timings = ResizeArray()
 
         try
+            let build =
+                match manifest with
+                | Some file -> manifestBuild root file
+                | None -> Projects
+
             let policy, pin = pinned false root
-            WorkspaceAudit.validate root policy
+            audit build root policy
 
             // A version-two service also gets the repository checks that `verify` runs before building.
             if policy.Repository.IsSome then
@@ -707,7 +825,7 @@ module Workspace =
                 else
                     Map.empty
 
-            for project, outcome in schedule jobs dependencies (checkProject (policy, pin)) projectFiles do
+            for project, outcome in schedule jobs dependencies (checkProject build (policy, pin)) projectFiles do
                 match outcome with
                 | Ok(result, timing) ->
                     Option.iter timings.Add timing
@@ -761,7 +879,7 @@ module Workspace =
     /// Verification rebuilds each analyzed project, rewriting its consumers' inputs, so a project's check
     /// starts only after every project it references has finished. `checkProject` returns its timing.
     let internal checkUsing platform jobs checkProject =
-        checkMeasured platform jobs true (fun _ project ->
+        checkMeasured platform jobs true None (fun _ _ project ->
             let result, timing = checkProject project
             result, Some timing)
 
@@ -771,8 +889,8 @@ module Workspace =
         let root = Path.GetFullPath platform
 
         let outcome =
-            checkMeasured root options.Jobs false (fun policy project ->
-                let result, timing = measured options false root policy project
+            checkMeasured root options.Jobs false None (fun build policy project ->
+                let result, timing = measured build options false root policy project
                 result |> Result.map _.Analysis, Some timing)
 
         if options.Cache then
@@ -783,8 +901,23 @@ module Workspace =
     let check platform =
         checkTimed defaultOptions platform |> fst
 
-    /// Analyze a current-source snapshot for human review, without updating or certifying policy.
-    let reviewTimed (options: WorkspaceOptions) platform =
+    /// Lint a Bazel workspace, described by a version-three policy, from the manifest its build wrote.
+    /// The build system caches the check, so the result cache is never read or written and
+    /// `options.Cache` is ignored. Paths in the manifest resolve against the working directory.
+    let checkManifestTimed (options: WorkspaceOptions) platform (manifest: string) =
+        let root = Path.GetFullPath platform
+
+        checkMeasured root options.Jobs false (Some manifest) (fun build policy project ->
+            let result, timing =
+                measured build { options with Cache = false } false root policy project
+
+            result |> Result.map _.Analysis, Some timing)
+
+    let checkManifest platform manifest =
+        checkManifestTimed defaultOptions platform manifest |> fst
+
+    /// With `manifest`, the inventory and invocations come from that Bazel manifest in place of MSBuild.
+    let private reviewMeasured (options: WorkspaceOptions) platform (manifest: string option) =
         let root = Path.GetFullPath platform
         let errors = ResizeArray<string>()
         let projects = ResizeArray<WorkspaceReviewProjectReport>()
@@ -793,8 +926,13 @@ module Workspace =
         let mutable snapshot = []
 
         try
+            let build =
+                match manifest with
+                | Some file -> manifestBuild root file
+                | None -> Projects
+
             let document, pin = pinned true root
-            WorkspaceAudit.validate root document
+            audit build root document
             policy <- Some document
 
             snapshot <-
@@ -805,7 +943,7 @@ module Workspace =
                 schedule
                     options.Jobs
                     Map.empty
-                    (measured options true root (document, pin))
+                    (measured build options true root (document, pin))
                     (WorkspaceAudit.order document.Projects) do
                 match outcome with
                 | Ok(result, timing) ->
@@ -851,8 +989,19 @@ module Workspace =
 
         report, List.ofSeq timings
 
+    /// Analyze a current-source snapshot for human review, without updating or certifying policy.
+    let reviewTimed (options: WorkspaceOptions) platform = reviewMeasured options platform None
+
     let review platform =
         reviewTimed defaultOptions platform |> fst
+
+    /// Review a Bazel workspace from the manifest its build wrote. Like `checkManifestTimed`, it never
+    /// reads or writes the result cache.
+    let reviewManifestTimed (options: WorkspaceOptions) platform (manifest: string) =
+        reviewMeasured { options with Cache = false } platform (Some manifest)
+
+    let reviewManifest platform manifest =
+        reviewManifestTimed defaultOptions platform manifest |> fst
 
     let private serveUsing advisory (input: TextReader) (output: TextWriter) =
         try

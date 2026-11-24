@@ -175,6 +175,39 @@ module WorkspaceCompilerPolicy =
         else
             Ok()
 
+    /// The symbols rules_dotnet defines for a net11.0 target beside the ones a net10.0 target shares
+    /// with it. A net11.0 target defines these and not `NET10_0`.
+    let private net11Symbols = [ "--define:NET11_0"; "--define:NET11_0_OR_GREATER" ]
+
+    /// The settings a policy of `version` accepts. Version three describes a Bazel workspace:
+    /// rules_dotnet always passes these console, manifest and output settings, and none of them changes
+    /// what the compiler checks. Its targets build for net10.0 or net11.0, and one target defines the
+    /// symbols of exactly one of them. Every other version keeps exactly the MSBuild settings of
+    /// `validate`.
+    let validateFor (version: int) (arguments: string list) =
+        if version <> 3 then
+            validate arguments
+        elif
+            List.contains "--define:NET10_0" arguments
+            && net11Symbols |> List.exists (fun symbol -> List.contains symbol arguments)
+        then
+            Error "BUILD002: The exported compiler invocation defines the symbols of more than one target framework."
+        else
+            arguments
+            |> List.filter (fun argument ->
+                not (
+                    List.contains
+                        argument
+                        ([ "--utf8output"; "--nowin32manifest"; "--nologo"; "--debug-" ] @ net11Symbols)
+                )
+                && not (
+                    [ "--pdb:"; "--refout:" ]
+                    |> List.exists (fun prefix ->
+                        argument.StartsWith(prefix, StringComparison.Ordinal)
+                        && argument.Length > prefix.Length)
+                ))
+            |> validate
+
     // FCS emits this optimize warning after ParseAndCheckProject, during task lowering.
     // An external inline helper can produce the same unknown range and text, so this
     // shape alone does not establish origin. Each included project's authored source
@@ -495,6 +528,48 @@ module internal WorkspacePolicy =
         && file.Split('/')
            |> Array.forall (fun part -> part <> "" && part <> "." && part <> "..")
 
+    /// A Bazel target of the package that holds the policy, spelled `:name`. The name starts with an
+    /// ASCII letter or digit and continues with letters, digits, `.`, `_`, `+` or `-`.
+    let internal target (name: string) =
+        match List.ofSeq name with
+        | ':' :: first :: rest ->
+            Char.IsAsciiLetterOrDigit first
+            && rest
+               |> List.forall (fun character ->
+                   Char.IsAsciiLetterOrDigit character
+                   || List.contains character [ '.'; '_'; '+'; '-' ])
+        | _ -> false
+
+    /// A source that several Bazel workspaces share lives outside each of them: one to sixteen `../`
+    /// segments, then an ordinary local path.
+    let internal sharedFile (file: string) =
+        let rec local count (text: string) =
+            if count < 16 && text.StartsWith("../", StringComparison.Ordinal) then
+                local (count + 1) (text.Substring 3)
+            else
+                count > 0 && localFile text
+
+        local 0 file
+
+    /// Versions one and two keep every source inside the workspace. Version three also takes a shared one.
+    let private validSource (version: int) (file: string) =
+        localFile file || (version = 3 && sharedFile file)
+
+    /// A shared source is named by its shortest path from the workspace root. One file then has one
+    /// name, and no `../` spelling can alias a file inside the workspace.
+    let private shortestPath (root: string) (file: string) =
+        Path.GetRelativePath(root, Path.GetFullPath(file, root)).Replace('\\', '/') = file
+
+    /// Version three names Bazel targets. Versions one and two name F# project files.
+    let private validProject (version: int) (project: WorkspaceProject) =
+        Set.contains project.Profile profiles
+        && (if version = 3 then
+                target project.File && List.forall target project.References
+            else
+                localFile project.File
+                && Path.GetExtension project.File = ".fsproj"
+                && List.forall localFile project.References)
+
     let internal digest (value: string) =
         not (String.IsNullOrEmpty value)
         && value.Length = 71
@@ -577,7 +652,8 @@ module internal WorkspacePolicy =
 
     let internal validateRepositoryStructure root (document: WorkspacePolicyDocument) =
         match document.Version, document.Repository with
-        | 1, None -> ()
+        | 1, None
+        | 3, None -> ()
         | 2, Some repository ->
             if not (validRepositoryRoot repository.Root) then
                 invalidOp "BUILD005: Repository.Root must name a bounded ancestor."
@@ -666,6 +742,13 @@ module internal WorkspacePolicy =
                 |> List.map (fun pin -> Path.Combine(repoRoot, pin.File), pin.Digest)
 
         local @ shared
+
+    /// The MSBuild commands read project files, which a Bazel workspace does not have. Every one of them
+    /// fails a version-three policy with this message.
+    let internal requireProjects (document: WorkspacePolicyDocument) =
+        if document.Version = 3 then
+            invalidOp
+                "BUILD003: A version-three policy describes a Bazel workspace; check it with lint or review and --manifest."
 
     /// MSBuildAllProjects is advisory: a custom Import need not append itself to that
     /// property. Review every authored pinned project/control file's literal imports.
@@ -803,6 +886,10 @@ module internal WorkspacePolicy =
 
         match document.Version, document.Repository with
         | 1, None -> ()
+        | 3, None ->
+            if not (excludedProjects document).IsEmpty then
+                invalidOp "BUILD005: A version-three policy cannot exclude projects."
+        | 3, Some _ -> invalidOp "BUILD005: A version-three policy cannot declare a Repository."
         | 2, Some repository ->
             if not (validRepositoryRoot repository.Root) then
                 invalidOp "BUILD005: Repository.Root must name a bounded ancestor."
@@ -841,12 +928,7 @@ module internal WorkspacePolicy =
 
         document.Projects
         |> List.iter (fun project ->
-            if
-                not (localFile project.File)
-                || Path.GetExtension project.File <> ".fsproj"
-                || not (Set.contains project.Profile profiles)
-                || project.References |> List.exists (fun file -> not (localFile file))
-            then
+            if not (validProject document.Version project) then
                 invalidOp "BUILD005: Invalid workspace project assignment.")
 
         let sources = document.Sources |> List.map _.File
@@ -878,7 +960,7 @@ module internal WorkspacePolicy =
         document.Sources
         |> List.iter (fun source ->
             if
-                not (localFile source.File)
+                not (validSource document.Version source.File)
                 || not (localFile source.Project)
                 || not (Set.contains source.Profile profiles)
                 || not (digest source.Digest)
@@ -1095,12 +1177,7 @@ module internal WorkspacePolicy =
         validateExcludedProjects (excludedProjects document)
 
         for project in document.Projects do
-            if
-                not (localFile project.File)
-                || Path.GetExtension project.File <> ".fsproj"
-                || not (Set.contains project.Profile profiles)
-                || project.References |> List.exists (fun file -> not (localFile file))
-            then
+            if not (validProject document.Version project) then
                 invalidOp "BUILD005: Invalid workspace project assignment."
 
         let keys = document.Sources |> List.map _.File
@@ -1162,10 +1239,16 @@ module internal WorkspacePolicy =
         for source in document.Sources do
             if
                 not (Set.contains source.Profile profiles)
-                || not (localFile source.File)
+                || not (validSource document.Version source.File)
                 || not (localFile source.Project)
             then
                 invalidOp "BUILD005: Invalid workspace source assignment."
+
+            if not (localFile source.File) && not (shortestPath root source.File) then
+                invalidOp (
+                    "BUILD005: A source outside the workspace must be named by its shortest path from the workspace: "
+                    + source.File
+                )
 
             let current = SafetyPolicy.fileDigest (Path.Combine(root, source.File))
 
@@ -1698,12 +1781,17 @@ module internal WorkspacePolicy =
                           "xunit.v3.runner.inproc.console, Version=3.1.0.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Runner.InProc.SystemConsole.TestingPlatform.TestPlatformTestFramework.RunAsync(System.String[],System.Action{Microsoft.Testing.Platform.Builder.ITestApplicationBuilder,System.String[]})"
                           "xunit.v3.runner.inproc.console, Version=3.1.0.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c | M:Xunit.Runner.InProc.SystemConsole.ConsoleRunner.Run(System.String[])" ]))
 
+        // A version-three policy is a Bazel workspace. Its one generated source is rules_dotnet's version
+        // file, which calls nothing, and the MSBuild profiles above never apply to it.
+        let bazel = document.Version = 3
+
         let memberAllowed (r: range) (memberInfo: FSharpMemberOrFunctionOrValue) =
             if
-                generatedMemberAllowed r memberInfo
-                || (Set.contains r.FileName generated
-                    && memberInfo.Assembly.QualifiedName = "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"
-                    && memberInfo.XmlDocSig = "P:System.Runtime.Versioning.TargetFrameworkAttribute.FrameworkDisplayName")
+                not bazel
+                && (generatedMemberAllowed r memberInfo
+                    || (Set.contains r.FileName generated
+                        && memberInfo.Assembly.QualifiedName = "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"
+                        && memberInfo.XmlDocSig = "P:System.Runtime.Versioning.TargetFrameworkAttribute.FrameworkDisplayName"))
             then
                 true
             else
@@ -2059,12 +2147,27 @@ module internal WorkspacePolicy =
                         && symbol = "Microsoft.VisualStudio.TestPlatform.TestSDKAutoGeneratedCode")
                     || (rule = "MUT008" && symbol = "main")))
 
+        let rulesDotnetPermission rule (r: range) symbol =
+            WorkspaceGenerated.isRulesDotnetVersion r.FileName
+            && rule = "ATTR001"
+            && List.contains
+                symbol
+                [ "System.Reflection.AssemblyFileVersionAttribute"
+                  "System.Reflection.AssemblyInformationalVersionAttribute"
+                  "System.Reflection.AssemblyVersionAttribute" ]
+
         let context =
             { Project = project
               Profile = profile
               Permit =
                 fun rule r symbol contract ->
-                    if Set.contains r.FileName generated && generatedPermission rule r symbol then
+                    if
+                        Set.contains r.FileName generated
+                        && (if bazel then
+                                rulesDotnetPermission rule r symbol
+                            else
+                                generatedPermission rule r symbol)
+                    then
                         true
                     else
                         match contract with

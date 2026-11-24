@@ -337,6 +337,7 @@ module RepositoryPlan =
         policies
         |> List.map (fun serviceRoot ->
             let policy = WorkspacePolicy.readStructure serviceRoot
+            WorkspacePolicy.requireProjects policy
             WorkspacePolicy.validateRepositoryStructure serviceRoot policy
 
             match policy.Repository with

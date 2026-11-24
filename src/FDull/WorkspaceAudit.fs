@@ -9,6 +9,41 @@ module WorkspaceAudit =
     let private contains (parent: string) (child: string) =
         child = parent || child.StartsWith(parent + "/", StringComparison.Ordinal)
 
+    /// Implementation and automation that FDull does not certify; each file needs an External entry.
+    let private externalExtensions =
+        [ ".fsx"
+          ".cs"
+          ".csx"
+          ".vb"
+          ".js"
+          ".mjs"
+          ".cjs"
+          ".ts"
+          ".tsx"
+          ".py"
+          ".rb"
+          ".sh"
+          ".bash"
+          ".ps1"
+          ".cmd"
+          ".bat"
+          ".rsp" ]
+
+    /// Build inputs that need a pin in Inputs when the inventory holds them.
+    let private buildInputExtensions =
+        [ ".props"
+          ".targets"
+          ".fsproj"
+          ".csproj"
+          ".vbproj"
+          ".sln"
+          ".slnx"
+          ".yml"
+          ".yaml" ]
+
+    let private buildInputNames =
+        [ "nuget.config"; "global.json"; "packages.lock.json"; "dotnet-tools.json" ]
+
     let internal externalProjects (policy: WorkspacePolicyDocument) =
         WorkspacePolicy.implementationProjects policy
 
@@ -388,6 +423,7 @@ module WorkspaceAudit =
         |> Set.ofList
 
     let validate root (policy: WorkspacePolicyDocument) =
+        WorkspacePolicy.requireProjects policy
         let files = inventory root
         let external = WorkspacePolicy.externalEntries policy
         let exclusions = WorkspacePolicy.excludedProjects policy
@@ -447,48 +483,17 @@ module WorkspaceAudit =
             let extension =
                 (Path.GetExtension file |> Transport.External.required "inventory.extension").ToLowerInvariant()
 
-            if
-                List.contains
-                    extension
-                    [ ".fsx"
-                      ".cs"
-                      ".csx"
-                      ".vb"
-                      ".js"
-                      ".mjs"
-                      ".cjs"
-                      ".ts"
-                      ".tsx"
-                      ".py"
-                      ".rb"
-                      ".sh"
-                      ".bash"
-                      ".ps1"
-                      ".cmd"
-                      ".bat"
-                      ".rsp" ]
-                && not (classified file)
-            then
+            if List.contains extension externalExtensions && not (classified file) then
                 invalidOp (
                     "ARCH003: Non-F# implementation or automation requires an explicit external classification: "
                     + file
                 )
 
             if
-                (List.contains
-                    extension
-                    [ ".props"
-                      ".targets"
-                      ".fsproj"
-                      ".csproj"
-                      ".vbproj"
-                      ".sln"
-                      ".slnx"
-                      ".yml"
-                      ".yaml" ]
+                (List.contains extension buildInputExtensions
                  || List.contains
                      ((Path.GetFileName file |> Transport.External.required "inventory.filename").ToLowerInvariant())
-                     [ "nuget.config"; "global.json"; "packages.lock.json"; "dotnet-tools.json" ])
+                     buildInputNames)
                 && not (Set.contains file pins)
             then
                 invalidOp ("BUILD005: Unpinned build input: " + file)
@@ -521,3 +526,131 @@ module WorkspaceAudit =
 
         if not (Set.isSubset (Set.ofList required) pins) then
             invalidOp "BUILD005: Missing project/lock input pins."
+
+    /// The audit of a Bazel workspace, described by a version-three policy. `files` is the build's
+    /// inventory of the workspace directory, relative to its root. `references` pairs each manifest
+    /// project with the manifest projects its compiler invocation references. The rules are the ones
+    /// `validate` applies to the inventory it walks. Nothing is tested for existence on disk: a sandbox
+    /// holds only the files the check reads.
+    let validateManifest
+        (policy: WorkspacePolicyDocument)
+        (files: string list)
+        (references: (string * string list) list)
+        =
+        if policy.Version <> 3 then
+            invalidOp "BUILD003: A manifest describes a Bazel workspace; its policy must be version three."
+
+        let external = WorkspacePolicy.externalEntries policy
+
+        let classified file =
+            external |> List.exists (fun entry -> contains entry.Path file)
+
+        for entry in external do
+            if not (files |> List.exists (contains entry.Path)) then
+                invalidOp ("BUILD005: External classification is missing or unused: " + entry.Path)
+
+        let projects = policy.Projects |> List.map _.File |> Set.ofList
+
+        if
+            projects.IsEmpty
+            || projects.Count <> policy.Projects.Length
+            || references.Length <> projects.Count
+            || projects <> (references |> List.map fst |> Set.ofList)
+        then
+            invalidOp "ARCH002: Actual and protected project inventories must match exactly."
+
+        if policy.Projects.Length > 128 then
+            invalidOp (
+                "ARCH001: The protected F# project graph contains "
+                + string policy.Projects.Length
+                + " projects; the supported maximum is 128."
+            )
+
+        if not (acyclic policy.Projects) then
+            invalidOp "ARCH001: The protected F# project graph contains a cycle."
+
+        // A source the policy shares from outside the workspace is not part of the build's inventory. Its
+        // project must still compile it: the worker requires the exact source set.
+        let declared =
+            policy.Sources
+            |> List.map _.File
+            |> List.filter WorkspacePolicy.localFile
+            |> Set.ofList
+
+        let actualSources =
+            files
+            |> List.filter (fun file -> List.contains (Path.GetExtension file) [ ".fs"; ".fsi" ])
+            |> Set.ofList
+
+        // A build log shows this message alone, so it names the files: the first ten of each kind.
+        if declared <> actualSources then
+            let named (label: string) (names: Set<string>) =
+                if names.IsEmpty then
+                    ""
+                else
+                    " "
+                    + label
+                    + ": "
+                    + (names |> Set.toList |> List.truncate 10 |> String.concat ", ")
+                    + (if names.Count > 10 then
+                           " (and " + string (names.Count - 10) + " more)"
+                       else
+                           "")
+                    + "."
+
+            invalidOp (
+                "ARCH002: Unclassified or missing F# source."
+                + named "Inventory files the policy does not assign" (Set.difference actualSources declared)
+                + named "Policy sources the inventory lacks" (Set.difference declared actualSources)
+            )
+
+        let pins = policy.Inputs |> List.map _.File |> Set.ofList
+
+        let buildFile (file: string) =
+            List.contains
+                (Path.GetFileName file |> Transport.External.required "inventory.filename")
+                [ "BUILD.bazel"; "BUILD" ]
+
+        if not (List.exists buildFile files) then
+            invalidOp "BUILD005: The workspace inventory holds no BUILD.bazel or BUILD file."
+
+        for file in files do
+            let extension =
+                (Path.GetExtension file |> Transport.External.required "inventory.extension").ToLowerInvariant()
+
+            if List.contains extension externalExtensions && not (classified file) then
+                invalidOp (
+                    "ARCH003: Non-F# implementation or automation requires an explicit external classification: "
+                    + file
+                )
+
+            if
+                (List.contains extension buildInputExtensions
+                 || List.contains
+                     ((Path.GetFileName file |> Transport.External.required "inventory.filename").ToLowerInvariant())
+                     buildInputNames
+                 || buildFile file)
+                && not (Set.contains file pins)
+            then
+                invalidOp ("BUILD005: Unpinned build input: " + file)
+
+        for project in policy.Projects do
+            if not (Set.contains project.Profile WorkspacePolicy.profiles) then
+                invalidOp "ARCH002: Unknown project profile."
+
+            let observed =
+                references
+                |> List.filter (fun (name, _) -> name = project.File)
+                |> List.collect snd
+
+            match validateEdges policy.Projects project.File observed with
+            | Error error -> invalidOp error
+            | Ok() -> ()
+
+            if not (policy.Sources |> List.exists (fun source -> source.Project = project.File)) then
+                invalidOp "ARCH002: Every project must contain classified F# source."
+
+        for source in policy.Sources do
+            match policy.Projects |> List.tryFind (fun project -> project.File = source.Project) with
+            | Some project when project.Profile = source.Profile -> ()
+            | _ -> invalidOp "ARCH002: Source/project profile assignment mismatch."

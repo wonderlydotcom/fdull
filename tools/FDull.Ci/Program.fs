@@ -3,6 +3,7 @@ namespace FDull.Ci
 open System
 open System.Diagnostics
 open System.IO
+open System.Runtime.InteropServices
 open FDull
 open FDull.Transport
 
@@ -92,9 +93,12 @@ module Program =
 
         run 0 directory packages [ "fdull"; "init"; "." ] |> ignore
 
-    let private smoke root feed =
+    /// Install the packed tool from `feed` as a local tool of a fresh temporary directory with an isolated
+    /// package cache, then run `check` with that directory, the cache, the package version and the NuGet
+    /// configuration. The directory is deleted afterwards, whatever the outcome.
+    let private withTool root feed (label: string) check =
         let temporary =
-            Path.Combine(Path.GetTempPath(), "fdull-package-smoke-" + Guid.NewGuid().ToString("N"))
+            Path.Combine(Path.GetTempPath(), "fdull-" + label + "-" + Guid.NewGuid().ToString("N"))
 
         let packages = Path.Combine(temporary, "packages")
         Directory.CreateDirectory temporary |> ignore
@@ -129,6 +133,12 @@ module Program =
 
             let installedVersion = run 0 temporary packages [ "fdull"; "--version" ]
             require (installedVersion.Trim() = version) "The installed tool version does not match the local package."
+            check temporary packages version config
+        finally
+            Directory.Delete(temporary, true)
+
+    let private smoke root feed =
+        withTool root feed "package-smoke" (fun temporary packages version config ->
             let defaults = run 0 temporary packages [ "fdull"; "defaults" ]
             let valid = Path.Combine(temporary, "valid")
             checkConsumer valid packages defaults config "module App\nlet increment value = value + 1\n"
@@ -244,9 +254,252 @@ module Program =
                 require (File.Exists path) ("Missing packaged analyzer assembly: " + assembly)
 
             Console.WriteLine
-                "Package smoke passed: local tool, worker, positive/negative/drift checks, scoped check, library and analyzer payload."
-        finally
-            Directory.Delete(temporary, true)
+                "Package smoke passed: local tool, worker, positive/negative/drift checks, scoped check, library and analyzer payload.")
+
+    /// The arguments rules_dotnet passes for an optimized library that builds for `framework`, in its
+    /// own spellings, with paths relative to the execution root. `symbols` holds the symbols that
+    /// framework does not share with the others.
+    let private rulesDotnetArguments
+        (framework: string)
+        (symbols: string list)
+        (references: string list)
+        (sources: string list)
+        =
+        [ "--noframework"
+          "--utf8output"
+          "--deterministic+"
+          "--nowin32manifest"
+          "--nocopyfsharpcore"
+          "--simpleresolution"
+          "--targetprofile:netcore"
+          "--nologo"
+          "--highentropyva+"
+          "/warnaserror+"
+          "/warn:5"
+          "--target:library"
+          "--langversion:10.0"
+          "--checknulls+"
+          "--debug-"
+          "--optimize+"
+          "--define:TRACE"
+          "--define:RELEASE"
+          "--debug:portable"
+          "--out:bazel-out/bin/pkg/lib/" + framework + "/lib.dll"
+          "--pdb:bazel-out/bin/pkg/lib/" + framework + "/lib.pdb"
+          "--refout:bazel-out/bin/pkg/lib/" + framework + "/ref/lib.dll"
+          "--doc:bazel-out/bin/pkg/lib/" + framework + "/lib.xml" ]
+        @ (references |> List.map (fun reference -> "-r:" + reference))
+        @ sources
+        @ [ "-d:NET"; "-d:NETCOREAPP" ]
+        @ symbols
+        @ [ "-d:NET5_0_OR_GREATER"
+            "-d:NET6_0_OR_GREATER"
+            "-d:NET7_0_OR_GREATER"
+            "-d:NET8_0_OR_GREATER"
+            "-d:NET9_0_OR_GREATER"
+            "-d:NET10_0_OR_GREATER"
+            "-d:NETCOREAPP1_0_OR_GREATER"
+            "-d:NETCOREAPP1_1_OR_GREATER"
+            "-d:NETCOREAPP2_0_OR_GREATER"
+            "-d:NETCOREAPP2_1_OR_GREATER"
+            "-d:NETCOREAPP2_2_OR_GREATER"
+            "-d:NETCOREAPP3_0_OR_GREATER"
+            "-d:NETCOREAPP3_1_OR_GREATER"
+            "-d:NULLABLE"
+            "--warnon:21,22,52,1178,1182,3180,3218,3391,3395,3559,3570,3579,3582,3878"
+            "--checked+" ]
+
+    /// A Bazel build runs the packed tool from the extracted package with a host `dotnet` and the one
+    /// runtime its toolchain carries, which is newer than the runtime the tool pins. This check does the
+    /// same on `runtime`: a Bazel-style workspace must pass, and a seeded violation must fail. It runs
+    /// against the net10.0 references of a restored project, and again against the reference assemblies
+    /// of `runtime` itself when that targeting pack is installed beside the runtime.
+    let private bazel root feed (runtime: string) =
+        withTool root feed "bazel-smoke" (fun temporary packages version config ->
+            let cli =
+                Path.Combine(packages, "fdull.tool/" + version + "/tools/net10.0/any/FDull.Cli.dll")
+
+            require (File.Exists cli) "Missing packaged CLI."
+
+            // A restored project supplies the FSharp.Core and net10.0 references a Bazel build passes.
+            let donor = Path.Combine(temporary, "donor")
+
+            prepare
+                donor
+                (run 0 temporary packages [ "fdull"; "defaults" ])
+                config
+                "module App\nlet increment value = value + 1\n"
+                "<Project Sdk=\"Microsoft.NET.Sdk\"><ItemGroup><Compile Include=\"App.fs\"/></ItemGroup></Project>"
+
+            run 0 donor packages [ "restore"; "App.fsproj"; "--use-lock-file"; "-m:1"; "-nr:false" ]
+            |> ignore
+
+            let references =
+                match Workspace.export donor "App.fsproj" with
+                | Ok invocation -> invocation.References
+                | Error error -> invalidOp error
+
+            // The execution root holds the package `pkg`, rules_dotnet's version file and the build's outputs.
+            let execution = Path.Combine(temporary, "execroot")
+            let package = Path.Combine(execution, "pkg")
+            let generated = Path.Combine(execution, "bazel-out/bin/pkg/lib/lib")
+            Directory.CreateDirectory package |> ignore
+            Directory.CreateDirectory generated |> ignore
+            write package "BUILD.bazel" "# Smoke package.\n"
+
+            write
+                generated
+                "assemblyinfo.fs"
+                ("// Generated by rules_dotnet from the target's `version` attribute.\nmodule RulesDotnetAssemblyVersionInfo\n\n"
+                 + "[<assembly: System.Reflection.AssemblyVersion(\"0.1.0.0\")>]\n[<assembly: System.Reflection.AssemblyFileVersion(\"0.1.0.0\")>]\n"
+                 + "[<assembly: System.Reflection.AssemblyInformationalVersion(\"0.1.0\")>]\ndo ()\n")
+
+            write
+                execution
+                "manifest.json"
+                (Codec.encode
+                    { Version = 1
+                      Projects =
+                        [ { Name = ":lib"
+                            Arguments = "lib.params" } ]
+                      Files = [ "pkg/BUILD.bazel"; "pkg/Lib.fs"; "pkg/fdull.json" ] })
+
+            // Review the source's fingerprint, then lint exactly as a Bazel action launches the tool.
+            let lint expected source =
+                write package "Lib.fs" source
+
+                let pin name =
+                    SafetyPolicy.fileDigest (Path.Combine(package, name))
+
+                write
+                    package
+                    "fdull.json"
+                    (Codec.encode
+                        { Version = 3
+                          Repository = None
+                          Projects =
+                            [ { File = ":lib"
+                                Profile = "PURE"
+                                References = [] } ]
+                          Sources =
+                            [ { File = "Lib.fs"
+                                Project = ":lib"
+                                Profile = "PURE"
+                                Digest = pin "Lib.fs" } ]
+                          Inputs =
+                            [ { File = "BUILD.bazel"
+                                Digest = pin "BUILD.bazel" } ]
+                          External = None
+                          ExcludedProjects = None
+                          DataContracts = None
+                          Capabilities = []
+                          Domains = []
+                          Constructors = [] })
+
+                let output =
+                    run
+                        expected
+                        execution
+                        packages
+                        [ "--fx-version"
+                          runtime
+                          cli
+                          "lint"
+                          "pkg"
+                          "--manifest"
+                          "manifest.json"
+                          "--report"
+                          "report.json"
+                          "--format"
+                          "json" ]
+
+                require
+                    (File.ReadAllText(Path.Combine(execution, "report.json")) = output)
+                    "The report file differs from the tool's standard output."
+
+                Codec.decode<WorkspaceReport> output
+
+            // The passing source needs a catalog entry and a framework type, so a reference set the
+            // engine does not know as the framework fails here with zero policy entries.
+            let check (framework: string) (symbols: string list) (frameworkReferences: string list) =
+                write
+                    execution
+                    "lib.params"
+                    (rulesDotnetArguments
+                        framework
+                        symbols
+                        frameworkReferences
+                        [ "bazel-out/bin/pkg/lib/lib/assemblyinfo.fs"; "pkg/Lib.fs" ]
+                     |> String.concat "\n")
+
+                let passed =
+                    lint
+                        0
+                        "module Lib\n\nlet blank (text: string) = System.String.IsNullOrWhiteSpace text\n\nlet same (value: System.TimeSpan) = value\n"
+
+                require
+                    (passed.Complete
+                     && passed.ExitCode = 0
+                     && passed.Projects.Length = 1
+                     && passed.Projects
+                        |> List.forall (fun project -> project.Report.Diagnostics.IsEmpty))
+                    ("The Bazel-style workspace did not pass against " + framework + " references.")
+
+                let failed = lint 1 "module Lib\nlet mutable count = 0\n"
+
+                require
+                    (failed.Complete
+                     && failed.ExitCode = 1
+                     && failed.Projects
+                        |> List.exists (fun project ->
+                            project.Report.Diagnostics |> List.exists (fun item -> item.Rule = "MUT001")))
+                    ("Mutation did not produce a complete MUT001 failure against "
+                     + framework
+                     + " references.")
+
+            check "net10.0" [ "-d:NET10_0" ] references
+
+            // The reference assemblies of the named runtime sit in its targeting pack, beside the runtime
+            // in the same installation. FSharp.Core stays the restored project's.
+            let framework, symbols =
+                match runtime.Split('.') |> Array.toList with
+                | major :: minor :: _ ->
+                    "net" + major + "." + minor,
+                    [ "-d:NET" + major + "_" + minor
+                      "-d:NET" + major + "_" + minor + "_OR_GREATER" ]
+                | _ -> invalidOp "The runtime version needs a major and a minor part."
+
+            let pack =
+                Path.GetFullPath(
+                    Path.Combine(
+                        RuntimeEnvironment.GetRuntimeDirectory(),
+                        "../../../packs/Microsoft.NETCore.App.Ref/" + runtime + "/ref/" + framework
+                    )
+                )
+
+            if Directory.Exists pack then
+                check
+                    framework
+                    symbols
+                    ((references
+                      |> List.filter (fun reference -> Path.GetFileName reference = "FSharp.Core.dll"))
+                     @ (Directory.GetFiles(pack, "*.dll") |> Array.sort |> Array.toList))
+
+                Console.WriteLine(
+                    "Bazel smoke passed on runtime "
+                    + runtime
+                    + " against net10.0 and "
+                    + framework
+                    + " references: packed tool, bundled worker, manifest, report file, positive and negative checks."
+                )
+            else
+                Console.WriteLine(
+                    "Bazel smoke passed on runtime "
+                    + runtime
+                    + " against net10.0 references only; no reference pack at "
+                    + pack
+                    + "."
+                ))
 
     [<EntryPoint>]
     let main arguments =
@@ -258,8 +511,13 @@ module Program =
             | [ "smoke"; root; feed ] ->
                 smoke (Path.GetFullPath root) (Path.GetFullPath feed)
                 0
+            | [ "bazel"; root; feed; runtime ] ->
+                bazel (Path.GetFullPath root) (Path.GetFullPath feed) runtime
+                0
             | _ ->
-                Console.Error.WriteLine "Usage: FDull.Ci coverage <root> | smoke <root> <package-directory>"
+                Console.Error.WriteLine
+                    "Usage: FDull.Ci coverage <root> | smoke <root> <package-directory> | bazel <root> <package-directory> <runtime-version>"
+
                 2
         with error ->
             Console.Error.WriteLine("CI check failed: " + error.Message)

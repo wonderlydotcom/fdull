@@ -433,7 +433,14 @@ module SafetyWorkerTests =
             start.Environment.Clear()
             start.Environment["DOTNET_ROOT"] <- runtimeRoot
             start.Environment["DOTNET_GCHeapHardLimit"] <- SafetyLimits.managedHeapBytes.ToString("X")
-            SafetyProcess.run { limits with OutputCharacters = 16384 } start "" |> action)
+            // The first MSBuild start on a machine can outlast the five seconds the worker fixtures get.
+            SafetyProcess.run
+                { limits with
+                    Milliseconds = 60000
+                    OutputCharacters = 16384 }
+                start
+                ""
+            |> action)
 
     [<Fact>]
     let ``compiler policy target accepts the pinned platform defaults`` () =

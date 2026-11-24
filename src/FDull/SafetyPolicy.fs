@@ -60,12 +60,23 @@ module SafetyPolicy =
     let isCoreIdentity identity =
         List.contains identity compatibleCoreIdentities
 
+    /// The framework a net10.0 target compiles against, and the version the API catalog names.
+    let runtimeIdentity =
+        "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"
+
+    /// A Bazel workspace may target net11.0, whose reference assemblies carry version 11.0.0.0. The
+    /// pinned SDK of an MSBuild workspace never produces that identity.
+    let compatibleRuntimeIdentities =
+        [ runtimeIdentity
+          "System.Runtime, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" ]
 
     let frameworkIdentities =
-        set
-            [ "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"
-              "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51"
-              "System.Collections, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" ]
+        set (
+            compatibleRuntimeIdentities
+            @ [ "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51"
+                "System.Collections, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"
+                "System.Collections, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" ]
+        )
 
     let compilerFlags =
         [ "--nologo"
@@ -132,14 +143,22 @@ module SafetyPolicy =
 
     let private apis = lazy (readCatalog ())
 
-    let approvedApi (symbol: FSharpMemberOrFunctionOrValue) =
-        let assembly =
-            if isCoreIdentity symbol.Assembly.QualifiedName then
+    /// Whether the catalog approves the exact signature in that assembly. The catalog names one version
+    /// of FSharp.Core and one of System.Runtime; a compatible version of either reads the same entries.
+    /// A capability identity in a policy stays exact.
+    let approvedIdentity (assembly: string) (signature: string) =
+        let named =
+            if isCoreIdentity assembly then
                 coreIdentity
+            elif List.contains assembly compatibleRuntimeIdentities then
+                runtimeIdentity
             else
-                symbol.Assembly.QualifiedName
+                assembly
 
-        Set.contains (assembly, symbol.XmlDocSig) apis.Value
+        Set.contains (named, signature) apis.Value
+
+    let approvedApi (symbol: FSharpMemberOrFunctionOrValue) =
+        approvedIdentity symbol.Assembly.QualifiedName symbol.XmlDocSig
 
     let validate () =
         SafetyRules.validate ()

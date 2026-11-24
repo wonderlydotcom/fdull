@@ -149,6 +149,20 @@ module WorkspaceEngine =
                                 |> FDull.Transport.External.required "workspace.compiler-documentation"
 
                             "--doc:" + Path.Combine(temporary.FullName, name)
+                        // A Bazel invocation also names its symbol file and reference assembly. The
+                        // private pass must never write over a build output.
+                        elif argument.StartsWith("--pdb:", StringComparison.Ordinal) then
+                            let name =
+                                Path.GetFileName(argument.Substring 6)
+                                |> FDull.Transport.External.required "workspace.compiler-symbols"
+
+                            "--pdb:" + Path.Combine(temporary.FullName, name)
+                        elif argument.StartsWith("--refout:", StringComparison.Ordinal) then
+                            let name =
+                                Path.GetFileName(argument.Substring 9)
+                                |> FDull.Transport.External.required "workspace.compiler-reference"
+
+                            "--refout:" + Path.Combine(temporary.FullName, "reference-" + name)
                         else
                             argument)
 
@@ -157,7 +171,10 @@ module WorkspaceEngine =
                 // which has no default.win32manifest. The manifest cannot
                 // affect source diagnostics, so suppress it for this private pass.
                 let manifest =
-                    if List.contains "--target:exe" arguments then
+                    if
+                        List.contains "--target:exe" arguments
+                        && not (List.contains "--nowin32manifest" arguments)
+                    then
                         [ "--nowin32manifest" ]
                     else
                         []
@@ -272,10 +289,6 @@ module WorkspaceEngine =
             if not (unchanged ()) then
                 invalidOp "Workspace inputs changed before analysis."
 
-            match WorkspaceCompilerPolicy.validate request.Arguments with
-            | Error error -> invalidOp error
-            | Ok() -> ()
-
             let project = Path.GetRelativePath(request.Root, request.Project).Replace('\\', '/')
 
             let document =
@@ -283,6 +296,14 @@ module WorkspaceEngine =
                     WorkspacePolicy.readForReview request.Root
                 else
                     WorkspacePolicy.read request.Root
+
+            // The policy this worker read selects the build it checks: version three is a Bazel
+            // workspace. Neither the request nor the environment can choose.
+            let bazel = document.Version = 3
+
+            match WorkspaceCompilerPolicy.validateFor document.Version request.Arguments with
+            | Error error -> invalidOp error
+            | Ok() -> ()
 
             if WorkspaceSlice.digest project document <> request.PolicySlice then
                 invalidOp "BUILD004: Worker policy slice differs from the requested slice."
@@ -322,20 +343,29 @@ module WorkspaceEngine =
                 Path.GetDirectoryName request.Project
                 |> FDull.Transport.External.required "workspace.project-parent"
 
+            // rules_dotnet generates no source that every project must hold.
             let requiredGenerated =
-                [ Path.Combine(projectDirectory, "obj/Release/net10.0/.NETCoreApp,Version=v10.0.AssemblyAttributes.fs")
-                  Path.Combine(
-                      projectDirectory,
-                      "obj/Release/net10.0/"
-                      + Path.GetFileNameWithoutExtension(request.Project)
-                      + ".AssemblyInfo.fs"
-                  ) ]
-                |> Set.ofList
+                if bazel then
+                    Set.empty
+                else
+                    [ Path.Combine(
+                          projectDirectory,
+                          "obj/Release/net10.0/.NETCoreApp,Version=v10.0.AssemblyAttributes.fs"
+                      )
+                      Path.Combine(
+                          projectDirectory,
+                          "obj/Release/net10.0/"
+                          + Path.GetFileNameWithoutExtension(request.Project)
+                          + ".AssemblyInfo.fs"
+                      ) ]
+                    |> Set.ofList
 
             let sourceFiles = request.Sources |> List.map _.Path |> Set.ofList
 
-            let generated =
-                match
+            let supportedGenerated =
+                if bazel then
+                    WorkspaceGenerated.rulesDotnet request.Root (request.Sources |> List.map _.Path)
+                else
                     WorkspaceGenerated.supported
                         request.Root
                         projectDirectory
@@ -343,7 +373,9 @@ module WorkspaceEngine =
                         request.ProjectReferences
                         (request.Sources |> List.map _.Path)
                         (request.References |> List.map _.Path)
-                with
+
+            let generated =
+                match supportedGenerated with
                 | Error error -> invalidOp error
                 | Ok supported -> Set.intersect sourceFiles supported
 
