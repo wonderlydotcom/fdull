@@ -237,7 +237,7 @@
       "File": "tests/FDull.Tests/SafetyWorkerTests.fs",
       "Project": "tests/FDull.Tests/FDull.Tests.fsproj",
       "Profile": "TEST",
-      "Digest": "sha256:dee9d53bd4bfe681d5e101348d99a4178f4c409951fbe974e9bde05df46d27c9"
+      "Digest": "sha256:03d1346368cdf9c3800242bd0bab7e8d82fc44bff86e26e31e8d8f6ebbf80a4d"
     },
     {
       "File": "tests/FDull.Tests/SafetyRangeTests.fs",
