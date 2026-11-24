@@ -7,12 +7,38 @@ open System.IO
 open FDull
 open FDull.Transport
 
+/// One reported location: a finding's rule id, or the code of what blocked the check.
+type CheckOutputItem =
+    { Rule: string
+      File: string
+      StartLine: int
+      StartColumn: int
+      EndLine: int
+      EndColumn: int
+      Symbol: string
+      Message: string }
+
+/// Machine-readable `fdull check` result for CI.
+type CheckOutput =
+    { Status: string
+      ExitCode: int
+      Project: string
+      Files: string list
+      Rules: string list
+      Claim: string
+      Reason: string option
+      Findings: CheckOutputItem list }
+
+type CheckFormat =
+    | CheckText
+    | CheckJson
+
 module Program =
     let private usage () =
         Console.WriteLine "FDull — F# with fewer sharp edges."
 
         Console.WriteLine
-            "fdull defaults | init <root> [--scope <file>] | lint <root> [--format text|json|sarif] [--jobs <1-64>] [--memory <256-16384>] [--no-cache] [--timings] | review <root> [--format text|json] [--jobs <1-64>] [--memory <256-16384>] [--no-cache] [--timings] | cache clear <root> | data-digest <assembly> | policy-digest <fdull.json> | verify <root> [--all | --since <commit>] [--jobs <1-64>] [--memory <256-16384>] [--cache | --no-cache] [--timings] | coverage"
+            "fdull defaults | init <root> [--scope <file>] | check <project.fsproj> --rules <ids> <file-or-directory>... [--format text|json] | lint <root> [--format text|json|sarif] [--jobs <1-64>] [--memory <256-16384>] [--no-cache] [--timings] | review <root> [--format text|json] [--jobs <1-64>] [--memory <256-16384>] [--no-cache] [--timings] | cache clear <root> | data-digest <assembly> | policy-digest <fdull.json> | verify <root> [--all | --since <commit>] [--jobs <1-64>] [--memory <256-16384>] [--cache | --no-cache] [--timings] | coverage"
 
         2
 
@@ -253,6 +279,91 @@ module Program =
 
         report.ExitCode
 
+    /// `--rules` and `--format` may appear once each; every other argument is a source selector.
+    let rec private checkOptions (rules: string option) (format: CheckFormat option) selectors arguments =
+        match arguments with
+        | [] -> Some(rules, Option.defaultValue CheckText format, List.rev selectors)
+        | "--rules" :: value :: rest when rules.IsNone -> checkOptions (Some value) format selectors rest
+        | "--format" :: "text" :: rest when format.IsNone -> checkOptions rules (Some CheckText) selectors rest
+        | "--format" :: "json" :: rest when format.IsNone -> checkOptions rules (Some CheckJson) selectors rest
+        | selector :: rest when not (selector.StartsWith("--", StringComparison.Ordinal)) ->
+            checkOptions rules format (selector :: selectors) rest
+        | _ -> None
+
+    let private displayCheck format (report: CheckReport) =
+        let exitCode = RuleCheck.exitCode report.Outcome
+
+        let status, reason, findings =
+            match report.Outcome with
+            | Clean -> "pass", None, []
+            | Violations findings ->
+                "fail",
+                None,
+                findings
+                |> List.map (fun item ->
+                    { Rule = RuleCheck.ruleId item.Rule
+                      File = item.File
+                      StartLine = item.StartLine
+                      StartColumn = item.StartColumn
+                      EndLine = item.EndLine
+                      EndColumn = item.EndColumn
+                      Symbol = item.Symbol
+                      Message = item.Message })
+            | Invalid reason -> "invalid", Some reason, []
+            | Incomplete(reason, blockers) ->
+                "incomplete",
+                Some reason,
+                blockers
+                |> List.map (fun item ->
+                    { Rule = item.Code
+                      File = item.File
+                      StartLine = item.StartLine
+                      StartColumn = item.StartColumn
+                      EndLine = item.EndLine
+                      EndColumn = item.EndColumn
+                      Symbol = ""
+                      Message = item.Message })
+
+        match format with
+        | CheckJson ->
+            { Status = status
+              ExitCode = exitCode
+              Project = report.Project
+              Files = report.Files
+              Rules = report.Rules |> List.map RuleCheck.ruleId
+              Claim = RuleCheck.claim report
+              Reason = reason
+              Findings = findings }
+            |> Codec.encode
+            |> Console.WriteLine
+        | CheckText ->
+            let headline =
+                match report.Outcome with
+                | Clean -> "FDull check: PASS — no findings for the selected rules."
+                | Violations findings -> $"FDull check: FAIL — %d{findings.Length} findings for the selected rules."
+                | Invalid _ -> "FDull check: INVALID — the request cannot be checked; no clean result."
+                | Incomplete _ -> "FDull check: BLOCKED — analysis incomplete; no clean result."
+
+            Console.WriteLine headline
+            reason |> Option.iter (fun text -> Console.WriteLine("Reason: " + text))
+            Console.WriteLine("Scope: " + RuleCheck.claim report)
+
+            for file in report.Files do
+                Console.WriteLine("Selected: " + file)
+
+            for item in findings do
+                let subject =
+                    if item.Symbol = "" then
+                        item.Rule
+                    else
+                        item.Rule + " " + item.Symbol
+
+                Console.WriteLine(
+                    $"%s{item.File}(%d{item.StartLine},%d{item.StartColumn}): %s{subject}: %s{item.Message}"
+                )
+
+        exitCode
+
     let private verify root selected (selection: RepositorySelection option) =
         // A standalone (version-one) verify never uses the result cache.
         if
@@ -300,6 +411,12 @@ module Program =
                     timed (selected.ContainsKey "timings") workspaceTimings (fun () ->
                         Workspace.checkTimed (workspaceOptions selected) root)
                     |> display "lint" (selected.TryFind "format" |> Option.defaultValue "text")
+                | None -> usage ()
+            | "check" :: project :: rest when not (project.StartsWith("--", StringComparison.Ordinal)) ->
+                match checkOptions None None [] rest with
+                | Some(rules, format, selectors) ->
+                    RuleCheck.run project (Option.defaultValue "" rules) selectors
+                    |> displayCheck format
                 | None -> usage ()
             | "verify" :: root :: rest when not (root.StartsWith("--", StringComparison.Ordinal)) ->
                 // Verify reports only text.

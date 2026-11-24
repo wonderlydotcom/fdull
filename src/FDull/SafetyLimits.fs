@@ -18,6 +18,7 @@ module SafetyLimits =
     let workspaceDiagnosticCount = 8192
     let sourceBytes = 1024L * 1024L
     let sourceCount = 256
+    let workspaceSourceCount = 512
     let referenceCount = 512
     let traversalSteps = 250000
     let traversalDepth = 256

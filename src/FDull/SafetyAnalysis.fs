@@ -325,7 +325,13 @@ module internal SafetyAnalysis =
         (syntax: Map<string, SourceSyntax>)
         emit
         =
-        let uses = result.GetAllUsesOfAllSymbols()
+        // Only `files` are inspected. Strict callers pass every project source; `fdull check`
+        // passes its selection, so unselected sources of a large project cost no analysis budget.
+        let uses =
+            result.GetAllUsesOfAllSymbols()
+            |> Array.filter (fun useSite ->
+                let useRange = useSite.Range
+                Set.contains useRange.FileName files)
 
         let useIndex =
             SafetyRanges.create budget.Visit (fun (useSite: FSharpSymbolUse) -> region useSite.Range) uses
@@ -1128,8 +1134,9 @@ module internal SafetyAnalysis =
             | FSharpImplementationFileDeclaration.InitAction body -> expression body
 
         for file in result.AssemblyContents.ImplementationFiles do
-            for d in file.Declarations do
-                declaration 0 d
+            if Set.contains file.FileName files then
+                for d in file.Declarations do
+                    declaration 0 d
 
         let expressionIndex =
             SafetyRanges.create budget.Visit (fun (expr: FSharpExpr) -> region expr.Range) expressions

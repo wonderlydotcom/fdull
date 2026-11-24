@@ -249,8 +249,8 @@ module internal WorkspaceGenerated =
             Ok Set.empty
         elif
             not (
-                hasReference "/aspire.hosting.apphost/13.4.6/lib/net10.0/Aspire.Hosting.AppHost.dll" references
-                && hasReference "/aspire.hosting/13.4.6/lib/net8.0/Aspire.Hosting.dll" references
+                hasReference "/aspire.hosting.apphost/13.6.5/lib/net10.0/Aspire.Hosting.AppHost.dll" references
+                && hasReference "/aspire.hosting/13.6.5/lib/net8.0/Aspire.Hosting.dll" references
                 && hasReference
                     "/fsharp.aspire.hosting.apphost/13.0.0/lib/net8.0/FSharp.Aspire.Hosting.AppHost.dll"
                     references
