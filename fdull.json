@@ -117,7 +117,7 @@
       "File": "src/FDull/SafetySyntax.fs",
       "Project": "src/FDull/FDull.fsproj",
       "Profile": "GUARD_TOOLING",
-      "Digest": "sha256:effecf28a41df365c2b45d268ef1e5423091cbe4d24eef6d607ef4aed3a16083"
+      "Digest": "sha256:7e383da21bb66b46b343aa61ebac9c5d9b317216cec2dc257b06c59aee9ef4a2"
     },
     {
       "File": "src/FDull/EditorAnalysis.fs",
@@ -377,7 +377,7 @@
     },
     {
       "File": "src/FDull.Worker/FDull.Worker.fsproj",
-      "Digest": "sha256:4b3a9cdb72714fbeb3760537787e315747bc6e13b2f25fa38a10e449e85daf48"
+      "Digest": "sha256:88b69d9ece3f8450541084852433f40963feb32dd5991931605e9d2e5e63994e"
     },
     {
       "File": "src/FDull.Worker/packages.lock.json",
@@ -8257,27 +8257,6 @@
       "File": "src/FDull/SafetySyntax.fs",
       "Owner": "FDull.SafetySyntax.children",
       "Kind": "member",
-      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Reflection.FSharpValue.GetRecordFields(System.Object,Microsoft.FSharp.Core.FSharpOption{System.Reflection.BindingFlags})",
-      "Reason": "Pinned FCS AST adapter reads only compiler-owned record/union/tuple fields. Erased AST values never enter domain data; bounded syntax and physical-range fixtures exercise it."
-    },
-    {
-      "File": "src/FDull/SafetySyntax.fs",
-      "Owner": "FDull.SafetySyntax.children",
-      "Kind": "member",
-      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Reflection.FSharpValue.GetTupleFields(System.Object)",
-      "Reason": "Pinned FCS AST adapter reads only compiler-owned record/union/tuple fields. Erased AST values never enter domain data; bounded syntax and physical-range fixtures exercise it."
-    },
-    {
-      "File": "src/FDull/SafetySyntax.fs",
-      "Owner": "FDull.SafetySyntax.children",
-      "Kind": "member",
-      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Reflection.FSharpValue.GetUnionFields(System.Object,System.Type,Microsoft.FSharp.Core.FSharpOption{System.Reflection.BindingFlags})",
-      "Reason": "Pinned FCS AST adapter reads only compiler-owned record/union/tuple fields. Erased AST values never enter domain data; bounded syntax and physical-range fixtures exercise it."
-    },
-    {
-      "File": "src/FDull/SafetySyntax.fs",
-      "Owner": "FDull.SafetySyntax.children",
-      "Kind": "member",
       "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | M:System.Object.GetType",
       "Reason": "Pinned FCS AST adapter reads only compiler-owned record/union/tuple fields. Erased AST values never enter domain data; bounded syntax and physical-range fixtures exercise it."
     },
@@ -8286,13 +8265,6 @@
       "Owner": "FDull.SafetySyntax.children",
       "Kind": "rule",
       "Identity": "CAST001 | ",
-      "Reason": "Pinned FCS AST adapter reads only compiler-owned record/union/tuple fields. Erased AST values never enter domain data; bounded syntax and physical-range fixtures exercise it."
-    },
-    {
-      "File": "src/FDull/SafetySyntax.fs",
-      "Owner": "FDull.SafetySyntax.children",
-      "Kind": "rule",
-      "Identity": "CAST005 | ",
       "Reason": "Pinned FCS AST adapter reads only compiler-owned record/union/tuple fields. Erased AST values never enter domain data; bounded syntax and physical-range fixtures exercise it."
     },
     {
@@ -8461,13 +8433,6 @@
       "Owner": "FDull.SafetySyntax.inspect",
       "Kind": "member",
       "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.ListModule.OfSeq``1(System.Collections.Generic.IEnumerable{``0})",
-      "Reason": "Pinned FCS AST adapter reads only compiler-owned record/union/tuple fields. Erased AST values never enter domain data; bounded syntax and physical-range fixtures exercise it."
-    },
-    {
-      "File": "src/FDull/SafetySyntax.fs",
-      "Owner": "FDull.SafetySyntax.inspect",
-      "Kind": "member",
-      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Core.ExtraTopLevelOperators.CreateSet``1(System.Collections.Generic.IEnumerable{``0})",
       "Reason": "Pinned FCS AST adapter reads only compiler-owned record/union/tuple fields. Erased AST values never enter domain data; bounded syntax and physical-range fixtures exercise it."
     },
     {
@@ -8803,13 +8768,6 @@
       "File": "src/FDull/SafetySyntax.fs",
       "Owner": "FDull.SafetySyntax.unionName",
       "Kind": "member",
-      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Reflection.FSharpValue.GetUnionFields(System.Object,System.Type,Microsoft.FSharp.Core.FSharpOption{System.Reflection.BindingFlags})",
-      "Reason": "Pinned FCS AST adapter reads only compiler-owned record/union/tuple fields. Erased AST values never enter domain data; bounded syntax and physical-range fixtures exercise it."
-    },
-    {
-      "File": "src/FDull/SafetySyntax.fs",
-      "Owner": "FDull.SafetySyntax.unionName",
-      "Kind": "member",
       "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:Microsoft.FSharp.Reflection.UnionCaseInfo.Name",
       "Reason": "Pinned FCS AST adapter reads only compiler-owned record/union/tuple fields. Erased AST values never enter domain data; bounded syntax and physical-range fixtures exercise it."
     },
@@ -8823,16 +8781,289 @@
     {
       "File": "src/FDull/SafetySyntax.fs",
       "Owner": "FDull.SafetySyntax.unionName",
-      "Kind": "rule",
-      "Identity": "NULL005 | coercion",
+      "Kind": "type",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | Microsoft.FSharp.Reflection.UnionCaseInfo",
       "Reason": "Pinned FCS AST adapter reads only compiler-owned record/union/tuple fields. Erased AST values never enter domain data; bounded syntax and physical-range fixtures exercise it."
+    },
+    {
+      "File": "src/FDull/SafetySyntax.fs",
+      "Owner": "FDull.SafetySyntax.caseNames",
+      "Kind": "member",
+      "Identity": "System.Collections.Concurrent, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.Collections.Concurrent.ConcurrentDictionary`2.#ctor",
+      "Reason": "Process-wide map from a runtime type to its reader in the pinned FCS AST adapter. A reader depends on the type alone, so a stored one reads what a fresh one would, and the map is concurrent because an editor host inspects files on several threads. It holds readers and no AST value."
+    },
+    {
+      "File": "src/FDull/SafetySyntax.fs",
+      "Owner": "FDull.SafetySyntax.caseNames",
+      "Kind": "type",
+      "Identity": "System.Collections.Concurrent, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | System.Collections.Concurrent.ConcurrentDictionary`2",
+      "Reason": "Process-wide map from a runtime type to its reader in the pinned FCS AST adapter. A reader depends on the type alone, so a stored one reads what a fresh one would, and the map is concurrent because an editor host inspects files on several threads. It holds readers and no AST value."
+    },
+    {
+      "File": "src/FDull/SafetySyntax.fs",
+      "Owner": "FDull.SafetySyntax.caseNames",
+      "Kind": "type",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | System.Type",
+      "Reason": "Process-wide map from a runtime type to its reader in the pinned FCS AST adapter. A reader depends on the type alone, so a stored one reads what a fresh one would, and the map is concurrent because an editor host inspects files on several threads. It holds readers and no AST value."
+    },
+    {
+      "File": "src/FDull/SafetySyntax.fs",
+      "Owner": "FDull.SafetySyntax.caseNames",
+      "Kind": "type",
+      "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | System.Object",
+      "Reason": "Process-wide map from a runtime type to its reader in the pinned FCS AST adapter. A reader depends on the type alone, so a stored one reads what a fresh one would, and the map is concurrent because an editor host inspects files on several threads. It holds readers and no AST value."
+    },
+    {
+      "File": "src/FDull/SafetySyntax.fs",
+      "Owner": "FDull.SafetySyntax.childReaders",
+      "Kind": "member",
+      "Identity": "System.Collections.Concurrent, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.Collections.Concurrent.ConcurrentDictionary`2.#ctor",
+      "Reason": "Process-wide map from a runtime type to its reader in the pinned FCS AST adapter. A reader depends on the type alone, so a stored one reads what a fresh one would, and the map is concurrent because an editor host inspects files on several threads. It holds readers and no AST value."
+    },
+    {
+      "File": "src/FDull/SafetySyntax.fs",
+      "Owner": "FDull.SafetySyntax.childReaders",
+      "Kind": "rule",
+      "Identity": "NULL005 | childReaders",
+      "Reason": "Process-wide map from a runtime type to its reader in the pinned FCS AST adapter. A reader depends on the type alone, so a stored one reads what a fresh one would, and the map is concurrent because an editor host inspects files on several threads. It holds readers and no AST value."
+    },
+    {
+      "File": "src/FDull/SafetySyntax.fs",
+      "Owner": "FDull.SafetySyntax.childReaders",
+      "Kind": "type",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | []",
+      "Reason": "Process-wide map from a runtime type to its reader in the pinned FCS AST adapter. A reader depends on the type alone, so a stored one reads what a fresh one would, and the map is concurrent because an editor host inspects files on several threads. It holds readers and no AST value."
+    },
+    {
+      "File": "src/FDull/SafetySyntax.fs",
+      "Owner": "FDull.SafetySyntax.childReaders",
+      "Kind": "type",
+      "Identity": "System.Collections.Concurrent, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | System.Collections.Concurrent.ConcurrentDictionary`2",
+      "Reason": "Process-wide map from a runtime type to its reader in the pinned FCS AST adapter. A reader depends on the type alone, so a stored one reads what a fresh one would, and the map is concurrent because an editor host inspects files on several threads. It holds readers and no AST value."
+    },
+    {
+      "File": "src/FDull/SafetySyntax.fs",
+      "Owner": "FDull.SafetySyntax.childReaders",
+      "Kind": "type",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | System.Type",
+      "Reason": "Process-wide map from a runtime type to its reader in the pinned FCS AST adapter. A reader depends on the type alone, so a stored one reads what a fresh one would, and the map is concurrent because an editor host inspects files on several threads. It holds readers and no AST value."
+    },
+    {
+      "File": "src/FDull/SafetySyntax.fs",
+      "Owner": "FDull.SafetySyntax.childReaders",
+      "Kind": "type",
+      "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | System.Object",
+      "Reason": "Process-wide map from a runtime type to its reader in the pinned FCS AST adapter. A reader depends on the type alone, so a stored one reads what a fresh one would, and the map is concurrent because an editor host inspects files on several threads. It holds readers and no AST value."
+    },
+    {
+      "File": "src/FDull/SafetySyntax.fs",
+      "Owner": "FDull.SafetySyntax.children",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.ArrayModule.Map``2(Microsoft.FSharp.Core.FSharpFunc{``0,``1},``0[])",
+      "Reason": "Pinned FCS AST adapter prepares, once for each runtime type, the reader of a compiler-owned sequence, union, record or tuple, and keeps it in childReaders. A union case's reader is built on first use, behind a Lazy that nothing outside the adapter sees. Erased AST values never enter domain data; bounded syntax and physical-range fixtures exercise it."
+    },
+    {
+      "File": "src/FDull/SafetySyntax.fs",
+      "Owner": "FDull.SafetySyntax.children",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Core.Operators.TypeOf``1",
+      "Reason": "Pinned FCS AST adapter prepares, once for each runtime type, the reader of a compiler-owned sequence, union, record or tuple, and keeps it in childReaders. A union case's reader is built on first use, behind a Lazy that nothing outside the adapter sees. Erased AST values never enter domain data; bounded syntax and physical-range fixtures exercise it."
+    },
+    {
+      "File": "src/FDull/SafetySyntax.fs",
+      "Owner": "FDull.SafetySyntax.children",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Reflection.FSharpType.GetUnionCases(System.Type,Microsoft.FSharp.Core.FSharpOption{System.Reflection.BindingFlags})",
+      "Reason": "Pinned FCS AST adapter prepares, once for each runtime type, the reader of a compiler-owned sequence, union, record or tuple, and keeps it in childReaders. A union case's reader is built on first use, behind a Lazy that nothing outside the adapter sees. Erased AST values never enter domain data; bounded syntax and physical-range fixtures exercise it."
+    },
+    {
+      "File": "src/FDull/SafetySyntax.fs",
+      "Owner": "FDull.SafetySyntax.children",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Reflection.FSharpValue.PreComputeRecordReader(System.Type,Microsoft.FSharp.Core.FSharpOption{System.Reflection.BindingFlags})",
+      "Reason": "Pinned FCS AST adapter prepares, once for each runtime type, the reader of a compiler-owned sequence, union, record or tuple, and keeps it in childReaders. A union case's reader is built on first use, behind a Lazy that nothing outside the adapter sees. Erased AST values never enter domain data; bounded syntax and physical-range fixtures exercise it."
+    },
+    {
+      "File": "src/FDull/SafetySyntax.fs",
+      "Owner": "FDull.SafetySyntax.children",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Reflection.FSharpValue.PreComputeTupleReader(System.Type)",
+      "Reason": "Pinned FCS AST adapter prepares, once for each runtime type, the reader of a compiler-owned sequence, union, record or tuple, and keeps it in childReaders. A union case's reader is built on first use, behind a Lazy that nothing outside the adapter sees. Erased AST values never enter domain data; bounded syntax and physical-range fixtures exercise it."
+    },
+    {
+      "File": "src/FDull/SafetySyntax.fs",
+      "Owner": "FDull.SafetySyntax.children",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Reflection.FSharpValue.PreComputeUnionReader(Microsoft.FSharp.Reflection.UnionCaseInfo,Microsoft.FSharp.Core.FSharpOption{System.Reflection.BindingFlags})",
+      "Reason": "Pinned FCS AST adapter prepares, once for each runtime type, the reader of a compiler-owned sequence, union, record or tuple, and keeps it in childReaders. A union case's reader is built on first use, behind a Lazy that nothing outside the adapter sees. Erased AST values never enter domain data; bounded syntax and physical-range fixtures exercise it."
+    },
+    {
+      "File": "src/FDull/SafetySyntax.fs",
+      "Owner": "FDull.SafetySyntax.children",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Reflection.FSharpValue.PreComputeUnionTagReader(System.Type,Microsoft.FSharp.Core.FSharpOption{System.Reflection.BindingFlags})",
+      "Reason": "Pinned FCS AST adapter prepares, once for each runtime type, the reader of a compiler-owned sequence, union, record or tuple, and keeps it in childReaders. A union case's reader is built on first use, behind a Lazy that nothing outside the adapter sees. Erased AST values never enter domain data; bounded syntax and physical-range fixtures exercise it."
+    },
+    {
+      "File": "src/FDull/SafetySyntax.fs",
+      "Owner": "FDull.SafetySyntax.children",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:Microsoft.FSharp.Reflection.UnionCaseInfo.DeclaringType",
+      "Reason": "Pinned FCS AST adapter prepares, once for each runtime type, the reader of a compiler-owned sequence, union, record or tuple, and keeps it in childReaders. A union case's reader is built on first use, behind a Lazy that nothing outside the adapter sees. Erased AST values never enter domain data; bounded syntax and physical-range fixtures exercise it."
+    },
+    {
+      "File": "src/FDull/SafetySyntax.fs",
+      "Owner": "FDull.SafetySyntax.children",
+      "Kind": "member",
+      "Identity": "System.Collections.Concurrent, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.Collections.Concurrent.ConcurrentDictionary`2.GetOrAdd(`0,System.Func{`0,`1})",
+      "Reason": "Pinned FCS AST adapter prepares, once for each runtime type, the reader of a compiler-owned sequence, union, record or tuple, and keeps it in childReaders. A union case's reader is built on first use, behind a Lazy that nothing outside the adapter sees. Erased AST values never enter domain data; bounded syntax and physical-range fixtures exercise it."
+    },
+    {
+      "File": "src/FDull/SafetySyntax.fs",
+      "Owner": "FDull.SafetySyntax.children",
+      "Kind": "member",
+      "Identity": "System.Collections.Concurrent, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.Collections.Concurrent.ConcurrentDictionary`2.TryGetValue(`0,`1@)",
+      "Reason": "Pinned FCS AST adapter prepares, once for each runtime type, the reader of a compiler-owned sequence, union, record or tuple, and keeps it in childReaders. A union case's reader is built on first use, behind a Lazy that nothing outside the adapter sees. Erased AST values never enter domain data; bounded syntax and physical-range fixtures exercise it."
+    },
+    {
+      "File": "src/FDull/SafetySyntax.fs",
+      "Owner": "FDull.SafetySyntax.children",
+      "Kind": "member",
+      "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | M:System.Type.IsAssignableFrom(System.Type)",
+      "Reason": "Pinned FCS AST adapter prepares, once for each runtime type, the reader of a compiler-owned sequence, union, record or tuple, and keeps it in childReaders. A union case's reader is built on first use, behind a Lazy that nothing outside the adapter sees. Erased AST values never enter domain data; bounded syntax and physical-range fixtures exercise it."
+    },
+    {
+      "File": "src/FDull/SafetySyntax.fs",
+      "Owner": "FDull.SafetySyntax.children",
+      "Kind": "member",
+      "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | P:System.Lazy`1.Value",
+      "Reason": "Pinned FCS AST adapter prepares, once for each runtime type, the reader of a compiler-owned sequence, union, record or tuple, and keeps it in childReaders. A union case's reader is built on first use, behind a Lazy that nothing outside the adapter sees. Erased AST values never enter domain data; bounded syntax and physical-range fixtures exercise it."
+    },
+    {
+      "File": "src/FDull/SafetySyntax.fs",
+      "Owner": "FDull.SafetySyntax.children",
+      "Kind": "rule",
+      "Identity": "EFFECT003 | ",
+      "Reason": "Pinned FCS AST adapter prepares, once for each runtime type, the reader of a compiler-owned sequence, union, record or tuple, and keeps it in childReaders. A union case's reader is built on first use, behind a Lazy that nothing outside the adapter sees. Erased AST values never enter domain data; bounded syntax and physical-range fixtures exercise it."
+    },
+    {
+      "File": "src/FDull/SafetySyntax.fs",
+      "Owner": "FDull.SafetySyntax.children",
+      "Kind": "rule",
+      "Identity": "NULL005 | fields",
+      "Reason": "Pinned FCS AST adapter prepares, once for each runtime type, the reader of a compiler-owned sequence, union, record or tuple, and keeps it in childReaders. A union case's reader is built on first use, behind a Lazy that nothing outside the adapter sees. Erased AST values never enter domain data; bounded syntax and physical-range fixtures exercise it."
+    },
+    {
+      "File": "src/FDull/SafetySyntax.fs",
+      "Owner": "FDull.SafetySyntax.children",
+      "Kind": "rule",
+      "Identity": "NULL005 | prepare",
+      "Reason": "Pinned FCS AST adapter prepares, once for each runtime type, the reader of a compiler-owned sequence, union, record or tuple, and keeps it in childReaders. A union case's reader is built on first use, behind a Lazy that nothing outside the adapter sees. Erased AST values never enter domain data; bounded syntax and physical-range fixtures exercise it."
+    },
+    {
+      "File": "src/FDull/SafetySyntax.fs",
+      "Owner": "FDull.SafetySyntax.children",
+      "Kind": "rule",
+      "Identity": "NULL005 | read",
+      "Reason": "Pinned FCS AST adapter prepares, once for each runtime type, the reader of a compiler-owned sequence, union, record or tuple, and keeps it in childReaders. A union case's reader is built on first use, behind a Lazy that nothing outside the adapter sees. Erased AST values never enter domain data; bounded syntax and physical-range fixtures exercise it."
+    },
+    {
+      "File": "src/FDull/SafetySyntax.fs",
+      "Owner": "FDull.SafetySyntax.children",
+      "Kind": "rule",
+      "Identity": "NULL005 | tag",
+      "Reason": "Pinned FCS AST adapter prepares, once for each runtime type, the reader of a compiler-owned sequence, union, record or tuple, and keeps it in childReaders. A union case's reader is built on first use, behind a Lazy that nothing outside the adapter sees. Erased AST values never enter domain data; bounded syntax and physical-range fixtures exercise it."
+    },
+    {
+      "File": "src/FDull/SafetySyntax.fs",
+      "Owner": "FDull.SafetySyntax.children",
+      "Kind": "type",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | Microsoft.FSharp.Reflection.UnionCaseInfo",
+      "Reason": "Pinned FCS AST adapter prepares, once for each runtime type, the reader of a compiler-owned sequence, union, record or tuple, and keeps it in childReaders. A union case's reader is built on first use, behind a Lazy that nothing outside the adapter sees. Erased AST values never enter domain data; bounded syntax and physical-range fixtures exercise it."
+    },
+    {
+      "File": "src/FDull/SafetySyntax.fs",
+      "Owner": "FDull.SafetySyntax.children",
+      "Kind": "type",
+      "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | System.Lazy`1",
+      "Reason": "Pinned FCS AST adapter prepares, once for each runtime type, the reader of a compiler-owned sequence, union, record or tuple, and keeps it in childReaders. A union case's reader is built on first use, behind a Lazy that nothing outside the adapter sees. Erased AST values never enter domain data; bounded syntax and physical-range fixtures exercise it."
+    },
+    {
+      "File": "src/FDull/SafetySyntax.fs",
+      "Owner": "FDull.SafetySyntax.supportedExpressions",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Core.ExtraTopLevelOperators.CreateSet``1(System.Collections.Generic.IEnumerable{``0})",
+      "Reason": "The versioned inventory of supported expression nodes is an immutable set of case names, built once for the module where the walk built it for each unclassified node."
+    },
+    {
+      "File": "src/FDull/SafetySyntax.fs",
+      "Owner": "FDull.SafetySyntax.unionName",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.ArrayModule.Map``2(Microsoft.FSharp.Core.FSharpFunc{``0,``1},``0[])",
+      "Reason": "Pinned FCS AST adapter reads the case name of a compiler-owned union value through a tag reader prepared once for each runtime type and kept in caseNames. Erased AST values never enter domain data; bounded syntax and physical-range fixtures exercise it."
+    },
+    {
+      "File": "src/FDull/SafetySyntax.fs",
+      "Owner": "FDull.SafetySyntax.unionName",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Reflection.FSharpType.GetUnionCases(System.Type,Microsoft.FSharp.Core.FSharpOption{System.Reflection.BindingFlags})",
+      "Reason": "Pinned FCS AST adapter reads the case name of a compiler-owned union value through a tag reader prepared once for each runtime type and kept in caseNames. Erased AST values never enter domain data; bounded syntax and physical-range fixtures exercise it."
+    },
+    {
+      "File": "src/FDull/SafetySyntax.fs",
+      "Owner": "FDull.SafetySyntax.unionName",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Reflection.FSharpValue.PreComputeUnionTagReader(System.Type,Microsoft.FSharp.Core.FSharpOption{System.Reflection.BindingFlags})",
+      "Reason": "Pinned FCS AST adapter reads the case name of a compiler-owned union value through a tag reader prepared once for each runtime type and kept in caseNames. Erased AST values never enter domain data; bounded syntax and physical-range fixtures exercise it."
+    },
+    {
+      "File": "src/FDull/SafetySyntax.fs",
+      "Owner": "FDull.SafetySyntax.unionName",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:Microsoft.FSharp.Reflection.UnionCaseInfo.DeclaringType",
+      "Reason": "Pinned FCS AST adapter reads the case name of a compiler-owned union value through a tag reader prepared once for each runtime type and kept in caseNames. Erased AST values never enter domain data; bounded syntax and physical-range fixtures exercise it."
+    },
+    {
+      "File": "src/FDull/SafetySyntax.fs",
+      "Owner": "FDull.SafetySyntax.unionName",
+      "Kind": "member",
+      "Identity": "System.Collections.Concurrent, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.Collections.Concurrent.ConcurrentDictionary`2.GetOrAdd(`0,System.Func{`0,`1})",
+      "Reason": "Pinned FCS AST adapter reads the case name of a compiler-owned union value through a tag reader prepared once for each runtime type and kept in caseNames. Erased AST values never enter domain data; bounded syntax and physical-range fixtures exercise it."
+    },
+    {
+      "File": "src/FDull/SafetySyntax.fs",
+      "Owner": "FDull.SafetySyntax.unionName",
+      "Kind": "member",
+      "Identity": "System.Collections.Concurrent, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.Collections.Concurrent.ConcurrentDictionary`2.TryGetValue(`0,`1@)",
+      "Reason": "Pinned FCS AST adapter reads the case name of a compiler-owned union value through a tag reader prepared once for each runtime type and kept in caseNames. Erased AST values never enter domain data; bounded syntax and physical-range fixtures exercise it."
+    },
+    {
+      "File": "src/FDull/SafetySyntax.fs",
+      "Owner": "FDull.SafetySyntax.unionName",
+      "Kind": "rule",
+      "Identity": "NULL005 | tag",
+      "Reason": "Pinned FCS AST adapter reads the case name of a compiler-owned union value through a tag reader prepared once for each runtime type and kept in caseNames. Erased AST values never enter domain data; bounded syntax and physical-range fixtures exercise it."
     },
     {
       "File": "src/FDull/SafetySyntax.fs",
       "Owner": "FDull.SafetySyntax.unionName",
       "Kind": "type",
-      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | Microsoft.FSharp.Reflection.UnionCaseInfo",
-      "Reason": "Pinned FCS AST adapter reads only compiler-owned record/union/tuple fields. Erased AST values never enter domain data; bounded syntax and physical-range fixtures exercise it."
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | []",
+      "Reason": "Pinned FCS AST adapter reads the case name of a compiler-owned union value through a tag reader prepared once for each runtime type and kept in caseNames. Erased AST values never enter domain data; bounded syntax and physical-range fixtures exercise it."
+    },
+    {
+      "File": "src/FDull/SafetySyntax.fs",
+      "Owner": "FDull.SafetySyntax.unionName",
+      "Kind": "type",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | System.Type",
+      "Reason": "Pinned FCS AST adapter reads the case name of a compiler-owned union value through a tag reader prepared once for each runtime type and kept in caseNames. Erased AST values never enter domain data; bounded syntax and physical-range fixtures exercise it."
+    },
+    {
+      "File": "src/FDull/SafetySyntax.fs",
+      "Owner": "FDull.SafetySyntax.unionName",
+      "Kind": "type",
+      "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | System.Object",
+      "Reason": "Pinned FCS AST adapter reads the case name of a compiler-owned union value through a tag reader prepared once for each runtime type and kept in caseNames. Erased AST values never enter domain data; bounded syntax and physical-range fixtures exercise it."
     },
     {
       "File": "src/FDull/SafetySyntax.fs",

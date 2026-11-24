@@ -38,26 +38,104 @@ type internal SourceSyntax =
 module internal SafetySyntax =
     // Reflection here walks the pinned FCS syntax *structure*, never source text.
     // Explicit SynExpr cases below define the supported authored language.
+
+    // F# reflection resolves a type's shape from its attributes on every call, and a syntax tree holds
+    // a few hundred types across hundreds of thousands of values. Each runtime type's reader is
+    // prepared once. An editor host can inspect files on several threads, so the maps are concurrent.
+    let private childReaders =
+        System.Collections.Concurrent.ConcurrentDictionary<Type, obj -> (obj | null) array>()
+
+    let private caseNames =
+        System.Collections.Concurrent.ConcurrentDictionary<Type, obj -> string>()
+
     let private children (node: obj | null) =
+        // The tests keep the order in which this function once tested each value.
+        let prepare (t: Type) : obj -> (obj | null) array =
+            if typeof<IEnumerable>.IsAssignableFrom t && t <> typeof<string> then
+                let read (node: obj) : (obj | null) array =
+                    (node :?> IEnumerable) |> Seq.cast<obj | null> |> Seq.toArray
+
+                read
+            elif FSharpType.IsUnion t then
+                // A case with fields has a runtime type of its own. Reading a case's fields is
+                // prepared when a value of that case first appears.
+                let cases = FSharpType.GetUnionCases t
+                let tag = FSharpValue.PreComputeUnionTagReader cases[0].DeclaringType
+
+                let fields =
+                    cases |> Array.map (fun case -> lazy (FSharpValue.PreComputeUnionReader case))
+
+                let read (node: obj) : (obj | null) array = fields[tag node].Value node
+                read
+            elif FSharpType.IsRecord t then
+                FSharpValue.PreComputeRecordReader t
+            elif FSharpType.IsTuple t then
+                FSharpValue.PreComputeTupleReader t
+            else
+                let read (_: obj) : (obj | null) array = [||]
+                read
+
         match node with
         | Null -> [||]
         | NonNull node ->
             let t = node.GetType()
 
-            if node :? IEnumerable && not (node :? string) then
-                (node :?> IEnumerable) |> Seq.cast<obj | null> |> Seq.toArray
-            elif FSharpType.IsUnion t then
-                FSharpValue.GetUnionFields(node, t) |> snd
-            elif FSharpType.IsRecord t then
-                FSharpValue.GetRecordFields node
-            elif FSharpType.IsTuple t then
-                FSharpValue.GetTupleFields node
-            else
-                [||]
+            match childReaders.TryGetValue t with
+            | true, read -> read node
+            | _ -> childReaders.GetOrAdd (t, Func<Type, obj -> (obj | null) array> prepare) node
 
-    let private unionName node =
-        let case, _ = FSharpValue.GetUnionFields(node, node.GetType())
-        case.Name
+    let private unionName (node: obj) =
+        let prepare (t: Type) : obj -> string =
+            let cases = FSharpType.GetUnionCases t
+            let tag = FSharpValue.PreComputeUnionTagReader cases[0].DeclaringType
+            let names = cases |> Array.map _.Name
+            let name (value: obj) : string = names[tag value]
+            name
+
+        let t = node.GetType()
+
+        match caseNames.TryGetValue t with
+        | true, name -> name node
+        | _ -> caseNames.GetOrAdd (t, Func<Type, obj -> string> prepare) node
+
+    // Exhaustive versioned compatibility inventory; a new FCS node fails closed.
+    let private supportedExpressions =
+        set
+            [ "Paren"
+              "Const"
+              "Typed"
+              "Tuple"
+              "AnonRecd"
+              "ArrayOrList"
+              "Record"
+              "New"
+              "For"
+              "ForEach"
+              "IndexRange"
+              "IndexFromEnd"
+              "ComputationExpr"
+              "Lambda"
+              "App"
+              "TypeApp"
+              "IfThenElse"
+              "Typar"
+              "Ident"
+              "LongIdent"
+              "DotGet"
+              "DotLambda"
+              "DotIndexedGet"
+              "Upcast"
+              "InferredUpcast"
+              "JoinIn"
+              "ImplicitZero"
+              "Sequential"
+              "SequentialOrImplicitYield"
+              "YieldOrReturn"
+              "YieldOrReturnFrom"
+              "LetOrUse"
+              "DoBang"
+              "InterpolatedString"
+              "DebugPoint" ]
 
     let inspect (budget: SafetyBudget) file (source: string) tree emit =
         let attrs = ResizeArray<SynAttribute>()
@@ -263,46 +341,7 @@ module internal SafetySyntax =
                             "Unsupported or incomplete F# syntax."
                             "Use the supported F# application language."
                     | _ ->
-                        // Exhaustive versioned compatibility inventory; a new FCS node fails closed.
-                        let allowed =
-                            set
-                                [ "Paren"
-                                  "Const"
-                                  "Typed"
-                                  "Tuple"
-                                  "AnonRecd"
-                                  "ArrayOrList"
-                                  "Record"
-                                  "New"
-                                  "For"
-                                  "ForEach"
-                                  "IndexRange"
-                                  "IndexFromEnd"
-                                  "ComputationExpr"
-                                  "Lambda"
-                                  "App"
-                                  "TypeApp"
-                                  "IfThenElse"
-                                  "Typar"
-                                  "Ident"
-                                  "LongIdent"
-                                  "DotGet"
-                                  "DotLambda"
-                                  "DotIndexedGet"
-                                  "Upcast"
-                                  "InferredUpcast"
-                                  "JoinIn"
-                                  "ImplicitZero"
-                                  "Sequential"
-                                  "SequentialOrImplicitYield"
-                                  "YieldOrReturn"
-                                  "YieldOrReturnFrom"
-                                  "LetOrUse"
-                                  "DoBang"
-                                  "InterpolatedString"
-                                  "DebugPoint" ]
-
-                        if not (Set.contains (unionName expr) allowed) then
+                        if not (Set.contains (unionName expr) supportedExpressions) then
                             deny
                                 "BUILD003"
                                 "Unclassified syntax node."
