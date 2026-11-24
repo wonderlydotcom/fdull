@@ -1,6 +1,8 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup><OutputType>Exe</OutputType><AssemblyName>fdull-worker</AssemblyName><IsPackable>false</IsPackable>
     <RuntimeFrameworkVersion>10.0.14</RuntimeFrameworkVersion><RollForward>Disable</RollForward><UseAppHost>false</UseAppHost>
+    <!-- A worker lives for one analysis. Profile-guided recompilation costs it more than the faster code returns, and a background collector thread takes a core from the compiler. -->
+    <TieredPGO>false</TieredPGO><ConcurrentGarbageCollection>false</ConcurrentGarbageCollection>
   </PropertyGroup>
   <ItemGroup>
     <RuntimeHostConfigurationOption Include="System.GC.HeapHardLimit" Value="536870912" />

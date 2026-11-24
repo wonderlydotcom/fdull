@@ -377,7 +377,7 @@
     },
     {
       "File": "src/FDull.Worker/FDull.Worker.fsproj",
-      "Digest": "sha256:4b3a9cdb72714fbeb3760537787e315747bc6e13b2f25fa38a10e449e85daf48"
+      "Digest": "sha256:88b69d9ece3f8450541084852433f40963feb32dd5991931605e9d2e5e63994e"
     },
     {
       "File": "src/FDull.Worker/packages.lock.json",
