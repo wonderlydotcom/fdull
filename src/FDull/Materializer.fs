@@ -65,38 +65,78 @@ module Materializer =
 
         supported 0 [] target
 
-    let private validValue target (value: JsonElement) =
-        let rec valid depth (target: Type) (value: JsonElement) =
-            if depth > 64 then
-                false
-            elif target = typeof<unit> then
-                value.ValueKind = JsonValueKind.Null
-            else
-                match container target with
-                | Some "optional" ->
-                    value.ValueKind = JsonValueKind.Null
-                    || valid (depth + 1) target.GenericTypeArguments[0] value
-                | Some "array" ->
-                    value.ValueKind = JsonValueKind.Array
-                    && value.EnumerateArray()
-                       |> Seq.forall (valid (depth + 1) target.GenericTypeArguments[0])
-                | Some "map" ->
-                    value.ValueKind = JsonValueKind.Object
+    // Reflection over a DTO type is slow, and a policy holds thousands of records of a few types, so
+    // the check of each type is prepared once. A prepared check looks its nested checks up when it
+    // runs, which lets a type that contains itself be prepared.
+    let private checks =
+        System.Collections.Concurrent.ConcurrentDictionary<Type, int -> JsonElement -> bool>()
+
+    let rec private check (target: Type) : int -> JsonElement -> bool =
+        checks.GetOrAdd(target, Func<Type, int -> JsonElement -> bool> prepare)
+
+    and private prepare (target: Type) : int -> JsonElement -> bool =
+        if target = typeof<unit> then
+            let valid (depth: int) (value: JsonElement) =
+                depth <= 64 && value.ValueKind = JsonValueKind.Null
+
+            valid
+        else
+            match container target with
+            | Some "optional" ->
+                let item = target.GenericTypeArguments[0]
+
+                let valid (depth: int) (value: JsonElement) =
+                    depth <= 64
+                    && (value.ValueKind = JsonValueKind.Null || check item (depth + 1) value)
+
+                valid
+            | Some "array" ->
+                let item = target.GenericTypeArguments[0]
+
+                let valid (depth: int) (value: JsonElement) =
+                    depth <= 64
+                    && value.ValueKind = JsonValueKind.Array
+                    && value.EnumerateArray() |> Seq.forall (check item (depth + 1))
+
+                valid
+            | Some "map" ->
+                let item = target.GenericTypeArguments[1]
+
+                let valid (depth: int) (value: JsonElement) =
+                    depth <= 64
+                    && value.ValueKind = JsonValueKind.Object
                     && value.EnumerateObject()
-                       |> Seq.forall (fun property -> valid (depth + 1) target.GenericTypeArguments[1] property.Value)
-                | Some _ -> false
-                | None when FSharpType.IsRecord target ->
-                    value.ValueKind = JsonValueKind.Object
-                    && FSharpType.GetRecordFields target
-                       |> Array.forall (fun field ->
-                           match value.TryGetProperty field.Name with
-                           | true, property -> valid (depth + 1) field.PropertyType property
-                           | false, _ -> container field.PropertyType = Some "optional")
-                | None ->
-                    value.ValueKind <> JsonValueKind.Null
+                       |> Seq.forall (fun property -> check item (depth + 1) property.Value)
+
+                valid
+            | Some _ ->
+                let valid (_: int) (_: JsonElement) = false
+                valid
+            | None when FSharpType.IsRecord target ->
+                let fields =
+                    FSharpType.GetRecordFields target
+                    |> Array.map (fun field ->
+                        field.Name, field.PropertyType, container field.PropertyType = Some "optional")
+
+                let valid (depth: int) (value: JsonElement) =
+                    depth <= 64
+                    && value.ValueKind = JsonValueKind.Object
+                    && fields
+                       |> Array.forall (fun (name, fieldType, optional) ->
+                           match value.TryGetProperty name with
+                           | true, property -> check fieldType (depth + 1) property
+                           | false, _ -> optional)
+
+                valid
+            | None ->
+                let valid (depth: int) (value: JsonElement) =
+                    depth <= 64
+                    && value.ValueKind <> JsonValueKind.Null
                     && value.ValueKind <> JsonValueKind.Undefined
 
-        valid 0 target value
+                valid
+
+    let private validValue target (value: JsonElement) = check target 0 value
 
     let decodeType (target: Type) (options: JsonSerializerOptions) (json: string) =
         if not (validateType target) then

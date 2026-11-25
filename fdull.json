@@ -81,7 +81,7 @@
       "File": "src/FDull/Materializer.fs",
       "Project": "src/FDull/FDull.fsproj",
       "Profile": "GUARD_TOOLING",
-      "Digest": "sha256:73114c99d7486eb31704a32c0640c6ae439452ec71238057c8bea81d359a8d46"
+      "Digest": "sha256:7a63817cc2e49a973534cac979029e5c5758f4f1aabf4f130f282312c9275e4f"
     },
     {
       "File": "src/FDull/Codec.fs",
@@ -4553,97 +4553,6 @@
     {
       "File": "src/FDull/Materializer.fs",
       "Owner": "FDull.Transport.Materializer.validValue",
-      "Kind": "member",
-      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.ArrayModule.ForAll``1(Microsoft.FSharp.Core.FSharpFunc{``0,System.Boolean},``0[])",
-      "Reason": "Validate JSON required fields recursively inside the owning JsonDocument lifetime. Enumerators are consumed synchronously and neither JSON views nor metadata escape into domain data."
-    },
-    {
-      "File": "src/FDull/Materializer.fs",
-      "Owner": "FDull.Transport.Materializer.validValue",
-      "Kind": "member",
-      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.SeqModule.ForAll``1(Microsoft.FSharp.Core.FSharpFunc{``0,System.Boolean},System.Collections.Generic.IEnumerable{``0})",
-      "Reason": "Validate JSON required fields recursively inside the owning JsonDocument lifetime. Enumerators are consumed synchronously and neither JSON views nor metadata escape into domain data."
-    },
-    {
-      "File": "src/FDull/Materializer.fs",
-      "Owner": "FDull.Transport.Materializer.validValue",
-      "Kind": "member",
-      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Core.Operators.TypeOf``1",
-      "Reason": "Validate JSON required fields recursively inside the owning JsonDocument lifetime. Enumerators are consumed synchronously and neither JSON views nor metadata escape into domain data."
-    },
-    {
-      "File": "src/FDull/Materializer.fs",
-      "Owner": "FDull.Transport.Materializer.validValue",
-      "Kind": "member",
-      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Reflection.FSharpType.GetRecordFields(System.Type,Microsoft.FSharp.Core.FSharpOption{System.Reflection.BindingFlags})",
-      "Reason": "Validate JSON required fields recursively inside the owning JsonDocument lifetime. Enumerators are consumed synchronously and neither JSON views nor metadata escape into domain data."
-    },
-    {
-      "File": "src/FDull/Materializer.fs",
-      "Owner": "FDull.Transport.Materializer.validValue",
-      "Kind": "member",
-      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Reflection.FSharpType.IsRecord(System.Type,Microsoft.FSharp.Core.FSharpOption{System.Reflection.BindingFlags})",
-      "Reason": "Validate JSON required fields recursively inside the owning JsonDocument lifetime. Enumerators are consumed synchronously and neither JSON views nor metadata escape into domain data."
-    },
-    {
-      "File": "src/FDull/Materializer.fs",
-      "Owner": "FDull.Transport.Materializer.validValue",
-      "Kind": "member",
-      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:System.Reflection.MemberInfo.Name",
-      "Reason": "Validate JSON required fields recursively inside the owning JsonDocument lifetime. Enumerators are consumed synchronously and neither JSON views nor metadata escape into domain data."
-    },
-    {
-      "File": "src/FDull/Materializer.fs",
-      "Owner": "FDull.Transport.Materializer.validValue",
-      "Kind": "member",
-      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:System.Type.GenericTypeArguments",
-      "Reason": "Validate JSON required fields recursively inside the owning JsonDocument lifetime. Enumerators are consumed synchronously and neither JSON views nor metadata escape into domain data."
-    },
-    {
-      "File": "src/FDull/Materializer.fs",
-      "Owner": "FDull.Transport.Materializer.validValue",
-      "Kind": "member",
-      "Identity": "System.Text.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | M:System.Text.Json.JsonElement.EnumerateArray",
-      "Reason": "Validate JSON required fields recursively inside the owning JsonDocument lifetime. Enumerators are consumed synchronously and neither JSON views nor metadata escape into domain data."
-    },
-    {
-      "File": "src/FDull/Materializer.fs",
-      "Owner": "FDull.Transport.Materializer.validValue",
-      "Kind": "member",
-      "Identity": "System.Text.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | M:System.Text.Json.JsonElement.EnumerateObject",
-      "Reason": "Validate JSON required fields recursively inside the owning JsonDocument lifetime. Enumerators are consumed synchronously and neither JSON views nor metadata escape into domain data."
-    },
-    {
-      "File": "src/FDull/Materializer.fs",
-      "Owner": "FDull.Transport.Materializer.validValue",
-      "Kind": "member",
-      "Identity": "System.Text.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | M:System.Text.Json.JsonElement.TryGetProperty(System.String,System.Text.Json.JsonElement@)",
-      "Reason": "Validate JSON required fields recursively inside the owning JsonDocument lifetime. Enumerators are consumed synchronously and neither JSON views nor metadata escape into domain data."
-    },
-    {
-      "File": "src/FDull/Materializer.fs",
-      "Owner": "FDull.Transport.Materializer.validValue",
-      "Kind": "member",
-      "Identity": "System.Text.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | P:System.Text.Json.JsonElement.ValueKind",
-      "Reason": "Validate JSON required fields recursively inside the owning JsonDocument lifetime. Enumerators are consumed synchronously and neither JSON views nor metadata escape into domain data."
-    },
-    {
-      "File": "src/FDull/Materializer.fs",
-      "Owner": "FDull.Transport.Materializer.validValue",
-      "Kind": "member",
-      "Identity": "System.Text.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | P:System.Text.Json.JsonProperty.Value",
-      "Reason": "Validate JSON required fields recursively inside the owning JsonDocument lifetime. Enumerators are consumed synchronously and neither JSON views nor metadata escape into domain data."
-    },
-    {
-      "File": "src/FDull/Materializer.fs",
-      "Owner": "FDull.Transport.Materializer.validValue",
-      "Kind": "member",
-      "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | P:System.Reflection.PropertyInfo.PropertyType",
-      "Reason": "Validate JSON required fields recursively inside the owning JsonDocument lifetime. Enumerators are consumed synchronously and neither JSON views nor metadata escape into domain data."
-    },
-    {
-      "File": "src/FDull/Materializer.fs",
-      "Owner": "FDull.Transport.Materializer.validValue",
       "Kind": "type",
       "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | System.Type",
       "Reason": "Validate JSON required fields recursively inside the owning JsonDocument lifetime. Enumerators are consumed synchronously and neither JSON views nor metadata escape into domain data."
@@ -4657,24 +4566,192 @@
     },
     {
       "File": "src/FDull/Materializer.fs",
-      "Owner": "FDull.Transport.Materializer.validValue",
+      "Owner": "FDull.Transport.Materializer.check",
+      "Kind": "member",
+      "Identity": "System.Collections.Concurrent, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.Collections.Concurrent.ConcurrentDictionary`2.GetOrAdd(`0,System.Func{`0,`1})",
+      "Reason": "Returns the prepared shape check of a DTO type, preparing it on first use. The check runs on JSON views inside the owning JsonDocument lifetime and returns a boolean."
+    },
+    {
+      "File": "src/FDull/Materializer.fs",
+      "Owner": "FDull.Transport.Materializer.check",
+      "Kind": "type",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | System.Type",
+      "Reason": "Returns the prepared shape check of a DTO type, preparing it on first use. The check runs on JSON views inside the owning JsonDocument lifetime and returns a boolean."
+    },
+    {
+      "File": "src/FDull/Materializer.fs",
+      "Owner": "FDull.Transport.Materializer.check",
+      "Kind": "type",
+      "Identity": "System.Text.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | System.Text.Json.JsonElement",
+      "Reason": "Returns the prepared shape check of a DTO type, preparing it on first use. The check runs on JSON views inside the owning JsonDocument lifetime and returns a boolean."
+    },
+    {
+      "File": "src/FDull/Materializer.fs",
+      "Owner": "FDull.Transport.Materializer.checks",
+      "Kind": "member",
+      "Identity": "System.Collections.Concurrent, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:System.Collections.Concurrent.ConcurrentDictionary`2.#ctor",
+      "Reason": "Process-wide map from a DTO type to its prepared JSON shape check. A check depends on the type alone, so a stored one accepts what a fresh one would, and the map is concurrent because an editor host decodes on several threads. It holds checks and neither JSON views nor DTO values."
+    },
+    {
+      "File": "src/FDull/Materializer.fs",
+      "Owner": "FDull.Transport.Materializer.checks",
+      "Kind": "type",
+      "Identity": "System.Collections.Concurrent, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | System.Collections.Concurrent.ConcurrentDictionary`2",
+      "Reason": "Process-wide map from a DTO type to its prepared JSON shape check. A check depends on the type alone, so a stored one accepts what a fresh one would, and the map is concurrent because an editor host decodes on several threads. It holds checks and neither JSON views nor DTO values."
+    },
+    {
+      "File": "src/FDull/Materializer.fs",
+      "Owner": "FDull.Transport.Materializer.checks",
+      "Kind": "type",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | System.Type",
+      "Reason": "Process-wide map from a DTO type to its prepared JSON shape check. A check depends on the type alone, so a stored one accepts what a fresh one would, and the map is concurrent because an editor host decodes on several threads. It holds checks and neither JSON views nor DTO values."
+    },
+    {
+      "File": "src/FDull/Materializer.fs",
+      "Owner": "FDull.Transport.Materializer.checks",
+      "Kind": "type",
+      "Identity": "System.Text.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | System.Text.Json.JsonElement",
+      "Reason": "Process-wide map from a DTO type to its prepared JSON shape check. A check depends on the type alone, so a stored one accepts what a fresh one would, and the map is concurrent because an editor host decodes on several threads. It holds checks and neither JSON views nor DTO values."
+    },
+    {
+      "File": "src/FDull/Materializer.fs",
+      "Owner": "FDull.Transport.Materializer.prepare",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.ArrayModule.ForAll``1(Microsoft.FSharp.Core.FSharpFunc{``0,System.Boolean},``0[])",
+      "Reason": "Prepares the recursive required-field check of one DTO type from its metadata, once, where the check read that metadata for every JSON value. The prepared check applies the same rules in the same order, consumes enumerators synchronously inside the owning JsonDocument lifetime, and lets neither JSON views nor metadata escape into domain data."
+    },
+    {
+      "File": "src/FDull/Materializer.fs",
+      "Owner": "FDull.Transport.Materializer.prepare",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.ArrayModule.Map``2(Microsoft.FSharp.Core.FSharpFunc{``0,``1},``0[])",
+      "Reason": "Prepares the recursive required-field check of one DTO type from its metadata, once, where the check read that metadata for every JSON value. The prepared check applies the same rules in the same order, consumes enumerators synchronously inside the owning JsonDocument lifetime, and lets neither JSON views nor metadata escape into domain data."
+    },
+    {
+      "File": "src/FDull/Materializer.fs",
+      "Owner": "FDull.Transport.Materializer.prepare",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Collections.SeqModule.ForAll``1(Microsoft.FSharp.Core.FSharpFunc{``0,System.Boolean},System.Collections.Generic.IEnumerable{``0})",
+      "Reason": "Prepares the recursive required-field check of one DTO type from its metadata, once, where the check read that metadata for every JSON value. The prepared check applies the same rules in the same order, consumes enumerators synchronously inside the owning JsonDocument lifetime, and lets neither JSON views nor metadata escape into domain data."
+    },
+    {
+      "File": "src/FDull/Materializer.fs",
+      "Owner": "FDull.Transport.Materializer.prepare",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Core.Operators.TypeOf``1",
+      "Reason": "Prepares the recursive required-field check of one DTO type from its metadata, once, where the check read that metadata for every JSON value. The prepared check applies the same rules in the same order, consumes enumerators synchronously inside the owning JsonDocument lifetime, and lets neither JSON views nor metadata escape into domain data."
+    },
+    {
+      "File": "src/FDull/Materializer.fs",
+      "Owner": "FDull.Transport.Materializer.prepare",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Reflection.FSharpType.GetRecordFields(System.Type,Microsoft.FSharp.Core.FSharpOption{System.Reflection.BindingFlags})",
+      "Reason": "Prepares the recursive required-field check of one DTO type from its metadata, once, where the check read that metadata for every JSON value. The prepared check applies the same rules in the same order, consumes enumerators synchronously inside the owning JsonDocument lifetime, and lets neither JSON views nor metadata escape into domain data."
+    },
+    {
+      "File": "src/FDull/Materializer.fs",
+      "Owner": "FDull.Transport.Materializer.prepare",
+      "Kind": "member",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | M:Microsoft.FSharp.Reflection.FSharpType.IsRecord(System.Type,Microsoft.FSharp.Core.FSharpOption{System.Reflection.BindingFlags})",
+      "Reason": "Prepares the recursive required-field check of one DTO type from its metadata, once, where the check read that metadata for every JSON value. The prepared check applies the same rules in the same order, consumes enumerators synchronously inside the owning JsonDocument lifetime, and lets neither JSON views nor metadata escape into domain data."
+    },
+    {
+      "File": "src/FDull/Materializer.fs",
+      "Owner": "FDull.Transport.Materializer.prepare",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:System.Reflection.MemberInfo.Name",
+      "Reason": "Prepares the recursive required-field check of one DTO type from its metadata, once, where the check read that metadata for every JSON value. The prepared check applies the same rules in the same order, consumes enumerators synchronously inside the owning JsonDocument lifetime, and lets neither JSON views nor metadata escape into domain data."
+    },
+    {
+      "File": "src/FDull/Materializer.fs",
+      "Owner": "FDull.Transport.Materializer.prepare",
+      "Kind": "member",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | P:System.Type.GenericTypeArguments",
+      "Reason": "Prepares the recursive required-field check of one DTO type from its metadata, once, where the check read that metadata for every JSON value. The prepared check applies the same rules in the same order, consumes enumerators synchronously inside the owning JsonDocument lifetime, and lets neither JSON views nor metadata escape into domain data."
+    },
+    {
+      "File": "src/FDull/Materializer.fs",
+      "Owner": "FDull.Transport.Materializer.prepare",
+      "Kind": "member",
+      "Identity": "System.Text.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | M:System.Text.Json.JsonElement.EnumerateArray",
+      "Reason": "Prepares the recursive required-field check of one DTO type from its metadata, once, where the check read that metadata for every JSON value. The prepared check applies the same rules in the same order, consumes enumerators synchronously inside the owning JsonDocument lifetime, and lets neither JSON views nor metadata escape into domain data."
+    },
+    {
+      "File": "src/FDull/Materializer.fs",
+      "Owner": "FDull.Transport.Materializer.prepare",
+      "Kind": "member",
+      "Identity": "System.Text.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | M:System.Text.Json.JsonElement.EnumerateObject",
+      "Reason": "Prepares the recursive required-field check of one DTO type from its metadata, once, where the check read that metadata for every JSON value. The prepared check applies the same rules in the same order, consumes enumerators synchronously inside the owning JsonDocument lifetime, and lets neither JSON views nor metadata escape into domain data."
+    },
+    {
+      "File": "src/FDull/Materializer.fs",
+      "Owner": "FDull.Transport.Materializer.prepare",
+      "Kind": "member",
+      "Identity": "System.Text.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | M:System.Text.Json.JsonElement.TryGetProperty(System.String,System.Text.Json.JsonElement@)",
+      "Reason": "Prepares the recursive required-field check of one DTO type from its metadata, once, where the check read that metadata for every JSON value. The prepared check applies the same rules in the same order, consumes enumerators synchronously inside the owning JsonDocument lifetime, and lets neither JSON views nor metadata escape into domain data."
+    },
+    {
+      "File": "src/FDull/Materializer.fs",
+      "Owner": "FDull.Transport.Materializer.prepare",
+      "Kind": "member",
+      "Identity": "System.Text.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | P:System.Text.Json.JsonElement.ValueKind",
+      "Reason": "Prepares the recursive required-field check of one DTO type from its metadata, once, where the check read that metadata for every JSON value. The prepared check applies the same rules in the same order, consumes enumerators synchronously inside the owning JsonDocument lifetime, and lets neither JSON views nor metadata escape into domain data."
+    },
+    {
+      "File": "src/FDull/Materializer.fs",
+      "Owner": "FDull.Transport.Materializer.prepare",
+      "Kind": "member",
+      "Identity": "System.Text.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | P:System.Text.Json.JsonProperty.Value",
+      "Reason": "Prepares the recursive required-field check of one DTO type from its metadata, once, where the check read that metadata for every JSON value. The prepared check applies the same rules in the same order, consumes enumerators synchronously inside the owning JsonDocument lifetime, and lets neither JSON views nor metadata escape into domain data."
+    },
+    {
+      "File": "src/FDull/Materializer.fs",
+      "Owner": "FDull.Transport.Materializer.prepare",
+      "Kind": "member",
+      "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | P:System.Reflection.PropertyInfo.PropertyType",
+      "Reason": "Prepares the recursive required-field check of one DTO type from its metadata, once, where the check read that metadata for every JSON value. The prepared check applies the same rules in the same order, consumes enumerators synchronously inside the owning JsonDocument lifetime, and lets neither JSON views nor metadata escape into domain data."
+    },
+    {
+      "File": "src/FDull/Materializer.fs",
+      "Owner": "FDull.Transport.Materializer.prepare",
+      "Kind": "type",
+      "Identity": "FSharp.Core, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | []",
+      "Reason": "Prepares the recursive required-field check of one DTO type from its metadata, once, where the check read that metadata for every JSON value. The prepared check applies the same rules in the same order, consumes enumerators synchronously inside the owning JsonDocument lifetime, and lets neither JSON views nor metadata escape into domain data."
+    },
+    {
+      "File": "src/FDull/Materializer.fs",
+      "Owner": "FDull.Transport.Materializer.prepare",
+      "Kind": "type",
+      "Identity": "System.Runtime, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a | System.Type",
+      "Reason": "Prepares the recursive required-field check of one DTO type from its metadata, once, where the check read that metadata for every JSON value. The prepared check applies the same rules in the same order, consumes enumerators synchronously inside the owning JsonDocument lifetime, and lets neither JSON views nor metadata escape into domain data."
+    },
+    {
+      "File": "src/FDull/Materializer.fs",
+      "Owner": "FDull.Transport.Materializer.prepare",
+      "Kind": "type",
+      "Identity": "System.Text.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | System.Text.Json.JsonElement",
+      "Reason": "Prepares the recursive required-field check of one DTO type from its metadata, once, where the check read that metadata for every JSON value. The prepared check applies the same rules in the same order, consumes enumerators synchronously inside the owning JsonDocument lifetime, and lets neither JSON views nor metadata escape into domain data."
+    },
+    {
+      "File": "src/FDull/Materializer.fs",
+      "Owner": "FDull.Transport.Materializer.prepare",
       "Kind": "type",
       "Identity": "System.Text.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | System.Text.Json.JsonProperty",
-      "Reason": "Validate JSON required fields recursively inside the owning JsonDocument lifetime. Enumerators are consumed synchronously and neither JSON views nor metadata escape into domain data."
+      "Reason": "Prepares the recursive required-field check of one DTO type from its metadata, once, where the check read that metadata for every JSON value. The prepared check applies the same rules in the same order, consumes enumerators synchronously inside the owning JsonDocument lifetime, and lets neither JSON views nor metadata escape into domain data."
     },
     {
       "File": "src/FDull/Materializer.fs",
-      "Owner": "FDull.Transport.Materializer.validValue",
+      "Owner": "FDull.Transport.Materializer.prepare",
       "Kind": "type",
       "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | System.Collections.Generic.IEnumerable`1",
-      "Reason": "Validate JSON required fields recursively inside the owning JsonDocument lifetime. Enumerators are consumed synchronously and neither JSON views nor metadata escape into domain data."
+      "Reason": "Prepares the recursive required-field check of one DTO type from its metadata, once, where the check read that metadata for every JSON value. The prepared check applies the same rules in the same order, consumes enumerators synchronously inside the owning JsonDocument lifetime, and lets neither JSON views nor metadata escape into domain data."
     },
     {
       "File": "src/FDull/Materializer.fs",
-      "Owner": "FDull.Transport.Materializer.validValue",
+      "Owner": "FDull.Transport.Materializer.prepare",
       "Kind": "type",
       "Identity": "netstandard, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51 | System.Reflection.PropertyInfo",
-      "Reason": "Validate JSON required fields recursively inside the owning JsonDocument lifetime. Enumerators are consumed synchronously and neither JSON views nor metadata escape into domain data."
+      "Reason": "Prepares the recursive required-field check of one DTO type from its metadata, once, where the check read that metadata for every JSON value. The prepared check applies the same rules in the same order, consumes enumerators synchronously inside the owning JsonDocument lifetime, and lets neither JSON views nor metadata escape into domain data."
     },
     {
       "File": "src/FDull/Materializer.fs",
